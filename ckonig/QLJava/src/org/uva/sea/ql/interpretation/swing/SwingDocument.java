@@ -6,24 +6,21 @@ import java.util.Stack;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.elements.Ident;
-import org.uva.sea.ql.ast.elements.IfStatement;
-import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.elements.*;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.IdentFinder;
 import org.uva.sea.ql.common.interfaces.QLDocument;
-import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
-import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.interpretation.swing.components.*;
 
 public class SwingDocument implements QLDocument {
     private final JPanel panel;
-    private Stack<JPanel> history;
+    private Stack<JPanel> panelStack;
     private SwingRegistry registry;
 
     public SwingDocument() {
         this.panel = new JPanel();
-        this.history = new Stack<>();
-        this.history.push(this.panel);
+        this.panelStack = new Stack<>();
+        this.panelStack.push(this.panel);
         this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
         this.registry = new SwingRegistry();
     }
@@ -41,7 +38,7 @@ public class SwingDocument implements QLDocument {
     @Override
     public final void appendQuestion(Question question) {
         final QuestionPanel p = new QuestionPanel(question);
-        this.history.peek().add(p);
+        this.panelStack.peek().add(p);
         this.registry.addQuestion(p);
     }
 
@@ -49,15 +46,15 @@ public class SwingDocument implements QLDocument {
     public final void beginIf(IfStatement ifStatement) {
         final IfStatementPanel p = new IfStatementPanel(ifStatement);
         p.setVisible(false);
-        this.history.peek().add(p);
-        this.history.push(p);
+        this.panelStack.peek().add(p);
+        this.panelStack.push(p);
         this.registry.addIfStatement(p);
 
     }
 
     @Override
     public final void endIf() {
-        this.history.pop();
+        this.panelStack.pop();
     }
 
     @Override
@@ -70,8 +67,7 @@ public class SwingDocument implements QLDocument {
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
             final IfStatement ifStatement = ifPanel.getIfStatement();
             IdentFinder finder = new IdentFinder();
-            ((TreeNode)ifStatement.getCondition()).accept(finder);
-           
+            ((TreeNode)ifStatement.getCondition()).accept(finder);           
             final List<Ident> idents = finder.getIdents();
             for (Ident ident : idents) {
                 questionListener.addIdentListener(ident);

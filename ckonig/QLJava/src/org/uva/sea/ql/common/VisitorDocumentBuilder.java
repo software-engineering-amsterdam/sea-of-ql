@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 import org.uva.sea.ql.common.interfaces.QLDocument;
 
-public class VisitorDocumentBuilder implements ElementVisitor {
+public final class VisitorDocumentBuilder implements ElementVisitor {
 
     private QLDocument document;
 

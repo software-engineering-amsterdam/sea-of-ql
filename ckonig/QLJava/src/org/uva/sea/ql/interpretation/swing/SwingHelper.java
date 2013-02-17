@@ -57,12 +57,17 @@ public class SwingHelper {
     }
 
     private void validateAst() {
-        final Validator v = new Validator();
+        final Validator v = new Validator(false);
         try {
             v.validate(this.ast);
             this.log.append("AST validated\n");
             interpretAst();
             this.buttonGenerate.setEnabled(true);
+            if(v.hasErrors()){
+                for(String error : v.getErrors()){
+                    this.log.append(error);
+                }
+            }
         } catch (AstValidationError ex) {
             this.log.append(ex.getMessage() + NEWLINE);
         }

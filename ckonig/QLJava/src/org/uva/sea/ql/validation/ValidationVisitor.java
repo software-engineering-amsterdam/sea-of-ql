@@ -1,5 +1,8 @@
 package org.uva.sea.ql.validation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
@@ -9,16 +12,25 @@ import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.Registry;
 import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
 public class ValidationVisitor implements ElementVisitor {
     private Registry registry;
+    private boolean throwExceptions;
+    private List<String> errors;
 
     public ValidationVisitor() {
         this.registry = new Registry();
+        this.errors = new ArrayList<String>();
+        this.throwExceptions = true;
+    }
+
+    public ValidationVisitor(boolean throwErrors) {
+        this();
+        this.throwExceptions = throwErrors;
     }
 
     @Override
@@ -37,8 +49,13 @@ public class ValidationVisitor implements ElementVisitor {
     public final void visit(Question question) throws QLException {
         for (Question q : this.registry.getQuestions()) {
             if (q.getIdentName().equals(question.getIdentName())) {
-                throw new AstValidationError("duplicate question Identifier:"
-                        + question.getIdentName());
+                String err = "duplicate question Identifier:"
+                        + question.getIdentName();
+                if (throwExceptions) {
+                    throw new AstValidationError(err);
+                } else {
+                    this.errors.add(err);
+                }
             }
         }
         this.registry.addQuestion(question);
@@ -52,7 +69,6 @@ public class ValidationVisitor implements ElementVisitor {
         ((Evaluatable) condition).accept(f);
         final ReturnTypes r = f.getResult();
         if (r.equals(ReturnTypes.BOOLEAN)) {
-
             this.visit(ifStatement.getCondition());
         } else {
             throwInvalidConditionError(ifStatement.getCondition());
@@ -63,8 +79,12 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     private void throwInvalidConditionError(Expr e) throws AstValidationError {
-        throw new AstValidationError("not a valid condition: "
-                + e.getClass().toString());
+        String err = "not a valid condition: " + e.getClass().toString();
+        if (this.throwExceptions) {
+            throw new AstValidationError(err);
+        } else {
+            this.errors.add(err);
+        }
     }
 
     private void visit(Expr operator) throws QLException {
@@ -90,9 +110,14 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void throwError(Expr r, String msg) throws AstValidationError {
         final BinaryExpr b = (BinaryExpr) r;
-        throw new AstValidationError("BOTH childs of " + r.getClass()
-                + " must return " + msg + " operands: "
-                + b.getLeft().getClass() + ", " + b.getRight().getClass());
+        String err = "BOTH childs of " + r.getClass() + " must return " + msg
+                + " operands: " + b.getLeft().getClass() + ", "
+                + b.getRight().getClass();
+        if (this.throwExceptions) {
+            throw new AstValidationError(err);
+        } else {
+            this.errors.add(err);
+        }
     }
 
     private boolean bothhaveEqualReturnType(Expr r, ReturnTypes type)
