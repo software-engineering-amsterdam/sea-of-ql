@@ -21,6 +21,11 @@ public class Text extends Value {
 	}
 	
 	@Override
+	public void setValue(Object value) {
+		this.value = (String) value;
+	}
+	
+	@Override
 	public String getRawValue() {
 		return value;
 	}

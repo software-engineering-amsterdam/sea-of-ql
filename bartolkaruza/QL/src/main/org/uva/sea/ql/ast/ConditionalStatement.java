@@ -11,6 +11,7 @@ public class ConditionalStatement implements Statement {
 	private List<Statement> statements;
 	private Expr expression;
 	private int lineNumber;
+	private boolean visible;
 
 	public ConditionalStatement(Expr expression, List<Statement> statements, int lineNumber) {
 		this.statements = statements;
@@ -33,5 +34,13 @@ public class ConditionalStatement implements Statement {
 
 	public int getLineNumber() {
 		return lineNumber;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 }

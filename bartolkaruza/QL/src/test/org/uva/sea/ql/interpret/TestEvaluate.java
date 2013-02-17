@@ -16,6 +16,13 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 public class TestEvaluate {
 
 	@Test
+	public void testMatchingServerForm() throws ParseError {
+		parseExpression("form form1 { question1: \"Some label\" boolean } }");
+		parseExpression("form form1 { question1: \"Some label\" boolean } }");
+		
+	}
+	
+	@Test
 	public void testBooleans() throws ParseError {
 		assertEquals(true, getValueFromSimpleExpression("true").getRawValue());
 		assertEquals(false, getValueFromSimpleExpression("false").getRawValue());

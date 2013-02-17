@@ -29,8 +29,9 @@ public class Bool extends Value {
 		return value;
 	}
 
-	public void setValue(Boolean value) {
-		this.value = value;
+	@Override
+	public void setValue(Object value) {
+		this.value = (Boolean) value;
 	}
 
 	@Override

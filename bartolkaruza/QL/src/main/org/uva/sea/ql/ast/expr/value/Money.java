@@ -43,6 +43,11 @@ public class Money extends Value {
 	public BigDecimal getRawValue() {
 		return value;
 	}
+	
+	@Override
+	public void setValue(Object value) {
+		this.value = (BigDecimal) value;
+	}
 
 	@Override
 	public void accept(ExpressionVisitor<?> visitor) {

@@ -30,5 +30,9 @@ public class AnswerableQuestion extends Question {
 	public void accept(StatementVisitor<?> visitor) {
 		visitor.visit(this);
 	}
+	
+	public void setValue(Object value) {
+		this.value.setValue(value);
+	}
 
 }

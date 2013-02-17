@@ -14,6 +14,8 @@ public abstract class Value extends Expr {
 	
 	public abstract Object getRawValue();
 	
+	public abstract void setValue(Object value);
+	
 	@Override
 	public Value evaluate() {
 		return this;

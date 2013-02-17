@@ -10,7 +10,7 @@ import org.uva.sea.ql.visitor.ExpressionVisitor;
 public class Int extends Value {
 
 	private static final long serialVersionUID = -7973914180102063923L;
-	private final Integer value;
+	private Integer value;
 
 	public Int(int lineNumber) {
 		super(lineNumber);
@@ -30,6 +30,11 @@ public class Int extends Value {
 	@Override
 	public Integer getRawValue() {
 		return value;
+	}
+	
+	@Override
+	public void setValue(Object value) {
+		this.value = (Integer) value;
 	}
 
 	@Override

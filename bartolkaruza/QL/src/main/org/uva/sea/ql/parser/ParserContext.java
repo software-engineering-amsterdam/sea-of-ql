@@ -17,6 +17,8 @@ public class ParserContext implements Serializable {
 	 */
 	private static final long serialVersionUID = 6999454250035007570L;
 	
+	public static final String CHARACTER_ENCODING = "UTF-8";
+	
 	private ErrorHandler handler;
 	private SymbolTable table;
 	private Form form;
@@ -94,6 +96,10 @@ public class ParserContext implements Serializable {
 	
 	public void setForm(Form form) {
 		this.form = form;
+	}
+
+	public boolean hasErrors() {
+		return handler.getErrors().size() != 0;
 	}
 
 }
