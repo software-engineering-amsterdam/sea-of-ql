@@ -28,7 +28,6 @@ public class And extends BinExpr {
 	public Result eval(Map<String, Result> symbolMap) {
 		Result leftHandresult = getExprLeftHand().eval(symbolMap);
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
-
 		return leftHandresult.and(rightHandResult);
 	}
 }

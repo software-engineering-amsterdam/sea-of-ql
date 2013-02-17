@@ -1,5 +1,8 @@
 package org.uva.sea.ql.interpretation.swing;
 
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.interpretation.swing.visitors.ListenerTypeVisitor;
+
 
 public class AutoValueSetter {
     private QuestionPanel questionPanel;

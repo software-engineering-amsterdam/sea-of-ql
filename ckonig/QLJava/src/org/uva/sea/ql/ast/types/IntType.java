@@ -1,22 +1,29 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.EvaluationVisitor;
-import org.uva.sea.ql.common.TypeVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
 public class IntType extends Type {
+    private Expr value;
+
     public IntType() {
 
     }
 
+    public IntType(Expr e) {
+        this.value = e;
+    }
+
     @Override
-    public void accept(TypeVisitor v) {
+    public final void accept(TypeVisitor v) {
         v.visit(this);
     }
 
     @Override
-    public void accept(EvaluationVisitor visitor) throws VisitorException {
-       visitor.visit(this);
+    public final void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
     }
 
 }

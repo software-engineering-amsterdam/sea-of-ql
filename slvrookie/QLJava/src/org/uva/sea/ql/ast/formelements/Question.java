@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.formelements;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.visitors.IElementVisitor;
 
 public class Question extends FormElement {
 
@@ -17,15 +17,15 @@ public class Question extends FormElement {
 		this.type = type;
 	}
 
-	public Ident getQuestionName() {
+	public Ident getName() {
 		return name;
 	}
 
-	public StringLiteral getQuestionLabel() {
+	public StringLiteral getLabel() {
 		return label;
 	}
 
-	public Type getQuestionType() {
+	public Type getType() {
 		return type;
 	}
 

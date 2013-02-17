@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.EvaluationVisitor;
-import org.uva.sea.ql.common.TypeVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
 public class Money extends Type {
     private Expr expr;
@@ -20,12 +20,12 @@ public class Money extends Type {
     }
 
     @Override
-    public void accept(TypeVisitor v) {
+    public final void accept(TypeVisitor v) {
         v.visit(this);
     }
 
     @Override
-    public void accept(EvaluationVisitor visitor) throws VisitorException {
+    public final void accept(EvaluationVisitor visitor) throws QLException {
        visitor.visit(this);
     }
 

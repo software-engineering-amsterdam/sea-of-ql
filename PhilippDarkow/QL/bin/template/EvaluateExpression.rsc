@@ -58,7 +58,7 @@ public str evaluateExp(exp:and(Expression E1, Expression E2), Type req) =
 public str evaluateExp(exp:add(Expression E1, Expression E2), Type req) {                       
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value + <e2>.value)";
+  return "eval(+<e1>.value + +<e2>.value)";   // Fix but just for positive numbers
                    }
   
 public str evaluateExp(exp:sub(Expression E1, Expression E2), Type req) {
@@ -70,41 +70,41 @@ public str evaluateExp(exp:sub(Expression E1, Expression E2), Type req) {
 public str evaluateExp(exp:mul(Expression E1, Expression E2), Type req) {
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value * <e2>.value)";
+  return "eval(+<e1>.value * +<e2>.value)";
                    }
                    
 public str evaluateExp(exp:div(Expression E1, Expression E2), Type req){
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value / <e2>.value)";
+  return "eval(+<e1>.value / +<e2>.value)";
                    }
                    
 public str evaluateExp(exp:lt(Expression E1, Expression E2), Type req) {
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value \< <e2>.value)";
+  return "eval(+<e1>.value \< +<e2>.value)";
                    }
                    
 public str evaluateExp(exp:leq(Expression E1, Expression E2), Type req) {
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value \<= <e2>.value)";
+  return "eval(+<e1>.value \<= +<e2>.value)";
                    }
                    
 public str evaluateExp(exp:gt(Expression E1, Expression E2), Type req) {
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value \> <e2>.value)";
+  return "eval(+<e1>.value \> +<e2>.value)";
                    }
 
 public str evaluateExp(exp:geq(Expression E1, Expression E2), Type req) {
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value \>= <e2>.value)";
+  return "eval(+<e1>.value \>= +<e2>.value)";
                    }
                    
 public str evaluateExp(exp:eq(EXP E1, EXP E2), Type req) {
   str e1 = evaluateExp(E1, money());
   str e2 = evaluateExp(E2, money());
-  return "eval(<e1>.value == <e2>.value)";
+  return "eval(+<e1>.value == +<e2>.value)";
                    }

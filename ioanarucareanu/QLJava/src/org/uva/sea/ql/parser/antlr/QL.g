@@ -53,10 +53,10 @@ type returns [Type result]
 	;
 	  
 primary returns [Expr result]
-  : Int   { $result = new IntegerValue(Integer.parseInt($Int.text)); }
-  | Decimal {$result = new DecimalValue(Float.parseFloat($Decimal.text)); }
-  | Bool {$result = new BooleanValue(Boolean.parseBoolean($Bool.text)); }
-  | StringLit {$result = new StringValue($StringLit.text); }
+  : Int   { $result = new IntegerVal(Integer.parseInt($Int.text)); }
+  | Decimal {$result = new DecimalVal(Float.parseFloat($Decimal.text)); }
+  | Bool {$result = new BooleanVal(Boolean.parseBoolean($Bool.text)); }
+  | StringLit {$result = new StringVal($StringLit.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;

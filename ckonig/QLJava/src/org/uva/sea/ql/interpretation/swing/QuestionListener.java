@@ -1,6 +1,8 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.interpretation.swing.visitors.QuestionListenerTypeVisitor;
 
 public class QuestionListener {
     private final SwingRegistry registry;
@@ -14,8 +16,8 @@ public class QuestionListener {
         addListeners(qp);
     }
 
-    private void addListeners(QuestionPanel questionPanel) {
-        final QuestionListenerTypeVisitor v = new QuestionListenerTypeVisitor(questionPanel, registry);
+    private final void addListeners(QuestionPanel questionPanel) {
+        final QuestionListenerTypeVisitor v = new QuestionListenerTypeVisitor(questionPanel, this.registry);
         questionPanel.getQuestion().getType().accept(v);
     }
 

@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Question extends Statement {
 
@@ -26,5 +27,9 @@ public class Question extends Statement {
 	public Type getType() {
 		return type;
 	}
-	
+
+	public <T> T accept(StatementVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
 }

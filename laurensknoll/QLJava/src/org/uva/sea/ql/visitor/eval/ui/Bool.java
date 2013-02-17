@@ -41,7 +41,7 @@ public class Bool extends Widget implements ItemListener {
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
+	public void itemStateChanged(ItemEvent event) {
 		this.setChanged();
 		this.notifyObservers();
 	}

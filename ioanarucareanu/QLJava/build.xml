@@ -31,7 +31,6 @@
             <fileset dir="${webDir}">
                 <exclude name="*.xml" />
             </fileset>
-            <lib dir="${webDir}/WEB-INF/lib"/>
             <classes dir="${buildDir}"/>
         </war>
     </target>

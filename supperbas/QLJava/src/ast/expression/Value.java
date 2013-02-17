@@ -6,5 +6,7 @@ public abstract class Value extends Expression {
 
 	public Value() {
 	}
+	
+	public String typeStr(){ return null; };
 
 }

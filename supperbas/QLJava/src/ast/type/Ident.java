@@ -1,7 +1,6 @@
 package ast.type;
 
 import ast.Type;
-import ast.visitor.Visitor;
 
 public class Ident extends Type {
 

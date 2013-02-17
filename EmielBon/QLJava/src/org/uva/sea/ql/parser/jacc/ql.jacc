@@ -75,7 +75,7 @@ statement   : question
             ;
 			
 question    : IDENTIFIER ':' STRINGLITERAL type                    { $$ = new Question($1, $3, $4); }
-            | IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new ComputedQuestion($1, $3, $6); }
+            | IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new ComputedQuestion($1, $3, $4, $6); }
             ;
             
 type        : INTEGER { $$ = new Int(); }

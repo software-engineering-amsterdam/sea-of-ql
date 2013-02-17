@@ -3,7 +3,6 @@ package ast.statement;
 import ast.Statement;
 import ast.Type;
 import ast.expression.value.Ident;
-import ast.visitor.Visitor;
 
 public class Var extends Statement {
 

@@ -1,27 +1,35 @@
 package org.uva.sea.ql.interpretation.swing;
 
+import java.awt.Font;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.common.IdentFinder;
-import org.uva.sea.ql.common.QLDocument;
+import org.uva.sea.ql.interpretation.IdentFinder;
+import org.uva.sea.ql.interpretation.QLDocument;
+import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.interpretation.swing.components.Sizes;
 
 public class SwingDocument implements QLDocument {
     private final JPanel panel;
-    private Stack<JPanel> history;
+    private Stack<JPanel> panelStack;
     private SwingRegistry registry;
+    
 
     public SwingDocument() {
         this.panel = new JPanel();
-        this.history = new Stack<>();
-        this.history.push(this.panel);
+        this.panelStack = new Stack<>();
+        this.panelStack.push(this.panel);
         this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.Y_AXIS));
         this.registry = new SwingRegistry();
     }
@@ -32,14 +40,16 @@ public class SwingDocument implements QLDocument {
     }
 
     @Override
-    public void setHeading(String content) {
-        // TODO Auto-generated method stub
+    public final void setHeading(String content) {
+        final JLabel lbl = new JLabel(content);
+        lbl.setFont(new Font("Times New Roman", 0, Sizes.HEADING_FONT_SIZE));
+        this.panelStack.peek().add(lbl);
     }
 
     @Override
     public final void appendQuestion(Question question) {
         final QuestionPanel p = new QuestionPanel(question);
-        this.history.peek().add(p);
+        this.panelStack.peek().add(p);
         this.registry.addQuestion(p);
     }
 
@@ -47,15 +57,15 @@ public class SwingDocument implements QLDocument {
     public final void beginIf(IfStatement ifStatement) {
         final IfStatementPanel p = new IfStatementPanel(ifStatement);
         p.setVisible(false);
-        this.history.peek().add(p);
-        this.history.push(p);
+        this.panelStack.peek().add(p);
+        this.panelStack.push(p);
         this.registry.addIfStatement(p);
 
     }
 
     @Override
     public final void endIf() {
-        this.history.pop();
+        this.panelStack.pop();
     }
 
     @Override
@@ -63,18 +73,25 @@ public class SwingDocument implements QLDocument {
         for (QuestionPanel questionPanel : this.registry.getQuestions()) {
             new AutoValueSetter(this.registry, questionPanel).createListeners();
         }
-        final QuestionListener questionListener = new QuestionListener(
-                this.registry);
+        final QuestionListener listener = new QuestionListener(this.registry);
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
-            final IfStatement ifStatement = ifPanel.getIfStatement();
-            IdentFinder finder = new IdentFinder();
-            ((TreeNode)ifStatement.getCondition()).accept(finder);
-           
-            final List<Ident> idents = finder.getIdents();
-            for (Ident ident : idents) {
-                questionListener.addIdentListener(ident);
-            }
+            addIdentListener(listener, ifPanel);
         }
     }
+    
+    public final SwingRegistry getRegistry(){
+        return this.registry;
+    }
 
+    private static void addIdentListener(QuestionListener questionListener,
+            IfStatementPanel ifPanel) {
+        final IfStatement ifStatement = ifPanel.getIfStatement();
+        final IdentFinder finder = new IdentFinder();
+        final TreeNode  n = ((TreeNode) ifStatement.getCondition());
+        n.accept(finder);
+        final List<Ident> idents = finder.getIdents();
+        for (Ident ident : idents) {
+            questionListener.addIdentListener(ident);
+        }
+    }
 }

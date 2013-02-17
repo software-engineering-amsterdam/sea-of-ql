@@ -1,22 +1,39 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.VariableScope;
-import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class AssignmentNode implements Node
+public class AssignmentNode implements Statement
 {
+    private final String question;
     private final String identifier;
-    private final Value value;
-    private final VariableScope variableScope;
+    private final Type type;
 
-    public AssignmentNode(final String identifier, final ExprNode exprNode, final VariableScope variableScope)
+    public AssignmentNode(final String question, final String identifier, final Type type)
     {
+        this.question = question;
         this.identifier = identifier;
-        this.variableScope = variableScope;
-        this.value = exprNode.evaluate();
-        this.variableScope.assign(this.identifier, this.value);
+        this.type = type;
+    }
+
+    public void accept(final StatementVisitor statementVisitor)
+    {
+        statementVisitor.visit(this);
+    }
+
+    public String getQuestion()
+    {
+        return question;
+    }
+
+    public String getIdentifier()
+    {
+        return identifier;
+    }
+
+    public Type getType()
+    {
+        return type;
     }
 
     // TODO move this code to GUI interpreter

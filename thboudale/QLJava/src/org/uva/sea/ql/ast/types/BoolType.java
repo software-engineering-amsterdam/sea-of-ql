@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.types;
 
 public class BoolType extends Type {
-	private final String bType;
 	
-	public BoolType() {
-		this.bType = "boolean";
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToBool();
 	}
 	
-	public String getBType() {
-		return bType;
+	@Override
+	public boolean isCompatibleToBool() {
+		return true;
 	}
 }

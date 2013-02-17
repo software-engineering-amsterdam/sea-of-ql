@@ -59,7 +59,7 @@ public class Int extends AbstractValue {
 	protected AbstractValue divMoney(Money value) {
 		if (this.getValue() == 0) {
 			// Prevent division by zero.
-			return new Int(this.getValue());
+			return new Money(new BigDecimal(this.getValue()));
 		} else {
 			BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
 			return new Money(value.getValue().divide(intAsBigDecimal,
@@ -193,6 +193,21 @@ public class Int extends AbstractValue {
 	public AbstractValue ltMoney(Money value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
 		return new Bool(value.getValue().compareTo(intAsBigDecimal) == -1);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.value;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Int)) {
+			return false;
+		}
+
+		Int value = (Int) obj;
+		return this.value == value.getValue();
 	}
 
 }

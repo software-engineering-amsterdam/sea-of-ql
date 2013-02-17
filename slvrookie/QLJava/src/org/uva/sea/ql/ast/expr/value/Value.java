@@ -2,8 +2,9 @@ package org.uva.sea.ql.ast.expr.value;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
-
 public abstract class Value extends Expr {
+
+	abstract public Object getValue();
 
 	public Value add(Value value) {
 		throw new UnsupportedOperationException();
@@ -73,38 +74,6 @@ public abstract class Value extends Expr {
 		throw new UnsupportedOperationException();
 	}
 
-	public Value eq(Value value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value eqInt(IntLiteral value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value eqMoney(MoneyLiteral value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value eqBool(BoolLiteral value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value neq(Value value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value neqInt(IntLiteral Value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value neqMoney(MoneyLiteral value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public Value neqBool(BoolLiteral value) {
-		throw new UnsupportedOperationException();
-	}
-
 	public Value geq(Value value) {
 		throw new UnsupportedOperationException();
 	}
@@ -160,23 +129,12 @@ public abstract class Value extends Expr {
 	public Value pos() {
 		throw new UnsupportedOperationException();
 	}
-	
-	public abstract boolean isOfValue(Value v);
 
-	public boolean isStringLiteral() {
-		return false;
-	}
-	
-	public boolean isIntLiteral() {
-		return false;
-	}
-	
-	public boolean isMoneyLiteral() {
-		return false;
-	}
-	
-	public boolean isBoolLiteral() {
-		return false;
+	public Value eq(Value value) {
+		return new BoolLiteral(value.getValue().equals(this.getValue()));
 	}
 
+	public Value neq(Value value) {
+		return new BoolLiteral(!value.getValue().equals(this.getValue()));
+	}
 }

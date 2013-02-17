@@ -1,22 +1,28 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.EvaluationVisitor;
-import org.uva.sea.ql.common.TypeVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
-public class BooleanType extends Type  {
+public class BooleanType extends Type {
+    private Expr value;
 
-	public BooleanType() {
+    public BooleanType() {
 
-	}
-	
-    @Override
-    public void accept(TypeVisitor v) {
-       v.visit(this);
+    }
+
+    public BooleanType(Expr e) {
+        this.value = e;
     }
 
     @Override
-    public void accept(EvaluationVisitor visitor) throws VisitorException {
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public final void accept(EvaluationVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 }
