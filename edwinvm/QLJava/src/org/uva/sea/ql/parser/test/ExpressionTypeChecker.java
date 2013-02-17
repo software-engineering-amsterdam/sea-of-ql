@@ -35,13 +35,8 @@ public class ExpressionTypeChecker {
 		_supportedTypes.add("string",  new Str());
 	}
 	
-	public void isAValidExpression(String input) throws ParseError {
-		assertTrue(checkExpression(parseExpression(input)));
-	}
-	
-	public void isNotAValidExpression(String input) throws ParseError {
-		assertFalse(checkExpression(parseExpression(input)));
-	}
+	public void isAValidExpression(String input)    throws ParseError {  assertTrue(checkExpression(input)); }
+	public void isNotAValidExpression(String input) throws ParseError { assertFalse(checkExpression(input)); }
 	
 	public void isOfTypeBoolean(String input) throws ParseError { assertTrue(getTypeFor(input).isCompatibleToBool());    }
 	public void isOfTypeInt(String input)     throws ParseError { assertTrue(getTypeFor(input).isCompatibleToInt());     }
@@ -54,8 +49,9 @@ public class ExpressionTypeChecker {
 		return getTypeForLiteralExpression(input);
 	}
 	
-	private Boolean checkExpression(Expr expr) {
-		return TypeChecker.check(expr, _supportedTypes, new ErrorMessages());
+	private Boolean checkExpression(String input) throws ParseError {
+		Expr expression = parseExpression(input);
+		return TypeChecker.check(expression, _supportedTypes, new ErrorMessages());
 	}
 	
 	private Expr parseExpression(String input) throws ParseError {
