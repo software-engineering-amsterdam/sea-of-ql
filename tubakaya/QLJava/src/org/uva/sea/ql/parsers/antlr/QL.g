@@ -29,9 +29,14 @@ statementList returns [List<Statement> result]
   : {$result = new ArrayList<Statement>();} (element=statement {$result.add($element.result);})*
   ;
   
+ifStatement returns [IfStatement result]
+  :'if' '(' x=orExpr ')' '{' statements = statementList '}' {$result = new IfStatement($x.result,statements);} 
+  ;  
+  
 statement returns [Statement result]
   : question { $result = $question.result; }
   | computedValue  { $result = $computedValue.result; }
+  | ifStatement { $result = $ifStatement.result; }
   ;
 
 computedValue returns [ComputedValue result]

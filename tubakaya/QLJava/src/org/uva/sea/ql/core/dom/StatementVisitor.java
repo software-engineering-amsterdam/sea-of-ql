@@ -7,4 +7,5 @@ public interface StatementVisitor {
 	boolean visit(Form form);
 	boolean visit(Question question);
 	boolean visit(ComputedValue computedValue);
+	boolean visit(IfStatement ifStatement);
 }
