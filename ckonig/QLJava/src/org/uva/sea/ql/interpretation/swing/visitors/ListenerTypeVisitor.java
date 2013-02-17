@@ -29,12 +29,11 @@ public class ListenerTypeVisitor implements TypeVisitor {
 
     @Override
     public void visit(BooleanType b) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void visit(Money m) {
+    public final void visit(Money m) {
         if (m.getExpr() != null) {
             final IdentFinder finder = new IdentFinder();
             ((TreeNode) m.getExpr()).accept(finder);
@@ -49,13 +48,11 @@ public class ListenerTypeVisitor implements TypeVisitor {
 
     @Override
     public void visit(StrType s) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void visit(IntType i) {
-        // TODO Auto-generated method stub
 
     }
 
