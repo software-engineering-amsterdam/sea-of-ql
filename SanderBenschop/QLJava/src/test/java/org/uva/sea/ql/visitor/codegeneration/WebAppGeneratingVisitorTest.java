@@ -22,13 +22,13 @@ import org.uva.sea.ql.ast.statement.Question;
 
 public class WebAppGeneratingVisitorTest {
 
-    private WebAppGeneratingVisitor webAppGeneratingVisitor;
+    private WebAppCodeGeneratingVisitor webAppGeneratingVisitor;
 
     private SourceCodeInformation sourceCodeInformation;
 
     @Before
     public void init() {
-        this.webAppGeneratingVisitor = new WebAppGeneratingVisitor();
+        this.webAppGeneratingVisitor = new WebAppCodeGeneratingVisitor();
         this.sourceCodeInformation = new SourceCodeInformation(0, 0);
     }
 
@@ -59,6 +59,6 @@ public class WebAppGeneratingVisitorTest {
         statements.add(ifElseStatement);
 
         Form form = new Form("QLForm", statements);
-        String code = webAppGeneratingVisitor.generateQLCodeForForm(form);
+        String code = webAppGeneratingVisitor.generateQLCode(form);
     }
 }

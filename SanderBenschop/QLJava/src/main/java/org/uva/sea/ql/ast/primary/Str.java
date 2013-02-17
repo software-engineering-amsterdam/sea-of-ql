@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.StringType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.typechecking.SymbolTable;
+import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 
 public final class Str extends ObjectLiteral<String> {
 

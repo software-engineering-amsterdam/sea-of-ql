@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.typechecking.SymbolTable;
+import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 
 public class NotEqualTo extends BinaryOperation {
 

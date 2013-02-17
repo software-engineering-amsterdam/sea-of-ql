@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.typechecking.SymbolTable;
+import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 
 public abstract class QLExpression implements ASTNode {
 

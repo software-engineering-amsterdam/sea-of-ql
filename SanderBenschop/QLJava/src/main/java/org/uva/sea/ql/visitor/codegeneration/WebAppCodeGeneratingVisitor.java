@@ -30,17 +30,18 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WebAppGeneratingVisitor implements ASTNodeVisitor<WebappCodeWrapper> {
+public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisitor<WebappCodeWrapper> {
 
     private final STGroupFile pageTemplateGroup;
     private final STGroupFile formTemplateGroup;
 
-    public WebAppGeneratingVisitor() {
+    public WebAppCodeGeneratingVisitor() {
         this.pageTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlpage.stg", '$', '$');
         this.formTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlform.stg", '$', '$');
     }
 
-    public String generateQLCodeForForm(Form form) {
+    @Override
+    public String generateQLCode(Form form) {
         WebappCodeWrapper webappCodeWrapper = form.accept(this);
 
         ST pageTemplate = pageTemplateGroup.getInstanceOf("page");

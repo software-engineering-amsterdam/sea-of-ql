@@ -28,4 +28,9 @@ public class SimpleSyntacticErrorReporter implements SyntacticErrorReporter {
     public List<SyntacticQLError> getErrors() {
         return Collections.unmodifiableList(syntacticQLErrors);
     }
+
+    @Override
+    public void clearErrors() {
+        syntacticQLErrors.clear();
+    }
 }

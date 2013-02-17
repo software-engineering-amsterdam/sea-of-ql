@@ -6,10 +6,10 @@ import java.io.File;
 
 public class QLCommandLineParameters {
 
-    @Parameter(names = {"input", "i"}, description = "The QL input file", required = true)
+    @Parameter(names = {"-input", "-i"}, description = "The QL input file", required = true)
     private File inputFile;
 
-    @Parameter(names = {"port", "p"}, description = "The port the server will run on, default is 8080.", required = false)
+    @Parameter(names = {"-port", "-p"}, description = "The port the server will run on, default is 8080.", required = false)
     private int hostPort = 8080;
 
     public File getInputFile() {

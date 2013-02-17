@@ -6,10 +6,10 @@ import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.typechecking.error.SemanticQLError;
-import org.uva.sea.ql.visitor.typechecking.error.IdentifierRedeclarationError;
-import org.uva.sea.ql.visitor.typechecking.error.UnequalTypesError;
-import org.uva.sea.ql.visitor.typechecking.error.UnsupportedTypeError;
+import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
+import org.uva.sea.ql.visitor.semanticanalysis.error.IdentifierRedeclarationError;
+import org.uva.sea.ql.visitor.semanticanalysis.error.UnequalTypesError;
+import org.uva.sea.ql.visitor.semanticanalysis.error.UnsupportedTypeError;
 
 import static org.junit.Assert.assertEquals;
 

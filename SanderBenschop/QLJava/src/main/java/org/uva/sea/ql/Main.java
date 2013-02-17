@@ -7,10 +7,18 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.xml.XmlConfiguration;
+import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.parser.Parser;
+import org.uva.sea.ql.parser.error.reporting.SimpleSyntacticErrorReporter;
+import org.uva.sea.ql.visitor.codegeneration.CodeGenerator;
+import org.uva.sea.ql.visitor.codegeneration.WebAppCodeGeneratingVisitor;
+import org.uva.sea.ql.visitor.semanticanalysis.SemanticAnalysisVisitor;
+import org.uva.sea.ql.visitor.semanticanalysis.SemanticalAnalyser;
 
+import javax.servlet.ServletConfig;
 import java.io.FileInputStream;
+import java.util.EnumSet;
 import java.util.logging.Logger;
 
 public class Main {
@@ -20,22 +28,35 @@ public class Main {
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
+        QLBootstrapper bootstrapper = createQLBootStrapper();
         try {
-//            jCommander.parse(arguments);
-            startJettyServer(8080);
-        } catch(ParameterException exception) {
-            LOGGER.severe("Cannot parse these arguments, use this interpreter with the following command line options:");
+            jCommander.parse(arguments);
+            if (bootstrapper.checkAndBuildQLFile(commandLineParameters.getInputFile())) {
+                startJettyServer(commandLineParameters.getHostPort());
+            }
+        } catch(Exception exception) {
+            LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
             jCommander.usage();
-            System.exit(-1);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    private static void startJettyServer(int port) throws Exception {
-        Server server = new Server(port);
-        XmlConfiguration configuration = new XmlConfiguration(new FileInputStream("src/main/resources/jetty.xml"));
-        configuration.configure(server);
-        server.start();
+    private static QLBootstrapper createQLBootStrapper() {
+        Parser parser = new ANTLRParser(new SimpleSyntacticErrorReporter());
+        SemanticalAnalyser semanticalAnalyser = new SemanticAnalysisVisitor();
+        CodeGenerator codeGenerator = new WebAppCodeGeneratingVisitor();
+        return new QLBootstrapper(parser, semanticalAnalyser, codeGenerator);
+    }
+
+    private static void startJettyServer(int port) {
+        try {
+            Server server = new Server(port);
+            ServletContextHandler root = new ServletContextHandler(server,"/",ServletContextHandler.SESSIONS);
+            root.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
+            server.start();
+            server.join();
+        } catch (Exception ex) {
+            LOGGER.severe("Jetty server startup failed!");
+            throw new RuntimeException(ex);
+        }
     }
 }
