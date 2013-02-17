@@ -35,7 +35,9 @@ private void format(start[Form] f, loc l) =
 private void build(start[Form] form, loc source) {
   messages = buildAndReturnMessages(form, FORM_TARGET);
   
-  if(messages != {}) {
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
     alert("The form cannot be built when it still contains errors.");
   } else {
     alert("The form is built in <FORM_TARGET>.");
@@ -48,7 +50,10 @@ public set[Message] buildAndReturnMessages(start[Form] form, loc target) =
   
 public set[Message] buildAndReturnMessages(Form form, loc target) {
   messages = semanticChecker(form);
-  if(messages != {}) {
+  
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
     return messages;
   }
   buildForm(form, target);

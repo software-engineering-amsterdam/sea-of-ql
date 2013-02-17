@@ -35,14 +35,19 @@ private set[Message] buildAndReturnMessages(start[Stylesheet] sheet, loc target)
   
 private set[Message] buildAndReturnMessages(Stylesheet sheet, loc target) {
   messages = semanticChecker(sheet);
-  if(messages != {}) {
+  
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
     return messages;
   }
   
   form = getAccompanyingForm(sheet);
   
   formMessages = buildAndReturnMessages(form, target);
-  if(formMessages != {}) {
+  formErrors = {m | m <- formMessages, error(_, _) := m};
+  
+  if(formErrors != {}) {
     return formMessages;
   }
   
@@ -54,7 +59,9 @@ private set[Message] buildAndReturnMessages(Stylesheet sheet, loc target) {
 private void build(start[Stylesheet] sheet, loc source) {
   messages = buildAndReturnMessages(sheet, SHEET_TARGET);
   
-  if(messages != {}) {
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
     alert("The sheet cannot be built when it still contains errors.");
   } else {
     alert("The sheet is built in <SHEET_TARGET>.");
