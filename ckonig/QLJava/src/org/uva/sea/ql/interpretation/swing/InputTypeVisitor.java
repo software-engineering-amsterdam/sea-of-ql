@@ -1,0 +1,41 @@
+package org.uva.sea.ql.interpretation.swing;
+
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.StrType;
+import org.uva.sea.ql.common.TypeVisitor;
+
+public class InputTypeVisitor implements TypeVisitor {
+    private JComponent input;
+    public JComponent getInput(){
+        return input;
+    }
+    @Override
+    public void visit(BooleanType b) {
+        this.input = new JCheckBox();
+    }
+
+    @Override
+    public void visit(Money m) {
+        this.input = new JTextField(10);
+        if (m.getExpr() != null) {
+            ((JTextField) this.input).setEditable(false);
+        }
+    }
+
+    @Override
+    public void visit(StrType s) {
+        this.input = new JTextField(10);
+    }
+
+    @Override
+    public void visit(IntType i) {
+       this.input = new JTextField(10);
+    }
+
+}

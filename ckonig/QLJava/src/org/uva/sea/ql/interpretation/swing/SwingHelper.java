@@ -66,15 +66,13 @@ public class SwingHelper {
             this.buttonGenerate.setEnabled(true);
         } catch (AstValidationError ex) {
             this.log.append(ex.getMessage() + NEWLINE);
-        } catch (IOException e1) {
-            this.log.append(e1.getMessage() + NEWLINE);
-        }
+        } 
     }
 
     private void interpretAst() {
         final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
                 new SwingDocument());
-        if (this.ast != null && this.ast instanceof Form) {
+        if (this.ast != null) {
             try {
                 ((Form) this.ast).accept(visitor);
                 final JPanel result = (JPanel) visitor.getOutput();
@@ -93,7 +91,7 @@ public class SwingHelper {
 
     public final void generateHtml() {
 
-        if (this.ast != null && this.ast instanceof Form) {
+        if (this.ast != null) {
             try {
                 final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
                         new HTMLDocument());

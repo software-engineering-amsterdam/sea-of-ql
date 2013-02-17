@@ -3,15 +3,15 @@ package org.uva.sea.ql.validation;
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.common.AcceptFinder;
 import org.uva.sea.ql.common.ElementVisitor;
+import org.uva.sea.ql.common.Evaluatable;
+import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.common.VisitorException;
 
 public class ValidationVisitor implements ElementVisitor {
@@ -29,12 +29,7 @@ public class ValidationVisitor implements ElementVisitor {
     @Override
     public final void visit(Block block) throws VisitorException {
         for (BlockElement expr : block.getContent()) {
-            if (expr.getClass().equals(IfStatement.class)) {
-                ((IfStatement) expr).accept(this);
-            }
-            if (expr.getClass().equals(Question.class)) {
-                ((Question) expr).accept(this);
-            }
+            expr.accept(this);
         }
     }
 
@@ -52,79 +47,67 @@ public class ValidationVisitor implements ElementVisitor {
 
     @Override
     public final void visit(IfStatement ifStatement) throws VisitorException {
-        Returns r = (Returns) ifStatement.getCondition();
-        if (r.getReturnType(registry.getQuestions())
-                .equals(ReturnTypes.BOOLEAN)) {
-            if (ifStatement.getCondition() instanceof Accepts)
-                this.visit((Accepts) ifStatement.getCondition());
+        ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
+        Expr condition = ifStatement.getCondition();
+        ((Evaluatable) condition).accept(f);
+        ReturnTypes r = f.getResult();
+        if (r.equals(ReturnTypes.BOOLEAN)) {
 
+            this.visit(ifStatement.getCondition());
         } else {
-            throw new AstValidationError("not a valid condition: "
-                    + ifStatement.getCondition().getClass().toString());
+            throwInvalidConditionError(ifStatement.getCondition());
         }
 
         ifStatement.getContent().accept(this);
 
     }
 
-    private Returns getIdentOrOrigin(Expr e) throws VisitorException {
-        if (e instanceof Ident) {
-            e = this.registry.getQuestionTypeByIdent((Ident) e);
-        }
-        visitOperands(e);
-        Returns r = (Returns) e;
-        return r;
+    private void throwInvalidConditionError(Expr e) throws AstValidationError {
+        throw new AstValidationError("not a valid condition: "
+                + e.getClass().toString());
     }
 
-    private void visitOperands(Expr e) throws VisitorException {
-        if (e instanceof Accepts) {
-            this.visit((Accepts) e);
+    private void visit(Expr operator) throws VisitorException {
+        AcceptFinder f = new AcceptFinder();
+        ((Evaluatable) operator).accept(f);
+        if (f.getResult().equals(ReturnTypes.BOOLEAN)) {
+            if (!(bothhaveEqualReturnType(operator, ReturnTypes.BOOLEAN))) {
+                throwError(operator, "boolean");
+            }
+        }
+        if (f.getResult().equals(ReturnTypes.MATH)) {
+            if (!(bothhaveEqualReturnType(operator, ReturnTypes.MATH))) {
+                throwError(operator, "math");
+            }
+        }
+        if (f.getResult().equals(ReturnTypes.BOTH)) {
+            if (!((bothhaveEqualReturnType(operator, ReturnTypes.MATH)) || (bothhaveEqualReturnType(
+                    operator, ReturnTypes.BOOLEAN)))) {
+                throwError(operator, "either math OR bool");
+            }
         }
     }
 
-    private void visit(Accepts r) throws VisitorException {
-        if (r instanceof BinaryExpr) {
-            if (r.accepts(ReturnTypes.BOOLEAN)) {
-                final BinaryExpr b = (BinaryExpr) r;
-                final Returns left = this.getIdentOrOrigin(b.getLeft());
-                final Returns right = this.getIdentOrOrigin(b.getRight());
-                if (!(left.getReturnType(this.registry.getQuestions()).equals(
-                        ReturnTypes.BOOLEAN) && right.getReturnType(
-                        this.registry.getQuestions()).equals(
-                        ReturnTypes.BOOLEAN))) {
-                    throw new AstValidationError("both childs of "
-                            + b.getClass() + " must be bool (left "
-                            + left.getClass() + ", right " + right.getClass()
-                            + ")");
-                }
-            }
-            if (r.accepts(ReturnTypes.MATH)) {
-                final BinaryExpr b = (BinaryExpr) r;
-                final Returns left = this.getIdentOrOrigin(b.getLeft());
-                final Returns right = this.getIdentOrOrigin(b.getRight());
-                if (!(left.getReturnType(this.registry.getQuestions()).equals(
-                        ReturnTypes.MATH) && right.getReturnType(
-                        this.registry.getQuestions()).equals(ReturnTypes.MATH))) {
-                    throw new AstValidationError("both childs of "
-                            + b.getClass() + " must return math operands!");
-                }
-            }
-            if (r.accepts(ReturnTypes.BOTH)) {
-                final BinaryExpr b = (BinaryExpr) r;
-                final Returns left = this.getIdentOrOrigin(b.getLeft());
-                final Returns right = this.getIdentOrOrigin(b.getRight());
-                if (!((left.getReturnType(this.registry.getQuestions()).equals(
-                        ReturnTypes.MATH) && right.getReturnType(
-                        this.registry.getQuestions()).equals(ReturnTypes.MATH)) || (left
-                        .getReturnType(this.registry.getQuestions()).equals(
-                                ReturnTypes.BOOLEAN) && right.getReturnType(
-                        this.registry.getQuestions()).equals(
-                        ReturnTypes.BOOLEAN)))) {
-                    throw new AstValidationError("BOTH childs of "
-                            + b.getClass()
-                            + " must return either math OR bool operands");
-                }
-            }
-        }
+    private void throwError(Expr r, String msg) throws AstValidationError {
+        BinaryExpr b = (BinaryExpr) r;
+        throw new AstValidationError("BOTH childs of " + r.getClass()
+                + " must return " + msg + " operands: "
+                + b.getLeft().getClass() + ", " + b.getRight().getClass());
+    }
+
+    private boolean bothhaveEqualReturnType(Expr r, ReturnTypes type)
+            throws VisitorException {
+        final BinaryExpr b = (BinaryExpr) r;
+        final ReturnTypes left = this.getReturnTypes(b.getLeft());
+        final ReturnTypes right = this.getReturnTypes(b.getRight());
+        return left != null && left.equals(type) && right != null
+                && right.equals(type);
+    }
+
+    private ReturnTypes getReturnTypes(Expr e) throws VisitorException {
+        ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
+        this.visit(e);
+        ((Evaluatable) e).accept(f);
+        return f.getResult();
     }
 }

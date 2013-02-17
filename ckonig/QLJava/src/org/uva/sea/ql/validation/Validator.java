@@ -1,9 +1,6 @@
 package org.uva.sea.ql.validation;
 
-import java.io.IOException;
-
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.ParseError;
@@ -13,17 +10,14 @@ public class Validator {
 
     }
 
-    public final void validate(Form e) throws IOException, AstValidationError {
+    public final void validate(Form e) throws AstValidationError {
         try {
             if (e != null) {
-                if (e.getClass().equals(Form.class)) {
-                    final Form f = (Form) e;
-                    final ElementVisitor validator = new ValidationVisitor();
-                    f.accept(validator);
-                    System.out.println("validation success");
-                } else {
-                    throw new AstValidationError("root element must be form");
-                }
+                final Form f = (Form) e;
+                final ElementVisitor validator = new ValidationVisitor();
+                f.accept(validator);
+                System.out.println("validation success");
+
             } else {
                 throw new AstValidationError("result was null");
             }
@@ -32,6 +26,5 @@ public class Validator {
         } catch (VisitorException ex) {
             System.out.println("Visitor Error: " + ex.getMessage());
         }
-
     }
 }

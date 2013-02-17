@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 public class SwingRegistry {
@@ -33,14 +34,17 @@ public class SwingRegistry {
     }
 
     public final void evaluateFunctions() {
-
-        for (IfStatementPanel isp : this.ifStatements) {
-            try {
-                isp.eval(this);
-            } catch (EvaluationException ex) {
-                isp.setVisible(false);
+        try {
+            for (IfStatementPanel isp : this.ifStatements) {
+                try {
+                    isp.eval(this);
+                } catch (EvaluationException ex) {
+                    isp.setVisible(false);
+                }
+                isp.repaint();
             }
-            isp.repaint();
+        } catch (VisitorException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 

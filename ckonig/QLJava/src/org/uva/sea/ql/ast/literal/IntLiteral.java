@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.literal;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.common.Evaluatable;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.TreeVisitor;
+import org.uva.sea.ql.common.VisitorException;
 
-public class IntLiteral extends Expr implements Returns {
+public class IntLiteral extends Expr implements Evaluatable, TreeNode {
 
     private final int value;
 
@@ -20,8 +20,14 @@ public class IntLiteral extends Expr implements Returns {
     }
 
     @Override
-    public ReturnTypes getReturnType(List<Question> questions) {
-        return ReturnTypes.MATH;
+    public void accept(EvaluationVisitor visitor) throws VisitorException {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(TreeVisitor v) {
+        v.visit(this);
+
     }
 
 }

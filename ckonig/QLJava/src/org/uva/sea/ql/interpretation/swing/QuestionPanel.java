@@ -50,21 +50,9 @@ public class QuestionPanel extends JPanel {
     }
 
     private void createInputElement() {
-        if (this.question.getType() instanceof BooleanType) {
-            this.input = new JCheckBox();
-            this.add(this.input, BorderLayout.LINE_END);
-        }
-        if (this.question.getType() instanceof StrType) {
-            input = new JTextField(10);
-            this.add(this.input, BorderLayout.LINE_END);
-        }
-        if (this.question.getType() instanceof Money) {
-            input = new JTextField(10);
-            Money m = (Money) this.question.getType();
-            if (m.getExpr() != null) {
-                ((JTextField) this.input).setEditable(false);
-            }
-            this.add(this.input, BorderLayout.LINE_END);
-        }
+        InputTypeVisitor v = new InputTypeVisitor();
+        this.question.getType().accept(v);
+        this.input = v.getInput();
+        this.add(this.input, BorderLayout.LINE_END);        
     }
 }

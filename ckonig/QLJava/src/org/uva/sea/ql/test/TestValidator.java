@@ -4,7 +4,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.ParseError;

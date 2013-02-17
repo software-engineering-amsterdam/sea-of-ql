@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.common.ExprVisitor;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.VisitorException;
 
-public class Not extends UnaryBooleanOperator implements Accepts {
+public class Not extends UnaryBooleanOperator {
     public static final String STR = "!";
 
     public Not(Expr ex) {
@@ -19,12 +17,7 @@ public class Not extends UnaryBooleanOperator implements Accepts {
     }
 
     @Override
-    public boolean accepts(ReturnTypes r) {
-        return r.equals(ReturnTypes.BOOLEAN);
-    }
-
-    @Override
-    public void accept(ExprVisitor visitor) throws VisitorException {
+    public void accept(EvaluationVisitor visitor) throws VisitorException {
         visitor.visit(this);
     }
 }

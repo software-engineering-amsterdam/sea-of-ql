@@ -1,6 +1,8 @@
 package org.uva.sea.ql.interpretation.exception;
 
-public class InterpreterException extends Exception {
+import org.uva.sea.ql.common.VisitorException;
+
+public class InterpreterException extends VisitorException {
 
 	private static final long serialVersionUID = 8706690059457294427L;
 
