@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
@@ -14,6 +15,8 @@ import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
+import org.uva.sea.ql.visitor.eval.value.AbstractValue;
+import org.uva.sea.ql.visitor.eval.value.Bool;
 
 public class Statement implements IStatement<JPanel> {
 
@@ -45,13 +48,31 @@ public class Statement implements IStatement<JPanel> {
 		JPanel questionPanel = question.accept(this);
 		panel.add(questionPanel);
 
-		// Get Widget of an ident; Set value.
-		/*
-		 * TODO: How to evaluate expression and show initial value in question
-		 * Expression expressionVisitor = new Expression(this.environment);
-		 * AbstractValue value = computedQuestion.getComputeExpression().accept(
-		 * expressionVisitor);
-		 */
+		Widget widget = this.environment.widgetOfIdent(question.getIdent());
+		widget.getComponent().setEnabled(false);
+
+		// Observe dependent questions
+		AbstractExpr computeExpression = computedQuestion
+				.getComputeExpression();
+
+		ComputedStatementObserver observer = new ComputedStatementObserver(
+				computeExpression, widget, this.environment);
+
+		Dependency dependencyVisitor = new Dependency();
+		DependencySet dependencies = computeExpression
+				.accept(dependencyVisitor);
+
+		for (Ident ident : dependencies.getDependencies()) {
+			Widget w = this.environment.widgetOfIdent(ident);
+			w.addObserver(observer);
+		}
+
+		// Set the value.
+		Expression expressionVisitor = new Expression(this.environment);
+		AbstractValue value = computeExpression.accept(expressionVisitor);
+
+		widget.setValue(value);
+
 		return panel;
 	}
 
@@ -59,11 +80,24 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(If ifStatement) {
 		JPanel panel = new JPanel();
 
-		/*
-		 * TODO: Add enable condition to panel. Expression expressionVisitor =
-		 * new Expression(this.environment); Boolean isConditionValid =
-		 * ifStatement.getCondition().accept(expressionVisitor);
-		 */
+		AbstractExpr expr = ifStatement.getCondition();
+
+		// Observe condition
+		IfStatementObserver observer = new IfStatementObserver(expr, panel,
+				this.environment);
+
+		Dependency dependencyVisitor = new Dependency();
+		DependencySet dependencies = expr.accept(dependencyVisitor);
+
+		for (Ident ident : dependencies.getDependencies()) {
+			Widget w = this.environment.widgetOfIdent(ident);
+			w.addObserver(observer);
+		}
+
+		Expression expressionVisitor = new Expression(this.environment);
+		Bool result = (Bool) expr.accept(expressionVisitor);
+		panel.setVisible(result.getValue());
+
 		JPanel truePanel = ifStatement.getTruePath().accept(this);
 		panel.add(truePanel);
 
@@ -75,8 +109,7 @@ public class Statement implements IStatement<JPanel> {
 		JPanel panel = new JPanel(new GridLayout(1, 2));
 
 		/*
-		 * TODO: Create visitor that creates labels. Expression
-		 * expressionVisitor = new Expression(this.environment);
+		 * TODO: Add method that creates labels.
 		 */
 		JLabel description = new JLabel(question.getQuestion().getValue());
 		panel.add(description);

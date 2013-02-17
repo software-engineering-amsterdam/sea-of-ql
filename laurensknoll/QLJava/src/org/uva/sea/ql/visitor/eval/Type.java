@@ -29,7 +29,7 @@ public class Type implements IType<Widget> {
 
 	@Override
 	public Widget visit(String string) {
-		return new org.uva.sea.ql.visitor.eval.ui.Int();
+		return new org.uva.sea.ql.visitor.eval.ui.String();
 	}
 
 	@Override

@@ -8,8 +8,20 @@ import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Environment {
 
+	private class Binding {
+		private final Widget widget;
+
+		public Binding(Widget widget) {
+			this.widget = widget;
+		}
+
+		public Widget getWidget() {
+			return this.widget;
+		}
+	}
+
 	private final Environment parent;
-	private HashMap<Ident, IdentContext> bindings;
+	private HashMap<Ident, Binding> bindings;
 
 	public Environment() {
 		this(null);
@@ -17,7 +29,7 @@ public class Environment {
 
 	public Environment(Environment env) {
 		this.parent = env;
-		this.bindings = new HashMap<Ident, IdentContext>();
+		this.bindings = new HashMap<Ident, Binding>();
 	}
 
 	public Environment getParent() {
@@ -25,16 +37,26 @@ public class Environment {
 	}
 
 	public void declare(Ident ident, Widget widget) {
-		this.bindings.put(ident, new IdentContext(widget));
+		this.bindings.put(ident, new Binding(widget));
 	}
 
 	public AbstractValue valueOfIdent(Ident ident) {
 		// Semantic validator guarantees that ident is defined.
 		if (this.bindings.containsKey(ident)) {
-			return this.bindings.get(ident).getValue();
+			Binding binding = this.bindings.get(ident);
+			return binding.getWidget().getValue();
 		} else {
 			return this.parent.valueOfIdent(ident);
 		}
 	}
 
+	public Widget widgetOfIdent(Ident ident) {
+		// Semantic validator guarantees that ident is defined.
+		if (this.bindings.containsKey(ident)) {
+			Binding binding = this.bindings.get(ident);
+			return binding.getWidget();
+		} else {
+			return this.parent.widgetOfIdent(ident);
+		}
+	}
 }
