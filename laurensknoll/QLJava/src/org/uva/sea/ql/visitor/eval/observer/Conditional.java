@@ -16,21 +16,21 @@ public class Conditional implements Observer {
 	private final JPanel panel;
 	private final Environment environment;
 
-	public Conditional(AbstractExpr condition, JPanel panel,
-			Environment context) {
+	public Conditional(AbstractExpr condition, JPanel panel, Environment context) {
 		this.condition = condition;
 		this.panel = panel;
 		this.environment = context;
 	}
 
+	public void update() {
+		Expression evaluator = new Expression(this.environment);
+		Bool result = (Bool) this.condition.accept(evaluator);
+		this.panel.setVisible(result.getValue());
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
-		// Evaluate expression again
-		// TODO: Reuse existing code?
-		Expression exprVisitor = new org.uva.sea.ql.visitor.eval.Expression(
-				this.environment);
-		Bool result = (Bool) this.condition.accept(exprVisitor);
-		this.panel.setVisible(result.getValue());
+		this.update();
 	}
 
 }

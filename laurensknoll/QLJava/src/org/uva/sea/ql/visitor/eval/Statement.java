@@ -19,7 +19,6 @@ import org.uva.sea.ql.visitor.eval.observer.Computed;
 import org.uva.sea.ql.visitor.eval.observer.Conditional;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
-import org.uva.sea.ql.visitor.eval.value.Bool;
 
 public class Statement implements IStatement<JPanel> {
 
@@ -81,7 +80,7 @@ public class Statement implements IStatement<JPanel> {
 		AbstractExpr condition = ifStatement.getCondition();
 
 		// Observe condition
-		Observer observer = new Conditional(condition, conditionalPanel,
+		Conditional observer = new Conditional(condition, conditionalPanel,
 				this.environment);
 
 		Dependency dependencyVisitor = new Dependency();
@@ -91,9 +90,8 @@ public class Statement implements IStatement<JPanel> {
 			this.environment.addObserver(ident, observer);
 		}
 
-		Expression expressionVisitor = new Expression(this.environment);
-		Bool result = (Bool) condition.accept(expressionVisitor);
-		conditionalPanel.setVisible(result.getValue());
+		// Set initial value.
+		observer.update();
 
 		return conditionalPanel;
 	}
