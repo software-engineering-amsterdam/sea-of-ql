@@ -5,15 +5,9 @@ import java.util.List;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.ast.literal.IntLiteral;
 import org.uva.sea.ql.ast.literal.StringLiteral;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.common.IdentFinder;
 import org.uva.sea.ql.common.QLDocument;
@@ -117,7 +111,7 @@ public class HTMLDocument implements QLDocument {
      */
     @Override
     public final void create() {
-        IdentFinder finder = new IdentFinder();
+        final IdentFinder finder = new IdentFinder();
         for (Question q : this.registry.getQuestions()) {
             this.addGetter(q);
         }
@@ -125,7 +119,7 @@ public class HTMLDocument implements QLDocument {
             this.appendToScript(this.templates.evaluator(
                     String.valueOf(i.hashCode()),
                     getConditionString(i.getCondition())));
-            ((TreeNode)i.getCondition()).accept(finder);
+            ((TreeNode) i.getCondition()).accept(finder);
             final List<Ident> idents = finder.getIdents();
             for (Ident ident : idents) {
                 this.appendToScript(this.templates.listener(ident.getName(),
@@ -135,11 +129,10 @@ public class HTMLDocument implements QLDocument {
     }
 
     private void addGetter(Question q) {
-        final GetterTypeVisitor v = new GetterTypeVisitor(templates,
+        final GetterTypeVisitor v = new GetterTypeVisitor(this.templates,
                 q.getIdentName());
         q.getType().accept(v);
-        String getter = v.getGetter();
-        this.appendToScript(getter);
+        this.appendToScript(v.getGetter());
     }
 
     /**

@@ -31,97 +31,97 @@ public class ReturnFinder implements EvaluationVisitor {
     private ReturnTypes ret;
     private List<Question> questions;
 
-    public ReturnFinder(List<Question> questions) {
-        this.questions = questions;
+    public ReturnFinder(List<Question> q) {
+        this.questions = q;
     }
 
-    public ReturnTypes getResult() {
-        return ret;
-    }
-
-    @Override
-    public void visit(Add add) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final ReturnTypes getResult() {
+        return this.ret;
     }
 
     @Override
-    public void visit(Mul mul) throws VisitorException {
-        ret = ReturnTypes.MATH;
+    public final void visit(Add add) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Div div) throws VisitorException {
-        ret = ReturnTypes.MATH;
+    public final void visit(Mul mul) throws VisitorException {
+      this.ret = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Sub sub) throws VisitorException {
-        ret = ReturnTypes.MATH;
+    public final void visit(Div div) throws VisitorException {
+      this.ret = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(And and) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(Sub sub) throws VisitorException {
+      this.ret = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Or or) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(And and) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Eq eq) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(Or or) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(NEq neq) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(Eq eq) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(GT gt) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(NEq neq) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(GEq geq) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(GT gt) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(LT lt) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(GEq geq) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(LEq leq) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(LT lt) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Not not) throws VisitorException {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(LEq leq) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Pos pos) throws VisitorException {
-        ret = ReturnTypes.MATH;
+    public final void visit(Not not) throws VisitorException {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Neg neg) throws VisitorException {
-        ret = ReturnTypes.MATH;
+    public final void visit(Pos pos) throws VisitorException {
+      this.ret = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Ident ident) throws VisitorException {
+    public final void visit(Neg neg) throws VisitorException {
+      this.ret = ReturnTypes.MATH;
+    }
+
+    @Override
+    public final void visit(Ident ident) throws VisitorException {
         boolean found = false;
-        for (Question question : questions) {
+        for (Question question : this.questions) {
             if (question.getIdentName().equals(ident.getName())) {
-                ReturnFinder f = new ReturnFinder(questions);
+                final ReturnFinder f = new ReturnFinder(questions);
                 question.getType().accept(f);
-                ret = f.getResult();
+              this.ret = f.getResult();
                 found = true;
             }
         }
@@ -131,28 +131,28 @@ public class ReturnFinder implements EvaluationVisitor {
     }
 
     @Override
-    public void visit(IntLiteral i) throws VisitorException {
-        ret = ReturnTypes.MATH;
+    public final void visit(IntLiteral i) throws VisitorException {
+      this.ret = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(BooleanType b) {
-        ret = ReturnTypes.BOOLEAN;
+    public final void visit(BooleanType b) {
+      this.ret = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Money m) {
-        ret = ReturnTypes.MATH;
+    public final void visit(Money m) {
+      this.ret = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(StrType s) {
-        ret = ReturnTypes.OTHER;
+    public final void visit(StrType s) {
+      this.ret = ReturnTypes.OTHER;
     }
 
     @Override
-    public void visit(IntType i) {
-        ret = ReturnTypes.MATH;
+    public final void visit(IntType i) {
+      this.ret = ReturnTypes.MATH;
     }
 
 }

@@ -11,27 +11,27 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class InputTypeVisitor implements TypeVisitor{
     
     private InputTypes type;
-    public InputTypes getType(){
+    public final InputTypes getType(){
         return type;        
     }
 
     @Override
-    public void visit(BooleanType b) {
+    public final void visit(BooleanType b) {
         this.type = InputTypes.BOOLEAN;        
     }
 
     @Override
-    public void visit(Money m) {
+    public final void visit(Money m) {
         this.type = InputTypes.MONEY;
     }
 
     @Override
-    public void visit(StrType s) {
+    public final void visit(StrType s) {
         this.type = InputTypes.STRING;
     }
 
     @Override
-    public void visit(IntType i) {
+    public final void visit(IntType i) {
         throw new NotImplementedException();
     }
 

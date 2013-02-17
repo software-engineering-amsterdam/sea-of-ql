@@ -22,22 +22,22 @@ public class QuestionListenerTypeVisitor implements TypeVisitor{
         this.registry = reg;
     }
     @Override
-    public void visit(BooleanType b) {
+    public final void visit(BooleanType b) {
         listenToBoolean();
     }
 
     @Override
-    public void visit(Money m) {
+    public final void visit(Money m) {
         listenToText();
     }
 
     @Override
-    public void visit(StrType s) {
+    public final void visit(StrType s) {
         listenToText();        
     }
     
     @Override
-    public void visit(IntType i) {
+    public final void visit(IntType i) {
         listenToText();
     }
     
@@ -46,25 +46,25 @@ public class QuestionListenerTypeVisitor implements TypeVisitor{
         t.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public final void actionPerformed(ActionEvent e) {
                 registry.evaluateFunctions();
             }
         });
         t.addKeyListener(new KeyListener() {
 
             @Override
-            public void keyTyped(KeyEvent arg0) {
+            public final void keyTyped(KeyEvent arg0) {
                 registry.evaluateFunctions();
             }
 
             @Override
-            public void keyReleased(KeyEvent arg0) {
+            public final void keyReleased(KeyEvent arg0) {
                 registry.evaluateFunctions();
 
             }
 
             @Override
-            public void keyPressed(KeyEvent arg0) {
+            public final void keyPressed(KeyEvent arg0) {
                 registry.evaluateFunctions();
             }
         });
@@ -75,7 +75,7 @@ public class QuestionListenerTypeVisitor implements TypeVisitor{
         checkbox.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public final void actionPerformed(ActionEvent e) {
                 registry.evaluateFunctions();
             }
         });

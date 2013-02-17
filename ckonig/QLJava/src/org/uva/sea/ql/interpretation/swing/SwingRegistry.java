@@ -57,7 +57,7 @@ public class SwingRegistry {
         return null;
     }
 
-    public List<Question> getQuestionsAst() {
+    public final List<Question> getQuestionsAst() {
         List<Question> questions = new ArrayList();
         for (QuestionPanel qp : getQuestions()) {
             questions.add(qp.getQuestion());

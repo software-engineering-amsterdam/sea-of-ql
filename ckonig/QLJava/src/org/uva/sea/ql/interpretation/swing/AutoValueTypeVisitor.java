@@ -16,23 +16,24 @@ public class AutoValueTypeVisitor implements TypeVisitor {
     private QuestionPanel questionPanel;
     private SwingRegistry registry;
 
-    public AutoValueTypeVisitor(QuestionPanel q, SwingRegistry reg){
+    public AutoValueTypeVisitor(QuestionPanel q, SwingRegistry reg) {
         this.questionPanel = q;
         this.registry = reg;
     }
+
     @Override
-    public void visit(BooleanType b) {
-      throw new NotImplementedException();
+    public final void visit(BooleanType b) {
+        throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Money m) {
+    public final void visit(Money m) {
         final JTextField t = (JTextField) this.questionPanel.getInput();
-         if (m.getExpr() != null) {
+        if (m.getExpr() != null) {
             t.setEditable(false);
             try {
-                final float result = new MathEvaluationVisitor(this.registry, true)
-                        .eval(m.getExpr());
+                final float result = new MathEvaluationVisitor(this.registry,
+                        true).eval(m.getExpr());
                 t.setText(Float.toString(result));
             } catch (EmptyInputException ex) {
                 // no input? no evaluation!
@@ -43,12 +44,12 @@ public class AutoValueTypeVisitor implements TypeVisitor {
     }
 
     @Override
-    public void visit(StrType s) {
-        throw new NotImplementedException(); 
+    public final void visit(StrType s) {
+        throw new NotImplementedException();
     }
 
     @Override
-    public void visit(IntType i) {
+    public final void visit(IntType i) {
         throw new NotImplementedException();
     }
 

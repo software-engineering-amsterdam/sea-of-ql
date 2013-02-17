@@ -47,10 +47,10 @@ public class ValidationVisitor implements ElementVisitor {
 
     @Override
     public final void visit(IfStatement ifStatement) throws VisitorException {
-        ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
-        Expr condition = ifStatement.getCondition();
+        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
+        final Expr condition = ifStatement.getCondition();
         ((Evaluatable) condition).accept(f);
-        ReturnTypes r = f.getResult();
+        final ReturnTypes r = f.getResult();
         if (r.equals(ReturnTypes.BOOLEAN)) {
 
             this.visit(ifStatement.getCondition());
@@ -68,7 +68,7 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     private void visit(Expr operator) throws VisitorException {
-        AcceptFinder f = new AcceptFinder();
+        final AcceptFinder f = new AcceptFinder();
         ((Evaluatable) operator).accept(f);
         if (f.getResult().equals(ReturnTypes.BOOLEAN)) {
             if (!(bothhaveEqualReturnType(operator, ReturnTypes.BOOLEAN))) {
@@ -89,7 +89,7 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     private void throwError(Expr r, String msg) throws AstValidationError {
-        BinaryExpr b = (BinaryExpr) r;
+        final BinaryExpr b = (BinaryExpr) r;
         throw new AstValidationError("BOTH childs of " + r.getClass()
                 + " must return " + msg + " operands: "
                 + b.getLeft().getClass() + ", " + b.getRight().getClass());
@@ -105,7 +105,7 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     private ReturnTypes getReturnTypes(Expr e) throws VisitorException {
-        ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
+        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         this.visit(e);
         ((Evaluatable) e).accept(f);
         return f.getResult();

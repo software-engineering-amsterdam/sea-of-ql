@@ -3,16 +3,12 @@ package org.uva.sea.ql.interpretation.swing;
 import java.awt.BorderLayout;
 
 import javax.swing.AbstractButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
 
 public class QuestionPanel extends JPanel {
     private static final long serialVersionUID = -8537987318519877345L;
@@ -22,7 +18,7 @@ public class QuestionPanel extends JPanel {
     public QuestionPanel(Question q) {
         this.question = q;
         this.setLayout(new BorderLayout());
-        this.add(new JLabel(question.getContent().getValue()),
+        this.add(new JLabel(this.question.getContent().getValue()),
                 BorderLayout.LINE_START);
         createInputElement();
     }
@@ -40,8 +36,7 @@ public class QuestionPanel extends JPanel {
     }
 
     public final boolean getBoolValue() {
-        final AbstractButton abstractButton = (AbstractButton) this.input;
-        return abstractButton.getModel().isSelected();
+        return ((AbstractButton) this.input).getModel().isSelected();
     }
 
     public final String getStringValue() {
@@ -50,9 +45,9 @@ public class QuestionPanel extends JPanel {
     }
 
     private void createInputElement() {
-        InputTypeVisitor v = new InputTypeVisitor();
+        final InputTypeVisitor v = new InputTypeVisitor();
         this.question.getType().accept(v);
         this.input = v.getInput();
-        this.add(this.input, BorderLayout.LINE_END);        
+        this.add(this.input, BorderLayout.LINE_END);
     }
 }

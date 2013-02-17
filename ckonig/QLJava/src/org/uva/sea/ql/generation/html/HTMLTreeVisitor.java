@@ -20,42 +20,42 @@ public class HTMLTreeVisitor implements TreeVisitor {
     }
 
     @Override
-    public void visit(Ident i) {
-        ret.append(i.getName());
-        ret.append("()");
+    public final void visit(Ident i) {
+        this.ret.append(i.getName());
+        this.ret.append("()");
     }
 
     @Override
-    public void visit(BinaryExpr b) {
-        ret.append("(");
+    public final void visit(BinaryExpr b) {
+        this.ret.append("(");
         HTMLTreeVisitor v = new HTMLTreeVisitor();
         ((TreeNode) b.getLeft()).accept(v);
-        ret.append(v.getRet());
-        ret.append(b.toString());
+        this.ret.append(v.getRet());
+        this.ret.append(b.toString());
         v = new HTMLTreeVisitor();
         ((TreeNode) b.getRight()).accept(v);
-        ret.append(v.getRet());
-        ret.append(")");
+        this.ret.append(v.getRet());
+        this.ret.append(")");
     }
 
     @Override
-    public void visit(UnaryExpr u) {
-        ret.append("(");
-        ret.append(u.toString());
+    public final void visit(UnaryExpr u) {
+        this.ret.append("(");
+        this.ret.append(u.toString());
         HTMLTreeVisitor v = new HTMLTreeVisitor();
         ((TreeNode) u.getAdjacent()).accept(v);
-        ret.append(v.getRet());
-        ret.append(")");
+        this.ret.append(v.getRet());
+        this.ret.append(")");
     }
 
     @Override
-    public void visit(IntLiteral i) {
-        ret.append((i).getValue());
+    public final void visit(IntLiteral i) {
+        this.ret.append((i).getValue());
     }
 
     @Override
-    public void visit(StringLiteral s) {
-        ret.append((s).getValue());
+    public final void visit(StringLiteral s) {
+        this.ret.append((s).getValue());
 
     }
 

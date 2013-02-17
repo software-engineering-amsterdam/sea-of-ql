@@ -2,6 +2,7 @@ package org.uva.sea.ql.common;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
@@ -11,45 +12,49 @@ import org.uva.sea.ql.ast.literal.StringLiteral;
 
 public class IdentFinder implements TreeVisitor {
     private List<Ident> idents;
-    
-    public IdentFinder(){
+
+    public IdentFinder() {
         this.idents = new ArrayList<Ident>();
     }
 
-    public List<Ident> getIdents() {
-        return idents;
+    public final void reset() {
+        this.idents = new ArrayList<Ident>();
+    }
+
+    public final List<Ident> getIdents() {
+        return this.idents;
     }
 
     @Override
-    public void visit(Ident i) {
-        idents.add(i);
+    public final void visit(Ident i) {
+        this.idents.add(i);
     }
 
     @Override
-    public void visit(BinaryExpr b) {
-        IdentFinder i = new IdentFinder();
+    public final void visit(BinaryExpr b) {
+        final IdentFinder i = new IdentFinder();
         ((TreeNode) b.getLeft()).accept(i);
-        idents.addAll(i.getIdents());
-        i = new IdentFinder();
+        this.idents.addAll(i.getIdents());
+        i.reset();
         ((TreeNode) b.getRight()).accept(i);
-        idents.addAll(i.getIdents());
+        this.idents.addAll(i.getIdents());
     }
 
     @Override
-    public void visit(UnaryExpr u) {
-        IdentFinder i = new IdentFinder();
+    public final void visit(UnaryExpr u) {
+        final IdentFinder i = new IdentFinder();
         ((TreeNode) u.getAdjacent()).accept(i);
-        idents.addAll(i.getIdents());
+        this.idents.addAll(i.getIdents());
     }
 
     @Override
-    public void visit(IntLiteral i) {
-      
+    public final void visit(IntLiteral i) {
+
     }
 
     @Override
-    public void visit(StringLiteral s) {
-        
+    public final void visit(StringLiteral s) {
+
     }
 
 }

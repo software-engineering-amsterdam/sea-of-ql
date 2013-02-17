@@ -51,27 +51,27 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
     public final float eval(Expr e) throws VisitorException {
         ((Evaluatable) e).accept(this);
 
-        return ret;
+        return this.ret;
     }
 
     @Override
     public void visit(Add add) throws VisitorException {
-        ret = this.eval(add.getLeft()) + this.eval(add.getRight());
+        this.ret = this.eval(add.getLeft()) + this.eval(add.getRight());
     }
 
     @Override
     public void visit(Mul mul) throws VisitorException {
-        ret = this.eval(mul.getLeft()) * this.eval(mul.getRight());
+        this.ret = this.eval(mul.getLeft()) * this.eval(mul.getRight());
     }
 
     @Override
     public void visit(Div div) throws VisitorException {
-        ret = this.eval(div.getLeft()) / this.eval(div.getRight());
+        this.ret = this.eval(div.getLeft()) / this.eval(div.getRight());
     }
 
     @Override
     public void visit(Sub sub) throws VisitorException {
-        ret = this.eval(sub.getLeft()) - this.eval(sub.getRight());
+        this.ret = this.eval(sub.getLeft()) - this.eval(sub.getRight());
     }
 
     @Override
@@ -121,12 +121,12 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
 
     @Override
     public void visit(Pos pos) throws VisitorException {
-        ret = this.eval(pos.getAdjacent()) * (1);
+        this.ret = this.eval(pos.getAdjacent()) * (1);
     }
 
     @Override
     public void visit(Neg neg) throws VisitorException {
-        ret = this.eval(neg.getAdjacent()) * (-1);
+        this.ret = this.eval(neg.getAdjacent()) * (-1);
     }
 
     @Override

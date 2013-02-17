@@ -15,7 +15,7 @@ public class QuestionListener {
     }
 
     private void addListeners(QuestionPanel questionPanel) {
-        QuestionListenerTypeVisitor v = new QuestionListenerTypeVisitor(questionPanel, registry);
+        final QuestionListenerTypeVisitor v = new QuestionListenerTypeVisitor(questionPanel, registry);
         questionPanel.getQuestion().getType().accept(v);
     }
 

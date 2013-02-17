@@ -45,142 +45,145 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
         this.math = new MathEvaluationVisitor(reg);
     }
 
-    public boolean eval(Expr e) throws VisitorException {
+    public final boolean eval(Expr e) throws VisitorException {
         ((Evaluatable) e).accept(this);
-        return ret;
+        return this.ret;
     }
 
     @Override
-    public void visit(Add add) throws VisitorException {
+    public final void visit(Add add) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Mul mul) throws VisitorException {
+    public final void visit(Mul mul) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Div div) throws VisitorException {
+    public final void visit(Div div) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Sub sub) throws VisitorException {
+    public final void visit(Sub sub) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(And and) throws VisitorException {
-        ret = eval(and.getLeft()) && eval(and.getRight());
+    public final void visit(And and) throws VisitorException {
+        this.ret = this.eval(and.getLeft()) && this.eval(and.getRight());
     }
 
     @Override
-    public void visit(Or or) throws VisitorException {
-        ret = eval(or.getLeft()) || eval(or.getRight());
+    public final void visit(Or or) throws VisitorException {
+        this.ret = this.eval(or.getLeft()) || this.eval(or.getRight());
     }
 
     @Override
-    public void visit(Eq eq) throws VisitorException {
-        if (checkReturn(eq, registry.getQuestionsAst(), ReturnTypes.BOOLEAN)) {
-            ret = eval(eq.getLeft()) == eval(eq.getRight());
+    public final void visit(Eq eq) throws VisitorException {
+        if (checkReturn(eq, this.registry.getQuestionsAst(), ReturnTypes.BOOLEAN)) {
+            this.ret = this.eval(eq.getLeft()) == this.eval(eq.getRight());
         }
-        if (checkReturn(eq, registry.getQuestionsAst(), ReturnTypes.MATH)) {
-            ret = math.eval(eq.getLeft()) == math.eval(eq.getRight());
+        if (checkReturn(eq, this.registry.getQuestionsAst(), ReturnTypes.MATH)) {
+            this.ret = this.math.eval(eq.getLeft()) == this.math.eval(eq
+                    .getRight());
         }
     }
 
-    private boolean checkReturn(BinaryExpr ex, List<Question> questions,
+    private static boolean checkReturn(BinaryExpr ex, List<Question> questions,
             ReturnTypes type) throws VisitorException {
         return checkReturn(ex.getLeft(), questions, type)
                 && checkReturn(ex.getRight(), questions, type);
     }
 
-    private boolean checkReturn(Expr ex, List<Question> questions,
+    private static boolean checkReturn(Expr ex, List<Question> questions,
             ReturnTypes type) throws VisitorException {
-        ReturnFinder r = new ReturnFinder(questions);
+        final ReturnFinder r = new ReturnFinder(questions);
         ((Evaluatable) ex).accept(r);
         return r.getResult().equals(type);
     }
 
     @Override
-    public void visit(NEq neq) throws VisitorException {
-        if (checkReturn(neq, registry.getQuestionsAst(), ReturnTypes.BOOLEAN)) {
-            ret = eval(neq.getLeft()) != eval(neq.getRight());
+    public final void visit(NEq neq) throws VisitorException {
+        if (checkReturn(neq, this.registry.getQuestionsAst(), ReturnTypes.BOOLEAN)) {
+            this.ret = this.eval(neq.getLeft()) != this.eval(neq.getRight());
         }
-        if (checkReturn(neq, registry.getQuestionsAst(), ReturnTypes.MATH)) {
-            ret = math.eval(neq.getLeft()) != math.eval(neq.getRight());
+        if (checkReturn(neq, this.registry.getQuestionsAst(), ReturnTypes.MATH)) {
+            this.ret = this.math.eval(neq.getLeft()) != this.math.eval(neq
+                    .getRight());
         }
     }
 
     @Override
-    public void visit(GT gt) throws VisitorException {
-        ret = math.eval(gt.getLeft()) > math.eval(gt.getRight());
+    public final void visit(GT gt) throws VisitorException {
+        this.ret = this.math.eval(gt.getLeft()) > this.math.eval(gt.getRight());
     }
 
     @Override
-    public void visit(GEq geq) throws VisitorException {
-        ret = math.eval(geq.getLeft()) >= math.eval(geq.getRight());
+    public final void visit(GEq geq) throws VisitorException {
+        this.ret = this.math.eval(geq.getLeft()) >= this.math.eval(geq.getRight());
     }
 
     @Override
-    public void visit(LT lt) throws VisitorException {
-        ret = math.eval(lt.getLeft()) < math.eval(lt.getRight());
+    public final void visit(LT lt) throws VisitorException {
+        this.ret = this.math.eval(lt.getLeft()) < this.math.eval(lt.getRight());
     }
 
     @Override
-    public void visit(LEq leq) throws VisitorException {
-        ret = math.eval(leq.getLeft()) <= math.eval(leq.getRight());
+    public final void visit(LEq leq) throws VisitorException {
+        this.ret = this.math.eval(leq.getLeft()) <= this.math.eval(leq
+                .getRight());
     }
 
     @Override
-    public void visit(Not not) throws VisitorException {
-        ret = !eval(not.getAdjacent());
+    public final void visit(Not not) throws VisitorException {
+        this.ret = !this.eval(not.getAdjacent());
     }
 
     @Override
-    public void visit(Pos pos) throws VisitorException {
+    public final void visit(Pos pos) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Neg neg) throws VisitorException {
+    public final void visit(Neg neg) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Ident ident) throws VisitorException {
+    public final void visit(Ident ident) throws VisitorException {
         final QuestionPanel q = this.registry.getQuestionPanelByIdent(ident);
-        ReturnFinder f = new ReturnFinder(this.registry.getQuestionsAst());
+        final ReturnFinder f = new ReturnFinder(this.registry.getQuestionsAst());
         ident.accept(f);
-        ReturnTypes r = f.getResult();
+        final ReturnTypes r = f.getResult();
         if (r.equals(ReturnTypes.BOOLEAN)) {
-            ret = q.getBoolValue();
+            this.ret = q.getBoolValue();
         }
     }
 
     @Override
-    public void visit(IntLiteral i) throws VisitorException {
+    public final void visit(IntLiteral i) throws VisitorException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(BooleanType booleanType) {
+    public final void visit(BooleanType booleanType) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(IntType intType) {
+    public final void visit(IntType intType) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Money money) {
+    public final void visit(Money money) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(StrType strType) {
+    public final void visit(StrType strType) {
         throw new NotImplementedException();
     }
 

@@ -12,30 +12,33 @@ import org.uva.sea.ql.common.TypeVisitor;
 
 public class InputTypeVisitor implements TypeVisitor {
     private JComponent input;
-    public JComponent getInput(){
+    private static int length = 10;
+
+    public final JComponent getInput() {
         return input;
     }
+
     @Override
-    public void visit(BooleanType b) {
+    public final void visit(BooleanType b) {
         this.input = new JCheckBox();
     }
 
     @Override
-    public void visit(Money m) {
-        this.input = new JTextField(10);
+    public final void visit(Money m) {
+        this.input = new JTextField(length);
         if (m.getExpr() != null) {
             ((JTextField) this.input).setEditable(false);
         }
     }
 
     @Override
-    public void visit(StrType s) {
-        this.input = new JTextField(10);
+    public final void visit(StrType s) {
+        this.input = new JTextField(length);
     }
 
     @Override
-    public void visit(IntType i) {
-       this.input = new JTextField(10);
+    public final void visit(IntType i) {
+        this.input = new JTextField(length);
     }
 
 }

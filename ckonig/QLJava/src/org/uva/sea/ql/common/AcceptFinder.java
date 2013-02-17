@@ -24,118 +24,118 @@ import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 
 public class AcceptFinder implements EvaluationVisitor {
-    private ReturnTypes r;
-
-    public ReturnTypes getResult() {
-        return r;
-    }
+    private ReturnTypes result;
 
     public AcceptFinder() {
     }
 
-    @Override
-    public void visit(Add add) throws VisitorException {
-        r = (ReturnTypes.BOOLEAN);
+    public final ReturnTypes getResult() {
+        return this.result;
     }
 
     @Override
-    public void visit(Mul mul) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(Add add) throws VisitorException {
+        this.result = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Div div) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(Mul mul) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Sub sub) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(Div div) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(And and) throws VisitorException {
-        r = (ReturnTypes.BOOLEAN);
+    public final void visit(Sub sub) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Or or) throws VisitorException {
-        r = (ReturnTypes.BOOLEAN);
+    public final void visit(And and) throws VisitorException {
+        this.result = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Eq eq) throws VisitorException {
-        r = (ReturnTypes.BOTH);
+    public final void visit(Or or) throws VisitorException {
+        this.result = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(NEq neq) throws VisitorException {
-        r = (ReturnTypes.BOTH);
+    public final void visit(Eq eq) throws VisitorException {
+        this.result = ReturnTypes.BOTH;
     }
 
     @Override
-    public void visit(GT gt) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(NEq neq) throws VisitorException {
+        this.result = ReturnTypes.BOTH;
     }
 
     @Override
-    public void visit(GEq geq) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(GT gt) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(LT lt) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(GEq geq) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(LEq leq) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(LT lt) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Not not) throws VisitorException {
-        r = (ReturnTypes.BOOLEAN);
+    public final void visit(LEq leq) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Pos pos) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(Not not) throws VisitorException {
+        this.result = ReturnTypes.BOOLEAN;
     }
 
     @Override
-    public void visit(Neg neg) throws VisitorException {
-        r = (ReturnTypes.MATH);
+    public final void visit(Pos pos) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(Ident ident) throws VisitorException {
-        r = (ReturnTypes.NONE);
+    public final void visit(Neg neg) throws VisitorException {
+        this.result = ReturnTypes.MATH;
     }
 
     @Override
-    public void visit(IntLiteral i) throws VisitorException {
-        r = (ReturnTypes.NONE);
+    public final void visit(Ident ident) throws VisitorException {
+        this.result = ReturnTypes.NONE;
     }
 
     @Override
-    public void visit(BooleanType booleanType) {
-        r = (ReturnTypes.NONE);
+    public final void visit(IntLiteral i) throws VisitorException {
+        this.result = ReturnTypes.NONE;
     }
 
     @Override
-    public void visit(IntType intType) {
-        r = (ReturnTypes.NONE);
+    public final void visit(BooleanType booleanType) {
+        this.result = ReturnTypes.NONE;
     }
 
     @Override
-    public void visit(Money money) {
-        r = (ReturnTypes.NONE);
+    public final void visit(IntType intType) {
+        this.result = ReturnTypes.NONE;
     }
 
     @Override
-    public void visit(StrType strType) {
-        r = (ReturnTypes.NONE);
+    public final void visit(Money money) {
+        this.result = ReturnTypes.NONE;
+    }
+
+    @Override
+    public final void visit(StrType strType) {
+        this.result = ReturnTypes.NONE;
     }
 
 }

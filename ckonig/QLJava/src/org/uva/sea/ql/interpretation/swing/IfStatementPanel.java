@@ -25,8 +25,8 @@ public class IfStatementPanel extends JPanel {
     }
 
     public final void eval(SwingRegistry registry) throws VisitorException {
-        Expr e = this.ifStatement.getCondition();
-        ReturnFinder f = new ReturnFinder(registry.getQuestionsAst());
+        final Expr e = this.ifStatement.getCondition();
+        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst());
         ((Evaluatable) e).accept(f);
         if (f.getResult().equals(ReturnTypes.BOOLEAN)) {
             final boolean result = new BoolEvaluationVisitor(registry)

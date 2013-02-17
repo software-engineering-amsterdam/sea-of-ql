@@ -11,7 +11,7 @@ public class AutoValueSetter {
     }
 
     public final void createListeners() {
-        ListenerTypeVisitor v = new ListenerTypeVisitor(this.questionPanel, this.registry);
+        final ListenerTypeVisitor v = new ListenerTypeVisitor(this.questionPanel, this.registry);
         this.questionPanel.getQuestion().getType().accept(v);
     }
     
