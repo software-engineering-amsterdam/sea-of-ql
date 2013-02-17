@@ -15,7 +15,7 @@ public class ASTNodeChecker {
 		_parser = parser;
 	}
 	
-	public void inputMatchesFormAST(String input)     throws ParseError { assertEquals(getAstNodeFor(input), Form.class); }
+	public void inputMatchesFormAST(String input)     throws ParseError { match(input, Form.class); }
 	
 	public void match(String input, Class<?> astNode) throws ParseError { assertEquals(getAstNodeFor(input), astNode); }
 	
