@@ -67,7 +67,6 @@ public class Gui extends JFrame {
 			ANTLRFileStream charStream = new ANTLRFileStream(file.getAbsolutePath());
 			parseFile(charStream);
 		} catch (IOException e) {
-			
 			errors.addError("The following errors occured while READING the selected file: \n " + e.getMessage());
 		}
 	}
@@ -77,7 +76,6 @@ public class Gui extends JFrame {
 			ast = parser.parseForm(charStream.toString());
 			TypeCheckAst();
 		} catch (ParseError e) {
-			System.out.println(e.getMessage());
 			errors.addError("The following errors occured while PARSING the selected file: \n" + e.getMessage().toString());
 		}
 		

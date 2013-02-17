@@ -1,6 +1,6 @@
 form bigBox1HouseOwning {
 				   		hasSoldHouse1: "Did you sell a house in 2010?" int
-				   		hasSoldHouse2: "Did you by a house in 2010?" int
+				   		hasSoldHouse2: "Did you by a house in 2010?" money
 				   		hasSoldHouse3: "Did you enter a loan for maintenance/reconstruction?" boolean
 				   			if (hasSoldHouse1 > hasSoldHouse2){ 
 				   				hasSoldHouse4: "Price the house was sold for:" int(hasSoldHouse1 - hasSoldHouse2)
@@ -14,7 +14,7 @@ form bigBox1HouseOwning {
 											
 											
 				   		hasSoldHouse11: "Did you sell a house in 2010?" int 
-				   		hasSoldHouse12: "Did you by a house in 2010?" boolean 
+				   		hasSoldHouse12: "Did you by a house in 2010?" boolean(hasSoldHouse2 == hasSoldHouse11) 
 				   		hasSoldHouse13: "Did you enter a loan for maintenance/reconstruction?" boolean
 				   			if (hasSoldHouse12){ 
 				   				hasSoldHouse14: "Price the house was sold for:" int 
