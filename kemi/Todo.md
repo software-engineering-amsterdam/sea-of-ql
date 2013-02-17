@@ -24,6 +24,8 @@
 * QL Outliner: Does it suffice now?
   * I like it, but let's verify with Tijs
 * Forms are now automatically submitted when no more non-empty pages exist, is this correct? Alternative: show last page with submit button.
+  * I think it is correct. I like it as well, showing an empty page with a submit button is just weird.
+
 
 # BONUS:
 * HTML templating
