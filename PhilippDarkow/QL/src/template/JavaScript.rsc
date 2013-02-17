@@ -7,29 +7,19 @@ import template::CSS;
 import template::EvaluateExpression;
 import Prelude;
 
-public str javaScriptCreateForm(str id, list[Body] Body){
-	str f = "function createForm(){
-			<id>Div = document.createElement(\"div\");
-			<id>Div.setAttribute(\'name\',<id>Div);
-			<id>Div.setAttribute(\'id\',<id>Div);
-			<id>Div.setAttribute(\'class\',\'<id>Div\');
-			<id> = document.createElement(\"form\");
-			<id>.setAttribute(\'method\',\"post\");
-			<id>.setAttribute(\'action\',\"<id>.php\");
-			<id>.setAttribute(\'name\',<id>);
-			<id>.setAttribute(\'id\',<id>);
-			<for (s <- Body) { >						
-			<generateBody(id,s)>					
-			< } >
-			<createSubmitButton(id)>
-			<id>.appendChild(<id>Submit);
-			<id>Div.appendChild(<id>);
-			
-			document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);		
-		} ";
-		appendToJavaScriptFile(id, f);
-		createSubmitMethod(id);
-		return f;
+/** Method to create the javascript code to generate the form
+* @param id the name of the questionaire
+* @param Body the Body of the questionaire
+* @author Philipp
+*/
+public void javaScriptCreateForm(str id, list[Body] Body){
+	str f = "function createForm(){ <id>Div = document.createElement(\"div\"); <id>Div.setAttribute(\'name\',\'<id>Div\'); <id>Div.setAttribute(\'id\',<id>Div);
+	 <id>Div.setAttribute(\'class\',\'<id>Div\'); <id> = document.createElement(\"form\"); <id>.setAttribute(\'method\',\"post\");
+	 <id>.setAttribute(\'action\',\"<id>.php\"); <id>.setAttribute(\'name\',\'<id>\'); <id>.setAttribute(\'id\',<id>);
+	 <for (s <- Body) { > <generateBody(id,s)> < } > <createSubmitButton(id)>
+	 <id>.appendChild(<id>Submit); <id>Div.appendChild(<id>); document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);	} ";
+	appendToJavaScriptFile(id, f);
+	createSubmitMethod(id);
 }
 
 /** Method to create the Submit button of the form in javascript
@@ -50,22 +40,21 @@ void createSubmitMethod(str id){
 	appendToJavaScriptFile(id, result);
 }
 
-
+/** Method to create the code for the 
+* @param formId the name of the questionaire
+* @param checkBoxId the name of the question
+* @param tp the type of the question
+* @author Philipp
+*/
 public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
 	str function = "";
 	if(tp == boolean()){
-	function = "function <checkBoxId> {
-		if(cb.checked == true)
-	{ cb.parentNode.children[2].innerHTML = \"No\"; }
-	if(cb.checked == false)
-	{ cb.parentNode.children[2].innerHTML = \"Yes\"; }
-	}"; 
+		function = "function <checkBoxId> {
+		if(cb.checked == true) { cb.parentNode.children[2].innerHTML = \"No\"; }
+	    if(cb.checked == false) { cb.parentNode.children[2].innerHTML = \"Yes\"; } }"; 
 	}else{
-	function = "function <checkBoxId> {
-	{ console.log(cb); }
-	if(isNaN(cb.value))
-	{ alert(\"is not number\"); }
-	}"; 
+		function = "function <checkBoxId> {
+		if(isNaN(cb.value)) { alert(\"is not number\"); } }"; 
 	}
 	appendToJavaScriptFile(formId, "\n <function>");
 }
@@ -73,8 +62,9 @@ public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
 /** Method to create an if statement function if the condition is a boolean in JavaScript
 * @param formId the name of the questionaire
 * @param checkboxId the name of the  
-* @param thenPart
-* @param children
+* @param thenPart the then part of the the if statement
+* @param children the ids of the questions in the then part
+* @author Philipp
 */
 public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, list[str] children){
 	str ifTruePart = "";
@@ -83,9 +73,7 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	if(cb.checked)
 	{ <formId>.removeChild(<formId>Submit); <ifTruePart> <formId>.appendChild(<formId>Submit);
 	}else {
-		<for(c <- children){>
-		<formId>.removeChild(<c>Paragraph);
-		<}>
+		<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
 	} }";
 	appendToJavaScriptFile(formId, "\n <check>");
 }
@@ -99,21 +87,22 @@ public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 	list[value] expressionIds = [];
 	top-down visit(exp){
 		case Expression e : {
-			if(getName(e) == "id"){
-				expressionIds += getChildren(e);
-			}
+			if(getName(e) == "id") expressionIds += getChildren(e);
 		}
 	}
 	str ev = evaluateExp(exp, money());
-	for(j <- expressionIds){
-		addOnChangeForComputedFunction(formId, toString(j) , id);
-	}
+	for(j <- expressionIds) addOnChangeForComputedFunction(formId, toString(j) , id);
 	str result = "function <id>Calculation(cb) { cb.value = <ev>; }";	
 	appendToJavaScriptFile(formId, "\n <result>");	
 }
 
-
-void addOnChangeForComputedFunction(str formId, str id, str methodName ){
+/** Method to create javascript code for a computed question 
+* @param formId the name of the questionaire
+* @param id the name of the question
+* @param methodName the name of the question to call
+* @author Philipp
+*/
+void addOnChangeForComputedFunction(str formId, str id, str methodName){
 	str result = "function <id>CheckNumeric(cb) {
 	<methodName>Calculation(<methodName>);
 	if(isNaN(cb.value)) { alert(\"is not number\"); } } ";

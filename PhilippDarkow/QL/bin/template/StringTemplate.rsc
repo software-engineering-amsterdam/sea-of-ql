@@ -133,6 +133,12 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	
 }
 
+/** Method to generate a computed question in JavaScript
+* @param formId the name of the questionare
+* @param question the computed question
+* @return str a string with a javascript code snipped
+* @author Philipp
+*/
 str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");
@@ -150,6 +156,8 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 	}	
 }
 
+/**
+*/
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
 	str evaluate = evaluateExp(exp, money());	
 	str checkBoxId = toString(getChildren(exp)[0]);
@@ -175,6 +183,11 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 	}
 }
 
+/** Method to get the names of childrens from an expression
+* @param exp the Expression
+* @return list[str] a list with names
+* @author Philipp
+*/
 list[str] getChildrenIds(Expression exp){
 	list[str] childrensIds = [];
 	top-down visit(exp){
@@ -185,6 +198,12 @@ list[str] getChildrenIds(Expression exp){
 	return childrensIds;
 }
 
+/** Method to generate the QL program in javascript
+* @param id the name of the questionaire
+* @param body the body of the ql
+* @return str a code snipped with javascript code
+* @author Philipp
+*/
 public str generateBody(str id, Body body){
 	if(getName(body) == "statement"){
 		visit(body){
@@ -201,7 +220,7 @@ public str generateBody(str id, Body body){
 	}
 }
 
-public str generateQLForm(Program P){
+public void generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
 		createQLOnHarddisk(id);
@@ -212,7 +231,6 @@ public str generateQLForm(Program P){
 		\<script src=\"<id>.js\"\> \</script\>
 		\<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js\"\>\</script\>
 		\<script src=\"http://malsup.github.com/jquery.form.js\"\>\</script\> 
-		\<script src=\"gen_validatorv4.js\" type=\"text/javascript\"\> \</script\>
 		\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
 		\</head\>
 		\<body\>
@@ -221,15 +239,14 @@ public str generateQLForm(Program P){
 		\</script\>
 		\</body\>
 		\</html\>";	
-		str functions = javaScriptCreateForm(id, Body);
+		javaScriptCreateForm(id, Body);
 		appendToHTMLFile(id, result);
 		cssDiv(id);
 		insertValueInDatabase(id,Body);
 		appendToPHPFile(id, " mysql_close($conn); ?\>");   //close tag
-		return result;
 	}else{
 		return "not possible to generate java script code";
 	}
 }
 
-public str generateQLForm(str txt) = generateQLForm(load(txt));
+public void generateQLForm(str txt) = generateQLForm(load(txt));

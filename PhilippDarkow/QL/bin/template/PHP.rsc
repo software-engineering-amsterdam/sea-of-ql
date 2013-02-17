@@ -3,6 +3,11 @@ module template::PHP
 import IO;
 import syntax::AbstractSyntax;
 
+/** Method to create a code snippet in PHP to create a variable and get the value of the form
+* @param formId the name of the questionaire
+* @varName the name of the question
+* @author Philipp
+*/
 public void createPostValuePHP(str formId, str varName){
 	str result = "$<varName> = $_POST[\'<varName>\'];
 	if(isset($<varName>)){	
@@ -11,11 +16,19 @@ public void createPostValuePHP(str formId, str varName){
 	appendToPHPFile(formId, result);
 }
 
+/** Method to generate the database and the table
+* @param formId the name of the questionaire
+* @author Philipp
+*/
 public void generateDatabaseCode(str formId){
 	createDataBaseCode(formId);
 	createTableCode(formId);
 }
 
+/** Method to generate the PHP code to create the database
+* @param formId the name of the questionaire
+* @author Philipp
+*/
 void createDataBaseCode(str formId){
 	str result = "$dbhost = \'localhost\'; $dbuser = \'root\'; $dbpass = \'\'; $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 		if(! $conn ) { die(\'Could not connect: \' . mysql_error()); }
@@ -26,6 +39,10 @@ void createDataBaseCode(str formId){
 	appendToPHPFile(formId, result);
 }
 
+/** Method to generate the PHP code to create the database table
+* @param formId the name of the questionaire
+* @author Philipp
+*/
 void createTableCode(str formId){
 	str result = "$sqlTable = \'CREATE TABLE <formId>( \'.
        \'emp_id INT NOT NULL AUTO_INCREMENT, \'.
@@ -37,25 +54,32 @@ void createTableCode(str formId){
 	appendToPHPFile(formId, result);
 }
 
+/** Method generate PHP code to create a colum in a database table
+* @param formId the name of the questionaire
+* @param id the name of the question
+* @param tp the type of the question
+* @author Philipp
+*/
 public void createColumnInTable(str formId, str id, Type tp){
 	str result = "";
 	if(tp == money()){
-		println("in create column");
 		result = "$insert<id> = \'ALTER TABLE <formId> ADD <id> REAL\';
-		$retval = mysql_query( $insert<id>, $conn ); ";
+		mysql_query( $insert<id>, $conn ); ";
 	}else if(tp == integer()){
-		println("in create column");
 		result = "$insert<id> = \'ALTER TABLE <formId> ADD <id> INT\';
-		$retval = mysql_query( $insert<id>, $conn ); ";
+		mysql_query( $insert<id>, $conn ); ";
 	}else if(tp == boolean()){
-		println("in create column");
 		result = "$insert<id> = \'ALTER TABLE <formId> ADD <id> BOOL\';
-		$retval = mysql_query( $insert<id>, $conn ); ";
+		mysql_query( $insert<id>, $conn ); ";
 	}
-	println("append to php now");
 	appendToPHPFile(formId, result);
 }
 
+/** Method to generate PHP to insert the form values in the database table
+* @param formId the name of the questionaire
+* @param body
+* @author Philipp
+*/
 public void insertValueInDatabase(str formId,  list[Body] body){   //  list[str] ids, i need to get the id of all questions
 	println("BBBB : <body>");
 	for(s <- body){
@@ -73,8 +97,12 @@ public void insertValueInDatabase(str formId,  list[Body] body){   //  list[str]
 	//appendToPHP(formId,result);
 }
 
+/** Method to append PHP code to a PHP file
+* @param formId the name of the JavaScript file
+* @param text the PHP code to append
+* @author Philipp
+*/
 public void appendToPHPFile(str formId, str text){
-	l = |file:///wamp/www/<formId>|;
-	l += "<formId>.php";
+	l = |file:///wamp/www/<formId>/<formId>.php|;
 	appendToFile(l, "\n <text>");
 }

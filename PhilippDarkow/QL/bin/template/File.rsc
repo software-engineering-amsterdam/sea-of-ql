@@ -18,7 +18,6 @@ public void createQLOnHarddisk(str id){
 	createEmptyJavaScriptFile(id, dir);
 	createEmptyCSSFile(id, dir);
 	createEmptyPHPFile(id, dir);
-	createValidatorFile(dir);
 }
 
 /** Method to generate a directory for the JavaScript Program
@@ -67,13 +66,6 @@ public void generateCSSFile(str formId, str id){
 	s = cssEndLabels(id);
 	generateCSSFile(formId,s,dir);
 }
-
-void createValidatorFile(loc l){
-	l += "gen_validatorv4.js";
-	str v = readFile(|project://QL/src/template/Validator|);
-	writeFile(l, v);
-}
-
 
 public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, str exp,list[str] children){
 	str ifTrue = "";
