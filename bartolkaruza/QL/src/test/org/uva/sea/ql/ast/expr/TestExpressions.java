@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.GT;
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.error.ParseError;
 import org.uva.sea.ql.parser.IParse;
@@ -39,6 +39,17 @@ public class TestExpressions {
 		assertEquals(parser.parseExpression("(a * b)").getClass(), Mul.class);
 		assertEquals(parser.parseExpression("(a + b) * c").getClass(), Mul.class);
 		assertEquals(parser.parseExpression("a * (b + c)").getClass(), Mul.class);
+	}
+	
+	@Test
+	public void testDivs() throws ParseError {
+		assertEquals(Div.class, parser.parseExpression("a / b").getClass());
+		assertEquals(Div.class, parser.parseExpression("a / b / c").getClass());
+		assertEquals(Div.class, parser.parseExpression("a / (b / c)").getClass());
+		assertEquals(Div.class, parser.parseExpression("(a / b) / c").getClass());
+		assertEquals(Div.class, parser.parseExpression("(a / b)").getClass());
+		assertEquals(Div.class, parser.parseExpression("(a + b) / c").getClass());
+		assertEquals(Div.class, parser.parseExpression("a / (b + c)").getClass());
 	}
 
 	@Test

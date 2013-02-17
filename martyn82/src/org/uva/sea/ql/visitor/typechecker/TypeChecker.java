@@ -1,17 +1,29 @@
 package org.uva.sea.ql.visitor.typechecker;
 
-import org.uva.sea.ql.eval.Environment;
+import java.util.List;
 
-/**
- * Represents a TypeChecker.
- */
-public class TypeChecker extends StatementChecker {
-	/**
-	 * Constructs a new TypeChecker instance.
-	 *
-	 * @param environment
-	 */
-	public TypeChecker( Environment environment ) {
-		super( environment, new ExpressionChecker( environment ) );
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.visitor.evaluator.Environment;
+import org.uva.sea.ql.visitor.evaluator.Error;
+
+public class TypeChecker {
+	private final Environment environment;
+	private final StatementTypeChecker typeChecker;
+
+	public TypeChecker() {
+		this.environment = new Environment();
+		this.typeChecker = new StatementTypeChecker( this.environment );
+	}
+
+	public boolean check( Statement statement ) {
+		return statement.accept( this.typeChecker );
+	}
+
+	public boolean hasErrors() {
+		return this.environment.getErrors().size() > 0;
+	}
+
+	public List<Error> getErrors() {
+		return this.environment.getErrors();
 	}
 }

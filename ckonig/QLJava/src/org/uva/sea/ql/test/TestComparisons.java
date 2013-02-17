@@ -15,125 +15,133 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.common.BoolTestHelper;
 
 public class TestComparisons extends TestExpressions {
+    private BoolTestHelper left;
+    private BoolTestHelper right;
 
-	@Test
-	public void testLTWithAdd() throws ParseError {
-		new BoolTestHelper(LT.class).testRels(new BoolTestHelper(Add.class));
-	}
+    public TestComparisons() {
+        super();
+        this.left = new BoolTestHelper(parser);
+        this.right = new BoolTestHelper(parser);
+    }
 
-	@Test
-	public void testLTWithSub() throws ParseError {
-		new BoolTestHelper(LT.class).testRels(new BoolTestHelper(Sub.class));
-	}
+    @Test
+    public final void testLTWithAdd() throws ParseError {
+        this.left.setClass(LT.class).testRels(this.right.setClass(Add.class));
+    }
 
-	@Test
-	public void testLTWithMul() throws ParseError {
-		new BoolTestHelper(LT.class).testRels(new BoolTestHelper(Mul.class));
-	}
+    @Test
+    public final void testLTWithSub() throws ParseError {
+        this.left.setClass(LT.class).testRels(this.right.setClass(Sub.class));
+    }
 
-	@Test
-	public void testLTWithDiv() throws ParseError {
-		new BoolTestHelper(LT.class).testRels(new BoolTestHelper(Div.class));
-	}
+    @Test
+    public final void testLTWithMul() throws ParseError {
+        this.left.setClass(LT.class).testRels(this.right.setClass(Mul.class));
+    }
 
-	@Test
-	public void testLEqWithAdd() throws ParseError {
-		new BoolTestHelper(LEq.class).testRels(new BoolTestHelper(Add.class));
-	}
+    @Test
+    public final void testLTWithDiv() throws ParseError {
+        this.left.setClass(LT.class).testRels(this.right.setClass(Div.class));
+    }
 
-	@Test
-	public void testLEqWithSub() throws ParseError {
-		new BoolTestHelper(LEq.class).testRels(new BoolTestHelper(Sub.class));
-	}
+    @Test
+    public final void testLEqWithAdd() throws ParseError {
+        this.left.setClass(LEq.class).testRels(this.right.setClass(Add.class));
+    }
 
-	@Test
-	public void testLEqWithMul() throws ParseError {
-		new BoolTestHelper(LEq.class).testRels(new BoolTestHelper(Mul.class));
-	}
+    @Test
+    public final void testLEqWithSub() throws ParseError {
+        this.left.setClass(LEq.class).testRels(this.right.setClass(Sub.class));
+    }
 
-	@Test
-	public void testLEqWithDiv() throws ParseError {
-		new BoolTestHelper(LEq.class).testRels(new BoolTestHelper(Div.class));
-	}
+    @Test
+    public final void testLEqWithMul() throws ParseError {
+        this.left.setClass(LEq.class).testRels(this.right.setClass(Mul.class));
+    }
 
-	@Test
-	public void testGTWithAdd() throws ParseError {
-		new BoolTestHelper(GT.class).testRels(new BoolTestHelper(Add.class));
-	}
+    @Test
+    public final void testLEqWithDiv() throws ParseError {
+        this.left.setClass(LEq.class).testRels(this.right.setClass(Div.class));
+    }
 
-	@Test
-	public void testGTWithSub() throws ParseError {
-		new BoolTestHelper(GT.class).testRels(new BoolTestHelper(Sub.class));
-	}
+    @Test
+    public final void testGTWithAdd() throws ParseError {
+        this.left.setClass(GT.class).testRels(this.right.setClass(Add.class));
+    }
 
-	@Test
-	public void testGTWithMul() throws ParseError {
-		new BoolTestHelper(GT.class).testRels(new BoolTestHelper(Mul.class));
-	}
+    @Test
+    public final void testGTWithSub() throws ParseError {
+        this.left.setClass(GT.class).testRels(this.right.setClass(Sub.class));
+    }
 
-	@Test
-	public void testGTWithDiv() throws ParseError {
-		new BoolTestHelper(GT.class).testRels(new BoolTestHelper(Div.class));
-	}
+    @Test
+    public final void testGTWithMul() throws ParseError {
+        this.left.setClass(GT.class).testRels(this.right.setClass(Mul.class));
+    }
 
-	@Test
-	public void testGEqWithAdd() throws ParseError {
-		new BoolTestHelper(GEq.class).testRels(new BoolTestHelper(Add.class));
-	}
+    @Test
+    public final void testGTWithDiv() throws ParseError {
+        this.left.setClass(GT.class).testRels(this.right.setClass(Div.class));
+    }
 
-	@Test
-	public void testGEqWithSub() throws ParseError {
-		new BoolTestHelper(GEq.class).testRels(new BoolTestHelper(Sub.class));
-	}
+    @Test
+    public final void testGEqWithAdd() throws ParseError {
+        this.left.setClass(GEq.class).testRels(this.right.setClass(Add.class));
+    }
 
-	@Test
-	public void testGEqWithMul() throws ParseError {
-		new BoolTestHelper(GEq.class).testRels(new BoolTestHelper(Mul.class));
-	}
+    @Test
+    public final void testGEqWithSub() throws ParseError {
+        this.left.setClass(GEq.class).testRels(this.right.setClass(Sub.class));
+    }
 
-	@Test
-	public void testGEqWithDiv() throws ParseError {
-		new BoolTestHelper(GEq.class).testRels(new BoolTestHelper(Div.class));
-	}
+    @Test
+    public final void testGEqWithMul() throws ParseError {
+        this.left.setClass(GEq.class).testRels(this.right.setClass(Mul.class));
+    }
 
-	@Test
-	public void testEqWithAdd() throws ParseError {
-		new BoolTestHelper(Eq.class).testRels(new BoolTestHelper(Add.class));
-	}
+    @Test
+    public final void testGEqWithDiv() throws ParseError {
+        this.left.setClass(GEq.class).testRels(this.right.setClass(Div.class));
+    }
 
-	@Test
-	public void testEqWithSub() throws ParseError {
-		new BoolTestHelper(Eq.class).testRels(new BoolTestHelper(Sub.class));
-	}
+    @Test
+    public final void testEqWithAdd() throws ParseError {
+        this.left.setClass(Eq.class).testRels(this.right.setClass(Add.class));
+    }
 
-	@Test
-	public void testEqWithMul() throws ParseError {
-		new BoolTestHelper(Eq.class).testRels(new BoolTestHelper(Mul.class));
-	}
+    @Test
+    public final void testEqWithSub() throws ParseError {
+        this.left.setClass(Eq.class).testRels(this.right.setClass(Sub.class));
+    }
 
-	@Test
-	public void testEqWithDiv() throws ParseError {
-		new BoolTestHelper(Eq.class).testRels(new BoolTestHelper(Div.class));
-	}
+    @Test
+    public final void testEqWithMul() throws ParseError {
+        this.left.setClass(Eq.class).testRels(this.right.setClass(Mul.class));
+    }
 
-	@Test
-	public void testNEqWithAdd() throws ParseError {
-		new BoolTestHelper(NEq.class).testRels(new BoolTestHelper(Add.class));
-	}
+    @Test
+    public final void testEqWithDiv() throws ParseError {
+        this.left.setClass(Eq.class).testRels(this.right.setClass(Div.class));
+    }
 
-	@Test
-	public void testNEqWithSub() throws ParseError {
-		new BoolTestHelper(NEq.class).testRels(new BoolTestHelper(Sub.class));
-	}
+    @Test
+    public final void testNEqWithAdd() throws ParseError {
+        this.left.setClass(NEq.class).testRels(this.right.setClass(Add.class));
+    }
 
-	@Test
-	public void testNEqWithMul() throws ParseError {
-		new BoolTestHelper(NEq.class).testRels(new BoolTestHelper(Mul.class));
-	}
+    @Test
+    public final void testNEqWithSub() throws ParseError {
+        this.left.setClass(NEq.class).testRels(this.right.setClass(Sub.class));
+    }
 
-	@Test
-	public void testNEqWithDiv() throws ParseError {
-		new BoolTestHelper(NEq.class).testRels(new BoolTestHelper(Div.class));
-	}
+    @Test
+    public final void testNEqWithMul() throws ParseError {
+        this.left.setClass(NEq.class).testRels(this.right.setClass(Mul.class));
+    }
+
+    @Test
+    public final void testNEqWithDiv() throws ParseError {
+        this.left.setClass(NEq.class).testRels(this.right.setClass(Div.class));
+    }
 
 }

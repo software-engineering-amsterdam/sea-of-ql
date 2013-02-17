@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Constrs
-Bundle-SymbolicName: Constrs
+Bundle-Name: SofConstr
+Bundle-SymbolicName: SofConstr
 Bundle-Version: 1.0.0
 Require-Bundle: org.eclipse.imp.pdb.values,
  rascal

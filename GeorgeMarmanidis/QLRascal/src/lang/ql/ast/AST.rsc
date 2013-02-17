@@ -4,7 +4,7 @@ module lang::ql::ast::AST
 import List;
 
 data Form
-	= form(str ident,list[FormBodyItem] formItem)
+	= form(str ident,list[FormBodyItem] formItems)
 	;
 	
 data FormBodyItem
@@ -13,12 +13,12 @@ data FormBodyItem
 	;
 	
 data ConditionalStatement
-	= ifCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[FormBodyItem] elseQuestion)
-	| simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion)
-	| ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestion,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestion)
+	= ifCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[FormBodyItem] elseQuestions)
+	| simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions)
+	| ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestions)
 	;
 	
-data ElseIf = elseif(Expr ifExpression,list[FormBodyItem] elseQuestion);
+data ElseIf = elseif(Expr ifExpression,list[FormBodyItem] elseQuestions);
 
 data Question
 	= simpleQuestion(str questionId,str questionLabel,Type questionType)
@@ -69,3 +69,7 @@ anno loc Type@location;
 anno loc Form@location;
 anno loc ConditionalStatement@location;
 anno loc ElseIf@location;
+
+anno str ConditionalStatement@ref;
+anno str ElseIf@ref;
+anno str FormBodyItem@ref;

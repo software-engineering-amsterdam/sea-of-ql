@@ -37,7 +37,7 @@ layout Standard
 
 // START SYNTAX 
 start syntax Program 
-   = program: "form" Expression questionnaireName "{" Body* body "}" ; 
+   = program: "form" Id questionnaireName "{" Body* body "}" ; 
 
 // start syntax Body
 start syntax Body =
@@ -67,7 +67,7 @@ start syntax Type
    = integer : "integer" 
    | string :"string"
    | boolean :"boolean"
-   | money :"money"  
+   | money :"money"   
    ;
    
 // start syntax Expression  
@@ -98,7 +98,7 @@ start syntax Expression
    > left or: Expression "||" Expression
     | boolCon: Boolean bVal
     | moneyCon: Money mVal
-    | string: String
+    | strCon: String sVal
    ;
    
 // METHODS

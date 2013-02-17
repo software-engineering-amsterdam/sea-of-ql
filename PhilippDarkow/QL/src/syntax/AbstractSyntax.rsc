@@ -4,7 +4,7 @@ public data Type = string() | integer() | boolean() | money() | money(Expression
 
 // Data of a QL Program	
 public data Program =
-	program(Expression exp, list[Body] body);
+	program(str questionnaireName, list[Body] body);
 	
 // Data of a Body Rule
 public data Body =
@@ -15,7 +15,7 @@ public data Body =
 // Data of a Question   
 public data Question = 
 	   easyQuestion(str id, str labelQuestion, Type tp)
-	 | computedQuestion(str id, str labelQuestion, Type tp, Expression exp) 
+	 | computedQuestion(str id, str labelQuestion, Type tp,Expression exp )  //
 	 ;
 
 // Data of a Expression Rule   
@@ -34,9 +34,10 @@ public data Expression =
 	| geq (Expression left, Expression right)
 	| eq (Expression left, Expression right)
 	| neq (Expression left, Expression right)
+	| not (bool exp)
 	| boolCon (bool bVal)
 	| moneyCon (str mVal)
-	| string (str sVal)
+	| strCon (str sVal)
 	;
 
 // Data of a Statements Rule 	
@@ -52,6 +53,6 @@ anno loc Expression@location;
 anno loc Statement@location;
 anno loc Question@location;
 
-public alias Occurrence = tuple[loc location, str name, Statement stat]; 
+public alias Occurrence = tuple[loc location, str name, Question questions]; 
    
 

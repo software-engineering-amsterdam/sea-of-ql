@@ -12,7 +12,7 @@ public class Bool extends AbstractAtom {
 		this.value = value;
 	}
 
-	public Boolean getValue() {
+	public boolean getValue() {
 		return this.value;
 	}
 

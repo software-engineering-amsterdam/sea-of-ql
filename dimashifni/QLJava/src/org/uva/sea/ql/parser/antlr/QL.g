@@ -17,13 +17,41 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form
-: 'form' Ident '{'  
-  (assignment | statement)*  
-  '}'
+: 'form' Ident '{' block '}'
 ;
 
+block
+: statement*
+;
+
+statement
+: ifStatement | assignment
+;
+
+assignment
+: variable ':' StringLiteral type
+;
+
+
+ifStatement
+: ifStat elseIfStat* elseStat?
+;
+
+ifStat
+: 'if' orExpression '{' block '}'
+;
+
+elseIfStat
+: 'else' ifStat
+;
+
+elseStat
+: 'else' '{' block '}'
+;
+
+
 variable
-: Ident 
+: Ident
 ;
 
 type
@@ -37,21 +65,6 @@ term
 | Int
 | StringLiteral
 | Bool
-;
-
-assignment
-: variable ':' StringLiteral type
-;
-
-statement
-: ifStatement
-;
-
-ifStatement
-: 'if' '(' primary ')'
-  '{'
-    assignment+
-  '}'
 ;
 
 primary returns [Expr result]
@@ -93,7 +106,7 @@ addExpression returns [Expr result]
   {
   	$result = new Sub($result, rhs);      
   }
-})
+})*
 ;
   
 relExpression returns [Expr result]

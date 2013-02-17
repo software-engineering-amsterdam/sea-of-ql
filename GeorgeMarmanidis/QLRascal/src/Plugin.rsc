@@ -4,8 +4,8 @@ module Plugin
 import util::IDE;
 import lang::ql::util::Parse;
 import lang::ql::util::Implode;
-import lang::ql::ast::SemanticCheck::SemanticCheck;
-import lang::ql::IDE::Outline;
+import lang::ql::ast::semanticcheck::SemanticCheck;
+import lang::ql::ide::Outline;
 import lang::ql::ast::AST;
 import ParseTree;
 

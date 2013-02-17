@@ -1,20 +1,23 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.AcceptsMathOperands;
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
-public class GT extends BinaryExpr implements AcceptsMathOperands,
-		ReturnsBoolOperands {
-	public static final String str = ">";
+public class GT extends BinaryBooleanOperator {
+    private static final String STR = ">";
 
-	public GT(Expr left, Expr right) {
-		super(left, right);
-	}
+    public GT(Expr left, Expr right) {
+        super(left, right);
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
+
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
 }

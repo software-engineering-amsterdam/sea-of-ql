@@ -1,29 +1,28 @@
 package org.uva.sea.ql.ast.elements;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.ASTElement;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.interfaces.ASTElement;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
-public class Form extends Expr implements ASTElement {
+public class Form implements ASTElement {
 	private Block content;
 	private String name;
 
-	public Form(String name, Block in) {
-		this.name = name;
-		this.content = in;
+	public Form(String title, Block block) {
+		this.name = title;
+		this.content = block;
 	}
 
-	public String getName() {
-		return name;
+	public final String getName() {
+		return this.name;
 	}
 
-	public Block getBlock() {
-		return content;
+	public final Block getBlock() {
+		return this.content;
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException{
+	public final void accept(ElementVisitor visitor) throws QLException{
 		visitor.visit(this);
 	}
 

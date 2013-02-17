@@ -1,8 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.visitor.Visitable;
 
-public interface ASTNode {
-	 VisitorResult accept(Visitor astNodeVisitor) ;
+public interface ASTNode extends Visitable {
 }

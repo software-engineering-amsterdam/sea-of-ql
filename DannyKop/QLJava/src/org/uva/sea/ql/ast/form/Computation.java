@@ -1,31 +1,38 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.*;
-
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.literals.StrLiteral;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.Visitor;
+/**
+ * Class: Computation
+ * @author Danny
+ *
+ */
 public class Computation extends FormElement {
 
 	private final Ident identifier;
-	private final String description;
-	private final Expr expr;
-	private final String type;
+	private final StrLiteral description;
+	private final Expr argument;
+
 	/**
 	 * Constructor
 	 * @param id - identifier
 	 * @param d  - description
-	 * @param e  - expr
-	 * @param t  - type 
+	 * @param e  - argument
 	 */
-	public Computation(Ident id, String d, Expr e, String t) {
+	public Computation(Ident id, StrLiteral d, Expr arg, Type type) {
+		super(type);
 		this.identifier = id;
 		this.description = d;
-		this.expr = e;
-		this.type = t;
+		this.argument = arg;
 	}
 	/**
-	 * getIdent()
+	 * getIdentifier
 	 * @return identifier
 	 */
-	public Ident getIdent(){
+	public Ident getIdentifier(){
 		return this.identifier;
 	}
 	/**
@@ -33,21 +40,22 @@ public class Computation extends FormElement {
 	 * @return question
 	 */
 	public String getDescription(){
-		return this.description;
-	}
-	/**
-	 * getType()
-	 * @return type
-	 */
-	public String getType(){
-		return this.type;
+		return this.description.getValue();
 	}
 	/**
 	 * getExpr
 	 * @return expr
 	 */
-	public Expr getExpr(){
-		return this.expr;
+	public Expr getArgument(){
+		return this.argument;
 	}
-	
+	/**
+	 * accept()
+	 * @param visitor
+	 * @return type
+	 */
+	@Override
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
+	}
 }

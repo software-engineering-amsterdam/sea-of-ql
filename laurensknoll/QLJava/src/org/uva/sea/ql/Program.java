@@ -5,14 +5,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
+
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
+import org.uva.sea.ql.visitor.IForm;
 
 public class Program {
+	private final static int FormLocation = 0;
 
 	public static void main(String[] args) {
-		String formText = Program.readResourceContent("questionForm.txt");
+		if (args.length != 1) {
+			throw new IllegalArgumentException("Example use: Program form.ql");
+		}
+
+		String formText = Program
+				.readResourceContent(args[Program.FormLocation]);
 
 		Question questionForm = null;
 
@@ -25,6 +35,7 @@ public class Program {
 			return;
 		}
 
+		// TODO: Use interface name.
 		org.uva.sea.ql.visitor.semantic.Form semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
 		Boolean isFormValid = questionForm.accept(semanticFormVistor);
 		if (!isFormValid) {
@@ -33,9 +44,12 @@ public class Program {
 				System.out.println(error);
 			}
 		} else {
-			org.uva.sea.ql.visitor.print.Form printFormVisitor = new org.uva.sea.ql.visitor.print.Form();
-			String prettyForm = questionForm.accept(printFormVisitor);
-			System.out.print(prettyForm);
+			IForm<JFrame> swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
+			JFrame frame = questionForm.accept(swingVisitor);
+
+			// Show created form and define closebehaviour.
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}
 	}
 

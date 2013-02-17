@@ -9,76 +9,82 @@ import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.test.common.MathTestHelper;
 
 public class TestMath extends TestExpressions {
-	@Test
-	public void testMulsWithAdd() throws ParseError {
-		new MathTestHelper(Mul.class).testMathOperations(new MathTestHelper(
-				Add.class));
-	}
+    private MathTestHelper mathTestHelper;
 
-	@Test
-	public void testMulsWithSub() throws ParseError {
-		new MathTestHelper(Mul.class).testMathOperations(new MathTestHelper(
-				Sub.class));
-	}
+    public TestMath() {
+        super();
+        this.mathTestHelper = new MathTestHelper(parser);
+    }
 
-	@Test
-	public void testMulsWithDiv() throws ParseError {
-		new MathTestHelper(Mul.class).testMathOperations(new MathTestHelper(
-				Div.class));
-	}
+    @Test
+    public final void testMulsWithAdd() throws ParseError {
+        this.mathTestHelper.setClass(Mul.class).testMathOperations(
+                this.mathTestHelper.setClass(Add.class));
+    }
 
-	@Test
-	public void testDivsWithMul() throws ParseError {
-		new MathTestHelper(Div.class).testMathOperations(new MathTestHelper(
-				Mul.class));
-	}
+    @Test
+    public final void testMulsWithSub() throws ParseError {
+        this.mathTestHelper.setClass(Mul.class).testMathOperations(
+                this.mathTestHelper.setClass(Sub.class));
+    }
 
-	@Test
-	public void testDivsWithAdd() throws ParseError {
-		new MathTestHelper(Div.class).testMathOperations(new MathTestHelper(
-				Add.class));
-	}
+    @Test
+    public final void testMulsWithDiv() throws ParseError {
+        this.mathTestHelper.setClass(Mul.class).testMathOperations(
+                this.mathTestHelper.setClass(Div.class));
+    }
 
-	@Test
-	public void testDivsWithSub() throws ParseError {
-		new MathTestHelper(Div.class).testMathOperations(new MathTestHelper(
-				Sub.class));
-	}
+    @Test
+    public final void testDivsWithMul() throws ParseError {
+        this.mathTestHelper.setClass(Div.class).testMathOperations(
+                this.mathTestHelper.setClass(Mul.class));
+    }
 
-	@Test
-	public void testAddsWithMul() throws ParseError {
-		new MathTestHelper(Add.class).testMathOperations(new MathTestHelper(
-				Mul.class));
-	}
+    @Test
+    public final void testDivsWithAdd() throws ParseError {
+        this.mathTestHelper.setClass(Div.class).testMathOperations(
+                this.mathTestHelper.setClass(Add.class));
+    }
 
-	@Test
-	public void testAddsWithDiv() throws ParseError {
-		new MathTestHelper(Add.class).testMathOperations(new MathTestHelper(
-				Div.class));
-	}
+    @Test
+    public final void testDivsWithSub() throws ParseError {
+        this.mathTestHelper.setClass(Div.class).testMathOperations(
+                this.mathTestHelper.setClass(Sub.class));
+    }
 
-	@Test
-	public void testAddsWithSub() throws ParseError {
-		new MathTestHelper(Add.class).testMathOperations(new MathTestHelper(
-				Sub.class));
-	}
+    @Test
+    public final void testAddsWithMul() throws ParseError {
+        this.mathTestHelper.setClass(Add.class).testMathOperations(
+                this.mathTestHelper.setClass(Mul.class));
+    }
 
-	@Test
-	public void testSubsWithMul() throws ParseError {
-		new MathTestHelper(Sub.class).testMathOperations(new MathTestHelper(
-				Mul.class));
-	}
+    @Test
+    public final void testAddsWithDiv() throws ParseError {
+        this.mathTestHelper.setClass(Add.class).testMathOperations(
+                this.mathTestHelper.setClass(Div.class));
+    }
 
-	@Test
-	public void testSubsWithAdd() throws ParseError {
-		new MathTestHelper(Sub.class).testMathOperations(new MathTestHelper(
-				Add.class));
-	}
+    @Test
+    public final void testAddsWithSub() throws ParseError {
+        this.mathTestHelper.setClass(Add.class).testMathOperations(
+                this.mathTestHelper.setClass(Sub.class));
+    }
 
-	@Test
-	public void testSubsWithDiv() throws ParseError {
-		new MathTestHelper(Sub.class).testMathOperations(new MathTestHelper(
-				Div.class));
-	}
+    @Test
+    public final void testSubsWithMul() throws ParseError {
+        this.mathTestHelper.setClass(Sub.class).testMathOperations(
+                this.mathTestHelper.setClass(Mul.class));
+    }
 
+    @Test
+    public final void testSubsWithAdd() throws ParseError {
+        this.mathTestHelper.setClass(Sub.class).testMathOperations(
+                this.mathTestHelper.setClass(Add.class));
+    }
+
+    @Test
+    public final void testSubsWithDiv() throws ParseError {
+        this.mathTestHelper.setClass(Sub.class).testMathOperations(
+                this.mathTestHelper.setClass(Div.class));
+    }
 }

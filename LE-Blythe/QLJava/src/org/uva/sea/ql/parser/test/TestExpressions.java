@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.operative.Not;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.interfaces.IParse;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
@@ -44,7 +44,7 @@ public class TestExpressions {
 		
 		Form form = (Form)node; 
 		Block body = (Block)form.getBlock();
-		Question question = (Question)body.getStatements().get(0);
+		QuestionAnswerable question = (QuestionAnswerable)body.getStatements().get(0);
 		
 		//return the only node in the body 
 		return question.getValue();

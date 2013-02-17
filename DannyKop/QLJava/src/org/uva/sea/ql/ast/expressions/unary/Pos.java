@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 /**
  * Class: Pos
@@ -10,8 +13,15 @@ import org.uva.sea.ql.ast.Expr;
  */
 public class Pos extends UnaryExpr {
 	
-	
-	public Pos(Expr expr){
-		super(expr, "+"); // Test if the + is required here!
+	/**
+	 * Constructor
+	 * @param argument
+	 */
+	public Pos(Expr argument){
+		super(argument); 
+	}
+	@Override
+	public Type typeOf(SymbolTable st) {
+		return new IntType();
 	}
 }

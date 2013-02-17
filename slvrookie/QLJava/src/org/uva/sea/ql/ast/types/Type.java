@@ -1,7 +1,10 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitors.interfaces.ITypeVisitor;
+
 public abstract class Type {
 
+	public abstract <T> T accept(ITypeVisitor<T> Typevisitor);
 	public abstract boolean isCompatibleTo(Type t);
 
 	public boolean isCompatibleToIntType() {
@@ -21,6 +24,10 @@ public abstract class Type {
 	}
 
 	public boolean isCompatibleToMoneyType() {
+		return false;
+	}
+
+	public boolean isCompatibleToErrorType() {
 		return false;
 	}
 

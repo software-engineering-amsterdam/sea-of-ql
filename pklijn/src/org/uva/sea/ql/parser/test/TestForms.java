@@ -54,7 +54,7 @@ public class TestForms {
 				"	if (hasSoldHouse) {\n" +
 				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
 				"	}\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 		// Basic form with GT expression over integer
 		assertTrue(parser.parseForm("" +
 				"form testForm3 {\n" +
@@ -62,7 +62,7 @@ public class TestForms {
 				"	if (hasSoldHouse > 10) {\n" +
 				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
 				"	}\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 		// Form with computed questions
 		assertTrue(parser.parseForm("" +
 				"form testForm1 {\n" +
@@ -77,7 +77,7 @@ public class TestForms {
 				"	str1: \"Question irrelevant\" string\n" +
 				"	str2: \"Question irrelevant\" string(str1)\n" +
 				"	str3: \"Question irrelevant\" string(str2)\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 		// Form with use of variable from outside if
 		assertTrue(parser.parseForm("" +
 				"form testForm2 {\n" +
@@ -85,7 +85,7 @@ public class TestForms {
 				"	if (hasSoldHouse) {\n" +
 				"		totalSoldHouseValue: \"Was house sold?\" boolean(hasSoldHouse)\n" +
 				"	}\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 		// Form with use of variable from inside if outside of if
 		assertFalse(parser.parseForm("" +
 				"form testForm2 {\n" +
@@ -96,7 +96,7 @@ public class TestForms {
 				"	if (totalSoldHouseValue > 100000) {\n" +
 				"		statement: \"High taxes rate\" boolean(true)\n" +
 				"	}\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 		// Form with error if (integer)
 		assertFalse(parser.parseForm("" +
 				"form testForm2 {\n" +
@@ -107,7 +107,7 @@ public class TestForms {
 				"			yuRich: \"Do you consider yourself rich?\" boolean\n" +
 				"		}\n" +
 				"	}\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 		
 		// Demo of adding same ident with same types
 		assertTrue(parser.parseForm("" +
@@ -116,7 +116,7 @@ public class TestForms {
 				"	if (true) {\n" +
 				"		ident1: \"another int question\" int\n" +
 				"	}\n" +
-				"}").checkFormValidity());
+				"}").isFormValid());
 				
 		// Demo of adding same ident with other types
 		assertFalse(parser.parseForm("" +
@@ -125,28 +125,17 @@ public class TestForms {
 				"	if (true) {\n" +
 				"		ident1: \"bool question\" boolean\n" +
 				"	}\n" +
-				"}").checkFormValidity());
-				
-		// Demo form for error displaying
-		Form errorForm = parser.parseForm("" +
-				"form errorDemoFrom {\n" +
-				"	q1: \"error1\" int(true)\n" +
-				"	q2: \"error2\" int(q2 + 1)\n" +
-				"	if (q3) {\n" +
-				"		q3: \"error3\" boolean\n" +
-				"	}\n" +
-				"	q3p2: \"Out of scope error\" boolean(q3)" +
-				"	if (true) {\n" +
-				"		if (true) {\n" +
-				"			if (true) {\n" +
-				"				q4: \"diep geneste error\" string(1 + \"\")\n" +
-				"				q5: \"AllowedTypeDemo of equals\" boolean(q6 == q6)\n" +
-				"				q6: \"In scope, no error!\" boolean(q3p2)" +
-				"			}\n" +
+				"}").isFormValid());
+		
+		assertTrue(parser.parseForm("" +
+				"form testForm {\n" +
+				"	q1: \"q1\" boolean\n" +
+				"	if (q1) {\n" +
+				"		q2: \"q2\" boolean\n" +
+				"		if (q2) {\n" +
+				"			q3: \"q3\" string\n" +
 				"		}\n" +
 				"	}\n" +
-				"}");
-		errorForm.checkFormValidity();
-		errorForm.print();
+				"}").isFormValid());
 	}
 }

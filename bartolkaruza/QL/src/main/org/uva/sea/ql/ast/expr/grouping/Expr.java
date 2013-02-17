@@ -1,28 +1,18 @@
 package org.uva.sea.ql.ast.expr.grouping;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expr.type.Type;
+import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.symbol.SymbolTable;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public abstract class Expr implements ASTNode {
 
-	protected Expr lhs;
-	protected Expr rhs;
+	private static final long serialVersionUID = 7753425914366624367L;
 	private int lineNumber;
 
-	public Expr() {
-
-	}
-
-	public Expr(Expr lhs, Expr rhs) {
-		this.lhs = lhs;
-		this.rhs = rhs;
-	}
-
-	public Expr getLhs() {
-		return lhs;
-	}
-
-	public Expr getRhs() {
-		return rhs;
+	protected Expr(int lineNumber) {
+		this.lineNumber = lineNumber;
 	}
 
 	public int getLineNumber() {
@@ -32,5 +22,15 @@ public abstract class Expr implements ASTNode {
 	public void setLineNumber(int lineNumber) {
 		this.lineNumber = lineNumber;
 	}
+
+	public abstract Type typeOf(SymbolTable symbolTable);
+
+	protected abstract Type getLeastUpperBoundsType(SymbolTable table);
+	
+	public abstract boolean isCompatibleToType(Type type, SymbolTable table);
+
+	public abstract void accept(ExpressionVisitor<?> visitor);
+
+	public abstract Value evaluate();
 
 }

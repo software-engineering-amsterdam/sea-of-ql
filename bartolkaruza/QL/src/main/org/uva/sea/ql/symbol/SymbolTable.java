@@ -1,18 +1,13 @@
 package org.uva.sea.ql.symbol;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class SymbolTable {
+public class SymbolTable implements Serializable {
 
-	private static SymbolTable instance;
+	private static final long serialVersionUID = -3632302036461299441L;
+
 	private HashMap<String, Symbol> symbols = new HashMap<String, Symbol>();
-
-	public static SymbolTable getInstance() {
-		if (instance == null) {
-			instance = new SymbolTable();
-		}
-		return instance;
-	}
 
 	public void putSymbol(String string, Symbol expr) {
 		symbols.put(string, expr);
@@ -28,6 +23,10 @@ public class SymbolTable {
 
 	public HashMap<String, Symbol> getSymbols() {
 		return symbols;
+	}
+
+	public void clear() {
+		symbols.clear();
 	}
 
 }

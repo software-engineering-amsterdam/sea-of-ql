@@ -52,7 +52,7 @@ Did you enter a loan for maintenance/reconstruction?</div>
 </div>
 <div  class="content_below">
 </div>
-<div style="display:none;" id="if_1049443" class=\"question\">
+<div style="display:none;" id="if_11969889" class=\"question\">
 <div  class="question">
 <div  class="q_text">
 Price the house was sold for:</div>
@@ -83,7 +83,7 @@ Value residue:</div>
 </div>
 <div  class="content_below">
 </div>
-<div style="display:none;" id="if_21925102" class=\"question\">
+<div style="display:none;" id="if_19109403" class=\"question\">
 <div  class="question">
 <div  class="q_text">
 Did you ask for permission to have a value residue larger than 20000?</div>
@@ -95,7 +95,7 @@ Did you ask for permission to have a value residue larger than 20000?</div>
 <div  class="content_below">
 </div>
 </div>
-<div style="display:none;" id="if_421988" class=\"question\">
+<div style="display:none;" id="if_22278465" class=\"question\">
 <div  class="question">
 <div  class="q_text">
 Did you ask for permission to sell a house for less than 80000?</div>
@@ -106,7 +106,7 @@ Did you ask for permission to sell a house for less than 80000?</div>
 </div>
 <div  class="content_below">
 </div>
-<div style="display:none;" id="if_12376621" class=\"question\">
+<div style="display:none;" id="if_263670" class=\"question\">
 <div  class="question">
 <div  class="q_text">
 Who did you ask for permission to sell a house for less than 80000?</div>
@@ -171,35 +171,35 @@ function askedForPermissionSelPri80(){
 function askedForPermissionSelPri80Who(){
  return $('#question_askedForPermissionSelPri80Who').val();
 }
-function eval1049443(){
-   toggleContent((hasSoldHouse() && (hasBoughtHouse() || hasMaintLoan())), '1049443');
+function eval11969889(){
+   toggleContent((hasSoldHouse()&&(hasBoughtHouse()||hasMaintLoan())), '11969889');
  }
 $('#question_hasSoldHouse').change(function(){
-  eval1049443();
+  eval11969889();
   });
 $('#question_hasBoughtHouse').change(function(){
-  eval1049443();
+  eval11969889();
   });
 $('#question_hasMaintLoan').change(function(){
-  eval1049443();
+  eval11969889();
   });
-function eval21925102(){
-   toggleContent((valueResidue() > 20000), '21925102');
+function eval19109403(){
+   toggleContent((valueResidue()>20000), '19109403');
  }
 $('#question_valueResidue').change(function(){
-  eval21925102();
+  eval19109403();
   });
-function eval421988(){
-   toggleContent((sellingPrice() < 80000), '421988');
+function eval22278465(){
+   toggleContent((sellingPrice()<80000), '22278465');
  }
 $('#question_sellingPrice').change(function(){
-  eval421988();
+  eval22278465();
   });
-function eval12376621(){
-   toggleContent(askedForPermissionSelPri80(), '12376621');
+function eval263670(){
+   toggleContent(askedForPermissionSelPri80(), '263670');
  }
 $('#question_askedForPermissionSelPri80').change(function(){
-  eval12376621();
+  eval263670();
   });
 
         </script>

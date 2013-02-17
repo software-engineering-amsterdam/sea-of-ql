@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.form.questiontypes.AbstractQuestionTypeComponent;
+
 public class NotDefinedType extends Type {
 
 	@Override
@@ -7,4 +10,18 @@ public class NotDefinedType extends Type {
 		return "<NOT DEFINED>";
 	}
 
+	@Override
+	public boolean isDefined() {
+		return false;
+	}
+	
+	@Override
+	public Value getDefaultValue() {
+		return null;
+	}
+
+	@Override
+	public AbstractQuestionTypeComponent getAnswerField() {
+		 return null;
+	};
 }

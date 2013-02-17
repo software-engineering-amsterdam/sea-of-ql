@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expressions.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
+@RunWith(Parameterized.class) 
 public class TestExpressions {
 
 	private IParse parser;
@@ -67,20 +67,31 @@ public class TestExpressions {
 
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals(parser.parseType("a").getClass(), Ident.class);
-		assertEquals(parser.parseType("abc").getClass(), Ident.class);
-		assertEquals(parser.parseType("ABC").getClass(), Ident.class);
-		assertEquals(parser.parseType("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parseType("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parseType("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parseType("a2bc232aa").getClass(), Ident.class);
-	}
-
+		assertEquals(parser.parseExpression("a").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("abc").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("ABC").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("ABCDEF").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("abc2323").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("a2bc232").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("a2bc232aa").getClass(), Ident.class);
+	} 
+ 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parseType("0").getClass(), Int.class);
-		assertEquals(parser.parseType("1223").getClass(), Int.class);
-		assertEquals(parser.parseType("234234234").getClass(), Int.class);
+		assertEquals(parser.parseExpression("0").getClass(), Int.class);
+		assertEquals(parser.parseExpression("1223").getClass(), Int.class);
+		assertEquals(parser.parseExpression("234234234").getClass(), Int.class);
 	}
+	
+	@Test
+	public void testLogicAnd() throws ParseError {
+		assertEquals(parser.parseExpression("(false && true)").getClass(), And.class);
+	}
+	
+	@Test
+	public void testLogicOr() throws ParseError {
+		assertEquals(parser.parseExpression("(false || true)").getClass(), Or.class);
+	}
+
 	
 }

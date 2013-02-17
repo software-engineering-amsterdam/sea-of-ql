@@ -1,14 +1,12 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.util.HashMap;
+import java.util.Map;
 
-import org.uva.sea.ql.ast.BinExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.nodevisitor.Visitor;
-import org.uva.sea.ql.ast.nodevisitor.VisitorResult;
+import org.uva.sea.ql.ast.operatorresults.Result;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.TypeDescription;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Eq extends BinExpr {
 
@@ -17,18 +15,19 @@ public class Eq extends BinExpr {
 	}
 
 	@Override
-	public TypeDescription typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new BooleanType();
 	}
 
 	@Override
-	public VisitorResult accept(Visitor visitor) {
+	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
 	@Override
-	public ExpressionResult eval(HashMap<String, Statement> symbolMap) {
-		// TODO Auto-generated method stub
-		return null;
+	public Result eval(Map<String, Result> symbolMap) {
+		Result leftHandResult = getExprLeftHand().eval(symbolMap);
+		Result rightHandResult = getExprRightHand().eval(symbolMap);
+		return leftHandResult.eq(rightHandResult);
 	}
 }

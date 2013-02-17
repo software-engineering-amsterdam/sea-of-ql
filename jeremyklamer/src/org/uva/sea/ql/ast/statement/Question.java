@@ -2,51 +2,81 @@ package org.uva.sea.ql.ast.statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
+import org.uva.sea.ql.ui.components.BaseComponent;
+import org.uva.sea.ql.ui.components.QuestionComponent;
+
 
 public class Question extends Statement {	
 	
-	private final Ident name; 
-	private final String sentence; 
-	private final Type returnType; 
+	protected final Ident name; 
+	protected final String sentence; 
+	protected final Type returnType; 
+	protected QuestionComponent uiComponent; 
 	
-	//TODO Kan twee keer in tavbel voorkomen als zelfde type. 
+	protected BaseComponent label; 
+	protected BaseComponent answerField; 
 	
-	public Question(Ident ident, String sentence , Type returnType){
+	public Question(Ident ident, String sentence , Type returnType) {
 		this.name = ident; 
 		this.sentence = sentence;
 		this.returnType = returnType;
 	}
 
-	public Ident getName() {
-		return name;
-	}
-	
-	public String getSentence() {
-		return sentence;
-	}
-
 	public Type getReturnType() {
 		return returnType;
 	}
-
+	
 	@Override
-	public List<Message> checkType(Map<Ident, Type> typeEnv) {
-		ArrayList<Message> errors = new ArrayList<Message>();
+	public List<BaseComponent> getUIComponents(Env env, Form form) { 
+		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
+
+		uiComponent = new QuestionComponent(sentence, false, returnType.getAnswerComponent(env, form, name));
+		components.add(uiComponent);
 		
-		if(!(typeEnv.containsKey(this.name))){
-			typeEnv.put(this.name, this.returnType);
-		}
-		else if(!(typeEnv.get(this.name).getClass().equals(this.returnType.getClass()))){
-			errors.add(new Error(getSimpleName(this.name) + " is already defined as type : " + getSimpleName(this.returnType)));
-		}
-		
-		return errors;
+		return components;
 	}
 	
+
+	@Override
+	public List<Message> checkType(Env env) {
+		ArrayList<Message> errors = new ArrayList<Message>();
+		
+		if(env.containsType(name)) {
+			if(!(env.getType(name).getClass().equals(returnType.getClass()))) {
+				errors.add(new Error(name.getName() + " is already defined as type : " + getSimpleName(returnType)));
+			}
+		}
+		return errors;
+	}
+
+	@Override
+	public boolean eval(Env env) {
+		return env.containsValue(name);
+	}
+
+	@Override
+	public void initTypes(Env env) {
+		if(!(env.containsType(name))){
+			env.putType(name, returnType);
+			env.putValue(name, returnType.getDefaultValue());
+		}
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		uiComponent.setVisibile(visible);
+	}
+	
+	@Override
+	public void printSelf(int indentation) {
+		printIndentation(indentation);
+		System.out.println(getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(returnType));
+	}
+
 }

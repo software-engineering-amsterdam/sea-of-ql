@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
-
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * abstract class: Expr
@@ -8,15 +9,16 @@ import org.uva.sea.ql.ast.visitor.Visitor;
  *
  */
 public abstract class Expr implements ASTNode {
-
+	
 	/**
 	 * accept()
 	 * @param visitor
 	 */
 	@Override
-	public void accept(Visitor visitor) { 
-		// Check if this works correctly or that the accept method should be implemented on each derivation of expr
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor) { 
+		return visitor.visit(this);
 	}
+	
+	public abstract Type typeOf(SymbolTable st);
 	
 }

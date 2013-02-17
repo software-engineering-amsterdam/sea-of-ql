@@ -1,20 +1,24 @@
 package org.uva.sea.ql.ast.math;
 
-import org.uva.sea.ql.ast.AcceptsMathOperands;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
-import org.uva.sea.ql.ast.UnaryExpr;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
-public class Pos extends UnaryExpr implements AcceptsMathOperands,
-		ReturnsMathOperands {
-	public static final String str = "+";
+public class Pos extends UnaryMathOperator {
+    private static final String STR = "+";
 
-	public Pos(Expr ex) {
-		super(ex);
-	}
+    public Pos(Expr ex) {
+        super(ex);
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
+
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
+
 }

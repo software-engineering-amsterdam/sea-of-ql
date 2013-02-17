@@ -4,14 +4,21 @@
 %semantic ast.ASTNode 
 %start top
 
-%token <ast.exprs.value.Int> INT
-%token <ast.exprs.value.Money> MONEY
-%token <ast.exprs.value.Bool> BOOL
-%token <ast.exprs.value.Str> STR
-%token <ast.exprs.value.Ident> IDENT
+%token <ast.expression.value.Int> INT
+//%token <ast.expression.value.Money> MONEY
+%token <ast.expression.value.Bool> BOOL
+%token <ast.expression.value.Str> STR
+%token <ast.expression.value.Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
-%token IF ELSE
+%token TRUE FALSE
+%token IF ELSE ELSEIF
+%token FORM
+%token <ast.type.Bool> tBool
+%token <ast.type.Ident> tIdent
+%token <ast.type.Int> tInt
+//%token <ast.type.Money> tMoney
+%token <ast.type.Str> tStr
 
 %left OR
 %left AND
@@ -20,51 +27,100 @@
 %left '*' '/'
 %left UMIN UPLUS UNOT
 
-%type <ast.Expr> expr
+%type <ast.Expression> expression
+%type <ast.Form> form
+%type <ast.Statement> statement
+%type <ast.statement.Block> block ifcon
+%type <ast.type.Bool> tBool
+%type <ast.type.Ident> tIdent
+%type <ast.type.Int> tInt
+//%type <ast.type.Money> tMoney
+%type <ast.type.Str> tStr
+%type <ast.Type> dType
+%type <ast.statement.Else> elseexpr
+%type <ast.Statement> ifexpr
+%type <ast.statement.Var> dec
+%type <ast.statement.Assignment> assign
 
 %{
-import ast.Expr;
-import ast.exprs.binary.*;
-import ast.exprs.unary.*;
-import ast.exprs.value.*;
+import ast.*;
+import ast.expression.binary.*;
+import ast.expression.unary.*;
+import ast.statement.*;
 @SuppressWarnings("unused")
 %}
 
 %%
 
- top : expr { result = $1; }
-     ;
+top 			: form 										{ result = $1; };
+	     		
+form			: FORM IDENT '{' block '}'					{ $$ = new Form($2,$4); };
+				
+// a list of zero or more statements
+block			: /* empty */ 								{ $$ = null; }
+				| block statement							{ if ($1 == null) $$ = new Block($2); else $$ = new Block($2, (Block)$1); }
+				;
 
- expr	 : '+' expr	%prec UPLUS { $$ = new Pos($2); }
-		 | '-' expr	%prec UMIN  { $$ = new Neg($2); }
-		 | '!' expr %prec UNOT  { $$ = new Not($2); }
-		 | expr '*' expr		{ $$ = new Mul($1, $3); }
-		 | expr '/' expr 		{ $$ = new Div($1, $3); }
-		 | expr '+' expr		{ $$ = new Add($1, $3); }
-		 | expr '-' expr		{ $$ = new Sub($1, $3); }
-		 | expr EQ expr		    { $$ = new Eq($1, $3); }
-		 | expr NEQ expr		{ $$ = new NEq($1, $3); }
-		 | expr '>' expr		{ $$ = new GT($1, $3); }
-		 | expr '<' expr		{ $$ = new LT($1, $3); }
-		 | expr GEQ expr		{ $$ = new GEq($1, $3); }
-		 | expr LEQ expr		{ $$ = new LEq($1, $3); }
-		 | expr AND expr	    { $$ = new And($1, $3); }
-	     | expr OR expr  		{ $$ = new Or($1, $3); }
-		 | INT					{ $$ = $1; }
-		 | MONEY				{ $$ = $1; }
-		 | BOOL					{ $$ = $1; }
-		 | STR					{ $$ = $1; }
-		 | IDENT         		{ $$ = $1; }
-		 | '(' expr ')'			{ $$ = $2; }
-		 ;
-		 
+statement 		: assign
+				| dec
+				| question
+				| ifcon
+				;
+
+question		: STR dec									{ $$ = new QuestionVar($1,$2); }
+				| STR assign								{ $$ = new QuestionComputed($1,$2); }
+				;
+				
+dec				: IDENT ':' dType							{ $$ = new Var($1,$3); };
+assign 			: IDENT '=' expression						{ $$ = new Assignment($1,$3); };
+ifexpr			: IF '(' expression ')' '{' block '}'		{ $$ = new If($3,$6); }	;
+				
+elseexpr		: ELSE '{' block '}'						{ $$ = new Else($3); }
+				| ELSE ifcon								{ $$ = new Else($2); }
+				;
+				
+ifcon			: ifexpr elseexpr
+				| ifexpr
+				;
+				
+
+expression	 	: '+' expression %prec UPLUS 				{ $$ = new Pos($2); }
+				| '-' expression %prec UMIN  				{ $$ = new Neg($2); }
+				| '!' expression %prec UNOT 				{ $$ = new Not($2); }
+				| expression '*' expression					{ $$ = new Mul($1, $3); }
+				| expression '/' expression 				{ $$ = new Div($1, $3); }
+				| expression '+' expression					{ $$ = new Add($1, $3); }
+				| expression '-' expression					{ $$ = new Sub($1, $3); }
+				| expression EQ expression			    	{ $$ = new Eq($1, $3); }
+				| expression NEQ expression					{ $$ = new NEq($1, $3); }
+				| expression '>' expression					{ $$ = new GT($1, $3); }
+				| expression '<' expression					{ $$ = new LT($1, $3); }
+				| expression GEQ expression					{ $$ = new GEq($1, $3); }
+				| expression LEQ expression					{ $$ = new LEq($1, $3); }
+				| expression AND expression	    			{ $$ = new And($1, $3); }
+			    | expression OR expression  				{ $$ = new Or($1, $3); }
+				| '(' expression ')'						{ $$ = $2; }
+				| type;
+				
+type 			: INT										{ $$ = $1; }
+				| BOOL										{ $$ = $1; }
+				| TRUE										{ $$ = new ast.expression.value.Bool(true); }
+				| FALSE										{ $$ = new ast.expression.value.Bool(false); }
+				| STR										{ $$ = $1; }
+				| IDENT         							{ $$ = $1; }
+				;
+				
+dType			: tBool										{ $$ = new ast.type.Bool(); }
+				| tInt										{ $$ = new ast.type.Int(); }
+				| tStr										{ $$ = new ast.type.Str(); }
+				;
 
 %%
 private QLLexer lexer; 
 
-private Expr result;
+private Form result;
 
-public Expr getResult() {
+public Form getResult() {
   return result;
 }
 

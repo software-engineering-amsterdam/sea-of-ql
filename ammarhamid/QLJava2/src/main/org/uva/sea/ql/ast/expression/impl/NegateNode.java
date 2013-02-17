@@ -1,45 +1,48 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ErrorMessage;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.IntegerNode;
-import org.uva.sea.ql.ast.value.impl.MoneyNode;
+import org.uva.sea.ql.ast.expression.UnaryNode;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.type.impl.NumericType;
+import org.uva.sea.ql.value.Value;
 
-public class NegateNode extends ExprNode
+import java.util.Collection;
+
+public class NegateNode extends UnaryNode
 {
-    private final ExprNode exprNode;
+    private static final String OPERATOR = "-";
 
     public NegateNode(final ExprNode exprNode)
     {
-        this.exprNode = exprNode;
+        super(exprNode);
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode = this.exprNode.evaluate();
-
-        final ValueNode result;
-        if(valueNode.isIntegerNode())
-        {
-            result = new IntegerNode(-valueNode.asIntegerNode().getValue());
-        }
-        else if(valueNode.isMoneyNode())
-        {
-            result = new MoneyNode(valueNode.asMoneyNode().getValue().negate());
-        }
-        else
-        {
-            throw new InvalidTypeException("Invalid operand type for negate(-) operation: " + toTreeString(" "));
-        }
-
-        return result;
+        final Value value = this.exprNode.evaluate();
+        return value.negate();
     }
 
     @Override
-    public String toTreeString(String indent)
+    public boolean validate(final Collection<ErrorMessage> errors)
     {
-        return '\n' + indent + "negate(-)" + exprNode.toTreeString(indent + "  ");
+        final Type type = this.exprNode.evaluate().getType();
+        final boolean compatible = type.isCompatibleTo(new NumericType());
+
+        if(!compatible)
+        {
+            errors.add(new ErrorMessage(this, "Invalid type for " + OPERATOR));
+        }
+
+        return compatible;
     }
+
+    @Override
+    public String toString()
+    {
+        return  OPERATOR + exprNode.toString();
+    }
+
 }

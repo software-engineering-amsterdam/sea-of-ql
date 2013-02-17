@@ -2,12 +2,11 @@ package org.uva.sea.ql.ast.expr.value;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
 
-public class BoolLiteral extends Expr {
+public class BoolLiteral extends Value {
 
 	private final boolean value;
 
@@ -15,7 +14,7 @@ public class BoolLiteral extends Expr {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public Boolean getValue() {
 		return value;
 	}
 
@@ -25,8 +24,33 @@ public class BoolLiteral extends Expr {
 	}
 
 	@Override
-	public <T> T accept(IExprVisitor<T> visitor) {
-		return visitor.visit(this);
+	public <T> T accept(IExprVisitor<T> ExprVisitor) {
+		return ExprVisitor.visit(this);
+	}
+
+	@Override
+	public Value and(Value value) {
+		return value.andBool(this);
+	}
+
+	@Override
+	public Value andBool(BoolLiteral value) {
+		return new BoolLiteral(value.getValue() && getValue());
+	}
+
+	@Override
+	public Value or(Value value) {
+		return value.orBool(this);
+	}
+
+	@Override
+	public Value orBool(BoolLiteral value) {
+		return new BoolLiteral(value.getValue() || getValue());
+	}
+
+	@Override
+	public Value not() {
+		return new BoolLiteral(!getValue());
 	}
 
 }

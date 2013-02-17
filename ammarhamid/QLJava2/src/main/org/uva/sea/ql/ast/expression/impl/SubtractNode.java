@@ -1,54 +1,28 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.ValueNode;
-import org.uva.sea.ql.ast.value.impl.IntegerNode;
-import org.uva.sea.ql.ast.value.impl.MoneyNode;
+import org.uva.sea.ql.value.Value;
 
-public class SubtractNode extends ExprNode
+public class SubtractNode extends BinaryNode
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public SubtractNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
     }
 
     @Override
-    public ValueNode evaluate()
+    public Value evaluate()
     {
-        final ValueNode valueNode1 = this.lhs.evaluate();
-        final ValueNode valueNode2 = this.rhs.evaluate();
-
-        final ValueNode result;
-        if(valueNode1.isIntegerNode() && valueNode2.isIntegerNode())
-        {
-            final IntegerNode integerNode1 = valueNode1.asIntegerNode();
-            final IntegerNode integerNode2 = valueNode2.asIntegerNode();
-            result = new IntegerNode(integerNode1.getValue() - integerNode2.getValue());
-        }
-        else if(valueNode1.isMoneyNode() && valueNode2.isMoneyNode())
-        {
-            final MoneyNode moneyNode1 = valueNode1.asMoneyNode();
-            final MoneyNode moneyNode2 = valueNode2.asMoneyNode();
-            result = new MoneyNode(moneyNode1.getValue().subtract(moneyNode2.getValue()));
-        }
-        else
-        {
-            throw new InvalidTypeException("Invalid operand type for subtract(-) operation: " + toTreeString(" "));
-        }
-
-        return result;
+        final Value value1 = this.lhs.evaluate();
+        final Value value2 = this.rhs.evaluate();
+        return value1.subtract(value2);
     }
 
     @Override
-    public String toTreeString(String indent)
+    protected String getOperator()
     {
-        return '\n' + indent + "subtract(-)" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-
+        return "-";
     }
 }

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-28 16:43:02
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-16 15:05:02
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOL", "COMMENT", "Ident", "Int", "String", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", "'form'", "'if'", "'money'", "'string'", "'{'", "'||'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOL", "COMMENT", "Ident", "Int", "String", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", "'form'", "'if'", "'integer'", "'string'", "'{'", "'||'", "'}'"
     };
 
     public static final int EOF=-1;
@@ -1386,13 +1386,13 @@ public class QLParser extends Parser {
                 case 2 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:115:7: Ident ':' String returnType
                     {
-                    Ident17=(Token)match(input,Ident,FOLLOW_Ident_in_question712); if (state.failed) return result;
+                    Ident17=(Token)match(input,Ident,FOLLOW_Ident_in_question713); if (state.failed) return result;
 
-                    match(input,19,FOLLOW_19_in_question714); if (state.failed) return result;
+                    match(input,19,FOLLOW_19_in_question715); if (state.failed) return result;
 
-                    String18=(Token)match(input,String,FOLLOW_String_in_question716); if (state.failed) return result;
+                    String18=(Token)match(input,String,FOLLOW_String_in_question717); if (state.failed) return result;
 
-                    pushFollow(FOLLOW_returnType_in_question718);
+                    pushFollow(FOLLOW_returnType_in_question719);
                     returnType19=returnType();
 
                     state._fsp--;
@@ -1422,7 +1422,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "returnType"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:1: returnType returns [Type result] : ( 'boolean' | 'money' | 'string' );
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:1: returnType returns [Type result] : ( 'boolean' | 'integer' | 'string' );
     public final Type returnType() throws RecognitionException {
         Type result = null;
 
@@ -1431,7 +1431,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:5: ( 'boolean' | 'money' | 'string' )
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:5: ( 'boolean' | 'integer' | 'string' )
             int alt14=3;
             switch ( input.LA(1) ) {
             case 25:
@@ -1462,25 +1462,25 @@ public class QLParser extends Parser {
                 case 1 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:7: 'boolean'
                     {
-                    match(input,25,FOLLOW_25_in_returnType746); if (state.failed) return result;
+                    match(input,25,FOLLOW_25_in_returnType751); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new BoolType(); }
+                    if ( state.backtracking==0 ) {result = new BoolType(); }
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: 'money'
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: 'integer'
                     {
-                    match(input,29,FOLLOW_29_in_returnType756); if (state.failed) return result;
+                    match(input,29,FOLLOW_29_in_returnType761); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new Money();}
+                    if ( state.backtracking==0 ) {result = new IntType();}
 
                     }
                     break;
                 case 3 :
                     // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:121:7: 'string'
                     {
-                    match(input,30,FOLLOW_30_in_returnType767); if (state.failed) return result;
+                    match(input,30,FOLLOW_30_in_returnType772); if (state.failed) return result;
 
                     if ( state.backtracking==0 ) {result = new StringType();}
 
@@ -1601,13 +1601,13 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_13_in_question698 = new BitSet(new long[]{0x00000000000325D0L});
     public static final BitSet FOLLOW_orExpr_in_question700 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_14_in_question702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_question712 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_question714 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_String_in_question716 = new BitSet(new long[]{0x0000000062000000L});
-    public static final BitSet FOLLOW_returnType_in_question718 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_returnType746 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_returnType756 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_returnType767 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_question713 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_question715 = new BitSet(new long[]{0x0000000000000100L});
+    public static final BitSet FOLLOW_String_in_question717 = new BitSet(new long[]{0x0000000062000000L});
+    public static final BitSet FOLLOW_returnType_in_question719 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_returnType751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_returnType761 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_returnType772 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ifThenStatement_in_synpred22_QL520 = new BitSet(new long[]{0x0000000000000002L});
 
 }

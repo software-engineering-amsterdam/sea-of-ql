@@ -1,18 +1,16 @@
 package org.uva.sea.ql.ast.expr;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.expr.primary.Ident;
-import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
 public abstract class Expr implements ASTNode {
-	public abstract <T> T accept(ExpressionVisitor<T> visitor);
-	public abstract Type typeOf(Map<Ident, Type> typeEnv);
+	public abstract <T> T accept(IExpressionVisitor<T> visitor);
+	public abstract Type typeOf(TypeMapper typeMapper);
 	
 	@Override
-	public void accept(FormVisitor visitor) {
+	public void accept(IFormVisitor visitor) {
 	}
 }

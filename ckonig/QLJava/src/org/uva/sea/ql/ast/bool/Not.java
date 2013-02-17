@@ -1,20 +1,23 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.AcceptsBoolOperands;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
-import org.uva.sea.ql.ast.UnaryExpr;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
-public class Not extends UnaryExpr implements AcceptsBoolOperands,
-		ReturnsBoolOperands {
-	public static final String str = "!";
+public class Not extends UnaryBooleanOperator {
+    private static final String STR = "!";
 
-	public Not(Expr ex) {
-		super(ex);
-	}
+    public Not(Expr ex) {
+        super(ex);
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
+
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
 }

@@ -3,12 +3,13 @@ package org.uva.sea.ql.ast.expr.value;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.AnswerableQuestion;
+import org.uva.sea.ql.ast.ComputedQuestion;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.expr.value.Bool;
-import org.uva.sea.ql.ast.expr.value.Int;
-import org.uva.sea.ql.ast.expr.value.Money;
-import org.uva.sea.ql.ast.expr.value.TextString;
+import org.uva.sea.ql.ast.expr.type.BoolType;
+import org.uva.sea.ql.ast.expr.type.IntType;
+import org.uva.sea.ql.ast.expr.type.MoneyType;
+import org.uva.sea.ql.ast.expr.type.TextType;
 import org.uva.sea.ql.error.ParseError;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -20,34 +21,34 @@ public class TestTypeValues {
 	@Test
 	public void testTypeDeclaration() throws ParseError {
 		Form form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" boolean }");
-		Question question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(Bool.class, question.getExpression().getClass());
+		AnswerableQuestion question = (AnswerableQuestion) form.getStatements().get(0);
+		Assert.assertEquals(BoolType.class, question.getType().getClass());
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" integer }");
-		question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(Int.class, question.getExpression().getClass());
+		question = (AnswerableQuestion) form.getStatements().get(0);
+		Assert.assertEquals(IntType.class, question.getType().getClass());
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" string }");
-		question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(TextString.class, question.getExpression().getClass());
+		question = (AnswerableQuestion) form.getStatements().get(0);
+		Assert.assertEquals(TextType.class, question.getType().getClass());
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" money }");
-		question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(Money.class, question.getExpression().getClass());
+		question = (AnswerableQuestion) form.getStatements().get(0);
+		Assert.assertEquals(MoneyType.class, question.getType().getClass());
 	}
 
 	@Test
 	public void testTypeValues() throws ParseError {
 		Form form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" true }");
-		Question question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(Bool.class, question.getExpression().getClass());
+		ComputedQuestion question = (ComputedQuestion) form.getStatements().get(0);
+		Assert.assertEquals(Bool.class, question.getExpr().getClass());
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" 5 }");
-		question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(Int.class, question.getExpression().getClass());
+		question = (ComputedQuestion) form.getStatements().get(0);
+		Assert.assertEquals(Int.class, question.getExpr().getClass());
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" \"some string\" }");
-		question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(TextString.class, question.getExpression().getClass());
-		System.out.println(((TextString) question.getExpression()).getValue());
-		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" 10.01 }");
-		question = (Question) form.getStatements().get(0);
-		Assert.assertEquals(Money.class, question.getExpression().getClass());
+		question = (ComputedQuestion) form.getStatements().get(0);
+		Assert.assertEquals(Text.class, question.getExpr().getClass());
+		System.out.println(((Text) question.getExpr()).getRawValue());
+		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" 101.1 }");
+		question = (ComputedQuestion) form.getStatements().get(0);
+		Assert.assertEquals(Money.class, question.getExpr().getClass());
 	}
 
 }
