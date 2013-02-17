@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.ast;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.test.ExpressionParserChecker;
 
 public class TestLiteralExpressions extends ExpressionParserChecker {
 	@Test

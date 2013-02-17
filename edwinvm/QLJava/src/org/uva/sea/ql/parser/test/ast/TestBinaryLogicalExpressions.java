@@ -1,9 +1,10 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.ast;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
 import org.uva.sea.ql.ast.expressions.binary.logical.Or;
 import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.test.ExpressionParserChecker;
 
 public class TestBinaryLogicalExpressions extends ExpressionParserChecker {
 	@Test
