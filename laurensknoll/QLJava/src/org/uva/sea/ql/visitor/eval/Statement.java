@@ -17,6 +17,8 @@ import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.eval.observer.Computed;
 import org.uva.sea.ql.visitor.eval.observer.Conditional;
+import org.uva.sea.ql.visitor.eval.observer.Dependency;
+import org.uva.sea.ql.visitor.eval.observer.DependencySet;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 
 public class Statement implements IStatement<JPanel> {
