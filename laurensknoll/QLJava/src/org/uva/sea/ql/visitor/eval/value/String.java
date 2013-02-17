@@ -12,4 +12,19 @@ public class String extends AbstractValue {
 		return this.value;
 	}
 
+	@Override
+	public int hashCode() {
+		return this.value.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof String)) {
+			return false;
+		}
+
+		String value = (String) obj;
+		return this.value == value.getValue();
+	}
+
 }
