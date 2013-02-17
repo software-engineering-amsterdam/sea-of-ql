@@ -23,42 +23,45 @@ import Visualization::Visualize;
 private str QL_NAME = "QL";
 private str QL_EXT = "ql";
 
-//  Define the connection with the Pico parser
+private str LANG = "QL";
+private str EXT = "q";
+
+//  Define the connection with the QL parser
 Tree parser(str x, loc l) 
 {
-    return parse(#Program, x, l);
+    return parse(#PROGRAM, x, l);
 }
 
-//  Define connection with the Pico checkers
+//  Define connection with the QL checkers
 // (includes type checking and uninitialized variables check)
 
-public Program checkPicoProgram(Program x) 
+public Program checkProgram(Program x) 
 {
-	p = implode(#PROGRAM, x);
+	p = implode(#Program, x);
 	env = checkProgram(p);
 	errors = 
 	{
-		error(v, l) | <loc l, QuestionireId v> <- env.errors 
+		error(v, l) | <loc l, QuestionId v> <- env.errors 
 	};
 	if(!isEmpty(errors))
 		return x[@messages = errors];
     ids = uninitProgram(p);
 	warnings = 
 	{
-		warning("Variable <v> maybe uninitialized", l) | <loc l, QuestionireId v, STATEMENT s> <- ids 
+		warning("Variable <v> maybe uninitialized", l) | <loc l, QuestionId v, STATEMENT s> <- ids 
 	};
 	return x[@messages = warnings];
 }
 
-//  Define the connection with the Pico evaluator
+//  Define the connection with the QL evaluator
 
 public void evalQLProgram(Program x, loc selection) 
 {
 	m = implode(#PROGRAM, x); 
 	text(evalProgram(m));
 }
-//  Define connection with the Pico compiler
-public void compileQlProgram(Program x, loc l)
+//  Define connection with the QL compiler
+public void compileQLProgram(Program x, loc l)
 {
     p = implode(#PROGRAM, x);
     asm = compileProgram(p);
@@ -74,9 +77,9 @@ public void visualizeQLProgram(Program x, loc selection)
 	render(visCFG(CFG.graph));
 }
 
-//  Define all contributions to the Pico IDE
+//  Define all contributions to the QL IDE
 
-public set[Contribution] QL_CONTRIBS = 
+/*public set[Contribution] QL_CONTRIBS = 
 {
 	popup(
 		menu("QL",[
@@ -85,8 +88,8 @@ public set[Contribution] QL_CONTRIBS =
     		action("Show Control flow graph", visualizeQLProgram)
 	    			])
   		)
-};
-//  Register the Pico tools
+};*/
+//  Register the QL tools
 public void registerQL() 
 {
   registerLanguage(QL_NAME, QL_EXT, parser);
