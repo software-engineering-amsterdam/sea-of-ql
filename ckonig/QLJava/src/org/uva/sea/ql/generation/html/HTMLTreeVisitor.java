@@ -4,19 +4,21 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.ast.literal.IntLiteral;
-import org.uva.sea.ql.ast.literal.StringLiteral;
-import org.uva.sea.ql.common.TreeVisitor;
+import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
+import org.uva.sea.ql.common.interfaces.TreeVisitor;
 
 public class HTMLTreeVisitor implements TreeVisitor {
     private StringBuilder ret;
-
-    public String getRet() {
-        return ret.toString();
-    }
+    private static String BROPEN = "(";
+    private static String BRCLOSE = ")";
 
     public HTMLTreeVisitor() {
         this.ret = new StringBuilder();
+    }
+
+    public final String getRet() {
+        return ret.toString();
     }
 
     @Override
@@ -27,7 +29,7 @@ public class HTMLTreeVisitor implements TreeVisitor {
 
     @Override
     public final void visit(BinaryExpr b) {
-        this.ret.append("(");
+        this.ret.append(BROPEN);
         HTMLTreeVisitor v = new HTMLTreeVisitor();
         ((TreeNode) b.getLeft()).accept(v);
         this.ret.append(v.getRet());
@@ -35,27 +37,27 @@ public class HTMLTreeVisitor implements TreeVisitor {
         v = new HTMLTreeVisitor();
         ((TreeNode) b.getRight()).accept(v);
         this.ret.append(v.getRet());
-        this.ret.append(")");
+        this.ret.append(BRCLOSE);
     }
 
     @Override
     public final void visit(UnaryExpr u) {
-        this.ret.append("(");
+        this.ret.append(BROPEN);
         this.ret.append(u.toString());
         HTMLTreeVisitor v = new HTMLTreeVisitor();
         ((TreeNode) u.getAdjacent()).accept(v);
         this.ret.append(v.getRet());
-        this.ret.append(")");
+        this.ret.append(BRCLOSE);
     }
 
     @Override
     public final void visit(IntLiteral i) {
-        this.ret.append((i).getValue());
+        this.ret.append(i.getValue());
     }
 
     @Override
     public final void visit(StringLiteral s) {
-        this.ret.append((s).getValue());
+        this.ret.append(s.getValue());
 
     }
 

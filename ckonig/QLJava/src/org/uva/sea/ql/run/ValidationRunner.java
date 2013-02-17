@@ -1,11 +1,12 @@
-package org.uva.sea.ql.validation;
+package org.uva.sea.ql.run;
 
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.common.VisitorException;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.validation.Validator;
 
-public final class ValidationRunner {
+ final class ValidationRunner {
 
     private ValidationRunner() {
 

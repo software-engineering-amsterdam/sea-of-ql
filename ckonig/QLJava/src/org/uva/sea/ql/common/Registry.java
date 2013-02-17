@@ -1,4 +1,4 @@
-package org.uva.sea.ql.validation;
+package org.uva.sea.ql.common;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.IdentFinder;
-import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
 public class ListenerTypeVisitor implements TypeVisitor {
 

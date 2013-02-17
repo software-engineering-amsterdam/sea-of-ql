@@ -7,12 +7,12 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.ast.literal.StringLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.common.IdentFinder;
-import org.uva.sea.ql.common.QLDocument;
+import org.uva.sea.ql.common.Registry;
+import org.uva.sea.ql.common.interfaces.QLDocument;
 import org.uva.sea.ql.generation.GeneratorException;
-import org.uva.sea.ql.validation.Registry;
 
 public class HTMLDocument implements QLDocument {
     private Registry registry;
@@ -71,7 +71,7 @@ public class HTMLDocument implements QLDocument {
         this.registry.addQuestion(question);
         final Type type = question.getType();
         final String name = question.getIdentName();
-        final InputTypeVisitor v = new InputTypeVisitor();
+        final HTMLInputTypeVisitor v = new HTMLInputTypeVisitor();
         type.accept(v);
         final InputTypes t = v.getType();
         final String input = this.templates.input(name, t);

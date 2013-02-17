@@ -8,9 +8,9 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
-public class InputTypeVisitor implements TypeVisitor {
+public class SwingInputTypeVisitor implements TypeVisitor {
     private JComponent input;
     private static int length = 10;
 

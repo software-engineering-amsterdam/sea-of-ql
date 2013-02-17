@@ -5,6 +5,8 @@ import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.common.interfaces.ElementVisitor;
+import org.uva.sea.ql.common.interfaces.QLDocument;
 
 public class VisitorDocumentBuilder implements ElementVisitor {
 

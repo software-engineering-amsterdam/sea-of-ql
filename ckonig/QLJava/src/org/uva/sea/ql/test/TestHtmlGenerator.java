@@ -5,9 +5,9 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorDocumentBuilder;
 import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.interfaces.ElementVisitor;
 import org.uva.sea.ql.generation.html.HTMLDocument;
 
 public class TestHtmlGenerator extends TestExpressions {

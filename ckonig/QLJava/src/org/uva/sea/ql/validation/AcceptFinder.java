@@ -1,4 +1,4 @@
-package org.uva.sea.ql.common;
+package org.uva.sea.ql.validation;
 
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.literal.IntLiteral;
+import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
 import org.uva.sea.ql.ast.math.Mul;
@@ -22,8 +22,10 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
+import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
-public class AcceptFinder implements EvaluationVisitor {
+ class AcceptFinder implements EvaluationVisitor {
     private ReturnTypes result;
 
     public AcceptFinder() {

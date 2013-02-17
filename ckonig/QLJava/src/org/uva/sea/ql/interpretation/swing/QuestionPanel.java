@@ -45,7 +45,7 @@ public class QuestionPanel extends JPanel {
     }
 
     private void createInputElement() {
-        final InputTypeVisitor v = new InputTypeVisitor();
+        final SwingInputTypeVisitor v = new SwingInputTypeVisitor();
         this.question.getType().accept(v);
         this.input = v.getInput();
         this.add(this.input, BorderLayout.LINE_END);

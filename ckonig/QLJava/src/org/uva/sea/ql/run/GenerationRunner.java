@@ -1,4 +1,4 @@
-package org.uva.sea.ql.generation;
+package org.uva.sea.ql.run;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.validation.AstValidationError;
 import org.uva.sea.ql.validation.Validator;
 
-public final class GenerationRunner {
+ final class GenerationRunner {
     private GenerationRunner() {
 
     }

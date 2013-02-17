@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation;
+package org.uva.sea.ql.run;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
 import org.uva.sea.ql.interpretation.swing.QLFileFilter;
 import org.uva.sea.ql.interpretation.swing.SwingHelper;
 
-public class InterpretationRunner extends JFrame {
+ class InterpretationRunner extends JFrame {
     private static final long serialVersionUID = -1942492887122279651L;
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 600;

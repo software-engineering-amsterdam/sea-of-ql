@@ -1,8 +1,8 @@
 package org.uva.sea.ql.validation;
 
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.interfaces.ElementVisitor;
 import org.uva.sea.ql.parser.ParseError;
 
 public class Validator {

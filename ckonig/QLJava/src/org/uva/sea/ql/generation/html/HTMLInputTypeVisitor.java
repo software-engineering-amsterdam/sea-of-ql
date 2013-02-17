@@ -4,20 +4,24 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class InputTypeVisitor implements TypeVisitor{
-    
+public class HTMLInputTypeVisitor implements TypeVisitor {
+    public HTMLInputTypeVisitor() {
+
+    }
+
     private InputTypes type;
-    public final InputTypes getType(){
-        return type;        
+
+    public final InputTypes getType() {
+        return this.type;
     }
 
     @Override
     public final void visit(BooleanType b) {
-        this.type = InputTypes.BOOLEAN;        
+        this.type = InputTypes.BOOLEAN;
     }
 
     @Override

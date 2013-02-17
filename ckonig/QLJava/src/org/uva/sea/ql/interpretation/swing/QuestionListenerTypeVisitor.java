@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
 public class QuestionListenerTypeVisitor implements TypeVisitor{
     private QuestionPanel questionPanel;
