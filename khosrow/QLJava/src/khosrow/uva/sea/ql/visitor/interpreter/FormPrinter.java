@@ -54,6 +54,8 @@ public class FormPrinter implements IStmtVisitor<Void>{
 
 	@Override
 	public Void visit(Label stmt) {
+		Value valToAssign = evalExpression(stmt.getExpr());
+		env.assignValue(stmt.getIdent(), valToAssign);
 		printResult(stmt.getText() + " Value: " + evalExpression(stmt.getExpr()).toString());
 		return null;
 	}
