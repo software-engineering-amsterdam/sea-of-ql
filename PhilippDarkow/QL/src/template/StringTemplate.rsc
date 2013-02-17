@@ -50,7 +50,7 @@ private str specifyAttributesCheckbox(str id){
 * @author Philipp
 */
 str specifyAttributesNumeric(str id){
-	return "<id>.setAttribute(\'type\',\"text\"); <id>.setAttribute(\'id\',<id>); <id>.setAttribute(\'name\',\'<id>\');
+	return "<id>.setAttribute(\'type\',\"number\"); <id>.setAttribute(\'id\',<id>); <id>.setAttribute(\'name\',\'<id>\');
 		<id>.setAttribute(\'onchange\',\"<id>CheckNumeric(this)\"); ";
 }
 
@@ -110,7 +110,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	println("in easy");
 	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");  //global variable
-	createPostValuePHP(formId, id);
+	
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == boolean()){			
 		str attributes = specifyAttributesCheckbox(id);
@@ -133,7 +133,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	
 }
 
-private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");
 	createPostValuePHP(formId, id);
@@ -165,7 +165,6 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
 		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
 	}else{
-		// i need to get the expression   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		list[str] ids = getChildrenIds(exp);
 		str result = "";
 		for(k <- ids){
@@ -225,7 +224,7 @@ public str generateQLForm(Program P){
 		str functions = javaScriptCreateForm(id, Body);
 		appendToHTMLFile(id, result);
 		cssDiv(id);
-		appendToPHPFile(id, " ?\>");   //close tag
+		appendToPHPFile(id, " mysql_close($conn); ?\>");   //close tag
 		return result;
 	}else{
 		return "not possible to generate java script code";
