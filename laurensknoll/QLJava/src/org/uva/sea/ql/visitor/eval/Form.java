@@ -18,11 +18,6 @@ public class Form implements IForm<JFrame> {
 	public JFrame visit(Question questionForm) {
 		JFrame frame = new JFrame();
 
-		// Ident id = questionForm.getIdent();
-
-		// TODO: Create a container that holds the type and value.
-		// this.environment.declare(id, null);
-
 		Statement statementVisitor = new Statement(this.environment);
 		JPanel panel = questionForm.getStatements().accept(statementVisitor);
 		frame.add(panel);

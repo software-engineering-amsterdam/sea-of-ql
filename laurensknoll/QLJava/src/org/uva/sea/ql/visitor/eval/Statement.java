@@ -110,9 +110,6 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(Question question) {
 		JPanel panel = new JPanel(new GridLayout(1, 2));
 
-		/*
-		 * TODO: Add method that creates labels.
-		 */
 		JLabel description = new JLabel(question.getQuestion().getValue());
 		panel.add(description);
 
