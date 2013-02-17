@@ -27,7 +27,7 @@ TO DO
 Implement generator for JavaScript.
 Known Bugs:
 -----------
-  1. Change If javascript statements whole structure..
-  2. problems with single line comments?? 
-  3. appearance of the code
-  4. remove files
+  1. problems with single line comments?? 
+  2. appearance of the code
+  3. Boolean variables // maybe a check for TENV(variables type) and required type in compileExpressions
+  4. Generate ValidateFunctions

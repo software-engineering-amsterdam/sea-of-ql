@@ -1,3 +1,4 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::ExtractDependencies
 
 import ParseTree;
