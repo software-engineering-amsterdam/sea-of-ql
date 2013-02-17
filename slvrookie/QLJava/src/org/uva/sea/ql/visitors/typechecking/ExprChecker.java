@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.typechecking;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
@@ -6,7 +6,9 @@ import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
+import org.uva.sea.ql.visitors.utils.Errors;
+import org.uva.sea.ql.visitors.utils.State;
 
 public class ExprChecker implements IExprVisitor<Boolean> {
 

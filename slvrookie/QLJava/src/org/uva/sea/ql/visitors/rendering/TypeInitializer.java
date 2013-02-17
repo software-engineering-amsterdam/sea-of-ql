@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.rendering;
 
 import org.uva.sea.ql.ast.expr.value.BoolLiteral;
 import org.uva.sea.ql.ast.expr.value.IntLiteral;
@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.ITypeVisitor;
+import org.uva.sea.ql.visitors.ITypeVisitor;
 
 public class TypeInitializer implements ITypeVisitor<Value> {
 

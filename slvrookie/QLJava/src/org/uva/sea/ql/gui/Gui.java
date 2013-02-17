@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.gui;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -19,6 +19,10 @@ import org.uva.sea.ql.ast.formelements.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
+import org.uva.sea.ql.visitors.rendering.Renderer;
+import org.uva.sea.ql.visitors.typechecking.ElementChecker;
+import org.uva.sea.ql.visitors.utils.Errors;
+import org.uva.sea.ql.visitors.utils.State;
 
 public class Gui extends JFrame {
 

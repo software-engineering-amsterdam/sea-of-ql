@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors.interfaces;
+package org.uva.sea.ql.visitors;
 
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.*;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.typechecking;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.formelements.Block;
@@ -9,7 +9,9 @@ import org.uva.sea.ql.ast.formelements.IfThen;
 import org.uva.sea.ql.ast.formelements.IfThenElse;
 import org.uva.sea.ql.ast.formelements.Question;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.visitors.IElementVisitor;
+import org.uva.sea.ql.visitors.utils.Errors;
+import org.uva.sea.ql.visitors.utils.State;
 
 public class ElementChecker implements IElementVisitor {
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.rendering;
 
 import java.util.Collections;
 import java.util.Map;
@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.expr.value.IntLiteral;
 import org.uva.sea.ql.ast.expr.value.MoneyLiteral;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.expr.value.Value;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class ExprEvaluator implements IExprVisitor<Value> {
 
