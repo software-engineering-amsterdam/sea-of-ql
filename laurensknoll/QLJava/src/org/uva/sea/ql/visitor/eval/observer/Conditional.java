@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval;
+package org.uva.sea.ql.visitor.eval.observer;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -6,15 +6,17 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
+import org.uva.sea.ql.visitor.eval.Environment;
+import org.uva.sea.ql.visitor.eval.Expression;
 import org.uva.sea.ql.visitor.eval.value.Bool;
 
-public class IfStatementObserver implements Observer {
+public class Conditional implements Observer {
 
 	private final AbstractExpr condition;
 	private final JPanel panel;
 	private final Environment environment;
 
-	public IfStatementObserver(AbstractExpr condition, JPanel panel,
+	public Conditional(AbstractExpr condition, JPanel panel,
 			Environment context) {
 		this.condition = condition;
 		this.panel = panel;

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.eval;
 
 import java.awt.GridLayout;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +15,8 @@ import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.eval.observer.Computed;
+import org.uva.sea.ql.visitor.eval.observer.Conditional;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Bool;
@@ -55,8 +58,8 @@ public class Statement implements IStatement<JPanel> {
 		AbstractExpr computeExpression = computedQuestion
 				.getComputeExpression();
 
-		ComputedStatementObserver observer = new ComputedStatementObserver(
-				computeExpression, widget, this.environment);
+		Observer observer = new Computed(computeExpression, widget,
+				this.environment);
 
 		Dependency dependencyVisitor = new Dependency();
 		DependencySet dependencies = computeExpression
@@ -83,8 +86,7 @@ public class Statement implements IStatement<JPanel> {
 		AbstractExpr expr = ifStatement.getCondition();
 
 		// Observe condition
-		IfStatementObserver observer = new IfStatementObserver(expr, panel,
-				this.environment);
+		Observer observer = new Conditional(expr, panel, this.environment);
 
 		Dependency dependencyVisitor = new Dependency();
 		DependencySet dependencies = expr.accept(dependencyVisitor);
