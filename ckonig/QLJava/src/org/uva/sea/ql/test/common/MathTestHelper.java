@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.parser.ParseError;
 
-public class MathTestHelper extends TestHelper<MathTestHelper> {
+public class MathTestHelper extends AbstractTestHelper<MathTestHelper> {
     private boolean processFirst;
 
     public MathTestHelper(TestParser parser) {

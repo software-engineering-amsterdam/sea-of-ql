@@ -21,8 +21,7 @@ public class TestValidator extends TestExpressions {
             final Form e = parser.parseFile();
             this.validateForm(e);
         } catch (ParseError ex) {
-            Assert.fail("Parse Exception occured during test: "
-                    + ex.getMessage());
+            failForParseException(ex);
         }
     }
 
@@ -32,10 +31,14 @@ public class TestValidator extends TestExpressions {
             final Form e = parser.parseFull(getQL());
             this.validateForm(e);
         } catch (ParseError ex) {
-            Assert.fail("Parse Exception occured during test: "
-                    + ex.getMessage());
+            failForParseException(ex);
         }
 
+    }
+    
+    private final void failForParseException(ParseError ex){
+        Assert.fail("Parse Exception occured during test: "
+                + ex.getMessage());
     }
 
     private final void validateForm(Form f) {

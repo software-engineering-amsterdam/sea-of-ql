@@ -9,8 +9,8 @@ import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.interfaces.TreeVisitor;
 
 public class HTMLTreeVisitor implements TreeVisitor {
-    private static String BROPEN = "(";
-    private static String BRCLOSE = ")";
+    private static final String BROPEN = "(";
+    private static final String BRCLOSE = ")";
     private StringBuilder ret;
 
     public HTMLTreeVisitor() {

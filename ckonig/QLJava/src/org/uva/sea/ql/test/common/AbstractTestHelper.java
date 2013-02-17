@@ -19,24 +19,24 @@ import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.parser.ParseError;
 
-public abstract class TestHelper<T> {
-    protected Class<?> asClass;
-    protected String asString;
-    protected TestParser parser;
+public abstract class AbstractTestHelper<T> {
     protected final static String A = " a ";
     protected final static String B = " b ";
     protected final static String C = " c ";
     protected final static String D = " d ";
     private final static String BROPEN = " ( ";
     private final static String BRCLOSE = " ) ";
+    protected Class<?> asClass;
+    protected String asString;
+    protected TestParser parser;
 
-    public TestHelper(TestParser parser) {
+    public AbstractTestHelper(TestParser parser) {
         this.parser = parser;
     }
 
     public abstract T setClass(Class<?> c);
 
-    public void setClassAndString(Class<?> c) {
+    public final void setClassAndString(Class<?> c) {
         this.asClass = c;
         if (c == Add.class) {
             this.asString = new Add(null, null).toString();
@@ -85,21 +85,21 @@ public abstract class TestHelper<T> {
         }
     }
 
-    protected void testBinary(Class<?> c, String in, Class<?> left,
+    protected final void testBinary(Class<?> c, String in, Class<?> left,
             Class<?> right) throws ParseError {
-        Expr e = parser.parse(in);
+        final Expr e = this.parser.parse(in);
         Assert.assertNotNull("result was null", e);
         Assert.assertEquals(c, e.getClass());
-        BinaryExpr b = (BinaryExpr) e;
-        Expr leftChild = b.getLeft();
+        final BinaryExpr b = (BinaryExpr) e;
+        final Expr leftChild = b.getLeft();
         Assert.assertNotNull("left child of binary expr was null", leftChild);
         Assert.assertEquals(left, leftChild.getClass());
-        Expr rightChild = b.getRight();
+        final Expr rightChild = b.getRight();
         Assert.assertNotNull("right child of binary expr was null", rightChild);
         Assert.assertEquals(right, rightChild.getClass());
     }
-    
-    protected final String getBracket(String left, TestHelper op, String right) {
+
+    protected final String getBracket(String left, AbstractTestHelper<?> op, String right) {
         return BROPEN + left + op.asString + right + BRCLOSE;
     }
 

@@ -11,8 +11,13 @@ import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
 public class SwingInputTypeVisitor implements TypeVisitor {
-    private static int length = 10;
+
+    private final static int LENGTH = 10;
     private JComponent input;
+
+    public SwingInputTypeVisitor() {
+
+    }
 
     public final JComponent getInput() {
         return this.input;
@@ -25,7 +30,7 @@ public class SwingInputTypeVisitor implements TypeVisitor {
 
     @Override
     public final void visit(Money m) {
-        this.input = new JTextField(length);
+        this.input = new JTextField(LENGTH);
         if (m.getExpr() != null) {
             ((JTextField) this.input).setEditable(false);
         }
@@ -33,12 +38,12 @@ public class SwingInputTypeVisitor implements TypeVisitor {
 
     @Override
     public final void visit(StrType s) {
-        this.input = new JTextField(length);
+        this.input = new JTextField(LENGTH);
     }
 
     @Override
     public final void visit(IntType i) {
-        this.input = new JTextField(length);
+        this.input = new JTextField(LENGTH);
     }
 
 }

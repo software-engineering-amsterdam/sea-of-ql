@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.ParseError;
 
-public class BoolTestHelper extends TestHelper<BoolTestHelper> {
+public class BoolTestHelper extends AbstractTestHelper<BoolTestHelper> {
     
    
 

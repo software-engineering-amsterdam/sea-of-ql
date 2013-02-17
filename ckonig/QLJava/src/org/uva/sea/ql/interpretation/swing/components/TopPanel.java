@@ -2,15 +2,10 @@ package org.uva.sea.ql.interpretation.swing.components;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import org.uva.sea.ql.interpretation.swing.QLFileFilter;
-import org.uva.sea.ql.interpretation.swing.SwingHelper;
 
 public class TopPanel extends JPanel {
     /**
@@ -18,36 +13,18 @@ public class TopPanel extends JPanel {
      */
     private static final long serialVersionUID = 270484964302085412L;
 
-    private JButton buttonOpenFile;
-    private JButton buttonGenerate;
-    private final JFileChooser fileChooser;
-    private JTextArea log;
-    private JPanel center;
+    private final JButton buttonGenerate;
+    private final FileOpenPanel fileOpenPanel;
 
-    private SwingHelper helper;
-
-    public TopPanel(SwingHelper h, JTextArea l, JPanel c) {
-        this.helper = h;
-        this.log = l;
-        this.center = c;
-        this.buttonOpenFile = new JButton("Open File");
+    public TopPanel(LeftPanel l, CenterPanel c) {
         this.buttonGenerate = new JButton("Generate HTML");
         this.buttonGenerate.setEnabled(false);
-        this.fileChooser = new JFileChooser();
-        this.fileChooser.setFileFilter(new QLFileFilter());
-        this.add(this.buttonOpenFile);
         this.add(this.buttonGenerate);
-        addOpenFileListener(this.buttonOpenFile);
-        addGenerateListener(this.buttonGenerate);
-    }
-
-    private void addOpenFileListener(JButton b) {
-
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                openFile();
-            }
-        });
+        this.addGenerateListener(this.buttonGenerate);
+        this.setSize(Sizes.WINDOW_WIDTH, Sizes.TOP_HEIGHT);
+        final JTextArea log = l.getLog();
+        this.fileOpenPanel = new FileOpenPanel(this.buttonGenerate, log, c);
+        this.add(this.fileOpenPanel);
     }
 
     private void addGenerateListener(JButton b) {
@@ -61,16 +38,7 @@ public class TopPanel extends JPanel {
     }
 
     private void generate() {
-        this.helper.generateHtml();
-    }
-
-    private void openFile() {
-        final int returnVal = this.fileChooser.showOpenDialog(TopPanel.this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            final File file = this.fileChooser.getSelectedFile();
-            this.helper = new SwingHelper(this.log, this.buttonGenerate, this.center);
-            this.helper.openFile(file);
-        }
+        this.fileOpenPanel.getHelper().generateHtml();
     }
 
 }
