@@ -8,25 +8,25 @@ import java.util.Map;
 
 public class SymbolTable {
 
-    private final Map<Ident, Type> typeReductionMap;
+    private final Map<Ident, Type> identifierTypeMap;
 
     public SymbolTable() {
-        this.typeReductionMap = new HashMap<Ident, Type>();
+        this.identifierTypeMap = new HashMap<Ident, Type>();
     }
 
     public void setReducableToType(Ident astNode, Type type) {
-        typeReductionMap.put(astNode, type);
+        identifierTypeMap.put(astNode, type);
     }
 
     public Type getReduceableType(Ident astNode) {
-        return typeReductionMap.get(astNode);
+        return identifierTypeMap.get(astNode);
     }
 
     public boolean containsReductionFor(Ident node) {
-        return typeReductionMap.containsKey(node);
+        return identifierTypeMap.containsKey(node);
     }
 
     public void clear() {
-        typeReductionMap.clear();
+        identifierTypeMap.clear();
     }
 }

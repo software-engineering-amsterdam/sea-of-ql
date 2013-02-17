@@ -4,6 +4,7 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.parser.Parser;
@@ -12,14 +13,17 @@ import org.uva.sea.ql.visitor.semanticanalysis.SemanticalAnalyser;
 import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public final class QLBootstrapper {
 
     private static final String DESTINATION_FILE_NAME_TEMPLATE = "%s/index.html";
-    private static final String PROPERTY_FILE = "qlang.properties";
+    private static final String PROPERTY_FILE_NAME = "qlang.properties";
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
@@ -57,25 +61,22 @@ public final class QLBootstrapper {
 
     private boolean generateCode(Form form) {
         String code = codeGenerator.generateQLCode(form);
-        File file = createDestinationFile();
         try {
+            File file = createDestinationFile();
             FileUtils.writeStringToFile(file, code);
             return true;
         } catch (IOException ex) {
-            LOGGER.severe("Writing generated code to file with name '" + file.getName() + "' failed.");
+            LOGGER.severe("Writing generated code to file.");
             throw new RuntimeException(ex);
         }
     }
 
-    private File createDestinationFile() {
-        Configuration config = null;
-        try {
-            config = new PropertiesConfiguration(PROPERTY_FILE);
-        } catch (ConfigurationException e) {
-            LOGGER.severe("Error when loading the properties file '" + PROPERTY_FILE + "'.");
-        }
+    private File createDestinationFile() throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(PROPERTY_FILE_NAME));
 
-        String targetFolder = config.getString("targetFolder") != null ? config.getString("targetFolder") : ".";
+        String qlTargetFolder = properties.getProperty("qlTargetFolder");
+        String targetFolder = qlTargetFolder != null ? qlTargetFolder : ".";
         return new File(String.format(DESTINATION_FILE_NAME_TEMPLATE, targetFolder));
     }
 
