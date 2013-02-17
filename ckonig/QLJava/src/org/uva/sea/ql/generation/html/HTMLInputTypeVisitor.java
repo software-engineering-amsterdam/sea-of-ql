@@ -9,11 +9,11 @@ import org.uva.sea.ql.common.interfaces.TypeVisitor;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class HTMLInputTypeVisitor implements TypeVisitor {
+    private InputTypes type;
+
     public HTMLInputTypeVisitor() {
 
     }
-
-    private InputTypes type;
 
     public final InputTypes getType() {
         return this.type;

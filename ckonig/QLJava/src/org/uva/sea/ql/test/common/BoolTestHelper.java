@@ -9,9 +9,8 @@ import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.parser.ParseError;
 
 public class BoolTestHelper extends TestHelper<BoolTestHelper> {
-    private final static String A = " a ";
-    private final static String B = " b ";
-    private final static String C = " c ";
+    
+   
 
     public BoolTestHelper(TestParser parser) {
         super(parser);
@@ -22,11 +21,13 @@ public class BoolTestHelper extends TestHelper<BoolTestHelper> {
                 Ident.class);
         testBinary(this.asClass, A + this.asString + B + opposite.asString + C,
                 Ident.class, opposite.asClass);
-        testBinary(this.asClass, A + this.asString + " (b " + opposite.asString
-                + " c)", Ident.class, opposite.asClass);
-        testBinary(this.asClass, "(a " + opposite.asString + " b) "
-                + this.asString + C, opposite.asClass, Ident.class);
-        testBinary(this.asClass, "(a " + this.asString + " b)", Ident.class,
+        testBinary(this.asClass,
+                A + this.asString + getBracket(B, opposite, C), Ident.class,
+                opposite.asClass);
+        testBinary(this.asClass,
+                getBracket(A, opposite, B) + this.asString + C,
+                opposite.asClass, Ident.class);
+        testBinary(this.asClass, getBracket(A, this, B), Ident.class,
                 Ident.class);
         testBinary(this.asClass, A + opposite.asString + B + this.asString + C,
                 opposite.asClass, Ident.class);
@@ -35,26 +36,24 @@ public class BoolTestHelper extends TestHelper<BoolTestHelper> {
     }
 
     public final void testBools(BoolTestHelper opposite) throws ParseError {
-        testBinary(this.asClass, "(a " + opposite.asString + " b) "
-                + this.asString + " (b " + opposite.asString + " c)",
-                opposite.asClass, opposite.asClass);
-        testBinary(this.asClass, "(a " + this.asString + " b) " + this.asString
-                + " (b " + opposite.asString + " c)", this.asClass,
+        testBinary(this.asClass, getBracket(A, opposite, B) + this.asString
+                + getBracket(B, opposite, C), opposite.asClass,
                 opposite.asClass);
-        testBinary(this.asClass, "(a " + opposite.asString + " b) "
-                + this.asString + " (b " + this.asString + " c)",
-                opposite.asClass, this.asClass);
-        testBinary(this.asClass, "(a " + this.asString + " b) " + this.asString
-                + " (b " + this.asString + " c)", this.asClass, this.asClass);
+        testBinary(this.asClass, getBracket(A, this, B) + this.asString
+                + getBracket(B, opposite, C), this.asClass, opposite.asClass);
+        testBinary(this.asClass, getBracket(A, opposite, B) + this.asString
+                + getBracket(B, this, C), opposite.asClass, this.asClass);
+        testBinary(this.asClass, getBracket(A, this, B) + this.asString
+                + getBracket(B, this, C), this.asClass, this.asClass);
     }
 
     public final void testComplexBools(BoolTestHelper opposite)
             throws ParseError {
-        final String complex = "(" + "(a " + this.asString + " b)" + " "
-                + opposite.asString + "" + " ( b " + opposite.asString + " c)"
-                + " ) " + "" + this.asString + " " + "(" + "(a "
-                + opposite.asString + " c)" + " " + opposite.asString + " "
-                + "(b " + this.asString + " c)" + ") ";
+        final String complex = getBracket(getBracket(A, this, B), opposite,
+                getBracket(B, opposite, C))
+                + this.asString
+                + getBracket(getBracket(A, opposite, C), opposite,
+                        getBracket(B, this, C));
         final Expr e = parser.parse(complex);
         Assert.assertNotNull(e);
         assertEquals(this.asClass, e.getClass());
@@ -86,7 +85,7 @@ public class BoolTestHelper extends TestHelper<BoolTestHelper> {
     }
 
     public final void testUnary() throws ParseError {
-        final Expr e = parser.parse(this.asString + "b");
+        final Expr e = parser.parse(this.asString + B);
         Assert.assertNotNull(e);
         assertEquals(this.asClass, e.getClass());
     }
@@ -97,5 +96,7 @@ public class BoolTestHelper extends TestHelper<BoolTestHelper> {
         this.asClass = c;
         return this;
     }
+
+    
 
 }

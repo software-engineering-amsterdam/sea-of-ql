@@ -33,11 +33,11 @@ public class ValidationVisitor implements ElementVisitor {
         this.throwExceptions = throwErrors;
     }
     
-    public List<String> getErrors(){
+    public final List<String> getErrors(){
         return this.errors;
     }
     
-    public boolean hasErrors(){
+    public final boolean hasErrors(){
         return this.errors.size() > 0;
     }
 
@@ -57,9 +57,9 @@ public class ValidationVisitor implements ElementVisitor {
     public final void visit(Question question) throws QLException {
         for (Question q : this.registry.getQuestions()) {
             if (q.getIdentName().equals(question.getIdentName())) {
-                String err = "duplicate question Identifier:"
+                final String err = "duplicate question Identifier:"
                         + question.getIdentName();
-                if (throwExceptions) {
+                if (this.throwExceptions) {
                     throw new AstValidationError(err);
                 } else {
                     this.errors.add(err);
@@ -87,7 +87,7 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     private void throwInvalidConditionError(Expr e) throws AstValidationError {
-        String err = "not a valid condition: " + e.getClass().toString();
+        final String err = "not a valid condition: " + e.getClass().toString();
         if (this.throwExceptions) {
             throw new AstValidationError(err);
         } else {
@@ -118,7 +118,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void throwError(Expr r, String msg) throws AstValidationError {
         final BinaryExpr b = (BinaryExpr) r;
-        String err = "BOTH childs of " + r.getClass() + " must return " + msg
+        final String err = "BOTH childs of " + r.getClass() + " must return " + msg
                 + " operands: " + b.getLeft().getClass() + ", "
                 + b.getRight().getClass();
         if (this.throwExceptions) {

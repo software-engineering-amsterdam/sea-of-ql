@@ -9,16 +9,16 @@ import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.interfaces.TreeVisitor;
 
 public class HTMLTreeVisitor implements TreeVisitor {
-    private StringBuilder ret;
     private static String BROPEN = "(";
     private static String BRCLOSE = ")";
+    private StringBuilder ret;
 
     public HTMLTreeVisitor() {
         this.ret = new StringBuilder();
     }
 
     public final String getRet() {
-        return ret.toString();
+        return this.ret.toString();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class HTMLTreeVisitor implements TreeVisitor {
     public final void visit(UnaryExpr u) {
         this.ret.append(BROPEN);
         this.ret.append(u.toString());
-        HTMLTreeVisitor v = new HTMLTreeVisitor();
+        final HTMLTreeVisitor v = new HTMLTreeVisitor();
         ((TreeNode) u.getAdjacent()).accept(v);
         this.ret.append(v.getRet());
         this.ret.append(BRCLOSE);

@@ -14,7 +14,7 @@ import org.uva.sea.ql.test.TestValidator;
 @RunWith(Suite.class)
 @SuiteClasses({ TestComparisons.class, TestFields.class,
 		TestLogical.class, TestMath.class, TestAssignments.class, TestValidator.class, TestHtmlGenerator.class })
- class TestRunner {
+final class TestRunner {
     public TestRunner(){
         
     }

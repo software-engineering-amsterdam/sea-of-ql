@@ -20,77 +20,87 @@ import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.parser.ParseError;
 
 public abstract class TestHelper<T> {
-	protected Class<?> asClass;
-	protected String asString;
-	protected TestParser parser;
+    protected Class<?> asClass;
+    protected String asString;
+    protected TestParser parser;
+    protected final static String A = " a ";
+    protected final static String B = " b ";
+    protected final static String C = " c ";
+    protected final static String D = " d ";
+    private final static String BROPEN = " ( ";
+    private final static String BRCLOSE = " ) ";
 
-	public TestHelper(TestParser parser) {
-		this.parser = parser;
-	}
+    public TestHelper(TestParser parser) {
+        this.parser = parser;
+    }
 
-	public abstract T setClass(Class<?> c);
-	
-	public void setClassAndString(Class<?> c) {
-		this.asClass = c;
-		if (c == Add.class) {
-			this.asString = Add.STR;
-		}
-		if (c == Sub.class) {
-			this.asString = Sub.STR;
-		}
-		if (c == Mul.class) {
-			this.asString = Mul.STR;
-		}
-		if (c == Div.class) {
-			this.asString = Div.STR;
-		}
-		if (c == Eq.class) {
-			this.asString = Eq.STR;
-		}
-		if (c == NEq.class) {
-			this.asString = NEq.STR;
-		}
-		if (c == LT.class) {
-			this.asString = LT.STR;
-		}
-		if (c == LEq.class) {
-			this.asString = LEq.STR;
-		}
-		if (c == GT.class) {
-			this.asString = GT.STR;
-		}
-		if (c == GEq.class) {
-			this.asString = GEq.STR;
-		}
-		if (c == Neg.class) {
-			this.asString = Neg.STR;
-		}
-		if (c == Not.class) {
-			this.asString = Not.STR;
-		}
-		if (c == And.class) {
-			this.asString = And.STR;
-		}
-		if (c == Or.class) {
-			this.asString = Or.STR;
-		}
-		if (this.asString == null) {
-			throw new RuntimeException("class not recognized");
-		}
-	}
+    public abstract T setClass(Class<?> c);
 
-	protected void testBinary(Class<?> c, String in, Class<?> left,
-			Class<?> right) throws ParseError {
-		Expr e = parser.parse(in);
-		Assert.assertNotNull("result was null", e);
-		Assert.assertEquals(c, e.getClass());
-		BinaryExpr b = (BinaryExpr) e;
-		Expr leftChild = b.getLeft();
-		Assert.assertNotNull("left child of binary expr was null", leftChild);
-		Assert.assertEquals(left, leftChild.getClass());
-		Expr rightChild = b.getRight();
-		Assert.assertNotNull("right child of binary expr was null", rightChild);
-		Assert.assertEquals(right, rightChild.getClass());
-	}
+    public void setClassAndString(Class<?> c) {
+        this.asClass = c;
+        if (c == Add.class) {
+            this.asString = new Add(null, null).toString();
+        }
+        if (c == Sub.class) {
+            this.asString = new Sub(null, null).toString();
+        }
+        if (c == Mul.class) {
+            this.asString = new Mul(null, null).toString();
+        }
+        if (c == Div.class) {
+            this.asString = new Div(null, null).toString();
+        }
+        if (c == Eq.class) {
+            this.asString = new Eq(null, null).toString();
+        }
+        if (c == NEq.class) {
+            this.asString = new NEq(null, null).toString();
+        }
+        if (c == LT.class) {
+            this.asString = new LT(null, null).toString();
+        }
+        if (c == LEq.class) {
+            this.asString = new LEq(null, null).toString();
+        }
+        if (c == GT.class) {
+            this.asString = new GT(null, null).toString();
+        }
+        if (c == GEq.class) {
+            this.asString = new GEq(null, null).toString();
+        }
+        if (c == Neg.class) {
+            this.asString = new Neg(null).toString();
+        }
+        if (c == Not.class) {
+            this.asString = new Not(null).toString();
+        }
+        if (c == And.class) {
+            this.asString = new And(null, null).toString();
+        }
+        if (c == Or.class) {
+            this.asString = new Or(null, null).toString();
+        }
+        if (this.asString == null) {
+            throw new RuntimeException("class not recognized");
+        }
+    }
+
+    protected void testBinary(Class<?> c, String in, Class<?> left,
+            Class<?> right) throws ParseError {
+        Expr e = parser.parse(in);
+        Assert.assertNotNull("result was null", e);
+        Assert.assertEquals(c, e.getClass());
+        BinaryExpr b = (BinaryExpr) e;
+        Expr leftChild = b.getLeft();
+        Assert.assertNotNull("left child of binary expr was null", leftChild);
+        Assert.assertEquals(left, leftChild.getClass());
+        Expr rightChild = b.getRight();
+        Assert.assertNotNull("right child of binary expr was null", rightChild);
+        Assert.assertEquals(right, rightChild.getClass());
+    }
+    
+    protected final String getBracket(String left, TestHelper op, String right) {
+        return BROPEN + left + op.asString + right + BRCLOSE;
+    }
 
 }

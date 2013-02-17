@@ -120,7 +120,7 @@ public class ReturnFinder implements EvaluationVisitor {
         boolean found = false;
         for (Question question : this.questions) {
             if (question.getIdentName().equals(ident.getName())) {
-                final ReturnFinder f = new ReturnFinder(questions);
+                final ReturnFinder f = new ReturnFinder(this.questions);
                 question.getType().accept(f);
               this.ret = f.getResult();
                 found = true;
