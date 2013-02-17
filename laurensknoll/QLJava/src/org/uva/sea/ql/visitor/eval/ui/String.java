@@ -7,8 +7,6 @@ import javax.swing.event.DocumentListener;
 
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class String extends Widget implements DocumentListener {
 
 	private final JTextField component;
@@ -25,30 +23,46 @@ public class String extends Widget implements DocumentListener {
 
 	@Override
 	public void setValue(AbstractValue value) {
-		// TODO: Implement.
-		throw new NotImplementedException();
+		// The semantic check guarantees that this is a String.
+		this.updateValueInGUI((org.uva.sea.ql.visitor.eval.value.String) value);
+	}
+
+	private void updateValueInGUI(org.uva.sea.ql.visitor.eval.value.String value) {
+		// JTextField.setText() fires a remove and insert event.
+		// We however only want to trigger an update once.
+		// Therefore we remove the eventlistener and add it
+		// after the change is made.
+		this.component.getDocument().removeDocumentListener(this);
+
+		this.component.setText(value.getValue());
+
+		this.propagateChange();
+
+		this.component.getDocument().addDocumentListener(this);
 	}
 
 	@Override
 	public AbstractValue getValue() {
-		// TODO: Implement.
-		throw new NotImplementedException();
+		java.lang.String value = this.component.getText();
+		return new org.uva.sea.ql.visitor.eval.value.String(value);
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent arg0) {
-		this.setChanged();
-		this.notifyObservers();
+		// When attributes change there is no need to propagate.
 	}
 
 	@Override
 	public void insertUpdate(DocumentEvent arg0) {
-		this.setChanged();
-		this.notifyObservers();
+		this.propagateChange();
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent arg0) {
+		this.propagateChange();
+	}
+
+	private void propagateChange() {
 		this.setChanged();
 		this.notifyObservers();
 	}
