@@ -5,6 +5,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.*;
 
 public class CheckStatement implements StatementVisitor<Boolean> {
@@ -28,41 +29,49 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 	
 	public Boolean visit(ComputedQuestion stat) {
 		
-		if (typeEnv.isDeclared(stat.getIdentifier())) {
+		Identifier id     = stat.getIdentifier();
+		Type declaredType = stat.getType();
+		Expression expr   = stat.getExpression();
+		Type exprType     = expr.typeOf(typeEnv);
+				
+		if (typeEnv.isDeclared(id)) {
 			return false;
 		}
 		
-		if (!checkExpression(stat.getExpression())) {
+		if (!checkExpression(expr)) {
 			return false;
 		}
 
-		if (!stat.getExpression().typeOf(typeEnv).isCompatibleWith(stat.getType())) {
+		if (!exprType.isCompatibleWith(declaredType)) {
 			return false;
 		}
 		
-		typeEnv.declare(stat.getIdentifier(), stat.getType());
+		typeEnv.declare(id, declaredType);
 		return true;
 	}
 
 	public Boolean visit(Question stat) {
 		
-		if (typeEnv.isDeclared(stat.getIdentifier())) {
+		Identifier id = stat.getIdentifier();
+		
+		if (typeEnv.isDeclared(id)) {
 			return false;
 		}
 		
-		typeEnv.declare(stat.getIdentifier(), stat.getType());
+		typeEnv.declare(id, stat.getType());
 		return true;
 	}
 	
 	public Boolean visit(IfBlock stat) {
 		
-		if (!checkExpression(stat.getCondition())) {
+		Expression condition = stat.getCondition();
+		Type conditionType = condition.typeOf(typeEnv);
+		
+		if (!checkExpression(condition)) {
 			return false;
 		}
 		
-		if (!stat.getCondition().typeOf(typeEnv).isCompatibleWithBool()) {
-			System.out.println(stat.getCondition().typeOf(typeEnv));
-			System.out.println(typeEnv);
+		if (!conditionType.isCompatibleWithBool()) {
 			return false;
 		}
 		
