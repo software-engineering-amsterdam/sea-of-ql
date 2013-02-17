@@ -15,9 +15,12 @@ anno str FormBodyItem@ref;
 
 public str compileForm(f:form(ident,formBody)){
 	formRefrnced=setConditionalReference(formBody);
-	print(generateJavaScipt(formRefrnced));
-	print("\n\n");
-	return generateHTMLForm(ident,formRefrnced);	   
+		
+	loc htmlFile=|project://SofConstr/Output/<ident>.html|;
+	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
+	loc jsFile=|project://SofConstr/Output/<ident>.js|;
+	writeFile(jsFile,generateJavaScipt(formRefrnced));
+	return "1";	   
 	
 }
 	
