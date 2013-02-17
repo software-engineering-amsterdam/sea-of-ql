@@ -7,9 +7,9 @@ sc-ql-2012-2013-rascal
 Code for the Rascal variant of lab assignment Software Construction 2012-2013
 
 # Documentation
-* Form generation: [see here](doc/Generation.md)
-* Form declaration: [see here](doc/Form.md)
-* Stylesheet declaration: [see here](doc/Stylesheet.md)
+* [Form generation](doc/Generation.md)
+* [Form declaration](doc/Form.md)
+* [Stylesheet declaration](doc/Stylesheet.md)
 
 # Other resources
 * [Todo list](Todo.md)

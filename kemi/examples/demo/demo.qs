@@ -15,9 +15,13 @@ stylesheet demo {
     }
     question ofAge {
       widget checkbox
+      font "Courier"
+      fontsize 20
+      color #FF0000
     }
     question ofAge2 {
       widget radio
+      color #00AA00
     }
   }
   

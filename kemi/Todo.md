@@ -7,6 +7,12 @@
 * Refactoring / Adding comments
 * Create awesome stylesheet to show off.
 
+# Issues
+* The slider does not work in non-chrome browser
+* The third page is not reachable in the demo form. Clicking on 'next' does not do anything.
+It is reachable manually though; pages = $(".page"); showPage(pages[2]); does work.
+The form is functioning correctly with the rest of the buttons.
+
 # Discussion
 * Syntax: all datatypes in separate modules (?)
   => No, I don't think so. It will be less clear, and we won't apply it for reuse.
