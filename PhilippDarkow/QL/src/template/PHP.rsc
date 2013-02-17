@@ -2,6 +2,7 @@ module template::PHP
 
 import IO;
 import syntax::AbstractSyntax;
+import Prelude;
 
 /** Method to create a code snippet in PHP to create a variable and get the value of the form
 * @param formId the name of the questionaire
@@ -45,8 +46,8 @@ void createDataBaseCode(str formId){
 */
 void createTableCode(str formId){
 	str result = "$sqlTable = \'CREATE TABLE <formId>( \'.
-       \'emp_id INT NOT NULL AUTO_INCREMENT, \'.
-       \'primary key ( emp_id ))\';
+       \'q_id INT NOT NULL AUTO_INCREMENT, \'.
+       \'primary key ( q_id ))\';
 		mysql_select_db(\'<formId>\');
 		$retval = mysql_query( $sqlTable, $conn );
 		if(! $retval ) { die(\'Could not create table: \' . mysql_error()); }
@@ -82,19 +83,24 @@ public void createColumnInTable(str formId, str id, Type tp){
 */
 public void insertValueInDatabase(str formId,  list[Body] body){   //  list[str] ids, i need to get the id of all questions
 	println("BBBB : <body>");
+	list[str] ids = [];
 	for(s <- body){
-		bottom-up visit(s){
-			case Expression e : {
-				println("Case with ID : <e>");
+		visit(s){
+			case Question e : {
+				println("Question with ID : <e>");
+				list[value] temp = getChildren(e);
+				ids += toString(temp[0]);
 			}
 		}
 	}
+	println("ids : <ids>");
 	//$sql5 = 'INSERT INTO Box1 VALUES ('NULL', 'NULL', 'NULL', '$sellingPrice' , '$privateDebt', '$valueResidue') ';
 	//$retval = mysql_query( $sql5, $conn ); 
-	//
-	//str result = "$query<varName> = \'INSERT INTO <formId> (<for(i <- ids) { > <i>, < }>)
-	//VALUES(<for(i <- ids) { > \'\".$<i>.\", < }>)";
-	//appendToPHP(formId,result);
+	// $query = "  privateDebt,  valueResidue ) VALUES ( 'Null',  '".$hasSoldHouse."',  '".$hasBoughtHouse."',  '".$hasMaintLoan."',  '".$sellingPrice."',  '".$privateDebt."',  '".$valueResidue."' )";
+	str result = "\"$query = \'INSERT INTO <formId> ( q_id, <for(i <- ids) { > <i>, < }>)
+	VALUES(\'NULL\', <for(i <- ids) { > \'\".$<i>.\"\', < }>)\";
+	mysql_query( $query, $conn ); ";
+	appendToPHPFile(formId,result);
 }
 
 /** Method to append PHP code to a PHP file

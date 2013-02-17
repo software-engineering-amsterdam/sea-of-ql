@@ -1,8 +1,10 @@
 form Box {
 boughtHouse: "Did you bought a house" boolean
-SoldtHouse: "Did you bought a house" money
-boughtHouse: "Question moneyf" money
-if(SoldtHouse){
-
+SoldtHouse: "Did you bought a house" boolean
+oughtHouse: "Question moneyf" boolean
+if(boughtHouse){
+ghtHouse: "Did you bought a house" money
+ldtHouse: "Did you bought a house" money
+tHouse: "Question moneyf" money
 }
 }

@@ -71,8 +71,7 @@ public void registerQL() {
      println("In register");
      return parseProgram(src, l);
   });
-  //registerAnnotator(QL_NAME, checkQLProgram);
-  //registerContributions(QL_NAME, QL_CONTRIBS);
+
   registerContributions(QL_NAME, {
     	outliner(node (Tree t) {
     		println("t is :<t>");
@@ -81,7 +80,7 @@ public void registerQL() {
 		),
 
 		menu(menu("QL",[
-		    action("Generate JavaScript", compileQL)
+		    action("Generate JavaScript", generateQL)
 	    ])
   	),
 
@@ -92,12 +91,6 @@ public void registerQL() {
   	}); 
 }
 
-public void compileQL(Tree x, loc selection) {
+public void generateQL(Tree x, loc selection) {
 	println("tree : <x>");
 }
-
-//public void main() {
-//  registerLanguage(LANG, EXT, Tree(str src, loc l) {
-//     return parse(src, l);
-//  });
-//}

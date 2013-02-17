@@ -23,14 +23,14 @@ public node outline(program(id,Body)){
 
 Outline outlineBody(list[Body] body, Outline outlineList){
 	println("In outline BODY <body>");
-	for(s <- body){
-	println("S : <s>");
+	for(k <- body){
+	println("S : <k>");
 		top-down visit(s) {
 			case Question q : {
 				outlineList += outline(q, outlineList);
 			}
 			case Statement s : {
-				outline(s);
+				outlineList += outline(s, outlineList);
 			}
 		}
 	}
