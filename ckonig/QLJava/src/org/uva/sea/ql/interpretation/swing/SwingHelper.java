@@ -11,7 +11,7 @@ import javax.swing.JTextArea;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.common.IOHelper;
 import org.uva.sea.ql.common.VisitorDocumentBuilder;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.generation.html.HTMLDocument;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
@@ -79,7 +79,7 @@ public class SwingHelper {
                 result.setVisible(true);
                 this.centerPanel.repaint();
                 this.log.append("interpretation finished\n");
-            } catch (VisitorException ex) {
+            } catch (QLException ex) {
                 this.log.append(ex.getMessage() + NEWLINE);
             }
 
@@ -100,7 +100,7 @@ public class SwingHelper {
                 IOHelper.write(IOHelper.OUT_PATH + f.getName() + ".html",
                         output);
                 this.log.append(IOHelper.OUT_PATH + f.getName() + " created\n");
-            } catch (VisitorException ex) {
+            } catch (QLException ex) {
                 this.log.append(ex.getMessage());
             } catch (FileNotFoundException ex) {
                 this.log.append(ex.getMessage());

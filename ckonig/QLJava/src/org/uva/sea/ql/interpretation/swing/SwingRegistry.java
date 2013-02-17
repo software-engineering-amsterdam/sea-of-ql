@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 public class SwingRegistry {
@@ -43,7 +43,7 @@ public class SwingRegistry {
                 }
                 isp.repaint();
             }
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             System.out.println(ex.getMessage());
         }
     }

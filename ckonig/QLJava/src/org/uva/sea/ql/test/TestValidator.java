@@ -4,7 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.validation.AstValidationError;
@@ -43,7 +43,7 @@ public class TestValidator extends TestExpressions {
         try {
             f.accept(new ValidationVisitor());
 
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("Visitor Exception occured during test: "
                     + ex.getMessage());
         }
@@ -62,7 +62,7 @@ public class TestValidator extends TestExpressions {
             f.accept(visitor);
         } catch (AstValidationError ex) {
             exceptionThrown = true;
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         Assert.assertEquals(true, exceptionThrown);
@@ -78,7 +78,7 @@ public class TestValidator extends TestExpressions {
         } catch (AstValidationError ex) {
             exceptionThrown = true;
 
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         Assert.assertEquals(true, exceptionThrown);
@@ -97,7 +97,7 @@ public class TestValidator extends TestExpressions {
             f.accept(visitor);
         } catch (AstValidationError ex) {
             exceptionThrown = true;
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         Assert.assertEquals(true, exceptionThrown);
@@ -112,7 +112,7 @@ public class TestValidator extends TestExpressions {
             f.accept(visitor);
         } catch (AstValidationError ex) {
             exceptionThrown = true;
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         exceptionThrown = false;
@@ -126,7 +126,7 @@ public class TestValidator extends TestExpressions {
             f.accept(visitor);
         } catch (AstValidationError ex) {
             exceptionThrown = true;
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         Assert.assertEquals(true, exceptionThrown);
@@ -141,7 +141,7 @@ public class TestValidator extends TestExpressions {
             f.accept(visitor);
         } catch (AstValidationError ex) {
             exceptionThrown = true;
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         Assert.assertEquals(true, exceptionThrown);
@@ -156,7 +156,7 @@ public class TestValidator extends TestExpressions {
             f.accept(visitor);
         } catch (AstValidationError ex) {
             exceptionThrown = true;
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             Assert.fail("unexpected exception occured: " + ex.getMessage());
         }
         Assert.assertEquals(true, exceptionThrown);

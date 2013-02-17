@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.ASTElement;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
 public class Block extends Expr implements ASTElement {
@@ -23,7 +23,7 @@ public class Block extends Expr implements ASTElement {
 	}
 
 	@Override
-	public final void accept(ElementVisitor visitor) throws VisitorException{
+	public final void accept(ElementVisitor visitor) throws QLException{
 		visitor.visit(this);
 	}
 }

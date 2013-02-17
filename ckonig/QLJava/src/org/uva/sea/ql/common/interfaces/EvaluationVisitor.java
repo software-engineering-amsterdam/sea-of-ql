@@ -21,43 +21,43 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 
 
 public interface EvaluationVisitor {
-    void visit(Add add) throws VisitorException;
+    void visit(Add add) throws QLException;
 
-    void visit(Mul mul) throws VisitorException;
+    void visit(Mul mul) throws QLException;
 
-    void visit(Div div) throws VisitorException;
+    void visit(Div div) throws QLException;
 
-    void visit(Sub sub) throws VisitorException;
+    void visit(Sub sub) throws QLException;
 
-    void visit(And and) throws VisitorException;
+    void visit(And and) throws QLException;
 
-    void visit(Or or) throws VisitorException;
+    void visit(Or or) throws QLException;
 
-    void visit(Eq eq) throws VisitorException;
+    void visit(Eq eq) throws QLException;
 
-    void visit(NEq neq) throws VisitorException;
+    void visit(NEq neq) throws QLException;
 
-    void visit(GT gt) throws VisitorException;
+    void visit(GT gt) throws QLException;
 
-    void visit(GEq geq) throws VisitorException;
+    void visit(GEq geq) throws QLException;
 
-    void visit(LT lt) throws VisitorException;
+    void visit(LT lt) throws QLException;
 
-    void visit(LEq leq) throws VisitorException;
+    void visit(LEq leq) throws QLException;
 
-    void visit(Not not) throws VisitorException;
+    void visit(Not not) throws QLException;
 
-    void visit(Pos pos) throws VisitorException;
+    void visit(Pos pos) throws QLException;
 
-    void visit(Neg neg) throws VisitorException;
+    void visit(Neg neg) throws QLException;
 
-    void visit(Ident ident) throws VisitorException;
+    void visit(Ident ident) throws QLException;
     
-    void visit(IntLiteral i) throws VisitorException;
+    void visit(IntLiteral i) throws QLException;
 
     void visit(BooleanType booleanType);
 

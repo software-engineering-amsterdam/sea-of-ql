@@ -1,8 +1,8 @@
 package org.uva.sea.ql.generation;
 
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 
-public class GeneratorException extends VisitorException {
+public class GeneratorException extends QLException {
     /**
      * 
      */

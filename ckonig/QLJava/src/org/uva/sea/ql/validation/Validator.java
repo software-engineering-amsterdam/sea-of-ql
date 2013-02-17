@@ -1,7 +1,7 @@
 package org.uva.sea.ql.validation;
 
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 import org.uva.sea.ql.parser.ParseError;
 
@@ -23,7 +23,7 @@ public class Validator {
             }
         } catch (ParseError ex) {
             System.out.println("ParseError: " + ex.getMessage());
-        } catch (VisitorException ex) {
+        } catch (QLException ex) {
             System.out.println("Visitor Error: " + ex.getMessage());
         }
     }

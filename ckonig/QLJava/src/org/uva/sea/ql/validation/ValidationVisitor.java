@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.common.Registry;
 import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
 public class ValidationVisitor implements ElementVisitor {
@@ -22,19 +22,19 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     @Override
-    public final void visit(Form form) throws VisitorException {
+    public final void visit(Form form) throws QLException {
         form.getBlock().accept(this);
     }
 
     @Override
-    public final void visit(Block block) throws VisitorException {
+    public final void visit(Block block) throws QLException {
         for (BlockElement expr : block.getContent()) {
             expr.accept(this);
         }
     }
 
     @Override
-    public final void visit(Question question) throws VisitorException {
+    public final void visit(Question question) throws QLException {
         for (Question q : this.registry.getQuestions()) {
             if (q.getIdentName().equals(question.getIdentName())) {
                 throw new AstValidationError("duplicate question Identifier:"
@@ -46,7 +46,7 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     @Override
-    public final void visit(IfStatement ifStatement) throws VisitorException {
+    public final void visit(IfStatement ifStatement) throws QLException {
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         final Expr condition = ifStatement.getCondition();
         ((Evaluatable) condition).accept(f);
@@ -67,7 +67,7 @@ public class ValidationVisitor implements ElementVisitor {
                 + e.getClass().toString());
     }
 
-    private void visit(Expr operator) throws VisitorException {
+    private void visit(Expr operator) throws QLException {
         final AcceptFinder f = new AcceptFinder();
         ((Evaluatable) operator).accept(f);
         if (f.getResult().equals(ReturnTypes.BOOLEAN)) {
@@ -96,7 +96,7 @@ public class ValidationVisitor implements ElementVisitor {
     }
 
     private boolean bothhaveEqualReturnType(Expr r, ReturnTypes type)
-            throws VisitorException {
+            throws QLException {
         final BinaryExpr b = (BinaryExpr) r;
         final ReturnTypes left = this.getReturnTypes(b.getLeft());
         final ReturnTypes right = this.getReturnTypes(b.getRight());
@@ -104,7 +104,7 @@ public class ValidationVisitor implements ElementVisitor {
                 && right.equals(type);
     }
 
-    private ReturnTypes getReturnTypes(Expr e) throws VisitorException {
+    private ReturnTypes getReturnTypes(Expr e) throws QLException {
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         this.visit(e);
         ((Evaluatable) e).accept(f);

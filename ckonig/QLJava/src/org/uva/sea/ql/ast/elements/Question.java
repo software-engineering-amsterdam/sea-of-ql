@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
 public class Question extends BlockElement {
@@ -33,7 +33,7 @@ public class Question extends BlockElement {
     }
 
     @Override
-    public final void accept(ElementVisitor visitor) throws VisitorException {
+    public final void accept(ElementVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 

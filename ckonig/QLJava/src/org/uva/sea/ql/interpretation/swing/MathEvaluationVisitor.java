@@ -25,7 +25,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
@@ -48,89 +48,89 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
         this.replaceEmtyWithZero = replaceEmptyInputWithZero;
     }
 
-    public final float eval(Expr e) throws VisitorException {
+    public final float eval(Expr e) throws QLException {
         ((Evaluatable) e).accept(this);
 
         return this.ret;
     }
 
     @Override
-    public void visit(Add add) throws VisitorException {
+    public void visit(Add add) throws QLException {
         this.ret = this.eval(add.getLeft()) + this.eval(add.getRight());
     }
 
     @Override
-    public void visit(Mul mul) throws VisitorException {
+    public void visit(Mul mul) throws QLException {
         this.ret = this.eval(mul.getLeft()) * this.eval(mul.getRight());
     }
 
     @Override
-    public void visit(Div div) throws VisitorException {
+    public void visit(Div div) throws QLException {
         this.ret = this.eval(div.getLeft()) / this.eval(div.getRight());
     }
 
     @Override
-    public void visit(Sub sub) throws VisitorException {
+    public void visit(Sub sub) throws QLException {
         this.ret = this.eval(sub.getLeft()) - this.eval(sub.getRight());
     }
 
     @Override
-    public void visit(And and) throws VisitorException {
+    public void visit(And and) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Or or) throws VisitorException {
+    public void visit(Or or) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Eq eq) throws VisitorException {
+    public void visit(Eq eq) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(NEq neq) throws VisitorException {
+    public void visit(NEq neq) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(GT gt) throws VisitorException {
+    public void visit(GT gt) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(GEq geq) throws VisitorException {
+    public void visit(GEq geq) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(LT lt) throws VisitorException {
+    public void visit(LT lt) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(LEq leq) throws VisitorException {
+    public void visit(LEq leq) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Not not) throws VisitorException {
+    public void visit(Not not) throws QLException {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Pos pos) throws VisitorException {
+    public void visit(Pos pos) throws QLException {
         this.ret = this.eval(pos.getAdjacent()) * (1);
     }
 
     @Override
-    public void visit(Neg neg) throws VisitorException {
+    public void visit(Neg neg) throws QLException {
         this.ret = this.eval(neg.getAdjacent()) * (-1);
     }
 
     @Override
-    public void visit(Ident i) throws VisitorException {
+    public void visit(Ident i) throws QLException {
         final QuestionPanel q = this.registry.getQuestionPanelByIdent(i);
         ReturnFinder f = new ReturnFinder(this.registry.getQuestionsAst());
         q.getQuestion().getType().accept(f);

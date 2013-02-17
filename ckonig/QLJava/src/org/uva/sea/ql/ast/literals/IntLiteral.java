@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.literals;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 import org.uva.sea.ql.common.interfaces.TreeVisitor;
 
@@ -20,7 +20,7 @@ public class IntLiteral extends Expr implements Evaluatable, TreeNode {
     }
 
     @Override
-    public final void accept(EvaluationVisitor visitor) throws VisitorException {
+    public final void accept(EvaluationVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 

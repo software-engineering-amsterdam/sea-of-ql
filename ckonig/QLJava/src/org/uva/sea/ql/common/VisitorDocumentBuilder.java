@@ -17,26 +17,26 @@ public class VisitorDocumentBuilder implements ElementVisitor {
     }
 
     @Override
-    public final void visit(Form form) throws VisitorException {
+    public final void visit(Form form) throws QLException {
         this.document.setHeading(form.getName());
         form.getBlock().accept(this);
         this.document.create();
     }
 
     @Override
-    public final void visit(Block block) throws VisitorException {
+    public final void visit(Block block) throws QLException {
         for (BlockElement e : block.getContent()) {
             e.accept(this);
         }
     }
 
     @Override
-    public final void visit(Question question) throws VisitorException {
+    public final void visit(Question question) throws QLException {
         this.document.appendQuestion(question);
     }
 
     @Override
-    public final void visit(IfStatement ifStatement) throws VisitorException {
+    public final void visit(IfStatement ifStatement) throws QLException {
         this.document.beginIf(ifStatement);
         ifStatement.getContent().accept(this);
         this.document.endIf();

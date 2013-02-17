@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.TypeVisitor;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 
@@ -37,7 +37,7 @@ public class AutoValueTypeVisitor implements TypeVisitor {
                 t.setText(Float.toString(result));
             } catch (EmptyInputException ex) {
                 // no input? no evaluation!
-            } catch (VisitorException ex) {
+            } catch (QLException ex) {
                 System.out.println("error: " + ex.getMessage());
             }
         }

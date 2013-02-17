@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class GEq extends BinaryBooleanOperator {
@@ -17,7 +17,7 @@ public class GEq extends BinaryBooleanOperator {
     }
 
     @Override
-    public void accept(EvaluationVisitor visitor) throws VisitorException {
+    public void accept(EvaluationVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 }
