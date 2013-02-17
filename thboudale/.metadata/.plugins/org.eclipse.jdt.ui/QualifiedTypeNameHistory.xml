@@ -18,4 +18,6 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.ifElseStatement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.BlockOfStatements"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.Form"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Str"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.Statement"/>
 </qualifiedTypeNameHistroy>
