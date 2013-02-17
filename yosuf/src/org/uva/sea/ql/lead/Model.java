@@ -30,13 +30,13 @@ public class Model {
 
 	/**
 	 * 
-	 * @param identifier
+	 * @param expression
 	 *            (not null)
 	 * @return (maybe null)
 	 */
-	public Computed getComputed(final Identifier identifier) {
-		state.assertNotNull(identifier, "identifier");
-		return computeds.get(identifier);
+	public Computed getComputed(final Expression<?> expression) {
+		state.assertNotNull(expression, "expression");
+		return computeds.get(expression);
 	}
 
 	/**

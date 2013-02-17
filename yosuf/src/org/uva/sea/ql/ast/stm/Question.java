@@ -34,8 +34,12 @@ public class Question extends Block {
 		state.assertNotNull(this.questionText, "Question.questionText");
 	}
 
-	public StringValue getText() {
+	public StringValue getStringValue() {
 		return questionText;
+	}
+
+	public String getText() {
+		return questionText.getValue();
 	}
 
 	public DataType getDataType() {

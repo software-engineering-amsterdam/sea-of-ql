@@ -31,6 +31,7 @@ public class VisibleFormNodeCreatorTest {
 		Computed computed = new Computed(new IntegerType(), new Identifier(
 				"cash"), new IntegerValue(900));
 		BooleanValue exp = new BooleanValue(true);
+
 		IfStatement ifStm = new IfStatement(exp,
 				new CompoundStatement(computed));
 

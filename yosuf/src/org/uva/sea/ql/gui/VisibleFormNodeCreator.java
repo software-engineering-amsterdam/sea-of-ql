@@ -12,10 +12,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import julius.validation.ValidationException;
 
-import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Expression.Nature;
-import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
@@ -97,30 +95,26 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		final Node drawableStatements = ifStatement.getIfCompound()
 				.accept(this);
 
-		// hBox.getChildren().add(drawableStatements);
+		final Expression<?> exp = ifStatement.getExpression();
 
-		final Identifier exp = (Identifier) ifStatement.getExpression();
-		if (exp != null) {
-			model.addListener(exp, new ModelChangeListener() {
+		model.addListener(exp, new ModelChangeListener() {
 
-				@Override
-				public void changed(final Expression<?> expression) {
-					Computed comp = model.getComputed(exp);
-					if (comp.getExpression() != null) {
-						BooleanValue val = (BooleanValue) comp.getExpression()
-								.accept(expressionEvaluator);
-						if (val.getValue()) {
-							hBox.getChildren().add(drawableStatements);
-						} else {
-							hBox.getChildren().remove(drawableStatements);
-						}
+			@Override
+			public void changed(final Expression<?> expression) {
+				Computed comp = model.getComputed(exp);
+				if (comp.getExpression() != null) {
+					BooleanValue val = (BooleanValue) comp.getExpression()
+							.accept(expressionEvaluator);
+					if (val.getValue()) {
+						hBox.getChildren().add(drawableStatements);
 					} else {
-
+						hBox.getChildren().remove(drawableStatements);
 					}
+				} else {
+					hBox.getChildren().remove(drawableStatements);
 				}
-			});
-
-		}
+			}
+		});
 
 		return hBox;
 	}
@@ -139,44 +133,17 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final Question question) {
-		final VBox vBox = new VBox();
-		CheckBox testChecker = new CheckBox();
-
-		final HBox hBox = createHBox();
-
-		hBox.getStyleClass().add(QUESTION_STYLE);
-
-		hBox.getChildren().add(createText(question.getText().getValue()));
-
-		Node interactiveNode = createInteractiveNode(question.getDataType());
-
-		// hBox.visibleProperty().bind(testChecker.selectedProperty());
-		hBox.getChildren().add(interactiveNode);
-		vBox.getChildren().add(hBox);
-
-		if (interactiveNode instanceof CheckBox) {
-			((CheckBox) interactiveNode).selectedProperty().addListener(
-					new ChangeListener<Boolean>() {
-
-						@Override
-						public void changed(
-								final ObservableValue<? extends Boolean> arg0,
-								final Boolean old, final Boolean neww) {
-
-							Computed computed = new Computed(question
-									.getDataType(), question.getIdentifier(),
-									new BooleanValue(neww.booleanValue()));
-							model.registerComputed(computed);
-
-						}
-
-					});
+		state.assertNotNull(question, "question");
+		switch (question.getDataType().getNature()) {
+		case BOOLEAN:
+			return createYesNoQuestion(question);
+		case NUMERIC:
+		case TEXTUAL:
+			return createOpenQuestion(question);
+		default:
+			throw state.createException("Unsupported nature:"
+					+ question.getDataType().getNature());
 		}
-		return vBox;
-		// }
-
-		// hBox.visibleProperty().b
-
 	}
 
 	private HBox createHBox() {
@@ -184,18 +151,90 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		return hBox;
 	}
 
-	private Node createInteractiveNode(final Natural natural) {
-		Nature nature = natural.getNature();
-		switch (nature) {
-		case BOOLEAN:
-			return new CheckBox();
-		case NUMERIC:
-		case TEXTUAL:
-			return new TextField();
+	private Node createOpenQuestion(final Question question) {
+		final TextField input = new TextField();
+		input.textProperty().addListener(new ChangeListener<String>() {
 
-		default:
-			throw state.createException("Unsupported nature");
+			@Override
+			public void changed(final ObservableValue<? extends String> arg0,
+					final String oldVal, final String newVal) {
+
+				handleInput(question, input, oldVal, newVal);
+			}
+		});
+		return createHorizontalHolder(createText(question.getText()), input);
+	}
+
+	private void handleInput(final Question question, final TextField input,
+			final String oldInput, final String newInput) {
+		Nature nature = question.getDataType().getNature();
+
+		if (isValid(nature, newInput)) {
+
+			Computed computed = new Computed(question.getDataType(),
+					question.getIdentifier(),
+					createExpression(nature, newInput));
+			model.registerComputed(computed);
+
+		} else if (isValid(nature, oldInput) && !newInput.isEmpty()) {
+			input.setText(oldInput);
+		} else {
+			input.clear();
 		}
+	}
+
+	private Expression<?> createExpression(final Nature nature,
+			final String value) {
+		switch (nature) {
+		case NUMERIC:
+			return new IntegerValue(Integer.valueOf(value));
+		case TEXTUAL:
+			return new StringValue(value);
+		default:
+			throw state
+					.createException("Creating other than numeric or textual input should have never been called");
+		}
+	}
+
+	private boolean isValid(final Nature nature, final String value) {
+		switch (nature) {
+		case NUMERIC:
+			try {
+				// the following throws a number format exception if the value is not convertable
+				Integer.valueOf(value);
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		case TEXTUAL:
+			return value != null;
+		default:
+			return false;
+		}
+	}
+
+	private Node createYesNoQuestion(final Question question) {
+		CheckBox checkBox = new CheckBox();
+		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+
+			@Override
+			public void changed(final ObservableValue<? extends Boolean> arg0,
+					final Boolean oldVal, final Boolean newVal) {
+
+				Computed computed = new Computed(question.getDataType(),
+						question.getIdentifier(), new BooleanValue(newVal));
+				model.registerComputed(computed);
+			}
+		});
+
+		return createHorizontalHolder(createText(question.getText()), checkBox);
+	}
+
+	private HBox createHorizontalHolder(final Node... nodes) {
+		HBox hBox = new HBox();
+		hBox.getStyleClass().add(QUESTION_STYLE);
+		hBox.getChildren().addAll(nodes);
+
+		return hBox;
 	}
 
 	private Node createText(final String text) {
