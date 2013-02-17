@@ -20,7 +20,11 @@ public class Errors {
 			System.out.println(error);
 		}
 	}
-
+	
+	public void clear() {
+		errors.clear();
+	}
+	
 	public List<String> returnErrors() {
 		return errors;
 	}

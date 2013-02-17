@@ -99,7 +99,7 @@ public class Renderer implements IElementVisitor {
 	}
 
 	private void addQuestion(String label, JComponent component) {
-		panel.add(new JLabel(label.substring(1, label.length() - 1)));
+		panel.add(new JLabel(label.substring(1, label.length() - 1)),"width :100:,push");
 		panel.add(component, "wrap");
 	}
 

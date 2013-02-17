@@ -30,6 +30,11 @@ public class State {
 		}
 		return false;
 	}
+	
+	public void clearState() {
+		typeEnv.clear();
+		valuEnv.clear();
+	}
 
 	public void setType(String name, Type type) {
 		typeEnv.put(name, type);
