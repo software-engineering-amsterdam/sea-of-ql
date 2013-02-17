@@ -5,10 +5,10 @@ import ast.visitor.Visitor;
 
 public class Else extends Statement {
 	
-	private final Statement consequence;
+	private final Block block;
 	
-	public Else(Statement consequence){
-		this.consequence = consequence;
+	public Else(Block block){
+		this.block = block;
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class Else extends Statement {
 		return visitor.visit(this);
 	}
 	
-	public Statement getConsequence(){
-		return this.consequence;
+	public Block getBlock(){
+		return this.block;
 	}
 }

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -44,6 +45,7 @@ public class Program {
 			org.uva.sea.ql.visitor.eval.Form swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
 			JFrame frame = questionForm.accept(swingVisitor);
 			frame.setVisible(true);
+			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}
 	}
 

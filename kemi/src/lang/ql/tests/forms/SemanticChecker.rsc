@@ -29,37 +29,37 @@ private bool semanticChecker(loc f, int numberOfWarnings, int numberOfErrors) {
 }
   
 public test bool semanticTestBasicForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/basic.q|, 0, 0);
+  semanticChecker(|project://QL-R-kemi/examples/tests/basic.q|, 0, 0);
   
 public test bool semanticTestCalculatedField() = 
-  semanticChecker(|project://QL-R-kemi/forms/calculatedField.q|, 0, 0);
+  semanticChecker(|project://QL-R-kemi/examples/tests/calculatedField.q|, 0, 0);
   
 public test bool semanticTestCommentForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/comment.q|, 0, 0);
+  semanticChecker(|project://QL-R-kemi/examples/tests/comment.q|, 0, 0);
   
 public test bool semanticTestDuplicateLabels() = 
-  semanticChecker(|project://QL-R-kemi/forms/duplicateLabels.q|, 0, 3);
+  semanticChecker(|project://QL-R-kemi/examples/tests/duplicateLabels.q|, 0, 3);
   
 public test bool semanticTestIfCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifCondition.q|, 0, 0);
+  semanticChecker(|project://QL-R-kemi/examples/tests/ifCondition.q|, 0, 0);
   
 public test bool semanticTestIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseCondition.q|, 0, 0);
+  semanticChecker(|project://QL-R-kemi/examples/tests/ifElseCondition.q|, 0, 0);
   
 public test bool semanticTestIfElseIfCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseIfCondition.q|, 0, 4);
+  semanticChecker(|project://QL-R-kemi/examples/tests/ifElseIfCondition.q|, 0, 4);
   
 public test bool semanticTestIfElseIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|, 2, 6);
+  semanticChecker(|project://QL-R-kemi/examples/tests/ifElseIfElseCondition.q|, 2, 6);
   
 public test bool semanticTestMultipleQuestions() = 
-  semanticChecker(|project://QL-R-kemi/forms/multipleQuestions.q|, 0, 0);
+  semanticChecker(|project://QL-R-kemi/examples/tests/multipleQuestions.q|, 0, 0);
   
 public test bool semanticTestNestedIfElseIfElseCondition() = 
-  semanticChecker(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|, 4, 11);
+  semanticChecker(|project://QL-R-kemi/examples/tests/nestedIfElseIfElseCondition.q|, 4, 11);
   
 public test bool semanticTestUglyFormattedForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/uglyFormatted.q|, 2, 7);
+  semanticChecker(|project://QL-R-kemi/examples/tests/uglyFormatted.q|, 2, 7);
   
 public test bool semanticTestUndefinedVariableForm() = 
-  semanticChecker(|project://QL-R-kemi/forms/undefinedVariable.q|, 0, 3);
+  semanticChecker(|project://QL-R-kemi/examples/tests/undefinedVariable.q|, 0, 3);

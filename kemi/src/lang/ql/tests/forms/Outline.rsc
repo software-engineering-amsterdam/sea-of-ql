@@ -23,40 +23,40 @@ private node outline(str s) =
   outlineForm(parseForm(s));
 
 public test bool testBasicForm() = 
-  outline(|project://QL-R-kemi/forms/basic.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/basic.q|) > "outline"();
   
 public test bool testCalculatedField() = 
-  outline(|project://QL-R-kemi/forms/calculatedField.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/calculatedField.q|) > "outline"();
   
 public test bool testCommentForm() = 
-  outline(|project://QL-R-kemi/forms/comment.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/comment.q|) > "outline"();
 
 public test bool testIfCondition() = 
-  outline(|project://QL-R-kemi/forms/ifCondition.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/ifCondition.q|) > "outline"();
   
 public test bool testIfElseCondition() = 
-  outline(|project://QL-R-kemi/forms/ifElseCondition.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/ifElseCondition.q|) > "outline"();
 
 public test bool testIfElseIfCondition() = 
-  outline(|project://QL-R-kemi/forms/ifElseIfCondition.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/ifElseIfCondition.q|) > "outline"();
 
 public test bool testIfElseIfElseCondition() = 
-  outline(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/ifElseIfElseCondition.q|) > "outline"();
 
 public test bool testMultipleQuestions() = 
-  outline(|project://QL-R-kemi/forms/multipleQuestions.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/multipleQuestions.q|) > "outline"();
 
 public test bool testNestedIfElseIfElseCondition() = 
-  outline(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/nestedIfElseIfElseCondition.q|) > "outline"();
 
 public test bool testUglyFormattedForm() =  
-  outline(|project://QL-R-kemi/forms/duplicateLabels.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/duplicateLabels.q|) > "outline"();
 
 public test bool testUglyFormattedForm() = 
-  outline(|project://QL-R-kemi/forms/uglyFormatted.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/uglyFormatted.q|) > "outline"();
 
 public test bool testUndefinedVariableForm() = 
-  outline(|project://QL-R-kemi/forms/undefinedVariable.q|) > "outline"();
+  outline(|project://QL-R-kemi/examples/tests/undefinedVariable.q|) > "outline"();
 
 public test bool testRandomForm() = 
   outline(randomForm(5, 3)) > "outline"();

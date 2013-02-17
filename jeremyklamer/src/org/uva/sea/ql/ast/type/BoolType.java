@@ -1,11 +1,16 @@
 package org.uva.sea.ql.ast.type;
 
-import java.awt.Checkbox;
+import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.interpreter.BoolVal;
+import org.uva.sea.ql.interpreter.Env;
+import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.ui.components.ActiveComponent;
+import org.uva.sea.ql.ui.components.BoolComponent;
 
-import ui.UIComponent;
 
 public class BoolType extends Type{
-	
+		
 	public BoolType(){
 		
 	}
@@ -21,8 +26,12 @@ public class BoolType extends Type{
 	}
 
 	@Override
-	public UIComponent getAnswerComp() {
-		return new UIComponent(new Checkbox(), "wrap");
+	public ActiveComponent getAnswerComponent(final Env env, final Form form, final Ident name) {
+		return new BoolComponent(env,form,name);
 	}
-	
+
+	@Override
+	public Value getDefaultValue() {
+		return new BoolVal(false);
+	}
 }

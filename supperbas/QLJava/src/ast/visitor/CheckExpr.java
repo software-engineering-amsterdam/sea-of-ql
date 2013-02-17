@@ -4,22 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 import ast.Expression;
+import ast.Form;
 import ast.Type;
 import ast.expression.Binary;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.Bool;
-import ast.expression.value.Money;
 import ast.expression.value.Str;
 import ast.statement.*;
 import ast.type.*;
-import ast.type.Error;
 
 public class CheckExpr implements Visitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
 	@SuppressWarnings("unused")
 	private final List<Message> messages;
-	private List<Error<?>> errors;
+	private List<Undefined<?>> errors;
 
 	private CheckExpr(Map<Ident, Type> tenv, List<Message> messages) {
 		this.typeEnv = tenv;
@@ -38,9 +37,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<Add>(ast, "invalid type for +"));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<Add>(ast, "invalid type for +"));
 			return false;
 		}
 		return true;
@@ -62,7 +61,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
-			addError(new Error<And>(ast, "invalid type for &&"));
+			addError(new Undefined<And>(ast, "invalid type for &&"));
 			return false;
 		}
 		return true;
@@ -74,9 +73,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<Div>(ast, "invalid type for /"));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<Div>(ast, "invalid type for /"));
 			return false;
 		}
 		return true;
@@ -90,9 +89,9 @@ public class CheckExpr implements Visitor<Boolean> {
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())
 				&& !(lhsType.isCompatibleToStr() && rhsType.isCompatibleToStr())
-				&& !(lhsType.isCompatibleToNumeric() && rhsType
-						.isCompatibleToNumeric())) {
-			addError(new Error<Eq>(ast, "invalid type for ="));
+				&& !(lhsType.isCompatibleToInt() && rhsType
+						.isCompatibleToInt())) {
+			addError(new Undefined<Eq>(ast, "invalid type for ="));
 			return false;
 		}
 		return true;
@@ -104,9 +103,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<GEq>(ast, "invalid type for >="));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<GEq>(ast, "invalid type for >="));
 			return false;
 		}
 		return true;
@@ -118,9 +117,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<GT>(ast, "invalid type for >"));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<GT>(ast, "invalid type for >"));
 			return false;
 		}
 		return true;
@@ -132,9 +131,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<LEq>(ast, "invalid type for <="));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<LEq>(ast, "invalid type for <="));
 			return false;
 		}
 		return true;
@@ -146,9 +145,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<LT>(ast, "invalid type for <"));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<LT>(ast, "invalid type for <"));
 			return false;
 		}
 		return true;
@@ -160,9 +159,9 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<Mul>(ast, "invalid type for *"));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<Mul>(ast, "invalid type for *"));
 			return false;
 		}
 		return true;
@@ -171,8 +170,8 @@ public class CheckExpr implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Neg ast) {
 		Type exprType = ast.getExpression().typeOf(typeEnv);
-		if (!exprType.isCompatibleToNumeric()) {
-			addError(new Error<Neg>(ast, "invalid type for (-)"));
+		if (!exprType.isCompatibleToInt()) {
+			addError(new Undefined<Neg>(ast, "invalid type for (-)"));
 			return false;
 		}
 		return true;
@@ -185,7 +184,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
-			addError(new Error<NEq>(ast, "invalid type for !="));
+			addError(new Undefined<NEq>(ast, "invalid type for !="));
 			return false;
 		}
 		return true;
@@ -195,7 +194,7 @@ public class CheckExpr implements Visitor<Boolean> {
 	public Boolean visit(Not ast) {
 		Type exprType = ast.getExpression().typeOf(typeEnv);
 		if (!exprType.isCompatibleToBool()) {
-			addError(new Error<Not>(ast, "invalid type for (-)"));
+			addError(new Undefined<Not>(ast, "invalid type for (-)"));
 			return false;
 		}
 		return true;
@@ -208,7 +207,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
-			addError(new Error<Or>(ast, "invalid type for ||"));
+			addError(new Undefined<Or>(ast, "invalid type for ||"));
 			return false;
 		}
 		return true;
@@ -217,8 +216,8 @@ public class CheckExpr implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Pos ast) {
 		Type exprType = ast.getExpression().typeOf(typeEnv);
-		if (!exprType.isCompatibleToNumeric()) {
-			addError(new Error<Pos>(ast, "invalid type for (-)"));
+		if (!exprType.isCompatibleToInt()) {
+			addError(new Undefined<Pos>(ast, "invalid type for (-)"));
 			return false;
 		}
 		return true;
@@ -230,19 +229,19 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		Type lhsType = ast.getLhs().typeOf(typeEnv);
 		Type rhsType = ast.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType
-				.isCompatibleToNumeric())) {
-			addError(new Error<Sub>(ast, "invalid type for -"));
+		if (!(lhsType.isCompatibleToInt() && rhsType
+				.isCompatibleToInt())) {
+			addError(new Undefined<Sub>(ast, "invalid type for -"));
 			return false;
 		}
 		return true;
 	}
 
-	public List<Error<?>> getErrors() {
+	public List<Undefined<?>> getErrors() {
 		return errors;
 	}
 
-	public void addError(Error<?> err) {
+	public void addError(Undefined<?> err) {
 		this.errors.add(err);
 	}
 
@@ -257,13 +256,8 @@ public class CheckExpr implements Visitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Money ast) {
-		return ast.typeOf(typeEnv).isCompatibleToNumeric();
-	}
-
-	@Override
 	public Boolean visit(ast.expression.value.Int ast) {
-		return ast.typeOf(typeEnv).isCompatibleToNumeric();
+		return ast.typeOf(typeEnv).isCompatibleToInt();
 	}
 
 	@Override
@@ -296,13 +290,55 @@ public class CheckExpr implements Visitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Question ast) {
+	public Boolean visit(Var ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Boolean visit(Var ast) {
+	public Boolean visit(ast.type.Bool ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Str ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Ident ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Int ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Message ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(Block ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(QuestionVar ast) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean visit(QuestionComputed ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}

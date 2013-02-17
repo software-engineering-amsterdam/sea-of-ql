@@ -6,8 +6,10 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.interfaces.Returns;
-import org.uva.sea.ql.interpretation.exception.EvaluationException;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.common.Evaluatable;
+import org.uva.sea.ql.common.ReturnFinder;
+import org.uva.sea.ql.common.VisitorException;
 
 public class IfStatementPanel extends JPanel {
     private static final long serialVersionUID = -365544076190441356L;
@@ -22,13 +24,12 @@ public class IfStatementPanel extends JPanel {
         return this.ifStatement;
     }
 
-    public final void eval(SwingRegistry registry) throws EvaluationException {
-        Expr e = this.ifStatement.getCondition();
-        Returns r = (Returns) e;
-
-        if (r.getReturnType(registry.getQuestionsAst()).equals(
-                ReturnTypes.BOOLEAN)) {
-            final boolean result = new BoolEvaluator(registry)
+    public final void eval(SwingRegistry registry) throws VisitorException {
+        final Expr e = this.ifStatement.getCondition();
+        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst());
+        ((Evaluatable) e).accept(f);
+        if (f.getResult().equals(ReturnTypes.BOOLEAN)) {
+            final boolean result = new BoolEvaluationVisitor(registry)
                     .eval(this.ifStatement.getCondition());
             this.setVisible(result);
         } else {

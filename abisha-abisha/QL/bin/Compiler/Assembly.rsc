@@ -4,15 +4,15 @@ module Compiler::Assembly
 
 import syntax::abstractSyntax;  				
 
-public data Instr = dclNat(QuestionireId Id)    // Reserve a memory location for a natural variable
-     | dclMon(QuestionireId Id)					// Reserve a memory location for a money variable
-     | dclBool(QuestionireId Id)				// Reserve a memory location for a bolean variable
-     | dclStr(QuestionireId Id)    				// Reserve a memory location for a string variable
+public data Instr = dclNat(QuestionId Id)    // Reserve a memory location for a natural variable
+     | dclMon(QuestionId Id)					// Reserve a memory location for a money variable
+     | dclBool(QuestionId Id)				// Reserve a memory location for a bolean variable
+     | dclStr(QuestionId Id)    				// Reserve a memory location for a string variable
      | pushNat(int intCon)  					// Push integer constant on the stack
      | pushMon(int intCon)						// Push money constant on the stack
      | pushStr(str strCon)  					// Push string constant on the stack
-     | rvalue(QuestionireId Id)    				// Push the value of a variable on the stack
-     | lvalue(QuestionireId Id)    				// Push the address of a variable on the stack
+     | rvalue(QuestionId Id)    				// Push the value of a variable on the stack
+     | lvalue(QuestionId Id)    				// Push the address of a variable on the stack
      | assign()             					// Assign value on top, to variable at address top-1
      | add2()               					// Replace top two stack values by their sum
      | sub2()               					// Replace top two stack values by their difference

@@ -8,10 +8,9 @@ public class Message extends Type {
 	public boolean isCompatibleTo(Type t) {
 		return false;
 	}
-
+	
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		// TODO Auto-generated method stub
-		return null;
+		return visitor.visit(this);
 	}
 }

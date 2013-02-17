@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.expressions;
 
-public class UnaryExpr extends Expr {
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.common.TreeVisitor;
+
+public class UnaryExpr extends Expr implements TreeNode {
 	private Expr adjacent;
 
 	public UnaryExpr(Expr ex) {
@@ -10,4 +13,9 @@ public class UnaryExpr extends Expr {
 	public final Expr getAdjacent() {
 		return this.adjacent;
 	}
+
+    @Override
+    public void accept(TreeVisitor v) {
+       v.visit(this);
+    }
 }

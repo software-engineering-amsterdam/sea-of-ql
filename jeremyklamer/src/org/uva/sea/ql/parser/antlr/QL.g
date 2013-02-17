@@ -115,9 +115,9 @@ question returns [Question result]
     | Ident ':' String returnType {$result = new Question(new Ident($Ident.text), $String.text, $returnType.result);}    
     ;
     
-returnType returns [Type result] //TODO String ,boolen met or expressie, orexpr hoort bij de question. 
+returnType returns [Type result] 
     : 'boolean' {$result = new BoolType(); }
-    | 'money' {$result = new Money();} 
+    | 'integer' {$result = new IntType();} 
     | 'string' {$result = new StringType();}
     ;
     

@@ -1,17 +1,21 @@
 package org.uva.sea.ql.ast.types;
 
-import java.util.List;
-
-import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.common.VisitorException;
 
 public class StrType extends Type {
-    public StrType(){
-        
+    public StrType() {
+
     }
 
     @Override
-    public ReturnTypes getReturnType(List<Question> questions) {
-       return ReturnTypes.OTHER;
+    public void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public void accept(EvaluationVisitor visitor) throws VisitorException {
+        visitor.visit(this);
     }
 }

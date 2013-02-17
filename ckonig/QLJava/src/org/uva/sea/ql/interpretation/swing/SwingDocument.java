@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.common.IdentFinder;
 import org.uva.sea.ql.common.QLDocument;
 
 public class SwingDocument implements QLDocument {
@@ -65,7 +67,10 @@ public class SwingDocument implements QLDocument {
                 this.registry);
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
             final IfStatement ifStatement = ifPanel.getIfStatement();
-            final List<Ident> idents = ifStatement.getIdents();
+            IdentFinder finder = new IdentFinder();
+            ((TreeNode)ifStatement.getCondition()).accept(finder);
+           
+            final List<Ident> idents = finder.getIdents();
             for (Ident ident : idents) {
                 questionListener.addIdentListener(ident);
             }
