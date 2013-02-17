@@ -30,11 +30,6 @@ public class Type implements IType<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(org.uva.sea.ql.ast.type.Form form) {
-		return true;
-	}
-
-	@Override
 	public Boolean visit(Numeric numeric) {
 		return true;
 	}

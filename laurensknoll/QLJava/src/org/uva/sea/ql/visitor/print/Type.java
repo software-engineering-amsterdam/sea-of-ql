@@ -29,11 +29,6 @@ public class Type implements IType<String> {
 	}
 
 	@Override
-	public String visit(org.uva.sea.ql.ast.type.Form form) {
-		return "Form";
-	}
-
-	@Override
 	public String visit(Numeric numeric) {
 		return "Numeric";
 	}
