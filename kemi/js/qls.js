@@ -135,7 +135,7 @@ function paginate() {
         nextButton()
           .click(function(e) {
             e.preventDefault();
-            if($(page).find("input, select").valid()) {
+            if($(page).find("input:visible, select:visible").valid()) {
               showPage(pages[i + 1]);
             }
           })
