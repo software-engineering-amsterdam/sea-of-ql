@@ -1,4 +1,4 @@
-// Output created by jacc on Wed Feb 13 23:01:45 CET 2013
+// Output created by jacc on Sun Feb 17 17:13:06 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -2309,7 +2309,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr11() { // question : IDENTIFIER ':' STRINGLITERAL type '(' expression ')'
-        { yyrv = new ComputedQuestion(((Identifier)yysv[yysp-7]), ((StringLiteral)yysv[yysp-5]), ((Expression)yysv[yysp-2])); }
+        { yyrv = new ComputedQuestion(((Identifier)yysv[yysp-7]), ((StringLiteral)yysv[yysp-5]), ((Type)yysv[yysp-4]), ((Expression)yysv[yysp-2])); }
         yysv[yysp-=7] = yyrv;
         return 8;
     }
