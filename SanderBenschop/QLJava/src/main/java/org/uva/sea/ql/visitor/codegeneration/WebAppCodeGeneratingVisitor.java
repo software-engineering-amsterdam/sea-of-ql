@@ -26,7 +26,6 @@ import org.uva.sea.ql.visitor.codegeneration.codewrapper.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,8 +35,8 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     private final STGroupFile formTemplateGroup;
 
     public WebAppCodeGeneratingVisitor() {
-        this.pageTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlpage.stg", '$', '$');
-        this.formTemplateGroup =  new STGroupFile("src/main/resources/webapp/qlform.stg", '$', '$');
+        this.pageTemplateGroup =  new STGroupFile("src/main/resources/templates/qlpage.stg", '$', '$');
+        this.formTemplateGroup =  new STGroupFile("src/main/resources/templates/qlform.stg", '$', '$');
     }
 
     @Override
@@ -95,7 +94,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitIfStatement(IfStatement ifStatement) {
         AppendingStatementWebappCodeWrapper ifStatementWrapper = new AppendingStatementWebappCodeWrapper();
-        UUID identifier = UUID.randomUUID();
+        String identifier = createIdentifierForConditional();
 
         ST ifStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifStatementHtml");
         WebappCodeWrapper expressionJSCodeWrapper = ifStatement.getCondition().accept(this);
@@ -117,7 +116,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitIfElseStatement(IfElseStatement ifElseStatement) {
         AppendingStatementWebappCodeWrapper ifElseStatementWrapper = new AppendingStatementWebappCodeWrapper();
-        UUID identifier = UUID.randomUUID();
+        String identifier = createIdentifierForConditional();
 
         ST ifElseStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifElseStatementHtml");
         WebappCodeWrapper expressionJSCodeWrapper = ifElseStatement.getCondition().accept(this);
@@ -142,7 +141,11 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         return ifElseStatementWrapper;
     }
 
-    private String renderConditionalJSTemplate(UUID identifier, WebappCodeWrapper expressionJSCodeWrapper) {
+    private String createIdentifierForConditional() {
+        return "conditional" + System.currentTimeMillis();
+    }
+
+    private String renderConditionalJSTemplate(String identifier, WebappCodeWrapper expressionJSCodeWrapper) {
         ST conditionalJSTemplate = formTemplateGroup.getInstanceOf("conditionalJS");
         conditionalJSTemplate.add("identifier", identifier);
         conditionalJSTemplate.add("parentController", formTemplateGroup.getInstanceOf("ifStatementParentController").render());

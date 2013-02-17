@@ -1,7 +1,7 @@
 ql = {};
 ql.variableMap = {};
 
-ql.MessageBus = Base.extend({
+ql.messageBus = Base.extend({
     initialize : function() {
         this.variableListeners = {};
     },
@@ -20,7 +20,7 @@ ql.MessageBus = Base.extend({
             });
         }
     }
-});
+}).new();
 
 ql.QuestionController = Base.extend({
     initialize : function(questionName) {
@@ -50,7 +50,7 @@ ql.BooleanTypeQuestionController = ql.QuestionController.extend({
     }
 });
 
-ql.StringTypeQuestionController = ql.StringQuestionController.extend({
+ql.StringTypeQuestionController = ql.QuestionController.extend({
     parseValue : function(element) {
         return element.val();
     }

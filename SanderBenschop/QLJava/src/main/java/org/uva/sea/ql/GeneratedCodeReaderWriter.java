@@ -6,7 +6,7 @@ import java.io.*;
 
 public final class GeneratedCodeReaderWriter {
 
-    private static final String FILE_NAME = "generatedQLCode.qlang";
+    private static final String FILE_NAME = "./target/generatedQLCode.qlang";
 
     public static void writeGeneratedCode(String code) throws IOException {
         File file = new File(FILE_NAME);

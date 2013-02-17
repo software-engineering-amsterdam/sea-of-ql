@@ -56,7 +56,7 @@ ifElseStatementHtml(identifier, successBodyContent, failureBodyContent) :: <<
 >>
 
 conditionalJS(identifier, parentController, variableSubscriptions, expression) ::= <<
-    var $identifier$-ConditionalController = $parentController$.extend({
+    var $identifier$ConditionalController = $parentController$.extend({
         initialize : function(identifier) {
             $parentController$.initialize.call(this, identifier);
             $variableSubscriptions$

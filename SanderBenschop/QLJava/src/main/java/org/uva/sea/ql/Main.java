@@ -1,13 +1,14 @@
 package org.uva.sea.ql;
 
 import com.beust.jcommander.JCommander;
-import com.beust.jcommander.ParameterException;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.xml.XmlConfiguration;
+import org.eclipse.jetty.util.resource.ResourceCollection;
+import org.eclipse.jetty.webapp.WebAppContext;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.error.reporting.SimpleSyntacticErrorReporter;
@@ -16,9 +17,6 @@ import org.uva.sea.ql.visitor.codegeneration.WebAppCodeGeneratingVisitor;
 import org.uva.sea.ql.visitor.semanticanalysis.SemanticAnalysisVisitor;
 import org.uva.sea.ql.visitor.semanticanalysis.SemanticalAnalyser;
 
-import javax.servlet.ServletConfig;
-import java.io.FileInputStream;
-import java.util.EnumSet;
 import java.util.logging.Logger;
 
 public class Main {
@@ -50,8 +48,22 @@ public class Main {
     private static void startJettyServer(int port) {
         try {
             Server server = new Server(port);
-            ServletContextHandler root = new ServletContextHandler(server,"/",ServletContextHandler.SESSIONS);
-            root.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
+            ServletContextHandler servletsHandler = new ServletContextHandler();
+            servletsHandler.setContextPath("/ql");
+            servletsHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
+
+            WebAppContext staticResourcesHandler = new WebAppContext();
+            staticResourcesHandler.setContextPath("/ql/scripts");
+            ResourceCollection resources = new ResourceCollection(new String[] {
+                "src/main/webapp/WEB-INF/scripts"
+            });
+            staticResourcesHandler.setBaseResource(resources);
+
+            HandlerList handlers = new HandlerList();
+            handlers.addHandler(staticResourcesHandler);
+            handlers.addHandler(servletsHandler);
+            server.setHandler(handlers);
+
             server.start();
             server.join();
         } catch (Exception ex) {

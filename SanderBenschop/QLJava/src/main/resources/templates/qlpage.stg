@@ -3,11 +3,12 @@ page(formName, formContent, documentReadyContent) ::= <<
 <html>
     <head>
         <title>Question language - $formName$</title>
-        <script type="text/javascript" src="jquery.js"></script>
-        <script type="text/javascript" src="selfish.js"></script>
-        <script type="text/javascript" src="generic.js"></script>
+        <script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="scripts/selfish-0.3.2.min.js"></script>
+        <script type="text/javascript" src="scripts/generic.js"></script>
         <script type="text/javascript">
             jQuery(document).ready(function() {
+
                 /* Generated JS code start */
                 $documentReadyContent$
                 /* Generated JS code end */
