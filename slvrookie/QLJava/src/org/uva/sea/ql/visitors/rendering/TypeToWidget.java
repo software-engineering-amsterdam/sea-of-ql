@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.rendering;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -14,9 +14,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.controls.KeyAdapterIntOnly;
-import org.uva.sea.ql.visitors.controls.KeyAdapterMoneyOnly;
-import org.uva.sea.ql.visitors.interfaces.ITypeVisitor;
+import org.uva.sea.ql.visitors.ITypeVisitor;
 
 public class TypeToWidget implements ITypeVisitor<JComponent> {
 

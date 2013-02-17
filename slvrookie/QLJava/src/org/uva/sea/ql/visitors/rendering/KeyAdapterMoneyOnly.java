@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors.controls;
+package org.uva.sea.ql.visitors.rendering;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

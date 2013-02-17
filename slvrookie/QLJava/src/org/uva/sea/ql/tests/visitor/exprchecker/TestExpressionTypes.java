@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
-import org.uva.sea.ql.visitors.Errors;
-import org.uva.sea.ql.visitors.ExprChecker;
-import org.uva.sea.ql.visitors.State;
+import org.uva.sea.ql.visitors.typechecking.ExprChecker;
+import org.uva.sea.ql.visitors.utils.Errors;
+import org.uva.sea.ql.visitors.utils.State;
 
 
 public class TestExpressionTypes {

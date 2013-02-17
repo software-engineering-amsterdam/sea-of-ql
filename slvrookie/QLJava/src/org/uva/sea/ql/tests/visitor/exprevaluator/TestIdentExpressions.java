@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.expr.value.Value;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
-import org.uva.sea.ql.visitors.ExprEvaluator;
+import org.uva.sea.ql.visitors.rendering.ExprEvaluator;
 
 public class TestIdentExpressions {
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.rendering;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,9 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.ITypeVisitor;
+import org.uva.sea.ql.gui.Gui;
+import org.uva.sea.ql.visitors.ITypeVisitor;
+import org.uva.sea.ql.visitors.utils.State;
 
 public class ActionListenere implements ITypeVisitor<Void> {
 

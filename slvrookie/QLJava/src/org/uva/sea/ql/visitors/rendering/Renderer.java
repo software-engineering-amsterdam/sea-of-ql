@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitors;
+package org.uva.sea.ql.visitors.rendering;
 
 
 import javax.swing.BorderFactory;
@@ -18,7 +18,9 @@ import org.uva.sea.ql.ast.formelements.IfThen;
 import org.uva.sea.ql.ast.formelements.IfThenElse;
 import org.uva.sea.ql.ast.formelements.Question;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.gui.Gui;
+import org.uva.sea.ql.visitors.IElementVisitor;
+import org.uva.sea.ql.visitors.utils.State;
 
 public class Renderer implements IElementVisitor {
 

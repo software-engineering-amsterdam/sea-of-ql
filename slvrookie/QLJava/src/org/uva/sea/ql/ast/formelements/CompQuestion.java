@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.formelements;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.visitors.IElementVisitor;
 
 public class CompQuestion extends Question {
 

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.formelements;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.visitors.IElementVisitor;
 
 public class Form extends FormElement {
 
