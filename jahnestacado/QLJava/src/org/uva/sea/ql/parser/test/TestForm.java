@@ -14,7 +14,6 @@ import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.visitor.checkers.ElementChecker;
 
 public class TestForm {
 	
@@ -31,19 +30,10 @@ public class TestForm {
 	}
 
 	@Test
-	public void testForm() throws ParseError {
-		try {
-			File filePath = new File(path);
-			ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
-			assertEquals(Form.class, parser.parseForm(charStream.toString()).getClass());
-			ElementChecker.checkQL(parser.parseForm(charStream.toString()));
-			
-			//parser.parseForm(charStream.toString()).accept(sw);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	
-
+	public void testForm() throws ParseError, IOException {
+		File filePath = new File(path);
+		ANTLRFileStream charStream = new ANTLRFileStream(filePath.getAbsolutePath());
+		assertEquals(Form.class, parser.parseForm(charStream.toString()).getClass());
 	}
 
 	@Test

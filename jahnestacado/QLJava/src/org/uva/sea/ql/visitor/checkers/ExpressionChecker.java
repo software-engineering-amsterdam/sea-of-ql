@@ -39,7 +39,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	private final List<QLErrorMSg> errorReport;
 	
 
-	public ExpressionChecker(Map<String, Type> declaredVar, List<QLErrorMSg> errorReport) {
+	private ExpressionChecker(Map<String, Type> declaredVar, List<QLErrorMSg> errorReport) {
 		this.declaredVar = declaredVar;
 		this.errorReport = errorReport;
 	}
@@ -322,7 +322,6 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	private boolean isBoolOperand(Unary node,String symbol){
 		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
-
         if (!leftExprType.isCompatibleToBoolType()) {
 			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Right operand must be of the Boolean type"));
 			return false;
