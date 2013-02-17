@@ -70,6 +70,7 @@ public class SwingInterpreter extends JFrame {
         this.leftPanel = new JPanel();
         this.centerPanel = new JPanel();
         this.log = new JTextArea();
+        this.log.setLineWrap(true);
         this.leftPanel.add(this.log);
         this.topPanel.add(this.buttonOpenFile);
         this.topPanel.add(this.buttonGenerate);

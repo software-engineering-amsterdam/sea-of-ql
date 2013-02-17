@@ -83,6 +83,41 @@ public class TestValidator extends TestExpressions {
         }
         Assert.assertEquals(true, exceptionThrown);
     }
+    
+    @Test
+    public final void testValidatorVisitorLeftBoolNegativeErrorCollection() {
+        try {
+            final Form e = parser.parseFull(getQL("money", "boolean",
+                    "boolean",
+                    "hasSoldHouse && (hasBoughtHouse || hasMaintLoan)"));
+            final ValidationVisitor visitor = new ValidationVisitor(false);
+            Assert.assertTrue(Form.class.equals(e.getClass()));
+            final Form f = (Form) e;
+            f.accept(visitor);
+            Assert.assertEquals(true, visitor.hasErrors());
+        } catch (AstValidationError ex) {
+           Assert.fail("unexpected exception occured: " + ex.getMessage());
+        } catch (QLException ex) {
+            Assert.fail("unexpected exception occured: " + ex.getMessage());
+        }
+       
+        try {
+            final Form e = parser.parseFull(getQL("boolean", "money",
+                    "boolean",
+                    "hasSoldHouse && (hasBoughtHouse || hasMaintLoan)"));
+            final ValidationVisitor visitor = new ValidationVisitor(false);
+            Assert.assertTrue(Form.class.equals(e.getClass()));
+            final Form f = (Form) e;
+            f.accept(visitor);
+            Assert.assertEquals(true, visitor.hasErrors());
+        } catch (AstValidationError ex) {
+            Assert.fail("unexpected exception occured: " + ex.getMessage());
+        } catch (QLException ex) {
+            Assert.fail("unexpected exception occured: " + ex.getMessage());
+        }
+        
+    }
+
 
     @Test
     public final void testValidatorVisitorRightBoolNegative() {

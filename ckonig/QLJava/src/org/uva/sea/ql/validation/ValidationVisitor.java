@@ -32,6 +32,14 @@ public class ValidationVisitor implements ElementVisitor {
         this();
         this.throwExceptions = throwErrors;
     }
+    
+    public List<String> getErrors(){
+        return this.errors;
+    }
+    
+    public boolean hasErrors(){
+        return this.errors.size() > 0;
+    }
 
     @Override
     public final void visit(Form form) throws QLException {

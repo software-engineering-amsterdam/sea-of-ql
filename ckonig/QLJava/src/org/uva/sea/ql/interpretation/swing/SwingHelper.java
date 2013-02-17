@@ -36,10 +36,10 @@ public class SwingHelper {
     public final void openFile(File file) {
         try {
             this.fileContent = IOHelper.read(file);
-            this.log.append("file opened\n");
+            this.log.append("file opened" + NEWLINE);
             parseFile();
         } catch (IOException ex) {
-            this.log.append("error reading file");
+            this.log.append("error reading file" + NEWLINE);
         }
     }
 
@@ -47,11 +47,11 @@ public class SwingHelper {
         if (this.fileContent != null) {
             final IParse p = new ANTLRParser();
             try {
-                this.ast = p.parseDefaultFile();
-                this.log.append("File parsed\n");
+                this.ast = p.parseForm(this.fileContent);
+                this.log.append("File parsed" + NEWLINE);
                 validateAst();
             } catch (ParseError e) {
-                this.log.append(e.getMessage());
+                this.log.append(e.getMessage() + NEWLINE);
             }
         }
     }
@@ -60,13 +60,14 @@ public class SwingHelper {
         final Validator v = new Validator(false);
         try {
             v.validate(this.ast);
-            this.log.append("AST validated\n");
-            interpretAst();
-            this.buttonGenerate.setEnabled(true);
-            if(v.hasErrors()){
-                for(String error : v.getErrors()){
-                    this.log.append(error);
+            if (v.hasErrors()) {
+                this.log.append("Errors during validation:" + NEWLINE);
+                for (String error : v.getErrors()) {
+                    this.log.append(error + NEWLINE);
                 }
+            } else {
+                this.log.append("AST validated" + NEWLINE);
+                interpretAst();
             }
         } catch (AstValidationError ex) {
             this.log.append(ex.getMessage() + NEWLINE);
@@ -84,12 +85,13 @@ public class SwingHelper {
                 result.setVisible(true);
                 this.centerPanel.repaint();
                 this.log.append("interpretation finished\n");
+                this.buttonGenerate.setEnabled(true);
             } catch (QLException ex) {
                 this.log.append(ex.getMessage() + NEWLINE);
             }
 
         } else {
-            this.log.append("AST INVALID\n");
+            this.log.append("AST INVALID" + NEWLINE);
         }
     }
 
@@ -104,14 +106,14 @@ public class SwingHelper {
                 final String output = (String) visitor.getOutput();
                 IOHelper.write(IOHelper.OUT_PATH + f.getName() + ".html",
                         output);
-                this.log.append(IOHelper.OUT_PATH + f.getName() + " created\n");
+                this.log.append(IOHelper.OUT_PATH + f.getName() + " created" + NEWLINE);
             } catch (QLException ex) {
                 this.log.append(ex.getMessage());
             } catch (FileNotFoundException ex) {
                 this.log.append(ex.getMessage());
             }
         } else {
-            this.log.append("invalid AST\n");
+            this.log.append("invalid AST" + NEWLINE);
         }
 
     }
