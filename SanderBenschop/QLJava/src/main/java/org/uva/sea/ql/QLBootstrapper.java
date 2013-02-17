@@ -1,10 +1,6 @@
 package org.uva.sea.ql;
 
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.parser.Parser;
@@ -14,7 +10,6 @@ import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
