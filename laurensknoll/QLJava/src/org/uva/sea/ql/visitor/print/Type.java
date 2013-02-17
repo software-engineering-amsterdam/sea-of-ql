@@ -30,7 +30,8 @@ public class Type implements IType<String> {
 
 	@Override
 	public String visit(Numeric numeric) {
-		return "Numeric";
+		throw new UnsupportedOperationException(
+				"Numeric cannot be used as a concrete type.");
 	}
 
 }
