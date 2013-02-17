@@ -2,6 +2,8 @@ package org.uva.sea.ql.gui;
 
 import static julius.validation.Assertions.checked;
 import static julius.validation.Assertions.state;
+import static org.uva.sea.ql.gui.TranslationUtil.createExpression;
+import static org.uva.sea.ql.gui.TranslationUtil.isValidUserInput;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -13,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import julius.validation.ValidationException;
 
+import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Expression.Nature;
 import org.uva.sea.ql.ast.stm.Block;
@@ -30,6 +33,11 @@ import org.uva.sea.ql.lead.ModelChangeListener;
 import org.uva.sea.ql.visitor.ExpressionEvaluator;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
+/**
+ * This creator class functions as a visitor to create visual objects for the form.
+ * 
+ */
+@Visitor
 public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	private static final String QUESTION_STYLE = "question";
@@ -205,35 +213,6 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		}
 	}
 
-	private Expression<?> createExpression(final Nature nature,
-			final String value) {
-		switch (nature) {
-		case NUMERIC:
-			return new IntegerValue(Integer.valueOf(value));
-		case TEXTUAL:
-			return new StringValue(value);
-		default:
-			throw state
-					.createException("Creating other than numeric or textual input should have never been called");
-		}
-	}
-
-	private boolean isValidUserInput(final Nature nature, final String value) {
-		switch (nature) {
-		case NUMERIC:
-			try {
-				// the following throws a number format exception if the value is not convertable
-				Integer.valueOf(value);
-			} catch (NumberFormatException e) {
-				return false;
-			}
-		case TEXTUAL:
-			return value != null;
-		default:
-			return false;
-		}
-	}
-
 	private Node createYesNoQuestion(final Question question) {
 		CheckBox checkBox = new CheckBox();
 		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
@@ -263,6 +242,14 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		return new Label(text);
 	}
 
+	/**
+	 * TODO: This could be moved to {@link TranslationUtil}
+	 * 
+	 * @param nature
+	 * @param expression
+	 * @return
+	 * @throws ValidationException
+	 */
 	private String getValue(final Nature nature, final Expression<?> expression)
 			throws ValidationException {
 		Expression<?> value = (Expression<?>) expression
