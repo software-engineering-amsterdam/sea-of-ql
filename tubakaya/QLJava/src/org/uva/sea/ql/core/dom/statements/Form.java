@@ -6,10 +6,10 @@ import org.uva.sea.ql.core.dom.StatementVisitor;
 
 public class Form extends Statement{
 
-	protected List<FormElement> elements;
+	public List<Statement> statements;
 
-	public Form(List<FormElement> elements) {
-		this.elements = elements;
+	public Form(List<Statement> statements) {
+		this.statements = statements;
 	}
 
 	@Override

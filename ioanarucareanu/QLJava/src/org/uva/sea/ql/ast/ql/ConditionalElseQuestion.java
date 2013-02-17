@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.ql;
 
 import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.semanticchecker.StatementSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
 
 public class ConditionalElseQuestion extends ConditionalQuestion {
 	
@@ -20,7 +20,7 @@ public class ConditionalElseQuestion extends ConditionalQuestion {
 	}
 
 	@Override
-	public void accept(StatementSemanticVisitor visitor) {
+	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);		
 	}
 	

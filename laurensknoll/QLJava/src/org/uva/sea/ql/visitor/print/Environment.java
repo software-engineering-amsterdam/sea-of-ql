@@ -10,12 +10,13 @@ public class Environment {
 		this.indent = "";
 	}
 
-	public Environment(Environment env) {
-		if (env == null) {
-			throw new IllegalArgumentException("Environment is required");
+	public Environment(Environment environment) {
+		if (environment == null) {
+			throw new IllegalArgumentException(
+					"Use constructor without arguments for a new Environment.");
 		}
 
-		this.parent = env;
+		this.parent = environment;
 		this.indent = "  ";
 	}
 

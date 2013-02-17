@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class Pos extends UnaryExpr {
 
@@ -17,7 +17,7 @@ public class Pos extends UnaryExpr {
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
-		if (this.getArg().typeOf(typeEnv).isCompatibleToIntType()){
+		if (this.getArg().typeOf(typeEnv).isCompatibleToIntType()) {
 			return new IntType();
 		}
 		if (this.getArg().typeOf(typeEnv).isCompatibleToMoneyType()) {

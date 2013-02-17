@@ -24,5 +24,10 @@ public class Pos extends UnaryOperator {
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+	@Override
+	public String getRepresentation() {
+		return "+";
+	}
 	
 }

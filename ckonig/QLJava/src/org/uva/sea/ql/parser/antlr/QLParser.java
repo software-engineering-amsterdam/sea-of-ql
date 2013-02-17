@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.bool.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.math.*;
-import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.elements.*;
 

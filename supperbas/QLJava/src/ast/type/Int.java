@@ -1,10 +1,9 @@
 package ast.type;
 
 import ast.Type;
-import ast.visitor.Visitor;
 
-public class Int extends Numeric {
-	//public final static Int INT = new Int();
+public class Int extends Type {
+	
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToInt();

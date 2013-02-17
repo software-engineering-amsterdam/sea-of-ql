@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block {
+public class Block implements ASTNode {
 	
 	private final List<Statement> blockElements = new ArrayList<Statement>();
 

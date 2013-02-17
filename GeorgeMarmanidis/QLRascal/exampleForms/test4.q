@@ -11,23 +11,27 @@ form test  {
 	   if (agedifference>30)
 		   {
 			   	   if(age>20){
-			   	   	   attitude: "30Do you see any difference in attitude" boolean 
-			   	   	   isEmpl: "30Do you work?" boolean
+			   	   	   attitude: "30aDo you see any difference in attitude" boolean 
+			   	   	   isEmpl: "30aDo you work?" boolean
 			   	   }
 			   	   else{
-			   	   	   work: "what salary you except?:" money 
+			   	   	   work: "30bwhat salary you except?:" money 
 		   		   }
 			   
 	   	}
 		  else if(agedifference>15)
 		   	{
 			   	    if(age>20){
-			   	   	   attitude: "151adaw" boolean 
-			   	   	   isEmpl: "Do you work?15" boolean
+			   	   	   attitude: "15a1adaw" boolean 
+			   	   	   isEmpl: "15aDo you work?" boolean
 			   	   }
 			   	   else{
-			   	   	   work: "what salary you except?15:" money 
+			   	   	   work: "15bwhat salary you except?15:" money 
 		   		   }
+		   }
+		   else if(agedifference>5){
+		   		 attitude: "5a1adaw" boolean 
+			   	 isEmpl: "5aDo you work?" boolean
 		   }
 		   else
 		   {

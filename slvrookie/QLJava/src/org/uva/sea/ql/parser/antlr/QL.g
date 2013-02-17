@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
+import org.uva.sea.ql.ast.formelements.*;
 }
 
 @lexer::header
@@ -28,12 +29,10 @@ primary returns [Expr result]
    ;
   
 type returns [Type result]
-   : Type {
-     if ($Type.text.equals("string")) $result = new StringType();
-     else if ($Type.text.equals("int")) $result = new IntType();
-     else if ($Type.text.equals("money")) $result = new MoneyType();
-     else if ($Type.text.equals("boolean")) $result = new BoolType();
-   }
+   :INTEGER { $result = new IntType();} 
+   |BOOLEAN { $result = new BoolType();} 
+   |STRING  { $result = new StringType();}
+   |MONEY   {$result = new MoneyType();}
    ;
     
 unExpr returns [Expr result]
@@ -126,7 +125,10 @@ Comment : '/*' .* '*/' {$channel=HIDDEN;};
 
 LineComment : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;};
 
-Type: 'string' | 'int' | 'money' | 'boolean';
+INTEGER : 'int';
+STRING  : 'string';
+BOOLEAN : 'boolean';
+MONEY : 'money';
 
 BoolLiteral: 'true'|'false';
 

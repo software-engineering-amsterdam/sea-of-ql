@@ -2,29 +2,20 @@ package ast.statement;
 
 import ast.Statement;
 import ast.expression.value.Str;
-import ast.visitor.Visitor;
+import ast.expression.value.Ident;
 
-public class Question extends Statement {
+public abstract class Question extends Statement {
 	
-	private final Str question;
-	private final Var var;
+	private final Str label;
 	
-	public Question(Str yysv, Var var){
-		this.question = yysv;
-		this.var = var;
+	public Question(Str label){
+		this.label = label;
+	}
+	
+	public Str getLabel(){
+		return label;
 	}
 
-	@Override
-	public <T> T accept(Visitor<T> visitor) {
-		return visitor.visit(this);
-	}
-
-	public Str getQuestion() {
-		return question;
-	}
-
-	public Var getVar() {
-		return var;
-	}
+	abstract public Ident getIdent();
 
 }

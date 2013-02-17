@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.uva.sea.ql.ast.Block;
+import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.StatementVisitor;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.ql.ComputedQuestion;
@@ -27,8 +30,10 @@ import org.uva.sea.ql.ast.expr.rel.GT;
 import org.uva.sea.ql.ast.expr.rel.LEq;
 import org.uva.sea.ql.ast.expr.rel.LT;
 import org.uva.sea.ql.ast.expr.rel.NEq;
+import org.uva.sea.ql.ast.expr.value.BooleanVal;
+import org.uva.sea.ql.ast.expr.value.IntegerVal;
 
-public class SemanticVisitor implements StatementSemanticVisitor, ExpressionSemanticVisitor {
+public class SemanticVisitor implements StatementVisitor, ExpressionVisitor {
 
 	private final Map<Ident, Type> symbolTable = new HashMap<Ident, Type>();
 	private final Set<String> questionLabels = new HashSet<String>();
@@ -173,5 +178,27 @@ public class SemanticVisitor implements StatementSemanticVisitor, ExpressionSema
 	public Type visit(Or node) {
 		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareGivenType(ReturnTypeHolder.getBoolType(), node, this, validationReport);
 		return ReturnTypeHolder.getBoolType();
+	}
+
+	@Override
+	public ReturnType visit(Not node) {
+		ExpressionTypeValidatorUtil.checkExprIsOfType(node, ReturnTypeHolder.getBoolType(), this, validationReport);
+		return ReturnTypeHolder.getBoolType();
+	}
+
+	public Map<Ident, Type> getSymbolTable() {
+		return symbolTable;
+	}
+
+	@Override
+	public ReturnType visit(BooleanVal node) {
+		
+		return ReturnTypeHolder.getBoolType();
+	}
+
+	@Override
+	public ReturnType visit(IntegerVal node) {
+		
+		return ReturnTypeHolder.getIntType();
 	}
 }

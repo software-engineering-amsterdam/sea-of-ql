@@ -5,10 +5,18 @@ import lang::ql::compiler::ExtractDependencies;
 
 public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
 	dep=getDependenciesMap(bodyItems);		   
+	
 	return
-	   "\<form name=\"<ident>\" method=\"POST\" \>
+	   "\<html\>
+	   '\<head\> \<title\><ident> \</title\>
+	   '\<script type=\"text/javascript\" src=\"<ident>.js\"\>\</script\>
+	   '\</head\>
+	   '\<body onload=\"onload()\"\>
+	   '\<form name=\"<ident>\" method=\"POST\" \>
 	   ' <generateHTMLFormBody(bodyItems,"stats0")>
-	   '\</form\>";
+	   '\</form\>
+	   '\</body\>
+	   '\</html\>";
 }
 
 str generateHTMLFormBody(list[FormBodyItem] formItems,str refID){
@@ -31,42 +39,30 @@ str generateHTMLFormBody(list[FormBodyItem] formItems,str refID){
 
 str generateHTMLCondBody(x:ifCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[FormBodyItem] elseQuestions)){
     str code="";
-    //expression
-	    
     code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
     code+=generateHTMLFormBody(elseQuestions,"elseStats<x@ref>");
     return code;
 }
 
-str generateHTMLCondBody(x:simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions)){
-    str code="";
-	 
-    //expression
-    code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
-    return code;
-}
+str generateHTMLCondBody(x:simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions))=
+	generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
+    
+
 
 str generateHTMLCondBody(x:ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestions)){
     str code="";
-    int elseCount=1;
-    
     code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
     
     for(elseBranch <- elseifBranch){
         code+=generateHTMLCondBody(elseBranch,"elseIfStats<elseBranch@ref>");
-        elseCount+=1;
     }
-	   
+	 
     code+=generateHTMLFormBody(elseQuestions,"elseStats<x@ref>");
     return code;
 }
 
-str generateHTMLCondBody(x:elseif(Expr ifExpression,list[FormBodyItem] elseQuestions),str refID){
-    str code="";
-	    
-    code+=generateHTMLFormBody(elseQuestions,refID);
-    return code;
-}
+str generateHTMLCondBody(x:elseif(Expr ifExpression,list[FormBodyItem] elseQuestions),str refID)=
+    generateHTMLFormBody(elseQuestions,refID);
 
 str generateHTMLQuestion(simpleQuestion(str questionId,str questionLabel,Type questionType),str refID){
     return questionType==boolean()
@@ -74,9 +70,8 @@ str generateHTMLQuestion(simpleQuestion(str questionId,str questionLabel,Type qu
     	   : generateHTMLTextInput(questionLabel,questionId,refID);
 }
 	
-str generateHTMLQuestion(computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation),str refID){
-    return generateHTMLTextInputComputed(questionLabel,questionId,refID);
-}
+str generateHTMLQuestion(computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation),str refID)=
+   	generateHTMLTextInputComputed(questionLabel,questionId,refID);
 
 str generateHTMLTextInput(str label,str varName,str id)=
     "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" onchange=\"<varName>Trigger()\" \> \<br\>\n";
@@ -87,4 +82,4 @@ str generateHTMLBooleanInput(str label,str varName,str id)=
 	
 str generateHTMLTextInputComputed(str label,str varName,str id)=
     "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" 
-    			value=\"\" readonly=\"readonly\" onchange=\"<varName>Trigger()\" \> \<br\>\n";	
+    			value=\"\" readonly=\"readonly\"  \> \<br\>\n";	

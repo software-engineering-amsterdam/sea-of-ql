@@ -1,13 +1,11 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.common.ExprVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
-public class And extends BinaryBooleanOperator implements Accepts {
-    public static final String STR = "&&";
+public class And extends BinaryBooleanOperator {
+    private static final String STR = "&&";
 
     public And(Expr left, Expr right) {
         super(left, right);
@@ -19,12 +17,7 @@ public class And extends BinaryBooleanOperator implements Accepts {
     }
 
     @Override
-    public boolean accepts(ReturnTypes r) {
-        return r.equals(ReturnTypes.BOOLEAN);
-    }
-
-    @Override
-    public void accept(ExprVisitor visitor) throws VisitorException{
-        visitor.visit(this);        
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
     }
 }

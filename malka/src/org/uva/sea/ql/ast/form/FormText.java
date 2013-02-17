@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.ast.primitive.StringPrimitive;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.string.StringPrimitive;
+import org.uva.sea.ql.ast.type.Type;
 
 public class FormText extends FormField {
 

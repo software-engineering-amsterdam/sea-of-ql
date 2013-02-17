@@ -2,15 +2,15 @@ package org.uva.sea.ql.ast.form;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.expression.Expression;
 
-public class IfStatement extends FormElement {
+public class IfStatement implements IFormElement {
 	Expression condition;
-	List<FormElement> if_list;
-	List<FormElement> else_list;
+	List<IFormElement> if_list;
+	List<IFormElement> else_list;
 
-	public IfStatement(Expression condition, List<FormElement> if_list,
-			List<FormElement> else_list) {
+	public IfStatement(Expression condition, List<IFormElement> if_list,
+			List<IFormElement> else_list) {
 		// TODO Auto-generated constructor stub
 	}
 	

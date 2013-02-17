@@ -1,14 +1,13 @@
 package org.uva.sea.ql.ast.elements;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
+import org.uva.sea.ql.common.interfaces.TreeVisitor;
 
-public class Ident extends Expr implements Returns {
+public class Ident extends Expr implements Evaluatable, TreeNode {
 
     private final String name;
 
@@ -20,27 +19,14 @@ public class Ident extends Expr implements Returns {
         return this.name;
     }
 
-    public static List<Ident> getIdents(Expr e) {
-        final List<Ident> idents = new ArrayList<>();
-        if (e.getClass().equals(Ident.class)) {
-            idents.add((Ident) e);
-        }
-        if (e instanceof BinaryExpr) {
-            final BinaryExpr b = (BinaryExpr) e;
-            idents.addAll(getIdents(b.getLeft()));
-            idents.addAll(getIdents(b.getRight()));
-        }
-        return idents;
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
     }
 
     @Override
-    public ReturnTypes getReturnType(List<Question> questions) {
-        for (Question question : questions) {
-            if (question.getIdentName().equals(this.name)) {
-                return question.getType().getReturnType(questions);
-            }
-        }
-        throw new RuntimeException("Question not found: " + this.name);
+    public void accept(TreeVisitor v) {
+        v.visit(this);
     }
 
 }

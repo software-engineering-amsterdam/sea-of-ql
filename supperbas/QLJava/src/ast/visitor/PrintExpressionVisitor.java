@@ -10,7 +10,6 @@ import ast.expression.unary.*;
 import ast.expression.value.*;
 import ast.statement.*;
 import ast.type.Message;
-import ast.type.Numeric;
 
 public class PrintExpressionVisitor implements Visitor<Boolean> {
 
@@ -147,13 +146,6 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Money ast) {
-		System.out.print("EXPR MONEY: ");
-		this.valueVisit(ast);
-		return true;
-	}
-
-	@Override
 	public Boolean visit(Int ast) {
 		System.out.print("EXPR INT: ");
 		this.valueVisit(ast);
@@ -178,7 +170,6 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 
 	public void valueVisit(Value ast) {
 		System.out.println(ast.toString());
-		System.out.println("XXX");
 	}
 
 	public void print() {
@@ -214,14 +205,7 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	public Boolean visit(If ast) {
 		System.out.println("STAT IF ");
 		ast.getCondition().accept(new PrintExpressionVisitor(depth+1));
-		return true;
-	}
-
-	@Override
-	public Boolean visit(Question ast) {
-		System.out.print("STAT QUESTION '");
-		System.out.println(ast.getQuestion() + "' : ");
-		ast.getVar().accept(new PrintExpressionVisitor(depth+1));
+		ast.getBlock().accept(new PrintExpressionVisitor(depth+1));
 		return true;
 	}
 
@@ -252,7 +236,7 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(ast.type.Int ast) {
-		System.out.println("xxx");
+		System.out.println("xxxINT");
 		return true;
 	}
 
@@ -263,23 +247,27 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(ast.type.Money ast) {
-		System.out.println("x");
-		return true;
-	}
-
-	@Override
-	public Boolean visit(Numeric ast) {
-		System.out.println("x");
-		return true;
-	}
-
-	@Override
 	public Boolean visit(Block ast) {
 		System.out.println("Block");
 		for(Iterator<Statement> i = ast.iterator(); i.hasNext();)
 			i.next().accept(new PrintExpressionVisitor(depth+1));
 		return null;
+	}
+	
+	@Override
+	public Boolean visit(QuestionVar ast) {
+		System.out.print("STAT QUESTIONVAR '");
+		System.out.println(ast.getLabel() + "' : ");
+		ast.getVar().accept(new PrintExpressionVisitor(depth+1));
+		return true;
+	}
+	
+	@Override
+	public Boolean visit(QuestionComputed ast) {
+		System.out.print("STAT QUESTIONCOMPUTED '");
+		System.out.println(ast.getLabel() + "' : ");
+		ast.getIdent().accept(new PrintExpressionVisitor(depth+1));
+		return true;
 	}
 
 }

@@ -42,9 +42,50 @@ primary returns [Expression result]
   ;
     
 unExpr returns [Expression result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
+    :  op=('+'|'-') x=unExpr 
+    { 
+    	IntegerExpression operand = null;
+    	if ($x.result instanceof Identifier) {
+       		operand = new IntegerVariable((Identifier) $x.result);
+      	}
+      	else if ($x.result instanceof IntegerExpression)
+    	{
+    		 operand = (IntegerExpression) $x.result;
+    	}
+    	
+    	if (operand != null)
+    	{
+    		if ($op.text.equals("+"))
+    			$result = new Pos( operand );
+    		else if ($op.text.equals("-"))
+    			$result = new Neg( operand );
+    	}
+    	else
+    	{
+    		throw new RecognitionException();
+    	}
+    	
+    }
+    |  '!' x=unExpr
+    { 
+    	BooleanExpression operand = null;
+    	if ($x.result instanceof Identifier) {
+       		operand = new BooleanVariable((Identifier) $x.result);
+      	}
+      	else if ($x.result instanceof BooleanExpression)
+    	{
+    		 operand = (BooleanExpression) $x.result;
+    	}
+    	
+    	if (operand != null)
+    	{
+    		$result = new Not( operand );
+    	}
+    	else
+    	{
+    		throw new RecognitionException();
+    	}
+    }
     |  x=primary    { $result = $x.result; }
     ;
     
@@ -125,23 +166,58 @@ relExpr returns [Expression result]
     ;
     
 andExpr returns [Expression result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr 
+    {
+      if (result instanceof Identifier) {
+        $result = new BooleanVariable((Identifier) $result);
+      }
+      if (rhs instanceof Identifier) {
+        rhs = new BooleanVariable((Identifier) rhs);
+      }
+      
+      if ( result instanceof BooleanExpression
+              && rhs instanceof BooleanExpression ) {
+      	
+      	$result = new And((BooleanExpression)$result, (BooleanExpression)rhs);
+      } else {
+      	throw new RecognitionException();
+      }
+    })*
     ;
     
 
 orExpr returns [Expression result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr 
+    {
+      if (result instanceof Identifier) {
+        $result = new BooleanVariable((Identifier) $result);
+      }
+      if (rhs instanceof Identifier) {
+        rhs = new BooleanVariable((Identifier) rhs);
+      }
+      
+      if ( result instanceof BooleanExpression
+              && rhs instanceof BooleanExpression ) {
+      	
+      	$result = new Or((BooleanExpression)$result, (BooleanExpression)rhs);
+      } else {
+      	throw new RecognitionException();
+      }
+    })*
     ;
 
 
-	    
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
-
+	    
 COMMENT 
     : '/*' ( options{greedy=false;}: . )* '*/' {$channel=HIDDEN;}
+    | '//' ( options{greedy=false;}: . )* '\n' {$channel=HIDDEN;}
     ;
+    
+
+WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
+    ;
+    
 
 STRING
 	: '"' ( options{greedy=false;}: . )* '"'

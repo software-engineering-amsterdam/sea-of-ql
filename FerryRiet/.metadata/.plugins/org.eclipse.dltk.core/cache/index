@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="58" environment="org.eclipse.dltk.core.environment.localEnvironment">
+<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="69" environment="org.eclipse.dltk.core.environment.localEnvironment">
   <entries path="D:/Users/Ferry/Desktop/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1359476534401" lastAccessTime="1359478564297">
     <attributes name="indexed" location="2838196607/1795163953/3.idx"/>
   </entries>
@@ -8,7 +8,4 @@
   </entries>
   <entries path="C:/Users/rietf/Desktop/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1360318613632" lastAccessTime="1360320683277"/>
   <entries path="C:/Users/rietf/Dropbox/workspace/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1360318613632" lastAccessTime="1360334230625"/>
-  <entries path="D:/Users/Ferry/Desktop/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr" timestamp="1360491750861" lastAccessTime="1360491751501">
-    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/3701380365/47.idx"/>
-  </entries>
 </cache:CacheIndex>

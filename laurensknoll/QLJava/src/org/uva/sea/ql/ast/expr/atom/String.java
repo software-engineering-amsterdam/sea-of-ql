@@ -9,7 +9,9 @@ public class String extends AbstractAtom {
 	private final java.lang.String value;
 
 	public String(java.lang.String value) {
-		this.value = value;
+		// Strip quotes, no length check needed due to
+		// successfully parsing of grammar.
+		this.value = value.substring(1, value.length() - 1);
 	}
 
 	public java.lang.String getValue() {

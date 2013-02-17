@@ -1,10 +1,11 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.primitive.StringPrimitive;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.string.StringPrimitive;
+import org.uva.sea.ql.ast.type.Type;
 
-public class FormField extends FormElement {
+public class FormField extends ASTNode implements IFormElement {
 	protected Identifier id;
 	protected StringPrimitive label;
 	protected Type type;

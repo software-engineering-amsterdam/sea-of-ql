@@ -1,6 +1,5 @@
 grammar QL;
 
-
 options {backtrack=true; memoize=true;}
 
 @parser::header
@@ -23,21 +22,35 @@ package org.uva.sea.ql.parsers.antlr;
 }
 
 form returns [Form result] 
-  : FORM IDENT '{' elements=formElementList '}' { $result = new Form($elements.result); }
+  : FORM IDENT '{' elements=statementList '}' { $result = new Form($elements.result); }
   ;
 
-formElementList returns [List<FormElement> result]
-  : {$result = new ArrayList<FormElement>();} (element=formElement {$result.add($element.result);})*
+statementList returns [List<Statement> result]
+  : {$result = new ArrayList<Statement>();} (element=statement {$result.add($element.result);})*
   ;
   
-formElement returns [FormElement result]
-  : IDENT COLON STRING type { $result = new FormElement(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
-  ;
+ifStatement returns [IfStatement result]
+  :'if' '(' x=orExpr ')' '{' statements = statementList '}' {$result = new IfStatement($x.result,statements);} 
+  ;  
   
-type returns [TypeDefinition result]
-  : x='boolean' {$result = new BooleanDefinition(); }
-  | x='integer' {$result=new IntDefinition();}
-  | x='string'  {$result=new StringDefinition();}
+statement returns [Statement result]
+  : question { $result = $question.result; }
+  | computedValue  { $result = $computedValue.result; }
+  | ifStatement { $result = $ifStatement.result; }
+  ;
+
+computedValue returns [ComputedValue result]
+  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text), new StringLiteral($STRING.text), $x.result);}
+  ;
+
+question returns [Question result]
+  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
+  ;
+
+type returns [TypeDeclaration result]
+  : x='boolean' {$result = new BooleanDeclaration(); }
+  | x='integer' {$result=new IntDeclaration();}
+  | x='string'  {$result=new StringDeclaration();}
   ;
 
 primary returns [Expression result] 

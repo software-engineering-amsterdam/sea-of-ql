@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.core.dom.operators.conditional.*;
 import org.uva.sea.ql.core.dom.operators.relational.Eq;
 import org.uva.sea.ql.core.dom.operators.relational.GEq;
 import org.uva.sea.ql.core.dom.operators.relational.GT;

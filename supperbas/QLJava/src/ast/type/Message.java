@@ -1,16 +1,25 @@
 package ast.type;
 
 import ast.Type;
-import ast.visitor.Visitor;
 
 public class Message extends Type {
+	private final String message;
+
+	public Message(String message) {
+		this.message = message;
+	}
+
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return false;
 	}
-	
-	@Override
-	public <T> T accept(Visitor<T> visitor) {
-		return visitor.visit(this);
+
+	public String getMessage() {
+		return message;
 	}
 }

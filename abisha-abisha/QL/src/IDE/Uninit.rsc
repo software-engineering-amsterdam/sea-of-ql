@@ -7,7 +7,7 @@ import load::Load;
 import Visualization::UseDef;
 import Visualization::ControlFlow;
 
-public set[CFNode] defNodes(QuestionireId Id, set[Occurrence]Defs)={statement(Occ.stat@location,occ.stat)|Occurrence occ<-Defs,occ.name==id};
+public set[CFNode] defNodes(QuestionId Id, set[Occurrence]Defs)={statement(Occ.stat@location,occ.stat)|Occurrence occ<-Defs,occ.name==id};
 
 public set[Occurrence] uninitProgram(PROGRAM)
 {

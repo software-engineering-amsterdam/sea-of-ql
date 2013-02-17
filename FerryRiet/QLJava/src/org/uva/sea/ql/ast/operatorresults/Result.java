@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 
 import org.uva.sea.ql.ast.types.Type;
 
+
+/**
+ * @author Ferry
+ *
+ */
 public abstract class Result {
 	private Type resultType;
 
