@@ -98,11 +98,11 @@ ql.IfStatementController = ql.ConditionalController.extend({
     },
 
     onConditionalTrue : function() {
-        this.view.find(".successBody").show();
+        this.view.find(".successBody").removeClass("hidden");
     },
 
     onConditionalFalse : function() {
-        this.view.find(".successbody").hide();
+        this.view.find(".successBody").addClass("hidden");
     }
 });
 
@@ -112,12 +112,12 @@ ql.IfElseStatementController = ql.ConditionalController.extend({
     },
 
     onConditionalTrue : function() {
-        this.view.find(".successBody").show();
-        this.view.find(".failureBody").hide();
+        this.view.find(".successBody").removeClass("hidden");
+        this.view.find(".failureBody").addClass("hidden");
     },
 
     onConditionalFalse : function() {
-        this.view.find(".successbody").hide();
-        this.view.find(".failureBody").show();
+        this.view.find(".successBody").addClass("hidden");
+        this.view.find(".failureBody").removeClass("hidden");
     }
 });

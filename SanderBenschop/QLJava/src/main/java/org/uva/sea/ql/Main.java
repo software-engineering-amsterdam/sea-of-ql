@@ -7,10 +7,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.resource.FileResource;
 import org.eclipse.jetty.util.resource.Resource;
-import org.eclipse.jetty.util.resource.ResourceCollection;
-import org.eclipse.jetty.util.resource.ResourceFactory;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
@@ -24,7 +21,8 @@ import java.util.logging.Logger;
 
 public class Main {
 
-    private final static Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final String WEBAPP_BASE_PATH = "/ql";
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
@@ -53,11 +51,11 @@ public class Main {
             Server server = new Server(port);
 
             WebAppContext staticResourcesHandler = new WebAppContext();
-            staticResourcesHandler.setContextPath("/ql/scripts");
+            staticResourcesHandler.setContextPath(WEBAPP_BASE_PATH + "/scripts");
             staticResourcesHandler.setBaseResource(Resource.newResource("src/main/webapp/WEB-INF/scripts"));
 
             ServletContextHandler servletsHandler = new ServletContextHandler();
-            servletsHandler.setContextPath("/ql");
+            servletsHandler.setContextPath(WEBAPP_BASE_PATH);
             servletsHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
 
             HandlerList handlers = new HandlerList();

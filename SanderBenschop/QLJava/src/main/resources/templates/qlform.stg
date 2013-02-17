@@ -6,21 +6,21 @@ form(statements) ::= <<
 >>
 
 openQuestionHtml(id, labelText) ::= <<
-    <label for="question_$id$">$labelText$</label><input type="text" id="question_$id$" name="question_$id$"/>
+    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$"/>
 >>
 
 closedQuestionHtml(id, labelText) ::= <<
-    <label for="question_$id$">$labelText$</label><input type="checkbox" id="question_$id$" name="question_$id$"/>
+    <label for="$id$">$labelText$</label><input type="checkbox" id="$id$" name="$id$"/>
 >>
 
 questionJS(id, controllerType) ::= <<
-    var $id$QuestionController = ql.$controllerType$.new("question_$id$");
+    var $id$QuestionController = ql.$controllerType$.new("$id$");
     $id$QuestionController.bind();
 
 >>
 
 computationHtml(id, labelText) ::= <<
-    <label for="computation_$id$">$labelText$</label><input type="text" id="computation_$id$" name="computation_$id$" readonly="readonly"/>
+    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$" readonly="readonly"/>
 >>
 
 computationJS(name, variableSubscriptions, expression) ::= <<
@@ -38,7 +38,7 @@ computationJS(name, variableSubscriptions, expression) ::= <<
 
 ifStatementHtml(identifier, successBodyContent) :: <<
     <div id="conditional_$identifier$">
-        <div class="successBody">
+        <div class="successBody hidden">
             $successBodyContent$
         </div>
     </div>
@@ -46,10 +46,10 @@ ifStatementHtml(identifier, successBodyContent) :: <<
 
 ifElseStatementHtml(identifier, successBodyContent, failureBodyContent) :: <<
     <div id="conditional_$identifier$">
-        <div class="successBody">
+        <div class="successBody hidden">
             $successBodyContent$
         </div>
-        <div class="failureBody">
+        <div class="failureBody hidden">
             $failureBodyContent$
         </div>
     </div>
@@ -68,27 +68,27 @@ conditionalJS(identifier, parentController, variableSubscriptions, expression) :
     }).new("conditional_$identifier$");
 >>
 
-positive(expr) ::= << Math.abs($expr$); >>
-negative(expr) ::= << -$expr$ >>
-not(expr) ::= << !$expr$ >>
+positive(expr) ::= <<Math.abs($expr$);>>
+negative(expr) ::= <<-$expr$>>
+not(expr) ::= <<!$expr$>>
 
-multiply(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ * $rightHandSideExpr$ >>
-divide(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ / $rightHandSideExpr$ >>
-subtract(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ - $rightHandSideExpr$ >>
-add(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ + $rightHandSideExpr$ >>
+multiply(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ * $rightHandSideExpr$>>
+divide(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ / $rightHandSideExpr$>>
+subtract(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ - $rightHandSideExpr$>>
+add(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ + $rightHandSideExpr$>>
 
-and(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= << $leftHandSideBoolExpr$ && $rightHandSideBoolExpr$ >>
-or(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= << $leftHandSideBoolExpr$ || $rightHandSideBoolExpr$ >>
+and(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= <<$leftHandSideBoolExpr$ && $rightHandSideBoolExpr$>>
+or(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= <<$leftHandSideBoolExpr$ || $rightHandSideBoolExpr$>>
 
-equalTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ === $rightHandSideExpr$ >>
-notEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ !== $rightHandSideExpr$ >>
+equalTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ === $rightHandSideExpr$>>
+notEqualTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ !== $rightHandSideExpr$>>
 
-greaterThan(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ > $rightHandSideExpr$ >>
-greaterThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ >= $rightHandSideExpr$ >>
-lessThan(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ < $rightHandSideExpr$ >>
-lessThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= << $leftHandSideExpr$ <= $rightHandSideExpr$ >>
+greaterThan(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ > $rightHandSideExpr$>>
+greaterThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ >= $rightHandSideExpr$>>
+lessThan(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ < $rightHandSideExpr$>>
+lessThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ <= $rightHandSideExpr$>>
 
-ident(name) ::= << $variableMapStart()$ $name$ $variableMapEnd()$ >>
+ident(name) ::= <<$variableMapStart()$$name$$variableMapEnd()$>>
 variableMapStart() ::= <<ql.variableMap[">>
 variableMapEnd() ::= <<"]>>
 
