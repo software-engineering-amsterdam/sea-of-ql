@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.traversal.codegen;
 import java.io.*;
 import java.util.*;
 
+import org.apache.commons.io.IOUtils;
 import org.stringtemplate.v4.*;
 import org.uva.sea.ql.ast.conditionals.*;
 import org.uva.sea.ql.ast.form.*;
@@ -10,11 +11,12 @@ import org.uva.sea.ql.ast.operators.base.*;
 import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.traversal.codegen.base.WebGenerationException;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
 
-public class BootstrapGenerator implements IVisitor<ST> {
+public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	private final BootstrapJavascriptGenerator javascriptGenerator = new BootstrapJavascriptGenerator();
 	private final STGroupFile templateGroup = new STGroupFile("codegeneration/bootstrap_index.stg", '$', '$');
 
@@ -30,8 +32,15 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		return pageTemplate.render();
 	}
 
-	public boolean generateFrontend(final Form form, final String outputFile) {
-		BufferedWriter bufferedWriter = null; 
+	@Override
+	public void generateFrontend(final Form form, final String outputFile) throws WebGenerationException {
+		try {
+			IOUtils.write(generateFrontend(form), new FileOutputStream(outputFile));
+		}
+		catch (IOException e) {
+			throw new WebGenerationException(e);
+		}
+		/*BufferedWriter bufferedWriter = null; 
 		try {
 			bufferedWriter = new BufferedWriter(new FileWriter(new File(outputFile)));
 			bufferedWriter.write(generateFrontend(form));
@@ -49,6 +58,7 @@ public class BootstrapGenerator implements IVisitor<ST> {
 		}
 
 		return true;
+		*/
 	}
 
 	@Override

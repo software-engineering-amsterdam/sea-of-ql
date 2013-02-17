@@ -82,9 +82,4 @@ public class TestTypeChecker extends TestBase {
 		typeChecker.writeErrorLog(System.err);
 		typeChecker.writeEventLog(System.out);
 	}
-
-	@Test
-	public void testTemplate() {
-		System.out.println(new BootstrapGenerator().generateFrontend(validForm, "src/main/resources/codegeneration/generated.html"));
-	}
 }

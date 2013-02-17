@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast.types.literals;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.*;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
@@ -10,6 +13,7 @@ import org.uva.sea.ql.ast.types.datatypes.*;
  * 
  * @author J. Dijkstra
  */
+@XmlRootElement
 public class BoolLiteral extends LiteralType<Boolean> {
 	private static final DataType TYPE = new BoolType();
 
@@ -31,6 +35,12 @@ public class BoolLiteral extends LiteralType<Boolean> {
 		this.value = value;
 	}
 
+	@JsonCreator
+	public BoolLiteral(@JsonProperty("value") final boolean value) {
+		super(null);
+		this.value = value;
+	}
+	
 	/**
 	 * Retrieve the value of this data type.
 	 * 

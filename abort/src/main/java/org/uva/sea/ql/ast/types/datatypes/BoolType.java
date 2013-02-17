@@ -1,9 +1,5 @@
 package org.uva.sea.ql.ast.types.datatypes;
 
-import org.uva.sea.ql.parser.antlr.*;
-
-import antlr.TokenStream;
-
 /**
  * Represents a boolean data type in the QL language.
  * 

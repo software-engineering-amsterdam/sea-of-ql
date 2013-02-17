@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.traversal.base.*;
 import org.uva.sea.ql.ast.traversal.logging.*;
+import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 import org.uva.sea.ql.ast.types.literals.*;
@@ -20,7 +21,7 @@ import org.uva.sea.ql.ast.types.literals.*;
  * 
  * @author J. Dijkstra
  */
-public class TypeChecker implements IVisitor<Boolean> {
+public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 	/**
 	 * Error log.
 	 */
@@ -35,7 +36,12 @@ public class TypeChecker implements IVisitor<Boolean> {
 	 * Stores result types for defined labels.
 	 */
 	private final SymbolTable symbolTable = new SymbolTable();
-
+	
+	@Override
+	public boolean checkFormErrors(final Form form) {
+		return form.accept(this);
+	}
+	
 	@Override
 	public Boolean visit(final Computation computation) {
 		// Check for errors in the expression of the computation
@@ -251,6 +257,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 	 * Write error log to a stream.
 	 * @param stream stream to write to
 	 */
+	@Override
 	public void writeErrorLog(final PrintStream stream) {
 		errorLog.write(stream);
 	}
@@ -265,6 +272,7 @@ public class TypeChecker implements IVisitor<Boolean> {
 	/**
 	 * Get the amount of errors stored in the error log. 
 	 */
+	@Override
 	public int getErrorCount() {
 		return errorLog.getLength();
 	}

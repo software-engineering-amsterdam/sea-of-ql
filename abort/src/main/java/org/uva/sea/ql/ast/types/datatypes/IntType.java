@@ -15,4 +15,9 @@ public class IntType extends NumericType {
 	public boolean isCompatibleToMoney() {
 		return true;
 	}
+	
+	@Override
+	public boolean isAssignableFrom(String input) {
+		return false;
+	}
 }

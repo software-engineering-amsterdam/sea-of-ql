@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.types.literals;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.uva.sea.ql.ast.base.*;
 
 /**

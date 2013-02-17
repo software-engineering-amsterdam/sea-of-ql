@@ -1,10 +1,9 @@
 package org.uva.sea.ql;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.*;
+import org.uva.sea.ql.base.IStartupController;
 
-import com.sun.jersey.api.core.PackagesResourceConfig;
-import com.sun.jersey.spi.container.servlet.ServletContainer;
+import com.beust.jcommander.*;
+
 
 
 /**
@@ -12,19 +11,28 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
  * 
  * @author abort
  */
-public class Main {
+public class Main {	
 	/**
 	 * Entry point of the application.
 	 * 
 	 * @param args
 	 *            command line arguments
-	 * @throws Exception 
+	 * @see CommandLineParameters
 	 */
-    public static void main(String[] args) throws Exception {
-    	 Server server = new Server(8080);
-    	 ServletContextHandler servletContextHandler = new ServletContextHandler(server, "/", true, false);
-    	 servletContextHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.webserver"))), "/");
-    	 servletContextHandler.setAttribute("com.sun.jersey.api.json.POJOMappingFeature", true);
-    	 server.start();
-    }    
+    public static void main(String[] args) {
+    	final CommandLineParameters parameters = new CommandLineParameters();
+    	final JCommander jCommander = new JCommander(parameters);
+    	jCommander.setProgramName("QLBawss");
+    	
+    	try {
+    		jCommander.parse(args);
+    		
+        	final IStartupController startupController = new StartupController(parameters.getInputFile(), parameters.getPort());
+        	startupController.start();
+    	}
+    	catch(ParameterException exception) {
+    		System.err.println("Invalid input, check the usage.");
+    		jCommander.usage();
+    	}
+    }
 }

@@ -1,5 +1,10 @@
 package org.uva.sea.ql.ast.types.literals;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.*;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
@@ -10,6 +15,7 @@ import org.uva.sea.ql.ast.types.datatypes.*;
  * 
  * @author J. Dijkstra
  */
+@XmlRootElement
 public class IntLiteral extends NumericLiteral<Integer> {
 	private static final DataType TYPE = new IntType();
 
@@ -28,6 +34,12 @@ public class IntLiteral extends NumericLiteral<Integer> {
 	 */
 	public IntLiteral(final int value, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
+		this.value = value;
+	}
+	
+	@JsonCreator
+	public IntLiteral(@JsonProperty("value") final int value) {
+		super(null);
 		this.value = value;
 	}
 
