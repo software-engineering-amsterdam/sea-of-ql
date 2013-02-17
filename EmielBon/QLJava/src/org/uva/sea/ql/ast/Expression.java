@@ -8,5 +8,5 @@ public abstract class Expression extends Node {
 	
 	public abstract Type typeOf(Map<Identifier, Type> typeEnv);
 	public abstract <T> T accept(ExpressionVisitor<T> visitor);
-	
+	public abstract String getRepresentation();
 }

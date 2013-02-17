@@ -13,4 +13,10 @@ public abstract class Literal<T> extends Expression {
 	public T getValue() {
 		return value;
 	}
+	
+	@Override
+	public String getRepresentation() {
+		return value.toString();
+	}
+	
 }

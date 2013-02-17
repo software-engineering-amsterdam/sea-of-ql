@@ -202,4 +202,19 @@ public class Money extends AbstractValue {
 		return new Bool(value.getValue().compareTo(this.getValue()) == -1);
 	}
 
+	@Override
+	public int hashCode() {
+		return this.value.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Money)) {
+			return false;
+		}
+
+		Money value = (Money) obj;
+		return this.value.compareTo(value.getValue()) == 0;
+	}
+
 }

@@ -23,4 +23,9 @@ public class Not extends UnaryOperator {
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public String getRepresentation() {
+		return "!";
+	}
+	
 }
