@@ -21,6 +21,7 @@ import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Bool;
 import org.uva.sea.ql.visitor.eval.value.Int;
 import org.uva.sea.ql.visitor.eval.value.Money;
+import org.uva.sea.ql.visitor.eval.value.String;
 
 public class Expression implements IExpression<AbstractValue> {
 
@@ -169,8 +170,7 @@ public class Expression implements IExpression<AbstractValue> {
 
 	@Override
 	public AbstractValue visit(org.uva.sea.ql.ast.expr.atom.String string) {
-		// TODO: Is this used?
-		return null;
+		return new String(string.getValue());
 	}
 
 }
