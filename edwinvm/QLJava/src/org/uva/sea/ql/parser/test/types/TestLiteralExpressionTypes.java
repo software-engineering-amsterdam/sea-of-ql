@@ -1,4 +1,4 @@
-package org.uva.sea.ql.check.expressions.test;
+package org.uva.sea.ql.parser.test.types;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
