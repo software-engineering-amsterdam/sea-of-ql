@@ -9,6 +9,8 @@
 
 # Issues
 * In demo form: be over 18, fill in salary, go back, be under 18 , go forward: "Your salary is ... Any remarks?" still visible, due to nested conditionals.
+  * I've created a small form that does the same thing (nestedbug). I've given it 
+    some thought, but it will be tricky to fix. We'll discuss it tomorrow.
 
 # Discussion
 * Syntax: all datatypes in separate modules (?)
@@ -22,6 +24,8 @@
 * QL Outliner: Does it suffice now?
   * I like it, but let's verify with Tijs
 * Pages can be empty now, what to do with those? Auto skipping is "possible"..
+  * Any idea how much work this will be? I think the 'need' is that it's a 
+    nice bonus to have.
 
 # BONUS:
 * HTML templating
