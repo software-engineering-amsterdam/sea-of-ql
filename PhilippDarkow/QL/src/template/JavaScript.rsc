@@ -83,14 +83,14 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 * @param exp the expression to evaluate
 * @author Philipp
 */
-public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
+public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp, Type tp){
 	list[value] expressionIds = [];
 	top-down visit(exp){
 		case Expression e : {
 			if(getName(e) == "id") expressionIds += getChildren(e);
 		}
 	}
-	str ev = evaluateExp(exp, money());
+	str ev = evaluateExp(exp, tp);
 	for(j <- expressionIds) addOnChangeForComputedFunction(formId, toString(j) , id);
 	str result = "function <id>Calculation(cb) { cb.value = <ev>; }";	
 	appendToJavaScriptFile(formId, "\n <result>");	

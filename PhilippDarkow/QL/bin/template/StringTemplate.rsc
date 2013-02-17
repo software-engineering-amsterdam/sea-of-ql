@@ -144,13 +144,11 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");
 	createPostValuePHP(formId, id);
 	str label = generateQuestionLabel(formId, id, labelQuestion);
-	if(tp == money()){
+	if(tp == money() || tp == integer()){
 		str paragraph = generateParagraph(id, label, formId);		
-		javaScriptAddEvaluateQuestion(formId, id, exp);
+		javaScriptAddEvaluateQuestion(formId, id, exp, tp);
 		str attributes = specifyAttributesCalculation(id);
 		return "<attributes> <label> <paragraph> <formId>.appendChild(<id>Paragraph); ";
-	}else if(tp == integer()){
-		println("in integer generate computed Question");
 	}else{
 		println("ERROR TYPE IS NOT MONEY NOR INTEGER");
 	}	
