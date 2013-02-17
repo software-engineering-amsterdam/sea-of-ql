@@ -69,12 +69,11 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
         final List<IfNode.Branch> branches = ifNode.getBranches();
         for(final IfNode.Branch branch : branches)
         {
-            Value value = branch.evaluateExpression();
             Statement statement = (Statement) branch.getBlock();
             JPanel branchBlockPanel = render(statement, this.variableState);
             branchBlockPanel.setVisible(false);
-            branchPanels.add(new BranchPanel(branch, branchBlockPanel));
             panel.add(branchBlockPanel, "right, gapright 12, span");
+            branchPanels.add(new BranchPanel(branch, branchBlockPanel));
         }
         ifNodes.put(ifNode, branchPanels);
 
@@ -87,16 +86,11 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
         return panel;
     }
 
+
+    // TODO maybe move this observer to a new class ???
     @Override
     public void update(Observable o, Object arg)
     {
-        // TODO remove this print - debug usage only !!
-        Map<String, Value> variableMap = VariableState.getVariableMap();
-        for(Map.Entry<String, Value> stringValueEntry : variableMap.entrySet())
-        {
-            System.out.println("stringValueEntry = " + stringValueEntry);
-        }
-
         // TODO refactor this IfNode update task !!!
         for(Map.Entry<IfNode, List<BranchPanel>> ifNodeListEntry : ifNodes.entrySet())
         {

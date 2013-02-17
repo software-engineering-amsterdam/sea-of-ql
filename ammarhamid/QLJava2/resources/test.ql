@@ -5,22 +5,22 @@ form test
 
     if(hasSoldHouse)
     {
-        "What is the price of the house?" housePrice: integer
+        "House price?" housePrice: integer
     }
     else
     {
-        "Are you sure that you don't sell house in 2010?" sure: boolean
+        "Definitely sure?" sure: boolean
     }
 
     "Did you sell a car in 2010?" hasSoldCar: boolean
 
     if(hasSoldCar)
     {
-        "What is the price of the car?" housePrice: integer
+        "Car price?" housePrice: integer
     }
     else
     {
-        "Are you sure that you don't sell car in 2010?" sure: boolean
+        "Absolutely sure?" sure: boolean
     }
 
     "Are you married?" married: boolean
