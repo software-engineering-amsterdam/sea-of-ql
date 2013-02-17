@@ -15,24 +15,12 @@ public class ASTNodeChecker {
 		_parser = parser;
 	}
 	
-	public void inputMatchesFormAST(String input) throws ParseError {
-		assertEquals(getAstNodeFor(input), Form.class);
-	}
+	public void inputMatchesFormAST(String input)     throws ParseError { assertEquals(getAstNodeFor(input), Form.class); }
 	
-	public void expressionMatchesASTClass(String input, Class<?> astNode) throws ParseError {
-		match(input, astNode);
-	}
+	public void match(String input, Class<?> astNode) throws ParseError { assertEquals(getAstNodeFor(input), astNode); }
 	
-	public void match(String input, Class<?> astNode) throws ParseError {
-		assertEquals(getAstNodeFor(input), astNode);
-	}
+	public Class<?> getAstNodeFor(String input)       throws ParseError { return parse(input).getClass(); }
 	
-	public Class<?> getAstNodeFor(String input) throws ParseError {
-		return parse(input).getClass();
-	}
-	
-	public ASTNode parse(String input) throws ParseError {
-		return _parser.parse(input);
-	}
+	public ASTNode parse(String input)                throws ParseError { return _parser.parse(input); }
 	
 }
