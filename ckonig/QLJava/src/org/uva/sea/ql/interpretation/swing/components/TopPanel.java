@@ -1,7 +1,6 @@
 package org.uva.sea.ql.interpretation.swing.components;
 
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import org.uva.sea.ql.interpretation.swing.SwingHelper;
 
@@ -15,7 +14,7 @@ public class TopPanel extends JPanel {
     private final SaveResultPanel saveResultPanel;
 
     public TopPanel(SwingHelper helper) {
-        this.setSize(Sizes.WINDOW_WIDTH, Sizes.TOP_HEIGHT);       
+        this.setSize(Sizes.WINDOW_WIDTH, Sizes.TOP_HEIGHT);
         this.fileOpenPanel = new FileOpenPanel(helper);
         this.add(this.fileOpenPanel);
         this.saveResultPanel = new SaveResultPanel(helper);

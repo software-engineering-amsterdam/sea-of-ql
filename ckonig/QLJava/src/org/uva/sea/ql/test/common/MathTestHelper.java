@@ -41,7 +41,7 @@ public class MathTestHelper extends AbstractTestHelper<MathTestHelper> {
 
     public final void testMathOperations(MathTestHelper opposite)
             throws ParseError {
-        testBinary(this.asClass, getBracket(A, this, B), Ident.class,
+        testBinary(this.asClass, A +  this.asString +  B, Ident.class,
                 Ident.class);
         testBinary(this.asClass, A + this.asString + getBracket(B, this, C),
                 Ident.class, this.asClass);

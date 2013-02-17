@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.bool.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.math.*;
-import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.elements.*;
 }
@@ -50,23 +50,23 @@ ifStatement returns [IfStatement result]
 ;
 
 type returns [Type result]
-	:  boolType { $result = new BooleanType();}
+	:  boolType { $result = $boolType.result;}
 	|  money   { $result = $money.result;} 
-	|  intType { $result = new IntType();}
+	|  intType { $result = $intType.result;}
 	|  strType { $result = new StrType();}	
 ;
-
-
-
+intType returns [IntType result]
+	:	'integer' { $result = new IntType(); }
+	| 	'integer' LEFTBR addExpr RIGHTBR {$result = new IntType( $addExpr.result);}
+;
 money	returns [Money result]
 	: 	'money' { $result = new Money(); }
-	|	 moneyCalc { $result = $moneyCalc.result; }
+	|	 'money' LEFTBR addExpr RIGHTBR {$result = new Money( $addExpr.result);}
 ;
-
-moneyCalc returns [Money result]
-:	 'money' LEFTBR addExpr RIGHTBR {$result = new Money( $addExpr.result);}
+boolType returns [BooleanType result]
+	:	'boolean'{$result = new BooleanType(); }
+	|	'boolean' LEFTBR addExpr RIGHTBR {$result = new BooleanType($addExpr.result); }
 ;
-
 	
 
 primary returns [Expr result]
@@ -142,9 +142,9 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
     
-boolType:	'boolean';
+
 strType :	'string';
-intType :	'integer';
+
     
 // Tokens
 
