@@ -136,7 +136,18 @@ function paginate() {
           .click(function(e) {
             e.preventDefault();
             if($(page).find("input:visible, select:visible").valid()) {
-              showPage(pages[i + 1]);
+              for(var j = i + 1; j < pages.length; j++) {
+                showPage(pages[j]);
+                if($(pages[j]).find(
+                      "input[type!=submit]:visible, select:visible"
+                    ).length > 0) {
+                  // There is content on this page
+                  break;
+                } else if(j == pages.length - 1) {
+                  // Reached the end, still no content found, submit the form
+                  $("#submit").click();
+                }
+              }
             }
           })
           .appendTo(page);

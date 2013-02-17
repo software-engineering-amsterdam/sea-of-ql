@@ -23,9 +23,7 @@
 * blockIdent (\<questionIdent\>Block) and similars in some public function?
 * QL Outliner: Does it suffice now?
   * I like it, but let's verify with Tijs
-* Pages can be empty now, what to do with those? Auto skipping is "possible"..
-  * Any idea how much work this will be? I think the 'need' is that it's a 
-    nice bonus to have.
+* Forms are now automatically submitted when no more non-empty pages exist, is this correct? Alternative: show last page with submit button.
 
 # BONUS:
 * HTML templating
