@@ -110,7 +110,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	println("in easy");
 	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");  //global variable
-	
+	createPostValuePHP(formId, id);
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == boolean()){			
 		str attributes = specifyAttributesCheckbox(id);
@@ -224,6 +224,7 @@ public str generateQLForm(Program P){
 		str functions = javaScriptCreateForm(id, Body);
 		appendToHTMLFile(id, result);
 		cssDiv(id);
+		insertValueInDatabase(id,Body);
 		appendToPHPFile(id, " mysql_close($conn); ?\>");   //close tag
 		return result;
 	}else{

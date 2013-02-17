@@ -4,15 +4,12 @@ import IO;
 import syntax::AbstractSyntax;
 
 public void createPostValuePHP(str formId, str varName){
-	// $$query<varName> = \'INSERT INTO <formId> ()
 	str result = "$<varName> = $_POST[\'<varName>\'];
 	if(isset($<varName>)){	
 	echo \'{ \"message\": \"\' . $_POST[\'<varName>\'] . \'\" }\';
 	};";
 	appendToPHPFile(formId, result);
 }
-
-
 
 public void generateDatabaseCode(str formId){
 	createDataBaseCode(formId);
@@ -33,14 +30,10 @@ void createTableCode(str formId){
 	str result = "$sqlTable = \'CREATE TABLE <formId>( \'.
        \'emp_id INT NOT NULL AUTO_INCREMENT, \'.
        \'primary key ( emp_id ))\';
-
-mysql_select_db(\'<formId>\');
-$retval = mysql_query( $sqlTable, $conn );
-if(! $retval )
-{
-  die(\'Could not create table: \' . mysql_error());
-}
-echo \"Table <formId> created successfully\n\";  ";
+		mysql_select_db(\'<formId>\');
+		$retval = mysql_query( $sqlTable, $conn );
+		if(! $retval ) { die(\'Could not create table: \' . mysql_error()); }
+		echo \"Table <formId> created successfully\n\";  ";
 	appendToPHPFile(formId, result);
 }
 
@@ -63,11 +56,21 @@ public void createColumnInTable(str formId, str id, Type tp){
 	appendToPHPFile(formId, result);
 }
 
-void insertValueInDatabase(str formId, list[str] ids, list[Body] body){   // i need to get the id of all questions
-	//bottom-up visit(
-	str result = "$query<varName> = \'INSERT INTO <formId> (<for(i <- ids) { > <i>, < }>)
-	VALUES(<for(i <- ids) { > \'\".$<i>.\", < }>)";
-	appendToPHP(formId,result);
+public void insertValueInDatabase(str formId,  list[Body] body){   //  list[str] ids, i need to get the id of all questions
+	println("BBBB : <body>");
+	for(s <- body){
+		bottom-up visit(s){
+			case Expression e : {
+				println("Case with ID : <e>");
+			}
+		}
+	}
+	//$sql5 = 'INSERT INTO Box1 VALUES ('NULL', 'NULL', 'NULL', '$sellingPrice' , '$privateDebt', '$valueResidue') ';
+	//$retval = mysql_query( $sql5, $conn ); 
+	//
+	//str result = "$query<varName> = \'INSERT INTO <formId> (<for(i <- ids) { > <i>, < }>)
+	//VALUES(<for(i <- ids) { > \'\".$<i>.\", < }>)";
+	//appendToPHP(formId,result);
 }
 
 public void appendToPHPFile(str formId, str text){

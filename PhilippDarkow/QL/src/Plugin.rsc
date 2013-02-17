@@ -6,8 +6,6 @@ import vis::Render;
 import syntax::AbstractSyntax;
 import syntax::ConcreteSyntax;
 import typeChecker::TypeCheck;
-//import demo::lang::Pico::Eval;
-//import demo::lang::Pico::Compile;
 import controlFlow::ControlFlow;
 import visualization::Visualize;
 import ide::Uninit;
@@ -22,7 +20,7 @@ private str EXT = "q";
 private str QL_NAME = "QL";
 private str QL_EXT = "ql";
 
-//  Define the connection with the Pico parser
+//  Define the connection with the QL parser
 Tree parser(str x, loc l) {
     return parse(#Program, x, l);
 }
@@ -49,29 +47,20 @@ public Program checkQLProgram(Program x) {
 //	text(evalProgram(m));
 //}
 
-//  Define connection with the Pico compiler
-
-//public void compilePicoProgram(Program x, loc l){
-//    p = implode(#PROGRAM, x);
-//    asm = compileProgram(p);
-//	text(asm);
-//}
-
 //  Define connection with CFG visualization
 
-public void visualizeQLProgram(Program x, loc selection) {
-	m = implode(#Program, x); 
-	CFG = cflowProgram(m);
-	render(visCFG(CFG.graph));
-}
+//public void visualizeQLProgram(Program x, loc selection) {
+//	m = implode(#Program, x); 
+//	CFG = cflowProgram(m);
+//	render(visCFG(CFG.graph));
+//}
 	
 //  Define all contributions to the QL IDE
 
 public set[Contribution] QL_CONTRIBS = {
 	popup(
-		menu("Pico",[
+		menu("QL",[
 		    //action("Evaluate Pico program", evalPicoProgram),
-    		//action("Compile Pico to ASM", compilePicoProgram),
     		//action("Show Control flow graph", visualizeQLProgram)
 	    ])
   	)
@@ -79,14 +68,17 @@ public set[Contribution] QL_CONTRIBS = {
 
 //  Register the QL tools
 
-//public void registerQL() {
-//  registerLanguage(QL_NAME, QL_EXT, parser);
-  //registerAnnotator(QL_NAME, checkQLProgram);
-//  registerContributions(QL_NAME, QL_CONTRIBS);
-//}
-
 public void main() {
-  registerLanguage(LANG, EXT, Tree(str src, loc l) {
+  registerLanguage(QL_NAME, QL_EXT, Tree(str src, loc l) {
      return parse(src, l);
   });
+  //registerLanguage(QL_NAME, QL_EXT, parser);
+  registerAnnotator(QL_NAME, checkQLProgram);
+//  registerContributions(QL_NAME, QL_CONTRIBS);
 }
+
+//public void main() {
+//  registerLanguage(LANG, EXT, Tree(str src, loc l) {
+//     return parse(src, l);
+//  });
+//}
