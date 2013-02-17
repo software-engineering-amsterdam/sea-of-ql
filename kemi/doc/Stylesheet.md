@@ -1,5 +1,5 @@
-Stylsheet generation
-====================
+Stylesheet generation
+=====================
 
 # Introduction
 A QLS Stylesheet consists of a plain text .qs file containing a 

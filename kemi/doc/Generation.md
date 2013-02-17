@@ -1,5 +1,5 @@
-Form generation
-===============
+Generation
+==========
 
 # Quick overview
 * Compile a form
