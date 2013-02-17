@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.eval;
 
 import java.awt.GridLayout;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,22 +47,15 @@ public class Statement implements IStatement<JPanel> {
 		JPanel panel = question.accept(this);
 
 		// The question is computed. Therefore make it read only.
-		this.environment.setReadOnly(question.getIdent(), true);
+		Ident ident = question.getIdent();
+		this.environment.setReadOnly(ident, true);
 
 		// Observe dependent questions
 		AbstractExpr computeExpression = computedQuestion
 				.getComputeExpression();
-
-		Computed observer = new Computed(computeExpression,
-				question.getIdent(), this.environment);
-
-		Dependency dependencyVisitor = new Dependency();
-		DependencySet dependencies = computeExpression
-				.accept(dependencyVisitor);
-
-		for (Ident ident : dependencies.getDependencies()) {
-			this.environment.addObserver(ident, observer);
-		}
+		Computed observer = new Computed(computeExpression, ident,
+				this.environment);
+		this.observeDependencies(computeExpression, observer);
 
 		// Set initial value.
 		observer.update();
@@ -73,18 +67,11 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(If ifStatement) {
 		JPanel conditionalPanel = ifStatement.getTruePath().accept(this);
 
-		AbstractExpr condition = ifStatement.getCondition();
-
 		// Observe condition
+		AbstractExpr condition = ifStatement.getCondition();
 		Conditional observer = new Conditional(condition, conditionalPanel,
 				this.environment);
-
-		Dependency dependencyVisitor = new Dependency();
-		DependencySet dependencies = condition.accept(dependencyVisitor);
-
-		for (Ident ident : dependencies.getDependencies()) {
-			this.environment.addObserver(ident, observer);
-		}
+		this.observeDependencies(condition, observer);
 
 		// Set initial value.
 		observer.update();
@@ -108,6 +95,15 @@ public class Statement implements IStatement<JPanel> {
 		this.environment.declare(id, inputField);
 
 		return panel;
+	}
+
+	private void observeDependencies(AbstractExpr expr, Observer observer) {
+		Dependency dependencyVisitor = new Dependency();
+		DependencySet dependencies = expr.accept(dependencyVisitor);
+
+		for (Ident ident : dependencies.getDependencies()) {
+			this.environment.addObserver(ident, observer);
+		}
 	}
 
 }
