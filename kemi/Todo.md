@@ -17,6 +17,8 @@
          definition file. We now make very clear what will be reused and what not. 
 * blockIdent (\<questionIdent\>Block) and similars in some public function?
 * QL Outliner: Does in suffice now? 
+* Maybe move the tests out of the lang::* package, and put it in tests/ql/... That way,
+all tests are joined together and we can also make a single testrunner.
 
 # BONUS:
 * HTML templating
