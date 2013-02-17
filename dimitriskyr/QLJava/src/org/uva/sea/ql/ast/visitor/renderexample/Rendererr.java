@@ -1,10 +1,9 @@
-package org.uva.sea.ql.ast.visitor;
+package org.uva.sea.ql.ast.visitor.renderexample;
 
-import java.awt.Checkbox;
-import java.awt.Component;
-
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -18,15 +17,20 @@ import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.QuestionElement;
 import org.uva.sea.ql.ast.statements.SimpleQuestion;
 import org.uva.sea.ql.ast.statements.StatementElement;
-import org.uva.sea.ql.ast.gui.State;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
-public class Renderer implements IStatementVisitor {
+public class Rendererr implements IStatementVisitor {
 
 	private final JPanel panel;
-	private final State state;
+	JFrame frame = new JFrame("QL Language");
 	
-	public static JPanel render(Statement statement, State state) {
-		Renderer r = new Renderer(state);
+	public Rendererr() {
+		this.panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		}
+	
+	public static JPanel render(Statement statement) {
+		Rendererr r = new Rendererr();
 		statement.accept(r);
 		return r.getPanel();
 		}
@@ -35,56 +39,65 @@ public class Renderer implements IStatementVisitor {
 		return panel;
 	}
 	
-	private Renderer(State state) {
-		this.state = state;
-		this.panel = new JPanel();
-		}
-	
 	@Override
 	public void visit(Form form) {
-		JPanel formPanel = render(form.getBlock(), state);
-		panel.add(formPanel);
-		panel.setName(form.getName().toString());
+		JPanel formPanel = render(form.getBlock());
 	}
 
 
 	@Override
 	public void visit(final IfThen ifThen) {
-		JPanel ifblock = render(ifThen.getIfBlock(), state);
+		ifThen.getIfBlock().accept(this);
+		JPanel ifblock = render(ifThen.getIfBlock());
 		//registerConditionDeps(ifThen.getCondition(), ifblock);
 		ifblock.setVisible(false);
 		panel.add(ifblock);
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
 	}
 	
 	@Override
 	public void visit(final IfThenElse ifThenElse) {
-		JPanel tru = render(ifThenElse.getIfBlock(), state);
-		JPanel fls = render(ifThenElse.getElseBlock(), state);
+		ifThenElse.getIfBlock().accept(this);
+		ifThenElse.getElseBlock().accept(this);
+		JPanel tru = render(ifThenElse.getIfBlock());
+		JPanel fls = render(ifThenElse.getElseBlock());
 		//registerConditionDeps(ifThenElse.getCondition(), tru, fls);
 		tru.setVisible(false);
 		fls.setVisible(false);
 		panel.add(tru);
 		panel.add(fls);
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	@Override
 	public void visit(SimpleQuestion simpleQuestion) {
 		JLabel graphlabel = new JLabel(simpleQuestion.getString().getValue());
-		Component ctl = typeToWidget(simpleQuestion, true);
+		JComponent ctl = typeToWidget(simpleQuestion, true);
 		//registerHandler(simpleQuestion, ctl);
 		panel.add(graphlabel);
 		panel.add(ctl);
+		panel.setName(simpleQuestion.getIdent().toString());
+		frame.setVisible(true);
+		frame.setContentPane(panel);
+		frame.pack();
 	}
 	
 	@Override
 	public void visit(ComQuestion comQuestion) {
 		JLabel graphlabel = new JLabel(comQuestion.getString().getValue());
-		Component ctl = typeToWidget(comQuestion, true);
+		JComponent ctl = typeToWidget(comQuestion, true);
 		/*registerComputedDeps(comQuestion, ctl);
 		registerPropagator(comQuestion);
 		initValue(comQuestion, ctl); */
 		panel.add(graphlabel);
 		panel.add(ctl);
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	@Override
@@ -106,10 +119,10 @@ public class Renderer implements IStatementVisitor {
 
 	}
 	
-	private Component typeToWidget(QuestionElement question, boolean enabled) {
+	private JComponent typeToWidget(QuestionElement question, boolean enabled) {
 
 		if (question.getType().isCompatibleToBoolean()) {
-			Component input = new Checkbox();
+			JComponent input = new JCheckBox();
 			input.setEnabled(enabled);
 			return input;
 		}
@@ -124,7 +137,6 @@ public class Renderer implements IStatementVisitor {
 			return input;
 		}
 		return null;
-	}	
+	}
 	
-
 }

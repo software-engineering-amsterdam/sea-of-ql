@@ -23,13 +23,13 @@ import org.uva.sea.ql.ast.values.*;
 form returns[Form result]   
   :  'form' ident '{' block '}'  {$result = new Form (new Ident($ident.text), $block.result);}
 ; 
-
+ 
  
 //form end
 
 block returns [Block result]
 @init{ Block block = new Block(); }
-  : (body {block.addBody($block.result);})* {$result=block;}
+  : (body {block.addBody($body.result);})* {$result=block;}
   ; 
  
 
