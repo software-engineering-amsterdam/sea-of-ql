@@ -46,7 +46,7 @@ public class Statement implements IStatement<Boolean> {
 
 		Expression expressionVisitor = new Expression(this.environment);
 		Boolean isComputeExpressionValid = computedQuestion
-				.getComputeExpression().accept(expressionVisitor);
+				.getComputation().accept(expressionVisitor);
 
 		if (!isComputeExpressionValid) {
 			this.errors.addAll(expressionVisitor.getErrors());

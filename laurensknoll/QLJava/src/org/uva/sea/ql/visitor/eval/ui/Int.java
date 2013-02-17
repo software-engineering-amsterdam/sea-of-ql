@@ -58,17 +58,17 @@ public class Int extends Widget implements DocumentListener {
 	}
 
 	@Override
-	public void changedUpdate(DocumentEvent arg0) {
+	public void changedUpdate(DocumentEvent event) {
 		// When attributes change there is no need to propagate.
 	}
 
 	@Override
-	public void insertUpdate(DocumentEvent arg0) {
+	public void insertUpdate(DocumentEvent event) {
 		this.propagateChange();
 	}
 
 	@Override
-	public void removeUpdate(DocumentEvent arg0) {
+	public void removeUpdate(DocumentEvent event) {
 		this.propagateChange();
 	}
 

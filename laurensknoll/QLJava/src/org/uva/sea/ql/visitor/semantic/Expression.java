@@ -32,8 +32,8 @@ public class Expression implements IExpression<Boolean> {
 	private final Environment environment;
 	private final List<String> errors;
 
-	public Expression(Environment env) {
-		this.environment = env;
+	public Expression(Environment environment) {
+		this.environment = environment;
 		this.errors = new ArrayList<String>();
 	}
 
