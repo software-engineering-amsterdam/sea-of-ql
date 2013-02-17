@@ -7,10 +7,11 @@ form Taxes {
 		String spouseName = "What is your spouse's name";
 		Integer spouseAge = "How old is your spouse?";
 		Boolean children = "Do you have any children together?";
+	} else {
+		String notMarried = "Why are you not married?";
 	}
 	
 	Integer previousCapital = "How much cash did you have?";
 	Integer presentCapital = "How much cash do you have?";
 	
-	Integer difference = previousCapital - presentCapital;
 }

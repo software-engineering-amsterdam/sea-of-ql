@@ -4,6 +4,7 @@ import static julius.validation.Assertions.checked;
 import static julius.validation.Assertions.state;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -38,7 +39,6 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 	ExpressionEvaluator expressionEvaluator;
 
 	/**
-	 * 
 	 * @param model
 	 *            (not null)
 	 */
@@ -66,8 +66,8 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final Computed computed) {
-		HBox hBox = createHBox();
-		hBox.getStyleClass().add(QUESTION_STYLE);
+		Group holder = new Group();
+
 		String eval = "";
 
 		if (model.getComputed(computed.getIdentifier()) != null) {
@@ -83,52 +83,80 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		}
 		Node text = createText(computed.getIdentifier().getName() + " : "
 				+ eval);
-		hBox.getChildren().add(text);
+		holder.getChildren().add(text);
 
-		return hBox;
+		return holder;
 	}
 
 	@Override
 	public Node visit(final IfStatement ifStatement) {
-		final HBox hBox = new HBox();
-
-		final Node drawableStatements = ifStatement.getIfCompound()
-				.accept(this);
-
+		final Node drawable = ifStatement.getIfCompound().accept(this);
+		final Group holder = new Group();
 		final Expression<?> exp = ifStatement.getExpression();
 
 		model.addListener(exp, new ModelChangeListener() {
 
 			@Override
 			public void changed(final Expression<?> expression) {
-				Computed comp = model.getComputed(exp);
-				if (comp.getExpression() != null) {
-					BooleanValue val = (BooleanValue) comp.getExpression()
-							.accept(expressionEvaluator);
-					if (val.getValue()) {
-						hBox.getChildren().add(drawableStatements);
-					} else {
-						hBox.getChildren().remove(drawableStatements);
-					}
-				} else {
-					hBox.getChildren().remove(drawableStatements);
-				}
+				handleVisibility(holder, drawable, isTrueInModel(exp));
 			}
 		});
 
-		return hBox;
+		handleVisibility(holder, drawable, isTrueInModel(exp));
+		return holder;
+	}
+
+	private void handleVisibility(final Group holder, final Node drawable,
+			final boolean isVisible) {
+
+		if (isVisible) {
+			holder.getChildren().add(drawable);
+		} else {
+			holder.getChildren().remove(drawable);
+		}
+	}
+
+	private boolean isTrueInModel(final Expression<?> expression) {
+		Computed comp = model.getComputed(expression);
+		if (comp != null
+				&& ((BooleanValue) comp.getExpression().accept(
+						expressionEvaluator)).getValue()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public Node visit(final IfElseStatement ifElseStatement) {
-		// TODO bind the expression
-		ifElseStatement.getExpression();
+	public Node visit(final IfElseStatement ifElse) {
+		final Group holder = new Group();
+		final Node ifNode = ifElse.getIfCompound().accept(this);
+		final Node elseNode = ifElse.getElseCompound().accept(this);
 
-		Node ifNode = ifElseStatement.getIfCompound().accept(this);
+		final Expression<?> exp = ifElse.getExpression();
 
-		Node elseNode = ifElseStatement.getElseCompound().accept(this);
+		model.addListener(exp, new ModelChangeListener() {
 
-		return elseNode;
+			@Override
+			public void changed(final Expression<?> expression) {
+				handleIfElseVisibility(exp, holder, ifNode, elseNode);
+			}
+
+		});
+
+		handleIfElseVisibility(exp, holder, ifNode, elseNode);
+		return holder;
+	}
+
+	private void handleIfElseVisibility(final Expression<?> exp,
+			final Group holder, final Node ifNode, final Node elseNode) {
+		if (isTrueInModel(exp)) {
+			handleVisibility(holder, ifNode, true);
+			handleVisibility(holder, elseNode, false);
+		} else {
+			handleVisibility(holder, ifNode, false);
+			handleVisibility(holder, elseNode, true);
+		}
 	}
 
 	@Override
@@ -146,11 +174,6 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		}
 	}
 
-	private HBox createHBox() {
-		HBox hBox = new HBox();
-		return hBox;
-	}
-
 	private Node createOpenQuestion(final Question question) {
 		final TextField input = new TextField();
 		input.textProperty().addListener(new ChangeListener<String>() {
@@ -159,24 +182,23 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 			public void changed(final ObservableValue<? extends String> arg0,
 					final String oldVal, final String newVal) {
 
-				handleInput(question, input, oldVal, newVal);
+				handleUserInput(question, input, oldVal, newVal);
 			}
 		});
 		return createHorizontalHolder(createText(question.getText()), input);
 	}
 
-	private void handleInput(final Question question, final TextField input,
-			final String oldInput, final String newInput) {
+	private void handleUserInput(final Question question,
+			final TextField input, final String oldInput, final String newInput) {
 		Nature nature = question.getDataType().getNature();
 
-		if (isValid(nature, newInput)) {
-
+		if (isValidUserInput(nature, newInput)) {
 			Computed computed = new Computed(question.getDataType(),
 					question.getIdentifier(),
 					createExpression(nature, newInput));
 			model.registerComputed(computed);
 
-		} else if (isValid(nature, oldInput) && !newInput.isEmpty()) {
+		} else if (!newInput.isEmpty()) {
 			input.setText(oldInput);
 		} else {
 			input.clear();
@@ -196,7 +218,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		}
 	}
 
-	private boolean isValid(final Nature nature, final String value) {
+	private boolean isValidUserInput(final Nature nature, final String value) {
 		switch (nature) {
 		case NUMERIC:
 			try {

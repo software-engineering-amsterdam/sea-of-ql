@@ -51,7 +51,6 @@ public class Model {
 		computeds.put(computed.getIdentifier(), computed);
 
 		notifyListeners(computed.getIdentifier());
-		LogPrinter.debugInfo("Computed registered : " + computed);
 	}
 
 	/**
