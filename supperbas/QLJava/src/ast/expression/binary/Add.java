@@ -15,7 +15,7 @@ public class Add extends Binary {
 
 	@Override
 	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
-		return new ast.type.Numeric();
+		return new ast.type.Int();
 	}
 
 	@Override

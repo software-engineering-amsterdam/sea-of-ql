@@ -32,7 +32,7 @@ public class Ident extends Value {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		return new ast.type.Error(this);
+		return new ast.type.Undefined(this);
 	}
 
 	@Override

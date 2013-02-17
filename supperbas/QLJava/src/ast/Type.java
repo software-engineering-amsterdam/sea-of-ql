@@ -12,19 +12,11 @@ public abstract class Type implements ASTNode {
 		return false;
 	}
 
-	public boolean isCompatibleToNumeric() {
-		return false;
-	}
-
 	public boolean isCompatibleToStr() {
 		return false;
 	}
 
 	public boolean isCompatibleToBool() {
-		return false;
-	}
-
-	public boolean isCompatibleToMoney() {
 		return false;
 	}
 }
