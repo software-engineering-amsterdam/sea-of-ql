@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation.swing.components;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -10,6 +10,8 @@ import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.swing.SwingRegistry;
+import org.uva.sea.ql.interpretation.swing.visitors.BoolEvaluationVisitor;
 
 public class IfStatementPanel extends JPanel {
     private static final long serialVersionUID = -365544076190441356L;

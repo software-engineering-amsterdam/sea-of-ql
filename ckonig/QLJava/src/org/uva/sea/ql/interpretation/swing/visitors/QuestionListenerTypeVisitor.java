@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation.swing.visitors;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +13,8 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.interfaces.TypeVisitor;
+import org.uva.sea.ql.interpretation.swing.SwingRegistry;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 public class QuestionListenerTypeVisitor implements TypeVisitor{
     private QuestionPanel questionPanel;

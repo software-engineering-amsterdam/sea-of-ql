@@ -12,6 +12,8 @@ import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.IdentFinder;
 import org.uva.sea.ql.common.interfaces.QLDocument;
+import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 public class SwingDocument implements QLDocument {
     private final JPanel panel;

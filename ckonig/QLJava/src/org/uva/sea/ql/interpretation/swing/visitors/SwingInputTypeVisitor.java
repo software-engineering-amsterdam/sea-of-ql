@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation.swing.visitors;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;

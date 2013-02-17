@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation.swing.visitors;
 
 import java.util.List;
 
@@ -31,6 +31,8 @@ import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
+import org.uva.sea.ql.interpretation.swing.SwingRegistry;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation.swing.components;
 
 import java.awt.BorderLayout;
 
@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.interpretation.swing.visitors.SwingInputTypeVisitor;
 
 public class QuestionPanel extends JPanel {
     private static final long serialVersionUID = -8537987318519877345L;

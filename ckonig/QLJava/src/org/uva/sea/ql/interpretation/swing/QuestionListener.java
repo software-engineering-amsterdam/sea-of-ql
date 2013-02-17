@@ -1,6 +1,8 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.interpretation.swing.visitors.QuestionListenerTypeVisitor;
 
 public class QuestionListener {
     private final SwingRegistry registry;

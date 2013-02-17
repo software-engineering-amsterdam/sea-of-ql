@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation.swing.visitors;
 
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
@@ -29,6 +29,8 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.swing.SwingRegistry;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

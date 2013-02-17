@@ -7,6 +7,8 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 public class SwingRegistry {
     private List<QuestionPanel> questions;
