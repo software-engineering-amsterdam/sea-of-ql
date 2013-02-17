@@ -3,6 +3,8 @@
 
     <string name="app_name">QL-SurveyTool</string>
     <string name="title_question_detail">Question Detail</string>
-    <string name="menu_interpret">interpret</string>
+    <string name="menu_reload">reload</string>
+    <string name="editor_hint">Enter the QL form data here</string>
+    <string name="answer_hint">Enter the answer hint here</string>
 
 </resources>

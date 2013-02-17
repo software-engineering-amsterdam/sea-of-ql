@@ -9,7 +9,8 @@
         android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="Enter the QL form data here"
+        android:gravity="top"
+        android:hint="@string/editor_hint"
         android:singleLine="false"
         android:inputType="textNoSuggestions|textMultiLine" >
 
