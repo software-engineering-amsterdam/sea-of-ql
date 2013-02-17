@@ -69,6 +69,15 @@ public class SwingRegistry {
         return ret;
     }
     
+    public final boolean isValid(){
+        for(QuestionPanel qp : this.questions){
+            if(!qp.isValidInput()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public final Map<String, Object> getInput() {
         final Map<String,Object> ret = new HashMap<String, Object>();
         for(QuestionPanel q : this.getQuestions()){

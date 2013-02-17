@@ -29,19 +29,27 @@ public class SaveResultPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                final Map<String, Object> input = getInput();
-                final StringBuilder output = new StringBuilder();
-                for (Map.Entry<String, Object> entry : input.entrySet()) {
-                    output.append(entry.getKey() + ";"
-                            + entry.getValue().toString() + " \r\n");
-                }
-                try {
-                    IOHelper.write("c:/input.txt", output.toString());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                if (isValidInput()) {
+                    final Map<String, Object> input = getInput();
+                    final StringBuilder output = new StringBuilder();
+                    for (Map.Entry<String, Object> entry : input.entrySet()) {
+                        output.append(entry.getKey() + ";"
+                                + entry.getValue().toString() + " \r\n");
+                    }
+                    try {
+                        IOHelper.write("c:/input.txt", output.toString());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    System.out.println("cannot save invalid input");
                 }
             }
         });
+    }
+
+    private boolean isValidInput() {
+        return this.helper.getRegistry().isValid();
     }
 
     private Map<String, Object> getInput() {
