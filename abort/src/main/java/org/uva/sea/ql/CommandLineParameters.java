@@ -11,8 +11,6 @@ public class CommandLineParameters {
 	@Parameter(names = {"-p"}, description = "Port to run the REST server on", required = false)
 	private int port = 8080;
 
-	@Parameter(names = {"-o"}, description = "Generated code output directory", required = true)
-	private File outputDirectory;
 
 	public File getInputFile() {
 		return inputFile;
@@ -20,9 +18,5 @@ public class CommandLineParameters {
 	
 	public int getPort() {
 		return port;
-	}
-	
-	public File getOutputDirectory() {
-		return outputDirectory;
 	}
 }

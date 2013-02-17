@@ -2,14 +2,11 @@ package org.uva.sea.ql.webserver.services;
 
 import java.util.*;
 
-import javax.jws.WebParam;
 import javax.ws.rs.*;
 
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
 import org.uva.sea.ql.webserver.base.IWebService;
-
-import com.google.inject.servlet.RequestScoped;
 
 @Path("/bootstrap")
 @Produces("application/json")
@@ -24,7 +21,7 @@ public class BootstrapService implements IWebService {
 		types.add(new StringType());
 		types.add(new MoneyType());
 	}
-	
+
 	@GET
 	@Produces("application/json")
 	@Path("/sayHello")

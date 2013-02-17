@@ -5,13 +5,22 @@ import java.util.*;
 import org.stringtemplate.v4.*;
 import org.uva.sea.ql.ast.types.Ident;
 
-public class BootstrapJavascriptGenerator {
+class BootstrapJavascriptGenerator {
+	private static final String TEMPLATE_FILE_NAME = "bootstrap_js.stg";
+	private static final char TEMPLATE_DELIMITER = '$';
+	
+	private final STGroupFile javascriptTemplateGroup;
+	
 	private final StringBuffer initialCode = new StringBuffer();
-	private final STGroupFile javascriptTemplateGroup = new STGroupFile("templates/bootstrap_js.stg", '$', '$');
 
 	// Amount of references to a specific identifier
 	private final Map<Ident, Integer> references = new HashMap<Ident, Integer>();
 
+	public BootstrapJavascriptGenerator(final String templatesPath) {
+		final String javascriptTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
+		javascriptTemplateGroup = new STGroupFile(javascriptTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
+	}
+	
 	public void initIdentReference(final Ident id) {
 		references.put(id, 0);
 	}

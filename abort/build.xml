@@ -2,21 +2,30 @@
 <project name="QLCodeGenerator" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant" xmlns:jacoco="antlib:org.jacoco.ant">
 		<!-- One jar settings -->
 	 	<taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report" />
-	
-		<!-- ========= Define the main properties of this project ========= -->
+
+		<!-- Load properties that are shared with Java -->
+		<property name="shared.properties.file" value="codegenerator.properties" />
+		
+		<!-- Read shared properties -->
+		<property file="${shared.properties.file}" />
+
+		<!-- Main properties/dependencies -->
 		<property name="src.dir" value="./src/main/java" />
 		<property name="test.dir" value="./src/test/java" />
 		<property name="build.dir" value="./target" />
 		<property name="jar.dir" value="${build.dir}/exec" />
-
-		<!-- Used to copy the default code generation boilerplate code (css/js etc) -->
-		<property name="bootstrap.static.web.contents.targetdir" value="${jar.dir}/web" />
-		<property name="codegen.template.targetdir" value="${jar.dir}/templates" />
-		<property name="codegen.sourcedir" value="./src/main/resources/codegeneration" />
-		<property name="codegen.template.dir.name" value="templates" /> <!-- exclude templates folder to copy -->
-	
 		<property name="lib.dir" value="./lib" />
 		<property name="testresources.dir" value="./src/test/resources" />
+
+		<!-- Used to copy the default code generation boilerplate code (css/js etc) -->
+		<!-- Uses common properties! -->
+		<property name="bootstrap.static.web.contents.targetdir" value="${jar.dir}/${web.deploy.dir}" />
+		<property name="codegen.template.targetdir" value="${jar.dir}/${template.deploy.dir}" />
+		<property name="codegen.sourcedir" value="./src/main/resources/codegeneration" />
+		<!-- Exclude templates folder to copy to generated web folder, but copy it to the templates deploy folder -->
+		<property name="codegen.template.dir.name" value="templates" />
+		
+		<!-- Generation folders -->
 		<property name="classes.dir" value="${build.dir}/classes" />
 		<property name="reports.dir" value="${build.dir}/reports" />
 		<property name="reports.junit.xml.dir" value="${reports.dir}/junit" />
@@ -46,11 +55,12 @@
 		<property name="sonar.jdbc.password" value="sonar" />
 		<property name="sonar.host.url" value="http://localhost:9000" />
   
-		<!-- ========= Define "regular" targets: clean, compile, test, ... ========= -->
+		<!-- ANT Build targets -->
 		<target name="clean">
 			<delete dir=".sonar" />
 			<delete dir="${build.dir}" />
 			<delete dir="${reports.dir}" />
+			<delete dir="${classes.dir}" />
 		</target>
 	
 		<target name="init">
@@ -110,18 +120,20 @@
 		</target>
 	
 	    <target name="jar" depends="compile">
+	    	<!-- copy static contents to serve to clients -->
 			<mkdir dir="${bootstrap.static.web.contents.targetdir}" />
 			<copy todir="${bootstrap.static.web.contents.targetdir}">
 				<fileset dir="${codegen.sourcedir}">
+					<!-- exclude stg templates -->
 					<exclude name="**/${codegen.template.dir.name}/" />
 				</fileset>
 			</copy>
     	
+	    	<!-- copy templates to use to transform to static content -->
 	    	<mkdir dir="${codegen.template.targetdir}" />
 			<copy todir="${codegen.template.targetdir}">
         		<fileset dir="${codegen.sourcedir}/${codegen.template.dir.name}" includes="**/*.stg" />
 	    	</copy>
-
 	    	
 	        <jar destfile="${jar.dir}/main.jar">
 	    		<manifest>
@@ -131,7 +143,7 @@
 	        </jar>
 
 	    	<one-jar destfile="${jar.dir}/${ant.project.name}.jar">
-	    			<manifest>
+	    		<manifest>
 	    			<attribute name="One-Jar-URL-Factory" value="com.simontuffs.onejar.JarClassLoader$OneJarURLFactory"/>
 	            	<attribute name="Main-Class" value="org.uva.sea.ql.Main"/>
 	        	</manifest>
@@ -140,19 +152,20 @@
 	    			<fileset dir="${lib.dir}" />  
 	    		</lib>
 	    	</one-jar>
-
-	    	
+  	
 	    	<delete file="${jar.dir}/main.jar" />
+	    	
+	    	<!-- copy shared properties -->
+    		<copy file="${shared.properties.file}" todir="${jar.dir}" />
 	    </target>
-
-
 
 		<target name="regular-build" depends="clean,init,compile,jar" />
 
 	    <target name="run" depends="jar">
 	        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
 	        	 <arg line="-i /Users/abort/Desktop/form.ql -o ./web/ -p 1337" />
-	    	</java>
+	        	  <jvmarg value="-Duser.dir=${jar.dir}"/>
+	        </java>
 	    </target>
 
 		<target name="all" depends="clean,init,compile,test,sonar" />

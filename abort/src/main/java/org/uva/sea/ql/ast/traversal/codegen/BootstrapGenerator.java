@@ -17,8 +17,11 @@ import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
 
 public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
-	private final BootstrapJavascriptGenerator javascriptGenerator = new BootstrapJavascriptGenerator();
-	private final STGroupFile templateGroup = new STGroupFile("templates/bootstrap_index.stg", '$', '$');
+	private static final String TEMPLATE_FILE_NAME = "bootstrap_index.stg";
+	private static final char TEMPLATE_DELIMITER = '$';
+
+	private final BootstrapJavascriptGenerator javascriptGenerator;
+	private final STGroupFile templateGroup;
 
 	// Identifier used for condition blocks
 	private int conditionalIdentifier = 0;
@@ -31,9 +34,16 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		pageTemplate.add("fields", formTemplate);
 		return pageTemplate.render();
 	}
+	
+	public BootstrapGenerator(final String templatesPath) {
+		final String mainTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
+		templateGroup = new STGroupFile(mainTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
+
+		javascriptGenerator = new BootstrapJavascriptGenerator(templatesPath);
+	}
 
 	@Override
-	public void generateFrontend(final Form form, final File outputDirectory, final String outputFilename) throws WebGenerationException {
+	public void generateFrontend(final Form form, final String outputDirectory, final String outputFilename) throws WebGenerationException {
 		try {
 			final File outputFile = new File(outputDirectory, outputFilename);
 			IOUtils.write(generateFrontend(form), new FileOutputStream(outputFile));

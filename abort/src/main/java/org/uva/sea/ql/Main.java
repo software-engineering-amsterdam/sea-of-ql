@@ -4,8 +4,6 @@ import org.uva.sea.ql.base.IStartupController;
 
 import com.beust.jcommander.*;
 
-
-
 /**
  * TODO: write this.
  * 
