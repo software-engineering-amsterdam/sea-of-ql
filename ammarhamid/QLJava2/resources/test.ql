@@ -7,6 +7,10 @@ form test
     {
         "What is the price?" housePrice: integer
     }
+    else
+    {
+        "Are you sure?" sure: boolean
+    }
 
     "Did you sell a car in 2010?" hasSoldCar: boolean
 }

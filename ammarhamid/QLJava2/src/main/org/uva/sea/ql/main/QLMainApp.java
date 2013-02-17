@@ -1,12 +1,8 @@
 package org.uva.sea.ql.main;
 
-import net.miginfocom.swing.MigLayout;
-import org.uva.sea.ql.ast.statement.AssignmentNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
-import org.uva.sea.ql.type.impl.BooleanType;
-import org.uva.sea.ql.type.impl.StringType;
 import org.uva.sea.ql.visitor.impl.StatementWidgetVisitor;
 
 import javax.swing.*;
@@ -15,32 +11,15 @@ import java.io.IOException;
 public class QLMainApp
 {
 
-    private static JPanel createPanel()
-    {
-        final JPanel panel = new JPanel(new MigLayout());
-        final AssignmentNode assignmentNode = new AssignmentNode("When you sold it?", "time", new StringType());
-        final AssignmentNode assignmentNode2 = new AssignmentNode("really", "time", new BooleanType());
-        final AssignmentNode assignmentNode3 = new AssignmentNode("Owww iya taa", "time", new BooleanType());
-        final AssignmentNode assignmentNode4 = new AssignmentNode("Mosok seee??", "time", new StringType());
-        final StatementWidgetVisitor statementVisitor = new StatementWidgetVisitor(panel);
-        assignmentNode.accept(statementVisitor);
-        assignmentNode2.accept(statementVisitor);
-        assignmentNode3.accept(statementVisitor);
-        assignmentNode4.accept(statementVisitor);
-        return statementVisitor.getMainPanel();
-    }
-
     private static JPanel createPanel2() throws IOException
     {
-        final JPanel panel = new JPanel(new MigLayout());
-//        final JPanel panel = new JPanel(new MigLayout("wrap 2", "[grow]"));
         final IParser parser = new ANTLRParser();
         // TODO check why cast is needed !!!
         final Statement node = (Statement)parser.parseFormFromFile("/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql");
-        final StatementWidgetVisitor statementVisitor = new StatementWidgetVisitor(panel);
+        final StatementWidgetVisitor statementVisitor = new StatementWidgetVisitor();
         node.accept(statementVisitor);
 
-        return statementVisitor.getMainPanel();
+        return statementVisitor.getPanel();
     }
 
     public static void main(String[] args)

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.impl;
 
+import net.miginfocom.swing.MigLayout;
 import org.uva.sea.ql.VariableState;
 import org.uva.sea.ql.ast.statement.AssignmentNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
@@ -19,13 +20,13 @@ import java.util.concurrent.ConcurrentMap;
 public class StatementWidgetVisitor implements StatementVisitor, Observer
 {
     public static final String CONSTRAINTS = "right, gapright 12";
-    private final JPanel mainPanel;
+    private final JPanel panel;
     private final VariableState variableState;
     private final ConcurrentMap<String, IfNode> ifNodes;
 
-    public StatementWidgetVisitor(final JPanel mainPanel)
+    public StatementWidgetVisitor()
     {
-        this.mainPanel = mainPanel;
+        this.panel = new JPanel(new MigLayout());
         this.variableState = new VariableState();
         variableState.addObserver(this);
         this.ifNodes = new ConcurrentHashMap<>();
@@ -36,8 +37,8 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
     {
         final String question = assignmentNode.getQuestion();
         final Type type = assignmentNode.getType();
-        this.mainPanel.add(new JLabel(question), CONSTRAINTS);
-        type.accept(new TypeWidgetVisitor(this.mainPanel, assignmentNode.getIdentifier(), this.variableState));
+        this.panel.add(new JLabel(question), CONSTRAINTS);
+        type.accept(new TypeWidgetVisitor(this.panel, assignmentNode.getIdentifier(), this.variableState));
     }
 
     @Override
@@ -65,17 +66,17 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
             if(value1!=null && value1.getValue())
             {
                 visit((BlockNode)(branch.getBlock()));
-                mainPanel.revalidate();
-                mainPanel.repaint();
+                panel.revalidate();
+                panel.repaint();
                 QLMainApp.getFrame().pack();
                 return;
             }
         }
     }
 
-    public JPanel getMainPanel()
+    public JPanel getPanel()
     {
-        return mainPanel;
+        return panel;
     }
 
     @Override
