@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.statements.LineStatement;
 import org.uva.sea.ql.ast.types.BooleanType;
 
-public class LinePanel extends Panel implements FocusListener {
+public class LinePane extends Pane implements FocusListener {
 	private Expr fieldInitializer;
 	private Result fieldResult;
 	private JCheckBox jCheckBox;
@@ -27,7 +27,7 @@ public class LinePanel extends Panel implements FocusListener {
 	private JTextField jTextField;
 	private String panelName;
 
-	public LinePanel(LineStatement statement) {
+	public LinePane(LineStatement statement) {
 		BooleanType booleanType = new BooleanType();
 
 		panelName = statement.getLineName();
@@ -81,7 +81,6 @@ public class LinePanel extends Panel implements FocusListener {
 
 	public void registerAt(JPanel parentPanel, int location) {
 		String result = String.format("cell 0 %d ,growx", location);
-
 		parentPanel.add(jPanel, result);
 	}
 

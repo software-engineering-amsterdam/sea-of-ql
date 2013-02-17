@@ -13,14 +13,14 @@ import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.statements.ConditionalStatement;
 
-public class ConditionalPanel extends Panel {
+public class ConditionalPane extends Pane {
 
-	private CompoundPanel falsePanel;
-	private CompoundPanel truePanel;
+	private CompoundPane falsePane;
+	private CompoundPane truePane;
 	private JPanel panel;
 	private Expr trueExpr;
 
-	public ConditionalPanel(ConditionalStatement statement) {
+	public ConditionalPane(ConditionalStatement statement) {
 		panel = new JPanel();
 		panel.setBorder(new EmptyBorder(0, 0, 0, 0));
 		panel.setLayout(new MigLayout("", "0[]0", "0[]0[]0"));
@@ -30,56 +30,52 @@ public class ConditionalPanel extends Panel {
 
 	private void activateTFPanel(Result tResult) {
 		if (tResult.getBooleanValue()) {
-			if (falsePanel != null)
-				falsePanel.removeFrom(panel);
-			truePanel.registerAt(panel, 0);
-			truePanel.setVisible(tResult.getBooleanValue());
-			if (falsePanel != null)
-				falsePanel.setVisible(!tResult.getBooleanValue());
+			if (falsePane != null)
+				falsePane.removeFrom(panel);
+			truePane.registerAt(panel, 0);
+			truePane.setVisible(tResult.getBooleanValue());
+			if (falsePane != null)
+				falsePane.setVisible(!tResult.getBooleanValue());
 		} else {
-			truePanel.removeFrom(panel);
-			if (falsePanel != null)
-				falsePanel.registerAt(panel, 0);
-			truePanel.setVisible(tResult.getBooleanValue());
-			if (falsePanel != null)
-				falsePanel.setVisible(!tResult.getBooleanValue());
+			truePane.removeFrom(panel);
+			if (falsePane != null)
+				falsePane.registerAt(panel, 0);
+			truePane.setVisible(tResult.getBooleanValue());
+			if (falsePane != null)
+				falsePane.setVisible(!tResult.getBooleanValue());
 		}
 		panel.repaint();
 	}
 
 	@Override
 	public synchronized void addObserver(Observer o) {
-		truePanel.addObserver(o);
-		if (falsePanel != null)
-			falsePanel.addObserver(o);
+		truePane.addObserver(o);
+		if (falsePane != null)
+			falsePane.addObserver(o);
 	}
 
 	@Override
 	public void registerAt(JPanel parentPanel, int location) {
-
 		String result = String.format("cell 0 %d ,growx", location);
-
 		parentPanel.add(panel, result);
 
-		Result tResult = new BooleanResult(false);
-
-		activateTFPanel(tResult);
+		activateTFPanel(new BooleanResult(false));
 	}
 
-	public void setcElsePanel(CompoundPanel cElsePanel) {
-		this.falsePanel = cElsePanel;
+	public void setcElsePanel(CompoundPane cElsePanel) {
+		this.falsePane = cElsePanel;
 	}
 
-	public void setcThenPanel(CompoundPanel cThenPanel) {
-		this.truePanel = cThenPanel;
+	public void setcThenPanel(CompoundPane cThenPanel) {
+		this.truePane = cThenPanel;
 	}
 
 	@Override
 	public void updatecalculatedField(Map<String, Result> symbols) {
-		truePanel.updatecalculatedField(symbols);
+		truePane.updatecalculatedField(symbols);
 
-		if (falsePanel != null)
-			falsePanel.updatecalculatedField(symbols);
+		if (falsePane != null)
+			falsePane.updatecalculatedField(symbols);
 
 		Result tResult = trueExpr.eval(symbols);
 

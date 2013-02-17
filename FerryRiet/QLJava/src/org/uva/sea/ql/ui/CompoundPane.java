@@ -12,11 +12,11 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.operatorresults.Result;
 
-public class CompoundPanel extends Panel {
+public class CompoundPane extends Pane {
 	private JPanel compoundJPanel;
-	private List<Panel> panelList = new ArrayList<Panel>();
+	private List<Pane> paneList = new ArrayList<Pane>();
 
-	public CompoundPanel() {
+	public CompoundPane() {
 		compoundJPanel = new JPanel();
 		compoundJPanel.setBorder(new EmptyBorder(0, 0, 0, 0) );
 		compoundJPanel.setLayout(new MigLayout("", "0[]0", "0[18]0"));
@@ -24,13 +24,13 @@ public class CompoundPanel extends Panel {
 
 	@Override
 	public synchronized void addObserver(Observer o) {
-		for (Panel panel : panelList) {
+		for (Pane panel : paneList) {
 			panel.addObserver(o);
 		}
 	}
 
-	public void addPanel(Panel newPanel) {
-		panelList.add(newPanel);
+	public void addPanel(Pane newPanel) {
+		paneList.add(newPanel);
 	}
 
 	public void removeFrom(JPanel parentPanel) {
@@ -45,15 +45,15 @@ public class CompoundPanel extends Panel {
 		parentPanel.add(compoundJPanel, result);
 
 		int panelCount = 0;
-		for (Panel panel : panelList) {
-			panel.registerAt(compoundJPanel, panelCount++);
+		for (Pane pane : paneList) {
+			pane.registerAt(compoundJPanel, panelCount++);
 		}
 	}
 
 	@Override
 	public void updatecalculatedField(Map<String, Result> symbols) {
-		for (Panel panel : panelList) {
-			panel.updatecalculatedField(symbols);
+		for (Pane pane : paneList) {
+			pane.updatecalculatedField(symbols);
 		}
 	}
 

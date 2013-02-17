@@ -9,16 +9,14 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.operatorresults.Result;
 
-public abstract class Panel extends Observable implements ActionListener {
+public abstract class Pane extends Observable implements ActionListener {
 
-	public void registerAt(JPanel parentPanel, int location) {
+	public abstract void registerAt(JPanel parentPanel, int location);
 
-	}
-
-	public abstract void updatecalculatedField(Map<String, Result> symbols) ;
+	public abstract void updatecalculatedField(Map<String, Result> symbols);
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		throw new UnsupportedOperationException() ;
 	}
 }

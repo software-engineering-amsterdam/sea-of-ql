@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.visitor;
+package org.uva.sea.ql.ast.visitor.results;
 
 public class PrintResult {
 	private StringBuilder stringBuilder = new StringBuilder();

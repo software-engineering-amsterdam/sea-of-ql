@@ -28,7 +28,6 @@ import java.util.LinkedList;
     }
 }
 
-
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
@@ -143,7 +142,6 @@ COLON  : ':' ;
 LBRACE : '{' ;
 RBRACE : '}' ;
 
-
 COMMENT 
     : '/*' .* '*/'    {$channel=HIDDEN;}
     | '//' ( ~'\n' )* {$channel=HIDDEN;}
@@ -157,5 +155,5 @@ Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 IntegerLiteral: ('0'..'9')+;
 
-MoneyLiteral: ('0'..'9')+ ('.' ('0'..'9')+)? ;
+MoneyLiteral: ('0'..'9')+ ('.' ('0'..'9')+) ;
 

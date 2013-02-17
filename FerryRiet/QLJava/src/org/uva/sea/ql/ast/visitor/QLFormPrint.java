@@ -29,8 +29,9 @@ import org.uva.sea.ql.ast.statements.LineStatement;
 import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.results.PrintResult;
 
-public class Print implements Visitor<PrintResult> {
+public class QLFormPrint implements Visitor<PrintResult> {
 
 	@Override
 	public PrintResult visit(QLProgram qlProgram) {

@@ -35,7 +35,7 @@ import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class TypeCheck implements Visitor<Void> {
+public class QLFormTypeCheck implements Visitor<Void> {
 
 	private final List<String> errorList = new ArrayList<String>();
 
