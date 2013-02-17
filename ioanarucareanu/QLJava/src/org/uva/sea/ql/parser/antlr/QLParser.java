@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-15 12:56:56
+// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-17 15:02:30
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -861,7 +861,7 @@ public class QLParser extends Parser {
                     {
                     Int14=(Token)match(input,Int,FOLLOW_Int_in_primary304); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new IntegerValue(Integer.parseInt((Int14!=null?Int14.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new IntegerVal(Integer.parseInt((Int14!=null?Int14.getText():null))); }
 
                     }
                     break;
@@ -870,7 +870,7 @@ public class QLParser extends Parser {
                     {
                     Decimal15=(Token)match(input,Decimal,FOLLOW_Decimal_in_primary314); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new DecimalValue(Float.parseFloat((Decimal15!=null?Decimal15.getText():null))); }
+                    if ( state.backtracking==0 ) {result = new DecimalVal(Float.parseFloat((Decimal15!=null?Decimal15.getText():null))); }
 
                     }
                     break;
@@ -879,7 +879,7 @@ public class QLParser extends Parser {
                     {
                     Bool16=(Token)match(input,Bool,FOLLOW_Bool_in_primary322); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new BooleanValue(Boolean.parseBoolean((Bool16!=null?Bool16.getText():null))); }
+                    if ( state.backtracking==0 ) {result = new BooleanVal(Boolean.parseBoolean((Bool16!=null?Bool16.getText():null))); }
 
                     }
                     break;
@@ -888,7 +888,7 @@ public class QLParser extends Parser {
                     {
                     StringLit17=(Token)match(input,StringLit,FOLLOW_StringLit_in_primary330); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new StringValue((StringLit17!=null?StringLit17.getText():null)); }
+                    if ( state.backtracking==0 ) {result = new StringVal((StringLit17!=null?StringLit17.getText():null)); }
 
                     }
                     break;

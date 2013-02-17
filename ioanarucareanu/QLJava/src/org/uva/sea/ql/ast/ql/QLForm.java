@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.ql;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.semanticchecker.StatementSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
 import org.uva.sea.ql.semanticchecker.VisitableStatement;
 
 public class QLForm implements ASTNode, VisitableStatement {
@@ -24,7 +24,7 @@ public class QLForm implements ASTNode, VisitableStatement {
 	}
 
 	@Override
-	public void accept(StatementSemanticVisitor visitor) {		
+	public void accept(StatementVisitor visitor) {		
 		visitor.visit(this);
 	}
 	
