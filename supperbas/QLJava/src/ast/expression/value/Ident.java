@@ -3,8 +3,9 @@ package ast.expression.value;
 import java.util.Map;
 
 import ast.Type;
+import ast.expression.Visitor;
 import ast.expression.Value;
-import ast.visitor.Visitor;
+import ast.type.Undefined;
 
 public class Ident extends Value {
 
@@ -28,11 +29,11 @@ public class Ident extends Value {
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		return new ast.type.Undefined(this);
+		return new Undefined();
 	}
 
 	@Override

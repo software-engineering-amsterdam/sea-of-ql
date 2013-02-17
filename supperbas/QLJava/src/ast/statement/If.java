@@ -1,7 +1,6 @@
 package ast.statement;
 
 import ast.*;
-import ast.visitor.Visitor;
 
 public class If extends Statement {
 

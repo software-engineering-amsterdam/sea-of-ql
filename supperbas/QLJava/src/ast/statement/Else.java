@@ -1,7 +1,6 @@
 package ast.statement;
 
 import ast.Statement;
-import ast.visitor.Visitor;
 
 public class Else extends Statement {
 	

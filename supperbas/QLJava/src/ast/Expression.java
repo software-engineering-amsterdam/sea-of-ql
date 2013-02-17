@@ -2,8 +2,8 @@ package ast;
 
 import java.util.Map;
 
-import ast.type.Ident;
-import ast.visitor.Visitor;
+import ast.expression.Visitor;
+import ast.expression.value.Ident;
 
 public abstract class Expression implements ASTNode {
 
@@ -14,5 +14,7 @@ public abstract class Expression implements ASTNode {
 	public String toString() {
 		return this.getClass().getSimpleName();
 	}
+	
+	public abstract String typeStr();
 
 }
