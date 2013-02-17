@@ -4,22 +4,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
 
 public class Form implements IForm<JFrame> {
-
-	private final Environment environment;
-
-	public Form() {
-		this.environment = new Environment();
-	}
 
 	@Override
 	public JFrame visit(Question questionForm) {
 		JFrame frame = new JFrame();
 
-		Statement statementVisitor = new Statement(this.environment);
-		JPanel panel = questionForm.getStatements().accept(statementVisitor);
+		Block statements = questionForm.getStatements();
+
+		Statement visitor = new Statement(new Environment());
+		JPanel panel = statements.accept(visitor);
 		frame.add(panel);
 
 		return frame;
