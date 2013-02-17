@@ -6,7 +6,6 @@ import java.util.List;
 
 
 import ast.Statement;
-import ast.visitor.Visitor;
 
 public class Block extends Statement implements Iterable<Statement> {
 	

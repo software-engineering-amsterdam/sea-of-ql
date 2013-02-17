@@ -1,6 +1,6 @@
 package ast;
 
-import ast.visitor.Visitor;
+import ast.statement.Visitor;
 
 public abstract class Statement implements ASTNode {
 
