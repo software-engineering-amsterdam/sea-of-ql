@@ -22,14 +22,15 @@ public class Computed implements Observer {
 		this.environment = context;
 	}
 
+	public void update() {
+		Expression evaluator = new Expression(this.environment);
+		AbstractValue result = this.compute.accept(evaluator);
+		this.environment.setValue(this.ident, result);
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
-		// Evaluate expression again
-		// TODO: Reuse existing code?
-		Expression exprVisitor = new org.uva.sea.ql.visitor.eval.Expression(
-				this.environment);
-		AbstractValue result = this.compute.accept(exprVisitor);
-		this.environment.setValue(this.ident, result);
+		this.update();
 	}
 
 }
