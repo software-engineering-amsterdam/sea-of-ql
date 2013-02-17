@@ -8,8 +8,6 @@ import org.uva.sea.ql.ast.type.String;
 import org.uva.sea.ql.visitor.IType;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Type implements IType<Widget> {
 
 	@Override
@@ -33,15 +31,9 @@ public class Type implements IType<Widget> {
 	}
 
 	@Override
-	public Widget visit(org.uva.sea.ql.ast.type.Form form) {
-		// TODO: Remove this visitor method.
-		return null;
-	}
-
-	@Override
 	public Widget visit(Numeric numeric) {
-		// TODO: Will this ever be called?
-		throw new NotImplementedException();
+		throw new UnsupportedOperationException(
+				"Numeric cannot be used as a concrete type.");
 	}
 
 }

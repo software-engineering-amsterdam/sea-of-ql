@@ -17,9 +17,9 @@ import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.eval.observer.Computed;
 import org.uva.sea.ql.visitor.eval.observer.Conditional;
+import org.uva.sea.ql.visitor.eval.observer.Dependency;
+import org.uva.sea.ql.visitor.eval.observer.DependencySet;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
-import org.uva.sea.ql.visitor.eval.value.AbstractValue;
-import org.uva.sea.ql.visitor.eval.value.Bool;
 
 public class Statement implements IStatement<JPanel> {
 
@@ -49,27 +49,18 @@ public class Statement implements IStatement<JPanel> {
 		JPanel panel = question.accept(this);
 
 		// The question is computed. Therefore make it read only.
-		this.environment.setReadOnly(question.getIdent(), true);
+		Ident ident = question.getIdent();
+		this.environment.setReadOnly(ident, true);
 
 		// Observe dependent questions
 		AbstractExpr computeExpression = computedQuestion
 				.getComputeExpression();
+		Computed observer = new Computed(computeExpression, ident,
+				this.environment);
+		this.observeDependencies(computeExpression, observer);
 
-		Observer observer = new Computed(computeExpression,
-				question.getIdent(), this.environment);
-
-		Dependency dependencyVisitor = new Dependency();
-		DependencySet dependencies = computeExpression
-				.accept(dependencyVisitor);
-
-		for (Ident ident : dependencies.getDependencies()) {
-			this.environment.addObserver(ident, observer);
-		}
-
-		// Set the value.
-		Expression expressionVisitor = new Expression(this.environment);
-		AbstractValue value = computeExpression.accept(expressionVisitor);
-		this.environment.setValue(question.getIdent(), value);
+		// Set initial value.
+		observer.update();
 
 		return panel;
 	}
@@ -78,22 +69,14 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(If ifStatement) {
 		JPanel conditionalPanel = ifStatement.getTruePath().accept(this);
 
-		AbstractExpr condition = ifStatement.getCondition();
-
 		// Observe condition
-		Observer observer = new Conditional(condition, conditionalPanel,
+		AbstractExpr condition = ifStatement.getCondition();
+		Conditional observer = new Conditional(condition, conditionalPanel,
 				this.environment);
+		this.observeDependencies(condition, observer);
 
-		Dependency dependencyVisitor = new Dependency();
-		DependencySet dependencies = condition.accept(dependencyVisitor);
-
-		for (Ident ident : dependencies.getDependencies()) {
-			this.environment.addObserver(ident, observer);
-		}
-
-		Expression expressionVisitor = new Expression(this.environment);
-		Bool result = (Bool) condition.accept(expressionVisitor);
-		conditionalPanel.setVisible(result.getValue());
+		// Set initial value.
+		observer.update();
 
 		return conditionalPanel;
 	}
@@ -114,6 +97,15 @@ public class Statement implements IStatement<JPanel> {
 		this.environment.declare(id, inputField);
 
 		return panel;
+	}
+
+	private void observeDependencies(AbstractExpr expr, Observer observer) {
+		Dependency dependencyVisitor = new Dependency();
+		DependencySet dependencies = expr.accept(dependencyVisitor);
+
+		for (Ident ident : dependencies.getDependencies()) {
+			this.environment.addObserver(ident, observer);
+		}
 	}
 
 }

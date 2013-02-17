@@ -47,14 +47,24 @@ public class Int extends AbstractValue {
 
 	@Override
 	protected AbstractValue divInt(Int value) {
-		return new Int(value.getValue() / this.getValue());
+		if (this.getValue() == 0) {
+			// Prevent division by zero.
+			return new Int(this.getValue());
+		} else {
+			return new Int(value.getValue() / this.getValue());
+		}
 	}
 
 	@Override
 	protected AbstractValue divMoney(Money value) {
-		BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
-		return new Money(value.getValue().divide(intAsBigDecimal,
-				value.getRoundingMode()));
+		if (this.getValue() == 0) {
+			// Prevent division by zero.
+			return new Int(this.getValue());
+		} else {
+			BigDecimal intAsBigDecimal = new BigDecimal(this.getValue());
+			return new Money(value.getValue().divide(intAsBigDecimal,
+					value.getRoundingMode()));
+		}
 	}
 
 	@Override

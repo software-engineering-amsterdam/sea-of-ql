@@ -9,8 +9,7 @@ public class CompQuestion extends Question {
 
 	private final Expr expression;
 
-	public CompQuestion(Ident name, StringLiteral label, Type type, Expr expression) {
-
+	public CompQuestion(Ident name, StringLiteral label, Type type,Expr expression) {
 		super(name, label, type);
 		this.expression = expression;
 	}
@@ -22,7 +21,6 @@ public class CompQuestion extends Question {
 	@Override
 	public void accept(IElementVisitor ElementVisitor) {
 		ElementVisitor.visit(this);
-
 	}
 
 }

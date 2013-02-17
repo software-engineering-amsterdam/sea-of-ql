@@ -17,7 +17,7 @@ public class Neg extends UnaryExpr {
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
-		if (this.getArg().typeOf(typeEnv).isCompatibleToIntType()){
+		if (this.getArg().typeOf(typeEnv).isCompatibleToIntType()) {
 			return new IntType();
 		}
 		if (this.getArg().typeOf(typeEnv).isCompatibleToMoneyType()) {

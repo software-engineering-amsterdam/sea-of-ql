@@ -33,7 +33,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public ExprEvaluator(Map<String, Value> env) {
 		this.env = Collections.unmodifiableMap(env);
 	}
-	
+
 	@Override
 	public Value visit(Add node) {
 		Value lhs = node.getLhs().accept(this);
@@ -141,7 +141,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 		if (env.containsKey(node.getName())) {
 			return env.get(node.getName());
 		}
-		return null; // TODOOOOOOOOOOOO
+		return null;
 	}
 
 	@Override
