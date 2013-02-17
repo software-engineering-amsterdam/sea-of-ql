@@ -1,5 +1,6 @@
 package org.uva.sea.ql.main;
 
+import org.uva.sea.ql.VariableState;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
@@ -11,15 +12,12 @@ import java.io.IOException;
 public class QLMainApp
 {
 
-    private static JPanel createPanel2() throws IOException
+    private static JPanel createPanel() throws IOException
     {
         final IParser parser = new ANTLRParser();
         // TODO check why cast is needed !!!
         final Statement node = (Statement)parser.parseFormFromFile("/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql");
-        final StatementWidgetVisitor statementVisitor = new StatementWidgetVisitor();
-        node.accept(statementVisitor);
-
-        return statementVisitor.getPanel();
+        return StatementWidgetVisitor.render(node, new VariableState());
     }
 
     public static void main(String[] args)
@@ -41,7 +39,7 @@ public class QLMainApp
                 frame = new JFrame("QL Main Application");
                 try
                 {
-                    frame.getContentPane().add(createPanel2());
+                    frame.getContentPane().add(createPanel());
                 }
                 catch(IOException e)
                 {

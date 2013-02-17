@@ -19,26 +19,37 @@ import java.util.concurrent.ConcurrentMap;
 
 public class StatementWidgetVisitor implements StatementVisitor, Observer
 {
-    public static final String CONSTRAINTS = "right, gapright 12";
     private final JPanel panel;
     private final VariableState variableState;
-    private final ConcurrentMap<String, IfNode> ifNodes;
+    private final ConcurrentMap<IfNode, List<BranchPanel>> ifNodes;
 
-    public StatementWidgetVisitor()
+    private StatementWidgetVisitor(final VariableState variableState)
     {
-        this.panel = new JPanel(new MigLayout());
-        this.variableState = new VariableState();
+        this.panel = new JPanel(new MigLayout("hidemode 3"));
+        this.variableState = variableState;
         variableState.addObserver(this);
         this.ifNodes = new ConcurrentHashMap<>();
+    }
+
+    public static JPanel render(Statement statement, VariableState variableState) {
+        StatementWidgetVisitor statementWidgetVisitor = new StatementWidgetVisitor(variableState);
+        statement.accept(statementWidgetVisitor);
+        return statementWidgetVisitor.getPanel();
     }
 
     @Override
     public void visit(final AssignmentNode assignmentNode)
     {
         final String question = assignmentNode.getQuestion();
+        final JPanel questionPanel = new JPanel();
+        questionPanel.add(new JLabel(question));
+
+        final JPanel typePanel = new JPanel();
         final Type type = assignmentNode.getType();
-        this.panel.add(new JLabel(question), CONSTRAINTS);
-        type.accept(new TypeWidgetVisitor(this.panel, assignmentNode.getIdentifier(), this.variableState));
+        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifier(), this.variableState));
+
+        this.panel.add(questionPanel, "right, gapright 12");
+        this.panel.add(typePanel, "span");
     }
 
     @Override
@@ -54,24 +65,21 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
     @Override
     public void visit(IfNode ifNode)
     {
-        System.out.println("Visiting ifNode");
-        IfNode ifNode1 = this.ifNodes.putIfAbsent(ifNode.toString(), ifNode);
-
+        final List<BranchPanel> branchPanels = new ArrayList<>();
         final List<IfNode.Branch> branches = ifNode.getBranches();
         for(final IfNode.Branch branch : branches)
         {
             Value value = branch.evaluateExpression();
-            // TODO check if casting is necessary here !!!
-            BooleanValue value1 = ((BooleanValue) value);
-            if(value1!=null && value1.getValue())
-            {
-                visit((BlockNode)(branch.getBlock()));
-                panel.revalidate();
-                panel.repaint();
-                QLMainApp.getFrame().pack();
-                return;
-            }
+            Statement statement = (Statement) branch.getBlock();
+            JPanel branchBlockPanel = render(statement, this.variableState);
+            branchBlockPanel.setVisible(false);
+            branchPanels.add(new BranchPanel(branch, branchBlockPanel));
+            panel.add(branchBlockPanel, "right, gapright 12, span");
         }
+        ifNodes.put(ifNode, branchPanels);
+
+        // trigger if there is an else statement to be initialize
+        update(null, null);
     }
 
     public JPanel getPanel()
@@ -82,16 +90,70 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
     @Override
     public void update(Observable o, Object arg)
     {
-        System.out.println("add variable: " +arg);
+        // TODO remove this print - debug usage only !!
         Map<String, Value> variableMap = VariableState.getVariableMap();
         for(Map.Entry<String, Value> stringValueEntry : variableMap.entrySet())
         {
             System.out.println("stringValueEntry = " + stringValueEntry);
         }
 
-        for(Map.Entry<String, IfNode> stringIfNodeEntry : ifNodes.entrySet())
+        // TODO refactor this IfNode update task !!!
+        for(Map.Entry<IfNode, List<BranchPanel>> ifNodeListEntry : ifNodes.entrySet())
         {
-            visit(stringIfNodeEntry.getValue());
+            IfNode key = ifNodeListEntry.getKey();
+            List<BranchPanel> branchPanels = ifNodeListEntry.getValue();
+
+            List<JPanel> jPanels = new ArrayList<>();
+            for(BranchPanel branchPanel : branchPanels)
+            {
+                jPanels.add(branchPanel.getjPanel());
+            }
+
+            for(BranchPanel branchPanel : branchPanels)
+            {
+                IfNode.Branch branch = branchPanel.getBranch();
+                JPanel panel = branchPanel.getjPanel();
+                Value value = branch.evaluateExpression();
+                BooleanValue value1 = ((BooleanValue) value);
+                if(value1!=null && value1.getValue())
+                {
+                    // clearing all states
+                    for(JPanel jPanel1 : jPanels)
+                    {
+                        jPanel1.setVisible(false);
+                    }
+                    // set the current block to be true and exit the loop right away
+                    panel.setVisible(!panel.isVisible());
+                    break;
+                }
+
+            }
+        }
+
+        QLMainApp.getFrame().pack();
+    }
+
+    // TODO refactor this, maybe a new class ??
+    private class BranchPanel
+    {
+        private final IfNode.Branch branch;
+        private final JPanel jPanel;
+
+        private BranchPanel(IfNode.Branch branch, JPanel jPanel)
+        {
+            this.branch = branch;
+            this.jPanel = jPanel;
+        }
+
+        public IfNode.Branch getBranch()
+        {
+            return branch;
+        }
+
+        public JPanel getjPanel()
+        {
+            return jPanel;
         }
     }
+
 }
