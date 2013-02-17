@@ -28,6 +28,7 @@ public class TestLiteralExpressionTypes extends ExpressionTypeChecker {
 	@Test
 	public void testBooleans() throws ParseError {
 		isOfTypeBoolean("true");
+		isOfTypeBoolean("false");
 	}
 	
 	@Test

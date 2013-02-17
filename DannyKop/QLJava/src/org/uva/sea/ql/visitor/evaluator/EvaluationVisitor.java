@@ -23,9 +23,10 @@ import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
 import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Condition;
+import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.Visitor;
@@ -187,7 +188,12 @@ public class EvaluationVisitor implements Visitor<Value> {
 	}
 
 	@Override
-	public Value visit(Condition c) {
+	public Value visit(IfThen i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Value visit(IfThenElse i) {
 		// TODO Auto-generated method stub
 		return null;
 	}

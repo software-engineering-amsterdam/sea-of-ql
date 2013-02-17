@@ -8,14 +8,9 @@ import ast.expression.Unary;
 import ast.visitor.Visitor;
 
 public class Pos extends Unary {
-	private final int level = 6;
 
 	public Pos(Expression expr) {
 		super(expr);
-	}
-
-	public int getLevel() {
-		return level;
 	}
 	
 	@Override

@@ -6,10 +6,10 @@ alias QuestionireString= str;
 public data Type = string()|integer()|money()|natural();
 
 
-public data Program= program(str qLangName, list[Statement]body);
+public data Program= program(str name, list[Statement]stats); 
 
 public data Question=uncomputedQuestion(str id, str labelQuestion, Type tp)
-				|computeQuestion(str id, str labelQuestion, Type tp, Expression exp);
+				|computedQuestion(str id, str labelQuestion, Type tp, Expression exp);
 				
 public data Expression= id(str name)
 				| \int(int ivalue)
@@ -26,12 +26,14 @@ public data Expression= id(str name)
 				| geq (Expression left, Expression right)
 				| eq (Expression left, Expression right)
 				| neq (Expression left, Expression right)
+				| not (Expression)
 				| boolCon (bool bVal)
 				| moneyCon (str mVal)
 				| string (str sVal)
+				| stringCon(str sVal)
 				;
 				
-public data Statement = ifStat(Expression exp, list[Statement]body)
+public data Statement = ifStat(Expression exp, list[Statement]stats)
 				|ifElseStat(Expression exp, list[Statement] thenpart, list[Statement] elsepart)
 				|question(Question question);
 				
@@ -41,5 +43,5 @@ anno loc Expression@location;
 anno loc Statement@location;
 anno loc Question@location;
 
-public alias Occurrence = tuple[loc location, str name, Statement stat]; 
+public alias Occurrence = tuple[loc location, str name, Statement stats]; 
    

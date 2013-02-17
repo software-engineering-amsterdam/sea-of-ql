@@ -33,7 +33,7 @@ question returns [Question result]
 computedQuestion returns [ComputedQuestion result]
 	: Ident ':' '[' orExpr ']' sentence '(' type ')' { $result = new ComputedQuestion($Ident.text, $sentence.text, $orExpr.result, $type.result); }
 	;
-
+ 
 ifStatement returns [IfStatement result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
 	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }

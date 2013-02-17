@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.core.dom.statements.FormElement;
 import org.uva.sea.ql.parsers.FormElementParser;
-import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.ParserBaseForStatements;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class FormElementParserTests {
 
-	private ParserBase parser;
+	private ParserBaseForStatements parser;
 	
 	@Before
     public void setUp() {

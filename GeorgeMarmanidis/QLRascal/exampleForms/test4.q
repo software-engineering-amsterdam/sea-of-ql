@@ -1,31 +1,37 @@
 form test  {
 	name: "Name:" string
-	 surname: "Surname:" string
-	   surname2: "Surname1:" string (surname+"dwadaw")
-	   age: "Age:" integer
-	   age2: "Age2:" integer
-	
-	   isEmpl: "Do you work?" boolean
-	   completeage: "Complete name:" integer (age+age2)
-	
-	   if (isEmpl)
+	surname: "Surname:" string
+	surname2: "Surname1:" string (name + surname)
+	age: "Age:" integer
+	mothersage: "mothersage:" integer
+	/*dawdwdawd*/
+	   
+	   agedifference: "agedifference:" integer (mothersage - age)
+		
+	   if (agedifference>30)
 		   {
-			   	   if(isEmpl==true){
-			   	   	   salary: "Annual income:" money 
+			   	   if(age>20){
+			   	   	   attitude: "30Do you see any difference in attitude" boolean 
+			   	   	   isEmpl: "30Do you work?" boolean
 			   	   }
 			   	   else{
-			   	   	   salary: "what salary you except?:" money 
+			   	   	   work: "what salary you except?:" money 
 		   		   }
-			   salary: "what salary you except?:" money 
+			   
 	   	}
-		   else if(!isEmpl)
+		  else if(agedifference>15)
 		   	{
-			   	   isEmpl: "Do you work1?" boolean
-			   	   interests: "What are you seeking in a job?" string  ("dawdawdawd")
+			   	    if(age>20){
+			   	   	   attitude: "151adaw" boolean 
+			   	   	   isEmpl: "Do you work?15" boolean
+			   	   }
+			   	   else{
+			   	   	   work: "what salary you except?15:" money 
+		   		   }
 		   }
 		   else
 		   {
-			   	   interest: "How you get in here?" string
-			   	   interest: "How you get in here?" string 
+			   	   
+			   	   interest: "0How you get in here?" string 
 		   }
 }

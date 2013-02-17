@@ -1,35 +1,24 @@
 package org.uva.sea.ql.parser.test;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
-import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 
-public class TestUnaryExpressions {
-
-	private IParser _parser;
-	
-	public TestUnaryExpressions() {
-		_parser = new ANTLRParserExpressions();
-	}
-	
+public class TestUnaryExpressions extends ExpressionParserChecker {
 	@Test
 	public void testNegs() throws ParseError {
-		assertEquals(_parser.parse("--x").getClass(), Neg.class);
+		expressionMatchesASTClass("--x", Neg.class);
 	}
 	
 	@Test
 	public void testPoss() throws ParseError {
-		assertEquals(_parser.parse("++x").getClass(), Pos.class);
+		expressionMatchesASTClass("++x", Pos.class);
 	}
 	
 	@Test
 	public void testNots() throws ParseError {
-		assertEquals(_parser.parse("!hasBoughtHouse").getClass(), Not.class);
+		expressionMatchesASTClass("!hasBoughtHouse", Not.class);
 	}
 }

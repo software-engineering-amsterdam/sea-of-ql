@@ -20,9 +20,10 @@ import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
 import org.uva.sea.ql.ast.form.Computation;
-import org.uva.sea.ql.ast.form.Condition;
+import org.uva.sea.ql.ast.form.IfThen;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 
@@ -37,13 +38,15 @@ public interface Visitor <T> {
 	public T visit(FormElement fe);
 	public T visit(Question q);
 	public T visit(Computation c);
-	public T visit(Condition c);	
+	public T visit(IfThen i);
+	public T visit(IfThenElse i);
 	public T visit(Ident i);
 	public T visit(BinExpr b);
 	public T visit(UnaryExpr u);
 	public T visit(Expr e);
 	public T visit(Type t);
 	
+	// 'operations'
 	public T visit(Add a);
 	public T visit(And a);
 	public T visit(Div d);

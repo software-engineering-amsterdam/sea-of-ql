@@ -1,0 +1,9 @@
+package org.uva.sea.ql.core.dom;
+
+import org.uva.sea.ql.core.dom.statements.*;
+
+public interface StatementVisitor {
+	
+	boolean visit(Form ast);
+	boolean visit(FormElement ast);
+}

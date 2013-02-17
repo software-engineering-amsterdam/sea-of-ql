@@ -8,14 +8,9 @@ import ast.expression.Binary;
 import ast.visitor.Visitor;
 
 public class GEq extends Binary {
-	private final int level = 2;
 
 	public GEq(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
-	}
-
-	public int getLevel() {
-		return level;
 	}
 	
 	@Override

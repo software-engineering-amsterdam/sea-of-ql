@@ -39,8 +39,8 @@ public class Computation extends FormElement {
 	 * getDescription()
 	 * @return question
 	 */
-	public StrLiteral getDescription(){
-		return this.description;
+	public String getDescription(){
+		return this.description.getValue();
 	}
 	/**
 	 * getExpr

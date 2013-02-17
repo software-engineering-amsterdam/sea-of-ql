@@ -1,23 +1,29 @@
 package ast.visitor;
 
+import java.util.Iterator;
+
+import ast.Form;
+import ast.Statement;
 import ast.expression.*;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.*;
 import ast.statement.*;
+import ast.type.Message;
+import ast.type.Numeric;
 
 public class PrintExpressionVisitor implements Visitor<Boolean> {
 
-	private int level = 0;
+	private int depth = 0;
 
 	public PrintExpressionVisitor() {
 		super();
 		System.out.println("EXPR VISITOR");
 	}
 
-	public PrintExpressionVisitor(int level) {
+	public PrintExpressionVisitor(int depth) {
 		super();
-		this.level = level;
+		this.depth = depth;
 		print();
 	}
 
@@ -162,20 +168,21 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	}
 
 	public void binaryVisit(Binary ast) {
-		ast.getLhs().accept(new PrintExpressionVisitor(level+1));
-		ast.getRhs().accept(new PrintExpressionVisitor(level+1));
+		ast.getLhs().accept(new PrintExpressionVisitor(depth+1));
+		ast.getRhs().accept(new PrintExpressionVisitor(depth+1));
 	}
 
 	public void unaryVisit(Unary ast) {
-		ast.getExpression().accept(new PrintExpressionVisitor(level+1));
+		ast.getExpression().accept(new PrintExpressionVisitor(depth+1));
 	}
 
 	public void valueVisit(Value ast) {
 		System.out.println(ast.toString());
+		System.out.println("XXX");
 	}
 
 	public void print() {
-		for (int i = 0; i < (level - 1); i++)
+		for (int i = 0; i < (depth - 1); i++)
 			System.out.print('|');
 		System.out.print('-');
 	}
@@ -184,14 +191,14 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	public Boolean visit(Assignment ast) {
 		System.out.print("STAT ASSIGNMENT ");
 		System.out.println(ast.getIdent() + " = ");
-		ast.getExpression().accept(new PrintExpressionVisitor(level+1));
+		ast.getExpression().accept(new PrintExpressionVisitor(depth+1));
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Else ast) {
 		System.out.print("STAT ELSE ");
-		ast.getConsequence().accept(new PrintExpressionVisitor(level+1));
+		ast.getBlock().accept(new PrintExpressionVisitor(depth+1));
 		return true;
 	}
 
@@ -199,14 +206,14 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	public Boolean visit(Form ast) {
 		System.out.print("STAT FORM ");
 		System.out.println(ast.getIdent() + " : ");
-		ast.getContent().accept(new PrintExpressionVisitor(level+1));
+		ast.getContent().accept(new PrintExpressionVisitor(depth+1));
 		return true;
 	}
 
 	@Override
 	public Boolean visit(If ast) {
 		System.out.println("STAT IF ");
-		ast.getCondition().accept(new PrintExpressionVisitor(level+1));
+		ast.getCondition().accept(new PrintExpressionVisitor(depth+1));
 		return true;
 	}
 
@@ -214,7 +221,7 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 	public Boolean visit(Question ast) {
 		System.out.print("STAT QUESTION '");
 		System.out.println(ast.getQuestion() + "' : ");
-		ast.getVar().accept(new PrintExpressionVisitor(level+1));
+		ast.getVar().accept(new PrintExpressionVisitor(depth+1));
 		return true;
 	}
 
@@ -223,6 +230,56 @@ public class PrintExpressionVisitor implements Visitor<Boolean> {
 		System.out.print("STAT VAR ");
 		System.out.println(ast.getIdent() + " : " + ast.getType());
 		return true;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Bool ast) {
+		System.out.println("x");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Str ast) {
+		System.out.println("x");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Ident ast) {
+		System.out.println("x");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Int ast) {
+		System.out.println("xxx");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Message ast) {
+		System.out.println("x");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(ast.type.Money ast) {
+		System.out.println("x");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Numeric ast) {
+		System.out.println("x");
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Block ast) {
+		System.out.println("Block");
+		for(Iterator<Statement> i = ast.iterator(); i.hasNext();)
+			i.next().accept(new PrintExpressionVisitor(depth+1));
+		return null;
 	}
 
 }

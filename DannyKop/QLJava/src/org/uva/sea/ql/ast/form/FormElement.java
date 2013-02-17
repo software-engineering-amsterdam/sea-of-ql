@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.form;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.Visitor;
 
@@ -8,7 +9,7 @@ import org.uva.sea.ql.visitor.Visitor;
  * @author Danny
  *
  */
-public abstract class FormElement {
+public abstract class FormElement implements ASTNode {
 	
 	private final Type type;
 	
