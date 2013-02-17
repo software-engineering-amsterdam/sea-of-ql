@@ -11,11 +11,11 @@ import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
 public class SwingInputTypeVisitor implements TypeVisitor {
-    private JComponent input;
     private static int length = 10;
+    private JComponent input;
 
     public final JComponent getInput() {
-        return input;
+        return this.input;
     }
 
     @Override

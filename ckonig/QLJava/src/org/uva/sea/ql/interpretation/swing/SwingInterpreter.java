@@ -3,18 +3,12 @@ package org.uva.sea.ql.interpretation.swing;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import org.uva.sea.ql.interpretation.swing.QLFileFilter;
-import org.uva.sea.ql.interpretation.swing.SwingHelper;
+import org.uva.sea.ql.interpretation.swing.components.TopPanel;
 
 public class SwingInterpreter extends JFrame {
     private static final long serialVersionUID = -1942492887122279651L;
@@ -25,10 +19,8 @@ public class SwingInterpreter extends JFrame {
     private static final int CENTER_WIDTH = 400;
     private static final int CENTER_HEIGHT = 400;
     private static final int BOTTOM_HEIGHT = 100;
-    private final JFileChooser fileChooser;
-    private JButton buttonOpenFile;
-    private JButton buttonGenerate;
-    private JPanel topPanel;
+
+    private TopPanel topPanel;
     private JPanel leftPanel;
     private JPanel bottomPanel;
     private JPanel centerPanel;
@@ -40,15 +32,9 @@ public class SwingInterpreter extends JFrame {
         createComponents();
         setSizes();
         setLayout();
-        addOpenFileListener(this.buttonOpenFile);
-        addGenerateListener(this.buttonGenerate);
-        this.fileChooser = new JFileChooser();
-        this.fileChooser.setFileFilter(new QLFileFilter());
         setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         setVisible(true);
     }
-    
-   
 
     private void setSizes() {
         this.leftPanel.setBackground(Color.red);
@@ -62,18 +48,14 @@ public class SwingInterpreter extends JFrame {
     }
 
     private void createComponents() {
-        this.buttonOpenFile = new JButton("Open File");
-        this.buttonGenerate = new JButton("Generate HTML");
-        this.buttonGenerate.setEnabled(false);
+
         this.bottomPanel = new JPanel();
-        this.topPanel = new JPanel();
         this.leftPanel = new JPanel();
         this.centerPanel = new JPanel();
         this.log = new JTextArea();
+        this.topPanel = new TopPanel(this.helper, this.log, this.centerPanel);
         this.log.setLineWrap(true);
         this.leftPanel.add(this.log);
-        this.topPanel.add(this.buttonOpenFile);
-        this.topPanel.add(this.buttonGenerate);
     }
 
     private void setLayout() {
@@ -97,35 +79,4 @@ public class SwingInterpreter extends JFrame {
         getContentPane().add(p, c);
     }
 
-    private void addOpenFileListener(JButton b) {
-
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                openFile();
-            }
-        });
-    }
-
-    private void addGenerateListener(JButton b) {
-        b.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                generate();
-            }
-        });
-    }
-
-    private void generate() {
-        this.helper.generateHtml();
-    }
-
-    private void openFile() {
-        final int returnVal = this.fileChooser.showOpenDialog(SwingInterpreter.this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            final File file = this.fileChooser.getSelectedFile();
-            this.helper = new SwingHelper(this.log, this.buttonGenerate, this.centerPanel);
-            this.helper.openFile(file);
-        }
-    }
 }

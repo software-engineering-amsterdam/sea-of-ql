@@ -41,7 +41,7 @@ public class QuestionPanel extends JPanel {
     }
 
     public final String getStringValue() {
-        final JTextField t = (JTextField) input;
+        final JTextField t = (JTextField) this.input;
         return t.getText();
     }
 

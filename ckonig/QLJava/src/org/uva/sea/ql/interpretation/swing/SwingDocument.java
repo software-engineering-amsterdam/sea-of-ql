@@ -1,16 +1,21 @@
 package org.uva.sea.ql.interpretation.swing;
 
+import java.awt.Font;
 import java.util.List;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.elements.*;
+import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.elements.IfStatement;
+import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.IdentFinder;
 import org.uva.sea.ql.common.interfaces.QLDocument;
-import org.uva.sea.ql.interpretation.swing.components.*;
+import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 public class SwingDocument implements QLDocument {
     private final JPanel panel;
@@ -32,7 +37,9 @@ public class SwingDocument implements QLDocument {
 
     @Override
     public void setHeading(String content) {
-        // TODO Auto-generated method stub
+        final JLabel lbl = new JLabel(content);
+        lbl.setFont(new Font("Times New Roman", 0, 20));
+        this.panelStack.peek().add(lbl);
     }
 
     @Override
@@ -66,7 +73,7 @@ public class SwingDocument implements QLDocument {
                 this.registry);
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
             final IfStatement ifStatement = ifPanel.getIfStatement();
-            IdentFinder finder = new IdentFinder();
+            final IdentFinder finder = new IdentFinder();
             ((TreeNode)ifStatement.getCondition()).accept(finder);           
             final List<Ident> idents = finder.getIdents();
             for (Ident ident : idents) {

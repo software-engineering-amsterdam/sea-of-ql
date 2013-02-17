@@ -44,7 +44,7 @@ public class QuestionListenerTypeVisitor implements TypeVisitor{
     }
     
     private void listenToText(){
-        final JTextField t = (JTextField) questionPanel.getInput();
+        final JTextField t = (JTextField) this.questionPanel.getInput();
         t.addActionListener(new ActionListener() {
 
             @Override

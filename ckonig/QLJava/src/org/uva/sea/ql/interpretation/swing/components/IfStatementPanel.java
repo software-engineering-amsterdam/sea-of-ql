@@ -7,9 +7,8 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.visitors.BoolEvaluationVisitor;
 
