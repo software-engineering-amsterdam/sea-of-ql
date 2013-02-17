@@ -6,20 +6,20 @@ import org.uva.sea.ql.core.dom.StatementVisitor;
 import org.uva.sea.ql.core.dom.types.declarations.TypeDeclaration;
 import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 
-public class FormElement extends Statement{
+public class Question extends Statement{
 
 	public Identifier name;
 	public StringLiteral text;
 	public TypeDeclaration type;
 	
-	public FormElement(Identifier name,StringLiteral text, TypeDeclaration type) {
+	public Question(Identifier name,StringLiteral text, TypeDeclaration type) {
 		this.name=name;
 		this.text=text;
 		this.type=type;
 	}
-
+	
 	@Override
 	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);
-	}	
+	}
 }

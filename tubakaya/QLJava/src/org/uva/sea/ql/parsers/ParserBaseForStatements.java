@@ -1,7 +1,6 @@
 package org.uva.sea.ql.parsers;
 
 import org.uva.sea.ql.core.dom.Statement;
-import org.uva.sea.ql.core.dom.types.declarations.TypeDeclaration;
 import org.uva.sea.ql.parsers.antlr.QLLexer;
 import org.uva.sea.ql.parsers.antlr.QLParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
