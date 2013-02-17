@@ -13,11 +13,11 @@ public class Form extends FormElement {
 		this.body = body;
 	}
 
-	public Ident getFormName() {
+	public Ident getName() {
 		return name;
 	}
 
-	public Block getFormBody() {
+	public Block getBody() {
 		return body;
 	}
 

@@ -22,22 +22,22 @@ import org.uva.sea.ql.gui.Gui;
 import org.uva.sea.ql.visitors.ITypeVisitor;
 import org.uva.sea.ql.visitors.utils.State;
 
-public class ActionListenere implements ITypeVisitor<Void> {
+public class QLActionListener implements ITypeVisitor<Void> {
 
 	private final State state;
 	private final JComponent component;
 	private final String name;
 	private static Gui gui1;
 
-	private ActionListenere(String name, State state, JComponent component) {
+	private QLActionListener(String name, State state, JComponent component) {
 		this.state = state;
 		this.component = component;
 		this.name = name;
 	}
 
-	public static void CreateListener(String name, Type type, JComponent component, State state, Gui gui) {
+	public static void createListener(String name, Type type, JComponent component, State state, Gui gui) {
 		gui1 = gui;
-		ActionListenere listener = new ActionListenere(name, state, component);
+		QLActionListener listener = new QLActionListener(name, state, component);
 		type.accept(listener);
 	}
 

@@ -14,6 +14,11 @@ public class MoneyType extends Numeric {
 		return true;
 	}
 
+	/*
+	 * Money is not compatible with int
+	 * to ensure Type consistency in the QL
+	 */
+	
 	@Override
 	public boolean isCompatibleToIntType() {
 		return false;

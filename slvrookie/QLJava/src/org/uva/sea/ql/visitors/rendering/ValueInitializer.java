@@ -12,10 +12,10 @@ import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitors.ITypeVisitor;
 
-public class TypeInitializer implements ITypeVisitor<Value> {
+class ValueInitializer implements ITypeVisitor<Value> {
 
-	public static Value typeInitialize(Type node) {
-		TypeInitializer initialize = new TypeInitializer();
+	public static Value initializeValue(Type node) {
+		ValueInitializer initialize = new ValueInitializer();
 		return node.accept(initialize);
 	}
 

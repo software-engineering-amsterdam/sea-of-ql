@@ -25,6 +25,11 @@ public class Neg extends UnaryExpr {
 		}
 		return new Numeric();
 	}
+	
+	/*
+	 * Same reason for Numeric as Binary Arithmetic expression
+	 * but only for one argument.
+	 */
 
 	@Override
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
