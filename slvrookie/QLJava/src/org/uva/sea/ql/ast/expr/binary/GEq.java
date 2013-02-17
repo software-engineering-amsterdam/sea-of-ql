@@ -22,5 +22,5 @@ public class GEq extends BinaryExpr {
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
 		return ExprVisitor.visit(this);
 	}
-	
+
 }

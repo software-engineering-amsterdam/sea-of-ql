@@ -1,11 +1,6 @@
 package org.uva.sea.ql.visitors;
 
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.formelements.Block;
 import org.uva.sea.ql.ast.formelements.CompQuestion;
 import org.uva.sea.ql.ast.formelements.Form;
@@ -18,40 +13,26 @@ import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
 
 public class ElementChecker implements IElementVisitor {
 
-	private final Map<String, Type> typeEnv;
-	private final List<String> errors;
-	
-	public ElementChecker(Map<String, Type> tenv, List<String> errors) {
-		this.typeEnv = tenv;
+	private final State state;
+	private final Errors errors;
+
+	private ElementChecker(State state, Errors errors) {
+		this.state = state;
 		this.errors = errors;
 	}
-	
-	public static void check(Form form) {
-		Map<String,Type> typeEnv= new LinkedHashMap<String,Type>();
-		List<String> error= new ArrayList<String>();
-		ElementChecker check = new ElementChecker(typeEnv, error);
+
+	public static void check(Form form, State state, Errors errors) {
+		ElementChecker check = new ElementChecker(state, errors);
 		form.accept(check);
-		getErrors(error);
 	}
-	
-
-	public void addError(String error) {
-		errors.add(error);
-	}
-
-	  private static void getErrors(List<String> errors){
-	    	for(String error: errors){
-	    		System.out.println(error);
-	    	}
-	    }
 
 	public void visit(Form form) {
 		form.getFormBody().accept(this);
 	}
-	
+
 	public void visit(Block block) {
 		for (FormElement element : block.getBlock()) {
-				element.accept(this);
+			element.accept(this);
 		}
 	}
 
@@ -59,7 +40,7 @@ public class ElementChecker implements IElementVisitor {
 		isConditionBoolean(ifBody);
 		ifBody.getThenBody().accept(this);
 	}
-	
+
 	public void visit(IfThenElse ifBody) {
 		isConditionBoolean(ifBody);
 		ifBody.getThenBody().accept(this);
@@ -71,26 +52,32 @@ public class ElementChecker implements IElementVisitor {
 	}
 
 	public void visit(CompQuestion compQuestion) {
+		Expr expression = compQuestion.getQuestionExpr();
+		Type type = compQuestion.getQuestionType();
+		String name = compQuestion.getQuestionName().getName();
 		isIdentDeclared(compQuestion);
-		ExprChecker.check(compQuestion.getQuestionExpr(), typeEnv, errors);
-		if (!compQuestion.getQuestionExpr().typeOf(typeEnv).isCompatibleTo(compQuestion.getQuestionType())) {
-			addError("Incompatible type and expression at " + compQuestion.getQuestionName().getName() + ". Expected " + compQuestion.getQuestionType().getClass().getSimpleName() + " but got " + compQuestion.getQuestionExpr().typeOf(typeEnv).getClass().getSimpleName() + ".");
+		ExprChecker.check(expression, state, errors);
+		if (!expression.typeOf(state.getTypeEnv()).isCompatibleTo(type)) {
+			errors.addError("Incompatible type and expression at " + name + ". Expected " + type.getClass().getSimpleName() + " but got " + expression.typeOf(state.getTypeEnv()).getClass().getSimpleName() + ".");
 		}
 	}
 
 	public void isIdentDeclared(Question question) {
-		if (typeEnv.containsKey(question.getQuestionName().getName())) {
-			addError("Question Ident: " + question.getQuestionName().getName() + " is already declared.");
+		String name = question.getQuestionName().getName();
+		Type type = question.getQuestionType();
+		if (state.hasRegisteredType(name)) {
+			errors.addError("Question Ident: " + name + " is already declared.");
 		} else {
-			typeEnv.put(question.getQuestionName().getName(),question.getQuestionType());
+			state.setType(name, type);
 		}
 	}
-	
-	public void isConditionBoolean(IfThen ifBody){	
-		ExprChecker.check(ifBody.getCondition(), typeEnv, errors) ;
-		if (!ifBody.getCondition().typeOf(typeEnv).isCompatibleToBoolType()) {
-			addError("If condition must be Boolean.");
+
+	public void isConditionBoolean(IfThen ifBody) {
+		Expr condition = ifBody.getCondition();
+		ExprChecker.check(condition, state, errors);
+		if (!condition.typeOf(state.getTypeEnv()).isCompatibleToBoolType()) {
+			errors.addError("If condition must be Boolean.");
 		}
 	}
-	
+
 }

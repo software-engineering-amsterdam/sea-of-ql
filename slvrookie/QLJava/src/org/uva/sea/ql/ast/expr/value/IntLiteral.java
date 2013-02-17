@@ -14,7 +14,7 @@ public class IntLiteral extends Value {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
@@ -109,26 +109,6 @@ public class IntLiteral extends Value {
 	}
 
 	@Override
-	public Value eq(Value value) {
-		return value.eqInt(this);
-	}
-
-	@Override
-	public Value eqInt(IntLiteral value) {
-		return new BoolLiteral(value.getValue() == getValue());
-	}
-
-	@Override
-	public Value neq(Value value) {
-		return value.neqInt(this);
-	}
-
-	@Override
-	public Value neqInt(IntLiteral value) {
-		return new BoolLiteral(value.getValue() != getValue());
-	}
-
-	@Override
 	public Value neg() {
 		return new IntLiteral(-this.value);
 	}
@@ -137,14 +117,5 @@ public class IntLiteral extends Value {
 	public Value pos() {
 		return new IntLiteral(+this.value);
 	}
-	
-	@Override
-	public boolean isOfValue(Value v) {
-		return v.isIntLiteral();
-	}
-	
-	@Override
-	public boolean isIntLiteral() {
-		return true;
-	}
+
 }

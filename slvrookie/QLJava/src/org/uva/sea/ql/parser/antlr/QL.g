@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
+import org.uva.sea.ql.ast.formelements.*;
 }
 
 @lexer::header

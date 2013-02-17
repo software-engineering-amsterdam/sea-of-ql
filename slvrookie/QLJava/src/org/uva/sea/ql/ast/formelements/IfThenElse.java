@@ -20,5 +20,5 @@ public class IfThenElse extends IfThen {
 	public void accept(IElementVisitor ElementVisitor) {
 		ElementVisitor.visit(this);
 	}
-	
+
 }
