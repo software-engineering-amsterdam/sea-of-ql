@@ -14,7 +14,7 @@ public class MoneyLiteral extends Value {
 		this.value = value;
 	}
 
-	public double getValue() {
+	public Double getValue() {
 		return value;
 	}
 
@@ -109,26 +109,6 @@ public class MoneyLiteral extends Value {
 	}
 
 	@Override
-	public Value eq(Value value) {
-		return value.eqMoney(this);
-	}
-
-	@Override
-	public Value eqMoney(MoneyLiteral value) {
-		return new BoolLiteral(value.getValue() == getValue());
-	}
-
-	@Override
-	public Value neq(Value value) {
-		return value.neqMoney(this);
-	}
-
-	@Override
-	public Value neqMoney(MoneyLiteral value) {
-		return new BoolLiteral(value.getValue() != getValue());
-	}
-
-	@Override
 	public Value neg() {
 		return new MoneyLiteral(-this.value);
 	}
@@ -137,17 +117,5 @@ public class MoneyLiteral extends Value {
 	public Value pos() {
 		return new MoneyLiteral(+this.value);
 	}
-
-	@Override
-	public boolean isOfValue(Value v) {
-		return v.isMoneyLiteral();
-	}
-	
-	@Override
-	public boolean isMoneyLiteral() {
-		return true;
-	}
-
-	
 
 }

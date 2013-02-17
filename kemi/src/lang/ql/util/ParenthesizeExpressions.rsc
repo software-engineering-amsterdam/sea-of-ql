@@ -21,9 +21,9 @@ import util::Priorities;
  * Each expression that needs parentheses around it will receive an annotation.
  * This way, the PrettyPrinter knows when to print parentheses. 
  */
-private Expr parenizer(Expr e) {
-  return e@parentheses = true;
-}
+
+private Expr parenizer(Expr e) =
+  setAnnotations(e, ("parentheses" : true));
 
 private Expr parenizeExpr(Expr parent, Expr kid) =
   parens(parent, kid, parenizeExpr(kid), parenizer);

@@ -2,44 +2,55 @@ package org.uva.sea.ql.visitors;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.types.Type;
 
 public class State {
-	
-	private final Map<String, Value> env;
-	private final Map<String, Observable> observables;
-	
+
+	private final Map<String, Type> typeEnv;
+	private final Map<String, Value> valuEnv;
+
 	public State() {
-		this.env = new HashMap<String, Value>();
-		this.observables = new HashMap<String, Observable>();
-	}
-	
-	public Map<String, Value> getEnv() {
-		return env;
-	}
-	
-	public boolean isDeclared(String name) {
-		return env.containsKey(name);
-	}
-	
-	public void setValue(String name, Value val) {
-		env.put(name, val);
-	}
-	
-	public void addObserver(String x, Observer obs) {
-		observables.get(x).addObserver(obs);
-	}
-	
-	public void putObservable(String x, Observable obs) {
-		observables.put(x, obs);
+		this.valuEnv = new HashMap<String, Value>();
+		this.typeEnv = new HashMap<String, Type>();
 	}
 
-	public void notify(String name) {
-		// TODO Auto-generated method stub
-		
+	public Map<String, Value> getValueEnv() {
+		return valuEnv;
+	}
+
+	public Map<String, Type> getTypeEnv() {
+		return typeEnv;
+	}
+
+	public boolean hasRegisteredType(String name) {
+		if (typeEnv.containsKey(name)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void setType(String name, Type type) {
+		typeEnv.put(name, type);
+	}
+
+	public boolean hasRegisteredValue(String name) {
+		if (valuEnv.containsKey(name)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void setValue(String name, Value val) {
+		valuEnv.put(name, val);
+	}
+
+	public Value getValue(String name) {
+		if (valuEnv.containsKey(name)) {
+			return valuEnv.get(name);
+		}
+		return null;
 	}
 
 }

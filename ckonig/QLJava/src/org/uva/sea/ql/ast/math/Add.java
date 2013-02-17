@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ExprVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Add extends BinaryMathOperator {
     public static final String STR = "+";
@@ -17,7 +17,7 @@ public class Add extends BinaryMathOperator {
     }
 
     @Override
-    public void accept(ExprVisitor visitor) throws VisitorException {
+    public void accept(EvaluationVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 

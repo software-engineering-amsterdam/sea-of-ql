@@ -7,15 +7,15 @@ import java.util.Set;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.statement.QuestionDeclaration;
-import org.uva.sea.ql.ast.statement.QuestionVariable;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
-import org.uva.sea.ql.ast.statement.VarDeclaration;
+import org.uva.sea.ql.ast.statement.VariableDeclaration;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
@@ -32,7 +32,13 @@ public class Renderer implements StatementVisitor<Void> {
 	private final PanelControl panel;
 	private final ControlRenderer controlRenderer;
 
-	public static PanelControl render( Statement statement, Environment environment, ControlFactory factory ) {
+	public static PanelControl render( Statement statement, ControlFactory factory ) {
+		Renderer renderer = new Renderer( new Environment(), factory );
+		statement.accept( renderer );
+		return renderer.getPanel();
+	}
+
+	protected static PanelControl render( Statement statement, Environment environment, ControlFactory factory ) {
 		Renderer renderer = new Renderer( environment, factory );
 		statement.accept( renderer );
 		return renderer.getPanel();
@@ -79,7 +85,7 @@ public class Renderer implements StatementVisitor<Void> {
 		this.registerDependencies( observer, expression );
 	}
 
-	private void registerComputedObservers( final QuestionComputed question, final Control component ) {
+	private void registerComputedObservers( final ComputedQuestion question, final Control component ) {
 		Observer observer = new ComputedObserver( component, this.environment, question );
 		this.registerDependencies( observer, question.getExpression() );
 	}
@@ -93,13 +99,9 @@ public class Renderer implements StatementVisitor<Void> {
 		}
 	}
 
-	private boolean evaluateCondition( Expression condition ) {
-		return ( (BooleanValue) Evaluator.evaluate( condition, this.environment ) ).getValue();
-	}
-
 	@Override
 	public Void visit( IfThen node ) {
-		boolean condition = this.evaluateCondition( node.getCondition() );
+		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
 		PanelControl falsePanel = this.controlRenderer.createPanel();
@@ -117,7 +119,7 @@ public class Renderer implements StatementVisitor<Void> {
 
 	@Override
 	public Void visit( IfThenElse node ) {
-		boolean condition = this.evaluateCondition( node.getCondition() );
+		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
 		PanelControl falsePanel = render( node.getElse(), this.environment, this.factory );
@@ -134,7 +136,7 @@ public class Renderer implements StatementVisitor<Void> {
 	}
 
 	@Override
-	public Void visit( VarDeclaration node ) {
+	public Void visit( VariableDeclaration node ) {
 		Value value = this.initType( node.getType() );
 
 		if ( !this.environment.isDeclared( node.getIdentifier() ) ) {
@@ -170,7 +172,7 @@ public class Renderer implements StatementVisitor<Void> {
 	}
 
 	@Override
-	public Void visit( QuestionVariable node ) {
+	public Void visit( VariableQuestion node ) {
 		node.getVarDeclaration().accept( this );
 
 		Type type = node.getType();
@@ -188,7 +190,7 @@ public class Renderer implements StatementVisitor<Void> {
 	}
 
 	@Override
-	public Void visit( QuestionComputed node ) {
+	public Void visit( ComputedQuestion node ) {
 		node.getAssignment().accept( this );
 
 		Value value = this.environment.lookup( node.getIdentifier() );

@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitor.TypeVisitor;
+
 /**
  * class: Bool
  * @author Danny
@@ -22,5 +24,9 @@ public class BoolType extends Type {
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleWithBool();
+	}
+	@Override
+	public <T> T accept(TypeVisitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

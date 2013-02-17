@@ -12,6 +12,11 @@ public class StrVal extends Value {
 	}
 	
 	@Override
+	public String toString(){
+		return getValue().toString();
+	}
+	
+	@Override
 	public Value eq(Value arg) {
 		return new BoolVal(arg.compareToString(this));
 	}
@@ -23,6 +28,6 @@ public class StrVal extends Value {
 	
 	@Override
 	protected boolean compareToString(StrVal arg) {
-		return arg.getValue() == getValue();
+		return arg.getValue().equalsIgnoreCase(getValue());
 	}
 }

@@ -1,13 +1,14 @@
 package khosrow.uva.sea.ql.env;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.values.Value;
 
-public class Env {
+public class Env implements Iterable<TypeValuePair> {
 	private final Map<Ident, TypeValuePair> typeAndValues;
 	
 	public Env() {
@@ -38,7 +39,16 @@ public class Env {
 		typeAndValues.put(name, new TypeValuePair(type, type.initialize()));
 	}
 		
-	public void declareValue(Ident name, Value value) {
+	public void assignValue(Ident name, Value value) {
 		typeAndValues.get(name).setValue(value);
+	}
+	
+	public Map<Ident, TypeValuePair> getTypeAndValues(){
+		return typeAndValues;
+	}
+
+	@Override
+	public Iterator<TypeValuePair> iterator() {		
+		return typeAndValues.values().iterator();
 	}
 }

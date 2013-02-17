@@ -9,6 +9,7 @@ import util::Load;
 import template::File;
 import template::JavaScript;
 import template::CSS;
+import template::EvaluateExpression;
 
 // Capitalize the first character of a string
 
@@ -22,9 +23,9 @@ public str capitalize(str s) {
 * @return str a string with java script code
 * @author Philipp
 */
-private str generateQuestionLabel(str id, str label){
-	return "var <id>Label = document.createElement(\'label\');
-	 <id>Label.htmlFor = <id>;
+private str generateQuestionLabel(str formId, str id, str label){
+	javaScriptAddGlobalVariable(formId, "var <id>Label = document.createElement(\'label\');");
+	return "<id>Label.htmlFor = <id>;
 	 <id>Label.innerHTML = <label>; ";
 }
 
@@ -33,11 +34,11 @@ private str generateQuestionLabel(str id, str label){
 * @return str a string with java script code
 * @author Philipp
 */
-private str createEndingLabel(str id){
-	return "var <id>EndLabel = document.createElement(\'label\');
-	 <id>EndLabel.htmlFor = <id>;
+private str createEndingLabel(str formId, str id){
+	javaScriptAddGlobalVariable(formId, "var <id>EndLabel = document.createElement(\'label\');");
+	return "<id>EndLabel.htmlFor = <id>;
 	 <id>EndLabel.innerHTML = \"Yes\"; 
-	 <id>EndLabel.class = \"<id>EndClass\" ";
+	 <id>EndLabel.class = \"<id>EndClass\"; ";
 }
 
 /** Method to set the attributes of a checkBox in java script
@@ -49,7 +50,7 @@ private str specifyAttributesCheckbox(str id){
 		<id>.setAttribute(\'id\',<id>);
 		<id>.setAttribute(\'name\',<id>);
 		<id>.setAttribute(\'value\',<id>);
-		<id>.setAttribute(\'onclick\',\"<id>DoTheCheck()\");
+		<id>.setAttribute(\'onclick\',\"<id>DoTheCheck(this)\");
 		 ";
 }
 
@@ -57,68 +58,101 @@ str specifyAttributesNumeric(str id){
 	return "<id>.setAttribute(\'type\',\"text\");
 		<id>.setAttribute(\'id\',<id>);
 		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'onchange\',\"<id>CheckNumeric(this)\");
 		 ";
 }
 
-str generateParagraph(str id, str att, str lab, str endlab){
-	str p = "var <id>Paragraph = document.createElement(\'p\');
-	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+str specifyAttributesCalculation(str id){
+	return "<id>.setAttribute(\'type\',\"text\");
+		<id>.setAttribute(\'id\',<id>);
+		<id>.setAttribute(\'name\',<id>);
+		<id>.setAttribute(\'readOnly\',\'readonly\');
+		<id>.setAttribute(\'onchange\',\"<id>Calculation(this)\");
+		 ";
+}
+
+str specifyAttributesTextField(str id){
+	return "<id>.setAttribute(\'type\',\"text\");
+		<id>.setAttribute(\'id\',<id>);
+		<id>.setAttribute(\'name\',<id>);
+		 ";
+}
+
+/** Method to generate a paragraph for a boolean question has as endlabel Yes or No
+* @param id the id of the boolean question
+* @return p the paragraph as a string
+* @author Philipp
+*/
+str generateParagraph(str id, str att, str lab, str endlab, str formId){
+	javaScriptAddGlobalVariable(formId, "var <id>Paragraph = document.createElement(\'p\');");
+	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
+	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
 	<id>Paragraph.appendChild(<id>EndLabel);
 	";
-	
 	return p;
 }
 
-str generateParagraph(str id, str label, str attributes){
-	str p = "var <id>Paragraph = document.createElement(\'p\');
-	<id>Paragraph.setAttribute(\"class\", <id>Paragraph);
+/** Method to generate a paragraph for a text field question has no endlabel
+* @param id the id of the question
+* @return p the paragraph as a string
+* @author Philipp
+*/
+str generateParagraph(str id, str label, str formId){
+	javaScriptAddGlobalVariable(formId, "var <id>Paragraph = document.createElement(\'p\');");
+	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
+	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 	<id>Paragraph.appendChild(<id>Label);
 	<id>Paragraph.appendChild(<id>);
 	";
-	
 	return p;
 }
 
 /** Method to generate Question 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
-	println("in generate Question <question>");
-	// document.write(\"\<p\>  \</p\>\");
-	str label = generateQuestionLabel(id, labelQuestion);
+	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == boolean()){	
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesCheckbox(id);
-		str check = createEndingLabel(id);
-		str paragraph = generateParagraph(id, label, attributes, check);
+		str endLabelCheckbox = createEndingLabel(formId, id);
+		str paragraph = generateParagraph(id, label, attributes, endLabelCheckbox, formId);
 		str cssLabel = cssEndLabels(id);
 		appendToCssFile(formId, cssLabel);
-		// if a checkbox we need to create a function to check the status
-		//javaScriptAddCheckFunction(formId, id);
-		javaScriptAddCheckFunction(formId, id);
-		return "var <id> = document.createElement(\"input\");
-		<attributes> 
-		<label>
-		<check>
-		<paragraph>
+		javaScriptAddCheckFunction(formId, "<id>DoTheCheck(cb)", tp);
+		return "<attributes> <label> <endLabelCheckbox> <paragraph>
 		<formId>.appendChild(<id>Paragraph);	
 		 ";
 	}else if(tp == money()){  // add the moment just a textfield
-		println("in money generate Easy Question");
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes);
-		return "var <id> = document.createElement(\"input\");
-		<attributes>
+		str paragraph = generateParagraph(id, label, formId);
+		str cssLabel = cssEndLabels(id);
+		appendToCssFile(formId, cssLabel);
+		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
+		return "<attributes>
 		<label>
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
 		 ";
 	}else if(tp == integer()){ // add the moment just a textfield
-		println("in integer generate Easy Question");
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, attributes);
-		return "var <id> = document.createElement(\"input\");
-		<attributes>
+		str paragraph = generateParagraph(id, label, formId);
+		str cssLabel = cssEndLabels(id);
+		appendToCssFile(formId, cssLabel);
+		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
+		return "<attributes>
+		<label>
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);
+		 ";
+	}else if(tp == string()){
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
+		str attributes = specifyAttributesTextField(id);
+		str paragraph = generateParagraph(id, label, formId);
+		return "<attributes>
 		<label>
 		<paragraph>
 		<formId>.appendChild(<id>Paragraph);
@@ -129,31 +163,81 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 
 private str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	println("in generate computed Question <question>");
-	if(tp == boolean()){
-		return "<labelQuestion> \<input type=\"checkbox\" id=<id> \> Yes";
+	str label = generateQuestionLabel(formId, id, labelQuestion);
+	println("Label is : <label>");
+	println("Type is : <tp>");
+	println("EXP is : <exp>");
+	println("ID is : <id>");
+	if(tp == money()){
+		println("in money generate computed Question");
+		str paragraph = generateParagraph(id, label, formId);
+		//evaluateExpression(exp, tp);
+		javaScriptAddGlobalVariable(formId, "var <id> = document.createElement(\"input\");");
+		javaScriptAddEvaluateQuestion(formId, id, exp);
+		str attributes = specifyAttributesCalculation(id);
+		return "<attributes>
+		<label>
+		<paragraph>
+		<formId>.appendChild(<id>Paragraph);
+		";
+	}else if(tp == integer()){
+		println("in integer generate computed Question");
+	}else{
+		println("ERROR TYPE IS NOT MONEY NOR INTEGER");
 	}	
 }
 
-public str generateBody(str id, Body body){
-	println("in generate Body <body>");
-	for(s <- body){
-		visit(s){
+str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
+	println("EXP : <exp>");
+	str evaluate = evaluateExp(exp, money());
+	println("EVALUATE IS : <evaluate>");
+	
+	str checkBoxId = toString(getChildren(exp)[0]);
+	list[str] children = [];
+	list[str] thenPartString = [];
+	for(s <- thenPart){
+		thenPartString += generateBody(formId, s);
+		visit (s) {
 			case Question q : {
-				str temp = generateQuestion(id, q);
-				return temp;
+				children += q.id;
 			}
+		}		
+	}
+	if(size(getChildren(exp)) <= 1){ // for one booleans
+		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
+		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
+	}else{
+		// i need to get the expression 
+		javaScriptAddCheckStatementFunction(formId, "hasSoldHouseValueCheck(cb)", thenPartString, evaluate,children);
+		javaScriptAddCheckStatementFunction(formId, "boughtHouseValueCheck(cb)", thenPartString, evaluate,children);
+		// 
+		return "hasSoldHouse.setAttribute(\'onchange\',\"hasSoldHouseValueCheck(this)\");
+		boughtHouse.setAttribute(\'onchange\',\"boughtHouseValueCheck(this)\");
+		";
+	}
+}
+
+public str generateBody(str id, Body body){
+	if(getName(body) == "statement"){
+		visit(body){
 			case Statement s : {
-				return generateStatement(s);
+				return "<generateStatement(id, s)> ";
 			}
 		}
-	}	
+	}
+	visit(body){
+		case Question q : {
+			str temp = generateQuestion(id, q);
+			return temp;
+		}		
+	}
 }
 
 public str generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
 		createQLOnHarddisk(id);
-		str res = "\<!DOCTYPE html\>
+		str result = "\<!DOCTYPE html\>
 		\<html\>
 		\<head\>
 		\<script src=\"<id>.js\"\> \</script\>
@@ -167,25 +251,12 @@ public str generateQLForm(Program P){
 		\</body\>
 		\</html\>";	
 		str functions = javaScriptCreateForm(id, Body);
-		//generateQLProgram(id,res,functions);
-		appendToHTMLFile(id, res);
-		//appendToJavaScriptFile(id, functions);
-		return res;
+		appendToHTMLFile(id, result);
+		cssDiv(id);
+		return result;
 	}else{
 		return "not possible to generate java script code";
 	}
 }
 
 public str generateQLForm(str txt) = generateQLForm(load(txt));
-
-
-//function yesno(thecheckbox, thelabel) {
-    	//var checkboxvar = document.getElementById(thecheckbox);
-    	//var labelvar = document.getElementById(thelabel);
-    	//	if (!checkboxvar.checked) {
-        //		labelvar.innerHTML = \"Noddddddddddd\";
-    	//	}
-    	//	else {
-        //		labelvar.innerHTML = \"Yesaaaaaaaaaa\";
-    	//	}
-		//}

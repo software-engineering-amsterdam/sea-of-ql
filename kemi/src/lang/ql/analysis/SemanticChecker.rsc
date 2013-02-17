@@ -42,14 +42,8 @@ private set[Message] filenameDoesNotMatchErrors(Form form) =
   {formIdentifierDoesNotMatchFilename(form.formName)}
     when form.formName.ident != basename(form.formName@location);
 
-private SAS merge(SAS cur, SAS add) {
-  SAS ret = <(), ()>;
-
-  ret.definitions = cur.definitions + add.definitions;
-  ret.labels = cur.labels + add.labels;
-  
-  return ret;
-}
+private SAS merge(SAS cur, SAS add) =
+  <cur.definitions + add.definitions, cur.labels + add.labels>;
   
 private tuple[SAS sas, set[Message] messages] analyzeSemantics(SAS sas, 
     Form form) {

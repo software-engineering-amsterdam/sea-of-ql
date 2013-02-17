@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expressions.binary;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 /**
  * Class: Or

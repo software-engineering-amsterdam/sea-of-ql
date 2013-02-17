@@ -1,12 +1,10 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Accepts;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.common.ExprVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
-public class LEq extends BinaryBooleanOperator implements Accepts {
+public class LEq extends BinaryBooleanOperator {
     public static final String STR = "<=";
 
     public LEq(Expr left, Expr right) {
@@ -19,12 +17,7 @@ public class LEq extends BinaryBooleanOperator implements Accepts {
     }
 
     @Override
-    public boolean accepts(ReturnTypes r) {
-        return r.equals(ReturnTypes.MATH);
-    }
-
-    @Override
-    public void accept(ExprVisitor visitor) throws VisitorException {
+    public void accept(EvaluationVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 }

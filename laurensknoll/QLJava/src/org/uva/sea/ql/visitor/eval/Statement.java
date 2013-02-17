@@ -1,10 +1,12 @@
 package org.uva.sea.ql.visitor.eval;
 
 import java.awt.GridLayout;
+import java.util.Observer;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
@@ -13,6 +15,10 @@ import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.eval.observer.Computed;
+import org.uva.sea.ql.visitor.eval.observer.Conditional;
+import org.uva.sea.ql.visitor.eval.observer.Dependency;
+import org.uva.sea.ql.visitor.eval.observer.DependencySet;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 
 public class Statement implements IStatement<JPanel> {
@@ -39,48 +45,46 @@ public class Statement implements IStatement<JPanel> {
 
 	@Override
 	public JPanel visit(ComputedQuestion computedQuestion) {
-		JPanel panel = new JPanel();
-
 		Question question = computedQuestion.getQuestion();
-		JPanel questionPanel = question.accept(this);
-		panel.add(questionPanel);
+		JPanel panel = question.accept(this);
 
-		// Get Widget of an ident; Set value.
-		/*
-		 * TODO: How to evaluate expression and show initial value in question
-		 * Expression expressionVisitor = new Expression(this.environment);
-		 * AbstractValue value = computedQuestion.getComputeExpression().accept(
-		 * expressionVisitor);
-		 */
+		// The question is computed. Therefore make it read only.
+		Ident ident = question.getIdent();
+		this.environment.setReadOnly(ident, true);
+
+		// Observe dependent questions
+		AbstractExpr computeExpression = computedQuestion
+				.getComputeExpression();
+		Computed observer = new Computed(computeExpression, ident,
+				this.environment);
+		this.observeDependencies(computeExpression, observer);
+
+		// Set initial value.
+		observer.update();
+
 		return panel;
 	}
 
 	@Override
 	public JPanel visit(If ifStatement) {
-		JPanel panel = new JPanel();
+		JPanel conditionalPanel = ifStatement.getTruePath().accept(this);
 
-		/*
-		 * TODO: Add enable condition to panel. Expression expressionVisitor =
-		 * new Expression(this.environment); Boolean isConditionValid =
-		 * ifStatement.getCondition().accept(expressionVisitor);
-		 */
-		JPanel truePanel = ifStatement.getTruePath().accept(this);
-		panel.add(truePanel);
+		// Observe condition
+		AbstractExpr condition = ifStatement.getCondition();
+		Conditional observer = new Conditional(condition, conditionalPanel,
+				this.environment);
+		this.observeDependencies(condition, observer);
 
-		return panel;
+		// Set initial value.
+		observer.update();
+
+		return conditionalPanel;
 	}
 
 	@Override
 	public JPanel visit(Question question) {
-		JPanel panel = new JPanel(new GridLayout(1, 2));
+		JPanel panel = new JPanel(new GridLayout(0, 2));
 
-		Ident id = question.getIdent();
-		this.environment.declare(id, null);
-
-		/*
-		 * TODO: Create visitor that creates labels. Expression
-		 * expressionVisitor = new Expression(this.environment);
-		 */
 		JLabel description = new JLabel(question.getQuestion().getValue());
 		panel.add(description);
 
@@ -89,7 +93,19 @@ public class Statement implements IStatement<JPanel> {
 		Widget inputField = type.accept(typeVisitor);
 		panel.add(inputField.getComponent());
 
+		Ident id = question.getIdent();
+		this.environment.declare(id, inputField);
+
 		return panel;
+	}
+
+	private void observeDependencies(AbstractExpr expr, Observer observer) {
+		Dependency dependencyVisitor = new Dependency();
+		DependencySet dependencies = expr.accept(dependencyVisitor);
+
+		for (Ident ident : dependencies.getDependencies()) {
+			this.environment.addObserver(ident, observer);
+		}
 	}
 
 }

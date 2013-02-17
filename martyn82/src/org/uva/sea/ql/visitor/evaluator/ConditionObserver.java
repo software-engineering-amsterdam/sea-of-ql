@@ -8,7 +8,7 @@ import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-public class ConditionObserver implements Observer {
+class ConditionObserver implements Observer {
 	private final Expression condition;
 	private final Environment environment;
 	private final Control trueComponent;

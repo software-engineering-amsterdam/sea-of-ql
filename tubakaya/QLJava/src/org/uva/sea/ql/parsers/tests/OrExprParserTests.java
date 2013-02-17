@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.core.dom.operators.conditional.*;
 import org.uva.sea.ql.parsers.OrExprParser;
-import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class OrExprParserTests {
 
-	private ParserBase parser;
+	private ParserBaseForExpressions parser;
 	
 	@Before
     public void setUp() {

@@ -115,14 +115,21 @@ form returns [Form result]
     : Form Ident '{' formElements '}' { $result = new Form(new Ident($Ident.text), $formElements.result); };
 
 formElement returns [FormElement result] 
-    : question {$result = $question.result;}
-    | condition {$result = $condition.result;}
+    : ifThenElse {$result = $ifThenElse.result;}
+    | ifThen {$result = $ifThen.result;}
     | computation {$result = $computation.result;}
+    | question {$result = $question.result;}
     ;
 
 formElements returns [ArrayList<FormElement> result]
     @init { result = new ArrayList<FormElement>(); }
     : (element = formElement { $result.add(element);})*
+    ;
+ifThen returns [IfThen result]
+    :  If '(' orExpr ')' '{' formElements '}' { $result = new IfThen($orExpr.result, $formElements.result); }
+    ;
+ifThenElse returns [IfThenElse result]
+    : If '(' orExpr ')' '{' ifElems = formElements '}' Else '{' elseElems = formElements '}' { $result = new IfThenElse($orExpr.result, $ifElems.result, $elseElems.result);}
     ;
 computation returns [Computation result]
     : Ident ':' Str type '(' orExpr ')' { $result = new Computation(new Ident($Ident.text), new StrLiteral($Str.text), $orExpr.result, $type.result); }
@@ -130,18 +137,12 @@ computation returns [Computation result]
 question returns [Question result] 
     : Ident ':' Str type { $result = new Question(new Ident($Ident.text), new StrLiteral($Str.text), $type.result); }
     ;
-condition returns [Condition result]
-    : If '(' orExpr ')' '{' ifElems = formElements '}' Else '{' elseElems = formElements '}' { $result = new Condition($orExpr.result, $ifElems.result, $elseElems.result);}
-    | If '(' orExpr ')' '{' formElements '}' { $result = new Condition($orExpr.result, $formElements.result); }
-    ;
-
 type returns [Type result]
     : 'boolean' {$result = new BoolType();}
     | 'string'  {$result = new StrType();}
     | 'int'     {$result = new IntType();}
     ;
 // Tokens
-
 WS:	(' ' | '\t' | '\n' | '\r')+ { $channel=HIDDEN; };
 
 Comment: '/*' .* '*/' {$channel=HIDDEN;}

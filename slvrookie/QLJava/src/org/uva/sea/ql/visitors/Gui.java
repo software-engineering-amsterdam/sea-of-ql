@@ -1,8 +1,14 @@
 package org.uva.sea.ql.visitors;
 
+import java.awt.Component;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
 import org.antlr.runtime.ANTLRFileStream;
 import org.uva.sea.ql.ast.formelements.Form;
@@ -12,38 +18,67 @@ import org.uva.sea.ql.parser.antlr.ParseError;
 
 public class Gui extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 168935475998687670L;
-	private Form ast;
-	final private IParse parser = new ANTLRParser();
-	final String path = "src/org/uva/sea/ql/tests/TestQL.ql";
-	final State state = new State();
-	
-	public static void main(String[] args) {
+	private final Form ast;
+	private final IParse parser = new ANTLRParser();
+	private final String path = "src/org/uva/sea/ql/tests/TestQL.ql";
+	private final State state = new State();
+	private final Errors errors = new Errors();
+	private JPanel log = new JPanel(new MigLayout());
+
+	public static void main(String[] args) throws IOException, ParseError {
 		new Gui();
 	}
-	
-	public Gui() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new MigLayout());
-		setSize(500, 500);
-		setVisible(true);
+
+	private Gui() throws IOException, ParseError {
 		File filePath = new File(path);
 		ANTLRFileStream charStream;
-		try {
-			charStream = new ANTLRFileStream(filePath.getAbsolutePath());
-			System.out.println(charStream);
-			ast = parser.parseForm(charStream.toString());
-			ElementChecker.check(ast);
-			getContentPane().add(Renderer.render(ast, state));
+		charStream = new ANTLRFileStream(filePath.getAbsolutePath());
+		ast = parser.parseForm(charStream.toString());
+		setFrame();
+		validateAst();
+	}
+
+	private void validateAst() {
+		ElementChecker.check(ast, state, errors);
+		if (errors.isEmpty()) {
+			setQuestionPanel();
+		} else {
+			setErrorPanel();
+		}
+	}
+
+	private void setFrame() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new MigLayout());
+		setTitle("QL Interpreter");
+		setVisible(true);
+	}
+
+	private void setErrorPanel() {
+		log.add(new JLabel("The following errors occured when checking for type consistency:"), "wrap");
+		for (String error : errors.returnErrors()) {
+			log.add(new JLabel(error), "wrap");
+			log.setBorder(BorderFactory.createTitledBorder("ERRORS"));
+			getContentPane().add(log);
 			getContentPane().validate();
+			pack();
 			getContentPane().repaint();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseError e) {
-			e.printStackTrace();
+		}
+	}
+
+	public void setQuestionPanel() {
+		cleanOldPanels();
+		getContentPane().add(Renderer.render(ast, state, this));
+		getContentPane().validate();
+		pack();
+		getContentPane().repaint();
+	}
+
+	private void cleanOldPanels() {
+		Component[] components = getContentPane().getComponents();
+		for (int i = 0; i < components.length; i++) {
+			remove(components[i]);
 		}
 	}
 

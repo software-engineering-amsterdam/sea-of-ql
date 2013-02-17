@@ -65,7 +65,7 @@ public set[Message] analyzeExpression(SAS sas, Expr expression) {
     key.ident : {sas.definitions[key]} | 
     key <- sas.definitions
   ) + typesByOperator;
-  <t, messages> = analyze(types, expression);
+  <t, messages> = inferExprType(types, expression);
   return messages;
 }
 
@@ -81,7 +81,7 @@ public set[Message] analyzeAssignmentExpression(SAS sas, Type \type,
     key.ident : {sas.definitions[key]} | 
     key <- sas.definitions
   ) + typesByOperator;
-  <t, messages> = analyze(types, expression);
+  <t, messages> = inferExprType(types, expression);
   
   if(t == i() && \type == m()) 
     return messages;
@@ -93,76 +93,76 @@ public set[Message] analyzeAssignmentExpression(SAS sas, Type \type,
 }
 
 // The following block contains all Expr patterns that are available.
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: pos(Expr posValue)) =
   analyzeUnary(types, e, posValue);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: neg(Expr negValue)) =
   analyzeUnary(types, e, negValue);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: not(Expr notValue)) =
   analyzeUnary(types, e, notValue);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: lt(Expr left, Expr right)) =
   analyzeRelational(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: leq(Expr left, Expr right)) =
   analyzeRelational(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: gt(Expr left, Expr right)) =
   analyzeRelational(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: geq(Expr left, Expr right)) =
   analyzeRelational(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: eq(Expr left, Expr right)) =
   analyzeRelational(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: neq(Expr left, Expr right)) =
   analyzeRelational(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: and(Expr left, Expr right)) =
   analyzeAndOr(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: or(Expr left, Expr right)) =
   analyzeAndOr(types, e, left, right);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: mul(Expr multiplicand, Expr multiplier)) =
   analyzeBinaryCalculation(types, e, multiplicand, multiplier);
   
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: div(Expr numerator, Expr denominator)) =
   analyzeBinaryCalculation(types, e, numerator, denominator);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: add(Expr leftAddend, Expr rightAddend)) =
   analyzeBinaryCalculation(types, e, leftAddend, rightAddend);
 
-private tuple[Type, set[Message]] analyze(Types types, 
+private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: sub(Expr minuend, Expr subtrahend)) =
   analyzeBinaryCalculation(types, e, minuend, subtrahend);
-    
-// In this block are the analysis functions for each of the Expr categories 
-private tuple[Type, set[Message]] analyze(Types types, 
-    Expr e: ident(str name)) {
-  if(name notin types)
-    return <undef(), {undeclaredIdentifierMessage(name, e@location)}>;
+  
+private tuple[Type, set[Message]] inferExprType(Types types, 
+    Expr e: ident(str name)) =
+  <getOneFrom(types[name]), {}>
+    when name in types;
+  
+private tuple[Type, set[Message]] inferExprType(Types types, 
+    Expr e: ident(str name)) =
+  <undef(), {undeclaredIdentifierMessage(name, e@location)}>;
 
-  return <getOneFrom(types[name]), {}>;
-}
-
-private tuple[Type, set[Message]] analyze(Types types, Expr e) =
+private default tuple[Type, set[Message]] inferExprType(Types types, Expr e) =
   <getOneFrom(types[getName(e)]), {}>;
 
 /* 
@@ -172,7 +172,7 @@ private tuple[Type, set[Message]] analyze(Types types, Expr e) =
  */
 private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent, 
     Expr val) {
-  <ltype, lm> = analyze(types, val);
+  <ltype, lm> = inferExprType(types, val);
   
   if(ltype == undef())
     return <err(), lm>;
@@ -194,8 +194,8 @@ private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent,
  */
 private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
-  <ltype, lm> = analyze(types, lhs);
-  <rtype, rm> = analyze(types, rhs);
+  <ltype, lm> = inferExprType(types, lhs);
+  <rtype, rm> = inferExprType(types, rhs);
   
   if(ltype == undef() || rtype == undef())
     return <err(), rm + lm>;
@@ -222,8 +222,8 @@ private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent,
  */
 private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
-  <ltype, lm> = analyze(types, lhs);
-  <rtype, rm> = analyze(types, rhs);
+  <ltype, lm> = inferExprType(types, lhs);
+  <rtype, rm> = inferExprType(types, rhs);
 
   if(ltype == undef() || rtype == undef())
     return <err(), lm + rm>;
@@ -249,8 +249,8 @@ private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent,
  */
 private tuple[Type, set[Message]] analyzeBinaryCalculation(Types types, 
     Expr parent, Expr lhs, Expr rhs) {
-  <ltype, lm> = analyze(types, lhs);
-  <rtype, rm> = analyze(types, rhs);
+  <ltype, lm> = inferExprType(types, lhs);
+  <rtype, rm> = inferExprType(types, rhs);
   
   if(ltype == undef() || rtype == undef())
     return <err(), lm + rm>;

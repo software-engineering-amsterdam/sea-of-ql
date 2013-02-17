@@ -22,5 +22,5 @@ public class Or extends BinaryExpr {
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
 		return ExprVisitor.visit(this);
 	}
-	
+
 }

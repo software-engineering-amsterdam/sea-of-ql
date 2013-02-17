@@ -11,12 +11,12 @@
 module lang::qls::analysis::StyleAttrChecker
 
 import IO;
-import util::IDE;
-
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
-import lang::qls::analysis::SemanticChecker;
+import lang::qls::analysis::Messages;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
+import util::IDE;
 
 private list[str] defaultAttrs =
   ["widget", "label-fontsize", "label-font", "label-color"];
@@ -41,35 +41,24 @@ public set[Message] unallowedAttrErrors(Stylesheet s) =
   unallowedDefaultAttrErrors(s) +
   unallowedQuestionAttrErrors(s);
 
-private set[Message] unallowedDefaultAttrErrors(Stylesheet s) {
-  errors = {};
-  for(d <- getDefaultDefinitions(s)) {
-    for(r <- d.styleRules) {
-      if(!isAllowedAttr(d.ident, r.attr))
-        errors += error(
-          "Attr <r.attr.name> not allowed for type <d.ident.name>",
-          r@location
-        );
-    }
-  }
-  return errors;
-}
+private set[Message] unallowedDefaultAttrErrors(Stylesheet s) =
+  {
+    typeWithInvalidAttr(r.attr.name, d.\type.name, r@location) | 
+    d <- getDefaultDefinitions(s), 
+    r <- d.styleRules, 
+    !isAllowedAttr(d.\type, r.attr)
+  };
 
 private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
-  errors = {};
-  typeMap = getTypeMap(getAccompanyingForm(s));
-  for(d <- getQuestionDefinitions(s)) {
-    if(!d.styleRules? || identDefinition(d.ident) notin typeMap)
-      continue;
-
-    \type = typeMap[identDefinition(d.ident)];
-    for(r <- d.styleRules) {
-      if(!isAllowedAttr(\type, r.attr))
-        errors += error(
-          "Attr <r.attr.name> not allowed for type <\type.name>",
-          r@location
-        );
-    }
-  }
-  return errors;
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
+  return 
+    {
+      typeWithInvalidAttr(r.attr.name, \type.name, r@location) | 
+      d <- getQuestionDefinitions(s), 
+      d.styleRules?,
+      identDefinition(d.ident) in typeMap,
+      \type := typeMap[identDefinition(d.ident)],
+      r <- d.styleRules,
+      !isAllowedAttr(\type, r.attr)
+    };
 }

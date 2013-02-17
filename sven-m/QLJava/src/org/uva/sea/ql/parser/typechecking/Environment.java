@@ -29,5 +29,9 @@ public class Environment {
 	public void reportError(SemanticError error) {
 		errors.add(error);
 	}
+
+	public Map<String, Type> getTypeEnvironment() {
+		return new HashMap<>(types);
+	}
 	
 }

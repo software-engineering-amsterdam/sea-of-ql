@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
+import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 public class SwingRegistry {
     private List<QuestionPanel> questions;
@@ -33,14 +36,17 @@ public class SwingRegistry {
     }
 
     public final void evaluateFunctions() {
-
-        for (IfStatementPanel isp : this.ifStatements) {
-            try {
-                isp.eval(this);
-            } catch (EvaluationException ex) {
-                isp.setVisible(false);
+        try {
+            for (IfStatementPanel isp : this.ifStatements) {
+                try {
+                    isp.eval(this);
+                } catch (EvaluationException ex) {
+                    isp.setVisible(false);
+                }
+                isp.repaint();
             }
-            isp.repaint();
+        } catch (QLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -53,7 +59,7 @@ public class SwingRegistry {
         return null;
     }
 
-    public List<Question> getQuestionsAst() {
+    public final List<Question> getQuestionsAst() {
         List<Question> questions = new ArrayList();
         for (QuestionPanel qp : getQuestions()) {
             questions.add(qp.getQuestion());

@@ -5,17 +5,14 @@ import java.util.List;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.literal.IntLiteral;
-import org.uva.sea.ql.ast.literal.StringLiteral;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.common.QLDocument;
+import org.uva.sea.ql.common.IdentFinder;
+import org.uva.sea.ql.common.Registry;
+import org.uva.sea.ql.common.interfaces.QLDocument;
 import org.uva.sea.ql.generation.GeneratorException;
-import org.uva.sea.ql.validation.Registry;
 
 public class HTMLDocument implements QLDocument {
     private Registry registry;
@@ -74,18 +71,12 @@ public class HTMLDocument implements QLDocument {
         this.registry.addQuestion(question);
         final Type type = question.getType();
         final String name = question.getIdentName();
-        String input = new String();
-        if (type instanceof BooleanType) {
-            input = this.templates.input(name, InputTypes.BOOLEAN);
-        }
-        if (type instanceof Money) {
-            input = this.templates.input(name, InputTypes.MONEY);
-        }
-        if (type instanceof StrType) {
-            input = this.templates.input(name, InputTypes.STRING);
-        }
-        this.appendToBody(this.templates.question(question.getContent().toString(),
-                input));
+        final HTMLInputTypeVisitor v = new HTMLInputTypeVisitor();
+        type.accept(v);
+        final InputTypes t = v.getType();
+        final String input = this.templates.input(name, t);
+        final StringLiteral content = question.getContent();
+        this.appendToBody(this.templates.question(content.toString(), input));
     }
 
     /*
@@ -120,13 +111,16 @@ public class HTMLDocument implements QLDocument {
      */
     @Override
     public final void create() {
+        final IdentFinder finder = new IdentFinder();
         for (Question q : this.registry.getQuestions()) {
             this.addGetter(q);
         }
         for (IfStatement i : this.registry.getIfStatements()) {
-            this.appendToScript(this.templates.evaluator(String.valueOf(i.hashCode()),
+            this.appendToScript(this.templates.evaluator(
+                    String.valueOf(i.hashCode()),
                     getConditionString(i.getCondition())));
-            final List<Ident> idents = i.getIdents();
+            ((TreeNode) i.getCondition()).accept(finder);
+            final List<Ident> idents = finder.getIdents();
             for (Ident ident : idents) {
                 this.appendToScript(this.templates.listener(ident.getName(),
                         String.valueOf(i.hashCode())));
@@ -135,17 +129,10 @@ public class HTMLDocument implements QLDocument {
     }
 
     private void addGetter(Question q) {
-        String getter = new String();
-        if (q.getType().getClass().equals(BooleanType.class)) {
-            getter = this.templates.getterBool(q.getIdentName());
-        }
-        if (q.getType().getClass().equals(Money.class)) {
-            getter = this.templates.getterMoney(q.getIdentName());
-        }
-        if (q.getType().getClass().equals(StrType.class)) {
-            getter = this.templates.getterString(q.getIdentName());
-        }
-        this.appendToScript(getter);
+        final GetterTypeVisitor v = new GetterTypeVisitor(this.templates,
+                q.getIdentName());
+        q.getType().accept(v);
+        this.appendToScript(v.getGetter());
     }
 
     /**
@@ -159,26 +146,8 @@ public class HTMLDocument implements QLDocument {
      * @return a string representing the expression
      */
     private static String getConditionString(Expr expression) {
-       final StringBuilder ret = new StringBuilder();
-
-        if (expression.getClass().equals(Ident.class)) {
-            ret.append(((Ident) expression).getName());
-            ret.append("()");
-        }
-        if (expression instanceof BinaryExpr) {
-            final BinaryExpr b = (BinaryExpr) expression;
-            ret.append("(");
-            ret.append(getConditionString(b.getLeft()));
-            ret.append(b.toString());
-            ret.append(getConditionString(b.getRight()));
-            ret.append(")");
-        }
-        if (expression instanceof IntLiteral) {
-            ret.append(((IntLiteral) expression).getValue());
-        }
-        if (expression instanceof StringLiteral) {
-            ret.append(((StringLiteral) expression).getValue());
-        }
-        return ret.toString();
+        final HTMLTreeVisitor v = new HTMLTreeVisitor();
+        ((TreeNode) expression).accept(v);
+        return v.getRet();
     }
 }

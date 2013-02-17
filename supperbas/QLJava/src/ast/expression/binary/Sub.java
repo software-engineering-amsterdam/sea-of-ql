@@ -8,19 +8,14 @@ import ast.expression.Binary;
 import ast.visitor.Visitor;
 
 public class Sub extends Binary {
-	private final int level = 3;
 
 	public Sub(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 
-	public int getLevel() {
-		return level;
-	}
-
 	@Override
 	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
-		return new ast.type.Numeric();
+		return new ast.type.Int();
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class Label extends Stmt {
 	}
 
 	@Override
-	public <T> T accept(IStmtVisitor<T> visitor) {
+	public <T> T accept(IStmtVisitor<T> visitor) {		
 		return visitor.visit(this);
-	}
+	}	
 }

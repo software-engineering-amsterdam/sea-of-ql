@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 
-public class QLLexer implements QLTokens {
+class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 
 	static {

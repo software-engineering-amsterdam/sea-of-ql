@@ -12,16 +12,6 @@ public class EqualNode extends BinaryNode
         super(lhs, rhs);
     }
 
-//    @Override
-//    public Value evaluate()
-//    {
-//        final Value value1 = this.lhs.evaluate();
-//        final Value value2 = this.rhs.evaluate();
-//
-//        return new BooleanValue(value1.evaluate().equals(value2.evaluate()));
-//    }
-
-
     @Override
     public Value evaluate()
     {
@@ -30,11 +20,9 @@ public class EqualNode extends BinaryNode
         return value1.equal(value2);
     }
 
-//    @Override
-//    public String toTreeString(final String indent)
-//    {
-//        return '\n' + indent + "==" + lhs.toTreeString(indent + "  ")
-//                + rhs.toTreeString(indent + "  ");
-//
-//    }
+    @Override
+    protected String getOperator()
+    {
+        return "==";
+    }
 }

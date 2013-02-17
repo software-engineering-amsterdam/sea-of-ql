@@ -6,11 +6,11 @@ import ast.visitor.Visitor;
 public class If extends Statement {
 
 	private final Expression condition;
-	private final Statement consequent;
+	private final Block block;
 
-	public If(Expression condition, Statement consequent) {
+	public If(Expression condition, Block block) {
 		this.condition = condition;
-		this.consequent = consequent;
+		this.block = block;
 	}
 
 	@Override
@@ -22,8 +22,8 @@ public class If extends Statement {
 		return condition;
 	}
 
-	public Statement getConsequent() {
-		return consequent;
+	public Block getBlock() {
+		return block;
 	}
 
 }

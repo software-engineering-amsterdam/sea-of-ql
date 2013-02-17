@@ -20,7 +20,6 @@ public class Block extends FormElement {
 	@Override
 	public void accept(IElementVisitor ElementVisitor) {
 		ElementVisitor.visit(this);
-
 	}
 
 }

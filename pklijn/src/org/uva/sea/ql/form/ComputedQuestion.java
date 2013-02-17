@@ -1,5 +1,7 @@
 package org.uva.sea.ql.form;
 
+import javax.swing.JPanel;
+
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.Ident;
@@ -14,7 +16,6 @@ public class ComputedQuestion extends Question {
 	public ComputedQuestion(Ident id, String question, Type questionType, Expr expression) {
 		super(id,question,questionType);
 		this.expression = expression;
-		this.answerComponent = questionType.getAnswerField(false);
 	}
 	
 	public Expr getExpression() {
@@ -43,11 +44,17 @@ public class ComputedQuestion extends Question {
 	}
 	
 	@Override
-	public void eval(Env environment, Form form) {
+	public void buildForm(JPanel mainPanel, Env environment, Form form) {
+		mainPanel.add(questionLabel);
+		mainPanel.add(answerComponent.getAnswerField(false, environment, form, id), "span");
+	}
+	
+	@Override
+	public void eval(Env environment) {
 		Value expressionValue = expression.eval(environment);
 		if (expressionValue != null) {
-			questionType.setAnswerFieldValue(expressionValue);
+			answerComponent.setAnswerFieldValue(expressionValue);
+			environment.addValue(id, expressionValue);
 		}
-		super.eval(environment, form);
 	}
 }

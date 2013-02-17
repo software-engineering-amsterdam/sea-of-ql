@@ -1,35 +1,14 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.values.String_lit;
 import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
-public class ComQuestion extends Statement{
-	private Value ident;
-	private Value string;
-	private Type bool;
-	private Expr expression;
+public class ComQuestion extends QuestionElement{
 	
-	public ComQuestion(Value ident, Value string, Type bool, Expr expression){
-		this.ident=ident;
-		this.string=string;
-		this.bool=bool;
-		this.expression=expression;
-	}
-	 
-	public Value getIdent() {
-		return ident;
-	}
-	
-	public Value getString() {
-		return string;
-	}
-	
-	public Type getBool() {
-		return bool;
-	}
-	
-	public Expr getExpression() {
-		return expression;
+	public ComQuestion(Ident ident, String_lit string, Type bool, Expr expression){
+		super(ident,string,bool,expression);
 	}
 	
 	@Override

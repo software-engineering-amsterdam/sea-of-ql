@@ -37,77 +37,77 @@ public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 	
 	@Override
 	public Type visit(Add ast) {
-		return new IntType();
+		return ast.getLhs().accept(this);
 	}
 
 	@Override
 	public Type visit(Mul ast) {
-		return new IntType();
+		return new IntType(null);
 	}
 
 	@Override
 	public Type visit(Div ast) {
-		return new IntType();
+		return new IntType(null);
 	}
 
 	@Override
 	public Type visit(Sub ast) {
-		return new IntType();
+		return new IntType(null);
 	}
 
 	@Override
 	public Type visit(And ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(Or ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(LT ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(LEq ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(Eq ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(NEq ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(GEq ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(GT ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
 	public Type visit(Pos ast) {
-		return new IntType();
+		return new IntType(null);
 	}
 
 	@Override
 	public Type visit(Neg ast) {
-		return new IntType();
+		return new IntType(null);
 	}
 
 	@Override
 	public Type visit(Not ast) {
-		return new BoolType();
+		return new BoolType(null);
 	}
 
 	@Override
@@ -117,12 +117,12 @@ public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 
 	@Override
 	public Type visit(Int ast) {
-		return new IntType();
+		return new IntType(null);
 	}
 
 	@Override
 	public Type visit(Str ast) {
-		return new StrType();
+		return new StrType(null);
 	}
 	
 }

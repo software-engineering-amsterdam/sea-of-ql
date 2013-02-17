@@ -1,5 +1,5 @@
 grammar QL;
-options  {output=Ast;} //backtrack=true; memoize=true;}
+options  {output=Ast;} //backtrack=true; memoize=true;
 
 
 
@@ -17,61 +17,64 @@ import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.values.*;
 }
-
-/*  TYPE CHECKING
-(px an '+' na dw type tis left timis meta type tis right timis kai an einai similar ok. O visitor mas voithaei na kanoume 
-to idio se periptwseis opws 3 * 5 + 6 * 7)!!!! */
  
 //form  
 
 form returns[Form result]   
-    @init { List<Statement> formparts = new ArrayList<Statement>();}
- :  'form' ident '{' (parts {formparts.add($parts.result);})+ '}'  {$result = new Form (new Ident($ident.text), formparts);}
- ; 
- 
-//form end 
+  :  'form' ident '{' block '}'  {$result = new Form (new Ident($ident.text), $block.result);}
+; 
 
-parts returns [Statement result]
-  : ifthen { $result = $ifthen.result; } 
-  | questions { $result = $questions.result; }
-//| ifthenelse { $result= $ifthenelse.result; } 
+ 
+//form end
+
+block returns [Block result]
+@init{ Block block = new Block(); }
+  : (body {block.addBody($block.result);})* {$result=block;}
   ; 
+ 
+
+body returns [Statement result]
+  : ifthen { $result = $ifthen.result; } 
+  | simplequestion { $result = $simplequestion.result; }
+  | comquestion {$result = $comquestion.result; }
+  //| ifthenelse { $result= $ifthenelse.result; } 
+  ; 
+
 
 //if-then statement
   
 ifthen returns [Statement result]
-  @init { List<Statement> ifBlock = new ArrayList<Statement>();}
-  : 'if' expression '{' (parts {ifBlock.add($parts.result);})+ '}' {$result = new IfThen($expression.result , ifBlock);}
-  ;
-                                      
+  : 'if' expression '{' b=block '}' {$result = new IfThen($expression.result , $b.result);}
+;
+                                     
 //if-then end
                                           
 //if-then-else
 
-/*ifthenelse returns [Statement result]
-  @init { List<Statement> block1 = new ArrayList<Statement>(); List<Statement> block2 = new ArrayList<Statement>();}
-  : 'if' expression '{' (p1=part {block1.add($p1.result);})+ '}' 'else' '{' (p2=part {block2.add($p2.result);})+ '}' {$result = new Ifthenelse($expression.result , block1, block2);}
-  ;
-*/
+ifthenelse returns [Statement result]
+  : 'if' expression '{' b1=block '}' 'else' '{' b2=block '}' {$result = new IfThenElse($expression.result , $b1.result, $b2.result);}
+;
+
 //if-then-else end  
 
 //questions 
  
- questions returns [Statement result]
-  : ident ':' string type {$result = new Question(new Ident($ident.text) , new String_lit($string.text) , $type.result);}
-  | ident ':' string type expression  {$result = new ComQuestion(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
-  ; 
-
-/*questions returns [Question result]
-  : ident1=type ':' string1=type bool1=type {$result = new Questions(ident1 , string1 , bool1);} //simple question
-  | ident2=type ':' string2=type bool2=type expr=expression {$result = new ComQuestions(ident2 , string2 , bool2, expr);} // computed question
-  ;
-  */ 
+simplequestion returns [Statement result]
+  : ident ':' string type {$result = new SimpleQuestion(new Ident($ident.text) , new String_lit($string.text) , $type.result);}
+; 
+  
+comquestion returns [Statement result]
+  : ident ':' string type expression  {$result = new ComQuestion(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
+;                                           
 
 //end of questions 
                                            
 expression returns [Expr result] 
-  : value
+  : integer {$result = new Int(Integer.parseInt($integer.text));}
+  | bool { $result = new Bool(Boolean.parseBoolean($bool.text));}
+  | string { $result = new String_lit($string.text);}
+  | money {$result = new Money(Float.parseFloat($money.text));}
+  | ident {$result = new Ident($ident.text);}
   | '(' x=orExpr ')' {$result = $x.result;}
   ; 
 
@@ -161,15 +164,6 @@ type returns [Type result]
      }
     })+
   ; 
-
-value returns [Value result]
-  : integer {$result = new Int(Integer.parseInt($integer.text));}
-  | ident {$result = new Ident($ident.text);}
-  | bool { $result = new Bool(Boolean.parseBoolean($bool.text));}
-  | string { $result = new String_lit($string.text);}
-  | money {$result = new Money(Float.parseFloat($money.text));}
-  ;
- 
    
 integer : Int ; 
 string : String_literal ; 

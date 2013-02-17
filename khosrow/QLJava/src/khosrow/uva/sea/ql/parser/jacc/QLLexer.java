@@ -201,8 +201,8 @@ public class QLLexer implements QLTokens {
 			    			return token = KEYWORDS.get(name);
 			    		}
 			    		if(name.equals("true") || name.equals("false"))
-			    		{
-			    			yylval = new BoolLiteral(Boolean.getBoolean(name));
+			    		{			    			
+			    			yylval = new BoolLiteral(Boolean.valueOf(name));
 			    			return token = BOOL_LITERAL;
 			    		}
 						yylval = new Ident(name);
