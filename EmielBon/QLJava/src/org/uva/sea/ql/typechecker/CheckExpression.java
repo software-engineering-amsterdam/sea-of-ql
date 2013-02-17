@@ -1,29 +1,26 @@
 package org.uva.sea.ql.typechecker;
 
 import java.util.List;
-import java.util.Map;
-
-import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.literal.*;
-import org.uva.sea.ql.ast.operators.*;
-import org.uva.sea.ql.ast.operators.logical.*;
-import org.uva.sea.ql.ast.operators.numeric.*;
-import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.operators.*;
+import org.uva.sea.ql.ast.expression.operators.logical.*;
+import org.uva.sea.ql.ast.expression.operators.numeric.*;
+import org.uva.sea.ql.ast.expression.operators.relational.*;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class CheckExpression implements ExpressionVisitor<Boolean> {
 
-	private final Map<Identifier, Type> typeEnv;
+	private final TypeEnvironment typeEnv;
 	private final List<Message> messages;
 	
-	private CheckExpression(Map<Identifier, Type> typeEnv, List<Message> messages) {
+	private CheckExpression(TypeEnvironment typeEnv, List<Message> messages) {
 		this.typeEnv = typeEnv;
 		this.messages = messages;
 	}
 	
-	public static boolean check(Expression expr, Map<Identifier, Type> typeEnv, List<Message> errs) {
+	public static boolean check(Expression expr, TypeEnvironment typeEnv, List<Message> errs) {
 		CheckExpression check = new CheckExpression(typeEnv, errs);
 		return expr.accept(check);
 	}
