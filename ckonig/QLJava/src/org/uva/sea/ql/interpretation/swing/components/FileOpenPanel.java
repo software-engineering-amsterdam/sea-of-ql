@@ -22,8 +22,8 @@ public class FileOpenPanel extends JPanel{
     private final JFileChooser fileChooser;
     private final SwingHelper helper;
  
-    public FileOpenPanel(JButton buttonGenerate, JTextArea log, CenterPanel c){
-        this.helper = new SwingHelper(log, buttonGenerate, c);
+    public FileOpenPanel(JTextArea log, CenterPanel c){
+        this.helper = new SwingHelper(log, c);
         this.buttonOpenFile = new JButton("Open File");
         this.add(this.buttonOpenFile);
         addOpenFileListener(this.buttonOpenFile);
