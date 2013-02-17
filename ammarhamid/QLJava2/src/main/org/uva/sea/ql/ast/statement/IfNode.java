@@ -28,6 +28,11 @@ public class IfNode implements Statement
         statementVisitor.visit(this);
     }
 
+    public List<Branch> getBranches()
+    {
+        return branches;
+    }
+
     // TODO move this code to GUI interpreter
 //    public Value evaluate()
 //    {
@@ -49,19 +54,7 @@ public class IfNode implements Statement
 //        return null;
 //    }
 
-//    @Override
-//    public String toTreeString(final String indent)
-//    {
-//        final StringBuilder stringBuilder = new StringBuilder();
-//        for(final Branch branch : branches)
-//        {
-//            stringBuilder.append(branch.exprNode.toTreeString(indent + "  "))
-//                    .append(branch.block.toTreeString(indent + "  "));
-//        }
-//        return stringBuilder.toString();
-//    }
-
-    private class Branch
+    public class Branch
     {
         private final ExprNode exprNode;
         private final Node block;
@@ -72,9 +65,19 @@ public class IfNode implements Statement
             this.block = block;
         }
 
-        private Value evaluateExpression()
+        public Value evaluateExpression()
         {
             return exprNode.evaluate();
+        }
+
+        public ExprNode getExprNode()
+        {
+            return exprNode;
+        }
+
+        public Node getBlock()
+        {
+            return block;
         }
     }
 }

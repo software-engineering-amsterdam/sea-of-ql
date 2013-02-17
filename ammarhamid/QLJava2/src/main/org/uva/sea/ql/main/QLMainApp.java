@@ -27,19 +27,20 @@ public class QLMainApp
         assignmentNode2.accept(statementVisitor);
         assignmentNode3.accept(statementVisitor);
         assignmentNode4.accept(statementVisitor);
-        return statementVisitor.getPanel();
+        return statementVisitor.getMainPanel();
     }
 
     private static JPanel createPanel2() throws IOException
     {
         final JPanel panel = new JPanel(new MigLayout());
+//        final JPanel panel = new JPanel(new MigLayout("wrap 2", "[grow]"));
         final IParser parser = new ANTLRParser();
         // TODO check why cast is needed !!!
         final Statement node = (Statement)parser.parseFormFromFile("/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql");
         final StatementWidgetVisitor statementVisitor = new StatementWidgetVisitor(panel);
         node.accept(statementVisitor);
 
-        return statementVisitor.getPanel();
+        return statementVisitor.getMainPanel();
     }
 
     public static void main(String[] args)
@@ -58,7 +59,7 @@ public class QLMainApp
                 }
 
                 // TODO title from the form name ??
-                JFrame frame = new JFrame("QL Main Application");
+                frame = new JFrame("QL Main Application");
                 try
                 {
                     frame.getContentPane().add(createPanel2());
@@ -72,6 +73,13 @@ public class QLMainApp
                 frame.setVisible(true);
             }
         });
+    }
+
+    private static JFrame frame;
+
+    public static JFrame getFrame()
+    {
+        return frame;
     }
 
 }
