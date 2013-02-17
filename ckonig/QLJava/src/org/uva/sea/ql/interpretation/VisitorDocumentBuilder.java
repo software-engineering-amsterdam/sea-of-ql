@@ -1,12 +1,12 @@
-package org.uva.sea.ql.common;
+package org.uva.sea.ql.interpretation;
 
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.BlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.common.interfaces.ElementVisitor;
-import org.uva.sea.ql.common.interfaces.QLDocument;
+import org.uva.sea.ql.common.ElementVisitor;
+import org.uva.sea.ql.common.QLException;
 
 public final class VisitorDocumentBuilder implements ElementVisitor {
 

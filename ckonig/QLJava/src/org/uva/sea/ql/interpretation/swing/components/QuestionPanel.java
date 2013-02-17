@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.interpretation.swing.visitors.SwingInputTypeVisitor;
+import org.uva.sea.ql.interpretation.swing.visitors.UserInputTypeVisitor;
 
 public class QuestionPanel extends JPanel {
     private static final long serialVersionUID = -8537987318519877345L;
@@ -34,6 +36,13 @@ public class QuestionPanel extends JPanel {
 
     public final JComponent getInput() {
         return this.input;
+    }
+    
+    public final Object getUserInput(){
+        final UserInputTypeVisitor v = new UserInputTypeVisitor(this);
+        final Type t = this.question.getType();
+        t.accept(v);
+        return v.getResult();
     }
 
     public final boolean getBoolValue() {

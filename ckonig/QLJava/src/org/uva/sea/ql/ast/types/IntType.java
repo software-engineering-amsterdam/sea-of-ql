@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
-import org.uva.sea.ql.common.interfaces.TypeVisitor;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
 public class IntType extends Type {
     public IntType() {

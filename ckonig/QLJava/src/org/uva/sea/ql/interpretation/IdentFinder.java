@@ -1,4 +1,4 @@
-package org.uva.sea.ql.common;
+package org.uva.sea.ql.interpretation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.literals.StringLiteral;
-import org.uva.sea.ql.common.interfaces.TreeVisitor;
 
 public class IdentFinder implements TreeVisitor {
     private List<Ident> idents;

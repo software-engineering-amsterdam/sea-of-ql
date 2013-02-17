@@ -1,4 +1,4 @@
-package org.uva.sea.ql.common.interfaces;
+package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
@@ -21,7 +21,6 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.QLException;
 
 
 public interface EvaluationVisitor {

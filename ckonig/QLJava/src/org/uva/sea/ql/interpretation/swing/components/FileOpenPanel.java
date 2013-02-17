@@ -7,7 +7,6 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import org.uva.sea.ql.interpretation.swing.QLFileFilter;
 import org.uva.sea.ql.interpretation.swing.SwingHelper;
@@ -22,8 +21,8 @@ public class FileOpenPanel extends JPanel{
     private final JFileChooser fileChooser;
     private final SwingHelper helper;
  
-    public FileOpenPanel(JTextArea log, CenterPanel c){
-        this.helper = new SwingHelper(log, c);
+    public FileOpenPanel(SwingHelper h){
+        this.helper = h;
         this.buttonOpenFile = new JButton("Open File");
         this.add(this.buttonOpenFile);
         addOpenFileListener(this.buttonOpenFile);

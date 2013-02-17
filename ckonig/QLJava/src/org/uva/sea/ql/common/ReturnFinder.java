@@ -25,7 +25,6 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class ReturnFinder implements EvaluationVisitor {
 

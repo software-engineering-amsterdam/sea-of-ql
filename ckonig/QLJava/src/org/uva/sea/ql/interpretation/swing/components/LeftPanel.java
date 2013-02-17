@@ -10,7 +10,7 @@ public class LeftPanel extends JPanel {
      * 
      */
     private static final long serialVersionUID = 5134179366168025629L;
-    private JTextArea log;
+    private final JTextArea log;
 
     public LeftPanel() {
         this.log = new JTextArea();
@@ -21,7 +21,8 @@ public class LeftPanel extends JPanel {
         this.setBackground(Color.red);
         this.setSize(Sizes.LEFT_WIDTH, Sizes.CENTER_HEIGHT);
     }
-    public final JTextArea getLog(){
+
+    public final JTextArea getLog() {
         return this.log;
     }
 }

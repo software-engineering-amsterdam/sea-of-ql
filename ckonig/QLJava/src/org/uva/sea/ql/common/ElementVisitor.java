@@ -1,10 +1,9 @@
-package org.uva.sea.ql.common.interfaces;
+package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.common.QLException;
 
 public interface ElementVisitor {
 	void visit(Form form) throws QLException;

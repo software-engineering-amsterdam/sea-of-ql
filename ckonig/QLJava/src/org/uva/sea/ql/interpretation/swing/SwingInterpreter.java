@@ -37,7 +37,7 @@ public class SwingInterpreter extends JFrame {
     private void createComponents() {
         this.leftPanel = new LeftPanel();
         this.centerPanel = new CenterPanel();
-        this.topPanel = new TopPanel(this.leftPanel, this.centerPanel);
+        this.topPanel = new TopPanel(this.getHelper());
     }
 
     private void setLayout() {
@@ -58,6 +58,10 @@ public class SwingInterpreter extends JFrame {
         c.gridy = y;
         c.gridwidth = gridwidth;
         getContentPane().add(p, c);
+    }
+
+    private SwingHelper getHelper() {
+        return new SwingHelper(this.leftPanel, this.centerPanel);
     }
 
 }
