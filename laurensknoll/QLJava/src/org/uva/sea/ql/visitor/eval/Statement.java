@@ -45,11 +45,8 @@ public class Statement implements IStatement<JPanel> {
 
 	@Override
 	public JPanel visit(ComputedQuestion computedQuestion) {
-		JPanel panel = new JPanel();
-
 		Question question = computedQuestion.getQuestion();
-		JPanel questionPanel = question.accept(this);
-		panel.add(questionPanel);
+		JPanel panel = question.accept(this);
 
 		Widget widget = this.environment.widgetOfIdent(question.getIdent());
 		widget.getComponent().setEnabled(false);
@@ -81,15 +78,16 @@ public class Statement implements IStatement<JPanel> {
 
 	@Override
 	public JPanel visit(If ifStatement) {
-		JPanel panel = new JPanel();
+		JPanel conditionalPanel = ifStatement.getTruePath().accept(this);
 
-		AbstractExpr expr = ifStatement.getCondition();
+		AbstractExpr condition = ifStatement.getCondition();
 
 		// Observe condition
-		Observer observer = new Conditional(expr, panel, this.environment);
+		Observer observer = new Conditional(condition, conditionalPanel,
+				this.environment);
 
 		Dependency dependencyVisitor = new Dependency();
-		DependencySet dependencies = expr.accept(dependencyVisitor);
+		DependencySet dependencies = condition.accept(dependencyVisitor);
 
 		for (Ident ident : dependencies.getDependencies()) {
 			Widget w = this.environment.widgetOfIdent(ident);
@@ -97,18 +95,15 @@ public class Statement implements IStatement<JPanel> {
 		}
 
 		Expression expressionVisitor = new Expression(this.environment);
-		Bool result = (Bool) expr.accept(expressionVisitor);
-		panel.setVisible(result.getValue());
+		Bool result = (Bool) condition.accept(expressionVisitor);
+		conditionalPanel.setVisible(result.getValue());
 
-		JPanel truePanel = ifStatement.getTruePath().accept(this);
-		panel.add(truePanel);
-
-		return panel;
+		return conditionalPanel;
 	}
 
 	@Override
 	public JPanel visit(Question question) {
-		JPanel panel = new JPanel(new GridLayout(1, 2));
+		JPanel panel = new JPanel(new GridLayout(0, 2));
 
 		JLabel description = new JLabel(question.getQuestion().getValue());
 		panel.add(description);

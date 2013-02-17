@@ -12,7 +12,7 @@ public class Int extends Widget implements DocumentListener {
 	private final JTextField component;
 
 	public Int() {
-		this.component = new JTextField(10);
+		this.component = new JTextField();
 		this.component.setText("0");
 
 		// Listener must be added after the initial text is set to prevent

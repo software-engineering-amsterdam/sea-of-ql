@@ -16,7 +16,7 @@ public class Money extends Widget implements DocumentListener {
 	private final JTextField component;
 
 	public Money() {
-		this.component = new JTextField(10);
+		this.component = new JTextField();
 		this.component.setText(NumberFormat.getCurrencyInstance().format(0.00));
 
 		// Listener must be added after the initial text is set to prevent

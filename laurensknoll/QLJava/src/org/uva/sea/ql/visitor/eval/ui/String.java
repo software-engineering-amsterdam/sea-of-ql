@@ -12,7 +12,7 @@ public class String extends Widget implements DocumentListener {
 	private final JTextField component;
 
 	public String() {
-		this.component = new JTextField(30);
+		this.component = new JTextField();
 		this.component.getDocument().addDocumentListener(this);
 	}
 
