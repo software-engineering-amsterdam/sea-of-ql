@@ -5,20 +5,23 @@ form demo {
     integer theAge2
   "Are you 18 or older? This is the second part of the conditional (ofAge == true)"
     boolean ofAge
-  "And another of age, but with a radio box if styling is used."
+  "And another of age, but with a radio button if styling is used."
     boolean ofAge2
-  if(theAge >= 15 && ofAge == true && ofAge == ofAge2 && theAge == theAge2) {
+  if( theAge >= 18 && 
+      ofAge == true && 
+      ofAge == ofAge2 && 
+      theAge == theAge2) {
     // Apparantly, users of the form have to be 18 or older
     "Now, since you are 18 or older, the form can be started. What's your hourly rate on your job?"
       money hourlyRate
     if(hourlyRate <= 5) {
-      "Your income is very low. Any remarks?"
+      "Bad: Your income is very low. Any remarks?"
         string lowRemark
     } else if (hourlyRate <= 15) {
-      "Your income is average. Any remarks?"
+      "OK: Your income is average. Any remarks?"
         string averageRemark    
     } else {
-      "Your income is very high. Any remarks?"
+      "Great: Your income is very high. Any remarks?"
         string highRemark
     }
     "How many hours do you work in a week?"
