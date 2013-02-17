@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.common.interfaces.TypeVisitor;
 
 public abstract class Type extends Expr implements Evaluatable {
-    public Type() {
+    protected Type() {
 
     }
 

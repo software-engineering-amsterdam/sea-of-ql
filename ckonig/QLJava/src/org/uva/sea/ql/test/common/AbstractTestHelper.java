@@ -30,7 +30,7 @@ public abstract class AbstractTestHelper<T> {
     protected String asString;
     protected TestParser parser;
 
-    public AbstractTestHelper(TestParser parser) {
+    protected AbstractTestHelper(TestParser parser) {
         this.parser = parser;
     }
 
