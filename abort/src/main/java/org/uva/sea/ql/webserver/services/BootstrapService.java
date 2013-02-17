@@ -40,8 +40,6 @@ public class BootstrapService implements IWebService {
 	}
 	
 	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
 	@Path("/validateIntLiteral")
 	// TODO: validate using QLparser for all inputs? 
 	public String validateIntLiteral(final IntLiteral literal) {
@@ -50,8 +48,6 @@ public class BootstrapService implements IWebService {
 	}	
 	
 	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
 	@Path("/validateStringLiteral")
 	// TODO: validate using QLparser for all inputs? 
 	public String validateStringLiteral(final StringLiteral literal) {
@@ -60,8 +56,6 @@ public class BootstrapService implements IWebService {
 	}
 
 	@POST
-	@Produces("application/json")
-	@Consumes("application/json")
 	@Path("/validateMoneyLiteral")	
 	public String validateMoneyLiteral(final MoneyLiteral literal) {
 		System.out.println("literal: " + literal.getValue());
@@ -69,7 +63,6 @@ public class BootstrapService implements IWebService {
 	}
 
 	@GET
-	@Produces("application/json")
 	@Path("/sayBye")
 	public String sayBye() {
 		return "BYE!";

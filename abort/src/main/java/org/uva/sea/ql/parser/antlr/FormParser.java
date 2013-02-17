@@ -5,6 +5,7 @@ import java.io.*;
 import org.antlr.runtime.*;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.parser.*;
+import org.uva.sea.ql.parser.base.IFormParser;
 
 public class FormParser implements IFormParser {
 	public FormParser() { }

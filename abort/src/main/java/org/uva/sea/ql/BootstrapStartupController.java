@@ -16,27 +16,34 @@ import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
 import org.uva.sea.ql.base.IStartupController;
 import org.uva.sea.ql.parser.*;
 import org.uva.sea.ql.parser.antlr.FormParser;
+import org.uva.sea.ql.parser.base.IFormParser;
 import org.uva.sea.ql.webserver.ServletConfig;
 import org.uva.sea.ql.webserver.base.EmptyServlet;
 
 import com.google.inject.servlet.GuiceFilter;
+import com.sun.org.apache.bcel.internal.util.ClassPath;
 
-public class StartupController implements IStartupController {
+public class BootstrapStartupController implements IStartupController {
+	private static final String OUTPUT_FILE_NAME = "index.html";
+
 	private final int port;
 	private final File inputFile;
-	private final String outputFile = "src/main/resources/codegeneration/generated.html";
+	private final File outputDirectory;
 
 	final IFormParser parser = new FormParser();
 	final ITypeChecker typeChecker = new TypeChecker();
 	final IWebGenerator generator = new BootstrapGenerator();
 
-	public StartupController(final File inputFile, int port) {
-		this.inputFile = inputFile;
-		this.port = port;
+	public BootstrapStartupController(final CommandLineParameters parameters) {
+		this.inputFile = parameters.getInputFile();
+		this.port = parameters.getPort();
+		this.outputDirectory = parameters.getOutputDirectory();
 	}
 	
 	@Override
 	public void start() {
+		System.out.println(outputDirectory.getAbsolutePath());
+		
 		Form form;
 		try {
 			form = parser.parseForm(inputFile);
@@ -53,7 +60,7 @@ public class StartupController implements IStartupController {
 		}
 
 		try {
-			generator.generateFrontend(form, outputFile);
+			generator.generateFrontend(form, outputDirectory, OUTPUT_FILE_NAME);
 		}
 		catch (WebGenerationException e) {
 			System.err.println(String.format("Failed to generate file: %s", e.getMessage()));
@@ -86,7 +93,6 @@ public class StartupController implements IStartupController {
 		}
 	}
 	
-	
 	private ServletContextHandler createServletContextHandler() {
 		final ServletContextHandler servletContextHandler = new ServletContextHandler();
 
@@ -101,8 +107,16 @@ public class StartupController implements IStartupController {
 	private ResourceHandler createStaticContentHandler() {
 		final ResourceHandler resourceHandler = new ResourceHandler();
 		resourceHandler.setDirectoriesListed(false);
-		resourceHandler.setWelcomeFiles(new String[] { "generated.html" });
-		resourceHandler.setResourceBase("./src/main/resources/codegeneration");
+		resourceHandler.setWelcomeFiles(new String[] { "index.html" });
+
+		/*
+		ContextHandler cssContextHandler = new ContextHandler("/css");
+		ResourceHandler cssResourceHandler = new ResourceHandler();
+		cssResourceHandler.setResourceBase("")
+		
+		cssContextHandler.setHandler(cssResourceHandler);
+		*/
+		resourceHandler.setResourceBase("./web");
 		
 		return resourceHandler;
 	}

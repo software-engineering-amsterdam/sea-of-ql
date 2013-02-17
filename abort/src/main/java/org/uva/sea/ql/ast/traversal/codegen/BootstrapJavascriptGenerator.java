@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.types.Ident;
 
 public class BootstrapJavascriptGenerator {
 	private final StringBuffer initialCode = new StringBuffer();
-	private final STGroupFile javascriptTemplateGroup = new STGroupFile("codegeneration/bootstrap_js.stg", '$', '$');
+	private final STGroupFile javascriptTemplateGroup = new STGroupFile("templates/bootstrap_js.stg", '$', '$');
 
 	// Amount of references to a specific identifier
 	private final Map<Ident, Integer> references = new HashMap<Ident, Integer>();

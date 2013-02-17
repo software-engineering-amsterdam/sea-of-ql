@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="QLCodeGenerator" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant" xmlns:jacoco="antlib:org.jacoco.ant"> 
+<project name="QLCodeGenerator" default="all" basedir="." xmlns:sonar="antlib:org.sonar.ant" xmlns:jacoco="antlib:org.jacoco.ant">
+		<!-- One jar settings -->
+	 	<taskdef name="one-jar" classname="com.simontuffs.onejar.ant.OneJarTask" onerror="report" />
+	
 		<!-- ========= Define the main properties of this project ========= -->
 		<property name="src.dir" value="./src/main/java" />
 		<property name="test.dir" value="./src/test/java" />
 		<property name="build.dir" value="./target" />
+		<property name="jar.dir" value="${build.dir}/exec" />
+
+		<!-- Used to copy the default code generation boilerplate code (css/js etc) -->
+		<property name="bootstrap.static.web.contents.targetdir" value="${jar.dir}/web" />
+		<property name="codegen.template.targetdir" value="${jar.dir}/templates" />
+		<property name="codegen.sourcedir" value="./src/main/resources/codegeneration" />
+		<property name="codegen.template.dir.name" value="templates" /> <!-- exclude templates folder to copy -->
+	
 		<property name="lib.dir" value="./lib" />
-		<property name="testresources.dir" value="./resources" />
+		<property name="testresources.dir" value="./src/test/resources" />
 		<property name="classes.dir" value="${build.dir}/classes" />
 		<property name="reports.dir" value="${build.dir}/reports" />
 		<property name="reports.junit.xml.dir" value="${reports.dir}/junit" />
@@ -34,14 +45,14 @@
 		<property name="sonar.jdbc.username" value="sonar" />
 		<property name="sonar.jdbc.password" value="sonar" />
 		<property name="sonar.host.url" value="http://localhost:9000" />
-	
+  
 		<!-- ========= Define "regular" targets: clean, compile, test, ... ========= -->
 		<target name="clean">
 			<delete dir=".sonar" />
 			<delete dir="${build.dir}" />
 			<delete dir="${reports.dir}" />
 		</target>
-
+	
 		<target name="init">
 			<mkdir dir="${build.dir}" />
 			<mkdir dir="${classes.dir}" />
@@ -97,6 +108,52 @@
 			<!-- Execute Sonar -->
 			<sonar:sonar />
 		</target>
+	
+	    <target name="jar" depends="compile">
+			<mkdir dir="${bootstrap.static.web.contents.targetdir}" />
+			<copy todir="${bootstrap.static.web.contents.targetdir}">
+				<fileset dir="${codegen.sourcedir}">
+					<exclude name="**/${codegen.template.dir.name}/" />
+				</fileset>
+			</copy>
+    	
+	    	<mkdir dir="${codegen.template.targetdir}" />
+			<copy todir="${codegen.template.targetdir}">
+        		<fileset dir="${codegen.sourcedir}/${codegen.template.dir.name}" includes="**/*.stg" />
+	    	</copy>
 
-		<target name="all" depends="clean,compile,test,sonar" />
+	    	
+	        <jar destfile="${jar.dir}/main.jar">
+	    		<manifest>
+	            	<attribute name="Main-Class" value="org.uva.sea.ql.Main"/>
+	        	</manifest>
+	        	<fileset dir="${classes.dir}" includes="**/*.class" />
+	        </jar>
+
+	    	<one-jar destfile="${jar.dir}/${ant.project.name}.jar">
+	    			<manifest>
+	    			<attribute name="One-Jar-URL-Factory" value="com.simontuffs.onejar.JarClassLoader$OneJarURLFactory"/>
+	            	<attribute name="Main-Class" value="org.uva.sea.ql.Main"/>
+	        	</manifest>
+	    		<main jar="${jar.dir}/main.jar" />
+	    		<lib>  
+	    			<fileset dir="${lib.dir}" />  
+	    		</lib>
+	    	</one-jar>
+
+	    	
+	    	<delete file="${jar.dir}/main.jar" />
+	    </target>
+
+
+
+		<target name="regular-build" depends="clean,init,compile,jar" />
+
+	    <target name="run" depends="jar">
+	        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
+	        	 <arg line="-i /Users/abort/Desktop/form.ql -o ./web/ -p 1337" />
+	    	</java>
+	    </target>
+
+		<target name="all" depends="clean,init,compile,test,sonar" />
 </project>

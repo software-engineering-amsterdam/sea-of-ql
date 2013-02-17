@@ -27,7 +27,7 @@ public class Main {
     	try {
     		jCommander.parse(args);
     		
-        	final IStartupController startupController = new StartupController(parameters.getInputFile(), parameters.getPort());
+        	final IStartupController startupController = new BootstrapStartupController(parameters);
         	startupController.start();
     	}
     	catch(ParameterException exception) {

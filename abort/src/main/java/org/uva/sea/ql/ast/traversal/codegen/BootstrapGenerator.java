@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.types.literals.*;
 
 public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	private final BootstrapJavascriptGenerator javascriptGenerator = new BootstrapJavascriptGenerator();
-	private final STGroupFile templateGroup = new STGroupFile("codegeneration/bootstrap_index.stg", '$', '$');
+	private final STGroupFile templateGroup = new STGroupFile("templates/bootstrap_index.stg", '$', '$');
 
 	// Identifier used for condition blocks
 	private int conditionalIdentifier = 0;
@@ -33,32 +33,14 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	}
 
 	@Override
-	public void generateFrontend(final Form form, final String outputFile) throws WebGenerationException {
+	public void generateFrontend(final Form form, final File outputDirectory, final String outputFilename) throws WebGenerationException {
 		try {
+			final File outputFile = new File(outputDirectory, outputFilename);
 			IOUtils.write(generateFrontend(form), new FileOutputStream(outputFile));
 		}
 		catch (IOException e) {
 			throw new WebGenerationException(e);
 		}
-		/*BufferedWriter bufferedWriter = null; 
-		try {
-			bufferedWriter = new BufferedWriter(new FileWriter(new File(outputFile)));
-			bufferedWriter.write(generateFrontend(form));
-		}
-		catch (IOException e) {
-			System.err.println("IO Exception: " + e.getMessage());
-			return false;
-		}
-		finally {
-			if (bufferedWriter != null) {
-				try {
-					bufferedWriter.close();
-				} catch (IOException e) { }
-			}
-		}
-
-		return true;
-		*/
 	}
 
 	@Override
