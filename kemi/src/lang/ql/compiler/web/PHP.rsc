@@ -13,7 +13,7 @@ module lang::ql::compiler::web::PHP
 import IO;
 import String;
 import lang::ql::ast::AST;
-import lang::ql::compiler::PrettyPrinter;
+import lang::ql::compiler::web::PHPExpressionPrinter;
 
 private str title = "";
 
@@ -48,7 +48,7 @@ private str createPHP(Question q:
 
 private str createPHP(Question q: 
   question(_, answerDataType, ansIdent, calculatedField)) =
-    "<addToArray(answerDataType, ansIdent.ident, prettyPrint(prependIdent(calculatedField, "$")))>";
+    "<addToArray(answerDataType, ansIdent.ident, phpPrint(prependIdent(calculatedField, "$")))>";
 
 private str createPHP(Statement item: 
     ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
@@ -62,7 +62,7 @@ private str createPHP(Statement item:
   '}";
 
 private str createPHP(Expr e) =
-  "<prettyPrint(prependIdent(e, "$"))>";
+  "<phpPrint(prependIdent(e, "$"))>";
 
 private str addToArray(Type answerDataType, str ident) =
   addToArray(answerDataType, ident, "$_POST[\'<ident>\']");
