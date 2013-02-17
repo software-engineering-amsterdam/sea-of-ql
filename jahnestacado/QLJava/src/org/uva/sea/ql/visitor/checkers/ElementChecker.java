@@ -31,6 +31,7 @@ public class ElementChecker implements IElementVisitor {
 			this.errorReport=errorReport;
 	}
 	
+	
 	public static boolean checkQL(Form form){
 		Map<String,Type> declaredVar= new LinkedHashMap<String,Type>();
 		List<QLErrorMSg> errorReport= new ArrayList<QLErrorMSg>();
@@ -97,7 +98,6 @@ public class ElementChecker implements IElementVisitor {
 				element.accept(this);
 			}
 	}
-	
 	
 
 	@Override
