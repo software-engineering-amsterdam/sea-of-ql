@@ -87,7 +87,7 @@ public void registerQL() {
 
 	annotator(Tree (Tree t) {
 			println("TREE IS : <t>");
-			return t[@messages = checkProgram(implodeProgram(t))];
+			return t[@messages = semanticCheck(implodeProgram(t))];
   		})
   	}); 
 }

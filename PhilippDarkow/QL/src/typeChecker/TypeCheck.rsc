@@ -6,6 +6,7 @@ import util::Load;
 import typeChecker::ExpressionTypeChecker;
 import typeChecker::TypeEnvironment;
 import typeChecker::TypeHelper;
+import util::IDE;
 
 /** Method to check if statement 
 * @param statement the if statement
@@ -108,3 +109,5 @@ public QLTENV checkProgram(Program P){
 }
                                                                                  
 public list[tuple[loc l, str msg]] checkProgram(str txt) = checkProgram(load(txt)).errors;
+
+public set[Message] semanticCheck(Program p) = getErrors(checkProgram(p));
