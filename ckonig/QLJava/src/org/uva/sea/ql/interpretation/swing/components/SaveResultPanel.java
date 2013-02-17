@@ -29,20 +29,25 @@ public class SaveResultPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                if (isValidInput()) {
-                    final Map<String, Object> input = getInput();
-                    final StringBuilder output = new StringBuilder();
-                    for (Map.Entry<String, Object> entry : input.entrySet()) {
-                        output.append(entry.getKey() + ";"
-                                + entry.getValue().toString() + " \r\n");
-                    }
-                    try {
-                        IOHelper.write("c:/input.txt", output.toString());
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
+                if (loaded()) {
+                    if (isValidInput()) {
+                        final Map<String, Object> input = getInput();
+                        final StringBuilder output = new StringBuilder();
+                        for (Map.Entry<String, Object> entry : input.entrySet()) {
+                            output.append(entry.getKey() + ";"
+                                    + entry.getValue().toString() + " \r\n");
+                        }
+                        try {
+                            IOHelper.write("c:/input.txt", output.toString());
+                            helper.pushLog("store input to c:/input.txt");
+                        } catch (FileNotFoundException e) {
+                            helper.pushLog(e.getMessage());
+                        }
+                    } else {
+                        helper.pushLog("cannot save invalid input");
                     }
                 } else {
-                    System.out.println("cannot save invalid input");
+                    helper.pushLog("no form loaded");
                 }
             }
         });
@@ -50,6 +55,10 @@ public class SaveResultPanel extends JPanel {
 
     private boolean isValidInput() {
         return this.helper.getRegistry().isValid();
+    }
+
+    private boolean loaded() {
+        return this.helper != null && this.helper.getRegistry() != null;
     }
 
     private Map<String, Object> getInput() {
