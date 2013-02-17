@@ -45,39 +45,28 @@ public class ExpressionTypeChecker {
 	public void isOfTypeString(String input)  throws ParseError { assertTrue(getTypeFor(input).isCompatibleToStr());     }
 	public void isOfTypeIdent(String input)   throws ParseError { assertTrue(isIdentCompatibleWithType(input));          }
 	
-	private Type getTypeFor(String input) throws ParseError {
-		return getTypeForLiteralExpression(input);
-	}
-	
 	private Boolean checkExpression(String input) throws ParseError {
 		Expr expression = parseExpression(input);
 		return TypeChecker.check(expression, _supportedTypes, new ErrorMessages());
 	}
 	
-	private Expr parseExpression(String input) throws ParseError {
-		return (Expr) _parser.parse(input);
-	}
+	private Expr parseExpression(String input) throws ParseError { return (Expr) _parser.parse(input); }
 	
-	private LiteralExpr parseLiteralExpression(String input) throws ParseError {
-		return (LiteralExpr) parseExpression(input);
-	}
-	
-	private Type parseIdentifier(String input) throws ParseError {
-		ANTLRParserTypes parser = new ANTLRParserTypes();
-		return parser.parse(input);
-	}
+	private Type getTypeFor(String input)      throws ParseError { return getTypeForLiteralExpression(input); }
 	
 	private Type getTypeForLiteralExpression(String input) throws ParseError {
-		return parseLiteralExpression(input).typeOf(_supportedTypes);
-	}
-	
-	private Type getTypeForIdentifier(String input) throws ParseError {
-		return parseIdentifier(input);
+		LiteralExpr expression = (LiteralExpr) parseExpression(input);
+		return expression.typeOf(_supportedTypes);
 	}
 	
 	private Boolean isIdentCompatibleWithType(String input) throws ParseError {
-		Type type = getTypeForIdentifier(input);
+		Type type = getIdentifierTypeFor(input);
 		return type.isCompatibleTo(type);
+	}
+	
+	private Type getIdentifierTypeFor(String input) throws ParseError {
+		ANTLRParserTypes parser = new ANTLRParserTypes();
+		return parser.parse(input);
 	}
 	
 }
