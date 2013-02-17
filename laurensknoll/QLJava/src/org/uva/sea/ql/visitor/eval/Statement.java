@@ -48,30 +48,28 @@ public class Statement implements IStatement<JPanel> {
 		Question question = computedQuestion.getQuestion();
 		JPanel panel = question.accept(this);
 
-		Widget widget = this.environment.widgetOfIdent(question.getIdent());
-		widget.getComponent().setEnabled(false);
+		// The question is computed. Therefore make it read only.
+		this.environment.setReadOnly(question.getIdent(), true);
 
 		// Observe dependent questions
 		AbstractExpr computeExpression = computedQuestion
 				.getComputeExpression();
 
-		Observer observer = new Computed(computeExpression, widget,
-				this.environment);
+		Observer observer = new Computed(computeExpression,
+				question.getIdent(), this.environment);
 
 		Dependency dependencyVisitor = new Dependency();
 		DependencySet dependencies = computeExpression
 				.accept(dependencyVisitor);
 
 		for (Ident ident : dependencies.getDependencies()) {
-			Widget w = this.environment.widgetOfIdent(ident);
-			w.addObserver(observer);
+			this.environment.addObserver(ident, observer);
 		}
 
 		// Set the value.
 		Expression expressionVisitor = new Expression(this.environment);
 		AbstractValue value = computeExpression.accept(expressionVisitor);
-
-		widget.setValue(value);
+		this.environment.setValue(question.getIdent(), value);
 
 		return panel;
 	}
@@ -90,8 +88,7 @@ public class Statement implements IStatement<JPanel> {
 		DependencySet dependencies = condition.accept(dependencyVisitor);
 
 		for (Ident ident : dependencies.getDependencies()) {
-			Widget w = this.environment.widgetOfIdent(ident);
-			w.addObserver(observer);
+			this.environment.addObserver(ident, observer);
 		}
 
 		Expression expressionVisitor = new Expression(this.environment);

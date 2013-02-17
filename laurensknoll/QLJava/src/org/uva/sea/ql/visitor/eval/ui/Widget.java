@@ -14,4 +14,6 @@ public abstract class Widget extends Observable {
 
 	public abstract AbstractValue getValue();
 
+	public abstract void setReadOnly(boolean isReadOnly);
+
 }

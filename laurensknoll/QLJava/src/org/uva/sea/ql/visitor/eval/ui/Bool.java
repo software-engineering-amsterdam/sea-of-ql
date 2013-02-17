@@ -36,6 +36,11 @@ public class Bool extends Widget implements ItemListener {
 	}
 
 	@Override
+	public void setReadOnly(boolean isReadOnly) {
+		this.component.setEnabled(!isReadOnly);
+	}
+
+	@Override
 	public void itemStateChanged(ItemEvent e) {
 		this.setChanged();
 		this.notifyObservers();

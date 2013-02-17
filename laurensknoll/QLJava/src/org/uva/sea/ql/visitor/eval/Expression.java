@@ -155,7 +155,7 @@ public class Expression implements IExpression<AbstractValue> {
 
 	@Override
 	public AbstractValue visit(Ident ident) {
-		return this.environment.valueOfIdent(ident);
+		return this.environment.getValue(ident);
 	}
 
 	@Override

@@ -32,10 +32,8 @@ public class Money extends Widget implements DocumentListener {
 	@Override
 	public void setValue(AbstractValue value) {
 		// The semantic check guarantees that this is a Money.
-		this.updateValueInGUI((org.uva.sea.ql.visitor.eval.value.Money) value);
-	}
+		org.uva.sea.ql.visitor.eval.value.Money valueAsMoney = (org.uva.sea.ql.visitor.eval.value.Money) value;
 
-	private void updateValueInGUI(org.uva.sea.ql.visitor.eval.value.Money value) {
 		// JTextField.setText() fires a remove and insert event.
 		// We however only want to trigger an update once.
 		// Therefore we remove the eventlistener and add it
@@ -43,7 +41,8 @@ public class Money extends Widget implements DocumentListener {
 		this.component.getDocument().removeDocumentListener(this);
 
 		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-		java.lang.String valueAsString = numberFormat.format(value.getValue());
+		java.lang.String valueAsString = numberFormat.format(valueAsMoney
+				.getValue());
 		this.component.setText(valueAsString);
 
 		this.propagateChange();
@@ -64,6 +63,11 @@ public class Money extends Widget implements DocumentListener {
 
 		return new org.uva.sea.ql.visitor.eval.value.Money(new BigDecimal(
 				number.longValue()));
+	}
+
+	@Override
+	public void setReadOnly(boolean isReadOnly) {
+		this.component.setEnabled(!isReadOnly);
 	}
 
 	@Override

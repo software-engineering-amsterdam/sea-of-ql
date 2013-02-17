@@ -24,17 +24,15 @@ public class String extends Widget implements DocumentListener {
 	@Override
 	public void setValue(AbstractValue value) {
 		// The semantic check guarantees that this is a String.
-		this.updateValueInGUI((org.uva.sea.ql.visitor.eval.value.String) value);
-	}
+		org.uva.sea.ql.visitor.eval.value.String valueAsString = (org.uva.sea.ql.visitor.eval.value.String) value;
 
-	private void updateValueInGUI(org.uva.sea.ql.visitor.eval.value.String value) {
 		// JTextField.setText() fires a remove and insert event.
 		// We however only want to trigger an update once.
 		// Therefore we remove the eventlistener and add it
 		// after the change is made.
 		this.component.getDocument().removeDocumentListener(this);
 
-		this.component.setText(value.getValue());
+		this.component.setText(valueAsString.getValue());
 
 		this.propagateChange();
 
@@ -45,6 +43,11 @@ public class String extends Widget implements DocumentListener {
 	public AbstractValue getValue() {
 		java.lang.String value = this.component.getText();
 		return new org.uva.sea.ql.visitor.eval.value.String(value);
+	}
+
+	@Override
+	public void setReadOnly(boolean isReadOnly) {
+		this.component.setEnabled(!isReadOnly);
 	}
 
 	@Override

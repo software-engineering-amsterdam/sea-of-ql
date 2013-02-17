@@ -28,10 +28,8 @@ public class Int extends Widget implements DocumentListener {
 	@Override
 	public void setValue(AbstractValue value) {
 		// The semantic check guarantees that this is a Int.
-		this.updateValueInGUI((org.uva.sea.ql.visitor.eval.value.Int) value);
-	}
+		org.uva.sea.ql.visitor.eval.value.Int valueAsInt = (org.uva.sea.ql.visitor.eval.value.Int) value;
 
-	private void updateValueInGUI(org.uva.sea.ql.visitor.eval.value.Int value) {
 		// JTextField.setText() fires a remove and insert event.
 		// We however only want to trigger an update once.
 		// Therefore we remove the eventlistener and add it
@@ -39,7 +37,7 @@ public class Int extends Widget implements DocumentListener {
 		this.component.getDocument().removeDocumentListener(this);
 
 		java.lang.String valueAsString = java.lang.String.format("%d",
-				value.getValue());
+				valueAsInt.getValue());
 		this.component.setText(valueAsString);
 
 		this.propagateChange();
@@ -52,6 +50,11 @@ public class Int extends Widget implements DocumentListener {
 		java.lang.String value = this.component.getText();
 		int i = Integer.parseInt(value);
 		return new org.uva.sea.ql.visitor.eval.value.Int(i);
+	}
+
+	@Override
+	public void setReadOnly(boolean isReadOnly) {
+		this.component.setEnabled(!isReadOnly);
 	}
 
 	@Override
