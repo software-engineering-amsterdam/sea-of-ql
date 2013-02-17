@@ -22,7 +22,6 @@ public class BooleanType extends Type {
 
 	@Override
 	public Result getTypeContainer() {
-		// TODO Auto-generated method stub
 		return new BooleanResult(false);
 	}
 }

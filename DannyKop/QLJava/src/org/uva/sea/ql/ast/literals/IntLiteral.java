@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 public class IntLiteral extends Literal<Integer> {
 
@@ -15,13 +15,12 @@ public class IntLiteral extends Literal<Integer> {
 	public IntLiteral(int v) {
 		this.value = v;
 	}
-
+	public Integer getValue(){
+		return this.value;
+	}
 	@Override
 	public Type typeOf(SymbolTable st) {
 		return new IntType();
-	}
-	public Integer getValue(){
-		return this.value;
 	}
 
 }

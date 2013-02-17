@@ -2,18 +2,18 @@ package org.uva.sea.ql.ast.statement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.interpreter.BoolVal;
+import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Message;
+import org.uva.sea.ql.ui.components.BaseComponent;
 
-import ui.UIComponent;
 
 public class IfThenElse extends If{
 	
 	private final List<Statement> elseBody;
+	
 	
 	public IfThenElse(Expr condition, List<Statement> ifBody, List<Statement> elseBody){
 		super(condition,ifBody);
@@ -25,13 +25,12 @@ public class IfThenElse extends If{
 	}
 
 	@Override
-	public List<Message> checkType(Map<Ident, Type> typeEnv) {
-		ArrayList<Message> errors = new ArrayList<Message>();
-		
-		errors.addAll(super.checkType(typeEnv));
+	public List<Message> checkType(Env env) {
+		ArrayList<Message> errors = new ArrayList<Message>();	
+		errors.addAll(super.checkType(env));
 		
 		for(Statement statement : elseBody){
-			errors.addAll(statement.checkType(typeEnv));
+			errors.addAll(statement.checkType(env));
 		}		
 		
 		return errors;
@@ -41,7 +40,6 @@ public class IfThenElse extends If{
 	public void printSelf(int indentation){
 		super.printSelf(indentation);
 		printIndentation(indentation);
-		System.out.println("Else");
 		
 		for(Statement statement : elseBody){
 			statement.printSelf(indentation + 1);
@@ -49,15 +47,44 @@ public class IfThenElse extends If{
 	}
 	
 	@Override
-	public List<UIComponent> getUIComponents() {
-		ArrayList<UIComponent> components = new ArrayList<UIComponent>();
+	public List<BaseComponent> getUIComponents(Env env, Form form) {
+		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
 		
-		components.addAll(super.getUIComponents());
+		components.addAll(super.getUIComponents(env, form));
 		
 		for(Statement statement : elseBody){
-			components.addAll(statement.getUIComponents());
+			components.addAll(statement.getUIComponents(env, form));
 		}
 		
 		return components;
 	}
+	
+	@Override
+	public boolean eval(Env env) {
+		evalIf(env);
+		setVisible(!((BoolVal)condition.eval(env)).getValue());
+		
+		boolean retVal = true; 
+		for(Statement statement : elseBody){
+			retVal = statement.eval(env) && retVal; 
+		}
+		return retVal; 
+	}
+	
+	@Override
+	public void initTypes(Env env) {
+		super.initTypes(env);
+		for(Statement statement : elseBody){
+			statement.initTypes(env);
+		}
+	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(!visible);
+		for(Statement statement : elseBody){
+			statement.setVisible(visible);
+		}
+	}
+	
 }

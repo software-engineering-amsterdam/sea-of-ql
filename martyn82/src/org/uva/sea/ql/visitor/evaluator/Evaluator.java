@@ -28,7 +28,7 @@ import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-public class Evaluator implements ExpressionVisitor<Value> {
+class Evaluator implements ExpressionVisitor<Value> {
 	private final Environment environment;
 
 	private Evaluator( Environment environment ) {

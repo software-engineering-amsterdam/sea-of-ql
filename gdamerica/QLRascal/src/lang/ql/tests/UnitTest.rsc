@@ -8,16 +8,15 @@
  
 module lang::ql::tests::UnitTest
 
-import lang::ql::ast::AST;
-import lang::ql::util::Parse;
-import ParseTree;
+extend lang::ql::tests::TestConditions;
+extend lang::ql::tests::TestDataTypes;
+extend lang::ql::tests::TestElseIfConditions;
+extend lang::ql::tests::TestExpressions;
+extend lang::ql::tests::TestForms;
+extend lang::ql::tests::TestFormChecker;
+extend lang::ql::tests::TestQuestions;
 
-import lang::ql::tests::TestConditions;
-import lang::ql::tests::TestDataTypes;
-import lang::ql::tests::TestElseIfConditions;
-import lang::ql::tests::TestExpressions;
-import lang::ql::tests::TestForms;
-import lang::ql::tests::TestFormChecker;
-import lang::ql::tests::TestQuestions;
+
+
 
 

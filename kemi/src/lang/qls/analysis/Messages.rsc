@@ -10,7 +10,6 @@
 
 module lang::qls::analysis::Messages
 
-import lang::ql::ast::AST;
 import util::IDE;
 import util::LocationHelper;
 
@@ -29,7 +28,7 @@ public Message questionUnused(str ident, loc location) =
 public Message questionAlreadyDefined(loc old, loc cur) = 
   error("Question already used at line <old.begin.line>", cur);
 
-public Message getAccompanyingFormNotFound(str name, loc location) =
+public Message accompanyingFormNotFound(str name, loc location) =
   error("No form found with name <name>", location);
 
 public Message stylesheetDoesNotMatchFilename(str name, loc location) = 
@@ -44,3 +43,6 @@ public Message typeWithInvalidAttr(str attr, str \type, loc location) =
 
 public Message typeWithInvalidWidget(str widget, str \type, loc location) =
   error("Widget <widget> not allowed for type <\type>", location);
+
+public Message invalidRangeType(str \type, loc location) =
+  error("Decimal ranges not allowed for type <\type>", location);

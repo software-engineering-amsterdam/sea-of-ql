@@ -24,9 +24,10 @@ CONTACT
 
 TO DO
 ======================
-
+Implement generator for JavaScript.
 Known Bugs:
 -----------
-   Fixed - 1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.
-   Fixed - 2. Cyclic dependencies should be implemented.
-   low priority - 3. integer, float, money should be considered as numeric values
+  1. Change If javascript statements whole structure..
+  2. problems with single line comments?? 
+  3. appearance of the code
+  4. remove files

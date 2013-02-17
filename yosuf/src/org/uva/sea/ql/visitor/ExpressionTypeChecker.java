@@ -4,6 +4,7 @@ import static julius.validation.Assertions.checked;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import julius.validation.ValidationException;
 
@@ -39,8 +40,11 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	private final List<TypeCheckException> typeErrors;
 
-	public ExpressionTypeChecker() {
+	private final Map<Natural, Natural> environment;
+
+	public ExpressionTypeChecker(final Map<Natural, Natural> environment) {
 		typeErrors = new ArrayList<TypeCheckException>();
+		this.environment = environment;
 	}
 
 	public List<TypeCheckException> getTypeErrors() {
@@ -113,7 +117,11 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	@Override
 	public Natural visit(final Identifier identifier) {
-		return identifier;
+		if (environment.get(identifier) == null) {
+			return identifier;
+		} else {
+			return environment.get(identifier);
+		}
 	}
 
 	@Override

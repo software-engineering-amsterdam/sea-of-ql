@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.TypeBool;
 
 public class Or extends Binary {
 
@@ -12,7 +13,6 @@ public class Or extends Binary {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TypeBool();
 	}
 }

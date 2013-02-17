@@ -8,8 +8,8 @@ private str LANG = "QL-R";
 private str EXT = "q";
 
 
-public void main() {
-  registerLanguage(LANG, EXT, Tree(str src, loc l) {
-     return parse(src, l);
-  });
-}
+//public void main() {
+//  registerLanguage(LANG, EXT, Tree(str src, loc l) {
+//     return parse(src, l);
+//  });
+//}

@@ -11,6 +11,7 @@ import lang::ql::ide::SemanticChecker::DataTypeChecker;
 import lang::ql::ide::SemanticChecker::QuestionChecker;
 import lang::ql::ide::SemanticChecker::Environment;
 import lang::ql::util::Implode;
+import Message;
 
 /**
 * Check function QL forms
@@ -19,10 +20,11 @@ import lang::ql::util::Implode;
 public ENV checkForm(Form f){                                                
  	if(form(str id, list[Element] fElem ) := f){	 
 		ENV env = <{},[],[]>; 
-     	env0 = checkListElements(fElem, env);
-     	env1 = checkDuplicateLabels(env0);
-     	env2 = checkQstnDuplicates(fElem, env1);
-	 	return env2;
+     	env0 = checkQstnDuplicates(fElem, env);
+     	env1 = checkListElements(fElem, env0);
+     	env2 = checkDuplicateLabels(env1);
+     	env3 = checkCyclic(fElem, env2);
+	 	return env3;
   } else
      	throw "Syntax Error";
 }
@@ -31,3 +33,5 @@ public ENV checkForm(Form f){
 * Function defines how to check the source code of a given Form 
 */                                                                        
 public ENV checkForm(loc l) = checkForm(load(l));
+public set[Message] checkQl(Form f) = getMessages(checkForm(f));
+

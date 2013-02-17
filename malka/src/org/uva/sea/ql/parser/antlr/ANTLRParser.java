@@ -1,11 +1,11 @@
 package org.uva.sea.ql.parser.antlr;
 
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IFormElement;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 import java.util.List;
@@ -31,7 +31,7 @@ public class ANTLRParser implements IParse {
 	}
 	
 	@Override
-	public FormElement parseFormElement(String src) throws ParseError {
+	public IFormElement parseFormElement(String src) throws ParseError {
 		QLParser parser = new QLParser(getTokens(src));
 		try {
 			return parser.formElement();
@@ -52,7 +52,7 @@ public class ANTLRParser implements IParse {
 	}
 	
 	@Override
-	public List<FormElement> parseFormElements(String src) throws ParseError {
+	public List<IFormElement> parseFormElements(String src) throws ParseError {
 		QLParser parser = new QLParser(getTokens(src));
 		try {
 			return parser.formElementList();

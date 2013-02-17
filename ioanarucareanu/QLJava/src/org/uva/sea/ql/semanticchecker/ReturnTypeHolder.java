@@ -19,9 +19,9 @@ public class ReturnTypeHolder {
 
 	}
 	
-	public static final VoidType getVoidType() {
-		return voidType;
-	}
+//	public static final VoidType getVoidType() {
+//		return voidType;
+//	}
 
 	public static BooleanType getBoolType() {
 		return boolType;

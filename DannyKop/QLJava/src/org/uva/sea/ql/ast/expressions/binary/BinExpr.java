@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Class: BinExpr.
@@ -42,7 +42,7 @@ public abstract class BinExpr extends Expr {
 	 * @param visitor
 	 */
 	@Override
-	public void accept(Visitor visitor){
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

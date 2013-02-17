@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Interface: ASTNode
@@ -12,5 +12,5 @@ public interface ASTNode {
 	 * accept()
 	 * @param visitor
 	 */
-	public void accept(Visitor visitor);
+	public <T> T accept(Visitor<T> visitor);
 }

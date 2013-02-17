@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expressions.binary;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 /**
  * Class: Div
@@ -19,10 +19,8 @@ public class Div extends BinExpr {
 	public Div(Expr l, Expr r) {
 		super(l, r);
 	}
-
 	@Override
 	public Type typeOf(SymbolTable st) {
-		// TODO Auto-generated method stub
 		return new IntType();
 	}
 	

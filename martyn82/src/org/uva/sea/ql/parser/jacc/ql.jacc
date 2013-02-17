@@ -30,15 +30,15 @@
 %type <StringType>      STRING
 
 // AST nodes
-%type <Assignment>      assignment
-%type <Expression>      expression
-%type <FormDeclaration> form
-%type <IfThen>          ifthen
-%type <IfThenElse>      ifthenelse
-%type <Statement>       statement
-%type <Statements>      formbody ifbody statements
-%type <Type>            datatype
-%type <VarDeclaration>  vardeclaration
+%type <Assignment>           assignment
+%type <Expression>           expression
+%type <FormDeclaration>      form
+%type <IfThen>               ifthen
+%type <IfThenElse>           ifthenelse
+%type <Statement>            statement
+%type <Statements>           formbody ifbody statements
+%type <Type>                 datatype
+%type <VariableDeclaration>  vardeclaration
 
 %{
 import org.uva.sea.ql.ast.expression.*;
@@ -73,8 +73,8 @@ import org.uva.sea.ql.ast.type.*;
  formbody       : statements
                 ;
 
- question       : STR vardeclaration               { $$ = new QuestionVariable( $1, $2 ); }
-                | STR assignment                   { $$ = new QuestionComputed( $1, $2 ); }
+ question       : STR vardeclaration               { $$ = new VariableQuestion( $1, $2 ); }
+                | STR assignment                   { $$ = new ComputedQuestion( $1, $2 ); }
                 ;
 
  blockstatement : ifthen
@@ -93,7 +93,7 @@ import org.uva.sea.ql.ast.type.*;
                 | IF '(' expression ')' '{' ifbody '}' ELSE ifthenelse      { $$ = new IfThenElse( $3, $6, new Statements( $9 ) ); }
                 ;
 
- vardeclaration : IDENT ':' datatype               { $$ = new VarDeclaration( $1, $3 ); }
+ vardeclaration : IDENT ':' datatype               { $$ = new VariableDeclaration( $1, $3 ); }
                 ;
 
  assignment     : IDENT '=' expression             { $$ = new Assignment( $1, $3 ); }

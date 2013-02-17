@@ -9,14 +9,13 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.Value;
 
 public class ANTLRParser implements IParse {
 
 	public QLParser parse(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
+		tokens.setTokenSource(new QLLexer(stream)); 
 		QLParser parser = new QLParser(tokens);
 		return parser;
 	}
@@ -30,14 +29,6 @@ public class ANTLRParser implements IParse {
 			}
 	} 
 	
-	@Override
-	public Value parseValue(String src) throws ParseError {
-		try {
-			return parse(src).value();
-			} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-			}
-	}
 	@Override
 	public Type parseType(String src) throws ParseError {
 		try {
@@ -56,36 +47,57 @@ public class ANTLRParser implements IParse {
 				throw new ParseError(e.getMessage());
 				}
 			}
-		
-	@Override		
-	public Statement parseSimpleQuestion(String src) throws ParseError {
+
+	@Override
+	public Statement parseStatement(String src) throws ParseError {
 		try{
-				return parse(src).simplequestion();
-			}
-			catch (RecognitionException e) {
-				throw new ParseError(e.getMessage());
-				}
+			return parse(src).body();
 		}
-	@Override	
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+			}
+		}
+
+	@Override
 	public Statement parseIfThen(String src) throws ParseError {
 		try{
-				return parse(src).ifthen();
-			}
+			return parse(src).ifthen();
+		}
 		catch (RecognitionException e) {
-				throw new ParseError(e.getMessage());
+			throw new ParseError(e.getMessage());
 			}
 		}
-		
+	
 	@Override
 	public Statement parseIfThenElse(String src) throws ParseError {
 		try{
-				return parse(src).ifthenelse();
-			}
-			catch (RecognitionException e) {
-				throw new ParseError(e.getMessage());
+			return parse(src).ifthenelse();
+		}
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
 			}
 		}
-		
+	
+	
+	@Override
+	public Statement parseSimpleQuestion(String src) throws ParseError {
+		try{
+			return parse(src).simplequestion();
+		}
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+			}
+		}
+
+	@Override
+	public Statement parseComQuestion(String src) throws ParseError {
+		try{
+			return parse(src).comquestion();
+		}
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+			}
+		}
 }
 	
 

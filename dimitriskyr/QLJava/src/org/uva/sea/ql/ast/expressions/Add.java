@@ -20,7 +20,6 @@ public class Add extends BinaryExpression{
 	@Override
 	public <T> T accept(ICheckExprVisitor<T> visitor) {
 		return  visitor.visit(this);
-	}
-	
+	}	
 	
 }

@@ -4,28 +4,29 @@ import java.util.Map;
 
 import ast.Expression;
 import ast.Type;
+import ast.expression.Visitor;
 import ast.expression.Unary;
-import ast.visitor.Visitor;
+import ast.expression.value.Ident;
 
 public class Neg extends Unary {
-	private final int level = 6;
 
 	public Neg(Expression expr) {
 		super(expr);
 	}
-
-	public int getLevel() {
-		return level;
-	}
 	
 	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
-		return new ast.type.Numeric();
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new ast.type.Int();
 	}
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+
+	@Override
+	public String typeStr() {
+		return "(-)";
 	}
 
 }

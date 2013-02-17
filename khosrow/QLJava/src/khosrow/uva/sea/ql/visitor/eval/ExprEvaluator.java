@@ -6,14 +6,14 @@ import khosrow.uva.sea.ql.values.*;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExprEvaluator implements IExprVisitor<Value> {
-	private final Env valueEnv;
+	private final Env env;
 	
-	public ExprEvaluator(Env valueEnv) {
-		this.valueEnv = valueEnv;
+	private ExprEvaluator(Env env) {
+		this.env = env;
 	}
 	
-	public static Value Evaluate(Expr expr, Env valueEnv) {
-		ExprEvaluator evaluater = new ExprEvaluator(valueEnv);
+	public static Value Evaluate(Expr expr, Env env) {
+		ExprEvaluator evaluater = new ExprEvaluator(env);
 		return expr.accept(evaluater);
 	}
 	
@@ -88,7 +88,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 
 	@Override
 	public Value visit(Ident ast) {
-		return valueEnv.valueOf(ast);
+		return env.valueOf(ast);
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	public Env getValueEnv() {
-		return valueEnv;
+		return env;
 	}
 
 }

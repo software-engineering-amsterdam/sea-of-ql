@@ -3,14 +3,14 @@ package org.uva.sea.ql.ast.ql;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.semanticchecker.QLItemSemanticVisitor;
-import org.uva.sea.ql.semanticchecker.VisitableExpression;
+import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.semanticchecker.VisitableStatement;
 
-public class QLForm implements ASTNode, QLItem {
+public class QLForm implements ASTNode, VisitableStatement {
 	private final Ident name;
-	private final Block<QLItem> blockOfItems;
+	private final Block blockOfItems;
 	
-	public QLForm(Ident name, Block<QLItem> blockItems) {
+	public QLForm(Ident name, Block blockItems) {
 		this.name = name;
 		this.blockOfItems = blockItems;
 	}
@@ -19,14 +19,13 @@ public class QLForm implements ASTNode, QLItem {
 		return name;
 	}
 
-	public Block<QLItem> getBlockOfItems() {
+	public Block getBlockOfItems() {
 		return blockOfItems;
 	}
 
 	@Override
-	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
-		
-		visitor.visit((QLForm)visitableElement);
+	public void accept(StatementVisitor visitor) {		
+		visitor.visit(this);
 	}
 	
 }

@@ -12,7 +12,7 @@ import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.visitor.TypeVisitor;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-public class ControlRenderer implements TypeVisitor<Control> {
+class ControlRenderer implements TypeVisitor<Control> {
 	private final ControlFactory factory;
 
 	public ControlRenderer( ControlFactory factory ) {

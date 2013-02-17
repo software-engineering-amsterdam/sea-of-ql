@@ -1,61 +1,43 @@
 module template::File
 
 import IO;
+import Prelude;
+import syntax::AbstractSyntax;
 import template::StringTemplate;
 import template::CSS;
 import template::JavaScript;
+import template::EvaluateExpression;
+
+/** Method to create a QL directory and files
+* @param
+* @authot Philipp
+*/
+public void createQLOnHarddisk(str id){
+	loc dir = generateQLDirectory(id);
+	createEmptyHTMLFile(id, dir);
+	createEmptyJavaScriptFile(id, dir);
+	createEmptyCSSFile(id, dir);
+	createEmptyPHPFile(id, dir);
+}
 
 /** Method to generate a directory for the JavaScript Program
 * @return l the location of the directory
 * @ author Philipp
 */
-loc generateQLDirectory(){
-	l = |home:///TestQLJavaScript|;
-	if(isDirectory(l)){
-		println("NO CREATE");
-		return l;
-	}else{
-		println("create L : <l>");
+loc generateQLDirectory(str id){
+	l = |file:///wamp/www/|;
+	l += id;
+	if(isDirectory(l)) return l;
+	else{
 		mkDirectory(l);
 		return l;
 	}
 }
 
-void generateCSSFile(str id, str css, loc l){
-	l += "<id>.css";
-	if(isFile(l)){
-		println("append to file : <l>");
-		appendToFile(l, "\n <css>");
-	}else{
-		writeFile(l,css);
-	}
-}
-
-
 public void appendToHTMLFile(str formId, str text){
-	loc l = |home:///TestQLJavaScript|;
+	l = |file:///wamp/www/<formId>|;
 	l += "<formId>.html";
 	appendToFile(l, "\n <text>");
-}
-
-public void appendToJavaScriptFile(str formId, str text){
-	loc l = |home:///TestQLJavaScript|;
-	l += "<formId>.js";
-	
-	appendToFile(l, "\n <text>");
-}
-
-public void appendToCssFile(str formId, str text){
-	loc l = |home:///TestQLJavaScript|;
-	l += "<formId>.css";
-	appendToFile(l, "\n <text>");
-}
-
-public void createQLOnHarddisk(str id){
-	loc dir = generateQLDirectory();
-	createEmptyHTMLFile(id, dir);
-	createEmptyJavaScriptFile(id, dir);
-	createEmptyCSSFile(id, dir);
 }
 
 void createEmptyHTMLFile(str id, loc dir){
@@ -65,7 +47,8 @@ void createEmptyHTMLFile(str id, loc dir){
 
 void createEmptyJavaScriptFile(str id, loc dir){
 	dir += "<id>.js";
-	writeFile(dir,"");
+	writeFile(dir,"var <id>;
+	var <id>Submit;");
 }
 
 void createEmptyCSSFile(str id, loc dir){
@@ -73,37 +56,36 @@ void createEmptyCSSFile(str id, loc dir){
 	writeFile(dir,"");
 }
 
+void createEmptyPHPFile(str id, loc dir){
+	dir += "<id>.php";
+	writeFile(dir,"\<?php ");
+}
+
 public void generateCSSFile(str formId, str id){
-	loc dir = generateQLDirectory();
+	loc dir = generateQLDirectory(formId);
 	s = cssEndLabels(id);
 	generateCSSFile(formId,s,dir);
 }
 
-void createValidatorFile(loc l){
-	l += "gen_validatorv4.js";
-	str v = readFile(|project://QL/src/template/Validator|);
-	println("VVV : <v>");
-	writeFile(l, v);
-}
-
-public void javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	str check = "function <checkBoxId>DoTheCheck() {
-	//	if(document.<formId>.<checkBoxId>.checked == true)
-	{ alert(\'<checkBoxId> is checked\'); }
-	//if(document.<formId>.<checkBoxId>.checked == false)
-	//{ alert(\'<checkBoxId> is not checked\'); }
-	}"; 
-	//javaScriptAddCheckFunction(formId, checkBoxId);
-	appendToJavaScriptFile(formId, "\n <check>");
-	//appendToFile(dir, "\n <check>");
-}
-
-private str javaScriptAddCheckFunction(str formId, str checkBoxId) {
-	return "function <checkBoxId>DoTheCheck() {
-	//	if(document.<formId>.<checkBoxId>.checked == true)
-	{ alert(\'<checkBoxId> is checked\'); }
-	if(document.<formId>.<checkBoxId>.checked == false)
-	{ alert(\'<checkBoxId> is not checked\'); }
+public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, str exp,list[str] children){
+	str ifTrue = "";
+	for(i <- thenPart){
+		ifTrue += i;
+	}
+	str check = "function <checkBoxId> {
+	if(<exp>)
+	{
+		<formId>.removeChild(<formId>Submit);
+		<ifTrue>
+		<formId>.appendChild(<formId>Submit);
+	}else {
+		if(<children[0]>Paragraph.parentNode != null)
+		{
+		<for(c <- children){>
+		<formId>.removeChild(<c>Paragraph);
+		<}>
+		}
+	}
 	}";
+	appendToJavaScriptFile(formId, "\n <check>");
 }
-

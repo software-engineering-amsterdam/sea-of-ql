@@ -4,15 +4,18 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.core.dom.Identifier;
+import org.uva.sea.ql.core.dom.operators.conditional.*;
+import org.uva.sea.ql.core.dom.types.primitive.BooleanLiteral;
+import org.uva.sea.ql.core.dom.types.primitive.IntLiteral;
+import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 import org.uva.sea.ql.parsers.PrimaryParser;
-import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class PrimaryParserTests {
 
-	private ParserBase parser;
+	private ParserBaseForExpressions parser;
 	
 	@Before
     public void setUp() {
@@ -31,22 +34,22 @@ public class PrimaryParserTests {
 	
 	@Test
 	public void does_returnIdent_when_textIsALetter() throws ParseException {
-		assertEquals(Ident.class, parser.parse("a").getClass());		
+		assertEquals(Identifier.class, parser.parse("a").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsAWord() throws ParseException {
-		assertEquals(Ident.class, parser.parse("abc").getClass());		
+		assertEquals(Identifier.class, parser.parse("abc").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsAWordEndingWithANumber() throws ParseException {
-		assertEquals(Ident.class, parser.parse("abc1").getClass());		
+		assertEquals(Identifier.class, parser.parse("abc1").getClass());		
 	}
 	
 	@Test
 	public void does_returnIdent_when_textIsStartsWithALetterButContainsNumbers() throws ParseException {
-		assertEquals(Ident.class, parser.parse("a2bc123").getClass());		
+		assertEquals(Identifier.class, parser.parse("a2bc123").getClass());		
 	}
 	
 	@Test

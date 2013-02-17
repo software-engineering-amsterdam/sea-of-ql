@@ -35,7 +35,7 @@ import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.Environment;
 
-public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
+class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	private final Environment environment;
 
 	public static Type typeOf( Expression expression, Environment environment ) {
@@ -54,7 +54,8 @@ public class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 		if ( leftType.isCompatibleToMoney() || rightType.isCompatibleToMoney() ) {
 			return MoneyType.MONEY;
 		}
-		else if ( leftType.isCompatibleToInt() || rightType.isCompatibleToInt() ) {
+
+		if ( leftType.isCompatibleToInt() || rightType.isCompatibleToInt() ) {
 			return IntegerType.INTEGER;
 		}
 

@@ -12,6 +12,11 @@ public class IntVal extends NumericVal {
 	}
 	
 	@Override
+	public String toString(){
+		return getValue().toString();
+	}
+	
+	@Override
 	public Value add(Value arg) {
 		return arg.addInt(this);
 	}
