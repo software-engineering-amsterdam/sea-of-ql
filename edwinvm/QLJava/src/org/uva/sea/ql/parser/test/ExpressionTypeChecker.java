@@ -21,7 +21,7 @@ import org.uva.sea.ql.parser.antlr.check.ANTLRParserTypes;
 
 public class ExpressionTypeChecker {
 	
-	private IParser _parser;
+	private final IParser _parser;
 	private final SupportedTypes _supportedTypes;
 	
 	public ExpressionTypeChecker() {
@@ -50,7 +50,7 @@ public class ExpressionTypeChecker {
 	public void isOfTypeString(String input)  throws ParseError { assertTrue(getTypeFor(input).isCompatibleToStr());     }
 	public void isOfTypeIdent(String input)   throws ParseError { assertTrue(isIdentCompatibleWithType(input));          }
 	
-	public Type getTypeFor(String input) throws ParseError {
+	private Type getTypeFor(String input) throws ParseError {
 		return getTypeForLiteralExpression(input);
 	}
 	
