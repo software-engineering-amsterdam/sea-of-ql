@@ -5,7 +5,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Neg extends UnaryMathOperator {
-    public static final String STR = "-";
+    private static final String STR = "-";
 
     public Neg(Expr ex) {
         super(ex);

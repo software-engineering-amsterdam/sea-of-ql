@@ -6,7 +6,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class LT extends BinaryBooleanOperator implements Evaluatable {
-    public static final String STR = "<";
+    private static final String STR = "<";
 
     public LT(Expr left, Expr right) {
         super(left, right);

@@ -5,7 +5,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Div extends BinaryMathOperator {
-    public static final String STR = "/";
+    private static final String STR = "/";
 
     public Div(Expr left, Expr right) {
         super(left, right);

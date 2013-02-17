@@ -5,7 +5,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Add extends BinaryMathOperator {
-    public static final String STR = "+";
+    private static final String STR = "+";
 
     public Add(Expr left, Expr right) {
         super(left, right);

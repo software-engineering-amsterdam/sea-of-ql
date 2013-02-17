@@ -5,7 +5,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class GT extends BinaryBooleanOperator {
-    public static final String STR = ">";
+    private static final String STR = ">";
 
     public GT(Expr left, Expr right) {
         super(left, right);

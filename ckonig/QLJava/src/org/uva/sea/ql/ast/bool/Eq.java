@@ -5,7 +5,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Eq extends BinaryBooleanOperator {
-    public static final String STR = "==";
+    private static final String STR = "==";
 
     public Eq(Expr left, Expr right) {
         super(left, right);

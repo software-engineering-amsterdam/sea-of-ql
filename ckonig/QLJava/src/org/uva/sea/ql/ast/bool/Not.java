@@ -5,7 +5,7 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Not extends UnaryBooleanOperator {
-    public static final String STR = "!";
+    private static final String STR = "!";
 
     public Not(Expr ex) {
         super(ex);
