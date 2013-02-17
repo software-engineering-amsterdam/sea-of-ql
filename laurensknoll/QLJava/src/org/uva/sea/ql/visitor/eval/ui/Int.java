@@ -29,7 +29,6 @@ public class Int extends Widget implements DocumentListener {
 	public void setValue(AbstractValue value) {
 		// The semantic check guarantees that this is a Int.
 		this.updateValueInGUI((org.uva.sea.ql.visitor.eval.value.Int) value);
-
 	}
 
 	private void updateValueInGUI(org.uva.sea.ql.visitor.eval.value.Int value) {
@@ -62,14 +61,12 @@ public class Int extends Widget implements DocumentListener {
 
 	@Override
 	public void insertUpdate(DocumentEvent arg0) {
-		this.setChanged();
-		this.notifyObservers();
+		this.propagateChange();
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent arg0) {
-		this.setChanged();
-		this.notifyObservers();
+		this.propagateChange();
 	}
 
 	private void propagateChange() {
