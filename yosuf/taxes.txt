@@ -1,17 +1,16 @@
 form Taxes {
+	String name = "What is your name?";
+	Integer age = "How old are you?";
 	Boolean married = "Are you married?";
-	Boolean homeless = "Have you been homeless?";
-	Integer incomes = "What were your incomes of last year?";
-	
-	if( homeless ) {
-		String reason = "Why did you get homeless?";
-	}
 	
 	if( married ) {
 		String spouseName = "What is your spouse's name";
-	} else {
-		Boolean livingAlone = "Do you live alone?";
+		Integer spouseAge = "How old is your spouse?";
+		Boolean children = "Do you have any children together?";
 	}
 	
-	Integer cash = 500;
+	Integer previousCapital = "How much cash did you have?";
+	Integer presentCapital = "How much cash do you have?";
+	
+	Integer difference = previousCapital - presentCapital;
 }

@@ -53,8 +53,8 @@ public class Computed extends Block {
 
 	@Override
 	public String toString() {
-		return "Computed [identifier=" + identifier + ", dataType=" + dataType
-				+ ", expression=" + expression + "]";
+		return "Computed [" + identifier + ", " + dataType + ", " + expression
+				+ "]";
 	}
 
 }

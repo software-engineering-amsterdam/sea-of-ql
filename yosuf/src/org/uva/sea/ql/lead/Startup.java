@@ -11,7 +11,6 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.ExpressionTypeChecker;
 import org.uva.sea.ql.visitor.StatementEvaluator;
 import org.uva.sea.ql.visitor.StatementTypeChecker;
 import org.uva.sea.ql.visitor.TypeCheckException;
@@ -48,8 +47,7 @@ public final class Startup extends Application {
 	 * @return true if no errors detected
 	 */
 	private boolean checkTypes(final Form form) {
-		StatementTypeChecker statementChecker = new StatementTypeChecker(
-				new ExpressionTypeChecker());
+		StatementTypeChecker statementChecker = new StatementTypeChecker();
 		statementChecker.visit(form);
 
 		for (TypeCheckException e : statementChecker.getAllTypeErrors()) {

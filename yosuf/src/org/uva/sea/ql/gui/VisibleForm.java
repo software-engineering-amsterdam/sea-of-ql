@@ -4,9 +4,11 @@ import static julius.validation.Assertions.state;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.lead.Model;
 
@@ -36,19 +38,31 @@ public class VisibleForm extends Application {
 		Scene scene = createScene(root, WIDTH, HEIGHT);
 
 		Node formParts = createFormNode();
-		root.getChildren().add(formParts);
+
+		ScrollPane scrollable = new ScrollPane();
+		scrollable.prefHeightProperty().bind(scene.heightProperty());
+		scrollable.prefWidthProperty().bind(scene.widthProperty());
+		scrollable.setContent(formParts);
+		root.getChildren().add(scrollable);
 		stage.setScene(scene);
+		stage.setTitle(form.getIdentifier().getName());
 		stage.show();
 	}
 
 	private Node createFormNode() {
-		VisibleFormNodeCreator visitorBuilder = new VisibleFormNodeCreator();
+		VisibleFormNodeCreator visitorBuilder = new VisibleFormNodeCreator(
+				model);
 
 		return form.accept(visitorBuilder);
 	}
 
 	private Scene createScene(final VBox root, final int width, final int height) {
 		Scene scene = new Scene(root, width, height);
+		scene.getStylesheets().add(
+				ASTNode.class.getResource("../../../../../resources/style.css")
+						.toExternalForm());
+
 		return scene;
 	}
+
 }
