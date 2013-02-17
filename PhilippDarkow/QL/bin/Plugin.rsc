@@ -11,8 +11,11 @@ import visualization::Visualize;
 import ide::Uninit;
 import util::IDE;
 import util::ValueUI;
-import util::Load;
+import util::Parse;
+import util::Implode;
 import ParseTree;
+import template::StringTemplate;
+import visualization::Outline;
 
 private str LANG = "QL";
 private str EXT = "q";
@@ -25,12 +28,10 @@ Tree parser(str x, loc l) {
     return parse(#Program, x, l);
 }
 
-//  Define connection with the Pico checkers
-// (includes type checking and uninitialized variables check)
-
+//  Define connection with the QL checkers
 public Program checkQLProgram(Program x) {
 	println("in check program");
-	p = implode(#Program, x);
+	p = implodeProgram(#Program, x);
 	env = checkProgram(p);
 	errors = { error(v, l) | <loc l, PicoId v> <- env.errors };
 	if(!isEmpty(errors))
@@ -40,15 +41,13 @@ public Program checkQLProgram(Program x) {
 	return x[@messages = warnings];
 }
 
-//  Define the connection with the Pico evaluator
-
+//  Define the connection with the QL evaluator
 //public void evalPicoProgram(Program x, loc selection) {
 //	m = implode(#PROGRAM, x); 
 //	text(evalProgram(m));
 //}
 
 //  Define connection with CFG visualization
-
 //public void visualizeQLProgram(Program x, loc selection) {
 //	m = implode(#Program, x); 
 //	CFG = cflowProgram(m);
@@ -56,7 +55,6 @@ public Program checkQLProgram(Program x) {
 //}
 	
 //  Define all contributions to the QL IDE
-
 public set[Contribution] QL_CONTRIBS = {
 	popup(
 		menu("QL",[
@@ -67,14 +65,35 @@ public set[Contribution] QL_CONTRIBS = {
 };
 
 //  Register the QL tools
-
-public void main() {
+public void registerQL() {
+	println("in main");
   registerLanguage(QL_NAME, QL_EXT, Tree(str src, loc l) {
-     return parse(src, l);
+     println("In register");
+     return parseProgram(src, l);
   });
-  //registerLanguage(QL_NAME, QL_EXT, parser);
-  registerAnnotator(QL_NAME, checkQLProgram);
-//  registerContributions(QL_NAME, QL_CONTRIBS);
+  //registerAnnotator(QL_NAME, checkQLProgram);
+  //registerContributions(QL_NAME, QL_CONTRIBS);
+  registerContributions(QL_NAME, {
+    	outliner(node (Tree t) {
+    		println("t is :<t>");
+			return outline(implodeProgram(t));
+			}
+		),
+
+		menu(menu("QL",[
+		    action("Generate JavaScript", compileQL)
+	    ])
+  	),
+
+	annotator(Tree (Tree t) {
+			println("TREE IS : <t>");
+			return t[@messages = checkProgram(implodeProgram(t))];
+  		})
+  	}); 
+}
+
+public void compileQL(Tree x, loc selection) {
+	println("tree : <x>");
 }
 
 //public void main() {
