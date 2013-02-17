@@ -18,6 +18,9 @@ public class Money extends Widget implements DocumentListener {
 	public Money() {
 		this.component = new JTextField(10);
 		this.component.setText(NumberFormat.getCurrencyInstance().format(0.00));
+
+		// Listener must be added after the initial text is set to prevent
+		// propagation.
 		this.component.getDocument().addDocumentListener(this);
 	}
 
@@ -29,10 +32,23 @@ public class Money extends Widget implements DocumentListener {
 	@Override
 	public void setValue(AbstractValue value) {
 		// The semantic check guarantees that this is a Money.
-		org.uva.sea.ql.visitor.eval.value.Money valueAsMoney = (org.uva.sea.ql.visitor.eval.value.Money) value;
-		BigDecimal amount = valueAsMoney.getValue();
-		this.component.setText(NumberFormat.getCurrencyInstance()
-				.format(amount));
+		this.updateValueInGUI((org.uva.sea.ql.visitor.eval.value.Money) value);
+	}
+
+	private void updateValueInGUI(org.uva.sea.ql.visitor.eval.value.Money value) {
+		// JTextField.setText() fires a remove and insert event.
+		// We however only want to trigger an update once.
+		// Therefore we remove the eventlistener and add it
+		// after the change is made.
+		this.component.getDocument().removeDocumentListener(this);
+
+		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+		java.lang.String valueAsString = numberFormat.format(value.getValue());
+		this.component.setText(valueAsString);
+
+		this.propagateChange();
+
+		this.component.getDocument().addDocumentListener(this);
 	}
 
 	@Override
@@ -43,8 +59,7 @@ public class Money extends Widget implements DocumentListener {
 		try {
 			number = NumberFormat.getCurrencyInstance().parse(value);
 		} catch (ParseException e) {
-			// TODO: Find out why getText returns an empty string.
-			e.printStackTrace();
+			// Sadly this cannot be dealt with, with an if-else.
 		}
 
 		return new org.uva.sea.ql.visitor.eval.value.Money(new BigDecimal(
@@ -53,17 +68,20 @@ public class Money extends Widget implements DocumentListener {
 
 	@Override
 	public void changedUpdate(DocumentEvent arg0) {
-		// When attributes change there is no need to propogate.
+		// When attributes change there is no need to propagate.
 	}
 
 	@Override
 	public void insertUpdate(DocumentEvent arg0) {
-		this.setChanged();
-		this.notifyObservers();
+		this.propagateChange();
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent arg0) {
+		this.propagateChange();
+	}
+
+	private void propagateChange() {
 		this.setChanged();
 		this.notifyObservers();
 	}
