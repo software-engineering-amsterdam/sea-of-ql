@@ -4,24 +4,26 @@ import java.util.*;
 
 import javax.ws.rs.*;
 
+import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
+import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
 import org.uva.sea.ql.ast.types.datatypes.*;
-import org.uva.sea.ql.ast.types.literals.*;
 import org.uva.sea.ql.webserver.base.IWebService;
+
+import com.google.inject.Inject;
 
 @Path("/bootstrap")
 @Produces("application/json")
 @Consumes("application/json")
 public class BootstrapService implements IWebService {
-	private static final List<DataType> types = new ArrayList<DataType>();
-	
 	// Knows all types to validate
-	static {
-		types.add(new IntType());
-		types.add(new BoolType());
-		types.add(new StringType());
-		types.add(new MoneyType());
-	}
-
+	private final StringType stringType = new StringType();
+	private final BoolType boolType = new BoolType();
+	private final IntType intType = new IntType();
+	private final MoneyType moneyType = new MoneyType();
+	
+	@Inject
+	private ITypeChecker typeChecker;
+	
 	@GET
 	@Produces("application/json")
 	@Path("/sayHello")
@@ -31,45 +33,32 @@ public class BootstrapService implements IWebService {
 
 	@POST
 	@Path("/validateInteger")
-	// TODO: validate using QLparser for all inputs? 
 	public boolean validateInteger(final String input) {
-		return types.get(0).isAssignableFrom(input);
+		return intType.isAssignableFrom(input);
 	}
 	
 	@POST
-	@Path("/validateIntLiteral")
-	// TODO: validate using QLparser for all inputs? 
-	public String validateIntLiteral(final IntLiteral literal) {
-		System.out.println("literal: " + literal.getValue());
-		return "hey";
+	@Path("/validateString")
+	public boolean validateString(final String input) {
+		return stringType.isAssignableFrom(input);
 	}	
-	
-	@POST
-	@Path("/validateStringLiteral")
-	// TODO: validate using QLparser for all inputs? 
-	public String validateStringLiteral(final StringLiteral literal) {
-		System.out.println("literal: " + literal.getValue());
-		return "hey";
-	}
 
 	@POST
-	@Path("/validateMoneyLiteral")	
-	public String validateMoneyLiteral(final MoneyLiteral literal) {
-		System.out.println("literal: " + literal.getValue());
-		return "hi";
-	}
-
-	@GET
-	@Path("/sayBye")
-	public String sayBye() {
-		return "BYE!";
+	@Path("/validateMoney")	
+	public boolean validateMoney(final String input) {
+		return moneyType.isAssignableFrom(input);
 	}
 	
-	private DataType createDataType(String type) {
-		if (type.equalsIgnoreCase("string")) return new StringType();
-		else if (type.equalsIgnoreCase("int")) return new IntType();
-		else if (type.equalsIgnoreCase("money")) return new MoneyType();
-		else if (type.equalsIgnoreCase("bool")) return new BoolType();
-		return null;
+	@POST
+	@Path("/validateBool")
+	public boolean validateBoolean(final String input) {
+		return boolType.isAssignableFrom(input);
+	}
+	
+	@POST
+	@Path("/persist")
+	public void validateAndPersistForm(final Map<String, String> inputValues) {
+		SymbolTable table = typeChecker.getSymbolTable();
+
 	}
 }

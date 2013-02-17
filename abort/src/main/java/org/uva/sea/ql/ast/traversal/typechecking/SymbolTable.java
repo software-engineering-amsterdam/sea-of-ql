@@ -45,4 +45,24 @@ public class SymbolTable {
 	public void add(final Ident ident, final DataType dataType) {
 		types.put(ident, dataType);
 	}
+	
+	public DataType getDataTypeByName(final String identName) {
+		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
+			if (entry.getKey().getName().equals(identName)) {
+				return entry.getValue();
+			}
+		}
+		
+		return null;
+	}
+	
+	public boolean containsIdentName(final String identName) {
+		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
+			if (entry.getKey().getName().equals(identName)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

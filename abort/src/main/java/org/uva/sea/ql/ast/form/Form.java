@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
+import org.uva.sea.ql.ast.types.Ident;
+import org.uva.sea.ql.ast.types.datatypes.DataType;
 
 /**
  * Represents a form (as defined in the QL language).

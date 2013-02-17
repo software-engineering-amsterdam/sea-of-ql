@@ -277,6 +277,11 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 		return errorLog.getLength();
 	}
 	
+	@Override
+	public SymbolTable getSymbolTable() {
+		return symbolTable;
+	}
+	
 	/**
 	 * Check numeric binary expressions for errors and log them.
 	 * 

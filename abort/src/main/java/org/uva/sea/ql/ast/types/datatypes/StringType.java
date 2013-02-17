@@ -13,7 +13,10 @@ public class StringType extends DataType {
 	
 	@Override
 	public boolean isAssignableFrom(String input) {
-		// TODO Auto-generated method stub
-		return false;
+		if ("".equals(input)) {
+			return false;
+		}
+		
+		return true;
 	}
 }

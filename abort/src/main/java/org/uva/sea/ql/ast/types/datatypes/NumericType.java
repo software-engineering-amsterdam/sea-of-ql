@@ -13,7 +13,6 @@ public class NumericType extends DataType {
 	
 	@Override
 	public boolean isAssignableFrom(String input) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

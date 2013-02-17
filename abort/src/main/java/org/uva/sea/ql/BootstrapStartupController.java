@@ -84,13 +84,12 @@ public class BootstrapStartupController implements IStartupController {
 		// Create two different content handlers on different binding paths
 		final ServletContextHandler dynamicContentHandler = createServletContextHandler();
 		final ResourceHandler staticContentHandler = createStaticContentHandler();
-		
-		
+
 		HandlerCollection handlers = new HandlerCollection();
 		handlers.addHandler(dynamicContentHandler);
 		handlers.addHandler(staticContentHandler);
 		server.setHandler(handlers);
-
+		
 		try {
 			server.start();
 			server.join();
@@ -104,7 +103,7 @@ public class BootstrapStartupController implements IStartupController {
 		final ServletContextHandler servletContextHandler = new ServletContextHandler();
 
 		// Spawn the webservices
-		servletContextHandler.addEventListener(new ServletConfig());
+		servletContextHandler.addEventListener(new ServletConfig(typeChecker));
 		servletContextHandler.addFilter(GuiceFilter.class, "/ws/*", EnumSet.of(DispatcherType.REQUEST));
 		servletContextHandler.addServlet(EmptyServlet.class, "/ws/*");
 		

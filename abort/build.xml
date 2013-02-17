@@ -163,7 +163,7 @@
 
 	    <target name="run" depends="jar">
 	        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true">
-	        	 <arg line="-i /Users/abort/Desktop/form.ql -o ./web/ -p 1337" />
+	        	 <arg line="-i '/Users/abort/Desktop/form.ql' -p 1337" />
 	        	  <jvmarg value="-Duser.dir=${jar.dir}"/>
 	        </java>
 	    </target>
