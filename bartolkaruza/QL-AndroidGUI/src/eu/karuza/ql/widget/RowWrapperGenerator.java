@@ -2,13 +2,12 @@ package eu.karuza.ql.widget;
 
 import java.util.List;
 
-
 import eu.karuza.ql.ast.AnswerableQuestion;
 import eu.karuza.ql.ast.ComputedQuestion;
-import eu.karuza.ql.ast.ConditionalStatement;
+import eu.karuza.ql.ast.IfConditionalStatement;
 import eu.karuza.ql.ast.Form;
+import eu.karuza.ql.ast.IfElseConditionalStatement;
 import eu.karuza.ql.ast.Statement;
-import eu.karuza.ql.ast.expr.type.BoolType;
 import eu.karuza.ql.visitor.StatementVisitor;
 
 public class RowWrapperGenerator implements StatementVisitor<Void> {
@@ -32,7 +31,7 @@ public class RowWrapperGenerator implements StatementVisitor<Void> {
 	}
 
 	@Override
-	public Void visit(ConditionalStatement node) {
+	public Void visit(IfConditionalStatement node) {
 		if(node.isVisible()) {
 			for(Statement statement : node.getStatements()) {
 				statement.accept(this);
@@ -44,7 +43,7 @@ public class RowWrapperGenerator implements StatementVisitor<Void> {
 	@Override
 	public Void visit(AnswerableQuestion node) {
 		RowWrapper wrapper;
-		if(node.getType() instanceof BoolType) {
+		if(node.getType().isCompatibleToBool()) {
 			wrapper = new CheckBoxRow(node);
 		} else {
 			wrapper = new TextRow(node);
@@ -56,6 +55,20 @@ public class RowWrapperGenerator implements StatementVisitor<Void> {
 	@Override
 	public Void visit(ComputedQuestion node) {
 		widgetList.add(new ValueRow(node));
+		return null;
+	}
+
+	@Override
+	public Void visit(IfElseConditionalStatement node) {
+		List<Statement> statements;
+		if(node.isVisible()) {
+			statements = node.getIfStatements();
+		} else {
+			statements = node.getElseStatements();
+		}
+		for(Statement statement : statements) {
+			statement.accept(this);
+		}
 		return null;
 	}
 }

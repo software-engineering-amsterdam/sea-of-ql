@@ -2,13 +2,15 @@ package eu.karuza.ql.ui;
 
 import java.util.List;
 
-
+import android.app.ListFragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import eu.karuza.ql.R;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.service.ParserService;
 import eu.karuza.ql.widget.RowWrapper;
-
-import android.app.ListFragment;
-import android.os.Bundle;
 
 public class QuestionListFragment extends ListFragment implements FormAdapter.Callbacks {
 
@@ -17,6 +19,11 @@ public class QuestionListFragment extends ListFragment implements FormAdapter.Ca
 
 	public QuestionListFragment() {
 
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.fragment_question, null);
 	}
 
 	@Override

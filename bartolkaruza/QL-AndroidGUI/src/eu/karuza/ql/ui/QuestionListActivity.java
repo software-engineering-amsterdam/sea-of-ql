@@ -1,7 +1,5 @@
 package eu.karuza.ql.ui;
 
-
-
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Loader;
@@ -93,6 +91,8 @@ public class QuestionListActivity extends Activity implements LoaderCallbacks<Lo
 	private void handleStoreFormResult(StoreResult result) {
 		if (result.getException() != null) {
 			Toast.makeText(this, "Something went wrong while trying to store the form", Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getApplicationContext(), "Result of storing: " + result.getResponse(), Toast.LENGTH_LONG).show();
 		}
 	}
 

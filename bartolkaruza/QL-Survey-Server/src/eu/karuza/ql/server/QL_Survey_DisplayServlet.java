@@ -35,6 +35,7 @@ public class QL_Survey_DisplayServlet extends HttpServlet {
 		Gson gson = new Gson();
 		for(Entity result : preparedQuery.asIterable()) {
 			FormResult formResult = gson.fromJson((String)result.getProperty(Constants.DATA_FORM_RESULT), FormResult.class);
+			writer.println(result.getProperty(Constants.DATA_TIMESTAMP) + "");
 			if(formResult != null) {
 				for(QuestionResult question : formResult.getResult()) {
 					writer.println(question.getName());
@@ -44,7 +45,5 @@ public class QL_Survey_DisplayServlet extends HttpServlet {
 			}
 			
 		}
-		
-		
 	}
 }

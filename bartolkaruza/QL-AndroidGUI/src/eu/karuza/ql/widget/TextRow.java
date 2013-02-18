@@ -1,9 +1,8 @@
 package eu.karuza.ql.widget;
 
-
-
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import eu.karuza.ql.R;
@@ -12,7 +11,7 @@ import eu.karuza.ql.ast.Question;
 import eu.karuza.ql.ast.expr.value.Value;
 import eu.karuza.ql.ui.FormAdapter.Callbacks;
 
-public class TextRow implements RowWrapper, OnKeyListener {
+public class TextRow implements RowWrapper, OnKeyListener, OnFocusChangeListener {
 
 	private AnswerableQuestion node;
 	private Callbacks callbacks;
@@ -41,6 +40,7 @@ public class TextRow implements RowWrapper, OnKeyListener {
 		EditText editText = (EditText) convertView.findViewById(R.id.answerable_value);
 		editText.setText(((Value)node.getExpr()).getRawValue().toString());
 		editText.setOnKeyListener(this);
+		convertView.setOnFocusChangeListener(this);
 	}
 
 	@Override
@@ -55,6 +55,13 @@ public class TextRow implements RowWrapper, OnKeyListener {
 	private void setValue(String value) {
 		node.setValue(value);
 		callbacks.valueChanged();
+	}
+
+	@Override
+	public void onFocusChange(View v, boolean hasFocus) {
+		if(!hasFocus) {
+			setValue(((EditText) v.findViewById(R.id.answerable_value)).getText().toString());
+		}
 	}
 
 }

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 public class QL_Survey_GetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		InputStream stream = getServletContext().getResourceAsStream("/WEB-INF/QL");
-		resp.setContentType("text/plain; charset=UTF-8");
-		InputStreamReader reader = new InputStreamReader(stream, "UTF-8");
+		resp.setContentType(Constants.CONTENT_TYPE_PLAIN + Constants.ENCODING);
+		InputStreamReader reader = new InputStreamReader(stream, Constants.ENCODING);
 		char[] buffer = new char[1];
 		StringBuilder builder = new StringBuilder(1);
 		while(reader.read(buffer) != -1) {
@@ -22,7 +22,7 @@ public class QL_Survey_GetServlet extends HttpServlet {
 		}
 		System.out.println(builder.toString());
 		System.out.println("length: " + builder.toString().getBytes().length);
-		resp.setContentLength(builder.toString().getBytes("UTF-8").length);
+		resp.setContentLength(builder.toString().getBytes(Constants.ENCODING).length);
 		resp.getWriter().write(builder.toString());
 	}
 }

@@ -35,7 +35,7 @@ public class Int extends Value {
 	
 	@Override
 	public void setValue(Object value) {
-		this.value = (Integer) value;
+		this.value = Integer.valueOf(value.toString());
 	}
 
 	@Override

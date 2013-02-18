@@ -18,13 +18,13 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.gson.Gson;
 
 import eu.karuza.ql.FormResult;
+import eu.karuza.ql.ServerResult;
 
 @SuppressWarnings("serial")
 public class QL_Survey_StoreServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
 		BufferedReader reader = req.getReader();
 		StringBuilder builder = new StringBuilder();
 		String buffer = "";
@@ -40,6 +40,11 @@ public class QL_Survey_StoreServlet extends HttpServlet {
 		storedForm.setProperty(Constants.DATA_TIMESTAMP, Calendar.getInstance().getTimeInMillis());
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 		dataStore.put(storedForm);
+		ServerResult serverResult = new ServerResult();
+		serverResult.setResponse("ok");
+		resp.setCharacterEncoding(Constants.ENCODING);
+		resp.setContentType(Constants.CONTENT_TYPE_JSON + Constants.ENCODING);
+		resp.getWriter().write(gson.toJson(serverResult));
 	}
 
 }

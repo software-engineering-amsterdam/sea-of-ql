@@ -6,7 +6,7 @@ import java.util.List;
 
 import eu.karuza.ql.ast.AnswerableQuestion;
 import eu.karuza.ql.ast.ComputedQuestion;
-import eu.karuza.ql.ast.ConditionalStatement;
+import eu.karuza.ql.ast.IfConditionalStatement;
 import eu.karuza.ql.ast.Form;
 import eu.karuza.ql.ast.Statement;
 import eu.karuza.ql.visitor.StatementVisitor;
@@ -28,7 +28,7 @@ public class StoreListGenerator implements StatementVisitor<Void> {
 	}
 
 	@Override
-	public Void visit(ConditionalStatement node) {
+	public Void visit(IfConditionalStatement node) {
 		for(Statement statement: node.getStatements()) {
 			statement.accept(this);
 		}
