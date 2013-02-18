@@ -5,11 +5,11 @@ import org.uva.sea.ql.ast.primary.typeClasses.Type;
 
 public interface SymbolTable {
 
-    void setReducableToType(Ident identifier, Type type);
+    void addIdentifier(Ident identifier, Type type);
 
-    Type getReduceableType(Ident identifier);
+    Type getIdentifier(Ident identifier);
 
-    boolean containsReductionFor(Ident identifier);
+    boolean containsIdentifier(Ident identifier);
 
     void clear();
 }

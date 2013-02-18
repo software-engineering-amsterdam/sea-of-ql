@@ -45,7 +45,7 @@ public class IdentifierTypeCheckingVisitorTest {
         Ident ident = new Ident(computationName, sourceCodeInformation);
         Str label = new Str("", sourceCodeInformation);
         Question question = new Question(ident, label, new BooleanType());
-        when(mockedSymbolTable.containsReductionFor(ident)).thenReturn(true);
+        when(mockedSymbolTable.containsIdentifier(ident)).thenReturn(true);
 
         boolean questionCorrect = semanticAnalysisVisitor.visitQuestion(question);
         assertEquals(1, semanticAnalysisVisitor.getErrors().size());

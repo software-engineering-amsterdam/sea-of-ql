@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
 import org.uva.sea.ql.QLPropertiesUtil;
+import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidationResult;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
 
@@ -25,6 +26,8 @@ public class FormPersistenceController {
     private static final String CSV_HEADER_ROW = "identifierName,value";
 
     @Inject
+    private SymbolTable symbolTable;
+    @Inject
     private QLInputValidator inputValidator;
     @Inject
     private ObjectMapper objectMapper;
@@ -34,21 +37,15 @@ public class FormPersistenceController {
     @Path("/")
     public Response validateAndPersistForm(String jsonString) throws JSONException, IOException {
         IdentifierValuePair[] identifierValuePairs = objectMapper.readValue(jsonString, IdentifierValuePair[].class);
-        List<QLInputValidationResult> erroneousResults = new ArrayList<QLInputValidationResult>();
 
-        for(IdentifierValuePair identifierValuePair : identifierValuePairs) {
-            QLInputValidationResult result = inputValidator.validateInput(identifierValuePair);
-            if (!result.isCorrect()) erroneousResults.add(result);
-        }
-
-        if (!erroneousResults.isEmpty()) {
-            String errorMessageList = createErrorMessageListFromValidationResults(erroneousResults);
-            return Response.status(Response.Status.BAD_REQUEST).entity(errorMessageList).build();
+        QLInputValidationResult validationResult = inputValidator.validateInput(identifierValuePairs);
+        if (!validationResult.isCorrect()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(validationResult.getMessage()).build();
         }
 
         persistIdentifierValuePairs(identifierValuePairs);
 
-        return Response.status(Response.Status.OK).entity(QLInputValidator.OK_MESSAGE).build();
+        return Response.status(Response.Status.OK).entity(QLInputValidationResult.OK_MESSAGE).build();
     }
 
     private void persistIdentifierValuePairs(IdentifierValuePair[] identifierValuePairs) throws IOException {
@@ -61,13 +58,5 @@ public class FormPersistenceController {
         }
 
         FileUtils.writeLines(outputFile, csvRows);
-    }
-
-    private String createErrorMessageListFromValidationResults(List<QLInputValidationResult> erroneousResults) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (QLInputValidationResult erroneousResult : erroneousResults) {
-            stringBuilder.append(erroneousResult.getMessage());
-        }
-        return stringBuilder.toString();
     }
 }

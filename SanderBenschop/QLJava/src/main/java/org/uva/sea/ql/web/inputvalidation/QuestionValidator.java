@@ -14,37 +14,45 @@ public class QuestionValidator implements QLInputValidator {
 
     @Override
     public QLInputValidationResult validateInputForType(IdentifierValuePair identifierValuePair, Type expectedType) {
-        String identifierName = identifierValuePair.getIdentifierName(), value = identifierValuePair.getValue();
-        if (identifierName != null && identifierIsOfType(identifierName, expectedType) && expectedType.canBeAssignedFrom(value)) {
-            return new QLInputValidationResultImpl(true, OK_MESSAGE);
+        Ident identifier = new Ident(identifierValuePair.getIdentifierName());
+        if (identifier != null && identifierIsOfType(identifier, expectedType) && expectedType.canBeAssignedFrom(identifierValuePair.getValue())) {
+            return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
         } else {
-            return new QLInputValidationResultImpl(false, String.format(TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getObjectLiteralSimpleClassName()));
+            return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getObjectLiteralSimpleClassName()));
         }
     }
 
     @Override
+    public QLInputValidationResult validateInput(IdentifierValuePair[] identifierValuePairs) {
+        CompoundValidationResult compoundValidationResult = new CompoundValidationResult();
+        for(IdentifierValuePair identifierValuePair : identifierValuePairs) {
+            QLInputValidationResult result = validateInput(identifierValuePair);
+            compoundValidationResult.addInputValidationResult(result);
+        }
+        return compoundValidationResult;
+    }
+
+    @Override
     public QLInputValidationResult validateInput(IdentifierValuePair identifierValuePair) {
-        String identifierName = identifierValuePair.getIdentifierName(), value = identifierValuePair.getValue();
-        Type type = getTypeForIdentifierName(identifierName);
-        if (type != null && type.canBeAssignedFrom(value)) {
-            return new QLInputValidationResultImpl(true, OK_MESSAGE);
+        Ident identifier = new Ident(identifierValuePair.getIdentifierName());
+        Type type = getTypeForIdentifierName(identifier);
+        if (type != null && type.canBeAssignedFrom(identifierValuePair.getValue())) {
+            return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
         } else {
-            return new QLInputValidationResultImpl(false, String.format(NAMED_ERROR_MESSAGE_TEMPLATE, identifierName));
+            return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.NAMED_ERROR_MESSAGE_TEMPLATE, identifier.getName()));
         }
     }
 
-    private Type getTypeForIdentifierName(String identifierName) {
-        Ident ident = new Ident(identifierName);
-        if (symbolTable.containsReductionFor(ident)) {
-            return symbolTable.getReduceableType(ident);
+    private Type getTypeForIdentifierName(Ident identifier) {
+        if (symbolTable.containsIdentifier(identifier)) {
+            return symbolTable.getIdentifier(identifier);
         }
         return null;
     }
 
-    private boolean identifierIsOfType(String identifierName, Type type) {
-        Ident ident = new Ident(identifierName);
-        if (symbolTable.containsReductionFor(ident)) {
-            return symbolTable.getReduceableType(ident).isCompatibleTo(type);
+    private boolean identifierIsOfType(Ident identifier, Type type) {
+        if (symbolTable.containsIdentifier(identifier)) {
+            return symbolTable.getIdentifier(identifier).isCompatibleTo(type);
         }
         return false;
     }

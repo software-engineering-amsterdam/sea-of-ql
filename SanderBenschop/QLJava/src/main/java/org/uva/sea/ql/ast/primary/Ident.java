@@ -42,8 +42,8 @@ public final class Ident extends QLExpression {
 
     @Override
     public Type getType(SymbolTable symbolTable) {
-        if (symbolTable.containsReductionFor(this)) {
-            return symbolTable.getReduceableType(this);
+        if (symbolTable.containsIdentifier(this)) {
+            return symbolTable.getIdentifier(this);
         }
         return new UndefinedType();
     }

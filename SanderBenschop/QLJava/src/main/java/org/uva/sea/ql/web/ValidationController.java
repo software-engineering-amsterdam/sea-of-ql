@@ -34,7 +34,7 @@ public class ValidationController {
     @Path("/integer")
     public Response validateIntegerQuestion(IdentifierValuePair identifierValuePair) {
         QLInputValidationResult result = inputValidator.validateInputForType(identifierValuePair, integerType);
-        return result.toResponse();
+        return createResponseFromInputValidationResult(result);
     }
 
     @POST
@@ -42,7 +42,7 @@ public class ValidationController {
     @Path("/boolean")
     public Response validateBooleanQuestion(IdentifierValuePair identifierValuePair) {
         QLInputValidationResult result = inputValidator.validateInputForType(identifierValuePair, booleanType);
-        return result.toResponse();
+        return createResponseFromInputValidationResult(result);
     }
 
     @POST
@@ -50,6 +50,16 @@ public class ValidationController {
     @Path("/string")
     public Response validateStringQuestion(IdentifierValuePair identifierValuePair) {
         QLInputValidationResult result = inputValidator.validateInputForType(identifierValuePair, stringType);
-        return result.toResponse();
+        return createResponseFromInputValidationResult(result);
+    }
+
+    public Response createResponseFromInputValidationResult(QLInputValidationResult qlInputValidationResult) {
+        Response.ResponseBuilder builder;
+        if (qlInputValidationResult.isCorrect()) {
+            builder = Response.status(Response.Status.OK);
+        } else {
+            builder = Response.status(Response.Status.BAD_REQUEST);
+        }
+        return builder.entity(qlInputValidationResult.getMessage()).build();
     }
 }

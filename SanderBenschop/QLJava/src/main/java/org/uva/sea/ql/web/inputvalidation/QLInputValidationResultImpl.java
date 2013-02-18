@@ -21,15 +21,4 @@ public class QLInputValidationResultImpl implements QLInputValidationResult {
     public String getMessage() {
         return message;
     }
-
-    @Override
-    public Response toResponse() {
-        Response.ResponseBuilder builder = null;
-        if (correct) {
-            builder = Response.status(Response.Status.OK);
-        } else {
-            builder = Response.status(Response.Status.BAD_REQUEST);
-        }
-        return builder.entity(message).build();
-    }
 }

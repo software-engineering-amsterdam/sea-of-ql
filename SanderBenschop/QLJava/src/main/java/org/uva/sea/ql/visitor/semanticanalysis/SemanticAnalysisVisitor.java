@@ -73,13 +73,13 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     public Boolean visitComputation(Computation computation) {
         QLExpression expression = computation.getExpression();
 
-        boolean identifierPreviouslyUndeclared = (!symbolTable.containsReductionFor(computation.getIdentifier()));
+        boolean identifierPreviouslyUndeclared = (!symbolTable.containsIdentifier(computation.getIdentifier()));
         boolean expressionCorrect = expression.accept(this);
 
         boolean computationCorrect = identifierPreviouslyUndeclared && expressionCorrect;
 
         if (computationCorrect) {
-            symbolTable.setReducableToType(computation.getIdentifier(), expression.getType(symbolTable));
+            symbolTable.addIdentifier(computation.getIdentifier(), expression.getType(symbolTable));
         }
 
         return computationCorrect;
@@ -132,8 +132,8 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     @Override
     public Boolean visitQuestion(Question question) {
         Ident ident = question.getIdentifier();
-        if (!symbolTable.containsReductionFor(ident)) {
-            symbolTable.setReducableToType(ident, question.getDatatype());
+        if (!symbolTable.containsIdentifier(ident)) {
+            symbolTable.addIdentifier(ident, question.getDatatype());
             return true;
         } else {
             addErrorForIdentifierRedeclaration(ident);

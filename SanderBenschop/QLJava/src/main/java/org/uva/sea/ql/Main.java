@@ -1,6 +1,7 @@
 package org.uva.sea.ql;
 
 import com.beust.jcommander.JCommander;
+import com.beust.jcommander.ParameterException;
 import com.google.inject.servlet.GuiceFilter;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
@@ -21,6 +22,7 @@ import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 import org.uva.sea.ql.visitor.semanticanalysis.SymbolTableImpl;
 
 import javax.servlet.DispatcherType;
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.logging.Logger;
 
@@ -39,9 +41,12 @@ public class Main {
             if (bootstrapper.checkAndBuildQLFile(commandLineParameters.getInputFile())) {
                 startJettyServer(commandLineParameters.getHostPort(), symbolTable);
             }
-        } catch(Exception exception) {
+        } catch(ParameterException exception) {
             LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
             jCommander.usage();
+        } catch (IOException e) {
+            LOGGER.severe("Exception occured during the startup of the code: ");
+            throw new RuntimeException(e);
         }
     }
 

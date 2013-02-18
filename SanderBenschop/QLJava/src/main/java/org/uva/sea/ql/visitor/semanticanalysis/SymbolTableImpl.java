@@ -15,17 +15,17 @@ public class SymbolTableImpl implements SymbolTable {
     }
 
     @Override
-    public void setReducableToType(Ident identifier, Type type) {
+    public void addIdentifier(Ident identifier, Type type) {
         identifierTypeMap.put(identifier, type);
     }
 
     @Override
-    public Type getReduceableType(Ident identifier) {
+    public Type getIdentifier(Ident identifier) {
         return identifierTypeMap.get(identifier);
     }
 
     @Override
-    public boolean containsReductionFor(Ident identifier) {
+    public boolean containsIdentifier(Ident identifier) {
         return identifierTypeMap.containsKey(identifier);
     }
 
