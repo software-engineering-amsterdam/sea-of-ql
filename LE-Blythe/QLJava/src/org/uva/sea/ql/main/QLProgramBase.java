@@ -1,4 +1,4 @@
-package org.uva.sea.ql.checker;
+package org.uva.sea.ql.main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,26 +9,26 @@ import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 
-public class FormChecker {
+public abstract class QLProgramBase {
 
-	private PrintStream out;
+	protected PrintStream out;
 	
-	public FormChecker(){
+	public QLProgramBase(){
 		this.out = new PrintStream(System.out);
 	}
 	
 	
-	private boolean correctNumberOfArgs(String [ ] args){
+	protected boolean correctNumberOfArgs(String [ ] args){
 		return args.length == 1;
 	}
 		
 	
-	private boolean correctFileTypeProvided(String filename){
+	protected boolean correctFileTypeProvided(String filename){
 		return filename.endsWith(".ql");
 	}
 	
 	
-	private String readFile(String filename) throws FileNotFoundException {
+	protected String readFile(String filename) throws FileNotFoundException {
 		
 		Scanner scanner = new Scanner(new File(filename));
 		String contents = "";
@@ -42,34 +42,13 @@ public class FormChecker {
 	}
 	
 	
-	private Statement parse(String input) throws ParseError{
+	protected Statement parse(String input) throws ParseError{
 		return new RatsParser().parse(input); 
 	}
 	
 	
-	private void checkForm(Statement form) throws Exception{
-		
-		VisitorStatementChecker visitor = new VisitorStatementChecker();
-		form.accept(visitor);
-		
-		if(visitor.getErrors().size() == 0){
-			out.printf("Form validation succeeded!\n");
-		}
-		else{
-			out.printf("Validation failed due to the following reasons:\n");
-			
-			for(Error e: visitor.getErrors())
-				out.printf("%s", e.getMessage());
-		}
-		
-	}
-	
-	
-	private void executeValidation(String filename) throws Exception{
-		String input = readFile(filename);
-		Statement form = parse(input);
-		
-		checkForm(form);
+	protected Statement readAst(String filename) throws Exception {
+			return parse(readFile(filename));
 	}
 	
 	
@@ -88,7 +67,7 @@ public class FormChecker {
 		}
 		
 		try{
-			executeValidation(filename);
+			execute(readAst(filename));
 		}
 		catch(FileNotFoundException e){
 			out.printf("Cannot open file %s\n", filename);
@@ -97,13 +76,12 @@ public class FormChecker {
 			out.printf("Failed to correctly parse form:\n%s\n", e.getMessage());
 		}
 		catch(Exception e){
-			out.printf("A miscellaneous error occurred:\n%s\n", e.getMessage());
+			out.printf("An error occurred:\n%s\n", e.getMessage());
 		}
+		
 	}
 	
 	
-	public static void main(String [ ] args){
-		new FormChecker().start(args);	
-	}
+	protected abstract void execute(Statement ast);
 	
 }

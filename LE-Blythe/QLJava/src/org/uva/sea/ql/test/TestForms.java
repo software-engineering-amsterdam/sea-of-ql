@@ -1,4 +1,4 @@
-package org.uva.sea.ql.checker.test;
+package org.uva.sea.ql.test;
 
 import static org.junit.Assert.assertTrue;
 

@@ -25,12 +25,10 @@ public class WidgetComputed extends Widget {
 		fireChangeEvent();
 	}
 
-
 	@Override
 	public Component getComponent() {
 		return label;
 	}
-
 
 	@Override
 	public Primitive getValue() {

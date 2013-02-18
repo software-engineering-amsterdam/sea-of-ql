@@ -7,13 +7,13 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.util.Environment;
 
 
-public class ObservableWidget extends Observable implements ChangeEventListener {
+public class WidgetChangeHandler extends Observable implements ChangeEventListener {
 	
 	private Ident identifier;
 	private Widget widget;
 	private Environment environment;
 	
-	public ObservableWidget(Ident identifier, Widget widget, Environment environment){
+	public WidgetChangeHandler(Ident identifier, Widget widget, Environment environment){
 		
 		this.widget = widget;
 		this.identifier = identifier;
@@ -29,5 +29,9 @@ public class ObservableWidget extends Observable implements ChangeEventListener 
 		
 		setChanged();
 		notifyObservers();
+		
+		widget.getComponent().invalidate();
+		widget.getComponent().validate();
+		
 	}
 }

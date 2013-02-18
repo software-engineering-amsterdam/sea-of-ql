@@ -1,4 +1,4 @@
-package org.uva.sea.ql.gui.widget;
+package org.uva.sea.ql.interpreter;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,10 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.test;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.GT;
@@ -14,7 +15,7 @@ import org.uva.sea.ql.ast.operative.Not;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.QuestionAnswerable;
+import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
@@ -44,7 +45,7 @@ public class TestExpressions {
 		
 		Form form = (Form)node; 
 		Block body = (Block)form.getBlock();
-		QuestionAnswerable question = (QuestionAnswerable)body.getStatements().get(0);
+		QuestionComputed question = (QuestionComputed)body.getStatements().get(0);
 		
 		//return the only node in the body 
 		return question.getValue();
