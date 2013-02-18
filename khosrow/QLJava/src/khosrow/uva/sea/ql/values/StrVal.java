@@ -10,8 +10,24 @@ public class StrVal extends Value {
 	public String getValue() {
 		return value;
 	}
-
-	public int compareTo(Value value) {
-		return getValue().compareTo(((StrVal)value).getValue());
+	
+	@Override
+	public String toString(){
+		return getValue().toString();
+	}
+	
+	@Override
+	public Value eq(Value arg) {
+		return new BoolVal(arg.compareToString(this));
+	}
+	
+	@Override
+	public Value neq(Value arg) {
+		return new BoolVal(!arg.compareToString(this));
+	}
+	
+	@Override
+	protected boolean compareToString(StrVal arg) {
+		return arg.getValue().equalsIgnoreCase(getValue());
 	}
 }

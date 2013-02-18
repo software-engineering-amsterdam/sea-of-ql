@@ -1,6 +1,5 @@
 package org.uva.sea.ql.parser.test;
 
-import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.statements.Statement;

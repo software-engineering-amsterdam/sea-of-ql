@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ExprVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.QLException;
 
 public class Div extends BinaryMathOperator {
-    public static final String STR = "/";
+    private static final String STR = "/";
 
     public Div(Expr left, Expr right) {
         super(left, right);
@@ -17,7 +17,7 @@ public class Div extends BinaryMathOperator {
     }
 
     @Override
-    public void accept(ExprVisitor visitor) throws VisitorException {
+    public void accept(EvaluationVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 

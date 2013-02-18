@@ -12,9 +12,5 @@ public class QlValueError extends Value {
 	public String getMessage() {
 		return message;
 	}
-
-	@Override
-	public int compareTo(Value value) {
-		throw new UnsupportedOperationException();
-	}
+	
 }

@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Jan 29 15:03:09 CET 2013
+// Output created by jacc on Sun Feb 17 22:17:52 CET 2013
 
 package parser;
 
@@ -16,20 +16,18 @@ interface QLTokens {
     int IF = 10;
     int INT = 11;
     int LEQ = 12;
-    int MONEY = 13;
-    int NEQ = 14;
-    int OR = 15;
-    int STR = 16;
-    int TRUE = 17;
-    int UMIN = 18;
-    int UNOT = 19;
-    int UPLUS = 20;
-    int error = 21;
-    int tBool = 22;
-    int tIdent = 23;
-    int tInt = 24;
-    int tMoney = 25;
-    int tStr = 26;
+    int NEQ = 13;
+    int OR = 14;
+    int STR = 15;
+    int TRUE = 16;
+    int UMIN = 17;
+    int UNOT = 18;
+    int UPLUS = 19;
+    int error = 20;
+    int tBool = 21;
+    int tIdent = 22;
+    int tInt = 23;
+    int tStr = 24;
     // '!' (code=33)
     // '(' (code=40)
     // ')' (code=41)

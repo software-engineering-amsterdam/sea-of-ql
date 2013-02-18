@@ -53,15 +53,25 @@ public class Money extends AbstractValue {
 
 	@Override
 	protected AbstractValue divInt(Int value) {
-		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Money(intAsBigDecimal.divide(this.getValue(),
-				this.roundingMode));
+		if (this.getValue().compareTo(new BigDecimal(0)) == 0) {
+			// Prevent division by zero.
+			return new Money(this.getValue());
+		} else {
+			BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
+			return new Money(intAsBigDecimal.divide(this.getValue(),
+					this.roundingMode));
+		}
 	}
 
 	@Override
 	protected AbstractValue divMoney(Money value) {
-		return new Money(value.getValue().divide(this.getValue(),
-				this.roundingMode));
+		if (this.getValue().compareTo(new BigDecimal(0)) == 0) {
+			// Prevent division by zero.
+			return new Money(this.getValue());
+		} else {
+			return new Money(value.getValue().divide(this.getValue(),
+					this.roundingMode));
+		}
 	}
 
 	@Override
@@ -190,6 +200,26 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue ltMoney(Money value) {
 		return new Bool(value.getValue().compareTo(this.getValue()) == -1);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.value.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Money)) {
+			return false;
+		}
+
+		Money value = (Money) obj;
+		return this.value.compareTo(value.getValue()) == 0;
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return this.value.toString();
 	}
 
 }

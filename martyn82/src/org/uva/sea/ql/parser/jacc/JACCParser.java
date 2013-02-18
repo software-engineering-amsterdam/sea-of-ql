@@ -1,13 +1,14 @@
-// Output created by jacc on Mon Feb 11 14:51:51 CET 2013
+// Output created by jacc on Mon Feb 18 17:01:20 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.arithmetic.*;
-import org.uva.sea.ql.ast.expression.comparison.*;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.*;
+import org.uva.sea.ql.ast.expression.binary.comparison.*;
+import org.uva.sea.ql.ast.expression.binary.logical.*;
 import org.uva.sea.ql.ast.expression.literal.*;
-import org.uva.sea.ql.ast.expression.logical.*;
-import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.expression.unary.logical.*;
+import org.uva.sea.ql.ast.expression.unary.numeric.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.*;
 
@@ -2839,7 +2840,7 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr21() { // assignment : IDENT '=' expression
-        { yyrv = new Assignment( ((Ident)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new Assignment( ((IdentifierExpression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         switch (yyst[yysp-1]) {
             case 12: return 16;
@@ -2858,49 +2859,49 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr48() { // boolliteral : TRUE
-        { yyrv = new Bool( true ); }
+        { yyrv = new BooleanLiteral( true ); }
         yysv[yysp-=1] = yyrv;
         return 20;
     }
 
     private int yyr49() { // boolliteral : FALSE
-        { yyrv = new Bool( false ); }
+        { yyrv = new BooleanLiteral( false ); }
         yysv[yysp-=1] = yyrv;
         return 20;
     }
 
     private int yyr22() { // comparison : expression EQ expression
-        { yyrv = new Eq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new EqualExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 21;
     }
 
     private int yyr23() { // comparison : expression NEQ expression
-        { yyrv = new NEq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new NotEqualExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 21;
     }
 
     private int yyr24() { // comparison : expression '>' expression
-        { yyrv = new GT( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new GreaterThanExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 21;
     }
 
     private int yyr25() { // comparison : expression '<' expression
-        { yyrv = new LT( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new LesserThanExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 21;
     }
 
     private int yyr26() { // comparison : expression GEQ expression
-        { yyrv = new GEq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new GreaterThanOrEqualExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 21;
     }
 
     private int yyr27() { // comparison : expression LEQ expression
-        { yyrv = new LEq( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new LesserThanOrEqualExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 21;
     }
@@ -2930,19 +2931,19 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr34() { // expression : '+' expression
-        { yyrv = new Pos( ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new PositiveExpression( ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return yypexpression();
     }
 
     private int yyr35() { // expression : '-' expression
-        { yyrv = new Neg( ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new NegativeExpression( ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return yypexpression();
     }
 
     private int yyr36() { // expression : '!' expression
-        { yyrv = new Not( ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new NotExpression( ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return yypexpression();
     }
@@ -2997,7 +2998,7 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr8() { // form : FORM IDENT '{' formbody '}'
-        { yyrv = new FormDeclaration( ((Ident)yysv[yysp-4]).getName(), ((Statements)yysv[yysp-2]) ); }
+        { yyrv = new FormDeclaration( ((IdentifierExpression)yysv[yysp-4]).getName(), ((Statements)yysv[yysp-2]) ); }
         yysv[yysp-=5] = yyrv;
         return 4;
     }
@@ -3063,31 +3064,31 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr42() { // literal : BOOL
-        { yyrv = ((Bool)yysv[yysp-1]); }
+        { yyrv = ((BooleanLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 23;
     }
 
     private int yyr43() { // literal : MON
-        { yyrv = ((Money)yysv[yysp-1]); }
+        { yyrv = ((MoneyLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 23;
     }
 
     private int yyr44() { // literal : INT
-        { yyrv = ((Int)yysv[yysp-1]); }
+        { yyrv = ((IntegerLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 23;
     }
 
     private int yyr45() { // literal : STR
-        { yyrv = ((Str)yysv[yysp-1]); }
+        { yyrv = ((StringLiteral)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 23;
     }
 
     private int yyr46() { // literal : IDENT
-        { yyrv = ((Ident)yysv[yysp-1]); }
+        { yyrv = ((IdentifierExpression)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 23;
     }
@@ -3099,49 +3100,49 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr32() { // logical : expression AND expression
-        { yyrv = new And( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new AndExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 24;
     }
 
     private int yyr33() { // logical : expression OR expression
-        { yyrv = new Or( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new OrExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 24;
     }
 
     private int yyr10() { // question : STR vardeclaration
-        { yyrv = new QuestionVariable( ((Str)yysv[yysp-2]), ((VarDeclaration)yysv[yysp-1]) ); }
+        { yyrv = new VariableQuestion( ((StringLiteral)yysv[yysp-2]), ((VariableDeclaration)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return 7;
     }
 
     private int yyr11() { // question : STR assignment
-        { yyrv = new QuestionComputed( ((Str)yysv[yysp-2]), ((Assignment)yysv[yysp-1]) ); }
+        { yyrv = new ComputedQuestion( ((StringLiteral)yysv[yysp-2]), ((Assignment)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return 7;
     }
 
     private int yyr28() { // arithmetic : expression '*' expression
-        { yyrv = new Mul( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new MultiplyExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 25;
     }
 
     private int yyr29() { // arithmetic : expression '/' expression
-        { yyrv = new Div( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new DivideExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 25;
     }
 
     private int yyr30() { // arithmetic : expression '+' expression
-        { yyrv = new Add( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new AddExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 25;
     }
 
     private int yyr31() { // arithmetic : expression '-' expression
-        { yyrv = new Sub( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
+        { yyrv = new SubtractExpression( ((Expression)yysv[yysp-3]), ((Expression)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 25;
     }
@@ -3193,7 +3194,7 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr20() { // vardeclaration : IDENT ':' datatype
-        { yyrv = new VarDeclaration( ((Ident)yysv[yysp-3]), ((Type)yysv[yysp-1]) ); }
+        { yyrv = new VariableDeclaration( ((IdentifierExpression)yysv[yysp-3]), ((Type)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 17;
     }
@@ -3204,12 +3205,12 @@ class JACCParser implements QLTokens {
     private QLLexer lexer;
     private Statement result;
     
-    public Statement getResult() {
-        return result;
-    }
-    
     public JACCParser( QLLexer lexer ) { 
         this.lexer = lexer;
+    }
+    
+    public Statement getResult() {
+        return result;
     }
     
     private void yyerror( String msg ) { 

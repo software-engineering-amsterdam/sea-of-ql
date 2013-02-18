@@ -24,7 +24,7 @@
 %left UMIN UPLUS UNOT
 
 %type <Expression> expr
-%type <Statement> stm
+%type <Block> block
 %type <CompoundStatement> compound
 %type <DataType> dataType
 %type <Form> form
@@ -39,7 +39,8 @@ import org.uva.sea.ql.ast.value.*;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings(
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
     justification="because this class is generated.")
-@SuppressWarnings("unused")
+
+@SuppressWarnings({"unused","rawtypes", "unchecked"})
 %}
 
 %%
@@ -82,11 +83,11 @@ top		: form						{ form = $1; }
 form 	: FORM IDENT '{' compound '}'	{ $$ = new Form($2, $4); }
 		;
 		
-compound: stm 						{ $$ = new CompoundStatement($1); }
-		| compound stm				{ $$ = new CompoundStatement($1, $2); }
+compound: block 					{ $$ = new CompoundStatement($1); }
+		| compound block			{ $$ = new CompoundStatement($1, $2); }
  		; 
 
-stm		: question					{ $$ = $1; }
+block	: question					{ $$ = $1; }
     	| ifStm						{ $$ = $1; }
 		;
 		

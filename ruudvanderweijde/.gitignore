@@ -7,3 +7,4 @@ bin/
 
 # Class diagram #
 *.ucls
+/sonar-project.properties

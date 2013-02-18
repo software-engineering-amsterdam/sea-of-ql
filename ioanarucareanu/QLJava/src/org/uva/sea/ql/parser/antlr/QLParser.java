@@ -1,14 +1,13 @@
-// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-09 23:23:04
+// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-17 15:02:30
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.cond.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.rel.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.ql.*;
 import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.semanticchecker.ReturnTypeHolder;
+import org.uva.sea.ql.semanticchecker.*;
 
 
 import org.antlr.runtime.*;
@@ -90,7 +89,7 @@ public class QLParser extends Parser {
         int qlform_StartIndex = input.index();
 
         Token Ident1=null;
-        Block<QLItem> block2 =null;
+        Block block2 =null;
 
 
         try {
@@ -135,23 +134,23 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "block"
-    // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:1: block returns [Block<QLItem> result] : ( qlitem )* ;
-    public final Block<QLItem> block() throws RecognitionException {
-        Block<QLItem> result = null;
+    // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:1: block returns [Block result] : ( statement )* ;
+    public final Block block() throws RecognitionException {
+        Block result = null;
 
         int block_StartIndex = input.index();
 
-        QLItem qlitem3 =null;
+        Statement statement3 =null;
 
 
-         Block<QLItem> block= new Block<QLItem>(); 
+         Block block= new Block(); 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:2: ( ( qlitem )* )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:5: ( qlitem )*
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:2: ( ( statement )* )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:5: ( statement )*
             {
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:5: ( qlitem )*
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:5: ( statement )*
             loop1:
             do {
                 int alt1=2;
@@ -164,15 +163,15 @@ public class QLParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:6: qlitem
+            	    // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:27:6: statement
             	    {
-            	    pushFollow(FOLLOW_qlitem_in_block79);
-            	    qlitem3=qlitem();
+            	    pushFollow(FOLLOW_statement_in_block79);
+            	    statement3=statement();
 
             	    state._fsp--;
             	    if (state.failed) return result;
 
-            	    if ( state.backtracking==0 ) { block.addBlockElement(qlitem3); }
+            	    if ( state.backtracking==0 ) { block.addBlockElement(statement3); }
 
             	    }
             	    break;
@@ -204,12 +203,12 @@ public class QLParser extends Parser {
 
 
 
-    // $ANTLR start "qlitem"
-    // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:1: qlitem returns [QLItem result] : ( question | computedQuestion | conditionalQuestion );
-    public final QLItem qlitem() throws RecognitionException {
-        QLItem result = null;
+    // $ANTLR start "statement"
+    // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:30:1: statement returns [Statement result] : ( question | computedQuestion | conditionalQuestion );
+    public final Statement statement() throws RecognitionException {
+        Statement result = null;
 
-        int qlitem_StartIndex = input.index();
+        int statement_StartIndex = input.index();
 
         Question question4 =null;
 
@@ -376,7 +375,7 @@ public class QLParser extends Parser {
                 case 1 :
                     // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:31:4: question
                     {
-                    pushFollow(FOLLOW_question_in_qlitem104);
+                    pushFollow(FOLLOW_question_in_statement104);
                     question4=question();
 
                     state._fsp--;
@@ -389,7 +388,7 @@ public class QLParser extends Parser {
                 case 2 :
                     // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:32:4: computedQuestion
                     {
-                    pushFollow(FOLLOW_computedQuestion_in_qlitem111);
+                    pushFollow(FOLLOW_computedQuestion_in_statement111);
                     computedQuestion5=computedQuestion();
 
                     state._fsp--;
@@ -402,7 +401,7 @@ public class QLParser extends Parser {
                 case 3 :
                     // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:33:4: conditionalQuestion
                     {
-                    pushFollow(FOLLOW_conditionalQuestion_in_qlitem118);
+                    pushFollow(FOLLOW_conditionalQuestion_in_statement118);
                     conditionalQuestion6=conditionalQuestion();
 
                     state._fsp--;
@@ -422,12 +421,12 @@ public class QLParser extends Parser {
 
         finally {
         	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 3, qlitem_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 3, statement_StartIndex); }
 
         }
         return result;
     }
-    // $ANTLR end "qlitem"
+    // $ANTLR end "statement"
 
 
 
@@ -461,7 +460,7 @@ public class QLParser extends Parser {
             state._fsp--;
             if (state.failed) return result;
 
-            if ( state.backtracking==0 ) {result =new Question(new Ident((Ident7!=null?Ident7.getText():null)),new StringValue((StringLit8!=null?StringLit8.getText():null)),type9);}
+            if ( state.backtracking==0 ) {result =new Question(new Ident((Ident7!=null?Ident7.getText():null)),(StringLit8!=null?StringLit8.getText():null), type9);}
 
             }
 
@@ -524,7 +523,7 @@ public class QLParser extends Parser {
 
             match(input,20,FOLLOW_20_in_computedQuestion173); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) {result =new ComputedQuestion(new Ident((Ident10!=null?Ident10.getText():null)),new StringValue((StringLit11!=null?StringLit11.getText():null)),type12,expr);}
+            if ( state.backtracking==0 ) {result =new ComputedQuestion(new Ident((Ident10!=null?Ident10.getText():null)),(StringLit11!=null?StringLit11.getText():null),type12,expr);}
 
             }
 
@@ -554,11 +553,11 @@ public class QLParser extends Parser {
 
         Expr expr =null;
 
-        Block<QLItem> b1 =null;
+        Block b1 =null;
 
-        Block<QLItem> b2 =null;
+        Block b2 =null;
 
-        Block<QLItem> block13 =null;
+        Block block13 =null;
 
 
         try {
@@ -661,7 +660,7 @@ public class QLParser extends Parser {
 
                     match(input,36,FOLLOW_36_in_conditionalQuestion236); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result =new SimpleConditionalQuestion(expr,block13);}
+                    if ( state.backtracking==0 ) {result =new ConditionalQuestion(expr,block13);}
 
                     }
                     break;
@@ -862,7 +861,7 @@ public class QLParser extends Parser {
                     {
                     Int14=(Token)match(input,Int,FOLLOW_Int_in_primary304); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new IntegerValue(Integer.parseInt((Int14!=null?Int14.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new IntegerVal(Integer.parseInt((Int14!=null?Int14.getText():null))); }
 
                     }
                     break;
@@ -871,7 +870,7 @@ public class QLParser extends Parser {
                     {
                     Decimal15=(Token)match(input,Decimal,FOLLOW_Decimal_in_primary314); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new DecimalValue(Float.parseFloat((Decimal15!=null?Decimal15.getText():null))); }
+                    if ( state.backtracking==0 ) {result = new DecimalVal(Float.parseFloat((Decimal15!=null?Decimal15.getText():null))); }
 
                     }
                     break;
@@ -880,7 +879,7 @@ public class QLParser extends Parser {
                     {
                     Bool16=(Token)match(input,Bool,FOLLOW_Bool_in_primary322); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new BooleanValue(Boolean.parseBoolean((Bool16!=null?Bool16.getText():null))); }
+                    if ( state.backtracking==0 ) {result = new BooleanVal(Boolean.parseBoolean((Bool16!=null?Bool16.getText():null))); }
 
                     }
                     break;
@@ -889,7 +888,7 @@ public class QLParser extends Parser {
                     {
                     StringLit17=(Token)match(input,StringLit,FOLLOW_StringLit_in_primary330); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new StringValue((StringLit17!=null?StringLit17.getText():null)); }
+                    if ( state.backtracking==0 ) {result = new StringVal((StringLit17!=null?StringLit17.getText():null)); }
 
                     }
                     break;
@@ -1535,9 +1534,9 @@ public class QLParser extends Parser {
     public final void synpred4_QL_fragment() throws RecognitionException {
         Expr expr =null;
 
-        Block<QLItem> b1 =null;
+        Block b1 =null;
 
-        Block<QLItem> b2 =null;
+        Block b2 =null;
 
 
         // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:43:4: ( 'if' '(' expr= orExpr ')' '{' b1= block '}' 'else' '{' b2= block '}' )
@@ -1607,10 +1606,10 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_34_in_qlform49 = new BitSet(new long[]{0x0000001200000400L});
     public static final BitSet FOLLOW_block_in_qlform51 = new BitSet(new long[]{0x0000001000000000L});
     public static final BitSet FOLLOW_36_in_qlform53 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qlitem_in_block79 = new BitSet(new long[]{0x0000000200000402L});
-    public static final BitSet FOLLOW_question_in_qlitem104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_computedQuestion_in_qlitem111 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_conditionalQuestion_in_qlitem118 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_statement_in_block79 = new BitSet(new long[]{0x0000000200000402L});
+    public static final BitSet FOLLOW_question_in_statement104 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_computedQuestion_in_statement111 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_conditionalQuestion_in_statement118 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_Ident_in_question136 = new BitSet(new long[]{0x0000000002000000L});
     public static final BitSet FOLLOW_25_in_question138 = new BitSet(new long[]{0x0000000000004000L});
     public static final BitSet FOLLOW_StringLit_in_question140 = new BitSet(new long[]{0x0000000000003290L});

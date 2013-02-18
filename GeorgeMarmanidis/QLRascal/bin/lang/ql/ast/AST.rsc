@@ -69,3 +69,7 @@ anno loc Type@location;
 anno loc Form@location;
 anno loc ConditionalStatement@location;
 anno loc ElseIf@location;
+
+anno str ConditionalStatement@ref;
+anno str ElseIf@ref;
+anno str FormBodyItem@ref;

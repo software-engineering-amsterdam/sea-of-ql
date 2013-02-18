@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class BoolLiteral extends Value {
 
@@ -14,7 +14,7 @@ public class BoolLiteral extends Value {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public Boolean getValue() {
 		return value;
 	}
 
@@ -49,38 +49,8 @@ public class BoolLiteral extends Value {
 	}
 
 	@Override
-	public Value eq(Value value) {
-		return value.eqBool(this);
-	}
-
-	@Override
-	public Value eqBool(BoolLiteral value) {
-		return new BoolLiteral(value.getValue() == getValue());
-	}
-
-	@Override
-	public Value neq(Value value) {
-		return value.neqBool(this);
-	}
-
-	@Override
-	public Value neqBool(BoolLiteral value) {
-		return new BoolLiteral(value.getValue() != getValue());
-	}
-
-	@Override
 	public Value not() {
 		return new BoolLiteral(!getValue());
-	}
-	
-	@Override
-	public boolean isOfValue(Value v) {
-		return v.isBoolLiteral();
-	}
-	
-	@Override
-	public boolean isBoolLiteral() {
-		return true;
 	}
 
 }

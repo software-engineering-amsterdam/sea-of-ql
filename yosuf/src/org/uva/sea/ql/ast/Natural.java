@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
 /**

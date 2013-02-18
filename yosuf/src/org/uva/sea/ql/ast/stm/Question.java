@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class Question extends Statement {
+public class Question extends Block {
 
 	private final DataType dataType;
 	private final Identifier identifier;
@@ -34,8 +34,12 @@ public class Question extends Statement {
 		state.assertNotNull(this.questionText, "Question.questionText");
 	}
 
-	public StringValue getQuestionText() {
+	public StringValue getStringValue() {
 		return questionText;
+	}
+
+	public String getText() {
+		return questionText.getValue();
 	}
 
 	public DataType getDataType() {
@@ -53,8 +57,8 @@ public class Question extends Statement {
 
 	@Override
 	public String toString() {
-		return "Question [dataType=" + dataType + ", identifier=" + identifier
-				+ ", questionText=" + questionText + "]";
+		return "Question [" + dataType + ", " + identifier + ", "
+				+ questionText + "]";
 	}
 
 }

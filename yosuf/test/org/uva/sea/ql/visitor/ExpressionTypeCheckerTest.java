@@ -2,13 +2,17 @@ package org.uva.sea.ql.visitor;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
+import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
@@ -26,17 +30,18 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.LogPrinter;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ExpressionTypeCheckerTest {
 
 	private ExpressionTypeChecker typeCheck;
 
-	private final IntegerValue intValue = new IntegerValue(0);
-	private final BooleanValue boolValue = new BooleanValue(true);
-	private final StringValue stringValue = new StringValue("someString");
+	private final Expression intValue = new IntegerValue(0);
+	private final Expression boolValue = new BooleanValue(true);
+	private final Expression stringValue = new StringValue("someString");
 
 	@Before
 	public void setUp() {
-		typeCheck = new ExpressionTypeChecker();
+		typeCheck = new ExpressionTypeChecker(new HashMap<Natural, Natural>());
 
 		LogPrinter.setDebugOn(true);
 	}
@@ -49,8 +54,8 @@ public class ExpressionTypeCheckerTest {
 	@Test
 	public void testNestedErroneousExpressions() {
 		// one error in each type.
-		Add add = new Add(intValue, boolValue);
-		Or or = new Or(boolValue, stringValue);
+		Expression add = new Add(intValue, boolValue);
+		Expression or = new Or(boolValue, stringValue);
 		Multiply multiply = new Multiply(add, or);
 
 		typeCheck.visit(multiply);
@@ -78,7 +83,7 @@ public class ExpressionTypeCheckerTest {
 
 	@Test
 	public void testVisitIntegerValue() {
-		typeCheck.visit(intValue);
+		typeCheck.visit((IntegerValue) intValue);
 		assertErrors(0);
 	}
 
@@ -120,13 +125,13 @@ public class ExpressionTypeCheckerTest {
 
 	@Test
 	public void testVisitBooleanValue() {
-		typeCheck.visit(boolValue);
+		typeCheck.visit((BooleanValue) boolValue);
 		assertErrors(0);
 	}
 
 	@Test
 	public void testVisitStringValue() {
-		typeCheck.visit(stringValue);
+		typeCheck.visit((StringValue) stringValue);
 		assertErrors(0);
 	}
 

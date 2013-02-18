@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 /**
  * Class: Sub
@@ -17,39 +19,10 @@ public class Sub extends BinExpr {
 	 * @param r right
 	 */
 	public Sub(Expr l, Expr r) {
-		super(l, r, "-");
+		super(l, r);
 	}
-	/**
-	 * accept()
-	 * @param visitor
-	 */
 	@Override
-	public void accept(Visitor visitor){
-		visitor.visit(this);
-	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
-	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return (t.isCompatibleWithInt() || t.isCompatibleWithMoney());
-	}
-	/**
-	 * isCompatibleWithInt
-	 * @return 
-	 */
-	@Override
-	public boolean isCompatibleWithInt() { 
-		return true; 
-	}
-	/**
-	 * isCompatibleWithMoney
-	 * @return
-	 */
-	@Override
-	public boolean isCompatibleWithMoney() { 
-		return true; 
+	public Type typeOf(SymbolTable st) {
+		return new IntType();
 	}
 }

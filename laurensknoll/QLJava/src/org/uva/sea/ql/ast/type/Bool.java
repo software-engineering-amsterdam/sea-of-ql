@@ -9,4 +9,9 @@ public class Bool extends AbstractType {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Bool;
+	}
+
 }

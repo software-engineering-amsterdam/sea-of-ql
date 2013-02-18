@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast.statements;
 
+import java.util.Map;
+
 import org.antlr.runtime.Token;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.operators.Ident;
 import org.uva.sea.ql.ast.types.Type;
@@ -11,19 +13,18 @@ public class LineStatement extends Statement {
 
 	private final Ident lineId;
 	private final Token lineString;
-	private final Type typeDescription;
-	private final Expr initalizerExpr;
+	private final Type lineTypeDescription;
+	private final Expr lineInitalizerExpr;
 
 	public Expr getInitalizerExpr() {
-		return initalizerExpr;
+		return lineInitalizerExpr;
 	}
 
-	public LineStatement(Ident ident, Token lineString, Type ty,
-			Expr initExpr) {
-		this.lineId = ident;
-		this.lineString = lineString;
-		typeDescription = ty;
-		initalizerExpr = initExpr;
+	public LineStatement(Ident ident, Token lineStr, Type ty, Expr initExpr) {
+		lineId = ident;
+		lineString = lineStr;
+		lineTypeDescription = ty;
+		lineInitalizerExpr = initExpr;
 	}
 
 	@Override
@@ -52,10 +53,14 @@ public class LineStatement extends Statement {
 	}
 
 	public Type getTypeDescription() {
-		return typeDescription;
+		return lineTypeDescription;
 	}
 
 	public Result getTypeContainer() {
-		return typeDescription.getTypeContainer();
+		return lineTypeDescription.getTypeContainer();
+	}
+
+	public Type getInitalizerExprType(Map<String, Statement> symbolMap) {
+		return lineInitalizerExpr.typeOf(symbolMap);
 	}
 }

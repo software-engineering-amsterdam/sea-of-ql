@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expr;
-
-import org.uva.sea.ql.semanticchecker.ExpressionSemanticVisitor;
+import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public class Div extends Binary {
@@ -12,7 +11,7 @@ public class Div extends Binary {
 	}
 	
 	@Override
-	public ReturnType accept(ExpressionSemanticVisitor visitor) {
+	public ReturnType accept(ExpressionVisitor visitor) {
 		
 		return visitor.visit(this);
 	}

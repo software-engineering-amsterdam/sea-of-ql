@@ -17,10 +17,13 @@ import lang::ql::syntax::Comment;
 import lang::ql::syntax::Int;
 import lang::ql::syntax::Keyword;
 import lang::ql::syntax::Layout;
-import lang::ql::syntax::QL;
+import lang::ql::syntax::Money;
 import lang::ql::syntax::QL;
 import lang::ql::syntax::String;
 import lang::ql::syntax::Type;
+
+public Form implode(Tree t) = 
+  implode(#Form, t);
 
 public start[Form] parse(str src, loc l) = 
   parse(#start[Form], src, l);

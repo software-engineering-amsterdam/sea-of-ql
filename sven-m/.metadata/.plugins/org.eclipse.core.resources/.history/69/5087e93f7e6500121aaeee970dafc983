@@ -1,5 +1,0 @@
-package org.uva.sea.ql.ast;
-
-public class ComputedQuestion extends Question implements ASTNode {
-
-}

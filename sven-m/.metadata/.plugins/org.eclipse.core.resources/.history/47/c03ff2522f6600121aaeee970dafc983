@@ -1,9 +1,0 @@
-package org.uva.sea.ql.ast;
-
-import org.uva.sea.ql.ast.expressions.Ident;
-
-public class ComputedQuestion extends Question implements ASTNode {
-	public ComputedQuestion(Ident name) {
-		super(name);
-	}
-}

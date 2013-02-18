@@ -1,14 +1,10 @@
 package org.uva.sea.ql.parser.typechecking;
 
-import java.util.List;
-import java.util.Map;
-
 import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.ast.expression.And;
 import org.uva.sea.ql.ast.expression.Binary;
 import org.uva.sea.ql.ast.expression.Div;
 import org.uva.sea.ql.ast.expression.Eq;
-import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.GEq;
 import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Ident;
@@ -24,58 +20,101 @@ import org.uva.sea.ql.ast.expression.Pos;
 import org.uva.sea.ql.ast.expression.Str;
 import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.Unary;
-import org.uva.sea.ql.ast.type.BoolType;
-import org.uva.sea.ql.ast.type.IntType;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.form.BoolType;
+import org.uva.sea.ql.ast.form.IntType;
+import org.uva.sea.ql.ast.form.Type;
 import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
+import org.uva.sea.ql.parser.errors.OperatorTypeMismatchError;
+import org.uva.sea.ql.parser.errors.VariableUndefinedError;
 
 public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 {
-	private ExpressionTypeEvaluator exprTypeEval;
-	private Map<String, Type> typeEnvironment;
-	private List<String> messages;
+	private ExpressionTypeEvaluator typeEval;
+	private Environment environment;
 	
-	private final IntType intType = new IntType();
-	private final BoolType boolType = new BoolType();
+	private final IntType intType = new IntType(null);
+	private final BoolType boolType = new BoolType(null);
 	
-	public ExpressionTypeChecker(Map<String, Type> typeEnvironment,
-			List<String> messages)
+	public ExpressionTypeChecker(Environment environment)
 	{
-		this.typeEnvironment = typeEnvironment;
-		this.messages = messages;
-		exprTypeEval = new ExpressionTypeEvaluator(typeEnvironment);
+		this.environment = environment;
+		typeEval = new ExpressionTypeEvaluator(
+				environment.getTypeEnvironment());
 	}
 	
-	private void addTypeMismatch(Expr expr, Type expected, Type actual) {
-		messages.add(String.format(
-				"In %s expression: unexpected %s, expected %s",
-				expr.getClass().getName(),
-				expected.getClass().getName(),
-				actual.getClass().getName()
-		));
+	
+	/*
+	 * Error reporting
+	 */
+	
+	private void addTypeMismatch(Binary ast) {
+		OperatorTypeMismatchError error =
+				new OperatorTypeMismatchError(ast.getClass().getSimpleName(),
+						ast.getLhs().getClass().getSimpleName(),
+						ast.getRhs().getClass().getSimpleName(),
+						ast);
+		
+		environment.reportError(error);
 	}
 	
-	private void addVariableUndeclared(Ident ident) {
-		messages.add(String.format(
-				"Variable \"%s\" not declared",
-				ident.getName()
-		));
+	private void addTypeMismatch(Unary ast) {
+		OperatorTypeMismatchError error =
+				new OperatorTypeMismatchError(ast.getClass().getSimpleName(),
+						ast.getClass().getSimpleName(), ast);
+		environment.reportError(error);
+	}
+	
+	private void addVariableUndefined(Ident ident) {
+		VariableUndefinedError error =
+				new VariableUndefinedError(ident.getName(), ident);
+		environment.reportError(error);
+	}
+	
+	
+	/*
+	 * Traverse child(ren)
+	 */ 
+	
+	private boolean traverse(Binary ast) {
+		return ast.getLhs().accept(this) && ast.getRhs().accept(this);
+	}
+	
+	private boolean traverse(Unary ast) {
+		return ast.getOp().accept(this);
+	}
+
+	
+	/*
+	 * Actual type checking for binary and unary operators
+	 */
+	
+	private Boolean assertChildrenEqualType(Binary ast) {
+		boolean typeCorrect = traverse(ast);
+		
+		Type lhsType = ast.getLhs().accept(typeEval);
+		Type rhsType = ast.getRhs().accept(typeEval);
+		
+		if (!lhsType.equals(rhsType)) {
+			addTypeMismatch(ast);
+			typeCorrect = false;
+		}
+		
+		return typeCorrect;
 	}
 	
 	private Boolean assertChildrenType(Binary ast, Type type) {
-		boolean typeCorrect = 	ast.getLhs().accept(this)
-							&&	ast.getRhs().accept(this);
+		boolean typeCorrect = traverse(ast);
 		
-		Type lhsType = ast.getLhs().accept(exprTypeEval);
-		Type rhsType = ast.getRhs().accept(exprTypeEval);
+		Type lhsType = ast.getLhs().accept(typeEval);
+		Type rhsType = ast.getRhs().accept(typeEval);
 		
 		if (!lhsType.equals(type)) {
-			addTypeMismatch(ast, type, lhsType);
+			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
 		
 		if (!(rhsType.equals(type))) {
-			addTypeMismatch(ast, type, lhsType);
+			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
 		
@@ -83,12 +122,12 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	}
 	
 	private Boolean assertChildType(Unary ast, Type type) {
-		boolean typeCorrect = ast.getOp().accept(this);
+		boolean typeCorrect = traverse(ast);
 		
-		Type opType = ast.getOp().accept(exprTypeEval);
+		Type opType = ast.getOp().accept(typeEval);
 		
 		if (!opType.equals(type)) {
-			addTypeMismatch(ast, type, opType);
+			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
 		
@@ -96,13 +135,35 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	}
 	
 	
-	/* Integer binary nodes */
-
+	/*
+	 * AST node visiting
+	 */
+	
+	
+	/*
+	 * Overloaded
+	 */
+	
 	@Override
 	public Boolean visit(Add ast) {
-		return assertChildrenType(ast, intType);
+		return assertChildrenEqualType(ast);
 	}
-
+	
+	@Override
+	public Boolean visit(Eq ast) {
+		return assertChildrenEqualType(ast);
+	}
+	
+	@Override
+	public Boolean visit(NEq ast) {
+		return assertChildrenEqualType(ast);
+	}
+	
+	
+	/*
+	 * Integer
+	 */
+	
 	@Override
 	public Boolean visit(Mul ast) {
 		return assertChildrenType(ast, intType);
@@ -118,9 +179,6 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 		return assertChildrenType(ast, intType);
 	}
 
-	
-	/* Integer unary nodes */
-	
 	@Override
 	public Boolean visit(Pos ast) {
 		return assertChildType(ast, intType);
@@ -131,9 +189,31 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 		return assertChildType(ast, intType);
 	}
 	
-	
-	/* Boolean binary nodes */
+	@Override
+	public Boolean visit(LT ast) {
+		return assertChildrenType(ast, intType);
+	}
 
+	@Override
+	public Boolean visit(LEq ast) {
+		return assertChildrenType(ast, intType);
+	}
+	
+	@Override
+	public Boolean visit(GEq ast) {
+		return assertChildrenType(ast, intType);
+	}
+
+	@Override
+	public Boolean visit(GT ast) {
+		return assertChildrenType(ast, intType);
+	}
+	
+	
+	/*
+	 * Boolean
+	 */
+	
 	@Override
 	public Boolean visit(And ast) {
 		return assertChildrenType(ast, boolType);
@@ -143,39 +223,6 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	public Boolean visit(Or ast) {
 		return assertChildrenType(ast, boolType);
 	}
-
-	@Override
-	public Boolean visit(LT ast) {
-		return assertChildrenType(ast, boolType);
-	}
-
-	@Override
-	public Boolean visit(LEq ast) {
-		return assertChildrenType(ast, boolType);
-	}
-
-	@Override
-	public Boolean visit(Eq ast) {
-		return assertChildrenType(ast, boolType);
-	}
-
-	@Override
-	public Boolean visit(NEq ast) {
-		return assertChildrenType(ast, boolType);
-	}
-
-	@Override
-	public Boolean visit(GEq ast) {
-		return assertChildrenType(ast, boolType);
-	}
-
-	@Override
-	public Boolean visit(GT ast) {
-		return assertChildrenType(ast, boolType);
-	}
-	
-
-	/* Boolean unary nodes */
 	
 	@Override
 	public Boolean visit(Not ast) {
@@ -183,14 +230,16 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	}
 	
 	
-	/* Leaf nodes */
+	/*
+	 * Leaf nodes
+	 */
 
 	@Override
 	public Boolean visit(Ident ast) {
-		boolean typeCorrect = typeEnvironment.get(ast.getName()) != null;
+		boolean typeCorrect = environment.getType(ast) != null;
 		
 		if (!typeCorrect) {
-			addVariableUndeclared(ast);
+			addVariableUndefined(ast);
 		}
 		
 		return typeCorrect;

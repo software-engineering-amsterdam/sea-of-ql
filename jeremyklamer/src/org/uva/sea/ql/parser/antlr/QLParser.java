@@ -1,22 +1,54 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-29 10:21:49
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-16 15:05:02
 
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.ast.statement.*;
-
-
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+
+import org.antlr.runtime.BitSet;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.Parser;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
+import org.antlr.runtime.Token;
+import org.antlr.runtime.TokenStream;
+import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.ast.expr.binary.Add;
+import org.uva.sea.ql.ast.expr.binary.And;
+import org.uva.sea.ql.ast.expr.binary.Div;
+import org.uva.sea.ql.ast.expr.binary.Eq;
+import org.uva.sea.ql.ast.expr.binary.GEq;
+import org.uva.sea.ql.ast.expr.binary.GT;
+import org.uva.sea.ql.ast.expr.binary.LEq;
+import org.uva.sea.ql.ast.expr.binary.LT;
+import org.uva.sea.ql.ast.expr.binary.Mul;
+import org.uva.sea.ql.ast.expr.binary.NEq;
+import org.uva.sea.ql.ast.expr.binary.Or;
+import org.uva.sea.ql.ast.expr.binary.Sub;
+import org.uva.sea.ql.ast.expr.unary.Neg;
+import org.uva.sea.ql.ast.expr.unary.Not;
+import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.ast.expr.value.Bool;
+import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.value.StringNode;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.If;
+import org.uva.sea.ql.ast.statement.IfThenElse;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.IntType;
+import org.uva.sea.ql.ast.type.StringType;
+import org.uva.sea.ql.ast.type.Type;
 
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOL", "COMMENT", "Ident", "Int", "String", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", "'form'", "'if'", "'money'", "'string'", "'{'", "'||'", "'}'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "BOOL", "COMMENT", "Ident", "Int", "String", "WS", "'!'", "'!='", "'&&'", "'('", "')'", "'*'", "'+'", "'-'", "'/'", "':'", "'<'", "'<='", "'=='", "'>'", "'>='", "'boolean'", "'else'", "'form'", "'if'", "'integer'", "'string'", "'{'", "'||'", "'}'"
     };
 
     public static final int EOF=-1;
@@ -1422,7 +1454,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "returnType"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:1: returnType returns [Type result] : ( 'boolean' | 'money' | 'string' );
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:1: returnType returns [Type result] : ( 'boolean' | 'integer' | 'string' );
     public final Type returnType() throws RecognitionException {
         Type result = null;
 
@@ -1431,7 +1463,7 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:5: ( 'boolean' | 'money' | 'string' )
+            // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:5: ( 'boolean' | 'integer' | 'string' )
             int alt14=3;
             switch ( input.LA(1) ) {
             case 25:
@@ -1469,11 +1501,11 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: 'money'
+                    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:120:7: 'integer'
                     {
                     match(input,29,FOLLOW_29_in_returnType761); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) {result = new Money();}
+                    if ( state.backtracking==0 ) {result = new IntType();}
 
                     }
                     break;

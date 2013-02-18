@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.value.Value;
 
 public class JPanelControl extends PanelControl {
 	private final JPanel control;
@@ -24,13 +25,13 @@ public class JPanelControl extends PanelControl {
 	}
 
 	@Override
-	public JPanel getControl() {
+	public JPanel getInnerControl() {
 		return this.control;
 	}
 
 	@Override
 	public void add( Control control ) {
-		this.control.add( (JComponent) control.getControl() );
+		this.control.add( (JComponent) control.getInnerControl() );
 	}
 
 	@Override
@@ -44,16 +45,12 @@ public class JPanelControl extends PanelControl {
 	}
 
 	@Override
-	public void setValue( Object value ) {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setValue( Void value ) {
+	public void setValue( Value value ) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Void getValue() {
+	public Value getValue() {
 		throw new UnsupportedOperationException();
 	}
 

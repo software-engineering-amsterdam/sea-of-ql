@@ -12,30 +12,29 @@ import julius.validation.ValidationException;
 
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Identifier;
+import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.stm.Form;
 import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
-import org.uva.sea.ql.ast.stm.Statement;
 import org.uva.sea.ql.ast.type.BooleanType;
 
-public class StatementTypeChecker implements StatementVisitor<Statement> {
+public class StatementTypeChecker implements StatementVisitor<Block> {
 
 	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
 	private final Map<Natural, Natural> environment = new HashMap<Natural, Natural>();
 
-	public StatementTypeChecker(
-			final ExpressionTypeChecker expressionTypeChecker) {
-		this.expressionTypeChecker = expressionTypeChecker;
-		state.assertNotNull(this.expressionTypeChecker, "expressionTypeChecker");
+	public StatementTypeChecker() {
+		expressionTypeChecker = new ExpressionTypeChecker(environment);
+		state.assertNotNull(expressionTypeChecker, "expressionTypeChecker");
 	}
 
 	@Override
-	public Statement visit(final Form form) {
+	public Block visit(final Form form) {
 		form.getBody().accept(this);
 		assertIdentifierAndAddToEnvironment(form.getIdentifier(),
 				form.getIdentifier());
@@ -44,9 +43,9 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final CompoundStatement compoundStatement) {
+	public Block visit(final CompoundStatement compoundStatement) {
 
-		for (Statement statement : compoundStatement.getStatements()) {
+		for (Block statement : compoundStatement.getStatements()) {
 			statement.accept(this);
 		}
 
@@ -54,7 +53,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final Computed computed) {
+	public Block visit(final Computed computed) {
 
 		assertIdentifierAndAddToEnvironment(computed.getIdentifier(),
 				computed.getExpression());
@@ -66,7 +65,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final IfStatement ifStatement) {
+	public Block visit(final IfStatement ifStatement) {
 		visitExpression(ifStatement.getExpression());
 
 		assertIfStatementExpression(ifStatement.getExpression(),
@@ -87,15 +86,15 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	private void assertIfStatementExpression(final Natural naturalExpression,
 			final String reference) {
 		if (environment.get(naturalExpression) != null) {
-			assertSameNature(new BooleanType(), environment.get(naturalExpression),
-					reference);
+			assertSameNature(new BooleanType(),
+					environment.get(naturalExpression), reference);
 		} else {
 			assertSameNature(new BooleanType(), naturalExpression, reference);
 		}
 	}
 
 	@Override
-	public Statement visit(final IfElseStatement ifElseStatement) {
+	public Block visit(final IfElseStatement ifElseStatement) {
 		visitExpression(ifElseStatement.getExpression());
 
 		assertIfStatementExpression(ifElseStatement.getExpression(),
@@ -108,7 +107,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	}
 
 	@Override
-	public Statement visit(final Question question) {
+	public Block visit(final Question question) {
 		assertIdentifierAndAddToEnvironment(question.getIdentifier(),
 				question.getDataType());
 		return question;
@@ -118,12 +117,14 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 			final Natural natural2, final String reference) {
 
 		try {
-			checked.assertTrue(natural.getNature() == natural2.getNature(),
-					natural + " does not match " + natural2 + " for "
+			checked.assertTrue(
+					natural.getNature().equals(natural2.getNature()), natural
+							+ " does not match " + natural2 + " for "
 							+ reference);
 
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(e.getMessage(), e));
+			typeErrors.add(new TypeCheckException(natural + " does not match "
+					+ natural2 + " for " + reference, e));
 		}
 	}
 
@@ -140,7 +141,7 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 	 */
 	private void assertIdentifierAndAddToEnvironment(
 			final Identifier identifier, final Natural natural) {
-		identifier.accept(expressionTypeChecker);
+		// identifier.accept(expressionTypeChecker);
 
 		try {
 			checked.assertTrue(!identifier.getName().isEmpty(), natural
@@ -150,8 +151,10 @@ public class StatementTypeChecker implements StatementVisitor<Statement> {
 					identifier.getName() + " already exists");
 
 			environment.put(identifier, natural);
+
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(e.getMessage(), e));
+			typeErrors.add(new TypeCheckException(identifier.getName()
+					+ " already exists", e));
 		}
 	}
 

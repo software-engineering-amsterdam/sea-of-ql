@@ -4,6 +4,8 @@ import javax.swing.JLabel;
 
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.LabelControl;
+import org.uva.sea.ql.value.StringValue;
+import org.uva.sea.ql.value.Value;
 
 public class JLabelControl extends LabelControl {
 	private final JLabel control;
@@ -18,31 +20,27 @@ public class JLabelControl extends LabelControl {
 	}
 
 	@Override
-	public Object getControl() {
-		return this.control;
-	}
-
-	@Override
-	public void setValue( Object value ) {
-		this.setValue( (String) value );
-	}
-
-	public void setValue( String value ) {
-		this.control.setText( value );
-	}
-
-	@Override
 	public void setVisible( boolean visible ) {
 		this.control.setVisible( visible );
 	}
 
 	@Override
-	public void addChangeListener( ControlEventListener listener ) {
-		throw new UnsupportedOperationException();
+	public void setValue( Value value ) {
+		this.control.setText( value.toString() );
 	}
 
 	@Override
-	public String getValue() {
-		return this.control.getText();
+	public StringValue getValue() {
+		return new StringValue( this.control.getText() );
+	}
+
+	@Override
+	public Object getInnerControl() {
+		return this.control;
+	}
+
+	@Override
+	public void addChangeListener( ControlEventListener listener ) {
+		throw new UnsupportedOperationException();
 	}
 }

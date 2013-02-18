@@ -67,20 +67,31 @@ public class TestExpressions {
 
 	@Test
 	public void testIds() throws ParseError {
-		assertEquals(parser.parseValue("a").getClass(), Ident.class);
-		assertEquals(parser.parseValue("abc").getClass(), Ident.class);
-		assertEquals(parser.parseValue("ABC").getClass(), Ident.class);
-		assertEquals(parser.parseValue("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parseValue("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parseValue("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parseValue("a2bc232aa").getClass(), Ident.class);
-	}
-
+		assertEquals(parser.parseExpression("a").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("abc").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("ABC").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("ABCDEF").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("abc2323").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("a2bc232").getClass(), Ident.class);
+		assertEquals(parser.parseExpression("a2bc232aa").getClass(), Ident.class);
+	} 
+ 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parseValue("0").getClass(), Int.class);
-		assertEquals(parser.parseValue("1223").getClass(), Int.class);
-		assertEquals(parser.parseValue("234234234").getClass(), Int.class);
+		assertEquals(parser.parseExpression("0").getClass(), Int.class);
+		assertEquals(parser.parseExpression("1223").getClass(), Int.class);
+		assertEquals(parser.parseExpression("234234234").getClass(), Int.class);
 	}
+	
+	@Test
+	public void testLogicAnd() throws ParseError {
+		assertEquals(parser.parseExpression("(false && true)").getClass(), And.class);
+	}
+	
+	@Test
+	public void testLogicOr() throws ParseError {
+		assertEquals(parser.parseExpression("(false || true)").getClass(), Or.class);
+	}
+
 	
 }

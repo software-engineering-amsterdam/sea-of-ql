@@ -5,16 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.form.*;
-}
-
-@parser::members {
-    @Override
-    public void reportError(RecognitionException e) {
-      throw new RuntimeException(e);
-    }
 }
 
 @lexer::header
@@ -31,7 +23,10 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-  : 'form' IDENT body { $result = new Form($IDENT.text, $body.result); } EOF
+  : frm='form' IDENT body {
+      $result = new Form($IDENT.text, $body.result, new Location($frm.line,
+        $frm.pos, null));
+    } EOF
   ;
   
 topLevelBody returns [Body result]
@@ -41,8 +36,12 @@ topLevelBody returns [Body result]
   
 body returns [Body result]
   @init { List<FormElement> tempList = new ArrayList<>(); }
-  @after { $result = new Body(tempList); }
-  : '{' (formElement { tempList.add($formElement.result); })* '}'
+  @after
+    {
+      $result = new Body(tempList, new Location($open.line, $open.pos,
+        $close.line, $close.pos + $close.text.length()));
+    }
+  : open='{' (formElement { tempList.add($formElement.result); })* close='}'
   ;
   
 formElement returns [FormElement result]
@@ -57,19 +56,37 @@ topLevelFormElement returns [FormElement result]
 question returns [Question result]
   : id=IDENT ':' lbl=STRING_LITERAL type
     {
-      $result = new Question(new Ident($id.text), $lbl.text, $type.result);
+      $result = new Question(
+        new Ident($id.text, new Location($id.line, $id.pos, $id.line,
+          $id.pos + $id.text.length())),
+        $lbl.text, $type.result);
     }
-  | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression ')'
+  | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression close=')'
     {
-      $result = new Computed(new Ident($id.text), $lbl.text,
-        $type.result, $cond.result);
+      $result = new Computed(
+        new Ident($id.text, new Location($id.line, $id.pos, $id.line,
+          $id.pos + $id.text.length())),
+        $lbl.text, $type.result, $cond.result, new Location(null, $close.line,
+          $close.pos + $close.text.length()));
     }
   ;
   
 type returns [Type result]
-  : 'boolean' { $result = new BoolType(); }
-  | 'string' { $result = new StrType(); }
-  | 'integer' { $result = new IntType(); }
+  : boolTok='boolean'
+    {
+      $result = new BoolType(new Location($boolTok.line, $boolTok.pos,
+        $boolTok.line, $boolTok.pos + $boolTok.text.length()));
+    }
+  | strTok='string'
+    {
+      $result = new StrType(new Location($strTok.line, $strTok.pos,
+         $strTok.line, $strTok.pos + $strTok.text.length()));
+    }
+  | intTok='integer'
+    {
+      $result = new IntType(new Location($intTok.line, $intTok.pos,
+         $intTok.line, $intTok.pos + $intTok.text.length()));
+    }
   ;
 
 ifStatement returns [IfStatement result]
@@ -77,22 +94,24 @@ ifStatement returns [IfStatement result]
     List<ElseIfStatement> elseIfs = new ArrayList<>();
     ElseStatement elseStmt = null;
   }
-  : 'if' '(' ic=expression ')' ib=body
+  : ifTok='if' '(' ic=expression ')' ib=body
     (
-      'else' 'if' '(' eic=expression ')' eib=body
+      elseIfTok='else' 'if' '(' eic=expression ')' eib=body
       {
-        elseIfs.add(new ElseIfStatement($eic.result, $eib.result));
+        elseIfs.add(new ElseIfStatement($eic.result, $eib.result,
+          new Location($elseIfTok.line, $elseIfTok.pos, null)));
       }
     )*
-    
     (
-      'else' eb=body
+      elseTok='else' eb=body
       {
-        elseStmt = new ElseStatement($eb.result);
+        elseStmt = new ElseStatement($eb.result, new Location($elseTok.line,
+          $elseTok.pos, null));
       }
     )?
     {
-      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt); 
+      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt,
+        new Location($ifTok.line, $ifTok.pos, null)); 
     }
   ;
 
@@ -105,9 +124,23 @@ expression returns [Expr result]
   ;
 
 primary returns [Expr result]
-  : INT   { $result = new Int(Integer.parseInt($INT.text)); }
-  | IDENT { $result = new Ident($IDENT.text); }
-  | STRING_LITERAL { $result = new Str($STRING_LITERAL.text); }
+  : INT
+    {
+      $result = new Int(Integer.parseInt($INT.text), new Location($INT.line,
+        $INT.pos, $INT.line, $INT.pos + $INT.text.length()));
+    }
+  | IDENT
+    {
+      $result = new Ident($IDENT.text, new Location($IDENT.line, $IDENT.pos,
+          $IDENT.line, $IDENT.pos + $IDENT.text.length()));
+    }
+  | STRING_LITERAL
+    {
+      $result = new Str($STRING_LITERAL.text,
+        new Location($STRING_LITERAL.line, $STRING_LITERAL.pos,
+          $STRING_LITERAL.line,
+          $STRING_LITERAL.pos + $STRING_LITERAL.text.length()));
+    }
   | '(' orExpr ')' { $result = $orExpr.result; }
   ;
     

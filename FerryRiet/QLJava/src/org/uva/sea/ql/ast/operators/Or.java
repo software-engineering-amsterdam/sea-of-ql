@@ -1,9 +1,8 @@
 package org.uva.sea.ql.ast.operators;
 
-import java.util.HashMap;
+import java.util.Map;
 
-import org.uva.sea.ql.ast.literals.BooleanResult;
-import org.uva.sea.ql.ast.literals.Result;
+import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.Type;
@@ -16,7 +15,7 @@ public class Or extends BinExpr {
 	}
 
 	@Override
-	public Type typeOf(HashMap<String, Statement> typeEnv) {
+	public Type typeOf(Map<String, Statement> typeEnv) {
 		return new BooleanType();
 	}
 
@@ -26,12 +25,10 @@ public class Or extends BinExpr {
 	}
 
 	@Override
-	public Result eval(HashMap<String, Result> symbolMap) {
-		// TODO and check type
+	public Result eval(Map<String, Result> symbolMap) {
 		Result leftHandresult = getExprLeftHand().eval(symbolMap);
 		Result rightHandResult = getExprRightHand().eval(symbolMap);
 
-		return new BooleanResult(leftHandresult.getBooleanValue()
-				|| rightHandResult.getBooleanValue());
+		return leftHandresult.or(rightHandResult);
 	}
 }

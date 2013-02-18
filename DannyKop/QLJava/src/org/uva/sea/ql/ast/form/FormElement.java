@@ -1,32 +1,37 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Class: FormElement
  * @author Danny
  *
  */
-public abstract class FormElement extends Expr {
+public abstract class FormElement implements ASTNode {
 	
-	private Expr type;
+	private final Type type;
 	
 	/**
 	 * Constructor
-	 * @param t : type of the formelement (Bool, Money, Int, etc)
+	 * @param t - Type of the element
 	 */
-	public FormElement(Expr t){
+	public FormElement(Type t){
 		this.type = t;
-	}	
+	}
 	/**
 	 * getType
-	 * @param st
-	 * @return Type of the element
+	 * @return type 
 	 */
-	@Override
-	public Expr getType(SymbolTable st){
+	public Type getType(){
 		return this.type;
 	}
-	
+	/**
+	 * accept
+	 * @param visitor
+	 */
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
+	}
 }

@@ -12,13 +12,13 @@
 %token <BooleanLiteral> BOOLEANLITERAL
 %token <Identifier>     IDENTIFIER
 // Types
-%token INTEGER BOOLEAN STRING
+%token INTEGER BOOLEAN STRING MONEY
 // Operators
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 // Reserved keywords
 %token FORM IF
 // Syntactic symbols
-%token ':' '(' ')' '{' '}'
+%token ':' '(' ')' '{' '}' ';'
 
 // Operator associativity and presendence dsds 
 %left OR
@@ -31,17 +31,21 @@
 // Nonterminal symbol definitions 
 %type <Node>       node
 %type <Form>       form
-%type <Question>   question
 %type <Type>       type
+%type <Question>   question
 %type <Expression> expression
+%type <IfBlock>    ifblock
+%type <Statement>  statement
+%type <Statements> statements
 
 // Statements that get put after the package declaration in XParser.java
 %{
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.literal.*;
-import org.uva.sea.ql.ast.operators.logical.*;
-import org.uva.sea.ql.ast.operators.numeric.*;
-import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.operators.logical.*;
+import org.uva.sea.ql.ast.expression.operators.numeric.*;
+import org.uva.sea.ql.ast.expression.operators.relational.*;
 import org.uva.sea.ql.ast.type.*;
 %}
 
@@ -54,30 +58,36 @@ top         : node { result = $1; }
             ;
 
 node        : form
-            | question
+            | statement
             | expression
             ;
 
 // ENDSECTION
             
-form        : FORM IDENTIFIER '{' body '}' { $$ = new Form($2); }
-            ;
-		
-body        : questions
+form        : FORM IDENTIFIER '{' statements '}' { $$ = new Form($2, $4); }
             ;
 
-questions   : question questions
-            | question
-			;
+statements  : statement statements { $$ = new Statements($1, $2); }
+            | statement            { $$ = new Statements($1); }
+            ;
+            
+statement   : question
+            | ifblock
+            ;
 			
-question    : IDENTIFIER ':' STRINGLITERAL type { $$ = new Question($1, $3); }
+question    : IDENTIFIER ':' STRINGLITERAL type                    { $$ = new Question($1, $3, $4); }
+            | IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new ComputedQuestion($1, $3, $4, $6); }
+            ;
+            
+type        : INTEGER { $$ = new Int(); }
+            | BOOLEAN { $$ = new Bool(); }
+            | STRING  { $$ = new Str(); }
+            //| MONEY
             ;
 
-type        : INTEGER
-            | BOOLEAN
-            | STRING
+ifblock     : IF '(' expression ')' '{' statements '}' { $$ = new IfBlock($3, $6); }
             ;
-		
+            
 expression	: arithmetic
 		    | logical
 			| relational
