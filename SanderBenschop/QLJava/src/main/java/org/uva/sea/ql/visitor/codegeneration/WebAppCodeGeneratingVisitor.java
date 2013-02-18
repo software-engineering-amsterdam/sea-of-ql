@@ -68,7 +68,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         WebappCodeWrapper expressionJSCodeWrapper = computation.getExpression().accept(this);
 
         computationJSTemplate.add("name", computation.getIdentifier().getName());
-        computationJSTemplate.add("variableSubscriptions", getSubscriptions(expressionJSCodeWrapper.getJavascriptCode()));
+        computationJSTemplate.add("initializationBlock", getExpressionInitializationBlock(expressionJSCodeWrapper.getJavascriptCode()));
         computationJSTemplate.add("expression", expressionJSCodeWrapper.getJavascriptCode());
 
         computationHtmlTemplate.add("id", computation.getIdentifier().getName());
@@ -77,19 +77,25 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         return new SimpleStatementWebappCodeWrapper(computationJSTemplate.render(), computationHtmlTemplate.render());
     }
 
-    private List<String> getSubscriptions(String expression) {
-        List<String> variableSubscriptions = new ArrayList<String>();
+    private List<String> getExpressionInitializationBlock(String expression) {
+        List<String> expressionInitializationLines = new ArrayList<String>();
 
         String preRegex = formTemplateGroup.getInstanceOf("variableMapStart").render(), postRegex = formTemplateGroup.getInstanceOf("variableMapEnd").render();
         Pattern pattern = Pattern.compile(preRegex.replace("[", "\\[") + "(.+?)" + postRegex.replace("]", "\\]"));
         Matcher matcher = pattern.matcher(expression);
+
         while (matcher.find()) {
             ST variableSubscriptionTemplate = formTemplateGroup.getInstanceOf("variableSubscription");
             variableSubscriptionTemplate.add("variableName", matcher.group(1).trim());
-            variableSubscriptions.add(variableSubscriptionTemplate.render());
+            expressionInitializationLines.add(variableSubscriptionTemplate.render());
         }
 
-        return variableSubscriptions;
+        if (expressionInitializationLines.isEmpty()) {
+            ST fixedExpressionInitializationTemplate = formTemplateGroup.getInstanceOf("fixedExpressionInitialization");
+            expressionInitializationLines.add(fixedExpressionInitializationTemplate.render());
+        }
+
+        return expressionInitializationLines;
     }
 
     @Override
@@ -150,7 +156,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ST conditionalJSTemplate = formTemplateGroup.getInstanceOf("conditionalJS");
         conditionalJSTemplate.add("identifier", identifier);
         conditionalJSTemplate.add("parentController", formTemplateGroup.getInstanceOf("ifStatementParentController").render());
-        conditionalJSTemplate.add("variableSubscriptions", getSubscriptions(expressionJSCodeWrapper.getJavascriptCode()));
+        conditionalJSTemplate.add("initializationBlock", getExpressionInitializationBlock(expressionJSCodeWrapper.getJavascriptCode()));
         conditionalJSTemplate.add("expression", expressionJSCodeWrapper.getJavascriptCode());
 
         return conditionalJSTemplate.render();
@@ -202,7 +208,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
 
     private ST getUnaryOperationST(UnaryOperation unaryOperation, String templateName) {
         ST unaryOperationTemplate = formTemplateGroup.getInstanceOf(templateName);
-        unaryOperationTemplate.add("expr", unaryOperation.getExpression().accept(this));
+        unaryOperationTemplate.add("expr", unaryOperation.getExpression().accept(this).getJavascriptCode());
         return unaryOperationTemplate;
     }
 

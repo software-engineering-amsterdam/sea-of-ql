@@ -17,7 +17,7 @@ ql.messageBus = Base.extend({
     signalVariableChanged : function(variable) {
         if (this.variableListeners[variable]) {
             jQuery.each(this.variableListeners[variable], function(index, value) {
-                value.dependenciesChanged();
+                value.triggerEvaluation();
             });
         }
     }
@@ -113,7 +113,7 @@ ql.ComputationController = Base.extend({
         this.view = $("#" + this.computationName);
     },
 
-    dependenciesChanged : function() {
+    triggerEvaluation : function() {
         var expressionOutcome = this.evaluateExpression();
         this.view.val(expressionOutcome);
         if (expressionOutcome !== "") {
@@ -129,7 +129,7 @@ ql.ConditionalController = Base.extend({
         this.view = $("#" + this.conditionalName);
     },
 
-    dependenciesChanged : function() {
+    triggerEvaluation : function() {
         var booleanOutcome = this.evaluateExpression();
         this.toggle(booleanOutcome);
     },

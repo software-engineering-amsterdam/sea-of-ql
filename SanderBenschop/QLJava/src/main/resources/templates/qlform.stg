@@ -22,11 +22,11 @@ computationHtml(id, labelText) ::= <<
     <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$" readonly="readonly"/><br>
 >>
 
-computationJS(name, variableSubscriptions, expression) ::= <<
+computationJS(name, initializationBlock, expression) ::= <<
     var $name$ComputationController = ql.ComputationController.extend({
         initialize : function(name) {
             ql.ComputationController.initialize.call(this, name);
-            $variableSubscriptions$
+            $initializationBlock$
         },
 
         evaluateExpression : function() {
@@ -54,11 +54,11 @@ ifElseStatementHtml(identifier, successBodyContent, failureBodyContent) :: <<
     </div>
 >>
 
-conditionalJS(identifier, parentController, variableSubscriptions, expression) ::= <<
+conditionalJS(identifier, parentController, initializationBlock, expression) ::= <<
     var $identifier$ConditionalController = $parentController$.extend({
         initialize : function(identifier) {
             $parentController$.initialize.call(this, identifier);
-            $variableSubscriptions$
+            $initializationBlock$
         },
 
         evaluateExpression : function() {
@@ -68,7 +68,7 @@ conditionalJS(identifier, parentController, variableSubscriptions, expression) :
 >>
 
 positive(expr) ::= <<Math.abs($expr$);>>
-negative(expr) ::= <<-$expr$>>
+negative(expr) ::= <<-($expr$)>>
 not(expr) ::= <<!$expr$>>
 
 multiply(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ * $rightHandSideExpr$>>
@@ -91,7 +91,8 @@ ident(name) ::= <<$variableMapStart()$$name$$variableMapEnd()$>>
 variableMapStart() ::= <<ql.variableMap[">>
 variableMapEnd() ::= <<"]>>
 
-variableSubscription(variableName) ::= << ql.messageBus.subscribeToVariable("$variableName$", this); >>
+variableSubscription(variableName) ::= <<ql.messageBus.subscribeToVariable("$variableName$", this);>>
+fixedExpressionInitialization() ::= <<this.triggerEvaluation();>>
 
 ifStatementParentController() ::= <<ql.IfStatementController>>
 ifElseStatementParentController() ::= <<ql.IfElseStatementController>>
