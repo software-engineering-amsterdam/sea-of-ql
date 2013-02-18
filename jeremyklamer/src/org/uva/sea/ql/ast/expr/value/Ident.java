@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.expr.value;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.Type;
@@ -47,11 +46,6 @@ public class Ident extends Expr {
 			errors.add(new Error("Identity for : " + name + " has not been initialized."));
 		}			
 		return errors; 
-	}
-	
-	@Override
-	public void fillIdents(Map<Ident, Type> input) {
-		super.fillIdents(input);
 	}
 	
 	@Override

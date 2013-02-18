@@ -9,4 +9,9 @@ public class Int extends Numeric {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Int;
+	}
+
 }

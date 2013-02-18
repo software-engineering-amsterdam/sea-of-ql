@@ -1,6 +1,8 @@
 package org.uva.sea.ql.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,6 +16,8 @@ public class Environment {
 	private Environment parentEnvironment;
 	private Map<Ident, Expr> valueMap;
 	private Map<Ident, Observable> observables;
+	
+	private List<Environment> branchedEnvironments;
 	
 	public Environment(){
 		init(null);
@@ -29,6 +33,7 @@ public class Environment {
 		this.valueMap = new HashMap<Ident, Expr>();
 		this.observables = new HashMap<Ident, Observable>();
 		this.parentEnvironment = parentEnvironment;
+		this.branchedEnvironments = new ArrayList<Environment>();
 	}
 	
 	
@@ -80,7 +85,10 @@ public class Environment {
 	
 	
 	public Environment branchEnvironment(){
-		return new Environment(this);
+		
+		Environment childEnv = new Environment(this);
+		branchedEnvironments.add(childEnv);
+		return childEnv;
 	}
 	
 	

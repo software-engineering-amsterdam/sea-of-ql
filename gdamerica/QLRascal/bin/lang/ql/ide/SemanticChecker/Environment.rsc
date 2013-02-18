@@ -1,5 +1,6 @@
 /**
  * This module contains all IDE environment functions and Data structures
+ * contains functions in order to add new elemnts to the ENV 
  * @author  Gerson Delgado
  * @version 1.0, 29/01/2013
  */

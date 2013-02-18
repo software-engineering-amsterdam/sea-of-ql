@@ -1,5 +1,6 @@
 /**
- * This module contains the functions for the DataType checker (hooked up to the IDE)  
+ * This module contains the functions for the DataType checker (hooked up to the IDE)
+ * visit pattern and pattern matching is used in order to check a a QL Form syntax for errors  
  * @author  Gerson Delgado
  * @version 1.0, 3/02/2013
  */
@@ -10,6 +11,10 @@ import lang::ql::ast::AST;
 import lang::ql::ide::SemanticChecker::Environment;
 import Set;
 
+/**
+* Check function that will visit all type of elemnts in a form 
+* and consequently check them
+*/ 
 public ENV checkListElements(list[Element] elem, ENV env){
 	top-down visit(elem){
 		case qstn:computableQuestion(_,_,_,_) 

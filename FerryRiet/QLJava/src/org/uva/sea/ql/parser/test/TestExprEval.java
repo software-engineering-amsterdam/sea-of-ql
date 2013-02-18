@@ -2,6 +2,7 @@ package org.uva.sea.ql.parser.test;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -18,7 +19,7 @@ public class TestExprEval extends TestCase {
 	@Test
 	public void testExprEval() throws Exception {
 
-		HashMap<String, Result> symbols = new HashMap<String, Result>();
+		Map<String, Result> symbols = new HashMap<String, Result>();
 
 		symbols.put("bool", new BooleanResult(false));
 		symbols.put("money1", new MoneyResult(10));

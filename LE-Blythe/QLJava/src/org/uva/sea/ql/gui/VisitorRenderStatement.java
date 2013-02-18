@@ -1,9 +1,11 @@
 package org.uva.sea.ql.gui;
 
+import java.awt.Button;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.ScrollPane;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
@@ -17,14 +19,14 @@ import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.ast.visitor.IVisitorType;
-import org.uva.sea.ql.gui.widget.ObservableWidget;
 import org.uva.sea.ql.gui.widget.ObserverComputed;
 import org.uva.sea.ql.gui.widget.ObserverConditionIf;
 import org.uva.sea.ql.gui.widget.ObserverConditionIfElse;
-import org.uva.sea.ql.gui.widget.VisitorExpressionIdentifiers;
 import org.uva.sea.ql.gui.widget.Widget;
+import org.uva.sea.ql.gui.widget.WidgetChangeHandler;
 import org.uva.sea.ql.gui.widget.WidgetComputed;
 import org.uva.sea.ql.gui.widget.WidgetObserver;
+import org.uva.sea.ql.interpreter.VisitorExpressionIdentifiers;
 import org.uva.sea.ql.util.Environment;
 
 public class VisitorRenderStatement implements IVisitorStatement<Component> {
@@ -33,6 +35,31 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	
 	private VisitorRenderStatement(Environment environment){
 		this.environment= environment;
+	}
+	
+	
+	private GridLayout vertical(int rows){
+		return new GridLayout(rows, 1);
+	}
+	
+	
+	private GridLayout horizontal(int columns){
+		return new GridLayout(1, columns);
+	}
+	
+	
+	private Panel verticalPanel(int rows){
+		Panel panel = new Panel();
+		//panel.setLayout(vertical(rows));
+
+		return panel;
+	}
+	
+	
+	private Panel horizontalPanel(int columns){
+		Panel panel = new Panel();
+		//panel.setLayout(horizontal(columns));
+		return panel;
 	}
 	
 	
@@ -48,40 +75,45 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	}
 	
 	
-	private void registerObservableWidget(Ident ident, Widget widget){
-		ObservableWidget observable = new ObservableWidget(ident, widget, environment);
+	private void registerWidgetChangeHandler(Ident ident, Widget widget){
+		WidgetChangeHandler observable = new WidgetChangeHandler(ident, widget, environment);
 		environment.putObservable(ident, observable);
 	}
 
 	@Override
 	public Component visit(Form form) {
+		
+		ScrollPane pane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
+	
 		Panel panel = new Panel();
+		Button button = new Button("submit");
 		
 		panel.add(form.getBlock().accept(this));
-		return panel;
+		panel.add(button);
+				
+		pane.add(panel);
+		return pane;
 	}
-
+	
 	@Override
 	public Component visit(Block block) {
 		Environment subEnvironment = environment.branchEnvironment();
 		
 		VisitorRenderStatement renderer = new VisitorRenderStatement(subEnvironment);
 		
-		int rows = block.getStatements().size();
-		
-		Panel panel = new Panel();
-		panel.setLayout(new GridLayout(rows,1));
+		Panel panel = verticalPanel(block.getStatements().size());
 		
 		for(Statement s: block.getStatements())
 			panel.add(s.accept(renderer));
-		
+
 		return panel;
 	}
 
 	@Override
 	public Component visit(IfThen branch) {
 		
-		Panel panel = new Panel();
+		Panel panel = verticalPanel(1);
+		
 		Component ifBlock = branch.getIfBlock().accept(this);
 		
 		panel.add(ifBlock);
@@ -97,8 +129,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	@Override
 	public Component visit(IfThenElse branch) {
 		
-		Panel panel = new Panel();
-		panel.setLayout(new GridLayout(2,1));
+		Panel panel = verticalPanel(2);
 		
 		Component ifBlock = branch.getIfBlock().accept(this);
 		Component elseBlock = branch.getElseBlock().accept(this);
@@ -116,13 +147,12 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	
 	@Override
 	public Component visit(QuestionAnswerable question) {
-		Panel panel = new Panel();
-		panel.setLayout(new GridLayout(1,2));
+		Panel panel = horizontalPanel(2);
 		
 		IVisitorType<Widget> visitor = new VisitorRenderType(); 
 		Widget widget = question.typeOf(environment).accept(visitor);
 		
-		registerObservableWidget(question.getIdentifier(), widget);
+		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
 		panel.add(new Label(question.getQuestion()));
 		panel.add(widget.getComponent());
@@ -132,19 +162,18 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	
 	@Override
 	public Component visit(QuestionComputed question) {
-		Panel panel = new Panel();
-		panel.setLayout(new GridLayout(1,2));
+		Panel panel = horizontalPanel(2);
 		
 		WidgetComputed widget = new WidgetComputed();
 		
-		registerObservableWidget(question.getIdentifier(), widget);
+		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
 		panel.add(new Label(question.getQuestion()));
 		panel.add(widget.getComponent());
 		
 		ObserverComputed observer = new ObserverComputed(question, widget, environment); 
 		registerObservers(question.getValue(), observer);
-		
+
 		return panel;
 	}
 	
@@ -153,8 +182,10 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 		VisitorRenderStatement renderer = new VisitorRenderStatement(new Environment());
 		Component cmp = renderer.visit(form);
 		
-		CloseableFrame frame = new CloseableFrame("render test", 500, 500);
-		frame.add(cmp);
+		CloseableFrame frame = new CloseableFrame(form.getName(), 500, 500);
+		
+		frame.add(cmp);	
+		
 	}
 
 }

@@ -16,7 +16,6 @@ public class Add extends Binary{
 	
 	@Override
 	public Value eval(Env env) {
-		//TODO add type support for Money
 		IntVal li = (IntVal)(left.eval(env));
 		IntVal ri = (IntVal)(right.eval(env));
 		return new IntVal(li.getValue() + ri.getValue());	

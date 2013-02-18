@@ -8,7 +8,7 @@
 module Plugin
 
 import lang::ql::ide::SemanticChecker::FormChecker;
-import lang::ql::ast::JavaGenerator::Generator;
+import lang::ql::ide::JavaGenerator::Generator;
 import lang::ql::ide::Outline::Generator;
 import lang::ql::util::Implode;
 import lang::ql::util::Parse;

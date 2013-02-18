@@ -207,27 +207,27 @@ public class VisitorExprChecker implements IVisitorExpr<Boolean> {
 	@Override
 	public Boolean visit(Int ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 
 	@Override
 	public Boolean visit(org.uva.sea.ql.ast.primitive.Bool ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 
 	@Override
 	public Boolean visit(Str ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
 	public Boolean visit(Undefined ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 }

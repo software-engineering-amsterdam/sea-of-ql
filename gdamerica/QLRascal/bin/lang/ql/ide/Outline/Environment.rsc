@@ -1,5 +1,6 @@
 /**
  * This module contains code revelant to the IDE outline view  
+ * contains functions in order to add new elemnts to the OENV(outline)
  * @author  Gerson Delgado
  * @version 1.0, 15/02/2013
  */

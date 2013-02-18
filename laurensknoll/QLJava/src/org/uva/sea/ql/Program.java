@@ -48,6 +48,7 @@ public class Program {
 			JFrame frame = questionForm.accept(swingVisitor);
 
 			// Show created form and define closebehaviour.
+			frame.setSize(400, 600);
 			frame.setVisible(true);
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}

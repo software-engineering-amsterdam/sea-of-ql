@@ -35,13 +35,16 @@ public class TestForms {
 	
 	@Test
 	public void testBasicForms() throws ParseError {
-		Ident ident1 = new Ident("hallo");
-		Ident ident2 = new Ident("hallo");
-		Ident ident3 = new Ident("hallo2");
 		
-		boolean one = ident1.equals(ident2);
-		boolean two = ident1.equals(ident3);
-		
+		System.out.println(parser.parseForm(
+				"form Box1HouseOwning {" +
+					"hasSoldHouse: \"For how much did you sell your house?\" boolean " +
+					"if (hasSoldHouse > 10000) {" +
+						"hasSoldHouse: \"Price the house was sold for:\" integer " +
+						"} " +
+					"else { sellingPrice: \"lastquestion:\" integer " +
+						"} " +
+				"}").toString(0));
 		
 		assertEquals(Form.class,parser.parseForm("form basicForm1 { question1 : \"Is everything ok? \" boolean }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"How much does a burge cost? \" integer }").getClass());
@@ -117,17 +120,6 @@ public class TestForms {
 	
 	@Test
 	public void testFormTypes3() throws ParseError {
-		
-//		List<Message> es = parser.parseForm(
-//		"form Box1HouseOwning {" +
-//		"hasSoldHouse: \"For how much did you sell your house?\" integer " +
-//		"if (hasSoldHouse > 10000) {" +
-//			"sellingPrice: \"Price the house was sold for:\" integer " +
-//			"} " +
-//		"else { sellingPrice: \"lastquestion:\" integer " +
-//			"} " +
-//			"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>()));
-		
 		assertEquals(0, parser.parseForm(
 				"form Box1HouseOwning {" +
 					"hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +

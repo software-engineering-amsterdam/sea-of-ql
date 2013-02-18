@@ -5,7 +5,7 @@ import java.awt.Component;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.ast.visitor.VisitorEvalExpr;
+import org.uva.sea.ql.interpreter.VisitorEvalExpr;
 import org.uva.sea.ql.util.Environment;
 
 public class ObserverConditionIf extends WidgetObserver {
@@ -15,6 +15,8 @@ public class ObserverConditionIf extends WidgetObserver {
 	protected Environment environment;
 	
 	public ObserverConditionIf(Expr expression, Component ifPanel, Environment environment){
+		super();
+		
 		this.expression = expression;
 		this.ifPanel = ifPanel;
 		this.environment = environment;
@@ -27,9 +29,11 @@ public class ObserverConditionIf extends WidgetObserver {
 		return result.isDefined() && ((Bool)result).getValue();
 	}
 	
-	
+	@Override
 	public void evaluate(){
-		ifPanel.setVisible(evaluateCondition());
+		boolean visible = evaluateCondition();
+		
+		ifPanel.setVisible(visible);
 	}
 	
 }

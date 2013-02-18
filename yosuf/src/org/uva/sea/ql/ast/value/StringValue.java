@@ -2,8 +2,10 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.ast.exp.Nature;
+import org.uva.sea.ql.ast.exp.Textual;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class StringValue extends Value<StringValue> {
 
@@ -36,12 +38,17 @@ public class StringValue extends Value<StringValue> {
 
 	@Override
 	public Nature getNature() {
-		return Nature.TEXTUAL;
+		return new Textual();
 	}
 
 	@Override
 	public String toString() {
 		return "StringLiteral [value=" + value + "]";
+	}
+
+	@Override
+	public String getAsString() {
+		return value;
 	}
 
 }

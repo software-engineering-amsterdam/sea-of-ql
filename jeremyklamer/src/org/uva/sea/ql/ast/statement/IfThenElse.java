@@ -37,13 +37,16 @@ public class IfThenElse extends If{
 	}
 	
 	@Override
-	public void printSelf(int indentation){
-		super.printSelf(indentation);
-		printIndentation(indentation);
+	public String toString(int indentation) {
+		String returnString = super.toString(indentation); 
+		returnString += getIndentation(indentation);
+		returnString += "else";
+		returnString += newLine;
 		
 		for(Statement statement : elseBody){
-			statement.printSelf(indentation + 1);
+			returnString += statement.toString(indentation + 1);
 		}
+		return returnString; 
 	}
 	
 	@Override

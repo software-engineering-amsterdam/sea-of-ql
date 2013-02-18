@@ -2,7 +2,6 @@ package org.uva.sea.ql.parser.test.types;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.test.ExpressionTypeChecker;
 
 public class TestBinaryArithmeticExpressionTypes extends ExpressionTypeChecker {
 	
