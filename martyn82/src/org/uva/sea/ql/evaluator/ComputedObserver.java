@@ -9,12 +9,12 @@ import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.value.Value;
 
 class ComputedObserver implements Observer {
-	private final Control component;
+	private final Control control;
 	private final ValueEnvironment environment;
 	private final ComputedQuestion question;
 
-	public ComputedObserver( Control component, ValueEnvironment environment, ComputedQuestion question ) {
-		this.component = component;
+	public ComputedObserver( Control control, ValueEnvironment environment, ComputedQuestion question ) {
+		this.control = control;
 		this.environment = environment;
 		this.question = question;
 	}
@@ -26,6 +26,6 @@ class ComputedObserver implements Observer {
 		this.environment.assign( question.getIdentifier(), value );
 		this.environment.notifyObservers( this.question.getIdentifier() );
 
-		this.component.setValue( value );
+		this.control.setValue( value );
 	}
 }

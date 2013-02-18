@@ -5,9 +5,6 @@ TODO
 
 - review typecheckerhelper
 - review renderer (mixed responsibilities)
-- review environment
-
-- better place for either ui package or evaluator.value package, ui uses value
 
 - test for typeresolver
 - test for typeinitializer

@@ -16,6 +16,10 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
 import org.uva.sea.ql.ui.ControlEvent;
@@ -26,12 +30,12 @@ import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
-public class Renderer implements StatementVisitor<Void> {
+public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	private final ControlFactory factory;
-	private final ValueEnvironment environment;
 	private final PanelControl panel;
-	private final ControlRenderer controlRenderer;
+	private final ValueEnvironment environment;
 
 	public static PanelControl render( Statement statement, ControlFactory factory ) {
 		Renderer renderer = new Renderer( new ValueEnvironment(), factory );
@@ -48,28 +52,38 @@ public class Renderer implements StatementVisitor<Void> {
 	private Renderer( ValueEnvironment environment, ControlFactory factory ) {
 		this.environment = environment;
 		this.factory = factory;
-		this.controlRenderer = new ControlRenderer( factory );
-		this.panel = this.controlRenderer.createPanel();
-	}
-
-	private Value initType( Type type ) {
-		return TypeInitializer.initType( type );
+		this.panel = this.factory.createPanel();
 	}
 
 	private PanelControl getPanel() {
 		return this.panel;
 	}
 
-	private void addComponent( Control component ) {
-		this.panel.add( component );
+	private void addControl( Control control ) {
+		this.panel.add( control );
 	}
 
 	private void addLabel( String label ) {
-		this.addComponent( this.controlRenderer.createLabel( label ) );
+		this.addControl( this.factory.createLabel( label ) );
 	}
 
-	private void registerHandler( final QuestionDeclaration question, final Control component ) {
-		component.addChangeListener( new ControlEventListener() {
+	public Control createEditableControlFromType( Type type, Value value ) {
+		return this.createControlFromType( type, value, true );
+	}
+
+	public Control createReadOnlyControlFromType( Type type, Value value ) {
+		return this.createControlFromType( type, value, false );
+	}
+
+	private Control createControlFromType( Type type, Value value, boolean editable ) {
+		Control control = type.accept( this );
+		control.setEnabled( editable );
+		control.setValue( value );
+		return control;
+	}
+
+	private void registerHandler( final QuestionDeclaration question, final Control control ) {
+		control.addChangeListener( new ControlEventListener() {
 			@Override
 			public void itemChanged( ControlEvent event ) {
 				Control source = event.getSource();
@@ -86,8 +100,8 @@ public class Renderer implements StatementVisitor<Void> {
 		this.registerDependencies( observer, expression );
 	}
 
-	private void registerComputedObservers( final ComputedQuestion question, final Control component ) {
-		Observer observer = new ComputedObserver( component, this.environment, question );
+	private void registerComputedObservers( final ComputedQuestion question, final Control control ) {
+		Observer observer = new ComputedObserver( control, this.environment, question );
 		this.registerDependencies( observer, question.getExpression() );
 	}
 
@@ -105,13 +119,13 @@ public class Renderer implements StatementVisitor<Void> {
 		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
-		PanelControl falsePanel = this.controlRenderer.createPanel();
+		PanelControl falsePanel = this.factory.createPanel();
 
 		truePanel.setVisible( condition );
 		falsePanel.setVisible( !condition );
 
-		this.addComponent( truePanel );
-		this.addComponent( falsePanel );
+		this.addControl( truePanel );
+		this.addControl( falsePanel );
 
 		this.registerConditionObservers( node.getCondition(), truePanel, falsePanel );
 
@@ -128,8 +142,8 @@ public class Renderer implements StatementVisitor<Void> {
 		truePanel.setVisible( condition );
 		falsePanel.setVisible( !condition );
 
-		this.addComponent( truePanel );
-		this.addComponent( falsePanel );
+		this.addControl( truePanel );
+		this.addControl( falsePanel );
 
 		this.registerConditionObservers( node.getCondition(), truePanel, falsePanel );
 
@@ -138,7 +152,7 @@ public class Renderer implements StatementVisitor<Void> {
 
 	@Override
 	public Void visit( VariableDeclaration node ) {
-		Value value = this.initType( node.getType() );
+		Value value = TypeInitializer.initType( node.getType() );
 		this.environment.assign( node.getIdentifier(), value );
 
 		return null;
@@ -155,7 +169,7 @@ public class Renderer implements StatementVisitor<Void> {
 	@Override
 	public Void visit( FormDeclaration node ) {
 		PanelControl formPanel = render( node.getBody(), this.environment, this.factory );
-		this.addComponent( formPanel );
+		this.addControl( formPanel );
 
 		this.panel.setName( node.getLabel() );
 
@@ -167,15 +181,15 @@ public class Renderer implements StatementVisitor<Void> {
 		node.getVarDeclaration().accept( this );
 
 		Type type = node.getType();
-		Value value = this.initType( type );
+		Value value = TypeInitializer.initType( type );
 
 		String label = node.getLabel().getValue();
-		Control component = this.controlRenderer.createEditableControlFromType( type, value );
+		Control control = this.createEditableControlFromType( type, value );
 
 		this.addLabel( label );
-		this.addComponent( component );
+		this.addControl( control );
 
-		this.registerHandler( node, component );
+		this.registerHandler( node, control );
 
 		return null;
 	}
@@ -188,13 +202,13 @@ public class Renderer implements StatementVisitor<Void> {
 		Type type = value.getType();
 
 		String label = node.getLabel().getValue();
-		Control component = this.controlRenderer.createReadOnlyControlFromType( type, value );
+		Control control = this.createReadOnlyControlFromType( type, value );
 
 		this.addLabel( label );
-		this.addComponent( component );
+		this.addControl( control );
 
-		this.registerComputedObservers( node, component );
-		this.registerHandler( node, component );
+		this.registerComputedObservers( node, control );
+		this.registerHandler( node, control );
 
 		return null;
 	}
@@ -206,5 +220,25 @@ public class Renderer implements StatementVisitor<Void> {
 		}
 
 		return null;
+	}
+
+	@Override
+	public Control visit( BooleanType node ) {
+		return this.factory.createCheckBox();
+	}
+
+	@Override
+	public Control visit( IntegerType node ) {
+		return this.factory.createNumberBox();
+	}
+
+	@Override
+	public Control visit( StringType node ) {
+		return this.factory.createTextBox();
+	}
+
+	@Override
+	public Control visit( MoneyType node ) {
+		return this.factory.createMoneyBox();
 	}
 }
