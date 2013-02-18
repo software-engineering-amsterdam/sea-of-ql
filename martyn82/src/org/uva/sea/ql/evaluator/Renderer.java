@@ -36,7 +36,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
 public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
-	private final static String SUBMIT_TEXT = "Submit";
+	private final static String SUBMIT_TEXT = "Save";
 
 	private final ControlFactory factory;
 	private final PanelControl panel;
@@ -77,7 +77,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 			new ControlEventListener() {
 				@Override
 				public void itemChanged( ControlEvent event ) {
-					String dateString = DateFormat.getDateTimeInstance().format( new Date() );
+					String dateString = DateFormat.getDateTimeInstance().format( new Date() ).replace( ':', '_' );
 
 					Exporter exporter = new XmlExporter( panel.getName(), environment.getBindings() );
 					exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
