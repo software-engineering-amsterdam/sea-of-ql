@@ -1,7 +1,8 @@
-package org.uva.sea.ql.ast.statement;
+package org.uva.sea.ql.ast.statement.impl;
 
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
 

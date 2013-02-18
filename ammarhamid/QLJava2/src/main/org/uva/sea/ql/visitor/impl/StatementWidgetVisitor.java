@@ -2,9 +2,9 @@ package org.uva.sea.ql.visitor.impl;
 
 import net.miginfocom.swing.MigLayout;
 import org.uva.sea.ql.VariableState;
-import org.uva.sea.ql.ast.statement.AssignmentNode;
-import org.uva.sea.ql.ast.statement.BlockNode;
-import org.uva.sea.ql.ast.statement.IfNode;
+import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+import org.uva.sea.ql.ast.statement.impl.BlockNode;
+import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.observer.ConditionObserver;

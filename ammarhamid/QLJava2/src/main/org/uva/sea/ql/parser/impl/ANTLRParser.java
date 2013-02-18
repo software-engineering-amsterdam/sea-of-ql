@@ -3,8 +3,8 @@ package org.uva.sea.ql.parser.impl;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.ast.statement.impl.BlockNode;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.QLLexer;
 import org.uva.sea.ql.parser.QLParser;
@@ -17,35 +17,17 @@ public class ANTLRParser implements IParser
 {
 
 	@Override
-	public Node parseForm(String src) throws ParserException
+	public BlockNode parseForm(String src) throws ParserException
 	{
 		final QLParser parser = createQLParser(src);		
-		try
-		{
-            parser.form();
-			return null;
-		}
-		catch (RecognitionException e)
-		{
-			throw new ParserException(e.getMessage());
-		}
+		return createBlockNode(parser);
 	}
 
     @Override
-    public Node parseFormFromFile(String filename) throws ParserException, IOException
+    public BlockNode parseFormFromFile(String filename) throws ParserException, IOException
     {
         final QLParser parser = createQLParserFromFile(filename);
-        try
-        {
-            final CommonTree commonTree = (CommonTree) parser.form().getTree();
-            final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
-            final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
-            return qlTreeWalker.walk().node;
-        }
-        catch (RecognitionException e)
-        {
-            throw new ParserException(e.getMessage());
-        }
+        return createBlockNode(parser);
     }
 
     @Override
@@ -57,6 +39,21 @@ public class ANTLRParser implements IParser
             final QLTreeWalker qlTreeWalker = createQLTreeWalker(qlParser);
             QLTreeWalker.expression_return expression = qlTreeWalker.expression();
             return expression.node;
+        }
+        catch (RecognitionException e)
+        {
+            throw new ParserException(e.getMessage());
+        }
+    }
+
+    private BlockNode createBlockNode(QLParser parser)
+    {
+        try
+        {
+            final CommonTree commonTree = (CommonTree) parser.form().getTree();
+            final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
+            final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
+            return qlTreeWalker.walk().node;
         }
         catch (RecognitionException e)
         {

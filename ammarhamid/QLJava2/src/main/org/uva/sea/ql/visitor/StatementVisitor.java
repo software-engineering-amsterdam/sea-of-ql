@@ -1,8 +1,8 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.statement.AssignmentNode;
-import org.uva.sea.ql.ast.statement.BlockNode;
-import org.uva.sea.ql.ast.statement.IfNode;
+import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+import org.uva.sea.ql.ast.statement.impl.BlockNode;
+import org.uva.sea.ql.ast.statement.impl.IfNode;
 
 public interface StatementVisitor
 {

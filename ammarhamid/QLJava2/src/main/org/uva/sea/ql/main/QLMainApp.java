@@ -17,8 +17,7 @@ public class QLMainApp
     {
         final IParser parser = new ANTLRParser();
         final String qlFilename = "/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql";
-        // TODO check why cast is needed !!!
-        final Statement statement = (Statement)parser.parseFormFromFile(qlFilename);
+        final Statement statement = parser.parseFormFromFile(qlFilename);
 
         SwingUtilities.invokeLater(new Runnable()
         {

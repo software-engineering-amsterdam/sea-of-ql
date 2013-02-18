@@ -1,5 +1,6 @@
-package org.uva.sea.ql.ast.statement;
+package org.uva.sea.ql.ast.statement.impl;
 
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
