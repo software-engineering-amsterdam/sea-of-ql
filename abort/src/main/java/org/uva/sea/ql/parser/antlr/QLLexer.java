@@ -1,9 +1,8 @@
-// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 08:27:50
+// $ANTLR 3.5 /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 09:18:25
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.parser.errors.*;
-import org.uva.sea.ql.parser.errors.base.*;
 
 
 import org.antlr.runtime.*;
@@ -83,8 +82,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__13;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:27:7: ( '!' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:27:9: '!'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( '!' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:26:9: '!'
 			{
 			match('!'); 
 			}
@@ -103,8 +102,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__14;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:28:7: ( '!=' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:28:9: '!='
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:27:7: ( '!=' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:27:9: '!='
 			{
 			match("!="); 
 
@@ -124,8 +123,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__15;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:29:7: ( '&&' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:29:9: '&&'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:28:7: ( '&&' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:28:9: '&&'
 			{
 			match("&&"); 
 
@@ -145,8 +144,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__16;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:30:7: ( '(' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:30:9: '('
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:29:7: ( '(' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:29:9: '('
 			{
 			match('('); 
 			}
@@ -165,8 +164,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__17;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:31:7: ( ')' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:31:9: ')'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:30:7: ( ')' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:30:9: ')'
 			{
 			match(')'); 
 			}
@@ -185,8 +184,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__18;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:7: ( '*' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:9: '*'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:31:7: ( '*' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:31:9: '*'
 			{
 			match('*'); 
 			}
@@ -205,8 +204,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__19;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:33:7: ( '+' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:33:9: '+'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:7: ( '+' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:32:9: '+'
 			{
 			match('+'); 
 			}
@@ -225,8 +224,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__20;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:34:7: ( '-' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:34:9: '-'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:33:7: ( '-' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:33:9: '-'
 			{
 			match('-'); 
 			}
@@ -245,8 +244,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:7: ( '/' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:9: '/'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:34:7: ( '/' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:34:9: '/'
 			{
 			match('/'); 
 			}
@@ -265,8 +264,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:36:7: ( ':' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:36:9: ':'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:7: ( ':' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:35:9: ':'
 			{
 			match(':'); 
 			}
@@ -285,8 +284,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:7: ( '<' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:9: '<'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:36:7: ( '<' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:36:9: '<'
 			{
 			match('<'); 
 			}
@@ -305,8 +304,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:38:7: ( '<=' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:38:9: '<='
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:7: ( '<=' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:37:9: '<='
 			{
 			match("<="); 
 
@@ -326,8 +325,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:39:7: ( '==' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:39:9: '=='
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:38:7: ( '==' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:38:9: '=='
 			{
 			match("=="); 
 
@@ -347,8 +346,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:7: ( '>' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:9: '>'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:39:7: ( '>' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:39:9: '>'
 			{
 			match('>'); 
 			}
@@ -367,8 +366,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:7: ( '>=' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:9: '>='
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:7: ( '>=' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:40:9: '>='
 			{
 			match(">="); 
 
@@ -388,8 +387,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:42:7: ( 'else' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:42:9: 'else'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:7: ( 'else' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:41:9: 'else'
 			{
 			match("else"); 
 
@@ -409,8 +408,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:43:7: ( 'form' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:43:9: 'form'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:42:7: ( 'form' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:42:9: 'form'
 			{
 			match("form"); 
 
@@ -430,8 +429,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:44:7: ( 'if' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:44:9: 'if'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:43:7: ( 'if' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:43:9: 'if'
 			{
 			match("if"); 
 
@@ -451,8 +450,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:45:7: ( '{' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:45:9: '{'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:44:7: ( '{' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:44:9: '{'
 			{
 			match('{'); 
 			}
@@ -471,8 +470,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:7: ( '||' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:9: '||'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:45:7: ( '||' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:45:9: '||'
 			{
 			match("||"); 
 
@@ -492,8 +491,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__33;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:47:7: ( '}' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:47:9: '}'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:7: ( '}' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:46:9: '}'
 			{
 			match('}'); 
 			}
@@ -512,7 +511,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:195:6: ( '/*' ( . )* '*/' | '//' (~ ( '\\n' | '\\r' ) )* )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:193:6: ( '/*' ( . )* '*/' | '//' (~ ( '\\n' | '\\r' ) )* )
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='/') ) {
@@ -546,11 +545,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt3) {
 				case 1 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:195:8: '/*' ( . )* '*/'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:193:8: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:195:13: ( . )*
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:193:13: ( . )*
 					loop1:
 					while (true) {
 						int alt1=2;
@@ -571,7 +570,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt1) {
 						case 1 :
-							// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:195:13: .
+							// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:193:13: .
 							{
 							matchAny(); 
 							}
@@ -588,11 +587,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:196:8: '//' (~ ( '\\n' | '\\r' ) )*
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:194:8: '//' (~ ( '\\n' | '\\r' ) )*
 					{
 					match("//"); 
 
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:196:13: (~ ( '\\n' | '\\r' ) )*
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:194:13: (~ ( '\\n' | '\\r' ) )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -640,8 +639,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:197:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:197:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -668,7 +667,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Type;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:5: ( 'boolean' | 'integer' | 'money' | 'string' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:5: ( 'boolean' | 'integer' | 'money' | 'string' )
 			int alt4=4;
 			switch ( input.LA(1) ) {
 			case 'b':
@@ -698,28 +697,28 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt4) {
 				case 1 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:7: 'boolean'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:7: 'boolean'
 					{
 					match("boolean"); 
 
 					}
 					break;
 				case 2 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:19: 'integer'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:19: 'integer'
 					{
 					match("integer"); 
 
 					}
 					break;
 				case 3 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:31: 'money'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:31: 'money'
 					{
 					match("money"); 
 
 					}
 					break;
 				case 4 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:41: 'string'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:199:41: 'string'
 					{
 					match("string"); 
 
@@ -741,7 +740,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:5: ( 'TRUE' | 'FALSE' | 'true' | 'false' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:5: ( 'TRUE' | 'FALSE' | 'true' | 'false' )
 			int alt5=4;
 			switch ( input.LA(1) ) {
 			case 'T':
@@ -771,28 +770,28 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:7: 'TRUE'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:7: 'TRUE'
 					{
 					match("TRUE"); 
 
 					}
 					break;
 				case 2 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:16: 'FALSE'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:16: 'FALSE'
 					{
 					match("FALSE"); 
 
 					}
 					break;
 				case 3 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:26: 'true'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:26: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 4 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:35: 'false'
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:201:35: 'false'
 					{
 					match("false"); 
 
@@ -814,8 +813,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:205:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:205:8: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:8: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -825,7 +824,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:205:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:203:27: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -870,10 +869,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:4: ( ( '0' .. '9' )+ )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:6: ( '0' .. '9' )+
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:205:4: ( ( '0' .. '9' )+ )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:205:6: ( '0' .. '9' )+
 			{
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:6: ( '0' .. '9' )+
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:205:6: ( '0' .. '9' )+
 			int cnt7=0;
 			loop7:
 			while (true) {
@@ -922,10 +921,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Money;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:6: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:8: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )?
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:6: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:8: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )?
 			{
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:8: ( '0' .. '9' )+
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:8: ( '0' .. '9' )+
 			int cnt8=0;
 			loop8:
 			while (true) {
@@ -958,7 +957,7 @@ public class QLLexer extends Lexer {
 				cnt8++;
 			}
 
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:20: ( '.' ( '0' .. '9' )+ )?
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:20: ( '.' ( '0' .. '9' )+ )?
 			int alt10=2;
 			int LA10_0 = input.LA(1);
 			if ( (LA10_0=='.') ) {
@@ -966,10 +965,10 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt10) {
 				case 1 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:21: '.' ( '0' .. '9' )+
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:21: '.' ( '0' .. '9' )+
 					{
 					match('.'); 
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:25: ( '0' .. '9' )+
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:207:25: ( '0' .. '9' )+
 					int cnt9=0;
 					loop9:
 					while (true) {
@@ -1023,11 +1022,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:211:7: ( '\"' ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )* '\"' )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:211:9: '\"' ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )* '\"'
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:7: ( '\"' ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )* '\"' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:9: '\"' ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )* '\"'
 			{
 			match('\"'); 
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:211:13: ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )*
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:13: ( EscapedCharacterSequence |~ ( '\\\\' | '\"' ) )*
 			loop11:
 			while (true) {
 				int alt11=3;
@@ -1041,14 +1040,14 @@ public class QLLexer extends Lexer {
 
 				switch (alt11) {
 				case 1 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:211:14: EscapedCharacterSequence
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:14: EscapedCharacterSequence
 					{
 					mEscapedCharacterSequence(); 
 
 					}
 					break;
 				case 2 :
-					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:211:41: ~ ( '\\\\' | '\"' )
+					// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:209:41: ~ ( '\\\\' | '\"' )
 					{
 					if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
 						input.consume();
@@ -1081,8 +1080,8 @@ public class QLLexer extends Lexer {
 	// $ANTLR start "EscapedCharacterSequence"
 	public final void mEscapedCharacterSequence() throws RecognitionException {
 		try {
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:212:34: ( '\\\\' ( '\\\"' | '\\\\' ) )
-			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:212:36: '\\\\' ( '\\\"' | '\\\\' )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:210:34: ( '\\\\' ( '\\\"' | '\\\\' ) )
+			// /Users/abort/Documents/UvA/Repository/abort/src/main/java/org/uva/sea/ql/parser/antlr/QL.g:210:36: '\\\\' ( '\\\"' | '\\\\' )
 			{
 			match('\\'); 
 			if ( input.LA(1)=='\"'||input.LA(1)=='\\' ) {

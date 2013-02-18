@@ -3,14 +3,13 @@ package org.uva.sea.ql;
 import java.io.*;
 
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.traversal.codegeneration.*;
+import org.uva.sea.ql.ast.traversal.codegeneration.BootstrapGenerator;
 import org.uva.sea.ql.ast.traversal.codegeneration.base.*;
 import org.uva.sea.ql.ast.traversal.typechecking.TypeChecker;
 import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
-import org.uva.sea.ql.base.*;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.base.*;
-import org.uva.sea.ql.util.BrowserUtil;
+import org.uva.sea.ql.util.*;
 import org.uva.sea.ql.webserver.*;
 import org.uva.sea.ql.webserver.base.IWebServer;
 
@@ -63,26 +62,31 @@ public class BootstrapStartupController implements IStartupController {
 	public void start() {
 		// Read properties file, return on error
 		if (!checkAndReadPropertiesFile()) {
+			outputShutdownDueToError();
 			return;
 		}
 		
 		// Parse form, return on error
 		if (!checkAndParseForm()) {
+			outputShutdownDueToError();
 			return;
 		}
 
 		// On form type errors stop running
 		if (checkForFormErrors()) {
+			outputShutdownDueToError();
 			return;
 		}
 
 		// Generate frontend, return on error
 		if (!checkAndGenerateFrontend()) {
+			outputShutdownDueToError();
 			return;
 		}
 		
 		// Start the server with the new contents, return on error
 		if (!checkAndStartServer()) {
+			outputShutdownDueToError();
 			return;
 		}
 
@@ -93,10 +97,20 @@ public class BootstrapStartupController implements IStartupController {
 		waitForServer();
 	}
 	
+	private void outputShutdownDueToError() {
+		System.out.println("Shutting down due to one or more previous occurred errors");
+	}
+	
 	private boolean checkAndParseForm() {
 		try {
 			final IFormParser parser = new FormParser();
 			form = parser.parseForm(inputFile);
+			
+			if (parser.hasParsingErrors()) {
+				System.err.println("The following parsing errors occurred:");
+				parser.writeErrorLog(System.err);
+				return false;
+			}
 		}
 		catch (ParsingException e) {
 			System.err.println(String.format("Failed to parse form: %s", e.getMessage()));

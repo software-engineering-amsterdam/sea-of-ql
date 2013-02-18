@@ -1,6 +1,6 @@
 package org.uva.sea.ql.tests;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import org.antlr.runtime.*;

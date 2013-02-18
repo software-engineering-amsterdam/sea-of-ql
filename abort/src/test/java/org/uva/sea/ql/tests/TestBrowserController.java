@@ -3,8 +3,7 @@ package org.uva.sea.ql.tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.uva.sea.ql.base.*;
-import org.uva.sea.ql.util.BrowserUtil;
+import org.uva.sea.ql.util.*;
 
 public class TestBrowserController extends TestBase {
 	@Test

@@ -8,8 +8,7 @@ import org.antlr.runtime.*;
 import org.junit.*;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.parser.antlr.*;
-import org.uva.sea.ql.parser.errors.SyntaxErrorReporter;
-import org.uva.sea.ql.parser.errors.base.ISyntaxErrorReporter;
+import org.uva.sea.ql.parser.errors.*;
 
 // Test syntax error reporting and logging
 public class TestSyntaxErrors extends TestBase {

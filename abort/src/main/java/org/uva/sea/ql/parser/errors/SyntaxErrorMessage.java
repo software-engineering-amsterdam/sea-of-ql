@@ -47,7 +47,7 @@ public class SyntaxErrorMessage {
 
 	@Override
 	public String toString() {
-		return String.format("[%s] %s (line: %d, column: %d)\n", dateFormat.format(calendar.getTime()),
+		return String.format("[%s] %s (line: %d, column: %d)", dateFormat.format(calendar.getTime()),
 				originalMessage, syntaxPosition.getLineNumber(), syntaxPosition.getColumnNumber());
 	}
 }

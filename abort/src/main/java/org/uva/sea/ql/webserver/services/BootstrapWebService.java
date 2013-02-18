@@ -35,30 +35,55 @@ public class BootstrapWebService {
 	@Inject
 	private ServerProperties properties;
 
+	/**
+	 * Validate whether the input is a valid int type
+	 * @param input input
+	 * @return whether the input is valid or not
+	 */
 	@POST
 	@Path("/validateInteger")
 	public boolean validateInteger(final ValidationWrapper input) {
 		return intType.isAssignableFrom(input.getValue());
 	}
 	
+	/**
+	 * Validate whether the input is a valid string type
+	 * @param input input
+	 * @return whether the input is valid or not
+	 */
 	@POST
 	@Path("/validateString")
 	public boolean validateString(final ValidationWrapper input) {
 		return stringType.isAssignableFrom(input.getValue());
 	}	
 
+	/**
+	 * Validate whether the input is a valid money type
+	 * @param input input
+	 * @return whether the input is valid or not
+	 */
 	@POST
 	@Path("/validateMoney")	
 	public boolean validateMoney(final ValidationWrapper input) {
 		return moneyType.isAssignableFrom(input.getValue());
 	}
 	
+	/**
+	 * Validate whether the input is a valid boolean type
+	 * @param input input
+	 * @return whether the input is valid or not
+	 */
 	@POST
 	@Path("/validateBoolean")
 	public boolean validateBoolean(final ValidationWrapper input) {
 		return boolType.isAssignableFrom(input.getValue());
 	}
 	
+	/**
+	 * Validate and persist a form (if valid).
+	 * @param form form input
+	 * @return whether the validation and persistence was successful
+	 */
 	@POST
 	@Path("/persist")
 	public boolean validateAndPersistForm(final FormWrapper form) {

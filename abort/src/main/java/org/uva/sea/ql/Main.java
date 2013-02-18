@@ -1,6 +1,5 @@
 package org.uva.sea.ql;
 
-import org.uva.sea.ql.base.IStartupController;
 
 import com.beust.jcommander.*;
 

@@ -4,7 +4,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.*;
 
-import org.uva.sea.ql.base.BrowserException;
 
 /**
  * Browser Utility class to open the browser.

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.base;
+package org.uva.sea.ql.util;
 
 /**
  * Exception that could be thrown when trying to open the browser.

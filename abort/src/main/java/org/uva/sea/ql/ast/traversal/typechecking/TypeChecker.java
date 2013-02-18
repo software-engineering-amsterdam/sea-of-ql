@@ -297,6 +297,10 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
+		if ((leftHandSideType == null) || (rightHandSideType == null)) {
+			return true;
+		}
+		
 		// Both hand sides should be compatible to numeric
 		boolean error = false;
 		if (!leftHandSideType.isCompatibleToNumeric()) {

@@ -30,11 +30,6 @@ public class IntLiteral extends NumericLiteral<Integer> {
 		super(syntaxPosition);
 		this.value = value;
 	}
-	
-	public IntLiteral(final int value) {
-		super(null);
-		this.value = value;
-	}
 
 	@Override
 	public Integer getValue() {

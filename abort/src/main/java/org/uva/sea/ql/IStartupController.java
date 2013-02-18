@@ -1,4 +1,4 @@
-package org.uva.sea.ql.base;
+package org.uva.sea.ql;
 
 /**
  * QL startup controller to be used as entry point of the application.

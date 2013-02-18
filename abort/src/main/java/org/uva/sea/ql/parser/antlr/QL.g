@@ -5,7 +5,6 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.parser.errors.*;
-import org.uva.sea.ql.parser.errors.base.*;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.ast.form.*;
@@ -23,7 +22,6 @@ import org.uva.sea.ql.ast.conditionals.*;
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.parser.errors.*;
-import org.uva.sea.ql.parser.errors.base.*;
 }
 
 @lexer::members {
