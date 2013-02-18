@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.typechecker.ExpressionVisitor;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Identifier extends Expression {
 

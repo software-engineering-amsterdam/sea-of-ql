@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.operators.UnaryOperator;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.typechecker.ExpressionVisitor;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Not extends UnaryOperator {
 

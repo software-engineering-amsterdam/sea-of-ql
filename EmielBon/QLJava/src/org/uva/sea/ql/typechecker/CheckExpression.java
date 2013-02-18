@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.expression.operators.logical.*;
 import org.uva.sea.ql.ast.expression.operators.numeric.*;
 import org.uva.sea.ql.ast.expression.operators.relational.*;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class CheckExpression implements ExpressionVisitor<Boolean> {
 
@@ -23,6 +22,10 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 	public static boolean check(Expression expr, TypeEnvironment typeEnv, List<Message> errs) {
 		CheckExpression check = new CheckExpression(typeEnv, errs);
 		return expr.accept(check);
+	}
+	
+	public Type typeOf(Expression expr) {
+		return expr.typeOf(typeEnv);
 	}
 	
 	public boolean checkOperands(Operator ast) {
@@ -42,10 +45,10 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 			return false;
 		}
 		
-		Type operatorType = ast.typeOf(typeEnv);
+		Type operatorType = typeOf(ast);
 		
-		for(Expression e : ast.getOperands()) {
-			Type operandType = e.typeOf(typeEnv);
+		for(Expression expr : ast.getOperands()) {
+			Type operandType = typeOf(expr);
 			if (!operandType.isCompatibleWith(operatorType)) {
 				//addError(ast, "invalid type for " + ast.getRepresentation());
 				return false;
@@ -61,8 +64,8 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = ast.getLeftOperand().typeOf(typeEnv);
-		Type rhsType = ast.getLeftOperand().typeOf(typeEnv);
+		Type lhsType = typeOf(ast.getLeftOperand());
+		Type rhsType = typeOf(ast.getLeftOperand());
 		
 		return lhsType.isCompatibleWith(rhsType);
 	}

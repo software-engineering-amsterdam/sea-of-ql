@@ -2,11 +2,9 @@ package org.uva.sea.ql.typechecker;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.*;
 
 public class CheckStatement implements StatementVisitor<Boolean> {
 
