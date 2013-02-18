@@ -1,9 +1,9 @@
-form form1 { 
+form form1 {
 question1: "label1" boolean 
 question2: "label2" string 
 question3: "label3" money 
 question4: "label4" money 
 if(question1) {
-question5: "label5" string
+question5: "label5" question2 + question4
 } 
 }

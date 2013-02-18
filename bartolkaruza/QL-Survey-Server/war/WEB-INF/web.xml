@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<servlet>
-		<servlet-name>QL_Survey_Server</servlet-name>
-		<servlet-class>com.karuza.eu.QL_Survey_ServerServlet</servlet-class>
+		<servlet-name>QL_Survey_Get</servlet-name>
+		<servlet-class>eu.karuza.ql.server.QL_Survey_GetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>QL_Survey_Display</servlet-name>
+		<servlet-class>eu.karuza.ql.server.QL_Survey_DisplayServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>QL_Survey_Store</servlet-name>
+		<servlet-class>eu.karuza.ql.server.QL_Survey_StoreServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>QL_Survey_Server</servlet-name>
-		<url-pattern>/ql_survey_server</url-pattern>
+		<servlet-name>QL_Survey_Get</servlet-name>
+		<url-pattern>/getform</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>QL_Survey_Display</servlet-name>
+		<url-pattern>/displayform</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>QL_Survey_Store</servlet-name>
+		<url-pattern>/storeform</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
