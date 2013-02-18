@@ -30,7 +30,6 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.visitor.VisitorTest;
 import org.uva.sea.ql.visitor.evaluator.Environment;
-import org.uva.sea.ql.visitor.typechecker.ExpressionTypeChecker;
 
 public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements ExpressionTest {
 	private final ExpressionTypeChecker expressionVisitor;
@@ -60,7 +59,11 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 	public void testNotExpression() {
 		assertTrue( typeCheck( new NotExpression( new BooleanLiteral( true ) ) ) );
 		assertTrue( typeCheck( new NotExpression( new BooleanLiteral( false ) ) ) );
-		assertTrue( typeCheck( new NotExpression( new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) ) );
+		assertTrue(
+			typeCheck(
+				new NotExpression( new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) )
+			)
+		);
 
 		assertFalse( typeCheck( new NotExpression( new IntegerLiteral( 1 ) ) ) );
 	}
@@ -98,22 +101,32 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 	public void testLesserThanOrEqualExpression() {
 		assertTrue( typeCheck( new LesserThanOrEqualExpression( new IntegerLiteral( 23 ), new MoneyLiteral( .10 ) ) ) );
 		assertTrue( typeCheck( new LesserThanOrEqualExpression( new MoneyLiteral( 23 ), new MoneyLiteral( .10 ) ) ) );
-		assertTrue( typeCheck( new LesserThanOrEqualExpression( new IntegerLiteral( 23 ), new IntegerLiteral( 10 ) ) ) );
+		assertTrue(
+			typeCheck( new LesserThanOrEqualExpression( new IntegerLiteral( 23 ), new IntegerLiteral( 10 ) ) )
+		);
 
-		assertFalse( typeCheck( new LesserThanOrEqualExpression( new IntegerLiteral( 23 ), new StringLiteral( ".10" ) ) ) );
+		assertFalse(
+			typeCheck( new LesserThanOrEqualExpression( new IntegerLiteral( 23 ), new StringLiteral( ".10" ) ) )
+		);
 	}
 
 	@Override
 	@Test
 	public void testGreaterThanOrEqualExpression() {
-		assertTrue( typeCheck( new GreaterThanOrEqualExpression( new IntegerLiteral( 1 ), new IntegerLiteral( -211 ) ) ) );
+		assertTrue(
+			typeCheck( new GreaterThanOrEqualExpression( new IntegerLiteral( 1 ), new IntegerLiteral( -211 ) ) )
+		);
 		assertTrue( typeCheck( new GreaterThanOrEqualExpression( new IntegerLiteral( 12 ), new MoneyLiteral( .3 ) ) ) );
 	}
 
 	@Override
 	@Test
 	public void testEqualExpression() {
-		assertTrue( typeCheck( new EqualExpression( new BooleanLiteral( true ), new NotExpression( new BooleanLiteral( false ) ) ) ) );
+		assertTrue(
+			typeCheck(
+				new EqualExpression( new BooleanLiteral( true ), new NotExpression( new BooleanLiteral( false ) ) )
+			)
+		);
 		assertTrue( typeCheck( new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) );
 
 		assertFalse( typeCheck( new EqualExpression( new StringLiteral( "true" ), new BooleanLiteral( false ) ) ) );
@@ -129,8 +142,18 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 
 		assertTrue( typeCheck( new AddExpression( new IntegerLiteral( 12 ), new IntegerLiteral( 1 ) ) ) );
 		assertTrue( typeCheck( new DivideExpression( new IntegerLiteral( 1 ), new IntegerLiteral( 12 ) ) ) );
-		assertTrue( typeCheck( new AddExpression( new MultiplyExpression( new IntegerLiteral( 9 ), new IntegerLiteral( 7 ) ), new IntegerLiteral( 1 ) ) ) );
-		assertTrue( typeCheck( new SubtractExpression( new IntegerLiteral( 10 ), new NegativeExpression( new IntegerLiteral( 2 ) ) ) ) );
+		assertTrue(
+			typeCheck(
+				new AddExpression(
+					new MultiplyExpression( new IntegerLiteral( 9 ), new IntegerLiteral( 7 ) ), new IntegerLiteral( 1 )
+				)
+			)
+		);
+		assertTrue(
+			typeCheck(
+				new SubtractExpression( new IntegerLiteral( 10 ), new NegativeExpression( new IntegerLiteral( 2 ) ) )
+			)
+		);
 	}
 
 	@Override
@@ -143,7 +166,13 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertTrue( typeCheck( new AddExpression( new IntegerLiteral( 12 ), new MoneyLiteral( .1 ) ) ) );
 		assertTrue( typeCheck( new SubtractExpression( new IntegerLiteral( 7 ), new MoneyLiteral( .0001 ) ) ) );
 		assertTrue( typeCheck( new AddExpression( new MoneyLiteral( .889e+121 ), new IntegerLiteral( 7 ) ) ) );
-		assertTrue( typeCheck( new AddExpression( new MultiplyExpression( new MoneyLiteral( .5 ), new MoneyLiteral( .25 ) ), new MoneyLiteral( .125 ) ) ) );
+		assertTrue(
+			typeCheck(
+				new AddExpression(
+					new MultiplyExpression( new MoneyLiteral( .5 ), new MoneyLiteral( .25 ) ), new MoneyLiteral( .125 )
+				)
+			)
+		);
 	}
 
 	@Override
@@ -157,7 +186,11 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 	@Override
 	@Test
 	public void testNotEqualExpression() {
-		assertTrue( typeCheck( new NotEqualExpression( new BooleanLiteral( true ), new NotExpression( new BooleanLiteral( false ) ) ) ) );
+		assertTrue(
+			typeCheck(
+				new NotEqualExpression( new BooleanLiteral( true ), new NotExpression( new BooleanLiteral( false ) ) )
+			)
+		);
 		assertTrue( typeCheck( new NotEqualExpression( new StringLiteral( "hello" ), new StringLiteral( "world" ) ) ) );
 		assertTrue( typeCheck( new NotEqualExpression( new BooleanLiteral( false ), new BooleanLiteral( true ) ) ) );
 
@@ -180,7 +213,9 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 	@Test
 	public void testSubtractExpression() {
 		assertTrue( typeCheck( new SubtractExpression( new IntegerLiteral( 553 ), new IntegerLiteral( 0 ) ) ) );
-		assertTrue( typeCheck( new SubtractExpression( new MoneyLiteral( .1114e-43 ), new IntegerLiteral( 121112 ) ) ) );
+		assertTrue(
+			typeCheck( new SubtractExpression( new MoneyLiteral( .1114e-43 ), new IntegerLiteral( 121112 ) ) )
+		);
 
 		assertFalse( typeCheck( new SubtractExpression( new MoneyLiteral( .1 ), new BooleanLiteral( true ) ) ) );
 	}
@@ -229,7 +264,16 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertTrue( typeCheck( new GreaterThanExpression( new IntegerLiteral( 42 ), new IntegerLiteral( 3241 ) ) ) );
 		assertTrue( typeCheck( new GreaterThanExpression( new MoneyLiteral( 342 ), new IntegerLiteral( 1 ) ) ) );
 
-		assertFalse( typeCheck( new GreaterThanExpression( new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ), new IntegerLiteral( 1 ) ) ) );
+		assertFalse(
+			typeCheck(
+				new GreaterThanExpression(
+					new AndExpression(
+						new BooleanLiteral( true ), new BooleanLiteral( false )
+					),
+					new IntegerLiteral( 1 )
+				)
+			)
+		);
 	}
 
 	@Override

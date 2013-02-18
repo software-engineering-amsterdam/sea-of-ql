@@ -171,12 +171,17 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 	@Test
 	public void testQuestionVariable() {
 		eval(
-			new VariableQuestion( new StringLiteral( "Foo bar?" ), new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
+			new VariableQuestion(
+				new StringLiteral( "Foo bar?" ),
+				new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+			)
 		);
 		assertEquals( false, eval( new IdentifierExpression( "x" ) ) );
 
 		eval(
-			new VariableQuestion( new StringLiteral( "Foo bar?" ), new VariableDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) )
+			new VariableQuestion(
+				new StringLiteral( "Foo bar?" ),
+				new VariableDeclaration( new IdentifierExpression( "x" ), IntegerType.INTEGER ) )
 		);
 		assertEquals( 0, eval( new IdentifierExpression( "x" ) ) );
 	}
@@ -187,14 +192,20 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 		eval(
 			new ComputedQuestion(
 				new StringLiteral( "Foo Bar?" ),
-				new Assignment( new IdentifierExpression( "y" ), new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) )
+				new Assignment(
+					new IdentifierExpression( "y" ),
+					new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) )
+				)
 		);
 		assertEquals( true, eval( new IdentifierExpression( "y" ) ) );
 
 		eval(
 			new ComputedQuestion(
 				new StringLiteral( "Foo Bar?" ),
-				new Assignment( new IdentifierExpression( "y" ), new AddExpression( new IntegerLiteral( 12 ), new MoneyLiteral( 23.4 ) ) ) )
+				new Assignment(
+					new IdentifierExpression( "y" ),
+					new AddExpression( new IntegerLiteral( 12 ), new MoneyLiteral( 23.4 ) ) )
+				)
 		);
 		assertEquals( 35.4, eval( new IdentifierExpression( "y" ) ) );
 	}

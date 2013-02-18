@@ -36,7 +36,15 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 	@Test
 	public void testAddExpression() {
 		assertEquals( 5, eval( new AddExpression( new IntegerLiteral( 2 ), new IntegerLiteral( 3 ) ) ) );
-		assertEquals( 14,  eval( new AddExpression( new IntegerLiteral( 4 ), new AddExpression( new IntegerLiteral( 3 ), new IntegerLiteral( 7 ) ) ) ) );
+		assertEquals(
+			14,
+			eval(
+				new AddExpression(
+					new IntegerLiteral( 4 ),
+					new AddExpression( new IntegerLiteral( 3 ), new IntegerLiteral( 7 ) )
+				)
+			)
+		);
 		assertEquals( 1.2, eval( new AddExpression( new MoneyLiteral( 1d ), new MoneyLiteral( .2 ) ) ) );
 	}
 
@@ -45,7 +53,14 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 	public void testSubtractExpression() {
 		assertEquals( 8, eval( new SubtractExpression( new IntegerLiteral( 10 ), new IntegerLiteral( 2 ) ) ) );
 		assertEquals( .2, eval( new SubtractExpression( new MoneyLiteral( .5 ), new MoneyLiteral( .3 ) ) ) );
-		assertEquals( 6d, eval( new SubtractExpression( new MoneyLiteral( 7.8 ), new AddExpression( new IntegerLiteral( 1 ), new MoneyLiteral( .8 ) ) ) ) );
+		assertEquals(
+			6d,
+			eval(
+				new SubtractExpression(
+					new MoneyLiteral( 7.8 ), new AddExpression( new IntegerLiteral( 1 ), new MoneyLiteral( .8 ) )
+				)
+			)
+		);
 	}
 
 	@Override
@@ -95,38 +110,89 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 	@Override
 	@Test
 	public void testGreaterThanOrEqualExpression() {
-		assertEquals( true, eval( new GreaterThanOrEqualExpression( new IntegerLiteral( 3 ), new IntegerLiteral( 3 ) ) ) );
-		assertEquals( true, eval( new GreaterThanOrEqualExpression( new IntegerLiteral( 10 ), new IntegerLiteral( 9 ) ) ) );
-		assertEquals( true, eval( new GreaterThanOrEqualExpression( new MoneyLiteral( 1.0001  ), new IntegerLiteral( 1 ) ) ) );
+		assertEquals(
+			true,
+			eval( new GreaterThanOrEqualExpression( new IntegerLiteral( 3 ), new IntegerLiteral( 3 ) ) )
+		);
+		assertEquals(
+			true,
+			eval( new GreaterThanOrEqualExpression( new IntegerLiteral( 10 ), new IntegerLiteral( 9 ) ) )
+		);
+		assertEquals(
+			true,
+			eval( new GreaterThanOrEqualExpression( new MoneyLiteral( 1.0001  ), new IntegerLiteral( 1 ) ) )
+		);
 
-		assertEquals( false, eval( new GreaterThanOrEqualExpression( new IntegerLiteral( 10 ), new MoneyLiteral( 10.01 ) ) ) );
+		assertEquals(
+			false,
+			eval( new GreaterThanOrEqualExpression( new IntegerLiteral( 10 ), new MoneyLiteral( 10.01 ) ) )
+		);
 	}
 
 	@Override
 	@Test
 	public void testGreaterThanExpression() {
-		assertEquals( true, eval( new GreaterThanExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 3.999999999 ) ) ) );
-		assertEquals( true, eval( new GreaterThanExpression( new IntegerLiteral( 0 ), new NegativeExpression( new IntegerLiteral( 1 ) ) ) ) );
+		assertEquals(
+			true,
+			eval( new GreaterThanExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 3.999999999 ) ) )
+		);
+		assertEquals(
+			true,
+			eval(
+				new GreaterThanExpression( new IntegerLiteral( 0 ), new NegativeExpression( new IntegerLiteral( 1 ) ) )
+			)
+		);
 
-		assertEquals( false, eval( new GreaterThanExpression( new NegativeExpression( new IntegerLiteral( 1 ) ), new IntegerLiteral( 0 ) ) ) );
+		assertEquals(
+			false,
+			eval(
+				new GreaterThanExpression( new NegativeExpression( new IntegerLiteral( 1 ) ), new IntegerLiteral( 0 ) )
+			)
+		);
 	}
 
 	@Override
 	@Test
 	public void testLesserThanOrEqualExpression() {
-		assertEquals( true, eval( new LesserThanOrEqualExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 4.999999999 ) ) ) );
-		assertEquals( true, eval( new LesserThanOrEqualExpression( new IntegerLiteral( 1 ), new IntegerLiteral( 1 ) ) ) );
+		assertEquals(
+			true,
+			eval( new LesserThanOrEqualExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 4.999999999 ) ) )
+		);
+		assertEquals(
+			true,
+			eval( new LesserThanOrEqualExpression( new IntegerLiteral( 1 ), new IntegerLiteral( 1 ) ) )
+		);
 
-		assertEquals( false, eval( new LesserThanOrEqualExpression( new IntegerLiteral( 1 ), new NegativeExpression( new IntegerLiteral( 4 ) ) ) ) );
+		assertEquals(
+			false,
+			eval(
+				new LesserThanOrEqualExpression(
+					new IntegerLiteral( 1 ), new NegativeExpression( new IntegerLiteral( 4 ) )
+				)
+			)
+		);
 	}
 
 	@Override
 	@Test
 	public void testLesserThanExpression() {
-		assertEquals( true, eval( new LesserThanExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 4.999999999 ) ) ) );
-		assertEquals( true, eval( new LesserThanExpression( new NegativeExpression( new IntegerLiteral( 1 ) ), new IntegerLiteral( 1 ) ) ) );
+		assertEquals(
+			true,
+			eval( new LesserThanExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 4.999999999 ) ) )
+		);
+		assertEquals(
+			true,
+			eval(
+				new LesserThanExpression( new NegativeExpression( new IntegerLiteral( 1 ) ), new IntegerLiteral( 1 ) )
+			)
+		);
 
-		assertEquals( false, eval( new LesserThanExpression( new IntegerLiteral( 1 ), new NegativeExpression( new IntegerLiteral( 4 ) ) ) ) );
+		assertEquals(
+			false,
+			eval(
+				new LesserThanExpression( new IntegerLiteral( 1 ), new NegativeExpression( new IntegerLiteral( 4 ) ) )
+			)
+		);
 	}
 
 	@Override
@@ -134,7 +200,12 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 	public void testNotExpression() {
 		assertEquals( true, eval( new NotExpression( new BooleanLiteral( false ) ) ) );
 		assertEquals( false, eval( new NotExpression( new BooleanLiteral( true ) ) ) );
-		assertEquals( true, eval( new NotExpression( new EqualExpression( new StringLiteral( "hello" ), new StringLiteral( "world" ) ) ) ) );
+		assertEquals(
+			true,
+			eval(
+				new NotExpression( new EqualExpression( new StringLiteral( "hello" ), new StringLiteral( "world" ) ) )
+			)
+		);
 	}
 
 	@Override
@@ -156,7 +227,10 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 	@Override
 	@Test
 	public void testNotEqualExpression() {
-		assertEquals( true, eval( new NotEqualExpression( new BooleanLiteral( true ), new StringLiteral( "some string" ) ) ) );
+		assertEquals(
+			true,
+			eval( new NotEqualExpression( new BooleanLiteral( true ), new StringLiteral( "some string" ) ) )
+		);
 	}
 
 	@Override

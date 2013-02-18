@@ -37,7 +37,7 @@ public class SwingControlFactory extends ControlFactory {
 
 	@Override
 	public WindowControl createWindow( String title, PanelControl panel ) {
-		return new Window( title, panel );
+		return new SwingWindow( title, panel );
 	}
 
 	@Override

@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.control.WindowControl;
 
-public class Window extends WindowControl {
+public class SwingWindow extends WindowControl {
 	private final JFrame frame;
 
-	public Window( String title, PanelControl panel ) {
+	public SwingWindow( String title, PanelControl panel ) {
 		super( panel );
 
 		this.frame = new JFrame();

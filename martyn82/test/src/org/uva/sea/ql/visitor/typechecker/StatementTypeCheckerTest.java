@@ -76,7 +76,9 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		assertFalse(
 			typeCheck(
 				new Assignment(
-					new IdentifierExpression( "x" ), new AddExpression( new MultiplyExpression( new IntegerLiteral( 24 ), new MoneyLiteral( .5 ) ), new IdentifierExpression( "y" ) )
+					new IdentifierExpression( "x" ),
+					new AddExpression( new MultiplyExpression( new IntegerLiteral( 24 ), new MoneyLiteral( .5 ) ),
+					new IdentifierExpression( "y" ) )
 				)
 			)
 		);
@@ -94,7 +96,9 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 					new BooleanLiteral( true ),
 					new Statements(
 						new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 24 ) ),
-						new Statements( new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) )
+						new Statements(
+							new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+						)
 					)
 				)
 			)
@@ -123,7 +127,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 					new BooleanLiteral( true ),
 					new Statements(
 						new VariableQuestion(
-							new StringLiteral( "" ), new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+							new StringLiteral( "" ),
+							new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
 							new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) )
@@ -168,7 +173,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 					new BooleanLiteral( true ),
 					new Statements(
 						new VariableQuestion(
-							new StringLiteral( "" ), new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
+							new StringLiteral( "" ),
+							new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN )
 						),
 						new Statements(
 							new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) )
@@ -258,12 +264,33 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 	@Test
 	public void testAssignment() {
 		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 99 ) ) ) );
-		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "y" ), new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) ) );
-		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "y" ), new EqualExpression( new StringLiteral( "" ), new StringLiteral( "" ) ) ) ) );
+		assertTrue(
+			typeCheck(
+				new Assignment(
+					new IdentifierExpression( "y" ),
+					new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) )
+				)
+			)
+		);
+		assertTrue(
+			typeCheck(
+				new Assignment(
+					new IdentifierExpression( "y" ),
+					new EqualExpression( new StringLiteral( "" ), new StringLiteral( "" ) )
+				)
+			)
+		);
 
-		// variable 'x' is already declared as type Int
+		// variable 'x' is already declared as type Integer
 		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "x" ), new BooleanLiteral( true ) ) ) );
-		// variable 'y' is already declared as type Bool
-		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "y" ), new MultiplyExpression( new IdentifierExpression( "x" ), new IntegerLiteral( 4 ) ) ) ) );
+		// variable 'y' is already declared as type Boolean
+		assertFalse(
+			typeCheck(
+				new Assignment(
+					new IdentifierExpression( "y" ),
+					new MultiplyExpression( new IdentifierExpression( "x" ), new IntegerLiteral( 4 ) )
+				)
+			)
+		);
 	}
 }

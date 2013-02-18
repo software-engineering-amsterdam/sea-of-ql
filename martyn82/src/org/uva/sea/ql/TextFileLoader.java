@@ -5,9 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-public class FileLoader {
+public class TextFileLoader {
 	public static String getFileContents( String fileName ) {
-		FileLoader instance = new FileLoader();
+		TextFileLoader instance = new TextFileLoader();
 		return instance.getContents( fileName );
 	}
 

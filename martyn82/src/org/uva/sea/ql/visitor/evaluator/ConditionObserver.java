@@ -14,7 +14,9 @@ class ConditionObserver implements Observer {
 	private final Control trueComponent;
 	private final Control falseComponent;
 
-	public ConditionObserver( Expression condition, Environment environment, Control trueComponent, Control falseComponent ) {
+	public ConditionObserver(
+		Expression condition, Environment environment, Control trueComponent, Control falseComponent
+	) {
 		this.condition = condition;
 		this.environment = environment;
 		this.trueComponent = trueComponent;

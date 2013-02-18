@@ -33,7 +33,7 @@ public class Program {
 	}
 
 	private String getProgramSource() {
-		return FileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+		return TextFileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 	}
 
 	private void dumpErrors() {
