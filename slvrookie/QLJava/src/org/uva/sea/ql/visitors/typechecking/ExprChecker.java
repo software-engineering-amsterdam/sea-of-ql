@@ -27,8 +27,8 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident node) {
-		if (!state.hasRegisteredType(node.getName())) {
-			errors.addError("Ident " + node.getName() + " is not declared.");
+		if (!state.hasRegisteredType(node.getStringName())) {
+			errors.addError("Ident " + node.getStringName() + " is not declared.");
 		}
 		return true;
 	}
@@ -197,10 +197,18 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		}
 		return true;
 	}
+	
+	/*
+	 * In some cases both areBothSidesCompatible(BinaryExpr node, String operator)
+	 * and areBothSidesCompatibleToNumeric(BinaryExpr node, String operator) are used.
+	 * This is due to the fact that int and money are not compatible. The first method 
+	 * is used to ensure that the expression's arguments will be either both ints or both money
+	 * and the second check ensures that we dont have bools and strings
+	 */
 
 	private boolean areBothSidesCompatible(BinaryExpr node, String operator) {
 		Type lhsType = node.getLhs().typeOf(state.getTypeEnv());
-		Type rhsType = node.getRhs().typeOf(state.getTypeEnv());
+		Type rhsType = node.getRhs().typeOf(state.getTypeEnv()); 
 		if (!(lhsType.isCompatibleTo(rhsType))) {
 			errors.addError("Both arguments must have the same type for binary " + operator + ". Got " + lhsType.getClass().getSimpleName() + " " + operator + " " + rhsType.getClass().getSimpleName() + ".");
 			return false;
@@ -208,8 +216,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		return true;
 	}
 
-	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node,
-			String operator) {
+	private boolean areBothSidesCompatibleToNumeric(BinaryExpr node, String operator) {
 		Type lhsType = node.getLhs().typeOf(state.getTypeEnv());
 		Type rhsType = node.getRhs().typeOf(state.getTypeEnv());
 		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) { 
@@ -219,8 +226,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		return true;
 	}
 
-	private boolean areBothSidesCompatibleToBoolean(BinaryExpr node,
-			String operator) {
+	private boolean areBothSidesCompatibleToBoolean(BinaryExpr node, String operator) {
 		Type lhsType = node.getLhs().typeOf(state.getTypeEnv());
 		Type rhsType = node.getRhs().typeOf(state.getTypeEnv());
 		if (!(lhsType.isCompatibleToBoolType() && rhsType.isCompatibleToBoolType())) {

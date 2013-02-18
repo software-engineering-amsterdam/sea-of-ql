@@ -37,13 +37,14 @@ public class If extends Statement{
 	}
 	
 	@Override
-	public void printSelf(int indentation){
-		printIndentation(indentation);
-		System.out.println(getSimpleName(this) + ", Condition : " + getSimpleName(this.condition));
-		
+	public String toString(int indentation) {
+		String returnString = getIndentation(indentation);
+		returnString += getSimpleName(this) + ", Condition : " + getSimpleName(this.condition);
+		returnString += newLine;		
 		for(Statement statement : ifBody){
-			statement.printSelf(indentation + 1);
+			returnString += statement.toString(indentation + 1);
 		}
+		return returnString; 
 	}
 
 	@Override

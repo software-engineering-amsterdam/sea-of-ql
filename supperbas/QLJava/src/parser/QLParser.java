@@ -1,4 +1,4 @@
-// Output created by jacc on Sun Feb 17 10:22:00 CET 2013
+// Output created by jacc on Sun Feb 17 22:17:52 CET 2013
 
 package parser;
 
@@ -160,7 +160,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case '}':
                         case IDENT:
-                            yyn = yyr6();
+                            yyn = yyr7();
                             continue;
                     }
                     yyn = 159;
@@ -214,7 +214,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case '}':
                         case IDENT:
-                            yyn = yyr7();
+                            yyn = yyr5();
                             continue;
                     }
                     yyn = 159;
@@ -248,7 +248,7 @@ class QLParser implements QLTokens {
                         case IF:
                         case '}':
                         case IDENT:
-                            yyn = yyr5();
+                            yyn = yyr6();
                             continue;
                     }
                     yyn = 159;
@@ -2366,7 +2366,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr3() { // block : /* empty */
-        { yyrv = null; }
+        { yyrv = new Block(); }
         yysv[yysp-=0] = yyrv;
         return yypblock();
     }
@@ -2404,7 +2404,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr11() { // dec : IDENT ':' dType
-        { yyrv = new Var(((ast.expression.value.Ident)yysv[yysp-3]),((ast.Type)yysv[yysp-1])); }
+        { yyrv = new Var(((ast.expression.Ident)yysv[yysp-3]),((ast.Type)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         switch (yyst[yysp-1]) {
             case 15: return 22;
@@ -2549,7 +2549,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr2() { // form : FORM IDENT '{' block '}'
-        { yyrv = new Form(((ast.expression.value.Ident)yysv[yysp-4]),((ast.statement.Block)yysv[yysp-2])); }
+        { yyrv = new Form(((ast.expression.Ident)yysv[yysp-4]),((ast.statement.Block)yysv[yysp-2])); }
         yysv[yysp-=5] = yyrv;
         return 2;
     }
@@ -2589,17 +2589,17 @@ class QLParser implements QLTokens {
         return 10;
     }
 
-    private int yyr5() { // statement : assign
+    private int yyr5() { // statement : question
         yysp -= 1;
         return 11;
     }
 
-    private int yyr6() { // statement : dec
+    private int yyr6() { // statement : assign
         yysp -= 1;
         return 11;
     }
 
-    private int yyr7() { // statement : question
+    private int yyr7() { // statement : dec
         yysp -= 1;
         return 11;
     }
@@ -2610,7 +2610,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr12() { // assign : IDENT '=' expression
-        { yyrv = new Assignment(((ast.expression.value.Ident)yysv[yysp-3]),((ast.Expression)yysv[yysp-1])); }
+        { yyrv = new Assignment(((ast.expression.Ident)yysv[yysp-3]),((ast.Expression)yysv[yysp-1])); }
         yysv[yysp-=3] = yyrv;
         switch (yyst[yysp-1]) {
             case 15: return 23;
@@ -2649,7 +2649,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr40() { // type : IDENT
-        { yyrv = ((ast.expression.value.Ident)yysv[yysp-1]); }
+        { yyrv = ((ast.expression.Ident)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return 31;
     }

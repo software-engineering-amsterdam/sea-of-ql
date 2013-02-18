@@ -14,14 +14,14 @@ public class Ident extends Expr {
 		this.name = name;
 	}
 
-	public String getName() {
+	public String getStringName() {
 		return name;
 	}
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
-		if (typeEnv.containsKey(this.getName())) {
-			return typeEnv.get(this.getName());
+		if (typeEnv.containsKey(this.getStringName())) {
+			return typeEnv.get(this.getStringName());
 		}
 		return new ErrorType();
 	}

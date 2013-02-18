@@ -1,14 +1,9 @@
 package org.uva.sea.ql.ast.expression.impl;
 
 import junit.framework.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.uva.sea.ql.ErrorMessage;
-import org.uva.sea.ql.VariableScope;
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.statement.AssignmentNode;
-import org.uva.sea.ql.ast.statement.IfNode;
 import org.uva.sea.ql.value.impl.BooleanValue;
 import org.uva.sea.ql.value.impl.IntegerValue;
 import org.uva.sea.ql.value.impl.MoneyValue;
@@ -185,28 +180,6 @@ public class ExpressionTest
         Collection<ErrorMessage> errorMessages = new ArrayList<>();
         exprNode.validate(errorMessages);
         Assert.assertTrue("Error message should be exist", errorMessages.size() > 0);
-    }
-
-    @Ignore
-    public void ifStatementTest()
-    {
-        // TODO continue test !!
-        final ExprNode integerValueNode1 = new ValueNode(new IntegerValue(5));
-        final ExprNode integerValueNode2 = new ValueNode(new IntegerValue(15));
-        final ExprNode expectedNode = new ValueNode(new IntegerValue(18));
-        final ExprNode addNode = new AddNode(integerValueNode1, integerValueNode2);
-        final VariableScope variableScope = new VariableScope();
-        String variableName = "foo";
-
-        final IfNode ifNode = new IfNode();
-        final ExprNode equalNode = new EqualNode(expectedNode, addNode);
-        final Node assignmentNode = new AssignmentNode(variableName, integerValueNode1, variableScope);
-        final Node assignmentNode2 = new AssignmentNode(variableName, integerValueNode2, variableScope);
-        ifNode.addBranch(equalNode, assignmentNode);
-        ifNode.addBranch(new ValueNode(new BooleanValue("true")), assignmentNode2);
-//        ifNode.evaluate();
-
-        assertEquals("Result should be the same", integerValueNode2.evaluate(), variableScope.resolve(variableName));
     }
 
 }

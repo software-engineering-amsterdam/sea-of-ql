@@ -55,7 +55,22 @@ public class State {
 		if (valuEnv.containsKey(name)) {
 			return valuEnv.get(name);
 		}
-		return null;
+		throw new RuntimeException("Undefined ident: " + name); 
 	}
-
+	
+	/* 
+	 * 	getValue(String name) will never return null due to the
+	 *  requirement for sequential processing of the ql.
+	 *  
+	 *  REQ:
+	 * "the ordering of questions should be consistent with how the 
+	 * question variables are used in conditions and computed values."
+	 * 
+	 * non declared idents that exist in expressions and
+	 * conditions are caught during the typecheking phase.
+	 * 
+	 * Sequential processing and value initializer 
+	 * also guarantee that idents that exist in
+	 * expressions and conditions have a value assigned
+	 */
 }

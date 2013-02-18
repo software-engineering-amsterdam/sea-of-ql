@@ -5,8 +5,8 @@ import java.util.Map;
 import ast.Expression;
 import ast.Type;
 import ast.expression.Binary;
+import ast.expression.Ident;
 import ast.expression.Visitor;
-import ast.expression.value.Ident;
 
 public class Add extends Binary {
 

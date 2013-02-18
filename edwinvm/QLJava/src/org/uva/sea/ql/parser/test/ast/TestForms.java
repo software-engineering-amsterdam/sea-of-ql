@@ -3,7 +3,6 @@ package org.uva.sea.ql.parser.test.ast;
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserForms;
-import org.uva.sea.ql.parser.test.ASTNodeChecker;
 
 public class TestForms extends ASTNodeChecker {
 	public TestForms() {

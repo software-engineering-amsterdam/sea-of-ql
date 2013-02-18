@@ -29,7 +29,7 @@ public class ElementChecker implements IElementVisitor {
 	}
 
 	public void visit(Form form) {
-		form.getFormBody().accept(this);
+		form.getBody().accept(this);
 	}
 
 	public void visit(Block block) {
@@ -54,9 +54,9 @@ public class ElementChecker implements IElementVisitor {
 	}
 
 	public void visit(CompQuestion compQuestion) {
-		Expr expression = compQuestion.getQuestionExpr();
-		Type type = compQuestion.getQuestionType();
-		String name = compQuestion.getQuestionName().getName();
+		Expr expression = compQuestion.getExpr();
+		Type type = compQuestion.getType();
+		String name = compQuestion.getName().getStringName();
 		isIdentDeclared(compQuestion);
 		ExprChecker.check(expression, state, errors);
 		if (!expression.typeOf(state.getTypeEnv()).isCompatibleTo(type)) {
@@ -65,8 +65,8 @@ public class ElementChecker implements IElementVisitor {
 	}
 
 	public void isIdentDeclared(Question question) {
-		String name = question.getQuestionName().getName();
-		Type type = question.getQuestionType();
+		String name = question.getName().getStringName();
+		Type type = question.getType();
 		if (state.hasRegisteredType(name)) {
 			errors.addError("Question Ident: " + name + " is already declared.");
 		} else {

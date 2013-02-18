@@ -16,11 +16,11 @@ public interface IExprVisitor<T> {
 	T visit(LEq node);
 	T visit(LT node);
 	T visit(Mul node);
-	T visit(Neg node);
 	T visit(NEq node);
-	T visit(Not node);
 	T visit(Or node);
 	T visit(Pos node);
+	T visit(Neg node);
+	T visit(Not node);
 	T visit(Sub node);
 	T visit(Ident node);
 	T visit(IntLiteral node);

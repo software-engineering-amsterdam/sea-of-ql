@@ -37,17 +37,17 @@ public class Block extends Statement implements Iterable<Statement> {
 	@Override
 	public Iterator<Statement> iterator() {
 		return new Iterator<Statement>(){
-			private int index = 0;
+			private int index = statements.size();
 			@Override
 			public boolean hasNext() {
 				if(statements==null)
 					return false;
-				return (statements.size()!=index);
+				return (index>0);
 			}
 
 			@Override
 			public Statement next() {
-				return statements.get(index++);
+				return statements.get(--index);
 				
 			}
 

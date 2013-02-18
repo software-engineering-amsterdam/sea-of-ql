@@ -5,7 +5,6 @@ import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.test.ExpressionParserChecker;
 
 public class TestUnaryExpressions extends ExpressionParserChecker {
 	@Test

@@ -1,7 +1,9 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import java.awt.Font;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
@@ -12,8 +14,8 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.common.IdentFinder;
-import org.uva.sea.ql.common.interfaces.QLDocument;
+import org.uva.sea.ql.interpretation.IdentFinder;
+import org.uva.sea.ql.interpretation.QLDocument;
 import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 import org.uva.sea.ql.interpretation.swing.components.Sizes;
@@ -75,6 +77,10 @@ public class SwingDocument implements QLDocument {
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
             addIdentListener(listener, ifPanel);
         }
+    }
+    
+    public final SwingRegistry getRegistry(){
+        return this.registry;
     }
 
     private static void addIdentListener(QuestionListener questionListener,

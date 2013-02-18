@@ -3,12 +3,11 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.nodes.statements.Statement;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.type.TypeCheckError;
-import org.uva.sea.ql.type.checker.QLTypeChecker;
-
+import org.uva.sea.ql.type.checker.visitor.QLCheckVisitor;
 
 public class ANTLRParser implements IParse {
 
@@ -19,7 +18,6 @@ public class ANTLRParser implements IParse {
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);
-		QLTypeChecker checker = new QLTypeChecker();
 		Expr parsedResult = null;
 		try {
 			parsedResult = parser.start();
@@ -27,13 +25,9 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 		
-		try{
-			parsedResult = checker.check(parsedResult);
-		} catch(TypeCheckError tce){
-			System.out.println("TypeCheckError Found: ");
-			System.out.println(tce.getMessage());
-		}
+		QLCheckVisitor bcv = new QLCheckVisitor();
+		Statement statement = (Statement)parsedResult;
+		statement.accept(bcv);
 		return parsedResult;
 	}
-
 }

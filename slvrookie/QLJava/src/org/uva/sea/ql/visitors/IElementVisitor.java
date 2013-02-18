@@ -9,11 +9,11 @@ import org.uva.sea.ql.ast.formelements.Question;
 
 public interface IElementVisitor {
 	
-	void visit(Block element);
-	void visit(CompQuestion element);
-	void visit(Form element);
-	void visit(IfThen element);
-	void visit(IfThenElse element);
-	void visit(Question element);
+	void visit(Block block);
+	void visit(CompQuestion compQuestion);
+	void visit(Form form);
+	void visit(IfThen ifThen);
+	void visit(IfThenElse ifThenElse);
+	void visit(Question question);
 
 }

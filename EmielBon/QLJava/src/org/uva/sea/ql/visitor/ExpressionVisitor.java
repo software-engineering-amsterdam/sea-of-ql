@@ -1,10 +1,10 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.literal.*;
-import org.uva.sea.ql.ast.operators.logical.*;
-import org.uva.sea.ql.ast.operators.numeric.*;
-import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.operators.logical.*;
+import org.uva.sea.ql.ast.expression.operators.numeric.*;
+import org.uva.sea.ql.ast.expression.operators.relational.*;
 
 public interface ExpressionVisitor<T> {
 

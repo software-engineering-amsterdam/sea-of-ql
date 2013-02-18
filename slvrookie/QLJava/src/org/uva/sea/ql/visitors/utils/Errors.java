@@ -12,10 +12,11 @@ public class Errors {
 	}
 
 	public void addError(String error) {
-		this.errors.add(error);
+		errors.add(error);
 	}
 
-	public void getErrors() {
+	//only used for testing purposes
+	public void getErrors() {			
 		for (String error : errors) {
 			System.out.println(error);
 		}

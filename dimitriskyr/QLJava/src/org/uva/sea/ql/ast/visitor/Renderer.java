@@ -1,6 +1,13 @@
 package org.uva.sea.ql.ast.visitor;
 
+import java.awt.Checkbox;
+import java.awt.Component;
+
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Statement;
@@ -11,12 +18,12 @@ import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.QuestionElement;
 import org.uva.sea.ql.ast.statements.SimpleQuestion;
 import org.uva.sea.ql.ast.statements.StatementElement;
-import org.uva.sea.ql.ast.values.String_lit;
+import org.uva.sea.ql.ast.gui.State;
 
 public class Renderer implements IStatementVisitor {
 
 	private final JPanel panel;
-	private final Statement state;
+	private final State state;
 	
 	public static JPanel render(Statement statement, State state) {
 		Renderer r = new Renderer(state);
@@ -44,38 +51,40 @@ public class Renderer implements IStatementVisitor {
 	@Override
 	public void visit(final IfThen ifThen) {
 		JPanel ifblock = render(ifThen.getIfBlock(), state);
-		registerConditionDeps(ifThen.getCondition(), ifblock);
+		//registerConditionDeps(ifThen.getCondition(), ifblock);
 		ifblock.setVisible(false);
-		addPanel(ifblock);
+		panel.add(ifblock);
 	}
 	
 	@Override
 	public void visit(final IfThenElse ifThenElse) {
 		JPanel tru = render(ifThenElse.getIfBlock(), state);
 		JPanel fls = render(ifThenElse.getElseBlock(), state);
-		registerConditionDeps(ifThenElse.getCondition(), tru, fls);
+		//registerConditionDeps(ifThenElse.getCondition(), tru, fls);
 		tru.setVisible(false);
 		fls.setVisible(false);
-		addPanel(tru);
-		addPanel(fls);
+		panel.add(tru);
+		panel.add(fls);
 	}
 
 	@Override
 	public void visit(SimpleQuestion simpleQuestion) {
-		addLabel(simpleQuestion.getString());
-		Control ctl = typeToWidget(simpleQuestion.getType(), true);
-		registerHandler(simpleQuestion, ctl);
-		add(ctl);
+		JLabel graphlabel = new JLabel(simpleQuestion.getString().getValue());
+		Component ctl = typeToWidget(simpleQuestion, true);
+		//registerHandler(simpleQuestion, ctl);
+		panel.add(graphlabel);
+		panel.add(ctl);
 	}
 	
 	@Override
 	public void visit(ComQuestion comQuestion) {
-		addLabel(comQuestion.getString());
-		Control ctl = typeToWidget(comQuestion.getType(), false);
-		registerComputedDeps(comQuestion, ctl);
+		JLabel graphlabel = new JLabel(comQuestion.getString().getValue());
+		Component ctl = typeToWidget(comQuestion, true);
+		/*registerComputedDeps(comQuestion, ctl);
 		registerPropagator(comQuestion);
-		initValue(comQuestion, ctl);
-		add(ctl);
+		initValue(comQuestion, ctl); */
+		panel.add(graphlabel);
+		panel.add(ctl);
 	}
 
 	@Override
@@ -96,5 +105,26 @@ public class Renderer implements IStatementVisitor {
 		// TODO Auto-generated method stub
 
 	}
+	
+	private Component typeToWidget(QuestionElement question, boolean enabled) {
+
+		if (question.getType().isCompatibleToBoolean()) {
+			Component input = new Checkbox();
+			input.setEnabled(enabled);
+			return input;
+		}
+		else if (question.getType().isCompatibleToMoney()) {
+			JComponent input = new JTextField(5);
+			input.setEnabled(enabled);
+			return input;
+		}
+		if (question.getType().isCompatibleToInteger()) {
+			JComponent input = new JTextField(5);
+			input.setEnabled(enabled);
+			return input;
+		}
+		return null;
+	}	
+	
 
 }

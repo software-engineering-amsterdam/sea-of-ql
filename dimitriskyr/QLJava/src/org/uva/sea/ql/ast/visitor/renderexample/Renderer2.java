@@ -23,7 +23,7 @@ private final JPanel panel;
 	public Renderer2(){
 		panel=new JPanel();
 	}
-	
+	 
 	public void show(){
 		JFrame frame = new JFrame("QL try");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

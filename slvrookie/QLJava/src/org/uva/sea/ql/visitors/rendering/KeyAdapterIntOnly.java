@@ -7,7 +7,7 @@ import javax.swing.text.JTextComponent;
 
 public class KeyAdapterIntOnly extends KeyAdapter {
 
-	/**
+	/*
 	 * Regular expression which defines the allowed characters.
 	 */
 	private String allowedRegex = "[^0-9]";

@@ -31,10 +31,10 @@ public class Gui extends JFrame {
 	private final IParse parser = new ANTLRParser();
 	private final State state = new State();
 	private final Errors errors = new Errors();
-	private JPanel errorlog = new JPanel(new MigLayout());
+	private JPanel errorLog = new JPanel(new MigLayout());
 	private JButton open = new JButton("Open QL");
 	private JPanel buttonPanel = new JPanel(new MigLayout("fillx,insets 0"));
-	private JPanel centerlPanel = new JPanel(new MigLayout());
+	private JPanel centerPanel = new JPanel(new MigLayout());
 	private final JFileChooser fileChooser = new JFileChooser();
 
 	public static void main(String[] args) throws IOException, ParseError {
@@ -46,24 +46,23 @@ public class Gui extends JFrame {
 		addOpenListener(open);
 		setInitialFrame();
 	}
-	
-	private void addOpenListener(JButton b) {
 
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                setQLChooser();
-            }
-        });
-    }
-	
+	private void addOpenListener(JButton b) {
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				setQLChooser();
+			}
+		});
+	}
+
 	private void setQLChooser() {
-        final int returnVal = fileChooser.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            final File file = fileChooser.getSelectedFile();
-            openQLFile(file);
-        }
-    }
-	
+		final int returnVal = fileChooser.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			final File file = fileChooser.getSelectedFile();
+			openQLFile(file);
+		}
+	}
+
 	private void openQLFile(File file) {
 		errors.clear();
 		state.clearState();
@@ -74,7 +73,7 @@ public class Gui extends JFrame {
 			errors.addError("The following errors occured while READING the selected file: \n " + e.getMessage());
 		}
 	}
-	
+
 	private void parseFile(ANTLRFileStream charStream) {
 		try {
 			ast = parser.parseForm(charStream.toString());
@@ -82,9 +81,14 @@ public class Gui extends JFrame {
 		} catch (ParseError e) {
 			errors.addError("The following errors occured while PARSING the selected file: \n" + e.getMessage().toString());
 		}
-		
+
 	}
 
+	/*
+	 * If there are no errors return render the QL
+	 * else render the Error Panel
+	 */
+	
 	private void TypeCheckAst() {
 		ElementChecker.check(ast, state, errors);
 		if (errors.isEmpty()) {
@@ -95,38 +99,43 @@ public class Gui extends JFrame {
 	}
 
 	private void setInitialFrame() {
+		setLocationRelativeTo(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout());
 		setTitle("QL Interpreter");
-		open.setMnemonic('O');
-		buttonPanel.add(open, "split,left,width 100!");
-		add(buttonPanel, "wrap");
+		setButtonPane();
 		pack();
 		setVisible(true);
 	}
 
 	private void setErrorPanel() {
+		setButtonPane();
 		for (String error : errors.returnErrors()) {
-			errorlog.add(new JLabel(error), "wrap");
-			errorlog.setBorder(BorderFactory.createTitledBorder("ERRORS"));
-			getContentPane().add(errorlog);
+			errorLog.add(new JLabel(error), "wrap");
+			errorLog.setBorder(BorderFactory.createTitledBorder("ERRORS"));
+			setButtonPane();
+			add(errorLog);
 			pack();
-			getContentPane().validate();
-			getContentPane().repaint();
+			validate();
+			repaint();
 		}
 	}
 
 	public void setQuestionPanel() {
 		cleanOldPanels();
+		setButtonPane();
+		add(centerPanel.add(Renderer.render(ast, state, this)));
+		pack();
+		centerPanel.validate();
+		centerPanel.repaint();
+	}
+
+	private void setButtonPane() {
 		open.setMnemonic('O');
 		buttonPanel.add(open, "split,left,width 100!");
 		add(buttonPanel, "wrap");
-		add(centerlPanel.add(Renderer.render(ast, state, this)));
-		pack();
-		centerlPanel.validate();
-		centerlPanel.repaint();
 	}
-
+	
 	private void cleanOldPanels() {
 		Component[] components = getContentPane().getComponents();
 		for (int i = 0; i < components.length; i++) {

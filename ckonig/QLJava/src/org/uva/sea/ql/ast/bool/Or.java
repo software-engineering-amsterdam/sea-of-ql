@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Or extends BinaryBooleanOperator {
     private static final String STR = "||";

@@ -28,9 +28,9 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 

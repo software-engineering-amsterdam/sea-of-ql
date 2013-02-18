@@ -9,7 +9,8 @@ import javax.swing.JTextArea;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.common.IOHelper;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.VisitorDocumentBuilder;
+import org.uva.sea.ql.interpretation.VisitorDocumentBuilder;
+import org.uva.sea.ql.interpretation.swing.components.LeftPanel;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -21,9 +22,10 @@ public class SwingHelper {
     private Form ast;
     private final JTextArea log;
     private final JPanel centerPanel;
+    private SwingRegistry registry;
 
-    public SwingHelper(JTextArea area, JPanel center) {
-        this.log = area;
+    public SwingHelper(LeftPanel left, JPanel center) {
+        this.log = left.getLog();
         this.centerPanel = center;
     }
 
@@ -35,6 +37,10 @@ public class SwingHelper {
         } catch (IOException ex) {
             this.appendToLog("error reading file");
         }
+    }
+
+    public final SwingRegistry getRegistry() {
+        return this.registry;
     }
 
     private void parseFile() {
@@ -69,8 +75,8 @@ public class SwingHelper {
     }
 
     private void interpretAst() {
-        final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
-                new SwingDocument());
+        final SwingDocument doc = new SwingDocument();
+        final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(doc);
         if (this.ast != null) {
             try {
                 ((Form) this.ast).accept(visitor);
@@ -79,6 +85,7 @@ public class SwingHelper {
                 result.setVisible(true);
                 this.centerPanel.repaint();
                 this.appendToLog("interpretation finished\n");
+                this.registry = doc.getRegistry();
             } catch (QLException ex) {
                 this.appendToLog(ex.getMessage());
             }
@@ -87,8 +94,6 @@ public class SwingHelper {
             this.appendToLog("AST INVALID");
         }
     }
-
-    
 
     private void appendToLog(String str) {
         this.log.append(str + "\n");

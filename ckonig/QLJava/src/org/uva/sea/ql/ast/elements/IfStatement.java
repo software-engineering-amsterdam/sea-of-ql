@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
 public class IfStatement extends BlockElement {
     private Expr condition;
