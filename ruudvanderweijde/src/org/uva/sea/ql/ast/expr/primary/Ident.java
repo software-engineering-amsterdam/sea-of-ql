@@ -6,9 +6,7 @@ import org.uva.sea.ql.type.UndefinedType;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-
 public final class Ident extends Expr {
-
 	private final String name;
 
 	public Ident(String name) {
@@ -51,5 +49,4 @@ public final class Ident extends Expr {
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

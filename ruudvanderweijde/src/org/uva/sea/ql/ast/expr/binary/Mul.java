@@ -26,5 +26,4 @@ public class Mul extends Binary {
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

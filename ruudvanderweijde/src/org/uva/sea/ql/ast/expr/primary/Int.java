@@ -5,9 +5,7 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-
 public class Int extends Primary<Integer> {
-
 	private final int value;
 
 	public Int(int value) {
