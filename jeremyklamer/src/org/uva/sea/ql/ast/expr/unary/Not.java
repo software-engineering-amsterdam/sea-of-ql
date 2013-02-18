@@ -16,7 +16,6 @@ public class Not extends Unary {
 	
 	@Override
 	public Value eval(Env env) {
-		//TODO make expr protected and remove getExpr. 
 		return new BoolVal(!((BoolVal)expr.eval(env)).getValue());
 	}
 

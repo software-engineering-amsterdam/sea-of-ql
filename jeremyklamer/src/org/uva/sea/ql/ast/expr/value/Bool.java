@@ -35,6 +35,6 @@ public class Bool extends Expr {
 
 	@Override
 	public List<Message> checkType(Env env) {
-		return new ArrayList<Message>(); // Return an empty List. 
+		return new ArrayList<Message>(); 
 	}
 }

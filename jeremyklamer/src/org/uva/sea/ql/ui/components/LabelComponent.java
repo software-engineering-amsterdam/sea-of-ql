@@ -22,5 +22,10 @@ public class LabelComponent extends BaseComponent {
 	public String getArgs() {
 		return args; 
 	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		textLabel.setVisible(visible);	
+	}
 	
 }

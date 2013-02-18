@@ -10,6 +10,8 @@ import org.uva.sea.ql.ui.components.BaseComponent;
 
 public abstract class Statement implements ASTNode{
 
+	protected String newLine = "\n"; //TODO System.getProperty("line.separator");
+	
 	public abstract List<Message> checkType (Env env);
 	
 	public abstract List<BaseComponent> getUIComponents(Env env, Form form);
@@ -18,12 +20,15 @@ public abstract class Statement implements ASTNode{
 		return e.getClass().getSimpleName();
 	}
 	
-	public abstract void printSelf(int indentation);
+	public abstract String toString(int indentation);
 	
-	public void printIndentation(int indentation){
+	//TODO Better Function for this?? 
+	protected String getIndentation(int indentation){
+		String returnString = "";
 		for(int i = 0; i < indentation; i++){
-			System.out.print("  ");
+			returnString += "  ";
 		}	
+		return returnString; 
 	}
 	
 	public abstract boolean eval(Env env);

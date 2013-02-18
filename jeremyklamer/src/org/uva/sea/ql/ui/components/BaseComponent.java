@@ -6,5 +6,6 @@ public abstract class BaseComponent {
 
 	public abstract Component getComponent();
 	public abstract String getArgs();
+	public abstract void setVisible(boolean visible);
 	
 }

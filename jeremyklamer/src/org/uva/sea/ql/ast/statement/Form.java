@@ -36,13 +36,14 @@ public class Form extends Statement{
 	}
 	
 	@Override
-	public void printSelf(int indentation){
-		printIndentation(indentation);
-		System.out.println(getSimpleName(this) + ", Ident : " + this.name.getName());
-		
+	public String toString(int indentation) {
+		String returnString = getIndentation(indentation);
+		returnString += getSimpleName(this) + ", Ident : " + this.name.getName();
+		returnString += newLine;
 		for(Statement statement : body){
-			statement.printSelf(indentation + 1);
+			returnString += statement.toString(indentation + 1);
 		}
+		return returnString;
 	}
 
 	@Override
