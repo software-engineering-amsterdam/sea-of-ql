@@ -6,15 +6,8 @@ import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
 public class IfThen extends ConditionBlock {
-	private final FormStatement _body;
-	
 	public IfThen(Expr condition, FormStatement body) {
-		super(condition);
-		_body = body;
-	}
-	
-	public FormStatement getBody() {
-		return _body;
+		super(condition, body);
 	}
 
 	@Override
