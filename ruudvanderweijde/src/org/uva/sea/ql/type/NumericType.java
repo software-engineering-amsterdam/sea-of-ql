@@ -21,13 +21,4 @@ public class NumericType extends Type {
 	public String toString() {
 		return "NumericType";
 	}
-
-	@Override
-	public boolean validate(String value) {
-		try{
-			Double.parseDouble(value);
-		} catch (NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}}
+}

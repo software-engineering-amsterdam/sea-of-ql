@@ -15,9 +15,4 @@ public class StringType extends Type {
 	public String toString() {
 		return "StringType";
 	}
-
-	@Override
-	public boolean validate(String value) {
-		return true;
-	}
 }

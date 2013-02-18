@@ -18,11 +18,4 @@ public class UndefinedType extends Type {
 	public boolean isCompatibleToBooleanType() {
 		return true;
 	}
-
-	@Override
-	public boolean validate(String value) {
-		// TODO Auto-generated method stub
-		return false;
-	}	
-
 }
