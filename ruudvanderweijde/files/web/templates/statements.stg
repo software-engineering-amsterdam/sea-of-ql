@@ -9,7 +9,7 @@ BooleanType(id, label, readOnly) ::= <<
 IntegerType(id, label, readOnly) ::= <<
 <div data-role="fieldcontain">
     <label for="$id$">$label$</label> 
-    <input type="text" name="$id$" id="$id$" data-mini="true" 
+    <input type="number" name="$id$" id="$id$" data-mini="true" 
       $if((readOnly))$disabled="disabled"$endif$ />
 </div>
 >>

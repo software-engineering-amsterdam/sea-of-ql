@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class IfThenElse extends IfThen {
-
 	private final List<Statement> elseBlock;
 	
 	public IfThenElse(Expr condition, List<Statement> ifBlock, List<Statement> elseBlock) {

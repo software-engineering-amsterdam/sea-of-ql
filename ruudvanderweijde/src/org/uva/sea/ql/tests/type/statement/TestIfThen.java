@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.visitor.typeCheck.FormTypeCheckVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
@@ -36,7 +36,7 @@ public class TestIfThen {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
+    	parseForm(formString);
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -58,7 +58,11 @@ public class TestIfThen {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
+    	parseForm(formString);
     	assertEquals(errors.size(), 0);
+	}
+	
+	private void parseForm(String formString) throws ParseError {
+    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 	}
 }

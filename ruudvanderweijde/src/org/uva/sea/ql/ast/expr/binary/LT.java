@@ -26,5 +26,4 @@ public class LT extends Binary {
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

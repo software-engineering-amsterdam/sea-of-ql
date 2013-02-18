@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public class ASTNode {
+import org.uva.sea.ql.visitor.Visitable;
+
+public interface ASTNode extends Visitable {
 	
 }

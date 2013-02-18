@@ -1,10 +1,17 @@
 package org.uva.sea.ql.type;
 
+import org.uva.sea.ql.value.Value;
+
 public class NumericType extends Type {
 
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToNumericType();
+	}
+
+	@Override
+	public boolean isCompatibleTo(Value v) {
+		return v.isCompatibleToNumericType();
 	}
 	
 	@Override
@@ -21,13 +28,4 @@ public class NumericType extends Type {
 	public String toString() {
 		return "NumericType";
 	}
-
-	@Override
-	public boolean validate(String value) {
-		try{
-			Double.parseDouble(value);
-		} catch (NumberFormatException e) {
-			return false;
-		}
-		return true;
-	}}
+}

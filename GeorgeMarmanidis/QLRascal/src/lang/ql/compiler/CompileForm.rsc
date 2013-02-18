@@ -1,10 +1,8 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::CompileForm
 
-import ParseTree;
 import lang::ql::ast::AST;
 import IO;
-import Node;
-import util::ValueUI;
 import lang::ql::compiler::GenerateHTMLForm;
 import lang::ql::compiler::GenerateJavaScript;
 
@@ -14,11 +12,11 @@ anno str FormBodyItem@ref;
 
 public void compileForm(f:form(ident,formBody)){
 	formRefrnced=setConditionalReference(formBody);
-	print(ok);	
-	loc htmlFile=|project://SofConsrt/<ident>.html|;
+	loc htmlFile=|project://SofConstr/<ident>.html|;
 	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
-	loc jsFile=|project://SofConsrt/<ident>.js|;
-	writeFile(jsFile,generateJavaScipt(formRefrnced));	   
+	loc jsFile=|project://SofConstr/<ident>.js|;
+	writeFile(jsFile,generateJavaScipt(formRefrnced));
+	print("done");	   
 }
 	
 //Sets a reference variable to conditional statements to refer to them

@@ -4,14 +4,14 @@ options {backtrack=true; memoize=true;}
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.primitive.*;
-import org.uva.sea.ql.ast.variable.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.integer.*;
+import org.uva.sea.ql.ast.expression.bool.*;
+import org.uva.sea.ql.ast.expression.string.*;
 import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.operation.arithmetic.*;
-import org.uva.sea.ql.ast.operation.bool.logical.*;
-import org.uva.sea.ql.ast.operation.bool.relational.*;
+import org.uva.sea.ql.ast.expression.integer.operation.*;
+import org.uva.sea.ql.ast.expression.bool.operation.logical.*;
+import org.uva.sea.ql.ast.expression.bool.operation.relational.*;
 }
 
 @lexer::header
@@ -28,9 +28,16 @@ formElementList returns [List<FormElement> result]
 	;
 
 formElement returns [FormElement result]
-	: IDENT ':' STRING TYPE { $result = new Question(new Identifier($IDENT.text), new StringPrimitive($STRING.text), new Type($TYPE.text)); }
-	| IDENT ':' STRING TYPE '(' x=addExpr ')' { $result = new FormText(new Identifier($IDENT.text), new StringPrimitive($STRING.text), new Type($TYPE.text), $x.result); }
-	| IF '(' condition=orExpr ')' '{' if_list=formElementList '}' ( ELSE '{' else_list=formElementList '}' )? {$result = new IfStatement($condition.result, $if_list.result, $else_list.result); }
+	: IDENT ':' STRING t=type { $result = new Question(new Identifier($IDENT.text), new StringPrimitive($STRING.text), $t.result); }
+	| IDENT ':' STRING t=type '(' x=addExpr ')' { $result = new FormText(new Identifier($IDENT.text), new StringPrimitive($STRING.text), $t.result, $x.result); }
+	| IF '(' condition=orExpr ')' '{' if_list=formElementList '}' ( ELSE '{' else_list=formElementList '}' )?
+	{
+		if (condition instanceof BooleanExpression) {
+			$result = new IfStatement((BooleanExpression)$condition.result, $if_list.result, $else_list.result);
+		} else {
+			throw new RecognitionException();
+		}
+	}
 	;
 
 primary returns [Expression result]
@@ -40,6 +47,12 @@ primary returns [Expression result]
   | IDENT  { $result = new Identifier($IDENT.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
+  
+type returns [Type result]
+	: BOOL_TYPE {$result = new BooleanType();}
+	| INT_TYPE {$result = new IntegerType();}
+	| STRING_TYPE {$result = new StringType();}
+	;
     
 unExpr returns [Expression result]
     :  op=('+'|'-') x=unExpr 
@@ -243,10 +256,16 @@ BOOL
 	| 'FALSE'
 	;
 
-TYPE
+BOOL_TYPE
 	: 'boolean'
-	| 'integer'
-	| 'string'
+	;
+
+INT_TYPE
+	: 'integer'
+	;
+	
+STRING_TYPE
+	: 'string'
 	;
 
 IDENT
