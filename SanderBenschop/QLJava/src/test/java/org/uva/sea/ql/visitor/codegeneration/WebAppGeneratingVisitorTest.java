@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.codegeneration;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
@@ -18,8 +19,12 @@ import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static junit.framework.Assert.assertEquals;
 
 public class WebAppGeneratingVisitorTest {
 
@@ -34,7 +39,7 @@ public class WebAppGeneratingVisitorTest {
     }
 
     @Test
-    public void testWebAppPageGeneration() {
+    public void testWebAppPageGeneration() throws IOException {
         List<QLStatement> statements = new ArrayList<QLStatement>();
 
         Question openQuestion = new Question(new Ident("age", sourceCodeInformation), new Str("How old are you?", sourceCodeInformation), new IntegerType());
@@ -61,5 +66,7 @@ public class WebAppGeneratingVisitorTest {
 
         Form form = new Form("QLForm", statements);
         String code = webAppGeneratingVisitor.generateQLCode(form);
+        String assertionCode = FileUtils.readFileToString(new File("src/test/resources/generatedQLCode.html"));
+        assertEquals(assertionCode.replaceAll(" ", ""), code.replaceAll(" ", ""));
     }
 }

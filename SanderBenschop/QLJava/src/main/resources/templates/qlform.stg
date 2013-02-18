@@ -36,7 +36,7 @@ computationJS(name, initializationBlock, expression) ::= <<
 >>
 
 ifStatementHtml(identifier, successBodyContent) ::= <<
-    <div id="conditional_$identifier$">
+    <div id="$identifier$">
         <div class="successBody hidden">
             $successBodyContent$
         </div>
@@ -44,7 +44,7 @@ ifStatementHtml(identifier, successBodyContent) ::= <<
 >>
 
 ifElseStatementHtml(identifier, successBodyContent, failureBodyContent) ::= <<
-    <div id="conditional_$identifier$">
+    <div id="$identifier$">
         <div class="successBody hidden">
             $successBodyContent$
         </div>
@@ -64,7 +64,7 @@ conditionalJS(identifier, parentController, initializationBlock, expression) ::=
         evaluateExpression : function() {
             return $expression$;
         }
-    }).new("conditional_$identifier$");
+    }).new("$identifier$");
 >>
 
 positive(expr) ::= <<Math.abs($expr$);>>

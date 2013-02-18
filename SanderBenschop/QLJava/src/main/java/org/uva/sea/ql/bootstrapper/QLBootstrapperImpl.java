@@ -19,7 +19,7 @@ public final class QLBootstrapperImpl implements QLBootstrapper {
 
     private static final String DESTINATION_FILE_NAME_TEMPLATE = "%s/index.html";
 
-    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(QLBootstrapperImpl.class.getName());
 
     private final Parser parser;
     private final SemanticalAnalyser semanticalAnalyser;

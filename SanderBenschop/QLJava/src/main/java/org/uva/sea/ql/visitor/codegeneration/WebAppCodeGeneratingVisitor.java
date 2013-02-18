@@ -23,6 +23,8 @@ import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
 import org.uva.sea.ql.visitor.codegeneration.codewrapper.*;
+import org.uva.sea.ql.visitor.codegeneration.sequencegenerator.ConditionalIdentifierSequenceGenerator;
+import org.uva.sea.ql.visitor.codegeneration.sequencegenerator.IdentifierSequenceGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +33,12 @@ import java.util.regex.Pattern;
 
 public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisitor<WebappCodeWrapper> {
 
+    private final IdentifierSequenceGenerator conditionalIdentifierSequenceGenerator;
     private final STGroupFile pageTemplateGroup;
     private final STGroupFile formTemplateGroup;
 
     public WebAppCodeGeneratingVisitor() {
+        this.conditionalIdentifierSequenceGenerator = new ConditionalIdentifierSequenceGenerator();
         this.pageTemplateGroup = new STGroupFile("src/main/resources/templates/qlpage.stg", '$', '$');
         this.formTemplateGroup = new STGroupFile("src/main/resources/templates/qlform.stg", '$', '$');
     }
@@ -101,7 +105,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitIfStatement(IfStatement ifStatement) {
         AppendingStatementWebappCodeWrapper ifStatementWrapper = new AppendingStatementWebappCodeWrapper();
-        String identifier = createIdentifierForConditional();
+        String identifier = conditionalIdentifierSequenceGenerator.getNextIdentifier();
 
         ST ifStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifStatementHtml");
         WebappCodeWrapper expressionJSCodeWrapper = ifStatement.getCondition().accept(this);
@@ -123,7 +127,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitIfElseStatement(IfElseStatement ifElseStatement) {
         AppendingStatementWebappCodeWrapper ifElseStatementWrapper = new AppendingStatementWebappCodeWrapper();
-        String identifier = createIdentifierForConditional();
+        String identifier = conditionalIdentifierSequenceGenerator.getNextIdentifier();
 
         ST ifElseStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifElseStatementHtml");
         WebappCodeWrapper expressionJSCodeWrapper = ifElseStatement.getCondition().accept(this);
@@ -146,10 +150,6 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ifElseStatementWrapper.appendHtmlCode(ifElseStatementHtmlTemplate.render());
 
         return ifElseStatementWrapper;
-    }
-
-    private String createIdentifierForConditional() {
-        return "conditional" + System.currentTimeMillis();
     }
 
     private String renderConditionalJSTemplate(String identifier, WebappCodeWrapper expressionJSCodeWrapper) {

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Question language - QLForm</title>
+    <script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="scripts/selfish-0.3.2.min.js"></script>
+    <script type="text/javascript" src="scripts/generic.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+
+            /* Generated JS code start */
+            var ageQuestionController = ql.IntegerTypeQuestionController.new("age");
+            ageQuestionController.bind();
+            ql.questionControllerList.push(ageQuestionController);    var maleQuestionController = ql.BooleanTypeQuestionController.new("male");
+            maleQuestionController.bind();
+            ql.questionControllerList.push(maleQuestionController);    var twoTimesAgeComputationController = ql.ComputationController.extend({
+                initialize : function(name) {
+                    ql.ComputationController.initialize.call(this, name);
+                    ql.messageBus.subscribeToVariable("age", this);
+                },
+
+                evaluateExpression : function() {
+                    return 2 * ql.variableMap["age"];
+                }
+            }).new("twoTimesAge");    var conditional0ConditionalController = ql.IfStatementController.extend({
+                initialize : function(identifier) {
+                    ql.IfStatementController.initialize.call(this, identifier);
+                    ql.messageBus.subscribeToVariable("male", this);
+                },
+
+                evaluateExpression : function() {
+                    return ql.variableMap["male"];
+                }
+            }).new("conditional0");    var likeBeerQuestionController = ql.BooleanTypeQuestionController.new("likeBeer");
+            likeBeerQuestionController.bind();
+            ql.questionControllerList.push(likeBeerQuestionController);    var conditional1ConditionalController = ql.IfStatementController.extend({
+                initialize : function(identifier) {
+                    ql.IfStatementController.initialize.call(this, identifier);
+                    ql.messageBus.subscribeToVariable("male", this);
+                },
+
+                evaluateExpression : function() {
+                    return ql.variableMap["male"];
+                }
+            }).new("conditional1");    var howLongNetherlandsQuestionController = ql.IntegerTypeQuestionController.new("howLongNetherlands");
+            howLongNetherlandsQuestionController.bind();
+            ql.questionControllerList.push(howLongNetherlandsQuestionController);    var whereLiveQuestionController = ql.StringTypeQuestionController.new("whereLive");
+            whereLiveQuestionController.bind();
+            ql.questionControllerList.push(whereLiveQuestionController);
+            /* Generated JS code end */
+
+            jQuery("#submit").on("click", function(){
+                var identifierValuePairArray = [];
+                jQuery.each(ql.questionControllerList, function(index, questionController) {
+                    if (questionController.view.is(":visible")) {
+                        identifierValuePairArray.push({identifierName : questionController.getName(), value : questionController.getValue()});
+                    }
+                });
+                ql.ajaxUtil.doPost("submit/", identifierValuePairArray, function(){
+                    alert("Submit succesful!");
+                });
+            });
+        });
+    </script>
+    <style type="text/css">
+        .hidden {
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <label for="age">How old are you?</label><input type="text" id="age" name="age"/><br>    <label for="male">Are you male?</label><input type="checkbox" id="male" name="male"/><br>    <label for="twoTimesAge">Two times age:</label><input type="text" id="twoTimesAge" name="twoTimesAge" readonly="readonly"/><br>    <div id="conditional0">
+    <div class="successBody hidden">
+        <label for="likeBeer">Do you like beer?</label><input type="checkbox" id="likeBeer" name="likeBeer"/><br>
+    </div>
+</div>    <div id="conditional1">
+    <div class="successBody hidden">
+        <label for="howLongNetherlands">How many years have you lived in the Netherlands?</label><input type="text" id="howLongNetherlands" name="howLongNetherlands"/><br>
+    </div>
+    <div class="failureBody hidden">
+        <label for="whereLive">Where do you live?</label><input type="text" id="whereLive" name="whereLive"/><br>
+    </div>
+</div>
+</form>
+</body>
+<input id="submit" type="button" value="Persist"/>
+</html>
