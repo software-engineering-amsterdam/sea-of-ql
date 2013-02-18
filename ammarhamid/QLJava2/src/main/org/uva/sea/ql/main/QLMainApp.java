@@ -1,6 +1,6 @@
 package org.uva.sea.ql.main;
 
-import org.uva.sea.ql.VariableState;
+import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.ast.FormNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;

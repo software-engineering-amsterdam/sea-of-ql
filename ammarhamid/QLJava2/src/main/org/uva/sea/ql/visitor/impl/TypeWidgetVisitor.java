@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor.impl;
 
-import org.uva.sea.ql.VariableState;
+import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.type.impl.BooleanType;
 import org.uva.sea.ql.type.impl.IntegerType;
 import org.uva.sea.ql.type.impl.MoneyType;

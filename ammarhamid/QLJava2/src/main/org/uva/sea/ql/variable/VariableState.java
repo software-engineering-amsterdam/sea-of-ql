@@ -1,4 +1,4 @@
-package org.uva.sea.ql;
+package org.uva.sea.ql.variable;
 
 import org.uva.sea.ql.value.Value;
 

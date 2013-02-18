@@ -1,4 +1,4 @@
-package org.uva.sea.ql.observer;
+package org.uva.sea.ql.variable.observer;
 
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.main.QLMainApp;
