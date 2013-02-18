@@ -6,11 +6,6 @@ import static org.junit.Assert.assertTrue;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.LiteralExpr;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Int;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.Numeric;
-import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
@@ -27,32 +22,26 @@ public class ExpressionTypeChecker {
 	public ExpressionTypeChecker() {
 		_parser = new ANTLRParserExpressions();
 		_supportedTypes = new SupportedTypes();
-		
-		_supportedTypes.add("boolean", new Bool());
-		_supportedTypes.add("integer", new Int());
-		_supportedTypes.add("money",   new Money());
-		_supportedTypes.add("numeric", new Numeric());
-		_supportedTypes.add("string",  new Str());
 	}
 	
 	public void isAValidExpression(String input)    throws ParseError {  assertTrue(checkExpression(input)); }
 	public void isNotAValidExpression(String input) throws ParseError { assertFalse(checkExpression(input)); }
 	
-	public void isOfTypeBoolean(String input) throws ParseError { assertTrue(getTypeFor(input).isCompatibleToBool());    }
-	public void isOfTypeInt(String input)     throws ParseError { assertTrue(getTypeFor(input).isCompatibleToInt());     }
-	public void isOfTypeMoney(String input)   throws ParseError { assertTrue(getTypeFor(input).isCompatibleToMoney());   }
-	public void isOfTypeNumeric(String input) throws ParseError { assertTrue(getTypeFor(input).isCompatibleToNumeric()); }
-	public void isOfTypeString(String input)  throws ParseError { assertTrue(getTypeFor(input).isCompatibleToStr());     }
-	public void isOfTypeIdent(String input)   throws ParseError { assertTrue(isIdentCompatibleWithType(input));          }
+	public void isOfTypeBoolean(String input)       throws ParseError { assertTrue(getTypeFor(input).isCompatibleToBool());    }
+	public void isOfTypeInt(String input)           throws ParseError { assertTrue(getTypeFor(input).isCompatibleToInt());     }
+	public void isOfTypeMoney(String input)         throws ParseError { assertTrue(getTypeFor(input).isCompatibleToMoney());   }
+	public void isOfTypeNumeric(String input)       throws ParseError { assertTrue(getTypeFor(input).isCompatibleToNumeric()); }
+	public void isOfTypeString(String input)        throws ParseError { assertTrue(getTypeFor(input).isCompatibleToStr());     }
+	public void isOfTypeIdent(String input)         throws ParseError { assertTrue(isIdentCompatibleWithType(input));          }
 	
-	private Boolean checkExpression(String input) throws ParseError {
+	private Boolean checkExpression(String input)   throws ParseError {
 		Expr expression = parseExpression(input);
 		return TypeChecker.check(expression, _supportedTypes, new ErrorMessages());
 	}
 	
-	private Expr parseExpression(String input) throws ParseError { return (Expr) _parser.parse(input); }
+	private Expr parseExpression(String input)      throws ParseError { return (Expr) _parser.parse(input); }
 	
-	private Type getTypeFor(String input)      throws ParseError { return getTypeForLiteralExpression(input); }
+	private Type getTypeFor(String input)           throws ParseError { return getTypeForLiteralExpression(input); }
 	
 	private Type getTypeForLiteralExpression(String input) throws ParseError {
 		LiteralExpr expression = (LiteralExpr) parseExpression(input);
