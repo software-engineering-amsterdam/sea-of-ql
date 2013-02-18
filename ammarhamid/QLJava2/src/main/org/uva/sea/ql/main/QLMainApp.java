@@ -12,16 +12,17 @@ import java.io.IOException;
 public class QLMainApp
 {
 
-    private static JPanel createPanel() throws IOException
+    private static JPanel createPanel(final Statement statement) throws IOException
+    {
+        return StatementWidgetVisitor.render(statement, new VariableState());
+    }
+
+    public static void main(String[] args) throws IOException
     {
         final IParser parser = new ANTLRParser();
         // TODO check why cast is needed !!!
-        final Statement node = (Statement)parser.parseFormFromFile("/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql");
-        return StatementWidgetVisitor.render(node, new VariableState());
-    }
+        final Statement statement = (Statement)parser.parseFormFromFile("/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql");
 
-    public static void main(String[] args)
-    {
         SwingUtilities.invokeLater(new Runnable()
         {
             public void run()
@@ -39,7 +40,7 @@ public class QLMainApp
                 frame = new JFrame("QL Main Application");
                 try
                 {
-                    frame.getContentPane().add(createPanel());
+                    frame.getContentPane().add(createPanel(statement));
                 }
                 catch(IOException e)
                 {
