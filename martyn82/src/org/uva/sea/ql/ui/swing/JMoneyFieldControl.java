@@ -3,6 +3,7 @@ package org.uva.sea.ql.ui.swing;
 import java.text.DecimalFormat;
 
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -17,13 +18,14 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 	private final JSpinner control;
 
 	public JMoneyFieldControl() {
-		this.control = new JSpinner( new SpinnerNumberModel( 0, null, null, 1 ) );
+		SpinnerModel model = new SpinnerNumberModel( new Double( 0.00 ), null, null, new Double( .01 ) );
+		this.control = new JSpinner( model );
 
 		JSpinner.NumberEditor editor = (JSpinner.NumberEditor) this.control.getEditor();
+		DecimalFormat format = editor.getFormat();
 
-		DecimalFormat formatter = editor.getFormat();
-		formatter.setMinimumFractionDigits( 2 );
-		formatter.setMaximumFractionDigits( 2 );
+		format.setMinimumFractionDigits( 2 );
+		format.setMaximumFractionDigits( 2 );
 	}
 
 	@Override

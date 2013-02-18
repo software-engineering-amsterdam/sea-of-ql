@@ -25,7 +25,9 @@ public class JCheckBoxControl extends CheckBoxControl {
 
 	@Override
 	public void setValue( Value value ) {
-		this.control.setSelected( ( (BooleanValue) value ).getValue() );
+		if ( value.isDefined() ) {
+			this.control.setSelected( ( (BooleanValue) value ).getValue() );
+		}
 	}
 
 	@Override

@@ -86,7 +86,7 @@ class Evaluator implements ExpressionVisitor<Value> {
 	public Value visit( EqualExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.equals( right );
+		return left.equalTo( right );
 	}
 
 	@Override
@@ -121,7 +121,7 @@ class Evaluator implements ExpressionVisitor<Value> {
 	public Value visit( NotEqualExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.notEquals( right );
+		return left.notEqualTo( right );
 	}
 
 	@Override

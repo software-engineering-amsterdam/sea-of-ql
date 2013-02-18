@@ -1,10 +1,9 @@
 TODO
 ----
-- Add column and linenumber to TypeErrors.
+- Add column and linenumber to TypeErrors and ParseErrors.
 - make codelocation class to bundle column and linenumber QLLexer
 
 - review typecheckerhelper
-- review renderer (mixed responsibilities)
 
 - test for typeresolver
 - test for typeinitializer

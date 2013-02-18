@@ -34,6 +34,10 @@ public class ValueEnvironment extends Environment {
 		this.bindings.get( identifier ).setValue( value );
 	}
 
+	public Map<IdentifierExpression, Bindable> getBindings() {
+		return this.bindings;
+	}
+
 	public void registerObserver( IdentifierExpression identifier, Observer observer ) {
 		this.bindings.get( identifier ).addObserver( observer );
 	}

@@ -10,11 +10,16 @@ public class Bindable extends Observable {
 
 	public Bindable( Value value ) {
 		this.value = value;
+		this.setChanged();
 	}
 
 	public void setValue( Value value ) {
+		boolean isChanged = !this.value.equals( value );
 		this.value = value;
-		this.setChanged();
+
+		if ( isChanged ) {
+			this.setChanged();
+		}
 	}
 
 	public Type getType() {

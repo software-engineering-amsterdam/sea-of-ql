@@ -89,11 +89,11 @@ abstract public class Value {
 
 	// object comparison
 
-	public Value equals( Value value ) {
+	public Value equalTo( Value value ) {
 		return new BooleanValue( value.getValue().equals( this.getValue() ) );
 	}
 
-	public Value notEquals( Value value ) {
+	public Value notEqualTo( Value value ) {
 		return new BooleanValue( !value.getValue().equals( this.getValue() ) );
 	}
 

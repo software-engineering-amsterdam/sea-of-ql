@@ -1,5 +1,7 @@
 package org.uva.sea.ql.evaluator;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Observer;
 import java.util.Set;
@@ -25,6 +27,7 @@ import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.control.ButtonControl;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.value.BooleanValue;
@@ -33,14 +36,14 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
 public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
+	private final static String SUBMIT_TEXT = "Submit";
+
 	private final ControlFactory factory;
 	private final PanelControl panel;
 	private final ValueEnvironment environment;
 
 	public static PanelControl render( Statement statement, ControlFactory factory ) {
-		Renderer renderer = new Renderer( new ValueEnvironment(), factory );
-		statement.accept( renderer );
-		return renderer.getPanel();
+		return render( statement, new ValueEnvironment(), factory );
 	}
 
 	protected static PanelControl render( Statement statement, ValueEnvironment environment, ControlFactory factory ) {
@@ -65,6 +68,23 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	private void addLabel( String label ) {
 		this.addControl( this.factory.createLabel( label ) );
+	}
+
+	private void addSubmitButton() {
+		ButtonControl button = this.factory.createButton( SUBMIT_TEXT );
+
+		button.addChangeListener(
+			new ControlEventListener() {
+				@Override
+				public void itemChanged( ControlEvent event ) {
+					String dateString = DateFormat.getDateTimeInstance().format( new Date() );
+
+					Exporter exporter = new XmlExporter( panel.getName(), environment.getBindings() );
+					exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
+				}
+			}
+		);
+		this.addControl( button );
 	}
 
 	private Control createEditableControlFromType( Type type, Value value ) {
@@ -115,7 +135,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( IfThen node ) {
-		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
+		Value conditionValue = Evaluator.evaluate( node.getCondition(), this.environment );
+		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
 		PanelControl falsePanel = this.factory.createPanel();
@@ -133,7 +154,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( IfThenElse node ) {
-		boolean condition = ( (BooleanValue) Evaluator.evaluate( node.getCondition(), this.environment ) ).getValue();
+		Value conditionValue = Evaluator.evaluate( node.getCondition(), this.environment );
+		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
 		PanelControl falsePanel = render( node.getElse(), this.environment, this.factory );
@@ -171,6 +193,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addControl( formPanel );
 
 		this.panel.setName( node.getLabel() );
+		this.addSubmitButton();
 
 		return null;
 	}

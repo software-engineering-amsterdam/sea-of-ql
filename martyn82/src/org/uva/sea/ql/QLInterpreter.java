@@ -16,7 +16,7 @@ public class QLInterpreter {
 	private final TypeChecker typeChecker;
 	private final ControlFactory factory;
 
-	private PanelControl result;
+	private PanelControl panel;
 
 	public QLInterpreter( ControlFactory factory ) {
 		this.parser = new QLParser();
@@ -32,13 +32,12 @@ public class QLInterpreter {
 			return false;
 		}
 
-		this.result = Renderer.render( root, this.factory );
-
+		this.panel = Renderer.render( root, this.factory );
 		return true;
 	}
 
-	public PanelControl getResult() {
-		return this.result;
+	public PanelControl getPanel() {
+		return this.panel;
 	}
 
 	public boolean hasErrors() {

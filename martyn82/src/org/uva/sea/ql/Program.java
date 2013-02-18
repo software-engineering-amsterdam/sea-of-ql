@@ -3,6 +3,7 @@ package org.uva.sea.ql;
 import org.uva.sea.ql.evaluator.Error;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
 public class Program {
@@ -28,8 +29,9 @@ public class Program {
 			return;
 		}
 
-		PanelControl formPanel = this.interpreter.getResult();
-		this.factory.createWindow( formPanel.getName(), formPanel ).show();
+		PanelControl formPanel = this.interpreter.getPanel();
+		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
+		window.show();
 	}
 
 	private String getProgramSource() {
