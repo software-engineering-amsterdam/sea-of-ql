@@ -9,9 +9,9 @@ import org.uva.sea.ql.ServerProperties;
 public class TestServerProperties extends TestBase {
 	@Test
 	public void testProperties() throws Exception {
-		ServerProperties p = new ServerProperties();
+		final ServerProperties p = new ServerProperties();
 		p.readProperties();
-		
+
 		assertTrue(p.getServerPort() > 0);
 		assertNotNull(p.getSaveFormPath());
 		assertNotNull(p.getServerBaseURL());

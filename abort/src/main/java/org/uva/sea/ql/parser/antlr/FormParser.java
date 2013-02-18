@@ -13,8 +13,8 @@ import org.uva.sea.ql.parser.errors.*;
  * @author J. Dijkstra
  */
 public class FormParser implements IFormParser {
-	private ISyntaxErrorReporter errorReporter = new SyntaxErrorReporter();
-	
+	private final ISyntaxErrorReporter errorReporter = new SyntaxErrorReporter();
+
 	@Override
 	public Form parseForm(final File inputFile) throws ParsingException {
 		try {
@@ -25,14 +25,11 @@ public class FormParser implements IFormParser {
 			parser.setErrorReporter(errorReporter);
 
 			return parser.form();
-		}
-		catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			throw new ParsingException(e);
-		}
-		catch (RecognitionException e) {
+		} catch (final RecognitionException e) {
 			throw new ParsingException(e);
-		}
-		catch (IOException e) {
+		} catch (final IOException e) {
 			throw new ParsingException(e);
 		}
 	}
@@ -41,9 +38,9 @@ public class FormParser implements IFormParser {
 	public boolean hasParsingErrors() {
 		return errorReporter.hasSyntaxErrors();
 	}
-	
+
 	@Override
-	public void writeErrorLog(PrintStream stream) {
+	public void writeErrorLog(final PrintStream stream) {
 		for (final SyntaxErrorMessage message : errorReporter.getErrors()) {
 			stream.println(message);
 		}

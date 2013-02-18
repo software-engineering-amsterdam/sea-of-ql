@@ -13,7 +13,8 @@ public interface ITypeChecker {
 	/**
 	 * Check whether a form contains errors or not.
 	 * 
-	 * @param form form to check
+	 * @param form
+	 *            form to check
 	 * @return whether errors are found (and stored in the instance) or not
 	 */
 	boolean checkFormErrors(final Form form);
@@ -24,11 +25,12 @@ public interface ITypeChecker {
 	 * @return error count
 	 */
 	int getErrorCount();
-	
+
 	/**
 	 * Write error log to a stream.
 	 * 
-	 * @param stream stream to write error log to
+	 * @param stream
+	 *            stream to write error log to
 	 */
 	void writeErrorLog(final PrintStream stream);
 

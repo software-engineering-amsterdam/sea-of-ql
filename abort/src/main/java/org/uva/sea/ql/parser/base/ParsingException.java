@@ -11,7 +11,8 @@ public class ParsingException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param exception exception to wrap
+	 * @param exception
+	 *            exception to wrap
 	 */
 	public ParsingException(final Throwable exception) {
 		super("Parsing Exception", exception);

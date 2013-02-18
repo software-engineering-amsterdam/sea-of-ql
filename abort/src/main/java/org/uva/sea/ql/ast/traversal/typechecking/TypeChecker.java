@@ -36,12 +36,12 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 	 * Stores result types for defined labels.
 	 */
 	private final SymbolTable symbolTable = new SymbolTable();
-	
+
 	@Override
 	public boolean checkFormErrors(final Form form) {
 		return form.accept(this);
 	}
-	
+
 	@Override
 	public Boolean visit(final Computation computation) {
 		// Check for errors in the expression of the computation
@@ -66,7 +66,8 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 
 	@Override
 	public Boolean visit(final Form form) {
-		// Check for errors in the form statements and return whether errors are found or not
+		// Check for errors in the form statements and return whether errors are
+		// found or not
 		final boolean statementErrors = checkStatements(form.getStatements());
 		if (!statementErrors) {
 			eventLog.addCorrectSemantics(form);
@@ -146,7 +147,8 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 
 		final DataType leftType = leftHandSide.typeOf(symbolTable);
 		final DataType rightType = rightHandSide.typeOf(symbolTable);
-		// Equals requires both left and the right handside to be of the same type
+		// Equals requires both left and the right handside to be of the same
+		// type
 		if (!leftType.isSameTypeAs(rightType)) {
 			errorLog.addBothSidesAreDifferentTypes(eq);
 			return true;
@@ -242,15 +244,19 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 
 	/**
 	 * Write event log to a stream.
-	 * @param stream stream to write to
+	 * 
+	 * @param stream
+	 *            stream to write to
 	 */
 	public void writeEventLog(final PrintStream stream) {
 		eventLog.write(stream);
 	}
-	
+
 	/**
 	 * Write error log to a stream.
-	 * @param stream stream to write to
+	 * 
+	 * @param stream
+	 *            stream to write to
 	 */
 	@Override
 	public void writeErrorLog(final PrintStream stream) {
@@ -258,25 +264,25 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 	}
 
 	/**
-	 * Get the amount of events stored in the event log. 
+	 * Get the amount of events stored in the event log.
 	 */
 	public int getEventCount() {
 		return errorLog.getLength();
 	}
-	
+
 	/**
-	 * Get the amount of errors stored in the error log. 
+	 * Get the amount of errors stored in the error log.
 	 */
 	@Override
 	public int getErrorCount() {
 		return errorLog.getLength();
 	}
-	
+
 	@Override
 	public SymbolTable getSymbolTable() {
 		return symbolTable;
 	}
-	
+
 	/**
 	 * Check numeric binary expressions for errors and log them.
 	 * 
@@ -300,7 +306,7 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 		if ((leftHandSideType == null) || (rightHandSideType == null)) {
 			return true;
 		}
-		
+
 		// Both hand sides should be compatible to numeric
 		boolean error = false;
 		if (!leftHandSideType.isCompatibleToNumeric()) {
@@ -418,7 +424,8 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 	/**
 	 * Retrieve the type of the expression.
 	 * 
-	 * @param expression expression
+	 * @param expression
+	 *            expression
 	 * @return type
 	 */
 	private DataType checkTypeOf(final Expression expression) {

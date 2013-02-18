@@ -18,8 +18,10 @@ public class SyntaxPosition {
 	/**
 	 * Constructor.
 	 * 
-	 * @param lineNumber line number in the QL input
-	 * @param columnNumber column number in the QL input
+	 * @param lineNumber
+	 *            line number in the QL input
+	 * @param columnNumber
+	 *            column number in the QL input
 	 */
 	public SyntaxPosition(final int lineNumber, final int columnNumber) {
 		this.lineNumber = lineNumber;
@@ -28,6 +30,7 @@ public class SyntaxPosition {
 
 	/**
 	 * Retrieve the line number.
+	 * 
 	 * @return line number
 	 */
 	public int getLineNumber() {
@@ -36,6 +39,7 @@ public class SyntaxPosition {
 
 	/**
 	 * Retrieve the column number.
+	 * 
 	 * @return column number
 	 */
 	public int getColumnNumber() {

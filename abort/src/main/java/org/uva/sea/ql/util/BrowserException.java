@@ -11,7 +11,8 @@ public class BrowserException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param exception exception to wrap
+	 * @param exception
+	 *            exception to wrap
 	 */
 	public BrowserException(final Throwable exception) {
 		super("Browser Exception", exception);

@@ -7,14 +7,14 @@ import org.uva.sea.ql.ast.base.*;
  * 
  * @author J. Dijkstra
  */
-public abstract class LiteralType<T> extends Expression {
+public abstract class Literal<T> extends Expression {
 	/**
 	 * Constructor.
 	 * 
 	 * @param syntaxPosition
 	 *            the original position of the expression in the input syntax
 	 */
-	public LiteralType(final SyntaxPosition syntaxPosition) {
+	public Literal(final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
 	}
 

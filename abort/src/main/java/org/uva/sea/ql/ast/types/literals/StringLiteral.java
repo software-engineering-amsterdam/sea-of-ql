@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.types.datatypes.*;
  * 
  * @author J. Dijkstra
  */
-public class StringLiteral extends LiteralType<String> {
+public class StringLiteral extends Literal<String> {
 	private static final DataType TYPE = new StringType();
 
 	/**

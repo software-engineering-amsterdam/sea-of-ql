@@ -48,38 +48,38 @@ public class SymbolTable implements ISymbolTable {
 	public void add(final Ident ident, final DataType dataType) {
 		types.put(ident, dataType);
 	}
-	
+
 	@Override
 	public DataType getDataTypeByName(final String identName) {
-		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
+		for (final Map.Entry<Ident, DataType> entry : types.entrySet()) {
 			if (entry.getKey().getName().equals(identName)) {
 				return entry.getValue();
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public boolean containsIdentName(final String identName) {
-		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
+		for (final Map.Entry<Ident, DataType> entry : types.entrySet()) {
 			if (entry.getKey().getName().equals(identName)) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
-	public boolean isInputIncomplete(Set<String> identNames) {
-		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
+	public boolean isInputIncomplete(final Set<String> identNames) {
+		for (final Map.Entry<Ident, DataType> entry : types.entrySet()) {
 			// Check whether the set contains all keys of the symbol table
 			if (!identNames.contains(entry.getKey().getName())) {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 }

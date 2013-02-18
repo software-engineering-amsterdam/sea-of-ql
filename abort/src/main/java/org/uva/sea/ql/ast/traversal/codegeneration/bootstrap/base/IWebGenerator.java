@@ -10,10 +10,13 @@ import org.uva.sea.ql.ast.form.Form;
 public interface IWebGenerator {
 	/**
 	 * Generates a web front-end based on a form.
-	 *  
-	 * @param form form to generate front-end from
-	 * @param outputDirectory directory to output files
-	 * @param outputFilename filename to output
+	 * 
+	 * @param form
+	 *            form to generate front-end from
+	 * @param outputDirectory
+	 *            directory to output files
+	 * @param outputFilename
+	 *            filename to output
 	 * @throws WebGenerationException
 	 */
 	void generateFrontEnd(Form form, String outputDirectory, String outputFilename) throws WebGenerationException;

@@ -21,40 +21,42 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 public class ServletBootstrapConfig extends GuiceServletContextListener {
 	private final ISymbolTable symbolTable;
 	private final ServerProperties properties;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param symbolTable symbol table to use for verification of input
-	 * @param properties properties to use over the servlets
+	 * @param symbolTable
+	 *            symbol table to use for verification of input
+	 * @param properties
+	 *            properties to use over the servlets
 	 */
 	public ServletBootstrapConfig(final ISymbolTable symbolTable, final ServerProperties properties) {
 		this.symbolTable = symbolTable;
 		this.properties = properties;
 	}
-	
+
 	@Override
 	protected Injector getInjector() {
 		return Guice.createInjector(new ServletModule() {
-            @Override
-            protected void configureServlets() {
-                // bind the REST resources
-        		bind(ISymbolTable.class).toInstance(symbolTable);
-        		bind(ServerProperties.class).toInstance(properties);
-                bind(BootstrapWebService.class);
-                
-                // Bind Jackson converters for JAXB/JSON serialization
-                bind(JacksonJaxbJsonProvider.class).in(Singleton.class);
-                bind(MessageBodyReader.class).to(JacksonJsonProvider.class);
-                bind(MessageBodyWriter.class).to(JacksonJsonProvider.class);
-                
-                // Jersey configuration
-                Map<String, String> initParams = new HashMap<String, String>();
-                initParams.put("com.sun.jersey.config.feature.Trace", "true");
-                initParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
+			@Override
+			protected void configureServlets() {
+				// bind the REST resources
+				bind(ISymbolTable.class).toInstance(symbolTable);
+				bind(ServerProperties.class).toInstance(properties);
+				bind(BootstrapWebService.class);
 
-                serve("*").with(GuiceContainer.class, initParams);
-            }
-        });
+				// Bind Jackson converters for JAXB/JSON serialization
+				bind(JacksonJaxbJsonProvider.class).in(Singleton.class);
+				bind(MessageBodyReader.class).to(JacksonJsonProvider.class);
+				bind(MessageBodyWriter.class).to(JacksonJsonProvider.class);
+
+				// Jersey configuration
+				final Map<String, String> initParams = new HashMap<String, String>();
+				initParams.put("com.sun.jersey.config.feature.Trace", "true");
+				initParams.put("com.sun.jersey.api.json.POJOMappingFeature", "true");
+
+				serve("*").with(GuiceContainer.class, initParams);
+			}
+		});
 	}
 }

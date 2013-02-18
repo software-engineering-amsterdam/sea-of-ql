@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.types.datatypes;
 
-
 /**
  * Represents integer data type in the QL language.
  * 
@@ -18,12 +17,11 @@ public class IntType extends NumericType {
 	}
 
 	@Override
-	public boolean isAssignableFrom(String input) {
+	public boolean isAssignableFrom(final String input) {
 		try {
 			new Integer(input);
 			return true;
-		}
-		catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			return false;
 		}
 	}

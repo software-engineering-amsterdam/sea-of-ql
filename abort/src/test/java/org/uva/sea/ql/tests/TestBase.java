@@ -58,18 +58,19 @@ abstract class TestBase {
 		tokens.setTokenSource(new QLLexer(stream));
 		return (new QLParser(tokens)).form();
 	}
-	
+
 	/**
 	 * Retrieve a file resource.
 	 * 
-	 * @param path path to file
+	 * @param path
+	 *            path to file
 	 * @return file
 	 * @throws URISyntaxException
 	 */
 	protected File getFileResource(final String path) throws URISyntaxException {
 		return new File(getClass().getClassLoader().getResource(path).toURI());
 	}
-	
+
 	protected String getFileResourcePath(final String path) {
 		return getClass().getClassLoader().getResource(path).getPath();
 	}

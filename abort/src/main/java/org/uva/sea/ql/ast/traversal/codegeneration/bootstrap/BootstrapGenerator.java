@@ -35,7 +35,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	 * Javascript code generator to use.
 	 */
 	private final BootstrapJavascriptGenerator javascriptGenerator;
-	
+
 	/**
 	 * TemplateGroup to use for the HTML contents;
 	 */
@@ -45,35 +45,39 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	 * Identifier used for condition blocks (as they do not have a name by themselves).
 	 */
 	private int conditionalIdentifier = 0;
-	
+
 	/**
 	 * Constructor.
 	 * 
-	 * @param templatesPath path to retrieve the code generation templates (stringtemplates) from.
-	 * @param serverBaseURL base URL for the server to use in the front-end code.
+	 * @param templatesPath
+	 *            path to retrieve the code generation templates (stringtemplates) from.
+	 * @param serverBaseURL
+	 *            base URL for the server to use in the front-end code.
 	 */
 	public BootstrapGenerator(final String templatesPath, final String serverBaseURL) {
 		final String mainTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
-		
+
 		// Init variables by path parameters provided from the config file.
 		templateGroup = new STGroupFile(mainTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
 		javascriptGenerator = new BootstrapJavascriptGenerator(templatesPath, serverBaseURL);
 	}
 
 	@Override
-	public void generateFrontEnd(final Form form, final String outputDirectory, final String outputFilename) throws WebGenerationException {
+	public void generateFrontEnd(final Form form, final String outputDirectory, final String outputFilename)
+			throws WebGenerationException {
 		try {
 			final File outputFile = new File(outputDirectory, outputFilename);
 			IOUtils.write(renderFrontEnd(form), new FileOutputStream(outputFile));
-		}
-		catch (IOException e) {
+		} catch (final IOException e) {
 			throw new WebGenerationException(e);
 		}
 	}
-	
+
 	/**
 	 * Renders complete Front-End to string.
-	 * @param form input form to render.
+	 * 
+	 * @param form
+	 *            input form to render.
 	 * @return Front-End code in a string.
 	 */
 	private String renderFrontEnd(final Form form) {
@@ -92,7 +96,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		st.add("fields", getFilledFormTemplates(form.getStatements()));
 		return st;
 	}
-	
+
 	@Override
 	public ST visit(final Computation computation) {
 		final ST computationTemplate = templateGroup.getInstanceOf("computation");
@@ -101,7 +105,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		computationTemplate.add("id", computation.getIdent().getName());
 		computationTemplate.add("text", computation.getDescription());
 		computationTemplate.add("expression", expressionTemplate);
-		
+
 		// TODO: create toString method everywhere
 		computationTemplate.add("type", computation.getClass().getName());
 
@@ -114,19 +118,15 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	public ST visit(final Question question) {
 		final Class<? extends DataType> type = question.getExpectedType().getClass();
 		ST questionTemplate;
-		if (type.equals(MoneyType.class)){
+		if (type.equals(MoneyType.class)) {
 			questionTemplate = templateGroup.getInstanceOf("question_money");
-		}
-		else if (type.equals(BoolType.class)) {
+		} else if (type.equals(BoolType.class)) {
 			questionTemplate = templateGroup.getInstanceOf("question_bool");
-		}
-		else if (type.equals(StringType.class)) {
+		} else if (type.equals(StringType.class)) {
 			questionTemplate = templateGroup.getInstanceOf("question_string");
-		}
-		else {
+		} else {
 			questionTemplate = templateGroup.getInstanceOf("question_int");
 		}
-
 
 		final Ident id = question.getIdent();
 		questionTemplate.add("id", id.getName());
@@ -152,7 +152,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		template.add("else_elements", getFilledFormTemplates(ifThenElse.getElseStatements()));
 		return template;
 	}
-	
+
 	@Override
 	public ST visit(final Add add) {
 		return getBinaryOperationTemplate(add, "add");
@@ -254,29 +254,34 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		final ST st = templateGroup.getInstanceOf("ident");
 		st.add("name", ident.getName());
 
-		// Increase the count on references of the ident (to render code more efficiently)
+		// Increase the count on references of the ident (to render code more
+		// efficiently)
 		javascriptGenerator.increaseIdentReferenceCount(ident);
 		return st;
 	}
-	
+
 	/**
 	 * Retrieve a filled in literal template.
 	 * 
-	 * @param literal literal
-	 * @param templateName template name to use for the literal 
+	 * @param literal
+	 *            literal
+	 * @param templateName
+	 *            template name to use for the literal
 	 * @return filled literal template
 	 */
-	private <T> ST getLiteralTemplate(final LiteralType<T> literal, final String templateName) {
+	private <T> ST getLiteralTemplate(final Literal<T> literal, final String templateName) {
 		final ST st = templateGroup.getInstanceOf(templateName);
 		st.add("literal", literal.getValue());
 		return st;
 	}
-	
+
 	/**
 	 * Retrieve a filled unary operation template.
 	 * 
-	 * @param operation operation
-	 * @param templateName template name to use for the operation
+	 * @param operation
+	 *            operation
+	 * @param templateName
+	 *            template name to use for the operation
 	 * @return filled unary operation template
 	 */
 	private ST getUnaryOperationTemplate(final UnaryOperator operation, final String templateName) {
@@ -288,11 +293,13 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	/**
 	 * Retrieve a filled binary operation template.
 	 * 
-	 * @param operation operation
-	 * @param templateName template name to use for the operation
+	 * @param operation
+	 *            operation
+	 * @param templateName
+	 *            template name to use for the operation
 	 * @return filled binary operation template
 	 */
-	private ST getBinaryOperationTemplate(final BinaryOperator operation, final String templateName) { 
+	private ST getBinaryOperationTemplate(final BinaryOperator operation, final String templateName) {
 		final ST st = templateGroup.getInstanceOf(templateName);
 		st.add("lhs", operation.getLeftHandSide().accept(this));
 		st.add("rhs", operation.getRightHandSide().accept(this));
@@ -302,8 +309,10 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	/**
 	 * Initialize a conditional template code block.
 	 * 
-	 * @param statement IfStatement to fill in and initialize
-	 * @param templateToInitialize template to initialize
+	 * @param statement
+	 *            IfStatement to fill in and initialize
+	 * @param templateToInitialize
+	 *            template to initialize
 	 */
 	private void initConditionalTemplate(final IfStatement statement, final ST templateToInitialize) {
 		final String id = getConditionIdentifier();
@@ -312,14 +321,16 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		templateToInitialize.add("condition", conditionTemplate);
 		templateToInitialize.add("success_elements", getFilledFormTemplates(statement.getSuccessStatements()));
 
-		// Generate a function for the condition to use for javascript evaluation of the condition
+		// Generate a function for the condition to use for javascript
+		// evaluation of the condition
 		javascriptGenerator.declareFunction(id, conditionTemplate);
 	}
-	
+
 	/**
 	 * Retrieve filled form templates by a list of statements.
 	 * 
-	 * @param statements statements to generate a template of (by visiting the nodes)
+	 * @param statements
+	 *            statements to generate a template of (by visiting the nodes)
 	 * @return list of filled form templates
 	 */
 	private List<ST> getFilledFormTemplates(final List<Statement> statements) {
@@ -330,7 +341,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 
 		return templates;
 	}
-	
+
 	/**
 	 * Retrieve an identifier for a conditional block, as they need a name in HTML and javascript.
 	 * 
@@ -338,7 +349,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	 */
 	private String getConditionIdentifier() {
 		final String conditionIdentifier = String.format("condition%d", conditionalIdentifier);
-		conditionalIdentifier++;	
+		conditionalIdentifier++;
 		return conditionIdentifier;
 	}
 }

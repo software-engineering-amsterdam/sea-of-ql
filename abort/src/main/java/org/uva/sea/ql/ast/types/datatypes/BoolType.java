@@ -9,7 +9,7 @@ import java.util.regex.*;
  */
 public class BoolType extends DataType {
 	/**
-	 * Pattern to use for matching booleans. 
+	 * Pattern to use for matching booleans.
 	 */
 	private static final String BOOLEAN_MATCH_PATTERN = "true|false|1|0|on|off";
 
@@ -22,7 +22,7 @@ public class BoolType extends DataType {
 	public boolean isAssignableFrom(final String input) {
 		final Pattern validBooleanPattern = Pattern.compile(BOOLEAN_MATCH_PATTERN, Pattern.CASE_INSENSITIVE);
 		final Matcher matcher = validBooleanPattern.matcher(input);
-		
+
 		return matcher.matches();
 	}
 }

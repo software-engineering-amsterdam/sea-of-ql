@@ -63,11 +63,12 @@ public abstract class DataType {
 
 		return getClass().equals(dataType.getClass());
 	}
-	
+
 	/**
 	 * Check whether the input could be parsed as the specific data type.
 	 * 
-	 * @param input input
+	 * @param input
+	 *            input
 	 * @return whether it is possible if the type could be parsed
 	 */
 	public abstract boolean isAssignableFrom(final String input);

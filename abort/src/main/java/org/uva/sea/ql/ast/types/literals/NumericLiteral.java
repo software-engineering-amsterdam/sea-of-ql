@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.base.SyntaxPosition;
  * 
  * @author J. Dijkstra
  */
-public abstract class NumericLiteral<T> extends LiteralType<T> {
+public abstract class NumericLiteral<T> extends Literal<T> {
 	/**
 	 * Constructor.
 	 * 

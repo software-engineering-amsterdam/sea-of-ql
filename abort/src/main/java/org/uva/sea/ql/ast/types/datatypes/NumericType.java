@@ -10,9 +10,9 @@ public class NumericType extends DataType {
 	public boolean isCompatibleToNumeric() {
 		return true;
 	}
-	
+
 	@Override
-	public boolean isAssignableFrom(String input) {
+	public boolean isAssignableFrom(final String input) {
 		return false;
 	}
 }

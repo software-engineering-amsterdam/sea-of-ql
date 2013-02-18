@@ -37,17 +37,19 @@ public class SyntaxErrorMessage {
 	/**
 	 * Constructor.
 	 * 
-	 * @param syntaxPosition syntax position
-	 * @param originalMessage original message
+	 * @param syntaxPosition
+	 *            syntax position
+	 * @param originalMessage
+	 *            original message
 	 */
 	public SyntaxErrorMessage(final SyntaxPosition syntaxPosition, final String originalMessage) {
-		this.syntaxPosition = syntaxPosition; 
+		this.syntaxPosition = syntaxPosition;
 		this.originalMessage = originalMessage;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("[%s] %s (line: %d, column: %d)", dateFormat.format(calendar.getTime()),
-				originalMessage, syntaxPosition.getLineNumber(), syntaxPosition.getColumnNumber());
+		return String.format("[%s] %s (line: %d, column: %d)", dateFormat.format(calendar.getTime()), originalMessage,
+				syntaxPosition.getLineNumber(), syntaxPosition.getColumnNumber());
 	}
 }

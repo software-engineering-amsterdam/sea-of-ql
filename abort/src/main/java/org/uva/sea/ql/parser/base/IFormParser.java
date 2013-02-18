@@ -13,21 +13,25 @@ public interface IFormParser {
 	/**
 	 * Retrieve a parsed from by its input file.
 	 * 
-	 * @param inputFile file to parse
+	 * @param inputFile
+	 *            file to parse
 	 * @return parsed form
 	 * @throws ParsingException
 	 */
 	Form parseForm(File inputFile) throws ParsingException;
-	
+
 	/**
 	 * Retrieve whether there are parsing errors or not.
+	 * 
 	 * @return whether there are parsing errors or not
 	 */
 	boolean hasParsingErrors();
-	
+
 	/**
 	 * Write error log to a stream.
-	 * @param stream stream to write to
+	 * 
+	 * @param stream
+	 *            stream to write to
 	 */
-	void writeErrorLog(PrintStream stream); 
+	void writeErrorLog(PrintStream stream);
 }

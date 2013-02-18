@@ -15,18 +15,21 @@ public class ValidationWrapper {
 	 * Value of the validation input.
 	 */
 	private final String value;
-	
+
 	/**
 	 * Constructor.
-	 * @param value value of the validation input
+	 * 
+	 * @param value
+	 *            value of the validation input
 	 */
 	@JsonCreator
-	public ValidationWrapper(@JsonProperty("value") String value) {
+	public ValidationWrapper(@JsonProperty("value") final String value) {
 		this.value = value;
 	}
-	
+
 	/**
 	 * Retrieve the value of the validation input.
+	 * 
 	 * @return value
 	 */
 	public String getValue() {

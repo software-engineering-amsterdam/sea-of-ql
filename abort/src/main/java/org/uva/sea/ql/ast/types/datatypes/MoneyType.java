@@ -19,12 +19,11 @@ public class MoneyType extends NumericType {
 	}
 
 	@Override
-	public boolean isAssignableFrom(String input) {
+	public boolean isAssignableFrom(final String input) {
 		try {
 			new BigDecimal(input);
 			return true;
-		}
-		catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			return false;
 		}
 	}

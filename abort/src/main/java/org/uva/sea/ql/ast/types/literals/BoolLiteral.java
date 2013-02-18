@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.types.datatypes.*;
  * 
  * @author J. Dijkstra
  */
-public class BoolLiteral extends LiteralType<Boolean> {
+public class BoolLiteral extends Literal<Boolean> {
 	private static final DataType TYPE = new BoolType();
 
 	/**
@@ -35,7 +35,7 @@ public class BoolLiteral extends LiteralType<Boolean> {
 	public Boolean getValue() {
 		return value;
 	}
-	
+
 	@Override
 	public <T> T accept(final IVisitor<T> visitor) {
 		return visitor.visit(this);

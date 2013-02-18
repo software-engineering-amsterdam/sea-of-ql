@@ -4,7 +4,6 @@ import java.awt.Desktop;
 import java.io.IOException;
 import java.net.*;
 
-
 /**
  * Browser Utility class to open the browser.
  * 
@@ -14,23 +13,23 @@ public final class BrowserUtil {
 	/**
 	 * No instance can be made from the outside
 	 */
-	private BrowserUtil() { }
-	
+	private BrowserUtil() {
+	}
+
 	/**
 	 * Open the default browser with a specific URL.
 	 * 
-	 * @param URL URL to open
+	 * @param URL
+	 *            URL to open
 	 * @throws BrowserException
 	 */
 	public static void openURL(final String url) throws BrowserException {
 		if (Desktop.isDesktopSupported()) {
 			try {
 				Desktop.getDesktop().browse(new URI(url));
-			}
-			catch (IOException e) {
+			} catch (final IOException e) {
 				throw new BrowserException(e);
-			}
-			catch (URISyntaxException e) {
+			} catch (final URISyntaxException e) {
 				throw new BrowserException(e);
 			}
 		}

@@ -10,9 +10,9 @@ public class StringType extends DataType {
 	public boolean isCompatibleToString() {
 		return true;
 	}
-	
+
 	@Override
-	public boolean isAssignableFrom(String input) {
+	public boolean isAssignableFrom(final String input) {
 		return true;
 	}
 }

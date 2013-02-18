@@ -11,7 +11,8 @@ public class WebServerException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param exception exception to wrap
+	 * @param exception
+	 *            exception to wrap
 	 */
 	public WebServerException(final Throwable exception) {
 		super("Server Exception", exception);

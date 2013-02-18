@@ -11,7 +11,8 @@ public class WebGenerationException extends Exception {
 	/**
 	 * Constructor.
 	 * 
-	 * @param exception exception
+	 * @param exception
+	 *            exception
 	 */
 	public WebGenerationException(final Throwable exception) {
 		super("Web Generation Exception", exception);
