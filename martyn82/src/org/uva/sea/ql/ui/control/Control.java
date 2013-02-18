@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ui.control;
 
 import org.uva.sea.ql.ui.ControlEventListener;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.Value;
 
 abstract public class Control {
 	abstract public Object getInnerControl();

@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -38,7 +39,8 @@ public class FormRenderer {
 	public static void renderForm() {
 		List<Message> errors = currentForm.checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>()));
 		if(errors.size() > 0){
-			showFormErrors(errors); 
+			showFormErrors(errors);
+			return; 
 		}
 		showForm();
 	}
@@ -97,6 +99,14 @@ public class FormRenderer {
 				currentForm = getFormFromChooser();
 			}
 		});
+		JTextArea errorText = new JTextArea();
+		for(Message error : errors) {
+			errorText.setText(errorText.getText() + error.getMessage());
+			errorText.setText(errorText.getText() + "\n");
+		}		
+		errorsFrame.add(errorText);
+		errorsFrame.pack();
+		errorsFrame.setVisible(true);
 	}
 	
 	public static Form getFormFromChooser() {

@@ -17,8 +17,8 @@ public class SupportedTypes {
 		return _supportedTypes.containsKey(identifier);
 	}
 	
-	public void add(String identifier, Type type) {
-		_supportedTypes.put(new Ident(identifier), type);
+	public void add(Ident identifier, Type type) {
+		_supportedTypes.put(identifier, type);
 	}
 	
 	public Type get(Ident identifier) {

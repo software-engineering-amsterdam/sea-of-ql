@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor.eval;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -10,25 +9,24 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
 import org.uva.sea.ql.visitor.IStatement;
 
-public class Form implements IForm<JFrame> {
+public class Form implements IForm<Application> {
 
 	@Override
-	public JFrame visit(Question form) {
-		JFrame frame = new JFrame();
+	public Application visit(Question form) {
+		Application application = new Application();
 
 		Ident ident = form.getIdent();
-		frame.setTitle(ident.getName());
+		application.getGui().setTitle(ident.getName());
 
 		Block statements = form.getStatements();
-		IStatement<JPanel> statementVisitor = new Statement(new Environment());
+		IStatement<JPanel> statementVisitor = new Statement(
+				application.getEnvironment());
 		JPanel container = statements.accept(statementVisitor);
 
 		JScrollPane scrollableContainer = new JScrollPane(container);
-		frame.add(scrollableContainer);
+		application.getGui().add(scrollableContainer);
 
-		frame.setSize(400, 600);
-
-		return frame;
+		return application;
 	}
 
 }

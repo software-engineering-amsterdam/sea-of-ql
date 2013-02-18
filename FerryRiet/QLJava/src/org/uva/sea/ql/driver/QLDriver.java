@@ -113,8 +113,8 @@ public class QLDriver extends JFrame implements ActionListener {
 
 					if (qlFormtypeCheck.getErrorCount() == 0) {
 						// No errors create and show jFrame with nested panels
-						QLForm frame = new QLForm(qlprogram);
-						frame.setVisible(true);
+						QLForm qlForm = new QLForm(qlprogram);
+						qlForm.setVisible(true);
 					} else {
 						for (String errorString : qlFormtypeCheck.getErrorList())
 							System.out.println(errorString);
@@ -124,10 +124,9 @@ public class QLDriver extends JFrame implements ActionListener {
 						System.out.println(errorString);
 				}
 			} catch (RecognitionException e1) {
-				// 
+				// Antlr say's it throws this exception
 				e1.printStackTrace();
 			}
-
 		}
 	}
 }

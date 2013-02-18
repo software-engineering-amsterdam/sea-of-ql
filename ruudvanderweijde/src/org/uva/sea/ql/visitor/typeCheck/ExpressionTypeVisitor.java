@@ -26,7 +26,6 @@ import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
-import org.uva.sea.ql.message.Warning;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
@@ -285,14 +284,8 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 		return true;
 	}
 
-
 	public void addError(String message) {
 		Message msg = new Error(message);
-		errors.add(msg);
-	}
-	
-	public void addWarning(String message) {
-		Message msg = new Warning(message);
 		errors.add(msg);
 	}
 

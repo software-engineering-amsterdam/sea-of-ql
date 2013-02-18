@@ -12,10 +12,13 @@ import lang::ql::ast::AST;
 import lang::ql::util::Parse;
 import ParseTree;
 
-private Question p(str src) = implode(#Question, parseQuestion(src));
+private Question p(str src) 
+	= implode(#Question, parseQuestion(src));
 
-public test bool testSingleQstn1() = p("name: \"test Question:\" boolean") is singleQuestion;
-public test bool testSingleQstn2() = p("name: \"test Question234:\" int") is singleQuestion;
+public test bool testSingleQstn1() 
+	= p("name: \"test Question:\" boolean") is singleQuestion;
+public test bool testSingleQstn2() 
+	= p("name: \"test Question234:\" int") is singleQuestion;
 
 
 

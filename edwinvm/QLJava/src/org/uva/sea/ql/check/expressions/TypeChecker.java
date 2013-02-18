@@ -47,13 +47,13 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(Add ast) { return checkNumericExpr(ast, "+"); }
+	public Boolean visit(Add ast) { return checkArithmeticExpr(ast, "+"); }
 	@Override
-	public Boolean visit(Div ast) { return checkNumericExpr(ast, "/"); }
+	public Boolean visit(Div ast) { return checkArithmeticExpr(ast, "/"); }
 	@Override
-	public Boolean visit(Sub ast) { return checkNumericExpr(ast, "-"); }
+	public Boolean visit(Sub ast) { return checkArithmeticExpr(ast, "-"); }
 	@Override
-	public Boolean visit(Mul ast) { return checkNumericExpr(ast, "*"); }
+	public Boolean visit(Mul ast) { return checkArithmeticExpr(ast, "*"); }
 
 	@Override
 	public Boolean visit(Eq ast)  { return checkRelationalExpr(ast, "=="); }
@@ -74,9 +74,9 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(Or ast)  { return checkLogicalExpr(ast, "||"); }
 
 	@Override
-	public Boolean visit(Neg ast) { return checkUnaryNumericExpr(ast, "--"); }
+	public Boolean visit(Neg ast) { return checkUnaryArithmeticExpr(ast, "--"); }
 	@Override
-	public Boolean visit(Pos ast) { return checkUnaryNumericExpr(ast, "++"); }
+	public Boolean visit(Pos ast) { return checkUnaryArithmeticExpr(ast, "++"); }
 	@Override
 	public Boolean visit(Not ast) { return checkUnaryLogicalExpr(ast, "!");  }
 
@@ -91,7 +91,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Str ast)   { return checkLiteralExpr(ast, Str.class.toString());   }
 	
-	private Boolean checkNumericExpr(BinaryArithmeticExpr expr, String binarySymbol) {
+	private Boolean checkArithmeticExpr(BinaryArithmeticExpr expr, String binarySymbol) {
 		boolean checkLhs = expr.getLhs().accept(this);
 		boolean checkRhs = expr.getRhs().accept(this);
 		
@@ -157,7 +157,7 @@ public class TypeChecker implements Visitor<Boolean> {
 		return true; 
 	}
 	
-	private Boolean checkUnaryNumericExpr(UnaryExpr expr, String binarySymbol) {
+	private Boolean checkUnaryArithmeticExpr(UnaryExpr expr, String binarySymbol) {
 		Type exprType = expr.typeOf(_supportedTypes);
 		
 		// Check if Type is compatible with UnaryExpr

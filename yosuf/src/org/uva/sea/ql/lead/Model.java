@@ -60,6 +60,7 @@ public class Model {
 	 */
 	public void registerQuestion(final Question question) {
 		state.assertNotNull(question, "question");
+
 		computeds.remove(question.getIdentifier());
 		qustions.put(question.getIdentifier(), question);
 
@@ -87,7 +88,9 @@ public class Model {
 	}
 
 	private void notifyListeners(final Expression<?> expression) {
-		for (ModelChangeListener listener : listeners.getOrEmpty(expression)) {
+		// TODO: listeners.getOrEmpty(expression) might be used to propagate the change only to the
+		// right listeners. but since some values might refer to other ones, we now propagate to all
+		for (ModelChangeListener listener : listeners.mergedValues()) {
 			listener.changed(expression);
 		}
 	}

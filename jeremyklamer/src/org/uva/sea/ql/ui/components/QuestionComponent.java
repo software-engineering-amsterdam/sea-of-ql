@@ -17,7 +17,6 @@ public class QuestionComponent extends BaseComponent {
 	private final String args; 
 	
 	public QuestionComponent(String sentence, boolean computed, ActiveComponent answerField) { 
-		//super("growx, wrap");
 		
 		this.answerField = answerField;
 		this.labelField = new LabelComponent(sentence, "align right");
@@ -26,9 +25,8 @@ public class QuestionComponent extends BaseComponent {
 		component.add(labelField.getComponent(), labelField.getArgs());
 		component.add(answerField.getComponent(), answerField.getArgs());
 		
-		if(computed){
-			//TODO remove double dots. 
-			answerField.getComponent().setEnabled(false);
+		if(computed){ 
+			answerField.setEnabled(false);
 		}
 		args = "growx, wrap";
 	}
@@ -41,15 +39,15 @@ public class QuestionComponent extends BaseComponent {
 	public Component getComponent() {
 		return component;
 	}
-	
-	public void setVisibile(boolean visible) {
-		//TODO pull down to answerfield (two dots! )
-		answerField.getComponent().setVisible(visible);
-		labelField.getComponent().setVisible(visible);
-	}
 
 	@Override
 	public String getArgs() {
 		return args; 
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		answerField.setVisible(visible);
+		labelField.setVisible(visible);
 	}
 }

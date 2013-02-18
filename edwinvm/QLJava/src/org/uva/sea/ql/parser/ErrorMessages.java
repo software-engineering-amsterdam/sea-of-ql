@@ -13,4 +13,8 @@ public class ErrorMessages {
 	public void add(String message) {
 		_errorMessages.add(new Message(message));
 	}
+	
+	public Boolean hasErrors() {
+		return _errorMessages.size() > 0;
+	}
 }

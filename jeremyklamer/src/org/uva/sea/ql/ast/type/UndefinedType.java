@@ -6,7 +6,9 @@ import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.ui.components.ActiveComponent;
 
-
+/*
+ * This type is used to catch UndefinedTypes and will never be called to provides a component. 
+ */
 public class UndefinedType extends Type {
 
 	@Override
@@ -14,7 +16,7 @@ public class UndefinedType extends Type {
 		return false;
 	}
 
-	//This type is used to catch UndefinedTypes and will never be called to provides a component. 
+	
 	@Override
 	public ActiveComponent getAnswerComponent(Env env, Form form, Ident name) {
 		return null;

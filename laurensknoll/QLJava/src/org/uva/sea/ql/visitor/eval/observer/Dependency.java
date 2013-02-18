@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.eval.observer;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
+import org.uva.sea.ql.ast.expr.binary.AbstractBinary;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
 import org.uva.sea.ql.ast.expr.binary.Div;
@@ -20,121 +21,86 @@ import org.uva.sea.ql.visitor.IExpression;
 
 public class Dependency implements IExpression<DependencySet> {
 
-	@Override
-	public DependencySet visit(Add add) {
-		DependencySet left = add.getLeftHandSide().accept(this);
-		DependencySet right = add.getRightHandSide().accept(this);
+	private DependencySet getDependencies(AbstractBinary expr) {
+		DependencySet left = expr.getLeftHandSide().accept(this);
+		DependencySet right = expr.getRightHandSide().accept(this);
 
 		return left.addAll(right);
+	}
+
+	@Override
+	public DependencySet visit(Add add) {
+		return this.getDependencies(add);
 	}
 
 	@Override
 	public DependencySet visit(And and) {
-		DependencySet left = and.getLeftHandSide().accept(this);
-		DependencySet right = and.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(and);
 	}
 
 	@Override
 	public DependencySet visit(Div div) {
-		DependencySet left = div.getLeftHandSide().accept(this);
-		DependencySet right = div.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(div);
 	}
 
 	@Override
 	public DependencySet visit(Eq eq) {
-		DependencySet left = eq.getLeftHandSide().accept(this);
-		DependencySet right = eq.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(eq);
 	}
 
 	@Override
 	public DependencySet visit(GEq geq) {
-		DependencySet left = geq.getLeftHandSide().accept(this);
-		DependencySet right = geq.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(geq);
 	}
 
 	@Override
 	public DependencySet visit(GT gt) {
-		DependencySet left = gt.getLeftHandSide().accept(this);
-		DependencySet right = gt.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(gt);
 	}
 
 	@Override
 	public DependencySet visit(LEq leq) {
-		DependencySet left = leq.getLeftHandSide().accept(this);
-		DependencySet right = leq.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(leq);
 	}
 
 	@Override
 	public DependencySet visit(LT lt) {
-		DependencySet left = lt.getLeftHandSide().accept(this);
-		DependencySet right = lt.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(lt);
 	}
 
 	@Override
 	public DependencySet visit(Mul mul) {
-		DependencySet left = mul.getLeftHandSide().accept(this);
-		DependencySet right = mul.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(mul);
 	}
 
 	@Override
 	public DependencySet visit(Neg neg) {
-		DependencySet value = neg.getExpression().accept(this);
-
-		return value;
+		return neg.getExpression().accept(this);
 	}
 
 	@Override
 	public DependencySet visit(NEq neq) {
-		DependencySet left = neq.getLeftHandSide().accept(this);
-		DependencySet right = neq.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(neq);
 	}
 
 	@Override
 	public DependencySet visit(Not not) {
-		DependencySet value = not.getExpression().accept(this);
-
-		return value;
+		return not.getExpression().accept(this);
 	}
 
 	@Override
 	public DependencySet visit(Or or) {
-		DependencySet left = or.getLeftHandSide().accept(this);
-		DependencySet right = or.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(or);
 	}
 
 	@Override
 	public DependencySet visit(Pos pos) {
-		DependencySet value = pos.getExpression().accept(this);
-
-		return value;
+		return pos.getExpression().accept(this);
 	}
 
 	@Override
 	public DependencySet visit(Sub sub) {
-		DependencySet left = sub.getLeftHandSide().accept(this);
-		DependencySet right = sub.getRightHandSide().accept(this);
-
-		return left.addAll(right);
+		return this.getDependencies(sub);
 	}
 
 	@Override

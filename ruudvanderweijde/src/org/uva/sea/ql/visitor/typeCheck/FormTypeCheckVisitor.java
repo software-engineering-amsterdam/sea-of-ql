@@ -16,7 +16,7 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IFormVisitor;
 
 /*
- * This FormVisitor checks for:
+ * This FormTypeCheckVisitor checks for:
  * 	- duplicate question ids
  *  - validity of expressions
  *  	- only allow boolean expressions in if condition
@@ -26,7 +26,7 @@ import org.uva.sea.ql.visitor.IFormVisitor;
 public class FormTypeCheckVisitor implements IFormVisitor {
 	private final TypeMapper typeMapper;
 	private final List<Message> errors;
-	private final String ERROR_DUPLICATE_ID = "Duplicate question identiefier: '%s'";
+	private final String ERROR_DUPLICATE_ID = "Duplicate question identifier: '%s'";
 	private final String ERROR_BOOL_CONDITION = "Condition is not an boolean expression. %s type given.";
 	private final String ERROR_WRONG_TYPE = "Question '%s' returns invalid expression: %s type expected, %s type given.";
 	private final String ERROR_WRONG_COMPUTED_TYPE = "Invalid type for computed question '%s'. " +

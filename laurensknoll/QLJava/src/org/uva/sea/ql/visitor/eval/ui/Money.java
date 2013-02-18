@@ -2,7 +2,7 @@ package org.uva.sea.ql.visitor.eval.ui;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.text.ParseException;
+import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -10,6 +10,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
+import org.uva.sea.ql.visitor.eval.value.Undefined;
 
 public class Money extends Widget implements DocumentListener {
 
@@ -17,10 +18,6 @@ public class Money extends Widget implements DocumentListener {
 
 	public Money() {
 		this.component = new JTextField();
-		this.component.setText(NumberFormat.getCurrencyInstance().format(0.00));
-
-		// Listener must be added after the initial text is set to prevent
-		// propagation.
 		this.component.getDocument().addDocumentListener(this);
 	}
 
@@ -31,19 +28,27 @@ public class Money extends Widget implements DocumentListener {
 
 	@Override
 	public void setValue(AbstractValue value) {
-		// The semantic check guarantees that this is a Money.
-		org.uva.sea.ql.visitor.eval.value.Money valueAsMoney = (org.uva.sea.ql.visitor.eval.value.Money) value;
-
 		// JTextField.setText() fires a remove and insert event.
 		// We however only want to trigger an update once.
 		// Therefore we remove the eventlistener and add it
 		// after the change is made.
 		this.component.getDocument().removeDocumentListener(this);
 
-		NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-		java.lang.String valueAsString = numberFormat.format(valueAsMoney
-				.getValue());
-		this.component.setText(valueAsString);
+		if (value.equals(Undefined.UNDEFINED)) {
+			this.component.setText("");
+		} else {
+			// The semantic check guarantees that this is a Money.
+			org.uva.sea.ql.visitor.eval.value.Money money = (org.uva.sea.ql.visitor.eval.value.Money) value;
+			BigDecimal display = money.getValue().setScale(2,
+					org.uva.sea.ql.visitor.eval.value.Money.ROUNDING_MODE);
+
+			NumberFormat numberFormat = NumberFormat
+					.getNumberInstance(Locale.US);
+			numberFormat.setMinimumFractionDigits(2);
+			numberFormat.setMaximumFractionDigits(2);
+
+			this.component.setText(numberFormat.format(display));
+		}
 
 		this.propagateChange();
 
@@ -54,15 +59,12 @@ public class Money extends Widget implements DocumentListener {
 	public AbstractValue getValue() {
 		java.lang.String value = this.component.getText();
 
-		Number number = 0;
 		try {
-			number = NumberFormat.getCurrencyInstance().parse(value);
-		} catch (ParseException e) {
-			// Sadly this cannot be dealt with, with an if-else.
+			BigDecimal d = new BigDecimal(value);
+			return new org.uva.sea.ql.visitor.eval.value.Money(d);
+		} catch (NumberFormatException ex) {
+			return Undefined.UNDEFINED;
 		}
-
-		return new org.uva.sea.ql.visitor.eval.value.Money(new BigDecimal(
-				number.longValue()));
 	}
 
 	@Override

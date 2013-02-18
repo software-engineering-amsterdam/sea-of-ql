@@ -4,10 +4,13 @@ import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.Int;
 import org.uva.sea.ql.ast.expr.atom.Money;
+import org.uva.sea.ql.ast.expr.binary.AbstractBinary;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
+import org.uva.sea.ql.ast.expr.binary.Arithmetic;
 import org.uva.sea.ql.ast.expr.binary.Div;
 import org.uva.sea.ql.ast.expr.binary.Eq;
+import org.uva.sea.ql.ast.expr.binary.Equality;
 import org.uva.sea.ql.ast.expr.binary.GEq;
 import org.uva.sea.ql.ast.expr.binary.GT;
 import org.uva.sea.ql.ast.expr.binary.LEq;
@@ -15,13 +18,12 @@ import org.uva.sea.ql.ast.expr.binary.LT;
 import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
+import org.uva.sea.ql.ast.expr.binary.Relational;
 import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.type.AbstractType;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.visitor.IExpression;
 
 public class Expression implements IExpression<ValidationResult> {
@@ -32,24 +34,27 @@ public class Expression implements IExpression<ValidationResult> {
 		this.environment = environment;
 	}
 
-	private <T extends AbstractType> Boolean isOfType(AbstractExpr expr,
-			Class<T> expected) {
-		AbstractType typeOfExpr = expr.typeOf(this.environment);
-		return expected.isInstance(typeOfExpr);
+	private Boolean isOfBooleanType(AbstractExpr expr) {
+		AbstractType type = expr.typeOf(this.environment);
+		return type.accept(new BooleanType());
+	}
+
+	private Boolean isOfNumericType(AbstractExpr expr) {
+		AbstractType type = expr.typeOf(this.environment);
+		return type.accept(new NumericType());
 	}
 
 	private Boolean isOfSameType(AbstractExpr left, AbstractExpr right) {
 		AbstractType typeOfLeft = left.typeOf(this.environment);
 		AbstractType typeOfRight = right.typeOf(this.environment);
-		return typeOfLeft.getClass() == typeOfRight.getClass();
+		return typeOfLeft.equals(typeOfRight);
 	}
 
 	private void addUnexpectedTypeError(ValidationResult result,
-			AbstractExpr visited, AbstractExpr given,
-			Class<? extends AbstractType> expected) {
+			AbstractExpr visited, AbstractExpr given, String expected) {
 		String unexpectedType = String.format(
 				"Error in expression \"%s\": %s is no %s", visited.toString(),
-				given.toString(), expected.toString());
+				given.toString(), expected);
 		result.addError(unexpectedType);
 	}
 
@@ -61,206 +66,116 @@ public class Expression implements IExpression<ValidationResult> {
 		result.addError(differentType);
 	}
 
-	@Override
-	public ValidationResult visit(Add add) {
+	private ValidationResult validateBinary(Arithmetic expr) {
 		ValidationResult result = new ValidationResult();
 
-		AbstractExpr left = add.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
+		result.addValidationResult(this.validateChildren(expr));
 
-		AbstractExpr right = add.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		AbstractExpr left = expr.getLeftHandSide();
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, add, left, Numeric.class);
+			this.addUnexpectedTypeError(result, expr, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		AbstractExpr right = expr.getRightHandSide();
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, add, right, Numeric.class);
+			this.addUnexpectedTypeError(result, expr, right, "Numeric");
 		}
 
 		return result;
+	}
+
+	private ValidationResult validateBinary(Relational expr) {
+		ValidationResult result = new ValidationResult();
+
+		result.addValidationResult(this.validateChildren(expr));
+
+		AbstractExpr left = expr.getLeftHandSide();
+		Boolean isLeftBool = this.isOfBooleanType(left);
+		if (!isLeftBool) {
+			this.addUnexpectedTypeError(result, expr, left, "Bool");
+		}
+
+		AbstractExpr right = expr.getRightHandSide();
+		Boolean isRightBool = this.isOfBooleanType(right);
+		if (!isRightBool) {
+			this.addUnexpectedTypeError(result, expr, right, "Bool");
+		}
+
+		return result;
+	}
+
+	private ValidationResult validateBinary(Equality expr) {
+		ValidationResult result = new ValidationResult();
+
+		result.addValidationResult(this.validateChildren(expr));
+
+		AbstractExpr left = expr.getLeftHandSide();
+		AbstractExpr right = expr.getRightHandSide();
+		Boolean isOfSameType = this.isOfSameType(left, right);
+		if (!isOfSameType) {
+			this.addDifferentTypeError(result, expr, left, right);
+		}
+
+		return result;
+	}
+
+	private ValidationResult validateChildren(AbstractBinary expr) {
+		ValidationResult result = new ValidationResult();
+
+		AbstractExpr left = expr.getLeftHandSide();
+		result.addValidationResult(left.accept(this));
+
+		AbstractExpr right = expr.getRightHandSide();
+		result.addValidationResult(right.accept(this));
+
+		return result;
+	}
+
+	@Override
+	public ValidationResult visit(Add add) {
+		return this.validateBinary(add);
 	}
 
 	@Override
 	public ValidationResult visit(And and) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = and.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = and.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftBool = this.isOfType(left, Bool.class);
-		if (!isLeftBool) {
-			this.addUnexpectedTypeError(result, and, left, Bool.class);
-		}
-
-		Boolean isRightBool = this.isOfType(right, Bool.class);
-		if (!isRightBool) {
-			this.addUnexpectedTypeError(result, and, right, Bool.class);
-		}
-
-		return result;
+		return this.validateBinary(and);
 	}
 
 	@Override
 	public ValidationResult visit(Div div) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = div.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = div.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, div, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, div, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(div);
 	}
 
 	@Override
 	public ValidationResult visit(Eq eq) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = eq.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = eq.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isOfSameType = this.isOfSameType(left, right);
-		if (!isOfSameType) {
-			this.addDifferentTypeError(result, eq, left, right);
-		}
-
-		return result;
+		return this.validateBinary(eq);
 	}
 
 	@Override
 	public ValidationResult visit(GEq geq) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = geq.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = geq.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, geq, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, geq, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(geq);
 	}
 
 	@Override
 	public ValidationResult visit(GT gt) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = gt.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = gt.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, gt, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, gt, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(gt);
 	}
 
 	@Override
 	public ValidationResult visit(LEq leq) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = leq.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = leq.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, leq, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, leq, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(leq);
 	}
 
 	@Override
 	public ValidationResult visit(LT lt) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = lt.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = lt.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, lt, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, lt, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(lt);
 	}
 
 	@Override
 	public ValidationResult visit(Mul mul) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = mul.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = mul.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, mul, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, mul, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(mul);
 	}
 
 	@Override
@@ -270,9 +185,9 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr expr = neg.getExpression();
 		result.addValidationResult(expr.accept(this));
 
-		Boolean isExprNumeric = this.isOfType(expr, Numeric.class);
+		Boolean isExprNumeric = this.isOfNumericType(expr);
 		if (!isExprNumeric) {
-			this.addUnexpectedTypeError(result, neg, expr, Numeric.class);
+			this.addUnexpectedTypeError(result, neg, expr, "Numeric");
 		}
 
 		return result;
@@ -280,20 +195,7 @@ public class Expression implements IExpression<ValidationResult> {
 
 	@Override
 	public ValidationResult visit(NEq neq) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = neq.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = neq.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isOfSameType = this.isOfSameType(left, right);
-		if (!isOfSameType) {
-			this.addDifferentTypeError(result, neq, left, right);
-		}
-
-		return result;
+		return this.validateBinary(neq);
 	}
 
 	@Override
@@ -303,9 +205,9 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr expr = not.getExpression();
 		result.addValidationResult(expr.accept(this));
 
-		Boolean isExprNumeric = this.isOfType(expr, Bool.class);
+		Boolean isExprNumeric = this.isOfBooleanType(expr);
 		if (!isExprNumeric) {
-			this.addUnexpectedTypeError(result, not, expr, Bool.class);
+			this.addUnexpectedTypeError(result, not, expr, "Bool");
 		}
 
 		return result;
@@ -313,25 +215,7 @@ public class Expression implements IExpression<ValidationResult> {
 
 	@Override
 	public ValidationResult visit(Or or) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = or.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = or.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftBool = this.isOfType(left, Bool.class);
-		if (!isLeftBool) {
-			this.addUnexpectedTypeError(result, or, left, Bool.class);
-		}
-
-		Boolean isRightBool = this.isOfType(right, Bool.class);
-		if (!isRightBool) {
-			this.addUnexpectedTypeError(result, or, right, Bool.class);
-		}
-
-		return result;
+		return this.validateBinary(or);
 	}
 
 	@Override
@@ -341,9 +225,9 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr expr = pos.getExpression();
 		result.addValidationResult(expr.accept(this));
 
-		Boolean isExprNumeric = this.isOfType(expr, Numeric.class);
+		Boolean isExprNumeric = this.isOfNumericType(expr);
 		if (!isExprNumeric) {
-			this.addUnexpectedTypeError(result, pos, expr, Numeric.class);
+			this.addUnexpectedTypeError(result, pos, expr, "Numeric");
 		}
 
 		return result;
@@ -351,25 +235,7 @@ public class Expression implements IExpression<ValidationResult> {
 
 	@Override
 	public ValidationResult visit(Sub sub) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = sub.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = sub.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
-		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, sub, left, Numeric.class);
-		}
-
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
-		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, sub, right, Numeric.class);
-		}
-
-		return result;
+		return this.validateBinary(sub);
 	}
 
 	@Override

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.util.Environment;
 
 

@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class Add extends Binary<IntegerValue, IntegerValue> {
 
@@ -18,7 +18,7 @@ public class Add extends Binary<IntegerValue, IntegerValue> {
 
 	@Override
 	public Nature getNature() {
-		return Nature.NUMERIC;
+		return new Numeric();
 	}
 
 	@Override

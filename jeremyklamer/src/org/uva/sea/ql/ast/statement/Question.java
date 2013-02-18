@@ -35,14 +35,13 @@ public class Question extends Statement {
 	@Override
 	public List<BaseComponent> getUIComponents(Env env, Form form) { 
 		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
-
+	
 		uiComponent = new QuestionComponent(sentence, false, returnType.getAnswerComponent(env, form, name));
 		components.add(uiComponent);
 		
 		return components;
 	}
 	
-
 	@Override
 	public List<Message> checkType(Env env) {
 		ArrayList<Message> errors = new ArrayList<Message>();
@@ -70,13 +69,17 @@ public class Question extends Statement {
 
 	@Override
 	public void setVisible(boolean visible) {
-		uiComponent.setVisibile(visible);
+		uiComponent.setVisible(visible);
 	}
 	
 	@Override
-	public void printSelf(int indentation) {
-		printIndentation(indentation);
-		System.out.println(getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(returnType));
+	public String toString(int indentation) {
+		String returnString = getIndentation(indentation);
+		
+		returnString += getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(returnType);
+		returnString += newLine;
+		
+		return returnString;
 	}
 
 }
