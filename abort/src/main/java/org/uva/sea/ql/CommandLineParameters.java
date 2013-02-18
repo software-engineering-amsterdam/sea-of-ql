@@ -10,7 +10,7 @@ import com.beust.jcommander.Parameter;
  * @author J. Dijkstra
  */
 public class CommandLineParameters {
-	@Parameter(names = {"-i"}, description = "QL input file", required = true)
+	@Parameter(names = {"-i"}, description = "QL input file path", required = true)
 	private File inputFile;
 
 	/**

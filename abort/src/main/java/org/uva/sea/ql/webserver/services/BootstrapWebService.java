@@ -130,5 +130,5 @@ public class BootstrapWebService {
 	
 	private String generateOutputPath() {
 		return String.format("%s/form-%d.json", properties.getSaveFormPath(), Calendar.getInstance().getTimeInMillis());
-	}	
+	}
 }
