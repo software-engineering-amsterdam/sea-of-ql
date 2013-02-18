@@ -21,6 +21,7 @@ import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Bool;
 import org.uva.sea.ql.visitor.eval.value.Int;
 import org.uva.sea.ql.visitor.eval.value.Money;
+import org.uva.sea.ql.visitor.eval.value.String;
 
 public class Expression implements IExpression<AbstractValue> {
 
@@ -35,7 +36,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = add.getLeftHandSide().accept(this);
 		AbstractValue right = add.getRightHandSide().accept(this);
 
-		return new Int(((Int) left).getValue() + ((Int) right).getValue());
+		return left.add(right);
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = and.getLeftHandSide().accept(this);
 		AbstractValue right = and.getRightHandSide().accept(this);
 
-		return new Bool(((Bool) left).getValue() && ((Bool) right).getValue());
+		return left.and(right);
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = div.getLeftHandSide().accept(this);
 		AbstractValue right = div.getRightHandSide().accept(this);
 
-		return new Int(((Int) left).getValue() / ((Int) right).getValue());
+		return left.div(right);
 	}
 
 	@Override
@@ -59,7 +60,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = eq.getLeftHandSide().accept(this);
 		AbstractValue right = eq.getRightHandSide().accept(this);
 
-		return new Bool(((Bool) left).getValue() == ((Bool) right).getValue());
+		return left.eq(right);
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = geq.getLeftHandSide().accept(this);
 		AbstractValue right = geq.getRightHandSide().accept(this);
 
-		return new Bool(((Int) left).getValue() >= ((Int) right).getValue());
+		return left.geq(right);
 	}
 
 	@Override
@@ -75,7 +76,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = gt.getLeftHandSide().accept(this);
 		AbstractValue right = gt.getRightHandSide().accept(this);
 
-		return new Bool(((Int) left).getValue() > ((Int) right).getValue());
+		return left.gt(right);
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = leq.getLeftHandSide().accept(this);
 		AbstractValue right = leq.getRightHandSide().accept(this);
 
-		return new Bool(((Int) left).getValue() <= ((Int) right).getValue());
+		return left.leq(right);
 	}
 
 	@Override
@@ -91,7 +92,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = lt.getLeftHandSide().accept(this);
 		AbstractValue right = lt.getRightHandSide().accept(this);
 
-		return new Bool(((Int) left).getValue() < ((Int) right).getValue());
+		return left.lt(right);
 	}
 
 	@Override
@@ -99,14 +100,14 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = mul.getLeftHandSide().accept(this);
 		AbstractValue right = mul.getRightHandSide().accept(this);
 
-		return new Int(((Int) left).getValue() * ((Int) right).getValue());
+		return left.mul(right);
 	}
 
 	@Override
 	public AbstractValue visit(Neg neg) {
 		AbstractValue value = neg.getExpression().accept(this);
 
-		return new Int(-((Int) value).getValue());
+		return value.neg();
 	}
 
 	@Override
@@ -114,14 +115,14 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = neq.getLeftHandSide().accept(this);
 		AbstractValue right = neq.getRightHandSide().accept(this);
 
-		return new Bool(((Int) left).getValue() != ((Int) right).getValue());
+		return left.neq(right);
 	}
 
 	@Override
 	public AbstractValue visit(Not not) {
 		AbstractValue value = not.getExpression().accept(this);
 
-		return new Bool(!((Bool) value).getValue());
+		return value.not();
 	}
 
 	@Override
@@ -129,14 +130,14 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = or.getLeftHandSide().accept(this);
 		AbstractValue right = or.getRightHandSide().accept(this);
 
-		return new Bool(((Bool) left).getValue() || ((Bool) right).getValue());
+		return left.or(right);
 	}
 
 	@Override
 	public AbstractValue visit(Pos pos) {
 		AbstractValue value = pos.getExpression().accept(this);
 
-		return new Int(Math.abs(((Int) value).getValue()));
+		return value.pos();
 	}
 
 	@Override
@@ -144,7 +145,7 @@ public class Expression implements IExpression<AbstractValue> {
 		AbstractValue left = sub.getLeftHandSide().accept(this);
 		AbstractValue right = sub.getRightHandSide().accept(this);
 
-		return new Int(((Int) left).getValue() - ((Int) right).getValue());
+		return left.sub(right);
 	}
 
 	@Override
@@ -154,7 +155,7 @@ public class Expression implements IExpression<AbstractValue> {
 
 	@Override
 	public AbstractValue visit(Ident ident) {
-		return this.environment.valueOfIdent(ident);
+		return this.environment.getValue(ident);
 	}
 
 	@Override
@@ -169,8 +170,7 @@ public class Expression implements IExpression<AbstractValue> {
 
 	@Override
 	public AbstractValue visit(org.uva.sea.ql.ast.expr.atom.String string) {
-		// TODO: Is this used?
-		return null;
+		return new String(string.getValue());
 	}
 
 }

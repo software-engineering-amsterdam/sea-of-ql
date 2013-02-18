@@ -1,9 +1,11 @@
 package ast.visitor;
 
+import ast.Form;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.*;
 import ast.statement.*;
+import ast.type.Message;
 
 public interface Visitor<T> {
 	T visit(Add ast);
@@ -23,13 +25,19 @@ public interface Visitor<T> {
 	T visit(Sub ast);
 	T visit(Bool ast);	
 	T visit(Str ast);
-	T visit(Money ast);
 	T visit(Int ast);
 	T visit(Ident ast);
 	T visit(Assignment ast);
 	T visit(Else ast);
 	T visit(Form ast);
 	T visit(If ast);
-	T visit(Question ast);
+	T visit(QuestionVar ast);
+	T visit(QuestionComputed ast);
 	T visit(Var ast);
+	T visit(ast.type.Bool ast);
+	T visit(ast.type.Str ast);
+	T visit(ast.type.Ident ast);
+	T visit(ast.type.Int ast);
+	T visit(Block ast);
+	T visit(Message ast);
 }

@@ -20,12 +20,14 @@ import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
 import org.uva.sea.ql.ast.expr.binary.Or;
 import org.uva.sea.ql.ast.expr.binary.Sub;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 import org.uva.sea.ql.visitor.semantic.Expression;
+import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class TestBinaries {
 
-	private Expression visitor;
+	private IExpression<ValidationResult> visitor;
 
 	public TestBinaries() {
 		// Create an environment with registered identifiers.
@@ -48,21 +50,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Add(i, i)));
-		assertEquals(true, visitor.visit(new Add(m, i)));
-		assertEquals(true, visitor.visit(new Add(i, intIdent)));
-		assertEquals(true, visitor.visit(new Add(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new Add(i, i)).isValid());
+		assertEquals(true, visitor.visit(new Add(m, i)).isValid());
+		assertEquals(true, visitor.visit(new Add(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Add(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Add(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new Add(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new Add(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new Add(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new Add(b, i)));
-		assertEquals(false, visitor.visit(new Add(i, b)));
-		assertEquals(false, visitor.visit(new Add(boolIdent, i)));
-		assertEquals(false, visitor.visit(new Add(stringIdent, i)));
+		assertEquals(false, visitor.visit(new Add(b, i)).isValid());
+		assertEquals(false, visitor.visit(new Add(i, b)).isValid());
+		assertEquals(false, visitor.visit(new Add(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new Add(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new Add(b, m)));
-		assertEquals(false, visitor.visit(new Add(m, b)));
+		assertEquals(false, visitor.visit(new Add(b, m)).isValid());
+		assertEquals(false, visitor.visit(new Add(m, b)).isValid());
 	}
 
 	@Test
@@ -75,17 +77,17 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new And(b, b)));
-		assertEquals(true, visitor.visit(new And(boolIdent, b)));
-		assertEquals(false, visitor.visit(new And(stringIdent, b)));
+		assertEquals(true, visitor.visit(new And(b, b)).isValid());
+		assertEquals(true, visitor.visit(new And(boolIdent, b)).isValid());
+		assertEquals(false, visitor.visit(new And(stringIdent, b)).isValid());
 
-		assertEquals(true, visitor.visit(new And(new Eq(b, b), b)));
-		assertEquals(false, visitor.visit(new And(new Sub(i, i), b)));
+		assertEquals(true, visitor.visit(new And(new Eq(b, b), b)).isValid());
+		assertEquals(false, visitor.visit(new And(new Sub(i, i), b)).isValid());
 
-		assertEquals(false, visitor.visit(new And(i, i)));
-		assertEquals(false, visitor.visit(new And(m, i)));
-		assertEquals(false, visitor.visit(new And(i, intIdent)));
-		assertEquals(false, visitor.visit(new And(m, moneyIdent)));
+		assertEquals(false, visitor.visit(new And(i, i)).isValid());
+		assertEquals(false, visitor.visit(new And(m, i)).isValid());
+		assertEquals(false, visitor.visit(new And(i, intIdent)).isValid());
+		assertEquals(false, visitor.visit(new And(m, moneyIdent)).isValid());
 	}
 
 	@Test
@@ -98,21 +100,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Div(i, i)));
-		assertEquals(true, visitor.visit(new Div(m, i)));
-		assertEquals(true, visitor.visit(new Div(i, intIdent)));
-		assertEquals(true, visitor.visit(new Div(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new Div(i, i)).isValid());
+		assertEquals(true, visitor.visit(new Div(m, i)).isValid());
+		assertEquals(true, visitor.visit(new Div(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Div(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Div(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new Div(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new Div(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new Div(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new Div(b, i)));
-		assertEquals(false, visitor.visit(new Div(i, b)));
-		assertEquals(false, visitor.visit(new Div(boolIdent, i)));
-		assertEquals(false, visitor.visit(new Div(stringIdent, i)));
+		assertEquals(false, visitor.visit(new Div(b, i)).isValid());
+		assertEquals(false, visitor.visit(new Div(i, b)).isValid());
+		assertEquals(false, visitor.visit(new Div(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new Div(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new Div(b, m)));
-		assertEquals(false, visitor.visit(new Div(m, b)));
+		assertEquals(false, visitor.visit(new Div(b, m)).isValid());
+		assertEquals(false, visitor.visit(new Div(m, b)).isValid());
 	}
 
 	@Test
@@ -125,21 +127,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Eq(b, b)));
-		assertEquals(true, visitor.visit(new Eq(i, i)));
+		assertEquals(true, visitor.visit(new Eq(b, b)).isValid());
+		assertEquals(true, visitor.visit(new Eq(i, i)).isValid());
 
-		assertEquals(true, visitor.visit(new Eq(boolIdent, b)));
-		assertEquals(true, visitor.visit(new Eq(i, intIdent)));
-		assertEquals(true, visitor.visit(new Eq(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new Eq(boolIdent, b)).isValid());
+		assertEquals(true, visitor.visit(new Eq(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Eq(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Eq(m, i)));
-		assertEquals(false, visitor.visit(new Eq(stringIdent, b)));
+		assertEquals(true, visitor.visit(new Eq(m, i)).isValid());
+		assertEquals(false, visitor.visit(new Eq(stringIdent, b)).isValid());
 
-		assertEquals(true, visitor.visit(new Eq(new NEq(b, b), b)));
-		assertEquals(true, visitor.visit(new Eq(new Sub(i, i), i)));
-		assertEquals(true, visitor.visit(new Eq(m, new Sub(i, i))));
+		assertEquals(true, visitor.visit(new Eq(new NEq(b, b), b)).isValid());
+		assertEquals(true, visitor.visit(new Eq(new Sub(i, i), i)).isValid());
+		assertEquals(true, visitor.visit(new Eq(m, new Sub(i, i))).isValid());
 
-		assertEquals(false, visitor.visit(new Eq(new Sub(i, i), b)));
+		assertEquals(false, visitor.visit(new Eq(new Sub(i, i), b)).isValid());
 	}
 
 	@Test
@@ -152,21 +154,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new GEq(i, i)));
-		assertEquals(true, visitor.visit(new GEq(m, i)));
-		assertEquals(true, visitor.visit(new GEq(i, intIdent)));
-		assertEquals(true, visitor.visit(new GEq(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new GEq(i, i)).isValid());
+		assertEquals(true, visitor.visit(new GEq(m, i)).isValid());
+		assertEquals(true, visitor.visit(new GEq(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new GEq(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new GEq(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new GEq(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new GEq(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new GEq(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new GEq(b, i)));
-		assertEquals(false, visitor.visit(new GEq(i, b)));
-		assertEquals(false, visitor.visit(new GEq(boolIdent, i)));
-		assertEquals(false, visitor.visit(new GEq(stringIdent, i)));
+		assertEquals(false, visitor.visit(new GEq(b, i)).isValid());
+		assertEquals(false, visitor.visit(new GEq(i, b)).isValid());
+		assertEquals(false, visitor.visit(new GEq(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new GEq(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new GEq(b, m)));
-		assertEquals(false, visitor.visit(new GEq(m, b)));
+		assertEquals(false, visitor.visit(new GEq(b, m)).isValid());
+		assertEquals(false, visitor.visit(new GEq(m, b)).isValid());
 	}
 
 	@Test
@@ -179,21 +181,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new GT(i, i)));
-		assertEquals(true, visitor.visit(new GT(m, i)));
-		assertEquals(true, visitor.visit(new GT(i, intIdent)));
-		assertEquals(true, visitor.visit(new GT(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new GT(i, i)).isValid());
+		assertEquals(true, visitor.visit(new GT(m, i)).isValid());
+		assertEquals(true, visitor.visit(new GT(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new GT(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new GT(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new GT(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new GT(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new GT(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new GT(b, i)));
-		assertEquals(false, visitor.visit(new GT(i, b)));
-		assertEquals(false, visitor.visit(new GT(boolIdent, i)));
-		assertEquals(false, visitor.visit(new GT(stringIdent, i)));
+		assertEquals(false, visitor.visit(new GT(b, i)).isValid());
+		assertEquals(false, visitor.visit(new GT(i, b)).isValid());
+		assertEquals(false, visitor.visit(new GT(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new GT(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new GT(b, m)));
-		assertEquals(false, visitor.visit(new GT(m, b)));
+		assertEquals(false, visitor.visit(new GT(b, m)).isValid());
+		assertEquals(false, visitor.visit(new GT(m, b)).isValid());
 	}
 
 	@Test
@@ -206,21 +208,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new LEq(i, i)));
-		assertEquals(true, visitor.visit(new LEq(m, i)));
-		assertEquals(true, visitor.visit(new LEq(i, intIdent)));
-		assertEquals(true, visitor.visit(new LEq(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new LEq(i, i)).isValid());
+		assertEquals(true, visitor.visit(new LEq(m, i)).isValid());
+		assertEquals(true, visitor.visit(new LEq(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new LEq(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new LEq(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new LEq(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new LEq(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new LEq(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new LEq(b, i)));
-		assertEquals(false, visitor.visit(new LEq(i, b)));
-		assertEquals(false, visitor.visit(new LEq(boolIdent, i)));
-		assertEquals(false, visitor.visit(new LEq(stringIdent, i)));
+		assertEquals(false, visitor.visit(new LEq(b, i)).isValid());
+		assertEquals(false, visitor.visit(new LEq(i, b)).isValid());
+		assertEquals(false, visitor.visit(new LEq(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new LEq(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new LEq(b, m)));
-		assertEquals(false, visitor.visit(new LEq(m, b)));
+		assertEquals(false, visitor.visit(new LEq(b, m)).isValid());
+		assertEquals(false, visitor.visit(new LEq(m, b)).isValid());
 	}
 
 	@Test
@@ -233,21 +235,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Sub(i, i)));
-		assertEquals(true, visitor.visit(new Sub(m, i)));
-		assertEquals(true, visitor.visit(new Sub(i, intIdent)));
-		assertEquals(true, visitor.visit(new Sub(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new Sub(i, i)).isValid());
+		assertEquals(true, visitor.visit(new Sub(m, i)).isValid());
+		assertEquals(true, visitor.visit(new Sub(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Sub(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Sub(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new Sub(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new Sub(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new Sub(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new Sub(b, i)));
-		assertEquals(false, visitor.visit(new Sub(i, b)));
-		assertEquals(false, visitor.visit(new Sub(boolIdent, i)));
-		assertEquals(false, visitor.visit(new Sub(stringIdent, i)));
+		assertEquals(false, visitor.visit(new Sub(b, i)).isValid());
+		assertEquals(false, visitor.visit(new Sub(i, b)).isValid());
+		assertEquals(false, visitor.visit(new Sub(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new Sub(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new Sub(b, m)));
-		assertEquals(false, visitor.visit(new Sub(m, b)));
+		assertEquals(false, visitor.visit(new Sub(b, m)).isValid());
+		assertEquals(false, visitor.visit(new Sub(m, b)).isValid());
 	}
 
 	@Test
@@ -260,21 +262,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Mul(i, i)));
-		assertEquals(true, visitor.visit(new Mul(m, i)));
-		assertEquals(true, visitor.visit(new Mul(i, intIdent)));
-		assertEquals(true, visitor.visit(new Mul(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new Mul(i, i)).isValid());
+		assertEquals(true, visitor.visit(new Mul(m, i)).isValid());
+		assertEquals(true, visitor.visit(new Mul(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Mul(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Mul(new Sub(i, i), m)));
-		assertEquals(false, visitor.visit(new Mul(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new Mul(new Sub(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new Mul(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new Mul(b, i)));
-		assertEquals(false, visitor.visit(new Mul(i, b)));
-		assertEquals(false, visitor.visit(new Mul(boolIdent, i)));
-		assertEquals(false, visitor.visit(new Mul(stringIdent, i)));
+		assertEquals(false, visitor.visit(new Mul(b, i)).isValid());
+		assertEquals(false, visitor.visit(new Mul(i, b)).isValid());
+		assertEquals(false, visitor.visit(new Mul(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new Mul(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new Mul(b, m)));
-		assertEquals(false, visitor.visit(new Mul(m, b)));
+		assertEquals(false, visitor.visit(new Mul(b, m)).isValid());
+		assertEquals(false, visitor.visit(new Mul(m, b)).isValid());
 	}
 
 	@Test
@@ -287,21 +289,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new NEq(b, b)));
-		assertEquals(true, visitor.visit(new NEq(i, i)));
+		assertEquals(true, visitor.visit(new NEq(b, b)).isValid());
+		assertEquals(true, visitor.visit(new NEq(i, i)).isValid());
 
-		assertEquals(true, visitor.visit(new NEq(boolIdent, b)));
-		assertEquals(true, visitor.visit(new NEq(i, intIdent)));
-		assertEquals(true, visitor.visit(new NEq(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new NEq(boolIdent, b)).isValid());
+		assertEquals(true, visitor.visit(new NEq(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new NEq(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new NEq(m, i)));
-		assertEquals(false, visitor.visit(new NEq(stringIdent, b)));
+		assertEquals(true, visitor.visit(new NEq(m, i)).isValid());
+		assertEquals(false, visitor.visit(new NEq(stringIdent, b)).isValid());
 
-		assertEquals(true, visitor.visit(new NEq(new Eq(b, b), b)));
-		assertEquals(true, visitor.visit(new NEq(new Sub(i, i), i)));
-		assertEquals(true, visitor.visit(new NEq(m, new Sub(i, i))));
+		assertEquals(true, visitor.visit(new NEq(new Eq(b, b), b)).isValid());
+		assertEquals(true, visitor.visit(new NEq(new Sub(i, i), i)).isValid());
+		assertEquals(true, visitor.visit(new NEq(m, new Sub(i, i))).isValid());
 
-		assertEquals(false, visitor.visit(new NEq(new Sub(i, i), b)));
+		assertEquals(false, visitor.visit(new NEq(new Sub(i, i), b)).isValid());
 	}
 
 	@Test
@@ -314,17 +316,17 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Or(b, b)));
-		assertEquals(true, visitor.visit(new Or(boolIdent, b)));
-		assertEquals(false, visitor.visit(new Or(stringIdent, b)));
+		assertEquals(true, visitor.visit(new Or(b, b)).isValid());
+		assertEquals(true, visitor.visit(new Or(boolIdent, b)).isValid());
+		assertEquals(false, visitor.visit(new Or(stringIdent, b)).isValid());
 
-		assertEquals(true, visitor.visit(new Or(new Eq(b, b), b)));
-		assertEquals(false, visitor.visit(new Or(new Sub(i, i), b)));
+		assertEquals(true, visitor.visit(new Or(new Eq(b, b), b)).isValid());
+		assertEquals(false, visitor.visit(new Or(new Sub(i, i), b)).isValid());
 
-		assertEquals(false, visitor.visit(new Or(i, i)));
-		assertEquals(false, visitor.visit(new Or(m, i)));
-		assertEquals(false, visitor.visit(new Or(i, intIdent)));
-		assertEquals(false, visitor.visit(new Or(m, moneyIdent)));
+		assertEquals(false, visitor.visit(new Or(i, i)).isValid());
+		assertEquals(false, visitor.visit(new Or(m, i)).isValid());
+		assertEquals(false, visitor.visit(new Or(i, intIdent)).isValid());
+		assertEquals(false, visitor.visit(new Or(m, moneyIdent)).isValid());
 	}
 
 	@Test
@@ -337,21 +339,21 @@ public class TestBinaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Sub(i, i)));
-		assertEquals(true, visitor.visit(new Sub(m, i)));
-		assertEquals(true, visitor.visit(new Sub(i, intIdent)));
-		assertEquals(true, visitor.visit(new Sub(m, moneyIdent)));
+		assertEquals(true, visitor.visit(new Sub(i, i)).isValid());
+		assertEquals(true, visitor.visit(new Sub(m, i)).isValid());
+		assertEquals(true, visitor.visit(new Sub(i, intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Sub(m, moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Sub(new Add(i, i), m)));
-		assertEquals(false, visitor.visit(new Sub(new Eq(b, b), i)));
+		assertEquals(true, visitor.visit(new Sub(new Add(i, i), m)).isValid());
+		assertEquals(false, visitor.visit(new Sub(new Eq(b, b), i)).isValid());
 
-		assertEquals(false, visitor.visit(new Sub(b, i)));
-		assertEquals(false, visitor.visit(new Sub(i, b)));
-		assertEquals(false, visitor.visit(new Sub(boolIdent, i)));
-		assertEquals(false, visitor.visit(new Sub(stringIdent, i)));
+		assertEquals(false, visitor.visit(new Sub(b, i)).isValid());
+		assertEquals(false, visitor.visit(new Sub(i, b)).isValid());
+		assertEquals(false, visitor.visit(new Sub(boolIdent, i)).isValid());
+		assertEquals(false, visitor.visit(new Sub(stringIdent, i)).isValid());
 
-		assertEquals(false, visitor.visit(new Sub(b, m)));
-		assertEquals(false, visitor.visit(new Sub(m, b)));
+		assertEquals(false, visitor.visit(new Sub(b, m)).isValid());
+		assertEquals(false, visitor.visit(new Sub(m, b)).isValid());
 	}
 
 }

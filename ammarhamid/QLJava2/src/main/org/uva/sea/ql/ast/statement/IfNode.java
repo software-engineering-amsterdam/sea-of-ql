@@ -3,11 +3,12 @@ package org.uva.sea.ql.ast.statement;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfNode implements Node
+public class IfNode implements Statement
 {
     private final List<Branch> branches;
 
@@ -19,6 +20,17 @@ public class IfNode implements Node
     public void addBranch(final ExprNode exprNode, final Node block)
     {
         this.branches.add(new Branch(exprNode, block));
+    }
+
+    @Override
+    public void accept(StatementVisitor statementVisitor)
+    {
+        statementVisitor.visit(this);
+    }
+
+    public List<Branch> getBranches()
+    {
+        return branches;
     }
 
     // TODO move this code to GUI interpreter
@@ -42,19 +54,7 @@ public class IfNode implements Node
 //        return null;
 //    }
 
-//    @Override
-//    public String toTreeString(final String indent)
-//    {
-//        final StringBuilder stringBuilder = new StringBuilder();
-//        for(final Branch branch : branches)
-//        {
-//            stringBuilder.append(branch.exprNode.toTreeString(indent + "  "))
-//                    .append(branch.block.toTreeString(indent + "  "));
-//        }
-//        return stringBuilder.toString();
-//    }
-
-    private class Branch
+    public class Branch
     {
         private final ExprNode exprNode;
         private final Node block;
@@ -65,9 +65,19 @@ public class IfNode implements Node
             this.block = block;
         }
 
-        private Value evaluateExpression()
+        public Value evaluateExpression()
         {
             return exprNode.evaluate();
+        }
+
+        public ExprNode getExprNode()
+        {
+            return exprNode;
+        }
+
+        public Node getBlock()
+        {
+            return block;
         }
     }
 }

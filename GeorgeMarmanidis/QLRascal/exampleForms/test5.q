@@ -5,7 +5,7 @@ form foodinwork {
 	male: "Male:" boolean
 	
 	if (male) {
-	 y: "Bla" integer (y+3)
+	 y: "Bla" integer (age+3)
 	}
 
 	if(age>12){

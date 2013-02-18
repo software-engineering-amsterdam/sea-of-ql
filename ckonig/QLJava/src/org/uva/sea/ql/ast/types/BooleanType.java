@@ -1,17 +1,28 @@
 package org.uva.sea.ql.ast.types;
 
-import java.util.List;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
-import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+public class BooleanType extends Type {
+    private Expr value;
 
-public class BooleanType extends Type  {
+    public BooleanType() {
 
-	public BooleanType() {
+    }
 
-	}
-	 @Override
-	    public ReturnTypes getReturnType(List<Question> questions) {
-	       return ReturnTypes.BOOLEAN;
-	    }
+    public BooleanType(Expr e) {
+        this.value = e;
+    }
+
+    @Override
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public final void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
 }

@@ -39,7 +39,14 @@ public class Question extends FormElement {
 	 */
 	public StrLiteral getQuestion(){
 		return this.question;
-	}	
+	}
+	/**
+	 * getDescription
+	 * @return question.getValue();
+	 */
+	public String getDescription(){
+		return this.question.getValue();
+	}
 	/**
 	 * accept()
 	 * @param visitor

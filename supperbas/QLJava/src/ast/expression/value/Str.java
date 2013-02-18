@@ -3,8 +3,8 @@ package ast.expression.value;
 import java.util.Map;
 
 import ast.Type;
+import ast.expression.Visitor;
 import ast.expression.Value;
-import ast.visitor.Visitor;
 
 public class Str extends Value {
 
@@ -24,7 +24,7 @@ public class Str extends Value {
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new ast.type.Str();
 	}
 

@@ -1,7 +1,6 @@
 package ast.type;
 
 import ast.Type;
-import ast.visitor.Visitor;
 
 public class Ident extends Type {
 
@@ -12,7 +11,6 @@ public class Ident extends Type {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		// TODO Auto-generated method stub
-		return null;
+		return visitor.visit(this);
 	}
 }

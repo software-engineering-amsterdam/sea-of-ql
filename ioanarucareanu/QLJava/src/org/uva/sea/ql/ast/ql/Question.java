@@ -3,15 +3,14 @@ package org.uva.sea.ql.ast.ql;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.value.Value;
-import org.uva.sea.ql.semanticchecker.StatementSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
 
 
 public class Question extends Statement {
 	
-	private final Ident id;
-	private final String label;
-	private final Type type;
+	private Ident id;
+	private String label;
+	private Type type;
 	
 	public Question(Ident id, String label, Type type) {
 		super();
@@ -31,9 +30,9 @@ public class Question extends Statement {
 	public Type getType() {
 		return type;
 	}
-
+	
 	@Override
-	public void accept(StatementSemanticVisitor visitor) {
+	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);
 	}
 

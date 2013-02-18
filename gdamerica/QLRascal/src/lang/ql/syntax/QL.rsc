@@ -9,9 +9,9 @@ module lang::ql::syntax::QL
 start syntax Expr
   = ident: Ident name
   | \int: Int integer
-  | boolean: Boolean boolean
+  | boolCon: Boolean boolean
   > money: Money money
-  | string: String string
+  | strCon: String string
   | date: Date date
   | decimal: Decimal decimalnumber
   | bracket "(" Expr arg ")"

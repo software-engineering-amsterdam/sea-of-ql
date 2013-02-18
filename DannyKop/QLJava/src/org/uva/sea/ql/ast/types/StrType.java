@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitor.TypeVisitor;
+
 /**
  * Class: Str
  * @author Danny
@@ -23,5 +25,9 @@ public class StrType extends Type  {
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleWithStr();
+	}
+	@Override
+	public <T> T accept(TypeVisitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

@@ -27,18 +27,13 @@ public class StatementTypeCheckerTest {
 
 	@Before
 	public void setUp() {
-		expressionChecker = new ExpressionTypeChecker();
-		statementChecker = new StatementTypeChecker(expressionChecker);
+		expressionChecker = new ExpressionTypeChecker(null);
+		statementChecker = new StatementTypeChecker();
 
 		computed = new Computed(new IntegerType(), new Identifier("1"),
 				new IntegerValue(5));
 
 		compound = new CompoundStatement(computed);
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void testConstructor() {
-		new StatementTypeChecker(null);
 	}
 
 	@Test

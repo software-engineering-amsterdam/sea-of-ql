@@ -8,8 +8,8 @@ public class QLProgram implements ASTNode {
 	private Token token;
 	private CompoundStatement compoundStatement;
 
-	public QLProgram(Token token, Statement c) {
-		this.token = token;
+	public QLProgram(Token tok, Statement c) {
+		token = tok;
 		compoundStatement = (CompoundStatement) c;
 	}
 

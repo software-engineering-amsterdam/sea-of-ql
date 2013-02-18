@@ -14,12 +14,14 @@ import org.uva.sea.ql.ast.expr.binary.Eq;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 import org.uva.sea.ql.visitor.semantic.Expression;
+import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class TestUnaries {
 
-	private Expression visitor;
+	private IExpression<ValidationResult> visitor;
 
 	public TestUnaries() {
 		// Create an environment with registered identifiers.
@@ -42,17 +44,17 @@ public class TestUnaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Neg(i)));
-		assertEquals(true, visitor.visit(new Neg(m)));
-		assertEquals(true, visitor.visit(new Neg(intIdent)));
-		assertEquals(true, visitor.visit(new Neg(moneyIdent)));
+		assertEquals(true, visitor.visit(new Neg(i)).isValid());
+		assertEquals(true, visitor.visit(new Neg(m)).isValid());
+		assertEquals(true, visitor.visit(new Neg(intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Neg(moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Neg(new Add(i, i))));
-		assertEquals(false, visitor.visit(new Neg(new Eq(b, b))));
+		assertEquals(true, visitor.visit(new Neg(new Add(i, i))).isValid());
+		assertEquals(false, visitor.visit(new Neg(new Eq(b, b))).isValid());
 
-		assertEquals(false, visitor.visit(new Neg(b)));
-		assertEquals(false, visitor.visit(new Neg(boolIdent)));
-		assertEquals(false, visitor.visit(new Neg(stringIdent)));
+		assertEquals(false, visitor.visit(new Neg(b)).isValid());
+		assertEquals(false, visitor.visit(new Neg(boolIdent)).isValid());
+		assertEquals(false, visitor.visit(new Neg(stringIdent)).isValid());
 	}
 
 	@Test
@@ -65,17 +67,17 @@ public class TestUnaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Pos(i)));
-		assertEquals(true, visitor.visit(new Pos(m)));
-		assertEquals(true, visitor.visit(new Pos(intIdent)));
-		assertEquals(true, visitor.visit(new Pos(moneyIdent)));
+		assertEquals(true, visitor.visit(new Pos(i)).isValid());
+		assertEquals(true, visitor.visit(new Pos(m)).isValid());
+		assertEquals(true, visitor.visit(new Pos(intIdent)).isValid());
+		assertEquals(true, visitor.visit(new Pos(moneyIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Pos(new Add(i, i))));
-		assertEquals(false, visitor.visit(new Pos(new Eq(b, b))));
+		assertEquals(true, visitor.visit(new Pos(new Add(i, i))).isValid());
+		assertEquals(false, visitor.visit(new Pos(new Eq(b, b))).isValid());
 
-		assertEquals(false, visitor.visit(new Pos(b)));
-		assertEquals(false, visitor.visit(new Pos(boolIdent)));
-		assertEquals(false, visitor.visit(new Pos(stringIdent)));
+		assertEquals(false, visitor.visit(new Pos(b)).isValid());
+		assertEquals(false, visitor.visit(new Pos(boolIdent)).isValid());
+		assertEquals(false, visitor.visit(new Pos(stringIdent)).isValid());
 	}
 
 	@Test
@@ -88,17 +90,17 @@ public class TestUnaries {
 		Ident boolIdent = new Ident("bool");
 		Ident stringIdent = new Ident("string");
 
-		assertEquals(true, visitor.visit(new Not(b)));
-		assertEquals(true, visitor.visit(new Not(boolIdent)));
+		assertEquals(true, visitor.visit(new Not(b)).isValid());
+		assertEquals(true, visitor.visit(new Not(boolIdent)).isValid());
 
-		assertEquals(true, visitor.visit(new Not(new Eq(b, b))));
-		assertEquals(false, visitor.visit(new Not(new Add(i, i))));
+		assertEquals(true, visitor.visit(new Not(new Eq(b, b))).isValid());
+		assertEquals(false, visitor.visit(new Not(new Add(i, i))).isValid());
 
-		assertEquals(false, visitor.visit(new Not(i)));
-		assertEquals(false, visitor.visit(new Not(m)));
-		assertEquals(false, visitor.visit(new Not(intIdent)));
-		assertEquals(false, visitor.visit(new Not(moneyIdent)));
-		assertEquals(false, visitor.visit(new Not(stringIdent)));
+		assertEquals(false, visitor.visit(new Not(i)).isValid());
+		assertEquals(false, visitor.visit(new Not(m)).isValid());
+		assertEquals(false, visitor.visit(new Not(intIdent)).isValid());
+		assertEquals(false, visitor.visit(new Not(moneyIdent)).isValid());
+		assertEquals(false, visitor.visit(new Not(stringIdent)).isValid());
 	}
 
 }

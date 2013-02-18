@@ -1,10 +1,6 @@
 package org.uva.sea.ql.parser.impl;
 
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CharStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.TokenStream;
+import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.uva.sea.ql.ast.Node;
@@ -14,6 +10,8 @@ import org.uva.sea.ql.parser.QLLexer;
 import org.uva.sea.ql.parser.QLParser;
 import org.uva.sea.ql.parser.QLTreeWalker;
 import org.uva.sea.ql.parser.exception.ParserException;
+
+import java.io.IOException;
 
 public class ANTLRParser implements IParser
 {
@@ -32,8 +30,25 @@ public class ANTLRParser implements IParser
 			throw new ParserException(e.getMessage());
 		}
 	}
-	
-	@Override
+
+    @Override
+    public Node parseFormFromFile(String filename) throws ParserException, IOException
+    {
+        final QLParser parser = createQLParserFromFile(filename);
+        try
+        {
+            final CommonTree commonTree = (CommonTree) parser.form().getTree();
+            final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
+            final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
+            return qlTreeWalker.walk().node;
+        }
+        catch (RecognitionException e)
+        {
+            throw new ParserException(e.getMessage());
+        }
+    }
+
+    @Override
 	public ExprNode parseExpr(String src) throws ParserException
 	{
         try
@@ -66,6 +81,14 @@ public class ANTLRParser implements IParser
 	public QLParser createQLParser(String src)
 	{
 		final CharStream stream = new ANTLRStringStream(src);
+		final QLLexer lexer = new QLLexer(stream);
+		final TokenStream tokenStream = new CommonTokenStream(lexer);
+		return new QLParser(tokenStream);
+	}
+
+    public QLParser createQLParserFromFile(String filename) throws IOException
+    {
+		final CharStream stream = new ANTLRFileStream(filename);
 		final QLLexer lexer = new QLLexer(stream);
 		final TokenStream tokenStream = new CommonTokenStream(lexer);
 		return new QLParser(tokenStream);

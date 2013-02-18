@@ -27,6 +27,7 @@ TO DO
 Implement generator for JavaScript.
 Known Bugs:
 -----------
-   Fixed - 1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.
-   Fixed - 2. Cyclic dependencies should be implemented.
-   low priority - 3. integer, float, money should be considered as numeric values
+  1. problems with single line comments?? 
+  2. appearance of the code
+  3. Boolean variables // maybe a check for TENV(variables type) and required type in compileExpressions
+  4. Generate ValidateFunctions

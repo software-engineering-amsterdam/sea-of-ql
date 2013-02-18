@@ -6,7 +6,5 @@ form Box1HouseOwning {
 		sellingPrice: "Price the house was sold for:" int
 		privateDebt: "Private debts for the sold house:" int
 		valueResideu: "Value resideu:" int( sellingPrice -  privateDebt)
-	} else {
-		 name: "Danny vraagt je naam:" string
-	}
+	} 
 }			

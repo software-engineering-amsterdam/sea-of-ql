@@ -1,6 +1,6 @@
 module syntax::abstractSyntax
 
-alias QuestionireId=str;
+alias QuestionId=str;
 alias QuestionireString= str;
 
 public data Type = string()|integer()|money()|natural();

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expr;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.semanticchecker.ExpressionSemanticVisitor;
+import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public class Ident extends Expr {
@@ -17,7 +17,7 @@ public class Ident extends Expr {
 	}
 	
 	@Override
-	public ReturnType accept(ExpressionSemanticVisitor visitor) {
+	public ReturnType accept(ExpressionVisitor visitor) {
 		
 		return visitor.visit(this);
 	}

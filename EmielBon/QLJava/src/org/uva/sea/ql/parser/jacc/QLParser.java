@@ -1,12 +1,14 @@
-// Output created by jacc on Wed Feb 13 23:01:45 CET 2013
+// Output created by jacc on Sun Feb 17 20:43:48 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.literal.*;
-import org.uva.sea.ql.ast.operators.logical.*;
-import org.uva.sea.ql.ast.operators.numeric.*;
-import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.operators.logical.*;
+import org.uva.sea.ql.ast.expression.operators.numeric.*;
+import org.uva.sea.ql.ast.expression.operators.relational.*;
+import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.*;
 
 class QLParser implements QLTokens {
@@ -2309,7 +2311,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr11() { // question : IDENTIFIER ':' STRINGLITERAL type '(' expression ')'
-        { yyrv = new ComputedQuestion(((Identifier)yysv[yysp-7]), ((StringLiteral)yysv[yysp-5]), ((Expression)yysv[yysp-2])); }
+        { yyrv = new ComputedQuestion(((Identifier)yysv[yysp-7]), ((StringLiteral)yysv[yysp-5]), ((Type)yysv[yysp-4]), ((Expression)yysv[yysp-2])); }
         yysv[yysp-=7] = yyrv;
         return 8;
     }

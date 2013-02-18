@@ -1,7 +1,7 @@
 package parser.test;
 
-import ast.Statement;
+import ast.Form;
 
 public interface IParse {
-	Statement parse(String src) throws ParseError;
+	Form parse(String src) throws ParseError;
 }
