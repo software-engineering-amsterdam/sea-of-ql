@@ -1,20 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public final class SourceCodeInformation {
+public interface SourceCodeInformation {
 
-    private final int lineNumber;
-    private final int columnPosition;
-
-    public SourceCodeInformation(int lineNumber, int columnPosition) {
-        this.lineNumber = lineNumber;
-        this.columnPosition = columnPosition;
-    }
-
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    public int getColumnPosition() {
-        return columnPosition;
-    }
+    int getLineNumber();
+    int getColumnPosition();
 }
