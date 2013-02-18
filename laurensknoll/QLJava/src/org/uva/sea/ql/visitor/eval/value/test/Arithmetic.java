@@ -5,16 +5,17 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 
 import org.junit.Test;
+import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Int;
 import org.uva.sea.ql.visitor.eval.value.Money;
 
-public class Arithmetics {
+public class Arithmetic {
 
 	@Test
 	public void testInts() {
-		Int zero = new Int(0);
-		Int one = new Int(1);
-		Int ten = new Int(10);
+		AbstractValue zero = new Int(0);
+		AbstractValue one = new Int(1);
+		AbstractValue ten = new Int(10);
 
 		assertEquals(new Int(10), ten.add(zero));
 		assertEquals(new Int(11), one.add(ten));
@@ -33,9 +34,9 @@ public class Arithmetics {
 
 	@Test
 	public void testMoneys() {
-		Money zero = new Money(new BigDecimal("0.00"));
-		Money one = new Money(new BigDecimal("1.00"));
-		Money ten = new Money(new BigDecimal("10.00"));
+		AbstractValue zero = new Money(new BigDecimal("0.00"));
+		AbstractValue one = new Money(new BigDecimal("1.00"));
+		AbstractValue ten = new Money(new BigDecimal("10.00"));
 
 		assertEquals(new Money(new BigDecimal("10.00")), ten.add(zero));
 		assertEquals(new Money(new BigDecimal("11.00")), one.add(ten));
@@ -54,13 +55,13 @@ public class Arithmetics {
 
 	@Test
 	public void testNumerics() {
-		Int intZero = new Int(0);
-		Int intOne = new Int(1);
-		Int intTen = new Int(10);
+		AbstractValue intZero = new Int(0);
+		AbstractValue intOne = new Int(1);
+		AbstractValue intTen = new Int(10);
 
-		Money moneyZero = new Money(new BigDecimal("0.00"));
-		Money moneyOne = new Money(new BigDecimal("1.00"));
-		Money moneyTen = new Money(new BigDecimal("10.00"));
+		AbstractValue moneyZero = new Money(new BigDecimal("0.00"));
+		AbstractValue moneyOne = new Money(new BigDecimal("1.00"));
+		AbstractValue moneyTen = new Money(new BigDecimal("10.00"));
 
 		assertEquals(new Money(new BigDecimal("10.00")), intTen.add(moneyZero));
 		assertEquals(new Money(new BigDecimal("11.00")), intOne.add(moneyTen));
