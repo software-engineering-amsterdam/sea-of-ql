@@ -31,9 +31,27 @@ ql.QuestionController = Base.extend({
     bind : function() {
         var that = this;
         this.view.on("change", function() {
-            var value = that.parseValue(that.view);
-            ql.variableMap[that.questionName] = value;
-            ql.messageBus.signalVariableChanged(that.questionName);
+            that.validateInput(function() {
+                var value = that.parseValue(that.view);
+                ql.variableMap[that.questionName] = value;
+                ql.messageBus.signalVariableChanged(that.questionName);
+            }, function(errorMessage){
+                alert(errorMessage);
+            });
+        });
+    },
+
+    validateInput : function(successCallback, failureCallback) {
+        var that = this, data = {identifierName : that.questionName, value : that.view.val()};
+        $.ajax({
+            type: "POST",
+            url: $(location).attr('href') + "validate/" + that.getValidationSuffix() + "/",
+            data: JSON.stringify(data),
+            success: successCallback,
+            error : function(jqXHR) {
+                failureCallback(jqXHR.responseText);
+            },
+            contentType: 'application/json'
         });
     }
 });
@@ -41,18 +59,30 @@ ql.QuestionController = Base.extend({
 ql.IntegerTypeQuestionController = ql.QuestionController.extend({
     parseValue : function(element) {
         return parseInt(element.val());
+    },
+
+    getValidationSuffix : function() {
+        return "integer";
     }
 });
 
 ql.BooleanTypeQuestionController = ql.QuestionController.extend({
     parseValue : function(element) {
         return element.is(":checked");
+    },
+
+    getValidationSuffix : function() {
+        return "boolean";
     }
 });
 
 ql.StringTypeQuestionController = ql.QuestionController.extend({
     parseValue : function(element) {
         return element.val();
+    },
+
+    getValidationSuffix : function() {
+        return "string";
     }
 });
 

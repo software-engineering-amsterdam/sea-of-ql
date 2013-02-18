@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Path("/validation")
+@Path("/validate")
 public class ValidationController {
 
     private static final String ERROR_MESSAGE = "No valid %s input.";
@@ -57,7 +57,7 @@ public class ValidationController {
     private Response validateInput(IdentifierNameValue identifierNameValue, Type expectedType) {
         String identifierName = identifierNameValue.identifierName, value = identifierNameValue.value;
         if (identifierName != null && identifierIsOfType(identifierName, expectedType) && expectedType.canBeAssignedFromValue(value)) {
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Response.Status.OK).entity("Ok").build();
         } else {
             String errorMessage = String.format(ERROR_MESSAGE, expectedType.getObjectLiteralSimpleClassName());
             return Response.status(Response.Status.BAD_REQUEST).entity(errorMessage).build();

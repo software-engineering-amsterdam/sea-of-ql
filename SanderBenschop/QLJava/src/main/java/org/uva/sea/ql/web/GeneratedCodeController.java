@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import java.io.File;
 import java.io.IOException;
 
-@Path("/code")
+@Path("/")
 public class GeneratedCodeController {
 
     private static final String FILE_NAME = "./target/ql/index.html";
