@@ -93,10 +93,7 @@ public void insertValueInDatabase(str formId,  list[Body] body){   //  list[str]
 			}
 		}
 	}
-	println("ids : <ids>");
-	//$sql5 = 'INSERT INTO Box1 VALUES ('NULL', 'NULL', 'NULL', '$sellingPrice' , '$privateDebt', '$valueResidue') ';
-	//$retval = mysql_query( $sql5, $conn ); 
-	// $query = "  privateDebt,  valueResidue ) VALUES ( 'Null',  '".$hasSoldHouse."',  '".$hasBoughtHouse."',  '".$hasMaintLoan."',  '".$sellingPrice."',  '".$privateDebt."',  '".$valueResidue."' )";
+	println("ids : <ids>");  // last comma is a problem in the insert script
 	str result = "\"$query = \'INSERT INTO <formId> ( q_id, <for(i <- ids) { > <i>, < }>)
 	VALUES(\'NULL\', <for(i <- ids) { > \'\".$<i>.\"\', < }>)\";
 	mysql_query( $query, $conn ); ";
