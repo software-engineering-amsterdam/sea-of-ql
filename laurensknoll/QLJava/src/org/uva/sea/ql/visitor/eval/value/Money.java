@@ -217,4 +217,9 @@ public class Money extends AbstractValue {
 		return this.value.compareTo(value.getValue()) == 0;
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return this.value.toString();
+	}
+
 }

@@ -72,4 +72,9 @@ public class Bool extends AbstractValue {
 		return this.value == value.getValue();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return this.value ? "True" : "False";
+	}
+
 }

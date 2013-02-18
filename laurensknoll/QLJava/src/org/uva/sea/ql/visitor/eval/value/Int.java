@@ -210,4 +210,9 @@ public class Int extends AbstractValue {
 		return this.value == value.getValue();
 	}
 
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.format("Integer (%d)", this.getValue());
+	}
+
 }
