@@ -1,6 +1,5 @@
 package org.uva.sea.ql.parser.test.statements;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.uva.sea.ql.ast.FormStatement;
@@ -23,24 +22,23 @@ public class StatementTypeChecker {
 		_supportedTypes = new SupportedTypes();
 	}
 	
-	public void isAValidStatement(String input)    throws ParseError {  assertTrue(checkStatement(input)); }
-	public void isNotAValidStatement(String input) throws ParseError { assertFalse(checkStatement(input)); }
+	public void isAValidStatement(String input)  throws ParseError { assertTrue(checkStatement(input)); }
 	
-	public void isOfTypeBoolean(String input) throws ParseError { assertTrue(getTypeFor(input).isCompatibleToBool());    }
-	public void isOfTypeInt(String input)     throws ParseError { assertTrue(getTypeFor(input).isCompatibleToInt());     }
-	public void isOfTypeMoney(String input)   throws ParseError { assertTrue(getTypeFor(input).isCompatibleToMoney());   }
-	public void isOfTypeNumeric(String input) throws ParseError { assertTrue(getTypeFor(input).isCompatibleToNumeric()); }
-	public void isOfTypeString(String input)  throws ParseError { assertTrue(getTypeFor(input).isCompatibleToStr());     }
+	public void isOfTypeBoolean(String input)    throws ParseError { assertTrue(getTypeFor(input).isCompatibleToBool());    }
+	public void isOfTypeInt(String input)        throws ParseError { assertTrue(getTypeFor(input).isCompatibleToInt());     }
+	public void isOfTypeMoney(String input)      throws ParseError { assertTrue(getTypeFor(input).isCompatibleToMoney());   }
+	public void isOfTypeNumeric(String input)    throws ParseError { assertTrue(getTypeFor(input).isCompatibleToNumeric()); }
+	public void isOfTypeString(String input)     throws ParseError { assertTrue(getTypeFor(input).isCompatibleToStr());     }
 	
 	private Boolean checkStatement(String input) throws ParseError {
 		FormStatement statement = parseStatement(input);
 		ErrorMessages errorMessages = new ErrorMessages();
 		StatementChecker.check(statement, _supportedTypes, errorMessages);
-		return errorMessages.hasErrors();
+		return !errorMessages.hasErrors();
 	}
 	
 	private FormStatement parseStatement(String input) throws ParseError { return (FormStatement) _parser.parse(input); }
-	private Question parseQuestion(String input) throws ParseError { return (Question) _parser.parse(input); }
+	private Question      parseQuestion(String input)  throws ParseError { return (Question) _parser.parse(input); }
 	
 	private Type getTypeFor(String input)         throws ParseError { return getTypeForVariable(input); }
 	private Type getTypeForVariable(String input) throws ParseError {
