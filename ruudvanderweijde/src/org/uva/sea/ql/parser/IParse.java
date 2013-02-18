@@ -1,4 +1,4 @@
-package org.uva.sea.ql.tests;
+package org.uva.sea.ql.parser;
 
 import java.util.List;
 

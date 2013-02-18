@@ -11,7 +11,6 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.tests.IParse;
 
 public class ANTLRParser implements IParse {
 	private List<Message> errors = new ArrayList<Message>();
