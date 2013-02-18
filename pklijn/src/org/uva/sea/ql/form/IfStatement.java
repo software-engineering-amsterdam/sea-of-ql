@@ -14,11 +14,10 @@ import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.ast.values.BoolValue;
 import org.uva.sea.ql.messages.Error;
 
-public class IfStatement extends FormItem {
+public class IfStatement extends ScopedFormItem {
 
 	private final Expr expression;
 	private final List<FormItem> ifBody;
-	private Env ifBodyEnvironment;
 	
 	public IfStatement(Expr expression, List<FormItem> ifBody) {
 		this.expression = expression;
@@ -51,9 +50,8 @@ public class IfStatement extends FormItem {
 		if (!(expression.typeOf(environment).equals(new BoolType()))) {
 			errors.add(new Error("Ifstatement requires the expression to give a boolean result"));
 		}
-		ifBodyEnvironment = new Env(environment);
 		for (FormItem f : ifBody) {
-			if (!f.validate(ifBodyEnvironment))
+			if (!f.validate(environment.getChildScope(this)))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;
@@ -62,7 +60,7 @@ public class IfStatement extends FormItem {
 	@Override
 	public void buildForm(JPanel mainPanel, Env environment, Form form) {
 		for (FormItem f : ifBody) {
-			f.buildForm(mainPanel, ifBodyEnvironment, form);
+			f.buildForm(mainPanel, environment.getChildScope(this), form);
 		}
 	}
 	
@@ -82,24 +80,21 @@ public class IfStatement extends FormItem {
 	protected void evalIfBody(Env environment) {
 		if (isExpressionValid(environment)) {
 			for (FormItem f : ifBody) {
-				f.eval(ifBodyEnvironment);
+				f.eval(environment.getChildScope(this));
 			}
 		}
 	}
 	
 	protected boolean isExpressionValid(Env environment) {
 		Value expressionValue = expression.eval(environment);
-		if (expressionValue.getClass().equals(new BoolValue().getClass())) {
-			return ((BoolValue)expressionValue).getValue();
-		}
-		return false;
+		return ((BoolValue)expressionValue).getValue();
 	}
 
 	@Override
 	public boolean isFinished(Env environment) {
 		if (isExpressionValid(environment)) {
 			for (FormItem f : ifBody) {
-				if (!f.isFinished(ifBodyEnvironment)) {
+				if (!f.isFinished(environment.getChildScope(this))) {
 					return false;
 				}
 			}
@@ -112,7 +107,7 @@ public class IfStatement extends FormItem {
 		List<Tuple<Ident, Value>> values = new ArrayList<Tuple<Ident, Value>>();
 		if (isExpressionValid(environment)) {
 			for (FormItem f : ifBody) {
-				values.addAll(f.getAllValues(ifBodyEnvironment));
+				values.addAll(f.getAllValues(environment.getChildScope(this)));
 			}
 		}
 		return values;

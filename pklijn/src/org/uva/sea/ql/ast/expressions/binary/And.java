@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
 
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 import org.uva.sea.ql.ast.eval.Env;
@@ -38,6 +37,6 @@ public class And extends Binary {
 
 	@Override
 	public Set<Type> allowedArgumentTypes() {
-		return new HashSet<Type>(Arrays.asList(new Type[] {new BoolType()}));
+		return Collections.<Type>singleton(new BoolType());
 	}
 }
