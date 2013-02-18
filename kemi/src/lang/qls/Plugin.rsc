@@ -39,7 +39,7 @@ private set[Message] buildAndReturnMessages(Stylesheet sheet, loc target) {
     return messages;
   }
   
-  form = accompanyingForm(sheet);
+  form = getAccompanyingForm(sheet);
   
   formMessages = buildAndReturnMessages(form, target);
   if(formMessages != {}) {

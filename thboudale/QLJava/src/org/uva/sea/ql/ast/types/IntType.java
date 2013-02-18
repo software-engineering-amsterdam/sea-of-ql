@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.types;
 
 public class IntType extends Type {
-private final String iType;
 	
-	public IntType() {
-		this.iType = "int";
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToInt();
 	}
 	
-	public String getIType() {
-		return iType;
+	@Override
+	public boolean isCompatibleToInt() {
+		return true;
 	}
 }

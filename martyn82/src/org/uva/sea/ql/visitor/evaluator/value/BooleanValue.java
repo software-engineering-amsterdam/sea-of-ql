@@ -20,6 +20,11 @@ public class BooleanValue extends Value {
 	}
 
 	@Override
+	public String toString() {
+		return Boolean.toString( this.value );
+	}
+
+	@Override
 	public Value and( Value value ) {
 		return value.and( this );
 	}

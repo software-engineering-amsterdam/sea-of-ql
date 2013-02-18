@@ -11,11 +11,12 @@ options
 {
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
-	import org.uva.sea.ql.ast.IfNode;
-	import org.uva.sea.ql.ast.BlockNode;
-	import org.uva.sea.ql.ast.AssignmentNode;
-	import org.uva.sea.ql.ast.VariableScope;
+	import org.uva.sea.ql.ast.statement.Statement;
+	import org.uva.sea.ql.ast.statement.IfNode;
+	import org.uva.sea.ql.ast.statement.BlockNode;
+	import org.uva.sea.ql.ast.statement.AssignmentNode;
 	import org.uva.sea.ql.ast.expression.ExprNode;
+	import org.uva.sea.ql.ast.expression.impl.ValueNode;
 	import org.uva.sea.ql.ast.expression.impl.AddNode;
 	import org.uva.sea.ql.ast.expression.impl.AndNode;
 	import org.uva.sea.ql.ast.expression.impl.OrNode;
@@ -31,11 +32,17 @@ options
 	import org.uva.sea.ql.ast.expression.impl.NotNode;
 	import org.uva.sea.ql.ast.expression.impl.NegateNode;
 	import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
-	import org.uva.sea.ql.ast.value.Value;
-	import org.uva.sea.ql.ast.value.impl.IntegerValue;
-	import org.uva.sea.ql.ast.value.impl.BooleanValue;
-	import org.uva.sea.ql.ast.value.impl.MoneyValue;
-	import org.uva.sea.ql.ast.value.impl.StringValue;
+	import org.uva.sea.ql.VariableScope;
+	import org.uva.sea.ql.value.Value;
+	import org.uva.sea.ql.value.impl.IntegerValue;
+	import org.uva.sea.ql.value.impl.BooleanValue;
+	import org.uva.sea.ql.value.impl.MoneyValue;
+	import org.uva.sea.ql.value.impl.StringValue;
+	import org.uva.sea.ql.type.Type;
+	import org.uva.sea.ql.type.impl.BooleanType;
+	import org.uva.sea.ql.type.impl.IntegerType;
+	import org.uva.sea.ql.type.impl.StringType;
+	import org.uva.sea.ql.type.impl.MoneyType;
 }
 
 @members
@@ -43,15 +50,15 @@ options
     VariableScope currentScope = new VariableScope();
 }
 
-walk
-    :   form
+walk returns [Node node]
+    :   form { $node = $form.node; }
     ;   
    
-form
-	:	^(FORM Identifier ^(BLOCK block))
+form returns [Node node]
+	:	^(FORM Identifier ^(BLOCK block)) { $node = $block.node; }
 	;
 
-block returns [Node node]
+block returns [Statement node]
 @init
 {
     final BlockNode blockNode = new BlockNode();
@@ -66,12 +73,12 @@ block returns [Node node]
     :   (statement { blockNode.addStatement($statement.node); })*
     ;
 
-statement returns [Node node]
+statement returns [Statement node]
 	:	ifStatement { $node = $ifStatement.node; }
 		| assignmentStatement { $node = $assignmentStatement.node; }
 	;
 
-ifStatement returns [Node node]
+ifStatement returns [Statement node]
 @init
 {
     final IfNode ifNode = new IfNode();
@@ -79,20 +86,19 @@ ifStatement returns [Node node]
 }
 	:   ^(IF
 	        (^(EXPRESSION expression ^(BLOCK b1=block)) { ifNode.addBranch($expression.node, $b1.node); })+
-	        (^(EXPRESSION ^(BLOCK b2=block)) { ifNode.addBranch(new BooleanValue("true"), $b2.node); })?
+	        (^(EXPRESSION ^(BLOCK b2=block)) { ifNode.addBranch(new ValueNode(new BooleanValue("true")), $b2.node); })?
 	     )
 	;
 
-assignmentStatement returns [Node node]
-	:	^(ASSIGNMENT Identifier type) { $node = new AssignmentNode($Identifier.text, $type.node, currentScope); }
+assignmentStatement returns [Statement node]
+	:	^(ASSIGNMENT StringLiteral Identifier type) { $node = new AssignmentNode($StringLiteral.text, $Identifier.text, $type.type); }
 	;
 
-type returns [Node node]
-// TODO check with immutable value object
-	:	'boolean' {$node = new BooleanValue("false"); }
-		| 'integer' {$node = new IntegerValue(0); }
-		| 'string' {$node = new StringValue("");}
-		| 'money' {$node = new MoneyValue("0");}
+type returns [Type type]
+	:	'boolean' {$type = new BooleanType(); }
+		| 'integer' {$type = new IntegerType(); }
+		| 'string' {$type = new StringType(); }
+		| 'money' {$type = new MoneyType(); }
 	;
 
 expression returns [ExprNode node]
@@ -110,10 +116,10 @@ expression returns [ExprNode node]
     |   ^('/' lhs=expression rhs=expression) {$node = new DivideNode($lhs.node, $rhs.node);}
     |   ^(NOT op=expression) {$node = new NotNode($op.node);}
     |   ^(NEGATION op=expression) {$node = new NegateNode($op.node);}
-    |   Boolean  {$node = new BooleanValue($Boolean.text);}
-    |   Integer {$node = new IntegerValue($Integer.text);}
-    |   Money {$node = new MoneyValue($Money.text);}
-    |   StringLiteral {$node = new StringValue($StringLiteral.text);}
+    |   Boolean  {$node = new ValueNode(new BooleanValue($Boolean.text));}
+    |   Integer {$node = new ValueNode(new IntegerValue($Integer.text));}
+    |   Money {$node = new ValueNode(new MoneyValue($Money.text));}
+    |   StringLiteral {$node = new ValueNode(new StringValue($StringLiteral.text));}
     |   Identifier {$node = new IdentifierNode($Identifier.text);}
     ;
     

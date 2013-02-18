@@ -12,7 +12,7 @@ public class CompoundStatement extends Statement {
 		return statementList;
 	}
 
-	public final void addStatement(final Statement st) {
+	public final void addStatement(Statement st) {
 		statementList.add(st);
 	}
 

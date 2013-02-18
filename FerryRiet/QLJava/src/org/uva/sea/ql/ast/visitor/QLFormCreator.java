@@ -33,12 +33,12 @@ import org.uva.sea.ql.ast.statements.LineStatement;
 import org.uva.sea.ql.ast.statements.QLProgram;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ui.CompoundPanel;
-import org.uva.sea.ql.ui.ConditionalPanel;
-import org.uva.sea.ql.ui.LinePanel;
-import org.uva.sea.ql.ui.Panel;
+import org.uva.sea.ql.ui.CompoundPane;
+import org.uva.sea.ql.ui.ConditionalPane;
+import org.uva.sea.ql.ui.LinePane;
+import org.uva.sea.ql.ui.Pane;
 
-public class QLFormCreator implements Visitor<Panel> {
+public class QLFormCreator implements Visitor<Pane> {
 	private String formName;
 	private Map<String, Result> symbols = new HashMap<String, Result>();
 
@@ -51,162 +51,162 @@ public class QLFormCreator implements Visitor<Panel> {
 	}
 
 	@Override
-	public Panel visit(QLProgram qlProgram) {
+	public Pane visit(QLProgram qlProgram) {
 		formName = qlProgram.getProgramName();
 		return qlProgram.getCompound().accept(this);
 	}
 
 	@Override
-	public Panel visit(CompoundStatement compoundBlock) {
-		CompoundPanel cPanel = new CompoundPanel();
+	public Pane visit(CompoundStatement compoundBlock) {
+		CompoundPane cPanel = new CompoundPane();
 
 		for (Statement statement : compoundBlock.getStatementList()) {
-			Panel newPanel = (Panel) statement.accept(this);
+			Pane newPanel = (Pane) statement.accept(this);
 			cPanel.addPanel(newPanel);
 		}
 		return cPanel;
 	}
 
 	@Override
-	public Panel visit(LineStatement lineStatement) {
-		LinePanel newPanel;
+	public Pane visit(LineStatement lineStatement) {
+		LinePane newPanel;
 		symbols.put(lineStatement.getLineName(), lineStatement.getTypeContainer());
 
-		newPanel = new LinePanel(lineStatement);
+		newPanel = new LinePane(lineStatement);
 
 		return newPanel;
 	}
 
 	@Override
-	public Panel visit(ConditionalStatement conditionalStatement) {
-		ConditionalPanel conditionalPanel = new ConditionalPanel(conditionalStatement);
+	public Pane visit(ConditionalStatement conditionalStatement) {
+		ConditionalPane conditionalPanel = new ConditionalPane(conditionalStatement);
 
-		conditionalPanel.setcThenPanel((CompoundPanel) conditionalStatement.getTrueCompound()
+		conditionalPanel.setcThenPanel((CompoundPane) conditionalStatement.getTrueCompound()
 				.accept(this));
 		if (conditionalStatement.getFalseCompound() != null) {
-			conditionalPanel.setcElsePanel((CompoundPanel) conditionalStatement.getFalseCompound()
+			conditionalPanel.setcElsePanel((CompoundPane) conditionalStatement.getFalseCompound()
 					.accept(this));
 		}
 		return conditionalPanel;
 	}
 
 	@Override
-	public Panel visit(Expr expr) {
+	public Pane visit(Expr expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(BinExpr expr) {
+	public Pane visit(BinExpr expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Ident expr) {
+	public Pane visit(Ident expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(IntegerLiteral expr) {
+	public Pane visit(IntegerLiteral expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(StringLiteral expr) {
+	public Pane visit(StringLiteral expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(BooleanLiteral expr) {
+	public Pane visit(BooleanLiteral expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Add expr) {
+	public Pane visit(Add expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Mul expr) {
+	public Pane visit(Mul expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Div expr) {
+	public Pane visit(Div expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Sub expr) {
+	public Pane visit(Sub expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(And expr) {
+	public Pane visit(And expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Or expr) {
+	public Pane visit(Or expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Eq expr) {
+	public Pane visit(Eq expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(GT expr) {
+	public Pane visit(GT expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(LT expr) {
+	public Pane visit(LT expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(LEq expr) {
+	public Pane visit(LEq expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(NEq expr) {
+	public Pane visit(NEq expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(GEq expr) {
+	public Pane visit(GEq expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(UnExpr expr) {
+	public Pane visit(UnExpr expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Not expr) {
+	public Pane visit(Not expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Neg expr) {
+	public Pane visit(Neg expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Pos expr) {
+	public Pane visit(Pos expr) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(Type typeDescription) {
+	public Pane visit(Type typeDescription) {
 		return null;
 	}
 
 	@Override
-	public Panel visit(MoneyLiteral expr) {
+	public Pane visit(MoneyLiteral expr) {
 		return null;
 	}
 }

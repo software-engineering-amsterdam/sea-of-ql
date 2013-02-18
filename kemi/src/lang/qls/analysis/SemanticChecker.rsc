@@ -11,32 +11,18 @@
 module lang::qls::analysis::SemanticChecker
 
 import IO;
-import List;
-import Set;
-import String;
-import util::IDE;
-
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
-
+import lang::qls::analysis::Messages;
 import lang::qls::analysis::StyleAttrChecker;
 import lang::qls::analysis::WidgetTypeChecker;
 import lang::qls::ast::AST;
-import lang::qls::compiler::PrettyPrinter;
 import lang::qls::util::StyleHelper;
+import Map;
+import util::IDE;
 import util::LocationHelper;
 
-
-import lang::qls::util::ParseHelper;
-
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
-  //iprintln(getQuestionDefinitions(s));
-  //iprintln(getPageNames(s));
-  //iprintln(getSectionNames(s));
-  errors = semanticChecker(s);
-  iprintln(errors);
-}
-
+// Retrieve all errors and warnings regarding a Stylesheet s
 public set[Message] semanticChecker(Stylesheet s) =
   filenameDoesNotMatchErrors(s) +
   accompanyingFormNotFoundErrors(s) +
@@ -44,139 +30,123 @@ public set[Message] semanticChecker(Stylesheet s) =
   unallowedWidgetErrors(s) +
   alreadyUsedQuestionErrors(s) +
   undefinedQuestionErrors(s) +
+  unusedQuestionWarnings(s) +
   doubleNameWarnings(s) +
   defaultRedefinitionWarnings(s);
 
-
-public default set[Message] filenameDoesNotMatchErrors(Stylesheet s) = 
+private default set[Message] filenameDoesNotMatchErrors(Stylesheet s) = 
   {};
 
-public set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
-  {error(
-    "Stylesheet name (<s.ident>) does not match filename " +
-      "(<basename(s@location)>)",
-    s@location
-  )}
+private set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
+  {stylesheetDoesNotMatchFilename(s.ident, s@location)}
     when s.ident != basename(s@location);
 
 private default set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
   {};
 
 private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
-  {error("No form found with name <s.ident>", s@location)}
-    when !isFile(accompanyingFormLocation(s));
+  {accompanyingFormNotFound(s.ident, s@location)}
+    when !isFile(getAccompanyingFormLocation(s));
 
-
-public set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
-  errors = {};
-  questionDefinitions = getQuestionDefinitions(s);
-  idents = [];
+private set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
+  set[Message] errors = {};
+  list[Definition] questionDefinitions = getQuestionDefinitions(s);
+  map[str, loc] idents = ();
+  
   for(d <- questionDefinitions) {
-    i = indexOf(idents, d.ident);
-    if(i >= 0) {
-      errors += error(
-        "Question already used at line " +
-          "<questionDefinitions[i]@location.begin.line>",
-        d@location
-      );
-    }
-    idents += d.ident;
+    if(d.ident in idents) {
+      errors += questionAlreadyDefined(idents[d.ident], d@location);
+    } 
+    idents[d.ident] = d@location;
   }
+  
   return errors;
 }
 
-public set[Message] undefinedQuestionErrors(Stylesheet s) {
-  if(!isFile(accompanyingFormLocation(s)))
+private set[Message] undefinedQuestionErrors(Stylesheet s) {
+  if(!isFile(getAccompanyingFormLocation(s)))
     return {};
   
-  errors = {};
-  typeMap = getTypeMap(accompanyingForm(s));
-  visit(s) {
-    case QuestionDefinition d: {
-      if(identDefinition(d.ident) notin typeMap) {
-        errors += error("Question undefined in form", d@location);
-      }
-    }
-  }
-  return errors;
+  set[Message] errors = {};
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
+  list[Definition] qdefs = getQuestionDefinitions(s);
+  
+  return {questionUndefinedInForm(q@location) | q <- qdefs, 
+    identDefinition(q.ident) notin typeMap};
 }
 
-public set[Message] doubleNameWarnings(Stylesheet s) {
-  return doublePageNameWarnings(s) +
-    doubleSectionNameWarnings(s);
+private set[Message] unusedQuestionWarnings(Stylesheet s) {
+  TypeMap typeMap = domainX(
+    getTypeMap(getAccompanyingForm(s)),
+    {identDefinition(d.ident) | d <- getQuestionDefinitions(s)}
+  );
+  
+  // Show warning at the end of the Stylesheet
+  loc warningLoc = s@location;
+  warningLoc.offset = s@location.length - 1;
+  warningLoc.length = 1;
+  warningLoc.begin.line = s@location.end.line;
+  warningLoc.begin.column = s@location.end.column - 1;
+  
+  return {questionUnused(ident.ident, warningLoc) | ident <- typeMap};
 }
 
-public set[Message] doublePageNameWarnings(Stylesheet s) {
-  warnings = {};
-  pageDefinitions = getPageDefinitions(s);
-  names = [];
+private set[Message] doubleNameWarnings(Stylesheet s) =
+  doublePageNameWarnings(s) +
+  doubleSectionNameWarnings(s);
+
+private set[Message] doublePageNameWarnings(Stylesheet s) {
+  set[Message] warnings = {};
+  list[Definition] pageDefinitions = getPageDefinitions(s);
+  map[str, loc] pages = ();
+  
   for(d <- pageDefinitions) {
-    i = indexOf(names, d.ident);
-    if(i >= 0) {
-      warnings += warning(
-        "Page name already used at line " +
-          "<pageDefinitions[i]@location.begin.line>",
-        d@location
-      );
-    }
-    names += d.ident;
+    if(d.ident in pages) {
+      warnings += pageAlreadyDefined(pages[d.ident], d@location);
+    } 
+    pages[d.ident] = d@location;
   }
+  
   return warnings;
 }
 
-public set[Message] doubleSectionNameWarnings(Stylesheet s) {
-  warnings = {};
-  sectionDefinitions = getSectionDefinitions(s);
-  names = [];
+private set[Message] doubleSectionNameWarnings(Stylesheet s) {
+  set[Message] warnings = {};
+  list[Definition] sectionDefinitions = getSectionDefinitions(s);
+  map[str, loc] sections = ();
+  
   for(d <- sectionDefinitions) {
-    i = indexOf(names, d.ident);
-    if(i >= 0) {
-      warnings += warning(
-        "Section name already used at line " +
-          "<sectionDefinitions[i]@location.begin.line>",
-        d@location
-      );
+    if(d.ident in sections) {
+      warnings += sectionAlreadyDefined(sections[d.ident], d@location);
+    } 
+    sections[d.ident] = d@location;
+  }
+  
+  return warnings;
+}
+
+private set[Message] defaultRedefinitionWarnings(Stylesheet s) =
+  {
+    defaultAlreadyDefined(r@location) |
+    r <- getDefaultRedefinitions(s.definitions)
+  } + 
+  {
+    defaultAlreadyDefined(r@location) | 
+    d <- getPageDefinitions(s) + getSectionDefinitions(s),
+    r <- getDefaultRedefinitions(toDefinitionList(d.layoutRules))
+  };
+
+private list[Definition] getDefaultRedefinitions(list[Definition] definitions) {
+  set[Type] idents = {};
+  list[Definition] redefinitions = [];
+  
+  for(Definition d: defaultDefinition(\type, _) <- definitions) {
+    if(\type in idents) {
+      redefinitions += d;
+    } else {
+      idents += \type;
     }
-    names += d.ident;
   }
-  return warnings;
-}
-
-public set[Message] defaultRedefinitionWarnings(Stylesheet s) {
-  warnings = {};
-  for(r <- getDefaultRedefinitions(s.definitions))
-    warnings += warning(
-      "Default already declared at this level",
-      r@location
-    );
-  top-down visit(s) {
-    case pageDefinition(_, rules):
-      for(r <- getDefaultRedefinitions(rules))
-        warnings += warning(
-          "Default already declared at this level",
-          r@location
-        );
-    case sectionDefinition(_, rules):
-      for(r <- getDefaultRedefinitions(rules))
-        warnings += warning(
-          "Default already declared at this level",
-          r@location
-        );
-  }
-  return warnings;
-}
-
-private list[DefaultDefinition] getDefaultRedefinitions(list[&T] definitions) {
-  idents = [];
-  redefinitions = [];
-  for(def <- definitions) {
-    if(!def.defaultDefinition?)
-      continue;
-    
-    d = def.defaultDefinition;
-    i = indexOf(idents, d.ident);
-    if(i >= 0) redefinitions += d;
-    idents += d.ident;
-  }
+  
   return redefinitions;
 }

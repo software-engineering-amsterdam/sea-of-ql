@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * class: Form
@@ -45,8 +45,7 @@ public class Form implements ASTNode {
 	 * @return type
 	 */
 	@Override
-	public void accept(Visitor visitor){
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
 	}
-
 }

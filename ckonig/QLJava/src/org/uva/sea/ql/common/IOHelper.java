@@ -17,7 +17,7 @@ public final class IOHelper {
 	public static void write(String path, String output)
 			throws FileNotFoundException {
 		final PrintWriter out = new PrintWriter(path);
-		out.println(output);
+		out.print(output);
 		out.close();
 	}
 

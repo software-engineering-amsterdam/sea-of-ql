@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class Ident extends Expr {
 
@@ -14,14 +14,14 @@ public class Ident extends Expr {
 		this.name = name;
 	}
 
-	public String getName() {
+	public String getStringName() {
 		return name;
 	}
 
 	@Override
 	public Type typeOf(Map<String, Type> typeEnv) {
-		if (typeEnv.containsKey(this.getName())) {
-			return typeEnv.get(this.getName());
+		if (typeEnv.containsKey(this.getStringName())) {
+			return typeEnv.get(this.getStringName());
 		}
 		return new ErrorType();
 	}

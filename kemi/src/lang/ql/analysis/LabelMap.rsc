@@ -16,10 +16,10 @@ import lang::ql::ast::AST;
 import util::IDE;
 
 public LabelMapMessages labelMapper(QuestionText qt, IdentDefinition ident, 
-    LabelMap lm) {
-  if(qt in lm)
-    return <lm, {labelError(qt@location)}>;
-    
-  lm[qt] = ident;
-  return <lm, {}>; 
-} 
+    LabelMap lm) =
+  <lm, {labelError(qt@location)}>
+    when qt in lm;  
+
+public default LabelMapMessages labelMapper(QuestionText qt, 
+    IdentDefinition ident, LabelMap lm) =
+  <lm + (qt : ident), {}>; 

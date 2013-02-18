@@ -14,6 +14,7 @@ extend lang::ql::syntax::Comment;
 extend lang::ql::syntax::Int;
 extend lang::ql::syntax::Keyword;
 extend lang::ql::syntax::Layout;
+extend lang::ql::syntax::Money;
 extend lang::ql::syntax::String;
 extend lang::ql::syntax::Type;
 
@@ -88,15 +89,6 @@ lexical Boolean
   | "false"
   ;
 
-syntax Money = 
-  @category="Constant" LMoney;
-
-lexical LMoney
-  = [0-9]+ "."
-  | [0-9]+ "." [0-9]
-  | [0-9]+ "." [0-9][0-9]
-  ;
-
 lexical Date = 
   @category="Constant" "$" Year "-" Month "-" Day;
 
@@ -116,7 +108,7 @@ lexical Day
 
 syntax Ident
   = @category="Variable" IdentLexical \ Keywords
-  | @category="Variable" ("\\" IdentLexical) \ Keywords
+  | @category="Variable" ("\\" IdentLexical)
   ;
 
 lexical IdentLexical

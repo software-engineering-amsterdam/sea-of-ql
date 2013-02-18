@@ -1,0 +1,16 @@
+.root {
+	-fx-background-color: red;
+}
+#stageX, #stageY {
+	-fx-padding: 3;
+	-fx-border-color: blue;
+}
+
+.question {
+	-fx-spacing: 20;
+	-fx-border-color: lightgray;
+	-fx-stroke: 1;
+	-fx-padding: 4;
+	-fx-margin-left: 6;
+	-fx-background-color: linear-gradient(to bottom, white, darkgray); /**radial-gradient(radius 100%, white, darkgray) */
+}

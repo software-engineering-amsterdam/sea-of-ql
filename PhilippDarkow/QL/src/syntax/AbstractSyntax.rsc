@@ -53,6 +53,6 @@ anno loc Expression@location;
 anno loc Statement@location;
 anno loc Question@location;
 
-public alias Occurrence = tuple[loc location, str name, Statement stat]; 
+public alias Occurrence = tuple[loc location, str name, Question questions]; 
    
 

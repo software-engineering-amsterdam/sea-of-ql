@@ -1,20 +1,20 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.expr.value.DecimalValue;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expr.value.DecimalVal;
+import org.uva.sea.ql.ast.expr.value.Val;
 
 public class MoneyType extends Type {
 
 	@Override
-	public Value<?> createValueOfType() {
+	public String toString() {
 		
-		return new DecimalValue();
+		return "money";
 	}
 
 	@Override
-	public String getHumanReadableType() {
-		
-		return "money";
+	public Val createValOfType() {
+		// TODO Auto-generated method stub
+		return new DecimalVal();
 	}
 	
 	

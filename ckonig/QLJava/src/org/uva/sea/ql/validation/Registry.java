@@ -39,6 +39,6 @@ public class Registry {
 				return q.getType();
 			}
 		}
-		return null;
+		throw new RuntimeException("question not found: " + i.getName());
 	}
 }

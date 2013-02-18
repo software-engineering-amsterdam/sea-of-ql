@@ -1,28 +1,29 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::compiler::web::JS
 
 import IO;
-import util::StringHelper;
+import lang::ql::analysis::State;
 import lang::ql::ast::AST;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
-
-import lang::qls::util::ParseHelper;
-
-public void main() {
-  s = parseStylesheet(|project://QL-R-kemi/stylesheets/proposedSyntax.qs|);
-  println(JS(s));
-}
-
+import String;
+import util::StringHelper;
 
 private str LABEL_CHOOSE = "Choose an answer";
 private str LABEL_TRUE = "Yes";
 private str LABEL_FALSE = "No";
 
-public void JS(Stylesheet sheet, loc dest) {
-  dest += "styling.js";
-  
-  writeFile(dest, JS(sheet));
-}
+public void JS(Stylesheet sheet, loc dest) =
+  writeFile(dest + "styling.js", JS(sheet));
 
 public str JS(Stylesheet s) =
   "function styling() {
@@ -30,129 +31,172 @@ public str JS(Stylesheet s) =
   '
   '  <styleJS(s)>
   '
+  '  paginate();
+  '
   '  $(\"fieldset\").trigger(\"check\");
   '}
   '";
 
-private str pageName(PageDefinition p) =
-  "$(\"\<span/\>\").text(\"<trimQuotes(p.ident)>\")";
+private str pageName(Definition d: pageDefinition(ident, _)) =
+  "$(\"\<h1/\>\").text(\"<trimQuotes(ident)>\")";
 
-private str sectionName(SectionDefinition s) =
-  "$(\"\<legend/\>\").text(\"<trimQuotes(s.ident)>\")";
+private str sectionName(Definition d: sectionDefinition(ident, _)) =
+  "$(\"\<legend/\>\").text(\"<trimQuotes(ident)>\")";
 
-private str blockIdent(QuestionDefinition q) =
-  "<q.ident>Block";
+private str blockIdent(Definition d) =
+  "<d.ident>Block"
+    when d is questionDefinition;
 
-private str layoutJS(Stylesheet s) {
-  str ret = "";
-  
-  for(d <- s.definitions) {
-    switch(d) {
-      case definition(PageDefinition p):
-        ret += "<layoutJS(p, s)>";
-      
-      case definition(SectionDefinition sd):
-        ret += "<layoutJS(sd, s)>";
-      
-      case definition(QuestionDefinition q):
-        ret += "<layoutJS(q, s)>";
-    }
-  }
-  
-  return ret;
-}
+private str layoutJS(Stylesheet s) =
+  "<for(d <- s.definitions) {><layoutJS(d, getUniqueID(s))><}>";
 
-private str layoutJS(PageDefinition p, &T parent) {
-  str ret =
-    "$(\"\<div /\>\")
-    '  .attr({
-    '    id: \"<uniqueId(p)>\",
-    '    class: \"page\"
-    '  })
-    '  .append(<pageName(p)>)
-    '  .appendTo($(\"#<uniqueId(parent)>\"));
-    '
-    '";
-  
-  for(d <- p.pageRules) {
-    switch(d) {
-      case pageRule(SectionDefinition s):
-        ret += "<layoutJS(s, p)>";
-      
-      case pageRule(QuestionDefinition q):
-        ret += "<layoutJS(q, p)>";
-    }
-  }
-  
-  return ret;
-}
-
-private str layoutJS(SectionDefinition s, &T parent) {
-  str ret =
-    "$(\"\<fieldset /\>\")
-    '  .attr({
-    '    id: \"<uniqueId(s)>\",
-    '    class: \"section\"
-    '  })
-    '  .append(<sectionName(s)>)
-    '  .appendTo($(\"#<uniqueId(parent)>\"));
-    '
-    '";
-  
-  for(d <- s.sectionRules) {
-    switch(d) {
-      case sectionRule(SectionDefinition sd):
-        ret += "<layoutJS(sd, s)>";
-      
-      case sectionRule(QuestionDefinition q):
-        ret += "<layoutJS(q, s)>";
-    }
-  }
-  
-  return ret;
-}
-
-private str layoutJS(QuestionDefinition q, &T parent) =
-  "$(\"#<blockIdent(q)>\")
-  '  .appendTo($(\"#<uniqueId(parent)>\"));
+private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) =
+  "$(\"\<div /\>\")
+  '  .attr({
+  '    id: \"<getUniqueID(d)>\",
+  '    class: \"page\"
+  '  })
+  '  .append(<pageName(d)>)
+  '  .appendTo($(\"#<parentID>\"));
   '
-  '";
+  '<for(def <- getChildSectionsQuestions(d)) {>
+  '<layoutJS(def, getUniqueID(d))>
+  '<}>";
+
+private str layoutJS(Definition d: sectionDefinition(_, rules), str parentID) =
+  "$(\"\<fieldset /\>\")
+  '  .attr({
+  '    id: \"<getUniqueID(d)>\",
+  '    class: \"section\"
+  '  })
+  '  .append(<sectionName(d)>)
+  '  .appendTo($(\"#<parentID>\"));
+  '
+  '<for(def <- getChildSectionsQuestions(d)) {>
+  '<layoutJS(def, getUniqueID(d))>
+  '<}>";
+
+private str layoutJS(Definition d, str parentID) =
+  "$(\"#<blockIdent(d)>\")
+  '  .appendTo($(\"#<parentID>\"));
+  '
+  '"
+    when d is questionDefinition;
 
 private str styleJS(Stylesheet s) {
-  f = accompanyingForm(s);
-  typeMap = getTypeMap(f);
+  Form f = getAccompanyingForm(s);
+  TypeMap typeMap = getTypeMap(f);
 
-  ret = "";
-
-  for(k <- typeMap) {
-    rules = getStyleRules(k.ident, f, s);
-    ret += "//Question <k.ident>\n";
-    for(r <- rules) {
-      ret += "<styleJS(k.ident, r)>\n";
-    }
-  }
-
-  return ret;
+  return
+    "<for(IdentDefinition i <- typeMap) {>
+    '// Question <i.ident>
+    '<for(r:widgetStyleRule(_, _) <- getStyleRules(i.ident, f, s)) {>
+    '<styleJS(i.ident, r)>
+    '<}>
+    '<}>
+    '";
 }
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, text(name))) =
-  "//<attr> <name>
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<input /\>\")
+  '      .attr({
+  '        id: \"<ident>\",
+  '        name: \"<ident>\",
+  '        type: \"text\",
+  '        disabled: $(\"#<ident>\").is(\":disabled\")
+  '      })
+  '  );
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, number(name))) =
-  "//<attr> <name>
+  numberJS(ident, -1, -1, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name, min, max))) =
+  numberJS(ident, min, max, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, number(name, min, max, step))) =
+  numberJS(ident, min, max, step);
+
+private str numberJS(str ident, num min, num max, num step) =
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<input /\>\")
+  '      .attr({
+  '        id: \"<ident>\",
+  '        name: \"<ident>\",
+  '        type: \"number\",
+  '        <if(min >= 0) {> min: <min>, <}>
+  '        <if(max >= 0) {> max: <max>, <}>
+  '        <if(step >= 0) {>
+  '        step: <step>,
+  '        <} else {>
+  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
+  '          \"0.01\" : \"1\",
+  '        <}>
+  '        disabled: $(\"#<ident>\").is(\":disabled\")
+  '      })
+  '  );
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, datepicker(name))) =
-  "//<attr> <name>
-  '";
+  // Datepicker is the default type, so no need for replacement
+  "";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, slider(name))) =
-  "//<attr> <name>
+  sliderJS(ident, 0, 100, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name, min, max))) =
+  sliderJS(ident, min, max, -1);
+
+private str styleJS(str ident, StyleRule r: 
+    widgetStyleRule(attr, slider(name, min, max, step))) =
+  sliderJS(ident, min, max, step);
+
+private str sliderJS(str ident, num min, num max, num step) =
+  "$(\"#<ident>\")
+  '  .replaceWith(
+  '    $(\"\<span /\>\")
+  '      .append(
+  '        $(\"\<input /\>\")
+  '          .attr({
+  '            id: \"<ident>\",
+  '            name: \"<ident>\",
+  '            type: \"range\",
+  '            value: \"0\",
+  '            min: <min>,
+  '            max: <max>,
+  '            <if(step < 0) {>
+  '            step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
+  '              \"0.01\" : \"1\",
+  '            <} else {>
+  '            step: <step>,
+  '            <}>
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
+  '          })
+  '          .change(function() {
+  '            $(\"#<ident>Display\").text($(this).val());
+  '          })
+  '      )
+  '      .append(
+  '        $(\"\<span /\>\")
+  '          .attr({
+  '            id: \"<ident>Display\"
+  '          })
+  '          .text(0)
+  '      )
+  '  );
+  '
   '";
 
 private str styleJS(str ident, StyleRule r: 
@@ -166,7 +210,8 @@ private str styleJS(str ident, StyleRule r:
   '            id: \"<ident>\",
   '            name: \"<ident>\",
   '            value: \"true\",
-  '            type: \"radio\"
+  '            type: \"radio\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '      )
   '      .append(
@@ -182,7 +227,8 @@ private str styleJS(str ident, StyleRule r:
   '            id: \"<ident>False\",
   '            name: \"<ident>\",
   '            value: \"false\",
-  '            type: \"radio\"
+  '            type: \"radio\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '      )
   '      .append(
@@ -193,12 +239,6 @@ private str styleJS(str ident, StyleRule r:
   '          .text(\"<LABEL_FALSE>\")
   '      )
   '  );
-  '
-  '$(\"#<ident>\")
-  '  .rules(\"remove\");
-  '
-  '$(\"#<ident>\")
-  '  .rules(\"add\", \"required\");
   '
   '";
 
@@ -213,7 +253,8 @@ private str styleJS(str ident, StyleRule r:
   '            id: \"<ident>\",
   '            name: \"<ident>\",
   '            value: \"true\",
-  '            type: \"checkbox\"
+  '            type: \"checkbox\",
+  '            disabled: $(\"#<ident>\").is(\":disabled\")
   '          })
   '      )
   '      .append(
@@ -235,7 +276,13 @@ private str styleJS(str ident, StyleRule r:
   // Select is the default type, no need for replacement
   "";
 
-public str styleJS(str ident, StyleRule r: 
-    widthStyleRule(str attr, int \value)) =
-  "//<attr> <\value>
-  '";
+private str getUniqueID(Stylesheet s) =
+  s.ident;
+
+private str getUniqueID(Definition d: pageDefinition(ident, _)) =
+  "page_<split(" ", trimQuotes(ident))[0]>_" +
+  "<d@location.begin.line>_<d@location.begin.column>";
+
+private str getUniqueID(Definition d: sectionDefinition(ident, _)) =
+  "section_<split(" ", trimQuotes(ident))[0]>_" +
+  "<d@location.begin.line>_<d@location.begin.column>";

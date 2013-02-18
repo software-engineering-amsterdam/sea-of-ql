@@ -7,11 +7,11 @@ import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
-public class Computed extends Statement {
+public class Computed extends Block {
 
 	private final Identifier identifier;
 	private final DataType dataType;
-	private final Expression expression;
+	private final Expression<?> expression;
 
 	/**
 	 * 
@@ -23,7 +23,7 @@ public class Computed extends Statement {
 	 *            (not null)
 	 */
 	public Computed(final DataType dataType, final Identifier identifier,
-			final Expression expression) {
+			final Expression<?> expression) {
 
 		this.dataType = dataType;
 		this.identifier = identifier;
@@ -42,7 +42,7 @@ public class Computed extends Statement {
 		return identifier;
 	}
 
-	public Expression getExpression() {
+	public Expression<?> getExpression() {
 		return expression;
 	}
 
@@ -53,8 +53,8 @@ public class Computed extends Statement {
 
 	@Override
 	public String toString() {
-		return "Computed [identifier=" + identifier + ", dataType=" + dataType
-				+ ", expression=" + expression + "]";
+		return "Computed [" + identifier + ", " + dataType + ", " + expression
+				+ "]";
 	}
 
 }

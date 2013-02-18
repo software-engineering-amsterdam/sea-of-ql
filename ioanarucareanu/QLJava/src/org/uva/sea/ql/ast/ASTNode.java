@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast;
 
-public interface ASTNode {
+import java.io.Serializable;
+
+public interface ASTNode extends Serializable {
 
 }

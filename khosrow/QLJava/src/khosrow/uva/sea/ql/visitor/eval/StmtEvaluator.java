@@ -1,49 +1,69 @@
 package khosrow.uva.sea.ql.visitor.eval;
 
-import khosrow.uva.sea.ql.ast.stmt.Assign;
-import khosrow.uva.sea.ql.ast.stmt.ExpressionQuestion;
-import khosrow.uva.sea.ql.ast.stmt.If;
-import khosrow.uva.sea.ql.ast.stmt.Label;
-import khosrow.uva.sea.ql.ast.stmt.SimpleQuestion;
-import khosrow.uva.sea.ql.ast.stmt.Stmts;
+import khosrow.uva.sea.ql.ast.expr.Expr;
+import khosrow.uva.sea.ql.ast.stmt.*;
+import khosrow.uva.sea.ql.env.Env;
+import khosrow.uva.sea.ql.resources.ReverseIterator;
+import khosrow.uva.sea.ql.values.*;
 import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
-public class StmtEvaluator implements IStmtVisitor<Void> {
+public class StmtEvaluator implements IStmtVisitor<Stmt> {
+		private final Env env;
+		
+		private StmtEvaluator(Env env){
+			this.env = env;
+		}
+		
+		public static void Evaluate(Stmt stmt, Env env) {
+			StmtEvaluator evaluater = new StmtEvaluator(env);
+			stmt.accept(evaluater);
+		}
+		
+		@Override
+		public Stmt visit(Assign stmt) {
+			Value valToAssign = evalExpression(stmt.getExpr());
+			env.assignValue(stmt.getIdent(), valToAssign);
+			return stmt;
+		}
 
-	@Override
-	public Void visit(Assign stmt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		@Override
+		public Stmt visit(If stmt) {
+			BoolVal cond =  (BoolVal)evalExpression(stmt.getCond());
+			if(cond.getValue())
+				stmt.getBody().accept(this);
+			return stmt;
+		}
 
-	@Override
-	public Void visit(If stmt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		@Override
+		public Stmt visit(ExpressionQuestion stmt) {			
+			return stmt;
+		}
 
-	@Override
-	public Void visit(ExpressionQuestion stmt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		@Override
+		public Stmt visit(SimpleQuestion stmt) {			
+			return stmt;
+		}
 
-	@Override
-	public Void visit(SimpleQuestion stmt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		@Override
+		public Stmt visit(Label stmt) {
+			return stmt;
+		}
 
-	@Override
-	public Void visit(Label stmt) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		@Override
+		public Stmt visit(Stmts stmts) {	
+			ReverseIterator<Stmt> rIter = new ReverseIterator<Stmt>(stmts.iterator());			
+			while(rIter.hasNext()) 
+				rIter.next().accept(this);		
+			return stmts;
+		}
 
-	@Override
-	public Void visit(Stmts stmts) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		public Env getEnv() {
+			return env;
+		}
+		
+		private Value evalExpression(Expr expr) {
+			return ExprEvaluator.Evaluate(expr, env);
+		}	
+		
 
 }

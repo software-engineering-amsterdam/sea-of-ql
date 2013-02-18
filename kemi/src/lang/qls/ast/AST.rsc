@@ -15,39 +15,15 @@ data Stylesheet
   ;
 
 data Definition
-  = definition(PageDefinition pageDefinition)
-  | definition(SectionDefinition sectionDefinition)
-  | definition(QuestionDefinition questionDefinition)
-  | definition(DefaultDefinition defaultDefinition)
-  ;
-
-data PageDefinition
-  = pageDefinition(str ident, list[PageRule] pageRules)
-  ;
-
-data PageRule
-  = pageRule(SectionDefinition sectionDefinition)
-  | pageRule(QuestionDefinition questionDefinition)
-  | pageRule(DefaultDefinition defaultDefinition)
-  ;
-
-data SectionDefinition
-  = sectionDefinition(str ident, list[SectionRule] sectionRules)
-  ;
-
-data SectionRule
-  = sectionRule(SectionDefinition sectionDefinition)
-  | sectionRule(QuestionDefinition questionDefinition)
-  | sectionRule(DefaultDefinition defaultDefinition)
-  ;
-
-data QuestionDefinition
-  = questionDefinition(str ident)
+  = pageDefinition(str ident, list[LayoutRule] layoutRules)
+  | sectionDefinition(str ident, list[LayoutRule] layoutRules)
+  | questionDefinition(str ident)
   | questionDefinition(str ident, list[StyleRule] styleRules)
+  | defaultDefinition(Type \type, list[StyleRule] styleRules)
   ;
 
-data DefaultDefinition
-  = defaultDefinition(Type ident, list[StyleRule] styleRules)
+data LayoutRule
+  = layoutRule(Definition definition)
   ;
 
 data Type
@@ -59,15 +35,32 @@ data Type
   ;
 
 data StyleRule
-  = widgetStyleRule(str attr, WidgetStyleValue widgetValue)
-  | widthStyleRule(str attr, int widthValue)
+  = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
+  | intStyleRule(StyleAttr attr, int intValue)
+  | stringStyleRule(StyleAttr attr, str stringValue)
+  | colorStyleRule(StyleAttr attr, str colorValue)
+  ;
+
+data StyleAttr
+  = widget(str name)
+  | width(str name)
+  | fontsize(str name)
+  | labelFontsize(str name)
+  | font(str name)
+  | labelFont(str name)
+  | color(str name)
+  | labelColor(str name)
   ;
 
 data WidgetStyleValue
   = text(str name)
   | number(str name)
+  | number(str name, real min, real max)
+  | number(str name, real min, real max, real step)
   | datepicker(str name)
   | slider(str name)
+  | slider(str name, real min, real max)
+  | slider(str name, real min, real max, real step)
   | radio(str name)
   | checkbox(str name)
   | select(str name)
@@ -75,11 +68,8 @@ data WidgetStyleValue
 
 anno loc Stylesheet@location;
 anno loc Definition@location;
-anno loc PageDefinition@location;
-anno loc PageRule@location;
-anno loc SectionDefinition@location;
-anno loc SectionRule@location;
-anno loc QuestionDefinition@location;
-anno loc DefaultDefinition@location;
+anno loc LayoutRule@location;
+anno loc Type@location;
 anno loc StyleRule@location;
-
+anno loc StyleAttr@location;
+anno loc WidgetStyleValue@location;

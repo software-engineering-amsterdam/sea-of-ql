@@ -1,20 +1,19 @@
 package khosrow.uva.sea.ql.visitor.eval;
 
 import khosrow.uva.sea.ql.ast.expr.*;
-import khosrow.uva.sea.ql.ast.type.*;
 import khosrow.uva.sea.ql.env.Env;
 import khosrow.uva.sea.ql.values.*;
 import khosrow.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExprEvaluator implements IExprVisitor<Value> {
-	private final Env valueEnv;
+	private final Env env;
 	
-	public ExprEvaluator(Env valueEnv) {
-		this.valueEnv = valueEnv;
+	private ExprEvaluator(Env env) {
+		this.env = env;
 	}
 	
-	public static Value Evaluate(Expr expr, Env valueEnv) {
-		ExprEvaluator evaluater = new ExprEvaluator(valueEnv);
+	public static Value Evaluate(Expr expr, Env env) {
+		ExprEvaluator evaluater = new ExprEvaluator(env);
 		return expr.accept(evaluater);
 	}
 	
@@ -63,88 +62,74 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(And ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		return new BoolVal(((BoolVal)lhsVal).getValue() && ((BoolVal)rhsVal).getValue());
+		return lhsVal.and(rhsVal);
 	}	
 
 	@Override
 	public Value visit(Eq ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		int compResult = lhsVal.compareTo(rhsVal);
-		return new BoolVal(compResult == 0);
+		return lhsVal.eq(rhsVal);
 	}
 
 	@Override
 	public Value visit(GEq ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		int compResult = lhsVal.compareTo(rhsVal);
-		return new BoolVal(compResult >= 0);
+		return lhsVal.geq(rhsVal);
 	}
 
 	@Override
 	public Value visit(GT ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		int compResult = lhsVal.compareTo(rhsVal);
-		return new BoolVal(compResult > 0);
+		return lhsVal.gt(rhsVal);
 	}
 
 	@Override
 	public Value visit(Ident ast) {
-		return valueEnv.valueOf(ast);
+		return env.valueOf(ast);
 	}
 
 	@Override
 	public Value visit(LEq ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		int compResult = lhsVal.compareTo(rhsVal);
-		return new BoolVal(compResult <= 0);
+		return lhsVal.leq(rhsVal);
 	}
 
 	@Override
 	public Value visit(LT ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		int compResult = lhsVal.compareTo(rhsVal);
-		return new BoolVal(compResult < 0);
+		return lhsVal.lt(rhsVal);
 	}
-
-	
 
 	@Override
 	public Value visit(NEq ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		int compResult = lhsVal.compareTo(rhsVal);
-		return new BoolVal(compResult != 0);
+		return lhsVal.neq(rhsVal);
 	}
 
 	@Override
 	public Value visit(Not ast) {
 		Value argVal = ast.getArg().accept(this);
-		return new BoolVal(!((BoolVal)argVal).getValue());
+		return argVal.not();
 	}
 
 	@Override
 	public Value visit(Or ast) {
 		Value lhsVal = ast.getLhs().accept(this);
 		Value rhsVal = ast.getRhs().accept(this);
-		return new BoolVal(((BoolVal)lhsVal).getValue() || ((BoolVal)rhsVal).getValue());
+		return lhsVal.or(rhsVal);
 	}
 
 	@Override
 	public Value visit(Pos ast) {
 		Value argVal = ast.getArg().accept(this);
-		Type argType = ast.getArg().typeOf(valueEnv);	
-		
-		if(argType instanceof Money)
-			return new MoneyVal(((MoneyVal)argVal).getValue());		
-		return new IntVal(((IntVal)argVal).getValue());
-	}
-
-	
+		return argVal.pos();
+	}	
 
 	@Override
 	public Value visit(IntLiteral ast) {
@@ -167,8 +152,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	}
 
 	public Env getValueEnv() {
-		return valueEnv;
+		return env;
 	}
-
 
 }

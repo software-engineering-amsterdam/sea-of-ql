@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
-import org.uva.sea.ql.ast.literal.IntLiteral;
+import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.parser.ParseError;

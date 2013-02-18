@@ -21,6 +21,5 @@ public class ExpressionQuestion extends Question {
 	@Override
 	public <T> T accept(IStmtVisitor<T> visitor) {		
 		return visitor.visit(this);
-	}
-	
+	}		
 }

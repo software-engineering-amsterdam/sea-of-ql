@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Class: Ident
@@ -36,8 +36,8 @@ public class Ident extends Expr {
 	 * @param visitor
 	 */
 	@Override
-	public void accept(Visitor visitor) { 
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor) { 
+		return visitor.visit(this);
 	}
 	@Override
 	public Type typeOf(SymbolTable st) {

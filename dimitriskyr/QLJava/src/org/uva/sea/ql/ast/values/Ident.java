@@ -8,25 +8,23 @@ import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 
 public class Ident extends Value {
 	
-	private final String name;
+	private final String value;
 	
-	public Ident(String name){
-		this.name=name;
+	public Ident(String value){
+		this.value=value;
 	}
 	
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
 	}
 	
-	@Override
 	public <T> T accept(ICheckExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
-	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)){
-			return typeEnv.get(this);
+		if (typeEnv.containsKey(this.getValue())){
+			return typeEnv.get(this.getValue());
 		}
 		return new ErrorType();
 	}
