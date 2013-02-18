@@ -36,7 +36,7 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
+    	parseForm(formString);
     	assertEquals(errors.size(), 0);
 	}
 	@Test
@@ -61,7 +61,11 @@ public class TestIfThenElse {
     	formString += "   }\n";
     	formString += "}\n";
     	
-    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
+    	parseForm(formString);
     	assertEquals(errors.size(), 0);
+	}
+	
+	private void parseForm(String formString) throws ParseError {
+    	parser.parseForm(formString).accept(new FormTypeCheckVisitor(typeMapper, errors));
 	}
 }
