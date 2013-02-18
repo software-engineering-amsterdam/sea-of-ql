@@ -67,11 +67,11 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addControl( this.factory.createLabel( label ) );
 	}
 
-	public Control createEditableControlFromType( Type type, Value value ) {
+	private Control createEditableControlFromType( Type type, Value value ) {
 		return this.createControlFromType( type, value, true );
 	}
 
-	public Control createReadOnlyControlFromType( Type type, Value value ) {
+	private Control createReadOnlyControlFromType( Type type, Value value ) {
 		return this.createControlFromType( type, value, false );
 	}
 
@@ -83,13 +83,15 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	}
 
 	private void registerControlHandler( final QuestionDeclaration question, final Control control ) {
-		control.addChangeListener( new ControlEventListener() {
-			@Override
-			public void itemChanged( ControlEvent event ) {
-				environment.assign( question.getIdentifier(), control.getValue() );
-				environment.notifyObservers( question.getIdentifier() );
+		control.addChangeListener(
+			new ControlEventListener() {
+				@Override
+				public void itemChanged( ControlEvent event ) {
+					environment.assign( question.getIdentifier(), control.getValue() );
+					environment.notifyObservers( question.getIdentifier() );
+				}
 			}
-		} );
+		);
 	}
 
 	private void registerConditionObservers( Expression expression, PanelControl ifTrue, PanelControl ifFalse ) {
