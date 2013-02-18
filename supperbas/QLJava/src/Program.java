@@ -2,6 +2,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import ast.Type;
+import ast.expression.Value;
 import ast.type.Message;
 import parser.JACCParser;
 import parser.test.ParseError;
@@ -12,7 +13,7 @@ import visitor.evaluator.Bindable;
 import visitor.evaluator.StatementEvaluator;
 
 public class Program {
-	private Environment environment;
+	private static Environment environment;
 	private String ql;
 	private JACCParser parser;
 	private UIVisitor ui;
@@ -88,7 +89,7 @@ public class Program {
 			System.out.println(e.getMessage());
 			System.exit(0);
 		}
-		ui.generate();
+		//ui.generate();
 		return true;
 	}
 
@@ -100,5 +101,9 @@ public class Program {
 	        System.out.println(tmp.getKey() + " = "+((Bindable) tmp.getValue()).getType() + "("+ ((Bindable) tmp.getValue()).getValue() + ")");
 	        it.remove();
 		}
+	}
+	
+	public static Environment getEnvironment(){
+		return environment;
 	}
 }
