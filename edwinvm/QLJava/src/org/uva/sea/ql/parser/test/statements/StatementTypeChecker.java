@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.uva.sea.ql.ast.FormStatement;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.check.statements.StatementChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
@@ -42,8 +43,8 @@ public class StatementTypeChecker {
 	
 	private Type getTypeFor(String input)         throws ParseError { return getTypeForVariable(input); }
 	private Type getTypeForVariable(String input) throws ParseError {
-		Question statement = parseQuestion(input);
-		return statement.getVariable().typeOf(_supportedTypes);
+		AnswerableQuestion statement = (AnswerableQuestion) parseQuestion(input);
+		return statement.getType();
 	}
 	
 }
