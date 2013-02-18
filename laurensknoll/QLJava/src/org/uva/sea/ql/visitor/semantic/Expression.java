@@ -47,7 +47,7 @@ public class Expression implements IExpression<ValidationResult> {
 	private Boolean isOfSameType(AbstractExpr left, AbstractExpr right) {
 		AbstractType typeOfLeft = left.typeOf(this.environment);
 		AbstractType typeOfRight = right.typeOf(this.environment);
-		return typeOfLeft.getClass() == typeOfRight.getClass();
+		return typeOfLeft.equals(typeOfRight);
 	}
 
 	private void addUnexpectedTypeError(ValidationResult result,
