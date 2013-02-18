@@ -3,7 +3,7 @@ package org.uva.sea.ql;
 import java.io.*;
 import java.util.EnumSet;
 
-import javax.servlet.DispatcherType;
+import javax.servlet.*;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.*;
@@ -17,7 +17,7 @@ import org.uva.sea.ql.base.IStartupController;
 import org.uva.sea.ql.parser.ParsingException;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.base.IFormParser;
-import org.uva.sea.ql.webserver.ServletConfig;
+import org.uva.sea.ql.webserver.BootstrapServletConfig;
 import org.uva.sea.ql.webserver.base.EmptyServlet;
 
 import com.google.inject.servlet.GuiceFilter;
@@ -25,16 +25,14 @@ import com.google.inject.servlet.GuiceFilter;
 public class BootstrapStartupController implements IStartupController {
 	private static final String OUTPUT_FILE_NAME = "index.html";
 
-	private final int port;
 	private final File inputFile;
-	private final PathProperties properties = new PathProperties();
+	private final ServerProperties properties = new ServerProperties();
 
 	private final IFormParser parser = new FormParser();
 	private final ITypeChecker typeChecker = new TypeChecker();
 
 	public BootstrapStartupController(final CommandLineParameters parameters) {
 		this.inputFile = parameters.getInputFile();
-		this.port = parameters.getPort();
 	}
 	
 	@Override
@@ -44,10 +42,10 @@ public class BootstrapStartupController implements IStartupController {
 			properties.readProperties();
 
 			// Spawn generator using the path of the templates defined in the shared property file (shared with ant)
-			generator = new BootstrapGenerator(properties.getTemplatesPath());
+			generator = new BootstrapGenerator(properties.getTemplatesPath(), properties.getServerBaseURL());
 		}
 		catch (IOException e) {
-			System.err.println(String.format("Failed to read properties file (%s)", PathProperties.PROPERTIES_FILE_NAME));
+			System.err.println(String.format("Failed to read properties file (%s)", ServerProperties.PROPERTIES_FILE_NAME));
 			return;
 		}
 		
@@ -79,7 +77,7 @@ public class BootstrapStartupController implements IStartupController {
 	
 	
 	private void startServer() {
-		Server server = new Server(port);
+		Server server = new Server(properties.getServerPort());
 
 		// Create two different content handlers on different binding paths
 		final ServletContextHandler dynamicContentHandler = createServletContextHandler();
@@ -103,7 +101,8 @@ public class BootstrapStartupController implements IStartupController {
 		final ServletContextHandler servletContextHandler = new ServletContextHandler();
 
 		// Spawn the webservices
-		servletContextHandler.addEventListener(new ServletConfig(typeChecker));
+		final ServletContextListener config = new BootstrapServletConfig(typeChecker.getSymbolTable(), properties); 
+		servletContextHandler.addEventListener(config);
 		servletContextHandler.addFilter(GuiceFilter.class, "/ws/*", EnumSet.of(DispatcherType.REQUEST));
 		servletContextHandler.addServlet(EmptyServlet.class, "/ws/*");
 		

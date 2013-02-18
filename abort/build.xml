@@ -135,6 +135,9 @@
         		<fileset dir="${codegen.sourcedir}/${codegen.template.dir.name}" includes="**/*.stg" />
 	    	</copy>
 	    	
+	    	<!-- create form persistency folder -->
+	    	<mkdir dir="${jar.dir}/${forms.save.target.dir}" />
+	    	
 	        <jar destfile="${jar.dir}/main.jar">
 	    		<manifest>
 	            	<attribute name="Main-Class" value="org.uva.sea.ql.Main"/>

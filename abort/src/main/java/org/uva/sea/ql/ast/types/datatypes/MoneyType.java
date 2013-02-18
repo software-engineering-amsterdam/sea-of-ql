@@ -21,7 +21,7 @@ public class MoneyType extends NumericType {
 	@Override
 	public boolean isAssignableFrom(String input) {
 		try {
-			final BigDecimal value = new BigDecimal(input);
+			new BigDecimal(input);
 			return true;
 		}
 		catch (NumberFormatException e) {

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.types.datatypes;
 
+
 /**
  * Represents integer data type in the QL language.
  * 
@@ -15,9 +16,15 @@ public class IntType extends NumericType {
 	public boolean isCompatibleToMoney() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isAssignableFrom(String input) {
-		return false;
+		try {
+			new Integer(input);
+			return true;
+		}
+		catch (NumberFormatException e) {
+			return false;
+		}
 	}
 }

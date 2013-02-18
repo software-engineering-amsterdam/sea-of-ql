@@ -16,9 +16,18 @@ class BootstrapJavascriptGenerator {
 	// Amount of references to a specific identifier
 	private final Map<Ident, Integer> references = new HashMap<Ident, Integer>();
 
-	public BootstrapJavascriptGenerator(final String templatesPath) {
+	public BootstrapJavascriptGenerator(final String templatesPath, final String serverBaseURL) {
 		final String javascriptTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
 		javascriptTemplateGroup = new STGroupFile(javascriptTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
+	
+		initServerPort(serverBaseURL);
+	}
+	
+	private void initServerPort(final String serverBaseURL) {
+		final ST baseURLDeclarationTemplate = javascriptTemplateGroup.getInstanceOf("server_base_url_declaration");
+		baseURLDeclarationTemplate.add("url", serverBaseURL);
+		
+		initialCode.append(baseURLDeclarationTemplate.render());
 	}
 	
 	public void initIdentReference(final Ident id) {

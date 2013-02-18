@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.types.datatypes.*;
  * 
  * @author J. Dijkstra
  */
-@XmlRootElement
 public class IntLiteral extends NumericLiteral<Integer> {
 	private static final DataType TYPE = new IntType();
 
@@ -35,8 +34,7 @@ public class IntLiteral extends NumericLiteral<Integer> {
 		this.value = value;
 	}
 	
-	@JsonCreator
-	public IntLiteral(@JsonProperty("value") final int value) {
+	public IntLiteral(final int value) {
 		super(null);
 		this.value = value;
 	}

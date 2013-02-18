@@ -1,19 +1,26 @@
-form(fields) ::= <<
-	<form>
+form(name, fields) ::= <<
+	<form id="$name$" name="$name$">
 	<fieldset>
 	$fields$
 	</fieldset>
-	</form>
+  <div class="controls">
+    <button class="btn btn-success" onclick="validateAndPersistForm(\$($name$))" type="button">Submit</button>
+  </div>
+  </form>
 >>
-question_string_or_int(id, text) ::= <<
- <label class="control-label" for="$id$">$text$</label><div class="controls"><input id="$id$" name="$id$" type="text" placeholder="" class="input-xlarge"></div>
+question_string(id, text) ::= <<
+ <label class="control-label" for="$id$">$text$</label><div class="controls"><input id="$id$" name="$id$" type="text" placeholder="" class="input-xlarge" data-type="string"></div>
+>>
+
+question_int(id, text) ::= <<
+ <label class="control-label" for="$id$">$text$</label><div class="controls"><input id="$id$" name="$id$" type="text" placeholder="" class="input-xlarge" data-type="integer"></div>
 >>
 question_money(id, text) ::= <<
   <label class="control-label" for="$id$">$text$</label>
           <div class="controls">
             <div class="input-prepend">
               <span class="add-on">&euro;</span>
-              <input placeholder="" type="text" id="$id$" name="$id$" class="input-xlarge">
+              <input placeholder="" type="text" id="$id$" name="$id$" class="input-xlarge" data-type="money">
             </div>
           </div>
 >>
@@ -23,7 +30,7 @@ question_bool(id, text) ::= <<
       <div class="input-prepend">
         <span class="add-on">
           <label class="checkbox">
-             <input type="checkbox" id="$id$" name="$id$">
+             <input type="checkbox" id="$id$" name="$id$" data-type="boolean">
           </label>
         </span>
         <input placeholder="$text$" type="text" class="input-xlarge uneditable-input" readonly>

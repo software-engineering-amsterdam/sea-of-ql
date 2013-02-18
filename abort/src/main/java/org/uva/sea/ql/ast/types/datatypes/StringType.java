@@ -13,10 +13,6 @@ public class StringType extends DataType {
 	
 	@Override
 	public boolean isAssignableFrom(String input) {
-		if ("".equals(input)) {
-			return false;
-		}
-		
 		return true;
 	}
 }

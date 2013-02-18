@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.types.datatypes.*;
  * 
  * @author J. Dijkstra
  */
-@XmlRootElement
 public class BoolLiteral extends LiteralType<Boolean> {
 	private static final DataType TYPE = new BoolType();
 
@@ -32,12 +31,6 @@ public class BoolLiteral extends LiteralType<Boolean> {
 	 */
 	public BoolLiteral(final boolean value, final SyntaxPosition syntaxPosition) {
 		super(syntaxPosition);
-		this.value = value;
-	}
-
-	@JsonCreator
-	public BoolLiteral(@JsonProperty("value") final boolean value) {
-		super(null);
 		this.value = value;
 	}
 	

@@ -35,11 +35,11 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		return pageTemplate.render();
 	}
 	
-	public BootstrapGenerator(final String templatesPath) {
+	public BootstrapGenerator(final String templatesPath, final String serverBaseURL) {
 		final String mainTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
 		templateGroup = new STGroupFile(mainTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
 
-		javascriptGenerator = new BootstrapJavascriptGenerator(templatesPath);
+		javascriptGenerator = new BootstrapJavascriptGenerator(templatesPath, serverBaseURL);
 	}
 
 	@Override
@@ -56,6 +56,7 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	@Override
 	public ST visit(final Form form) {
 		final ST st = templateGroup.getInstanceOf("form");
+		st.add("name", form.getName());
 		st.add("fields", getFilledFormTemplates(form.getStatements()));
 		return st;
 	}
@@ -87,9 +88,13 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 		else if (type.equals(BoolType.class)) {
 			questionTemplate = templateGroup.getInstanceOf("question_bool");
 		}
-		else {
-			questionTemplate = templateGroup.getInstanceOf("question_string_or_int");
+		else if (type.equals(StringType.class)) {
+			questionTemplate = templateGroup.getInstanceOf("question_string");
 		}
+		else {
+			questionTemplate = templateGroup.getInstanceOf("question_int");
+		}
+
 
 		final Ident id = question.getIdent();
 		questionTemplate.add("id", id.getName());

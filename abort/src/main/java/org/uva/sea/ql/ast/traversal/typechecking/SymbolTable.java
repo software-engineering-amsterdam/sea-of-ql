@@ -2,6 +2,7 @@ package org.uva.sea.ql.ast.traversal.typechecking;
 
 import java.util.*;
 
+import org.uva.sea.ql.ast.traversal.typechecking.base.ISymbolTable;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.DataType;
 
@@ -11,7 +12,7 @@ import org.uva.sea.ql.ast.types.datatypes.DataType;
  * 
  * @author J. Dijkstra
  */
-public class SymbolTable {
+public class SymbolTable implements ISymbolTable {
 	/**
 	 * Map that stores idents and the type they should result to.
 	 */
@@ -30,6 +31,7 @@ public class SymbolTable {
 	 *            identifier to retrieve the data type for
 	 * @return data type
 	 */
+	@Override
 	public DataType get(final Ident ident) {
 		return types.get(ident);
 	}
@@ -42,10 +44,12 @@ public class SymbolTable {
 	 * @param dataType
 	 *            data type
 	 */
+	@Override
 	public void add(final Ident ident, final DataType dataType) {
 		types.put(ident, dataType);
 	}
 	
+	@Override
 	public DataType getDataTypeByName(final String identName) {
 		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
 			if (entry.getKey().getName().equals(identName)) {
@@ -56,6 +60,7 @@ public class SymbolTable {
 		return null;
 	}
 	
+	@Override
 	public boolean containsIdentName(final String identName) {
 		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
 			if (entry.getKey().getName().equals(identName)) {
@@ -64,5 +69,17 @@ public class SymbolTable {
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public boolean isInputIncomplete(Set<String> identNames) {
+		for (Map.Entry<Ident, DataType> entry : types.entrySet()) {
+			// Check whether the set contains all keys of the symbol table
+			if (!identNames.contains(entry.getKey().getName())) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }

@@ -1,13 +1,17 @@
 package org.uva.sea.ql.webserver.services;
 
+import java.io.*;
 import java.util.*;
 
 import javax.ws.rs.*;
 
-import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
-import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.*;
+import org.uva.sea.ql.ServerProperties;
+import org.uva.sea.ql.ast.traversal.typechecking.base.ISymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.webserver.base.IWebService;
+import org.uva.sea.ql.webserver.models.*;
 
 import com.google.inject.Inject;
 
@@ -22,43 +26,80 @@ public class BootstrapService implements IWebService {
 	private final MoneyType moneyType = new MoneyType();
 	
 	@Inject
-	private ITypeChecker typeChecker;
+	private ISymbolTable symbolTable;
 	
-	@GET
-	@Produces("application/json")
-	@Path("/sayHello")
-	public String sayHello() {
-		return "HELLO!";
-	}
+	@Inject
+	private ServerProperties properties;
 
 	@POST
 	@Path("/validateInteger")
-	public boolean validateInteger(final String input) {
-		return intType.isAssignableFrom(input);
+	public boolean validateInteger(final ValidationWrapper input) {
+		return intType.isAssignableFrom(input.getValue());
 	}
 	
 	@POST
 	@Path("/validateString")
-	public boolean validateString(final String input) {
-		return stringType.isAssignableFrom(input);
+	public boolean validateString(final ValidationWrapper input) {
+		return stringType.isAssignableFrom(input.getValue());
 	}	
 
 	@POST
 	@Path("/validateMoney")	
-	public boolean validateMoney(final String input) {
-		return moneyType.isAssignableFrom(input);
+	public boolean validateMoney(final ValidationWrapper input) {
+		return moneyType.isAssignableFrom(input.getValue());
 	}
 	
 	@POST
-	@Path("/validateBool")
-	public boolean validateBoolean(final String input) {
-		return boolType.isAssignableFrom(input);
+	@Path("/validateBoolean")
+	public boolean validateBoolean(final ValidationWrapper input) {
+		return boolType.isAssignableFrom(input.getValue());
 	}
 	
 	@POST
 	@Path("/persist")
-	public void validateAndPersistForm(final Map<String, String> inputValues) {
-		SymbolTable table = typeChecker.getSymbolTable();
+	public boolean validateAndPersistForm(final FormWrapper form) {
+		Map<String, String> inputValues = form.getFormMap();
+		for (Map.Entry<String,String> entry : inputValues.entrySet()) {
+			final String name = entry.getKey();
+			final String value = entry.getValue();
+			
+			if (!symbolTable.getDataTypeByName(name).isAssignableFrom(value)) {
+				System.err.println(String.format("Invalid input for %s (value: %s)", name, value));
+				return false;
+			}
+		}
+		
+		if (hasMissingIdents(form)) {
+			System.err.println("The form has been posted incomplete");
+			return false;
+		}
 
+		return writeFormToFile(form);
+	}
+	
+	private boolean hasMissingIdents(final FormWrapper form) {
+		return symbolTable.isInputIncomplete(form.getFormMap().keySet());
+	}
+	
+	private boolean writeFormToFile(final FormWrapper form) {
+		final File outputFile = new File(String.format("%s/form-%d.json", properties.getSaveFormPath(), Calendar.getInstance().getTimeInMillis()));
+
+		final ObjectMapper mapper = new ObjectMapper();
+		try {
+			mapper.writeValue(outputFile, form.getFormMap());
+			
+			return true;
+		}
+		catch (JsonGenerationException e) {
+			System.err.println(String.format("Failed to generate JSON (%s)", e.getMessage()));
+		} 
+		catch (JsonMappingException e) {
+			System.err.println(String.format("Failed to map JSON (%s)", e.getMessage()));
+		}
+		catch (IOException e) {
+			System.err.println(String.format("IO Exception (%s)", e.getMessage()));
+		}
+		
+		return false;
 	}
 }

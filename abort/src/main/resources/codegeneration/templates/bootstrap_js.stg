@@ -8,6 +8,7 @@ generate_dispatch_function(id) ::= <<
 document_ready_block(code) ::= <<
   \$(document).ready(function() {
     initConditionalGUI();
+    initAjaxValidation();
   
     $code$
   });
@@ -19,4 +20,8 @@ generate_map_function(id, expression) ::= <<
 
 generate_map_var(name) ::= <<
   variableMap['$name$'] = '';
+>>
+
+server_base_url_declaration(url) ::= <<
+  var serverBaseURL = '$url$';
 >>

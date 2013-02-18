@@ -1,0 +1,9 @@
+.input-error, .fail {
+	font-weight: bold;
+	color: #FF0000;
+}
+
+.success {
+	font-weight: bold;
+	color: rgb(133, 190, 16);
+}
