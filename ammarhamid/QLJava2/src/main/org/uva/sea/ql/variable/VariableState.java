@@ -14,14 +14,14 @@ public class VariableState extends Observable
     {
         variableMap.put(variableName, value);
         setChanged();
-        notifyObservers(variableName);
+        notifyObservers();
     }
 
     public void remove(final String variableName)
     {
         variableMap.remove(variableName);
         setChanged();
-        notifyObservers(variableName);
+        notifyObservers();
     }
 
     public static Map<String, Value> getVariableMap()
