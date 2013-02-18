@@ -30,7 +30,7 @@ public class ExpressionRenderer implements IExpressionVisitor<String> {
 	private String strExpression;
 	private List<Ident> idents;
 	
-	public ExpressionRenderer(List<Ident> idents) {
+	public ExpressionRenderer() {
 		this.idents = new LinkedList<Ident>();
 		this.strExpression = new String();
 	}
