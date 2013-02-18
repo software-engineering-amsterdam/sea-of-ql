@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.type.UndefinedType;
+import org.uva.sea.ql.ast.type.ErrorType;
 
 public class TypeEnvironment {
 
@@ -20,10 +20,11 @@ public class TypeEnvironment {
 	}
 	
 	public Type getType(Identifier id) {
-		return (isDeclared(id)) ? environment.get(id) : new UndefinedType();
+		return (isDeclared(id)) ? environment.get(id) : new ErrorType();
 	}
 	
 	public String toString() {
 		return environment.entrySet().toString();
 	}
+	
 }

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.typechecker.StatementVisitor;
 
 public class Form extends Statement {
 	
