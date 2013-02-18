@@ -12,6 +12,15 @@ public class TestQuestionStatements extends StatementTypeChecker {
 	}
 	
 	@Test
+	public void testQuestionTypes() throws ParseError {
+		isOfTypeBoolean("\"Did you sell a house in 2010?\" hasSoldHouse: boolean");
+		isOfTypeNumeric("\"Price the house was sold for:\" sellingPrice: money");
+		isOfTypeMoney("\"Price the house was sold for:\" sellingPrice: money");
+		isOfTypeInt("\"Price the house was sold for:\" sellingPrice: integer");
+		isOfTypeString("\"What is your name?\" userName: string");
+	}
+	
+	@Test
 	public void testComputedQuestions() throws ParseError {
 		isAValidStatement("\"Did you sell a house in 2010?\" valueResidue = sellingPrice - privateDebt");
 		isAValidStatement("\"Your profit percentage: \" percentageResidue = sellingPrice * 100 / privateDebt");
