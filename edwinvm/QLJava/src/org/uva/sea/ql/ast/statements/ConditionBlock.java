@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.FormStatement;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
 public class ConditionBlock extends FormStatement {
-	private final Expr _condition;
+	private final Expr _expr;
 	private final FormStatement _ifBody;
 	private final FormStatement _elseBody;
 
@@ -13,14 +13,14 @@ public class ConditionBlock extends FormStatement {
 		this(condition, ifBody, null);
 	}
 	
-	public ConditionBlock(Expr condition, FormStatement ifBody, FormStatement elseBody) {
-		_condition = condition;
+	public ConditionBlock(Expr expr, FormStatement ifBody, FormStatement elseBody) {
+		_expr = expr;
 		_ifBody = ifBody;
 		_elseBody = elseBody;
 	}
 	
-	public Expr getCondition() {
-		return _condition;
+	public Expr getExpr() {
+		return _expr;
 	}
 	
 	public FormStatement getIfBody() {
