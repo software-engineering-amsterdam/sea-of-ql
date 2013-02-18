@@ -3,7 +3,6 @@ package org.uva.sea.ql.web;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-@SuppressWarnings("unused")
 public class IdentifierValuePair {
 
     private String identifierName;
@@ -23,5 +22,9 @@ public class IdentifierValuePair {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String toCsvRow() {
+        return value.isEmpty() ? "" : identifierName + "," + value;
     }
 }

@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 public final class QLBootstrapper {
 
     private static final String DESTINATION_FILE_NAME_TEMPLATE = "%s/index.html";
-    private static final String PROPERTY_FILE_NAME = "qlang.properties";
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
@@ -67,10 +66,7 @@ public final class QLBootstrapper {
     }
 
     private File createDestinationFile() throws IOException {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream(PROPERTY_FILE_NAME));
-
-        String qlTargetFolder = properties.getProperty("qlTargetFolder");
+        String qlTargetFolder = QLPropertiesUtil.getProperty("qlTargetFolder");
         String targetFolder = qlTargetFolder != null ? qlTargetFolder : ".";
         return new File(String.format(DESTINATION_FILE_NAME_TEMPLATE, targetFolder));
     }

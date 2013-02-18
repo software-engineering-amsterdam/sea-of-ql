@@ -140,35 +140,45 @@ ql.ConditionalController = Base.extend({
         } else {
             this.onConditionalFalse();
         }
+    },
+
+    resetElementBlock : function(elementBlock) {
+        elementBlock.find("input:text").val("");
+        elementBlock.find("input:checkbox").removeAttr('checked');
     }
 });
 
 ql.IfStatementController = ql.ConditionalController.extend({
     initialize : function(conditionalName) {
         ql.ConditionalController.initialize.call(this, conditionalName);
+        this.successBody = this.view.find(".successBody");
     },
 
     onConditionalTrue : function() {
-        this.view.find(".successBody").removeClass("hidden");
+        this.successBody.removeClass("hidden");
     },
 
     onConditionalFalse : function() {
-        this.view.find(".successBody").addClass("hidden");
+        this.successBody.addClass("hidden");
+        this.resetElementBlock(this.successBody);
     }
 });
 
 ql.IfElseStatementController = ql.ConditionalController.extend({
     initialize : function(conditionalName) {
         ql.ConditionalController.initialize.call(this, conditionalName);
+        this.successBody = this.view.find(".successBody"), this.failureBody = this.view.find(".failureBody");
     },
 
     onConditionalTrue : function() {
-        this.view.find(".successBody").removeClass("hidden");
-        this.view.find(".failureBody").addClass("hidden");
+        this.successBody.removeClass("hidden");
+        this.failureBody.addClass("hidden");
+        this.resetElementBlock(this.failureBody);
     },
 
     onConditionalFalse : function() {
-        this.view.find(".successBody").addClass("hidden");
-        this.view.find(".failureBody").removeClass("hidden");
+        this.successBody.addClass("hidden");
+        this.failureBody.removeClass("hidden");
+        this.resetElementBlock(this.successBody);
     }
 });
