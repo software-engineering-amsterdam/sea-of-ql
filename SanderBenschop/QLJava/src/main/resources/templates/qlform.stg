@@ -35,7 +35,7 @@ computationJS(name, initializationBlock, expression) ::= <<
     }).new("$name$");
 >>
 
-ifStatementHtml(identifier, successBodyContent) :: <<
+ifStatementHtml(identifier, successBodyContent) ::= <<
     <div id="conditional_$identifier$">
         <div class="successBody hidden">
             $successBodyContent$
@@ -43,7 +43,7 @@ ifStatementHtml(identifier, successBodyContent) :: <<
     </div>
 >>
 
-ifElseStatementHtml(identifier, successBodyContent, failureBodyContent) :: <<
+ifElseStatementHtml(identifier, successBodyContent, failureBodyContent) ::= <<
     <div id="conditional_$identifier$">
         <div class="successBody hidden">
             $successBodyContent$
