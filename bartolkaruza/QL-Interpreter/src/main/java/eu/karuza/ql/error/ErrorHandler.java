@@ -18,12 +18,6 @@ public class ErrorHandler implements Serializable {
 		return errors;
 	}
 
-	public void printErrors() {
-		for (QLError error : errors) {
-			System.out.println("E: " + error.getCause());
-		}
-	}
-
 	public boolean hasErrors() {
 		return errors.size() > 0;
 	}

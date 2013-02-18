@@ -18,7 +18,7 @@ public class Bool extends Value {
 
 	public Bool(int lineNumber, String initialValue) {
 		super(lineNumber);
-		this.value = new Boolean(initialValue);
+		this.value = Boolean.valueOf(initialValue);
 	}
 	
 	public Bool(int lineNumber, boolean initialvalue) {

@@ -21,10 +21,10 @@ public class StatementSemanticChecker implements StatementVisitor<Void> {
 
 	private ParserContext context;
 	private ExpressionSemanticChecker expressionChecker;
-	private DefinitionCollector generator;
+	private StatementVisitor<?> generator;
 	private Stack<List<Symbol>> dependentOnStack = new Stack<List<Symbol>>();
 
-	public StatementSemanticChecker(ParserContext context, DefinitionCollector generator, ExpressionSemanticChecker expressionChecker) {
+	public StatementSemanticChecker(ParserContext context, StatementVisitor<?> generator, ExpressionSemanticChecker expressionChecker) {
 		this.context = context;
 		this.expressionChecker = expressionChecker;
 		this.generator = generator;
@@ -36,14 +36,14 @@ public class StatementSemanticChecker implements StatementVisitor<Void> {
 		this.generator = new DefinitionCollector(context);
 	}
 
+	/**
+	 * Checks for cyclic dependencies and runs the symbol definition collector
+	 */
 	@Override
 	public Void visit(Form node) {
-		node.accept(generator); // Create the symbol table entries
+		node.accept(generator);
 		acceptChildren(node.getStatements());
-		for (Entry<String, Symbol> symbol : context.getSymbols().entrySet()) { // Check
-																				// for
-																				// cyclic
-																				// dependencies
+		for (Entry<String, Symbol> symbol : context.getSymbols().entrySet()) { 
 			for (Symbol currentSymbol : symbol.getValue().getDependantOn()) {
 				for (Symbol dependentSymbol : currentSymbol.getDependantOn()) {
 					if (dependentSymbol == symbol.getValue()) {

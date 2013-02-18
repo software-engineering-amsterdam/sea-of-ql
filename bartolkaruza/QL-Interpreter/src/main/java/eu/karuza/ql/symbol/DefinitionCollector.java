@@ -8,7 +8,6 @@ import eu.karuza.ql.ast.IfConditionalStatement;
 import eu.karuza.ql.ast.IfElseConditionalStatement;
 import eu.karuza.ql.ast.Question;
 import eu.karuza.ql.ast.Statement;
-import eu.karuza.ql.ast.expr.type.Type;
 import eu.karuza.ql.error.QLError;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.visitor.StatementVisitor;
@@ -47,17 +46,17 @@ public class DefinitionCollector implements StatementVisitor<Void> {
 
 	@Override
 	public Void visit(AnswerableQuestion node) {
-		declareVariable(node, node.getType());
+		declareVariable(node);
 		return null;
 	}
 
 	@Override
 	public Void visit(ComputedQuestion node) {
-		declareVariable(node, node.getExpr().typeOf(context.getTable()));
+		declareVariable(node);
 		return null;
 	}
 
-	private void declareVariable(Question node, Type type) {
+	private void declareVariable(Question node) {
 		if (context.hasSymbol(node.getName())) {
 			context.addError(new QLError("Duplicate entry with name: " + node.getName() + " at line: " + node.getLineNumber()));
 		} else {

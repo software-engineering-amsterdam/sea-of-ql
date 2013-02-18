@@ -80,8 +80,7 @@ public class ANTLRParser implements IParse {
 		ANTLRFileStream stream = new ANTLRFileStream(file);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		return parser;
+		return new QLParser(tokens);
 
 	}
 

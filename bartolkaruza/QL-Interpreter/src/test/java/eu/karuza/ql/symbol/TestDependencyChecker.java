@@ -31,7 +31,6 @@ public class TestDependencyChecker {
 		ParserContext context = new ParserContext();
 		Form form = (Form) parser.parseNode("form form1 { symbol1: \"label\" boolean if(symbol1) { symbol2: \"label\" boolean } if (symbol2) { symbol3: \"label\" boolean} }");
 		form.accept(new StatementSemanticChecker(context));
-		context.getHandler().printErrors();
 		Assert.assertEquals(0, context.getErrors().size());
 	}
 

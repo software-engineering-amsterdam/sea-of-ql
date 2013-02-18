@@ -37,9 +37,9 @@ public class ExpressionSemanticChecker implements ExpressionVisitor<Void> {
 	private static final String AND = "&&";
 	private static final String DIV = "/";
 	private static final String GEQ = ">=";
-	private static final String GT_ = ">";
+	private static final String GRT = ">";
 	private static final String LEQ = "<=";
-	private static final String LT_ = "<";
+	private static final String LST = "<";
 	private static final String MUL = "*";
 	private static final String NEG = "--";
 	private static final String NOT = "!";
@@ -126,7 +126,7 @@ public class ExpressionSemanticChecker implements ExpressionVisitor<Void> {
 	public Void visit(GT node) {
 		acceptBinary(node);
 		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithGT()) {
-			context.reportOperationTypeError(GT_, node.getLineNumber());
+			context.reportOperationTypeError(GRT, node.getLineNumber());
 		}
 		return null;
 	}
@@ -144,7 +144,7 @@ public class ExpressionSemanticChecker implements ExpressionVisitor<Void> {
 	public Void visit(LT node) {
 		acceptBinary(node);
 		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithLT()) {
-			context.reportOperationTypeError(LT_, node.getLineNumber());
+			context.reportOperationTypeError(LST, node.getLineNumber());
 		}
 		return null;
 	}

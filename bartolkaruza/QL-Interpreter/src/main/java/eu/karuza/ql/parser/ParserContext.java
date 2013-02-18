@@ -1,9 +1,8 @@
 package eu.karuza.ql.parser;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import eu.karuza.ql.ast.Form;
 import eu.karuza.ql.error.ErrorHandler;
@@ -87,7 +86,7 @@ public class ParserContext implements Serializable {
 		this.handler.reportOperationTypeError(operation, lineNumber);
 	}
 	
-	public HashMap<String, Symbol> getSymbols() {
+	public Map<String, Symbol> getSymbols() {
 		return this.table.getSymbols();
 	}
 	

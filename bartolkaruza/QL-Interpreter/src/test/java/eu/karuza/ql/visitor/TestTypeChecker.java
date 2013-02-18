@@ -56,14 +56,12 @@ public class TestTypeChecker {
 		ParserContext context = new ParserContext();
 		Form form = (Form) parser.parseNode("form somelabel { if(1==question1) { question1: \" some text label\" boolean} }");
 		form.accept(new StatementSemanticChecker(context));
-		context.getHandler().printErrors();
 	}
 
 	private ParserContext runParserAndCheckType(ASTNode node) {
 		Form form = (Form) node;
 		ParserContext context = new ParserContext();
 		form.accept(new StatementSemanticChecker(context));
-		context.getHandler().printErrors();
 		return context;
 	}
 

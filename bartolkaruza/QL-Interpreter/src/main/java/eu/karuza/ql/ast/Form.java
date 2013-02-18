@@ -11,7 +11,7 @@ public class Form implements ASTNode {
 	private List<Statement> statements;
 
 	public Form(String label, List<Statement> statements) {
-		this.setLabel(label);
+		this.label = label;
 		this.statements = statements;
 	}
 
