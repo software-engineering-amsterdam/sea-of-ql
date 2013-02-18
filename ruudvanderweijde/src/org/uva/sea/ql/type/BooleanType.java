@@ -17,5 +17,13 @@ public class BooleanType extends Type {
 		return "BooleanType";
 	}
 
+	@Override
+	public boolean validate(String value) {
+		if (value.equals("true") || value.equals("false")) {
+			return true;
+		}
+		return false;
+	}
+
 
 }

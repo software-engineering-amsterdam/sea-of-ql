@@ -1,8 +1,5 @@
 package org.uva.sea.ql.visitor.renderer;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,17 +22,18 @@ import org.uva.sea.ql.visitor.IFormVisitor;
 import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
 public class FormRenderer implements IFormVisitor {
-	private STGroup formTemplate = new STGroupFile(System.getProperty("user.dir")
-			+ "/files/templates/page.stg", '$', '$');
+	private STGroup formTemplate;
 	private String formContent = "";
 	private String scriptFunctions = "";
 	private String scriptCommands = "";
+	private String output = "";
 	private ValueMapper valueMapper;
 	private List<Message> errors;
 
-	public FormRenderer(ValueMapper valueMapper, List<Message> errors) {
+	public FormRenderer(ValueMapper valueMapper, List<Message> errors, String stgFilePath) {
 		this.valueMapper = valueMapper;
 		this.errors = new ArrayList<Message>();
+		this.formTemplate = new STGroupFile(stgFilePath + "/page.stg", '$', '$');
 	}
 
 	@Override
@@ -95,11 +93,9 @@ public class FormRenderer implements IFormVisitor {
 		qlPage.add("scriptFunctions", getScriptFunctions());
 		qlPage.add("scriptCommands", getScriptCommands());
 		qlPage.add("formContent", getFormContent());
+		qlPage.add("formName", form.getId().getName());
 
-		// render form
-		System.out.print(qlPage.render());
-		// TODO REMOVE THIS DEBUG FILE ABOVE
-		writeOutputToFile(qlPage.render(), "form.html");
+		setOutput(qlPage.render());
 	}
 
 	private void addQuestionToFormContent(Question question, Boolean isReadOnly) {
@@ -111,17 +107,7 @@ public class FormRenderer implements IFormVisitor {
 		setFormContent(getFormContent() + qlQuestion.render());
 	}
 
-	private void writeOutputToFile(String output, String fileName) {
-		try {
-			String file_name = System.getProperty("user.dir") + "/files/output/" + fileName;
-			FileWriter file = new FileWriter(file_name);
-			BufferedWriter out = new BufferedWriter(file);
-			out.write(output);
-			out.close();
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-	}
+
 
 	private void openBlock(String id) {
 		ST qlOpenBlock = formTemplate.getInstanceOf("OpenBlock");
@@ -213,5 +199,13 @@ public class FormRenderer implements IFormVisitor {
 
 	private String getUniqueString() {
 		return UUID.randomUUID().toString().replaceAll("-", "");
+	}
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
 	}
 }
