@@ -20,8 +20,6 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 import org.uva.sea.ql.ast.type.AbstractType;
-import org.uva.sea.ql.ast.type.Bool;
-import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.visitor.IExpression;
 
 public class Expression implements IExpression<ValidationResult> {
@@ -32,10 +30,14 @@ public class Expression implements IExpression<ValidationResult> {
 		this.environment = environment;
 	}
 
-	private <T extends AbstractType> Boolean isOfType(AbstractExpr expr,
-			Class<T> expected) {
-		AbstractType typeOfExpr = expr.typeOf(this.environment);
-		return expected.isInstance(typeOfExpr);
+	private Boolean isOfBooleanType(AbstractExpr expr) {
+		AbstractType type = expr.typeOf(this.environment);
+		return type.accept(new BooleanType());
+	}
+
+	private Boolean isOfNumericType(AbstractExpr expr) {
+		AbstractType type = expr.typeOf(this.environment);
+		return type.accept(new NumericType());
 	}
 
 	private Boolean isOfSameType(AbstractExpr left, AbstractExpr right) {
@@ -45,11 +47,10 @@ public class Expression implements IExpression<ValidationResult> {
 	}
 
 	private void addUnexpectedTypeError(ValidationResult result,
-			AbstractExpr visited, AbstractExpr given,
-			Class<? extends AbstractType> expected) {
+			AbstractExpr visited, AbstractExpr given, String expected) {
 		String unexpectedType = String.format(
 				"Error in expression \"%s\": %s is no %s", visited.toString(),
-				given.toString(), expected.toString());
+				given.toString(), expected);
 		result.addError(unexpectedType);
 	}
 
@@ -71,14 +72,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = add.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, add, left, Numeric.class);
+			this.addUnexpectedTypeError(result, add, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, add, right, Numeric.class);
+			this.addUnexpectedTypeError(result, add, right, "Numeric");
 		}
 
 		return result;
@@ -94,14 +95,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = and.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftBool = this.isOfType(left, Bool.class);
+		Boolean isLeftBool = this.isOfBooleanType(left);
 		if (!isLeftBool) {
-			this.addUnexpectedTypeError(result, and, left, Bool.class);
+			this.addUnexpectedTypeError(result, and, left, "Bool");
 		}
 
-		Boolean isRightBool = this.isOfType(right, Bool.class);
+		Boolean isRightBool = this.isOfBooleanType(right);
 		if (!isRightBool) {
-			this.addUnexpectedTypeError(result, and, right, Bool.class);
+			this.addUnexpectedTypeError(result, and, right, "Bool");
 		}
 
 		return result;
@@ -117,14 +118,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = div.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, div, left, Numeric.class);
+			this.addUnexpectedTypeError(result, div, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, div, right, Numeric.class);
+			this.addUnexpectedTypeError(result, div, right, "Numeric");
 		}
 
 		return result;
@@ -158,14 +159,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = geq.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, geq, left, Numeric.class);
+			this.addUnexpectedTypeError(result, geq, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, geq, right, Numeric.class);
+			this.addUnexpectedTypeError(result, geq, right, "Numeric");
 		}
 
 		return result;
@@ -181,14 +182,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = gt.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, gt, left, Numeric.class);
+			this.addUnexpectedTypeError(result, gt, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, gt, right, Numeric.class);
+			this.addUnexpectedTypeError(result, gt, right, "Numeric");
 		}
 
 		return result;
@@ -204,14 +205,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = leq.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, leq, left, Numeric.class);
+			this.addUnexpectedTypeError(result, leq, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, leq, right, Numeric.class);
+			this.addUnexpectedTypeError(result, leq, right, "Numeric");
 		}
 
 		return result;
@@ -227,14 +228,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = lt.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, lt, left, Numeric.class);
+			this.addUnexpectedTypeError(result, lt, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, lt, right, Numeric.class);
+			this.addUnexpectedTypeError(result, lt, right, "Numeric");
 		}
 
 		return result;
@@ -250,14 +251,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = mul.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, mul, left, Numeric.class);
+			this.addUnexpectedTypeError(result, mul, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, mul, right, Numeric.class);
+			this.addUnexpectedTypeError(result, mul, right, "Numeric");
 		}
 
 		return result;
@@ -270,9 +271,9 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr expr = neg.getExpression();
 		result.addValidationResult(expr.accept(this));
 
-		Boolean isExprNumeric = this.isOfType(expr, Numeric.class);
+		Boolean isExprNumeric = this.isOfNumericType(expr);
 		if (!isExprNumeric) {
-			this.addUnexpectedTypeError(result, neg, expr, Numeric.class);
+			this.addUnexpectedTypeError(result, neg, expr, "Numeric");
 		}
 
 		return result;
@@ -303,9 +304,9 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr expr = not.getExpression();
 		result.addValidationResult(expr.accept(this));
 
-		Boolean isExprNumeric = this.isOfType(expr, Bool.class);
+		Boolean isExprNumeric = this.isOfBooleanType(expr);
 		if (!isExprNumeric) {
-			this.addUnexpectedTypeError(result, not, expr, Bool.class);
+			this.addUnexpectedTypeError(result, not, expr, "Bool");
 		}
 
 		return result;
@@ -321,14 +322,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = or.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftBool = this.isOfType(left, Bool.class);
+		Boolean isLeftBool = this.isOfBooleanType(left);
 		if (!isLeftBool) {
-			this.addUnexpectedTypeError(result, or, left, Bool.class);
+			this.addUnexpectedTypeError(result, or, left, "Bool");
 		}
 
-		Boolean isRightBool = this.isOfType(right, Bool.class);
+		Boolean isRightBool = this.isOfBooleanType(right);
 		if (!isRightBool) {
-			this.addUnexpectedTypeError(result, or, right, Bool.class);
+			this.addUnexpectedTypeError(result, or, right, "Bool");
 		}
 
 		return result;
@@ -341,9 +342,9 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr expr = pos.getExpression();
 		result.addValidationResult(expr.accept(this));
 
-		Boolean isExprNumeric = this.isOfType(expr, Numeric.class);
+		Boolean isExprNumeric = this.isOfNumericType(expr);
 		if (!isExprNumeric) {
-			this.addUnexpectedTypeError(result, pos, expr, Numeric.class);
+			this.addUnexpectedTypeError(result, pos, expr, "Numeric");
 		}
 
 		return result;
@@ -359,14 +360,14 @@ public class Expression implements IExpression<ValidationResult> {
 		AbstractExpr right = sub.getRightHandSide();
 		result.addValidationResult(right.accept(this));
 
-		Boolean isLeftNumeric = this.isOfType(left, Numeric.class);
+		Boolean isLeftNumeric = this.isOfNumericType(left);
 		if (!isLeftNumeric) {
-			this.addUnexpectedTypeError(result, sub, left, Numeric.class);
+			this.addUnexpectedTypeError(result, sub, left, "Numeric");
 		}
 
-		Boolean isRightNumeric = this.isOfType(right, Numeric.class);
+		Boolean isRightNumeric = this.isOfNumericType(right);
 		if (!isRightNumeric) {
-			this.addUnexpectedTypeError(result, sub, right, Numeric.class);
+			this.addUnexpectedTypeError(result, sub, right, "Numeric");
 		}
 
 		return result;
