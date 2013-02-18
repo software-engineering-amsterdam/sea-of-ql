@@ -2,11 +2,10 @@ package eu.karuza.ql.ast;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 
-import eu.karuza.ql.ast.AnswerableQuestion;
-import eu.karuza.ql.ast.IfConditionalStatement;
-import eu.karuza.ql.ast.Form;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.antlr.ANTLRParser;
@@ -33,7 +32,17 @@ public class TestNodes {
 		assertEquals(IfConditionalStatement.class, ((IfConditionalStatement) form.getStatements().get(0)).getStatements().get(0).getClass());
 		assertEquals(AnswerableQuestion.class, ((IfConditionalStatement) ((IfConditionalStatement) form.getStatements().get(0)).getStatements().get(0)).getStatements()
 				.get(0).getClass());
-		
+	}
+	
+	@Test
+	public void testElse() throws ParseError {
+		Form form = (Form) parser.parseNode("form form1 { if(1==kaas) { question1: \"label1\" boolean } else { question2: \"label2\" boolean} }");
+		List<Statement> statements = form.getStatements();
+		IfElseConditionalStatement statement = (IfElseConditionalStatement) statements.get(0);
+		AnswerableQuestion question1 = (AnswerableQuestion) statement.getIfStatements().get(0);
+		AnswerableQuestion question2 = (AnswerableQuestion) statement.getElseStatements().get(0);
+		assertEquals("label1", question1.getLabel());
+		assertEquals("label2", question2.getLabel());
 	}
 
 	@Test

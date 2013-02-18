@@ -3,19 +3,19 @@ options {backtrack=true; memoize=true;}
 
 @parser::header
 {
-package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
-import org.uva.sea.ql.ast.expr.type.*;
-import org.uva.sea.ql.ast.expr.grouping.*;
-import org.uva.sea.ql.error.*;
+package eu.karuza.ql.parser.antlr;
+import eu.karuza.ql.ast.*;
+import eu.karuza.ql.ast.expr.*;
+import eu.karuza.ql.ast.expr.value.*;
+import eu.karuza.ql.ast.expr.type.*;
+import eu.karuza.ql.ast.expr.grouping.*;
+import eu.karuza.ql.error.*;
 }
 
 @lexer::header
 {
-package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.error.*;
+package eu.karuza.ql.parser.antlr;
+import eu.karuza.ql.error.*;
 }
 
 @parser::members {
@@ -41,15 +41,16 @@ statements returns [List<Statement> result]
     ;
 
 statement returns [Statement result] 
-    : firstToken=IF (x=expr) '{' stmts=statements '}' { $result = new ConditionalStatement($x.result, $stmts.result, $firstToken.line); }
+    : firstToken=IF (x=expr) '{' ifstmts=statements '}' ELSE '{' elsestmts=statements '}' {$result = new IfElseConditionalStatement($x.result, $ifstmts.result, $elsestmts.result, $firstToken.line); }
+    | firstToken=IF (x=expr) '{' stmts=statements '}' { $result = new IfConditionalStatement($x.result, $stmts.result, $firstToken.line); }
     | question {$result = $question.result; }
     ;
 
 question returns [Question result]
     : name=Ident':' label=STRING_VALUE qt=type 
-      { $result = new AnswerableQuestion($name.text, $label.text, $qt.result, $name.line ); }
+      { $result = new AnswerableQuestion($name.text, $label.text.substring(1, $STRING_VALUE.text.length() - 1), $qt.result, $name.line ); }
     | name=Ident':' label=STRING_VALUE ex=expr 
-      { $result = new ComputedQuestion($name.text, $label.text, $ex.result, $name.line ); }   
+      { $result = new ComputedQuestion($name.text, $label.text.substring(1, $STRING_VALUE.text.length() - 1), $ex.result, $name.line ); }   
     ;
 
 type returns [Type result]
@@ -150,13 +151,13 @@ TYPE : 'boolean' | 'integer' | 'string' | 'money';
 
 IF : 'if';
 
+ELSE : 'else';
+
 BOOLEAN_VALUE: 'true' | 'false';
 
 STRING_VALUE : '\"' .* '\"';
 
 MONEY_VALUE : ('0'..'9')+ '.' ('0'..'9')+;
-
-//MONEY_VALUE: ('0'..'9')+ '\.' ('0'..'9')('0'..'9');
 
 INT_VALUE: ('0'..'9')+;
 
