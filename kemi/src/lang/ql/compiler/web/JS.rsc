@@ -14,6 +14,7 @@ import IO;
 import String;
 import lang::ql::ast::AST;
 import lang::ql::compiler::web::JSExpressionPrinter;
+import lang::ql::util::FormHelper;
 
 import util::ValueUI; 
 
@@ -40,23 +41,13 @@ private str hideElement(str name) =
 private str assignVar(str ident) =
   "var <ident> = getFormValue(\"#<ident>\");";
   
-private set[str] getDirectDescendingIdents(Statement cond) =
-  getDirectDescendingIdents(
-    cond.ifPart.body + 
-    [*ei.body | ei <- cond.elseIfs] +
-    [*ep.body | ep <- cond.elsePart]
-  );
-
-private set[str] getDirectDescendingIdents(list[Statement] items) =
-  {q.answerIdentifier.ident | i <- items, question(Question q) := i};
-  
 private set[str] getConditionalVariableMembers(Statement cond) =
   {
     name | 
     /x:ident(name) <- 
       [cond.ifPart.condition] + 
       [x.condition | x <- cond.elseIfs]
-   };
+  };
 
 private str JS(Form f) =
   "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
@@ -203,7 +194,7 @@ private str individualConditional(int suffix, Statement cond) {
   str ret = "";
 
   cbs = getConditionalVariableMembers(cond);
-  qs = getDirectDescendingIdents(cond);
+  qs = getDescendingIdents(cond);
   
   for(cb <- cbs) {
     ret += "
