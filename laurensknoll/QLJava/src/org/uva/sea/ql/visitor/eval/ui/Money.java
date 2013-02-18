@@ -1,6 +1,8 @@
 package org.uva.sea.ql.visitor.eval.ui;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
@@ -36,8 +38,16 @@ public class Money extends Widget implements DocumentListener {
 			this.component.setText("");
 		} else {
 			// The semantic check guarantees that this is a Money.
-			org.uva.sea.ql.visitor.eval.value.Money valueAsMoney = (org.uva.sea.ql.visitor.eval.value.Money) value;
-			this.component.setText(valueAsMoney.toString());
+			org.uva.sea.ql.visitor.eval.value.Money money = (org.uva.sea.ql.visitor.eval.value.Money) value;
+			BigDecimal display = money.getValue().setScale(2,
+					org.uva.sea.ql.visitor.eval.value.Money.ROUNDING_MODE);
+
+			NumberFormat numberFormat = NumberFormat
+					.getNumberInstance(Locale.US);
+			numberFormat.setMinimumFractionDigits(2);
+			numberFormat.setMaximumFractionDigits(2);
+
+			this.component.setText(numberFormat.format(display));
 		}
 
 		this.propagateChange();
