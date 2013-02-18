@@ -18,4 +18,6 @@ public class Bool extends Type {
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
+	
 }

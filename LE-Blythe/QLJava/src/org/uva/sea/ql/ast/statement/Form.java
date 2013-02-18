@@ -1,21 +1,22 @@
 package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
 
 public class Form extends Statement {
 
 	private String name;
-	private Statement block;
+	private Block block;
 	
 	
-	public Form(String sName, Statement block){
+	public Form(String sName, Block block){
 		this.name = sName;
 		this.block = block;
 	}
 	
 	
-	public Statement getBlock(){
+	public Block getBlock(){
 		return block;
 	}
 	

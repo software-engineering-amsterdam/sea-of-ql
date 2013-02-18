@@ -1,20 +1,20 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::CompileExpressions
 
 import lang::ql::ast::AST;
 
 import IO;
 
-//Javascript generate for Expressions
 public str generateJavaScriptExpr(ident(str name))="document.getElementById(\"<name>\").value";
 public str generateJavaScriptExpr(\int(int ivalue))="parseInt(\"<ivalue>\")";
 public str generateJavaScriptExpr(/string(str strValue))="<strValue>";
 public str generateJavaScriptExpr(/boolean(str bValue))="<bValue>";
-public str generateJavaScriptExpr(/date(str dValue))="<dValue>"; //na dw to date
-public str generateJavaScriptExpr(/money (str monValue))="\"<monValue> Euro\"";//na dw gia money
-public str generateJavaScriptExpr(/float (real fValue))="parseFloat(\"<fValue>\")";//na dw gia float
+public str generateJavaScriptExpr(/date(str dValue))="<dValue>"; //I think parseDate?
+public str generateJavaScriptExpr(/money (str monValue))="\"<monValue> Euro\"";
+public str generateJavaScriptExpr(/float (real fValue))="parseFloat(\"<fValue>\")";
 
-public str generateJavaScriptExpr(add(Expr addLeft, Expr addRight))="<generateJavaScriptExpr(addLeft)> + \" \" + <generateJavaScriptExpr(addRight)>";
-public str generateJavaScriptExpr(mul(Expr multLeft, Expr multright))="<generateJavaScriptExpr(mulLeft)> * <generateJavaScriptExpr(mulright)>";
+public str generateJavaScriptExpr(add(Expr addLeft, Expr addRight))="<generateJavaScriptExpr(addLeft)>  + <generateJavaScriptExpr(addRight)>";
+public str generateJavaScriptExpr(mul(Expr multLeft, Expr multright))="<generateJavaScriptExpr(multLeft)> * <generateJavaScriptExpr(multright)>";
 public str generateJavaScriptExpr(div(Expr divLeft, Expr divRight))="<generateJavaScriptExpr(divLeft)>/<generateJavaScriptExpr(divRight)>";
 public str generateJavaScriptExpr(sub(Expr subLeft, Expr subRight))="<generateJavaScriptExpr(subLeft)> - <generateJavaScriptExpr(subRight)>";
 

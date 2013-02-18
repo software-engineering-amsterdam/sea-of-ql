@@ -14,10 +14,7 @@ import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.checker.errors.Error;
-import org.uva.sea.ql.checker.errors.ExpressionTypeError;
-import org.uva.sea.ql.checker.errors.IdentifierExistsError;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.util.Environment;
 
 public class VisitorStatementChecker implements IVisitorStatement<Void> {
@@ -41,7 +38,7 @@ public class VisitorStatementChecker implements IVisitorStatement<Void> {
 	private Void checkType(Expr expr, Type type){
 		
 		if(!expr.typeOf(environment).isCompatibleTo(type)){
-			errors.add(new ExpressionTypeError(expr, type));
+			errors.add(new ErrorExpressionType(expr, type));
 		}
 		
 		return null;
@@ -56,8 +53,8 @@ public class VisitorStatementChecker implements IVisitorStatement<Void> {
 	
 
 	private boolean identifierExists(Ident ident){
-		if(environment.contains(ident)){
-			errors.add(new IdentifierExistsError(ident));
+		if(environment.containsValue(ident)){
+			errors.add(new ErrorIdentifierExists(ident));
 			return true;
 		}
 		

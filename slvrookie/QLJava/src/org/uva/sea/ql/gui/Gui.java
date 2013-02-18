@@ -31,7 +31,7 @@ public class Gui extends JFrame {
 	private final IParse parser = new ANTLRParser();
 	private final State state = new State();
 	private final Errors errors = new Errors();
-	private JPanel errorlog = new JPanel(new MigLayout());
+	private JPanel errorLog = new JPanel(new MigLayout());
 	private JButton open = new JButton("Open QL");
 	private JPanel buttonPanel = new JPanel(new MigLayout("fillx,insets 0"));
 	private JPanel centerPanel = new JPanel(new MigLayout());
@@ -99,6 +99,7 @@ public class Gui extends JFrame {
 	}
 
 	private void setInitialFrame() {
+		setLocationRelativeTo(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new MigLayout());
 		setTitle("QL Interpreter");
@@ -110,10 +111,10 @@ public class Gui extends JFrame {
 	private void setErrorPanel() {
 		setButtonPane();
 		for (String error : errors.returnErrors()) {
-			errorlog.add(new JLabel(error), "wrap");
-			errorlog.setBorder(BorderFactory.createTitledBorder("ERRORS"));
+			errorLog.add(new JLabel(error), "wrap");
+			errorLog.setBorder(BorderFactory.createTitledBorder("ERRORS"));
 			setButtonPane();
-			add(errorlog);
+			add(errorLog);
 			pack();
 			validate();
 			repaint();

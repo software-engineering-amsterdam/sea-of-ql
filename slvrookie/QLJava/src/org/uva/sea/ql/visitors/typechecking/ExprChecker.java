@@ -208,7 +208,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 
 	private boolean areBothSidesCompatible(BinaryExpr node, String operator) {
 		Type lhsType = node.getLhs().typeOf(state.getTypeEnv());
-		Type rhsType = node.getRhs().typeOf(state.getTypeEnv());
+		Type rhsType = node.getRhs().typeOf(state.getTypeEnv()); 
 		if (!(lhsType.isCompatibleTo(rhsType))) {
 			errors.addError("Both arguments must have the same type for binary " + operator + ". Got " + lhsType.getClass().getSimpleName() + " " + operator + " " + rhsType.getClass().getSimpleName() + ".");
 			return false;

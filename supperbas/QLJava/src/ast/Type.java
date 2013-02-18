@@ -2,6 +2,7 @@ package ast;
 
 import ast.type.Visitor;
 
+
 public abstract class Type implements ASTNode {
 
 	public abstract <T> T accept(Visitor<T> visitor);

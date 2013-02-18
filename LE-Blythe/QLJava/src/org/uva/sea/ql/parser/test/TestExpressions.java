@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.statement.QuestionAnswerable;
-import org.uva.sea.ql.interfaces.IParse;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 import org.uva.sea.ql.util.FormStringBuilder;

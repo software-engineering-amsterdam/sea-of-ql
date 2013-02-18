@@ -1,7 +1,6 @@
 package ast.statement;
 
 import ast.Form;
-import ast.statement.*;
 
 public interface Visitor<T> {
 	T visit(Assignment ast);

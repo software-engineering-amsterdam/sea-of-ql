@@ -1,8 +1,8 @@
 package ast.statement;
 
-import ast.statement.Assignment;
-import ast.expression.value.Ident;
+import ast.expression.Ident;
 import ast.expression.value.Str;
+import ast.statement.Assignment;
 
 public class QuestionComputed extends Question {
 
@@ -21,6 +21,10 @@ public class QuestionComputed extends Question {
 	@Override
 	public Ident getIdent() {
 		return this.assignment.getIdent();
+	}
+	
+	public Assignment getAssignment(){
+		return this.assignment;
 	}
 
 }

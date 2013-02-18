@@ -2,8 +2,8 @@ package ast;
 
 import java.util.Map;
 
+import ast.expression.Ident;
 import ast.expression.Visitor;
-import ast.expression.value.Ident;
 
 public abstract class Expression implements ASTNode {
 

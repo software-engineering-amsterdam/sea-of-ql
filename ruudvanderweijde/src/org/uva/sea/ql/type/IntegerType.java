@@ -10,5 +10,15 @@ public class IntegerType extends NumericType {
 	@Override
 	public String toString() {
 		return "IntegerType";
-	}
+	}	
+	
+	@Override
+	public boolean validate(String value) {
+		try{
+			Integer.parseInt(value);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
 }
