@@ -5,7 +5,11 @@ import org.uva.sea.ql.ast.types.Int;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.ast.types.Undefined;
-import org.uva.sea.ql.interfaces.IVisitorType;
+import org.uva.sea.ql.ast.visitor.IVisitorType;
+import org.uva.sea.ql.gui.widget.Widget;
+import org.uva.sea.ql.gui.widget.WidgetBool;
+import org.uva.sea.ql.gui.widget.WidgetInt;
+import org.uva.sea.ql.gui.widget.WidgetStr;
 
 public class VisitorRenderType implements IVisitorType<Widget> {
 

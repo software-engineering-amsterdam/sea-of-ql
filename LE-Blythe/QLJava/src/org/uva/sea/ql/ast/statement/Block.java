@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 
 public class Block extends Statement{
 	

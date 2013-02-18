@@ -5,7 +5,6 @@ import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.operative.*;
-import org.uva.sea.ql.ast.primitive.*;
 import org.uva.sea.ql.ast.types.*;
 }
 

@@ -6,7 +6,6 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.checker.errors.Error;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 

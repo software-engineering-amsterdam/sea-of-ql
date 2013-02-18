@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.interfaces.IVisitorType;
+import org.uva.sea.ql.ast.visitor.IVisitorType;
 
 public class Bool extends Type {
 

@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
 
 public class Form extends Statement {
 

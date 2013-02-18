@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.interfaces.IVisitableStatement;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
+import org.uva.sea.ql.ast.visitor.IVisitableStatement;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 
 
 public abstract class Statement implements ASTNode, IVisitableStatement {

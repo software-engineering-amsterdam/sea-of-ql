@@ -78,7 +78,7 @@ public class QLRenderer {
 			out.printf("Cannot open file %s\n", filename);
 		}
 		catch(Exception e){
-			out.printf("Failure to interpret: %s", e.getMessage());
+			out.printf("Failure to interpret: %s\n", e.getMessage());
 		}
 	}
 	
