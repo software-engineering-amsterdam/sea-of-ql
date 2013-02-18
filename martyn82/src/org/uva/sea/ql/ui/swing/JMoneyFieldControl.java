@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ui.swing;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
-import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
@@ -14,18 +14,20 @@ import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
 
 public class JMoneyFieldControl extends MoneyFieldControl {
-	private final JFormattedTextField control;
+	private final JSpinner control;
 
 	public JMoneyFieldControl() {
-		NumberFormat formatter = new DecimalFormat();
+		this.control = new JSpinner( new SpinnerNumberModel( 0, null, null, 1 ) );
+
+		JSpinner.NumberEditor editor = (JSpinner.NumberEditor) this.control.getEditor();
+
+		DecimalFormat formatter = editor.getFormat();
 		formatter.setMinimumFractionDigits( 2 );
 		formatter.setMaximumFractionDigits( 2 );
-
-		this.control = new JFormattedTextField( formatter );
 	}
 
 	@Override
-	public JFormattedTextField getInnerControl() {
+	public JSpinner getInnerControl() {
 		return this.control;
 	}
 
@@ -51,9 +53,9 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 
 	@Override
 	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addPropertyChangeListener( "value", new PropertyChangeListener() {
+		this.control.addChangeListener( new ChangeListener() {
 			@Override
-			public void propertyChange( PropertyChangeEvent arg0 ) {
+			public void stateChanged( ChangeEvent arg0 ) {
 				listener.itemChanged( new ControlEvent( JMoneyFieldControl.this ) );
 			}
 		} );
