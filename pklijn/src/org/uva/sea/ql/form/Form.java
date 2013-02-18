@@ -63,8 +63,7 @@ public class Form implements ActionListener {
 		for (FormItem f : body) {
 			// Don't return false right away, this way all
 			// errors are stored instead of only the first
-			if (!f.validate(environment))
-				valid = false;
+			valid &= f.validate(environment);
 		}
 		return valid;
 	}
