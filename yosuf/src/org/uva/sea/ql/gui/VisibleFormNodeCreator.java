@@ -204,12 +204,13 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 			Computed computed = new Computed(question.getDataType(),
 					question.getIdentifier(),
 					createExpression(nature, newInput));
+
 			model.registerComputed(computed);
 
-		} else if (!newInput.isEmpty()) {
-			input.setText(oldInput);
-		} else {
+		} else if (newInput.isEmpty()) {
 			input.clear();
+		} else {
+			input.setText(oldInput);
 		}
 	}
 

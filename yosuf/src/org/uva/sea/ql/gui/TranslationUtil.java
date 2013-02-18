@@ -30,7 +30,7 @@ public class TranslationUtil {
 		case NUMERIC:
 			try {
 				// the following throws a number format exception if the value is not convertable
-				Integer.valueOf(value);
+				return Integer.valueOf(value) != null;
 			} catch (NumberFormatException e) {
 				return false;
 			}
