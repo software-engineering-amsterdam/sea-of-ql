@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.types;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
