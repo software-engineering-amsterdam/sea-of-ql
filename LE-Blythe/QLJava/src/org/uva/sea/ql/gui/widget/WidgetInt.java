@@ -23,7 +23,13 @@ public class WidgetInt extends Widget implements KeyListener{
 		return (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)  ||  (c== KeyEvent.VK_ENTER)  
 				|| (c == KeyEvent.VK_TAB)  ||  (Character.isDigit(c));
 	}
-	
+
+	private int parseInt() {
+		String str = txtfield.getText();
+
+		return str.length() > 0 ? Integer.parseInt(str) : 0;
+	}
+			
 	@Override
 	public void keyPressed(KeyEvent e) {
 	}
@@ -48,14 +54,6 @@ public class WidgetInt extends Widget implements KeyListener{
 		return txtfield;
 	}
 
-
-	private int parseInt(){
-	 String str = txtfield.getText();
-	 
-	 return str.length() > 0 ? Integer.parseInt(str) : 0;
-	}
-	
-	
 	@Override
 	public Primitive getValue() {
 		return new Int(parseInt() );

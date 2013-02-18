@@ -34,7 +34,7 @@ public class LinePane extends Pane implements FocusListener {
 
 		jPanel = new JPanel();
 		jPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
-		jPanel.setLayout(new MigLayout("", "10[350]0[][][][][][][][][][][][][][][][]", "[]"));
+		jPanel.setLayout(new MigLayout("", "10[350]0[][][][][][][][][][][][][][][][]", "10[]0"));
 
 		jLabel = new JLabel(statement.getDisplayText());
 
@@ -75,8 +75,8 @@ public class LinePane extends Pane implements FocusListener {
 	public Result getFieldValue() {
 		if (jCheckBox != null)
 			return fieldResult.setValue(jCheckBox.isSelected() ? "true" : "false");
-		else
-			return fieldResult.setValue(jTextField.getText());
+
+		return fieldResult.setValue(jTextField.getText());
 	}
 
 	public void registerAt(JPanel parentPanel, int location) {

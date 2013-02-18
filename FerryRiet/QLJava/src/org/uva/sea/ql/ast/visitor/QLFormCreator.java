@@ -10,10 +10,8 @@ import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operatorresults.Result;
 import org.uva.sea.ql.ast.operators.Add;
 import org.uva.sea.ql.ast.operators.And;
-import org.uva.sea.ql.ast.operators.BinExpr;
 import org.uva.sea.ql.ast.operators.Div;
 import org.uva.sea.ql.ast.operators.Eq;
-import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.operators.GEq;
 import org.uva.sea.ql.ast.operators.GT;
 import org.uva.sea.ql.ast.operators.Ident;
@@ -26,7 +24,6 @@ import org.uva.sea.ql.ast.operators.Not;
 import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
-import org.uva.sea.ql.ast.operators.UnExpr;
 import org.uva.sea.ql.ast.statements.CompoundStatement;
 import org.uva.sea.ql.ast.statements.ConditionalStatement;
 import org.uva.sea.ql.ast.statements.LineStatement;
@@ -88,21 +85,6 @@ public class QLFormCreator implements Visitor<Pane> {
 					.accept(this));
 		}
 		return conditionalPanel;
-	}
-
-	@Override
-	public Pane visit(Expr expr) {
-		return null;
-	}
-
-	@Override
-	public Pane visit(BinExpr expr) {
-		return null;
-	}
-
-	@Override
-	public Pane visit(Ident expr) {
-		return null;
 	}
 
 	@Override
@@ -181,11 +163,6 @@ public class QLFormCreator implements Visitor<Pane> {
 	}
 
 	@Override
-	public Pane visit(UnExpr expr) {
-		return null;
-	}
-
-	@Override
 	public Pane visit(Not expr) {
 		return null;
 	}
@@ -207,6 +184,11 @@ public class QLFormCreator implements Visitor<Pane> {
 
 	@Override
 	public Pane visit(MoneyLiteral expr) {
+		return null;
+	}
+
+	@Override
+	public Pane visit(Ident expr) {
 		return null;
 	}
 }

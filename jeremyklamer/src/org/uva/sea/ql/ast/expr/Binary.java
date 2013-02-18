@@ -20,7 +20,7 @@ public abstract class Binary extends Expr {
 	}
 	
 	@Override 
-	public List<Message> checkType(Env env) { // TODO check out double dispatch
+	public List<Message> checkType(Env env) { 
 		ArrayList<Message> errors = new ArrayList<Message>();
 		
 		errors.addAll(left.checkType(env));  

@@ -32,4 +32,10 @@ public abstract class ActiveComponent extends BaseComponent {
 	public Component getComponent() {
 		return answerField;
 	}
+	
+	@Override 
+	public void setVisible(boolean visible) {
+		answerField.setVisible(visible);
+	}
+	
 }

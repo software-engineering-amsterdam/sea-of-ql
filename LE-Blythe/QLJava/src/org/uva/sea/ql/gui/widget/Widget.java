@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.primitive.Primitive;
 
-public abstract class Widget implements ChangeEventTrigger {
+public abstract class Widget implements ChangeEventSource {
 
 	private List<ChangeEventListener> changeEventListeners;
 	

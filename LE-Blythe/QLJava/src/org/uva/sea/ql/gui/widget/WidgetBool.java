@@ -17,18 +17,15 @@ public class WidgetBool extends Widget implements ItemListener{
 		chkbox.addItemListener(this);
 	}
 
-	
 	@Override
 	public Component getComponent(){
 		return chkbox;
 	}
 	
-	
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
 		fireChangeEvent();
 	}
-
 
 	@Override
 	public Primitive getValue() {

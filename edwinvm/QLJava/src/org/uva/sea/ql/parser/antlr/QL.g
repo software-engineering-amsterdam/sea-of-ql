@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.expressions.binary.logical.*;
 import org.uva.sea.ql.ast.expressions.binary.relational.*;
 import org.uva.sea.ql.ast.expressions.literal.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.statements.conditions.*;
 import org.uva.sea.ql.ast.statements.questions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
@@ -36,9 +37,9 @@ question returns [Question result]
 
 conditionBlock returns [ConditionBlock result]
     :   'if' '(' condition=orExpr ')' ifBody=conditionBody 'else' elseBody=conditionBody
-        { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
+        { $result = new IfThenElse(condition, $ifBody.result, $elseBody.result); }
     |   'if' '(' condition=orExpr ')' ifBody=conditionBody
-        { $result = new ConditionBlock(condition, $ifBody.result); }
+        { $result = new IfThen(condition, $ifBody.result); }
     ;
 
 conditionBody returns [FormStatement result]
@@ -67,7 +68,7 @@ unExpr returns [Expr result]
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
-        if ($op.text.equals("*"))  { $result = new Mul($result, rhs); }
+        if ($op.text.equals("*")) { $result = new Mul($result, rhs); }
         if ($op.text.equals("/")) { $result = new Div($result, rhs); }
     })*
     ;

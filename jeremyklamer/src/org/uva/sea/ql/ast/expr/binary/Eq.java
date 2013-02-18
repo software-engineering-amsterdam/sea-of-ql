@@ -20,7 +20,7 @@ public class Eq extends Binary {
 	public Value eval(Env env){
 		IntVal li = (IntVal)(left.eval(env));
 		IntVal ri = (IntVal)(right.eval(env));
-		return new BoolVal(li == ri);
+		return new BoolVal(li.equals(ri));
 	}
 
 	@Override

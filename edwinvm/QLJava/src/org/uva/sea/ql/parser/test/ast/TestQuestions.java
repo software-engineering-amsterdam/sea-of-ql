@@ -3,7 +3,6 @@ package org.uva.sea.ql.parser.test.ast;
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;
-import org.uva.sea.ql.parser.test.StatementParserChecker;
 
 public class TestQuestions extends StatementParserChecker {
 	public TestQuestions() {

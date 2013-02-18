@@ -1,5 +1,6 @@
 /**
- * This module contains implode funtion(s) for Form 
+ * This module contains implode funtion(s) for Form
+ * Implode functions implode a parse tree according to the given ADT 
  * @author  Gerson Delgado
  * @version 1.0, 21/01/2013
  */

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.FormNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.parser.exception.ParserException;
 
@@ -12,9 +12,9 @@ public interface IParser
 
     QLTreeWalker createQLTreeWalker(QLParser qlParser);
 
-	Node parseForm(String src) throws ParserException;
+    FormNode parseFormFromFile(String filename) throws ParserException, IOException;
 
-    Node parseFormFromFile(String filename) throws ParserException, IOException;
+    FormNode parseForm(String src) throws ParserException;
 
 	ExprNode parseExpr(String src) throws ParserException;
 }
