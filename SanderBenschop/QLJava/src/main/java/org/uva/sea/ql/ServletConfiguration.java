@@ -6,6 +6,7 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.web.FormPersistenceController;
 import org.uva.sea.ql.web.GeneratedCodeController;
 import org.uva.sea.ql.web.ValidationController;
 
@@ -29,6 +30,7 @@ public class ServletConfiguration extends GuiceServletContextListener {
         protected void configureServlets() {
             bind(GeneratedCodeController.class);
             bind(ValidationController.class);
+            bind(FormPersistenceController.class);
             bind(SymbolTable.class).toInstance(symbolTable);
             serve("*").with(GuiceContainer.class);
         }

@@ -72,10 +72,4 @@ public class ValidationController {
         }
         return reduceableType.isCompatibleTo(type);
     }
-
-    @XmlRootElement
-    public static class IdentifierNameValue {
-        public String identifierName;
-        public String value;
-    }
 }
