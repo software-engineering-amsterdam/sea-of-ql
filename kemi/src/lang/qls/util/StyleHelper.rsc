@@ -77,8 +77,8 @@ private list[Definition] getDefinitions(str qid, list[Definition] definitions) {
 }
 
 /*
- * The later an element occurs in the list, the higher it's 
- * importance (e.g. more specific binding).
+ * The later an element occurs in the list, the higher its importance (e.g. 
+ * more specific binding).
  */ 
 public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
   map[StyleAttr, StyleRule] rules = (r.attr : r | r <- styleRules);
@@ -120,3 +120,9 @@ public list[Definition] getChildSectionsQuestions(Definition d) =
 
 public list[Definition] getDefaultDefinitions(Stylesheet s) =
   [d | /Definition d <- s, d is defaultDefinition];
+
+public rel[Type, Definition] getDefaultsPerType(list[Definition] defaults) =
+  {<d.\type, d> | d <- defaults};
+
+public list[StyleRule] getStyleRules(Stylesheet s) =
+  [r | /StyleRule r <- s];
