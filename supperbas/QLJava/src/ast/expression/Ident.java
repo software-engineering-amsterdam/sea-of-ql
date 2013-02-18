@@ -1,13 +1,13 @@
-package ast.expression.value;
+package ast.expression;
 
 import java.util.Map;
 
+
+import ast.Expression;
 import ast.Type;
-import ast.expression.Visitor;
-import ast.expression.Value;
 import ast.type.Undefined;
 
-public class Ident extends Value {
+public class Ident extends Expression {
 
 	private final String value;
 
@@ -39,6 +39,11 @@ public class Ident extends Value {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+
+	@Override
+	public String typeStr() {
+		return null;
 	}
 
 }
