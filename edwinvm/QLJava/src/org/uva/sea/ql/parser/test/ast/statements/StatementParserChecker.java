@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.ast;
+package org.uva.sea.ql.parser.test.ast.statements;
 
 import org.uva.sea.ql.ast.statements.conditions.IfThen;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserConditionBlocks;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;
+import org.uva.sea.ql.parser.test.ast.ASTNodeChecker;
 
 public class StatementParserChecker extends ASTNodeChecker {
 	
