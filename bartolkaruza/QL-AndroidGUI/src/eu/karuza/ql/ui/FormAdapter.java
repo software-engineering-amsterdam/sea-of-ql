@@ -46,7 +46,8 @@ public class FormAdapter extends BaseAdapter {
 		LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 		convertView = inflater.inflate(holder.getLayoutRes(), null);
 		TextView label = (TextView) convertView.findViewById(R.id.row_label);
-		label.setText(holder.getQuestion().getLabel());
+		String labelText = holder.getQuestion().getLabel();
+		label.setText(labelText);
 		holder.setRowView(convertView);
 		return convertView;
 	}

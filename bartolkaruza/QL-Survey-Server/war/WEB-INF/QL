@@ -1,9 +1,10 @@
-form form2 {
-question1: "label1" boolean 
-question2: "label2" string 
-question3: "label3" money 
-question4: "label4" integer 
-if(question1) {
-question5: "label5" question2 + question4
-} 
+form Box1HouseOwning {
+   hasSoldHouse: "Did you sell a house in 2010?" boolean
+   hasBoughtHouse: "Did you by a house in 2010?" boolean
+   hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
+   if (hasSoldHouse) {
+     sellingPrice: "Price the house was sold for:" money
+     privateDebt: "Private debts for the sold house:" money
+     valueResidue: "Value residue:" sellingPrice - privateDebt
+   }
 }
