@@ -172,15 +172,15 @@ private default tuple[Type, set[Message]] inferExprType(Types types, Expr e) =
  */
 private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent, 
     Expr val) {
-  <ltype, lm> = inferExprType(types, val);
+  <lhtype, lhmessages> = inferExprType(types, val);
   
-  if(ltype == undef())
-    return <err(), lm>;
+  if(lhtype == undef())
+    return <err(), lhmessages>;
 
-  if(ltype notin types[getName(parent)])
-    return <err(), lm + {invalidTypeMessage(parent@location)}>;
+  if(lhtype notin types[getName(parent)])
+    return <err(), lhmessages + {invalidTypeMessage(parent@location)}>;
   
-  return <ltype, lm>;
+  return <lhtype, lhmessages>;
 }
 
 /*
@@ -194,23 +194,24 @@ private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent,
  */
 private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
-  <ltype, lm> = inferExprType(types, lhs);
-  <rtype, rm> = inferExprType(types, rhs);
+  <lhtype, lhmessages> = inferExprType(types, lhs);
+  <rhtype, rhmessages> = inferExprType(types, rhs);
   
-  if(ltype == undef() || rtype == undef())
-    return <err(), rm + lm>;
+  if(lhtype == undef() || rhtype == undef())
+    return <err(), rhmessages + lhmessages>;
 
-  if(ltype notin types[getName(parent)] && rtype notin types[getName(parent)])
-    return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;
+  if(lhtype notin types[getName(parent)] && rhtype notin types[getName(parent)])
+    return 
+      <err(), lhmessages + rhmessages + {invalidTypeMessage(parent@location)}>;
   
-  if(ltype == rtype)
-    return <b(), lm + rm>;
+  if(lhtype == rhtype)
+    return <b(), lhmessages + rhmessages>;
     
-  if(ltype in {m(), i()} &&
-    rtype in {m(), i()}) 
-    return <b(), lm + rm>;
+  if(lhtype in {m(), i()} &&
+    rhtype in {m(), i()}) 
+    return <b(), lhmessages + rhmessages>;
 
-  return <err(), lm + rm>;
+  return <err(), lhmessages + rhmessages>;
 }
 
 /*
@@ -222,19 +223,20 @@ private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent,
  */
 private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
-  <ltype, lm> = inferExprType(types, lhs);
-  <rtype, rm> = inferExprType(types, rhs);
+  <lhtype, lhmessages> = inferExprType(types, lhs);
+  <rhtype, rhmessages> = inferExprType(types, rhs);
 
-  if(ltype == undef() || rtype == undef())
-    return <err(), lm + rm>;
+  if(lhtype == undef() || rhtype == undef())
+    return <err(), lhmessages + rhmessages>;
 
-  if(ltype notin types[getName(parent)] || rtype notin types[getName(parent)])
-    return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;
+  if(lhtype notin types[getName(parent)] || rhtype notin types[getName(parent)])
+    return 
+      <err(), lhmessages + rhmessages + {invalidTypeMessage(parent@location)}>;
   
-  if(ltype == b() && rtype == b())
-    return <b(), lm + rm>;
+  if(lhtype == b() && rhtype == b())
+    return <b(), lhmessages + rhmessages>;
   
-  return <err(), lm + rm>;
+  return <err(), lhmessages + rhmessages>;
 }
 
 /*
@@ -249,23 +251,24 @@ private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent,
  */
 private tuple[Type, set[Message]] analyzeBinaryCalculation(Types types, 
     Expr parent, Expr lhs, Expr rhs) {
-  <ltype, lm> = inferExprType(types, lhs);
-  <rtype, rm> = inferExprType(types, rhs);
+  <lhtype, lhmessages> = inferExprType(types, lhs);
+  <rhtype, rhmessages> = inferExprType(types, rhs);
   
-  if(ltype == undef() || rtype == undef())
-    return <err(), lm + rm>;
+  if(lhtype == undef() || rhtype == undef())
+    return <err(), lhmessages + rhmessages>;
     
-  if(ltype == s() && rtype == s())
-    return <s(), lm + rm>;
+  if(lhtype == s() && rhtype == s())
+    return <s(), lhmessages + rhmessages>;
 
-  if(ltype notin types[getName(parent)] || rtype notin types[getName(parent)])
-    return <err(), lm + rm + {invalidTypeMessage(parent@location)}>;
+  if(lhtype notin types[getName(parent)] || rhtype notin types[getName(parent)])
+    return 
+      <err(), lhmessages + rhmessages + {invalidTypeMessage(parent@location)}>;
   
-  if(ltype == i() && rtype == i())
-    return <i(), lm + rm>;
+  if(lhtype == i() && rhtype == i())
+    return <i(), lhmessages + rhmessages>;
   
-  if(ltype in types[getName(parent)] && rtype in types[getName(parent)])
-    return <m(), lm + rm>;
+  if(lhtype in types[getName(parent)] && rhtype in types[getName(parent)])
+    return <m(), lhmessages + rhmessages>;
 
-  return <err(), lm + rm>;
+  return <err(), lhmessages + rhmessages>;
 }

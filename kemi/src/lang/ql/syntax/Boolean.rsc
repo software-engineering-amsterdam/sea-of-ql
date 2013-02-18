@@ -8,11 +8,9 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module util::ParseTreeHelper
+module lang::ql::syntax::Boolean
 
-import Grammar;
-import ParseTree;
-
-// From: lang::rascal::grammar::definition::Keywords
-public set[Production] getKeywords(Grammar g) =
-  {g.rules[s] | s:keywords(_) <- g.rules};
+lexical Boolean
+  = "true"
+  | "false"
+  ;

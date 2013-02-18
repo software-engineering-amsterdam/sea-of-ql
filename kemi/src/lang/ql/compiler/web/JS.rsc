@@ -10,33 +10,36 @@
 
 module lang::ql::compiler::web::JS
 
+import Configuration;
 import IO;
 import String;
 import lang::ql::ast::AST;
 import lang::ql::compiler::web::JSExpressionPrinter;
 import lang::ql::util::FormHelper;
 
-import util::ValueUI; 
-
-private str BLOCK = "Block";
-private loc JS_SRC_LOC = |project://QL-R-kemi/js/|;
-
 public void JS(Form f, loc dest) {
-  for(js <- listEntries(JS_SRC_LOC))
-    writeFile(dest + js, readFile(JS_SRC_LOC + js));
+  for(js <- listEntries(getJSSourceLoc()))
+    writeFile(dest + js, readFile(getJSSourceLoc() + js));
 
-  writeFile(dest + "styling.js", "function styling() { }");
+  writeFile(dest + getStylingJSName(), "function styling() { }");
   
-  dest += "checking.js";
+  dest += getCheckingJSName();
   
   writeFile(dest, JS(f));
 }
 
 private str showElement(str name) =
-  "show($(\"#<name><BLOCK>\"));";
+  "show($(\"#<name><getBlockSuffix()>\"));";
 
 private str hideElement(str name) =
-  "hide($(\"#<name><BLOCK>\"));";
+  "hide($(\"#<name><getBlockSuffix()>\"));";
+  
+private str setFormValue(Type \type, str ident) =
+  "setFormValue(\"#<ident>\", roundMoney(result));"
+    when \type == moneyType("money");
+
+private default str setFormValue(Type \type, str ident) =
+  "setFormValue(\"#<ident>\", result);";
 
 private str assignVar(str ident) =
   "var <ident> = getFormValue(\"#<ident>\");";
@@ -97,13 +100,14 @@ private str calculatedFields(Form f) {
   return ret;
 }
   
-private str individualCalculatedField(int cnt, Type \type, str ident, Expr expr) {  
+private str individualCalculatedField(int cnt, Type \type, 
+    str ident, Expr expr) {  
   list[str] eidents = [];
   
   top-down visit(expr) {
     case Expr e: ident(str name): eidents += name;
   }
-
+  
   return "
     '<for(e <- eidents) {>
     '$(\"#<e>\").on(\"input change\", calc_callback_<cnt>);
@@ -115,14 +119,10 @@ private str individualCalculatedField(int cnt, Type \type, str ident, Expr expr)
     '  <assignVar(e)>
     '<}>
     '  result = <jsPrint(expr)>;
-    '<if(\type == moneyType("money")){>
-    '  setFormValue(\"#<ident>\", roundMoney(result));
-    '<} else {>
-    '  setFormValue(\"#<ident>\", result);
-    '<}>
+    '  <setFormValue(\type, ident)>
     '}
     ";
-}  
+} 
 
 private str createValidationRules(Form f) {
   list[tuple[str ident, Type \type]] rules = [];

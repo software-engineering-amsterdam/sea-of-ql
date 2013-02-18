@@ -18,3 +18,15 @@ public set[str] getDirectDescendingIdents(list[Statement] items) =
 
 public set[str] getDescendingIdents(list[Statement] items) =
   {q.answerIdentifier.ident | i <- items, /question(Question q) := i};
+
+public str getBlockSuffix() =
+  "Block";
+
+public str getDefaultLabelText() =
+  "Choose an answer";
+
+public str getLabelTextTrue() =
+  "Yes";
+  
+public str getLabelTextFalse() =
+  "No";

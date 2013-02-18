@@ -8,23 +8,21 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::compiler::web::CSS
+module lang::ql::syntax::Date
 
-import Configuration;
-import IO;
-import lang::ql::ast::AST;
+lexical Date = 
+  @category="Constant" "$" Year "-" Month "-" Day;
 
-public void CSS(Form f, loc dest) =
-  writeFile(dest + getCSSStylesheetName(),
-    ".error {
-    '  float: none;
-    '  color: red;
-    '  padding-left: .5em;
-    '  vertical-align: top;
-    '}
-    '
-    'label {
-    '  display: block;
-    '}
-    '"
-  );
+// Note: We assume that dates are valid in domain [1000 to 2999]
+lexical Year =  
+  [1-2][0-9][0-9][0-9];
+
+lexical Month
+  = [0][0-9]
+  | [1][0-2]
+  ;
+
+lexical Day
+  = [0-2][0-9]
+  | [3][0-1]
+  ;

@@ -10,6 +10,7 @@
 
 module lang::ql::compiler::web::PHP
 
+import Configuration;
 import IO;
 import String;
 import lang::ql::ast::AST;
@@ -18,7 +19,7 @@ import lang::ql::compiler::web::PHPExpressionPrinter;
 private str title = "";
 
 public void PHP(Form f, loc dest) {
-  dest += "form.php";
+  dest += getPHPName();
   title = f.formName.ident;
   writeFile(dest, createPHP(f));
 }

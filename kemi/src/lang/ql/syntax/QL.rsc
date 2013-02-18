@@ -10,7 +10,9 @@
 
 module lang::ql::syntax::QL
 
+extend lang::ql::syntax::Boolean;
 extend lang::ql::syntax::Comment;
+extend lang::ql::syntax::Date;
 extend lang::ql::syntax::Int;
 extend lang::ql::syntax::Keyword;
 extend lang::ql::syntax::Layout;
@@ -82,28 +84,6 @@ lexical IdentDefinition
 
 lexical QuestionText
   = @category="Identifier" questionText: String questionText
-  ;
-
-lexical Boolean
-  = "true"
-  | "false"
-  ;
-
-lexical Date = 
-  @category="Constant" "$" Year "-" Month "-" Day;
-
-// Note: We assume that dates are valid in domain [1000 to 2999]
-lexical Year =  
-  [1-2][0-9][0-9][0-9];
-
-lexical Month
-  = [0][0-9]
-  | [1][0-2]
-  ;
-
-lexical Day
-  = [0-2][0-9]
-  | [3][0-1]
   ;
 
 syntax Ident
