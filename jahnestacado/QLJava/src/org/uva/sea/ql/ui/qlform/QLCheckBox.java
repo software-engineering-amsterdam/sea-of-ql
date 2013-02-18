@@ -3,59 +3,56 @@ package org.uva.sea.ql.ui.qlform;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.Value;
-import org.uva.sea.ql.ui.qlform.interpreter.SwingGenerator;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
-public class QLCheckBox implements ActionListener {
+public class QLCheckBox implements ActionListener,Observer {
 
 	private final String varName;
-	private final Map<String, Value> runTimeValues;
+	private  Map<String, Value> runTimeValues;
 	private final JCheckBox chBox;
 	public final static String QL_CHECKBOX_ID = "QL_CHECKBOX_ID";
+	private final VariableUpdater varUpdater;
+	
 
-	public QLCheckBox(String varName, Map<String, Value> runTimeValues) {
+
+	public QLCheckBox(String varName, Map<String, Value> runTimeValues,VariableUpdater varUpdater) {
 		chBox = new JCheckBox("No");
 		chBox.setName(QL_CHECKBOX_ID);
 		this.varName = varName;
 		this.runTimeValues = runTimeValues;
+		this.varUpdater=varUpdater;
+		this.varUpdater.addObserver(this);
 		setSettings();
 
 	}
 
-	public static JCheckBox responsiveCheckBox(String varName,
-			Map<String, Value> declaredVar) {
-		QLCheckBox chBox = new QLCheckBox(varName, declaredVar);
+	public static JCheckBox responsiveCheckBox(String varName,Map<String, Value> declaredVar,VariableUpdater varUpdater) {
+		QLCheckBox chBox = new QLCheckBox(varName, declaredVar,varUpdater);
 		return chBox.getCheckBox();
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		VariableUpdater varUpdater = new VariableUpdater(varName, runTimeValues,
-				new BoolLit(!getState()));
-		List<JPanel> questionList = new ArrayList<JPanel>();
-
-		JFrame frame = (JFrame) SwingUtilities.getRoot(chBox);
-		new SwingGenerator(questionList, varUpdater.getUpdatedValues()).regenerate(frame);
-
+		
+		varUpdater.updateValues(varName, runTimeValues,new BoolLit(!getState()));
+	
+		
 	}
 
 	private void setSettings() {
 		chBox.addActionListener(this);
 		chBox.setSelected(getState());
 		setStatusText();
-		chBox.setBackground(Color.DARK_GRAY);
+		chBox.setBackground(Color.gray);
 		chBox.setForeground(Color.white);
 	}
 
@@ -74,6 +71,17 @@ public class QLCheckBox implements ActionListener {
 		}
 		chBox.setText("No");
 
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		System.out.println("check");
+
+		runTimeValues=varUpdater.getUpdatedValues();
+		chBox.setSelected(getState());
+		setStatusText();
+		
+		
 	}
 
 }

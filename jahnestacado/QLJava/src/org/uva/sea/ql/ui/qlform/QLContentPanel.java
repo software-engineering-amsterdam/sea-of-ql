@@ -27,7 +27,7 @@ public class QLContentPanel {
 	}
 	
 	private void setSettings(){
-		contentPanel.setLayout(new MigLayout());
+		contentPanel.setLayout(new MigLayout("hidemode 1"));
 		contentPanel.setName(contentPanelId);
 		contentPanel.setBackground(Color.black);
 		

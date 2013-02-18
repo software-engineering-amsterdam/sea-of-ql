@@ -22,6 +22,7 @@ public class Renderer  {
 		this.frame = frame;
 		this.questionPanelList = questionPanelList;
 		contentPanel = QLContentPanel.getContentPanel();
+		
 	}
 	
 	
@@ -36,35 +37,8 @@ public class Renderer  {
 		frame.setVisible(true);
 	}
 
-	public void refresh() {
-		int verticalPosition = scrollBar.getVerticalPosition();
-		removeOldPanels();
-		addQuestionsToPanel();
-		scrollBar.maintainPosition(verticalPosition);
-	}
-
 	
-	/*
-	 * Cleans frame from sub-components, in this case it removes the root component scrollBar which contains everything,
-	 *  in order to display properly the updated frame properly
-	 */
-	private void removeOldPanels() {
-		Component[] components = frame.getContentPane().getComponents();
-		try{
-		for (int i = 0; i < components.length; i++) {
-			if (components[i].getName().equals(QLScrollBar.containerScrollPanelId) || components[i].getName().equals(QLGenButton.genButtonId)) {
-				frame.remove(components[i]);
-			}
-		}
-		}
-		catch(NullPointerException e){
-			e.getStackTrace();
-			System.out.println("sdsd"); ///////////////////////
-		}
-
-	}
-
-
+	
 
 
 

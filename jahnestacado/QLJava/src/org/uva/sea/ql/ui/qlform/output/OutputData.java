@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ui.qlform.ComputedQuestionPanel;
 import org.uva.sea.ql.ui.qlform.QLCheckBox;
 import org.uva.sea.ql.ui.qlform.QLComputedField;
+import org.uva.sea.ql.ui.qlform.QLElsePanel;
+import org.uva.sea.ql.ui.qlform.QLIfThenPanel;
 import org.uva.sea.ql.ui.qlform.QLInputVerifier;
 import org.uva.sea.ql.ui.qlform.QLNumField;
 import org.uva.sea.ql.ui.qlform.QLSpinner;
@@ -36,38 +38,46 @@ public class OutputData {
 	}
 
 	public QLOutputState getOutputData() {
-		gatherData();
+		traverseFormSubComponents();
 		return outputState;
 	}
 
-	private void gatherData() {
-
-		for (JPanel question : questionPanelList) {
-			Component[] components = question.getComponents();
-
-			for (int i = 0; i < components.length; i++) {
-				String id = components[i].getName();
-
-				if (id.equals(QLInputVerifier.WARNING_LABEL_ID)) {
-					getWarning(components[i]);
-				} else if (id.equals(ComputedQuestionPanel.COM_QUESTION_PANEL)|| id.equals(QuestionPanel.QL_QUESTION_LABEL_ID)) {
-					getJLabelValue(components[i]);
-				} else if (id.equals(QLSpinner.QL_SPINNER_ID)) {
-					getJSpinnerValue(components[i]);
-				} else if (id.equals(QLTextField.QL_TXT_FIELD_ID)
-						|| id.equals(QLNumField.NUM_FIELD_ID)
-						|| id.equals(QLComputedField.QL_COMPUTED_FIELD_ID)) {
-					getJTextFieldValue(components[i]);
-				} else if (id.equals(QLCheckBox.QL_CHECKBOX_ID)) {
-					getJCheckBoxValue(components[i]);
-				}
-
+	private void gatherDataFromSubComponents(Component[] components) {
+		for (int i = 0; i < components.length; i++) {
+			String id = components[i].getName();
+			if (hasWarnings(id)) {
+				getWarning(components[i]);
+			} else if (isQuestionsLabel(id)) {
+				getJLabelValue(components[i]);
+			} else if (isSpinner(id)) {
+				getJSpinnerValue(components[i]);
+			} else if (isTxtField(id)) {
+				getJTextFieldValue(components[i]);
+			} else if (isCheckBox(id)) {
+				getJCheckBoxValue(components[i]);
 			}
 
 		}
 
 	}
 	
+	private void traverseFormSubComponents() {
+		for (JPanel questionPanel : questionPanelList) {
+
+			String id = questionPanel.getName();
+			if (isConditionalBody(id)) {
+				if (!isVisible(questionPanel))
+					return;
+				Component[] conditionalBodyPanel = questionPanel.getComponents();
+				gatherDataFromSubComponents(conditionalBodyPanel);
+
+			} else {
+				Component[] components = questionPanel.getComponents();
+				gatherDataFromSubComponents(components);
+			}
+
+		}
+	}
 	
 	private void getWarning(Component component) {
 		JLabel label = (JLabel) component;
@@ -106,5 +116,45 @@ public class OutputData {
 	private void showWarning() {
 		JOptionPane.showMessageDialog(frame,"Wrong input.Check input warnings!");
 
+	}
+	
+	
+	private boolean hasWarnings(String id){
+		if(id.equals(QLInputVerifier.WARNING_LABEL_ID))  return true;
+		return false;
+		
+	}
+	
+	private boolean isQuestionsLabel(String id){
+		if(id.equals(ComputedQuestionPanel.COM_QUESTION_PANEL)|| id.equals(QuestionPanel.QL_QUESTION_LABEL_ID)) return true;
+		return false;
+	}
+	
+	private boolean isSpinner(String id){
+		if(id.equals(QLSpinner.QL_SPINNER_ID)) return true;
+		return false;
+	}
+	
+	private boolean isTxtField(String id) {
+		if (id.equals(QLTextField.QL_TXT_FIELD_ID)
+				|| id.equals(QLNumField.NUM_FIELD_ID)
+				|| id.equals(QLComputedField.QL_COMPUTED_FIELD_ID))
+			return true;
+		return false;
+	}
+	
+	private boolean isCheckBox(String id){
+		if(id.equals(QLCheckBox.QL_CHECKBOX_ID)) return true;
+		return false;
+	}
+	
+	
+	private boolean isConditionalBody(String id){
+		if(id.equals(QLIfThenPanel.IF_THEN_BODY_ID) || id.equals(QLElsePanel.ELSE_BODY_ID)) return true;
+		return false;
+	}
+	
+	private boolean isVisible(Component component){
+		return ((JPanel) component).isVisible();
 	}
 }

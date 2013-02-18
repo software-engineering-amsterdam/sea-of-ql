@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
 public class QuestionPanel {
 
@@ -17,10 +18,21 @@ public class QuestionPanel {
 	private final JPanel panel;
 	private boolean needsVerifier;
 	private final Type type;
-	public final static String QL_QUESTION_LABEL_ID="QUESTION_PANEL";
+	public final static String QL_QUESTION_LABEL_ID="QL_QUESTION_LABEL_ID";
+	private  VariableUpdater varUpdater;
+
 	
 	
 	public QuestionPanel(Question qlElement,Map<String,Value> runTimeValues){
+		type=qlElement.getType();
+		panel=QLRowPanel.getQLRowPanel();
+		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),QL_QUESTION_LABEL_ID);
+		inputComponent=setInputComponent(qlElement.getId().getName(),type,runTimeValues);
+		addComponents();
+	}
+	
+	public QuestionPanel(Question qlElement,Map<String,Value> runTimeValues, VariableUpdater varUpdater){
+		this.varUpdater=varUpdater;
 		type=qlElement.getType();
 		panel=QLRowPanel.getQLRowPanel();
 		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),QL_QUESTION_LABEL_ID);
@@ -38,17 +50,17 @@ public class QuestionPanel {
 	
 		if (type.isCompatibleToStringType()) {
 			needsVerifier=true;
-			return QLTextField.responsiveTextField(varName, runTimeValues);
+			return QLTextField.responsiveTextField(varName, runTimeValues,varUpdater);
 		} 
 		else if (type.isCompatibleToBoolType()) {
-			return QLCheckBox.responsiveCheckBox(varName, runTimeValues);
+			return QLCheckBox.responsiveCheckBox(varName, runTimeValues,varUpdater);
 		}
 		if (type.isCompatibleToIntType()) {
-			return QLSpinner.responsiveSpinner(varName, runTimeValues);
+			return QLSpinner.responsiveSpinner(varName, runTimeValues,varUpdater);
 		}
 		if (type.isCompatibleToMoneyType()) {
 			needsVerifier=true;
-			return QLNumField.responsiveNumField(varName, runTimeValues);
+			return QLNumField.responsiveNumField(varName, runTimeValues,varUpdater);
 		} 
 		return null;
 	}

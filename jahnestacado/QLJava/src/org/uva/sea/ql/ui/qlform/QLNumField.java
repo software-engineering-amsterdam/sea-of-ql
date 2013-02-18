@@ -3,35 +3,35 @@ package org.uva.sea.ql.ui.qlform;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.Value;
-import org.uva.sea.ql.ui.qlform.interpreter.SwingGenerator;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
 
-public class QLNumField  implements ActionListener{
+public class QLNumField  implements ActionListener, Observer{
 	private final String varName;
 	private final Map<String, Value> declaredVar;
-	private final Float value;
+	private  Float value;
 	private final JTextField txtField;
 	private final static Color defaultColor= new Color(238,238,238);
 	public final static String NUM_FIELD_ID="QLNUMFIELD";
+	private final VariableUpdater varUpdater;
 	
 	
-	public QLNumField(String varName,Map<String, Value> runTimeValues){
+	public QLNumField(String varName,Map<String, Value> runTimeValues, VariableUpdater varUpdater){
 		txtField=new JTextField(8);
 		this.varName=varName;
 		this.declaredVar=runTimeValues;
 		value=((DecimalLit) runTimeValues.get(varName)).getValue();
+		
+		this.varUpdater=varUpdater;
+		this.varUpdater.addObserver(this);
 		setSettings();
 	}
 	
@@ -40,8 +40,8 @@ public class QLNumField  implements ActionListener{
 		txtField.setBackground(defaultColor);
 	}
 	
-	public static JTextField responsiveNumField(String varName,Map<String, Value> runTimeValues) {
-		QLNumField numField = new QLNumField(varName, runTimeValues);
+	public static JTextField responsiveNumField(String varName,Map<String, Value> runTimeValues, VariableUpdater varUpdater) {
+		QLNumField numField = new QLNumField(varName, runTimeValues,varUpdater);
 		return numField.getTextField();
 
 	}
@@ -53,11 +53,9 @@ public class QLNumField  implements ActionListener{
 		if(!QLInputVerifier.isNumChar(txt)) return;
 		
 		Float input=Float.parseFloat(txtField.getText());
-		VariableUpdater varUpdater=new VariableUpdater(varName, declaredVar, new DecimalLit(input));
-		List<JPanel> questionList=new ArrayList<JPanel>();
+		varUpdater.updateValues(varName, declaredVar, new DecimalLit(input));
+
 		
-		JFrame frame = (JFrame) SwingUtilities.getRoot(txtField);
-		new SwingGenerator(questionList,varUpdater.getUpdatedValues()).regenerate(frame);
 
 	}
 	
@@ -70,6 +68,15 @@ public class QLNumField  implements ActionListener{
 	
 	public static float roundTo2Decimals(float num){
 		return Math.round(num*100.0)/100.0f;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		value=((DecimalLit) varUpdater.getUpdatedValues().get(varName)).getValue();
+		String roundedDisplayedValue=String.valueOf(roundTo2Decimals(value));
+		txtField.setText(roundedDisplayedValue);
+	
+        
 	}
 
 }

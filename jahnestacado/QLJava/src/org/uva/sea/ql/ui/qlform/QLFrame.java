@@ -25,8 +25,8 @@ public class QLFrame {
 	
 	private void setSettings(){
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new MigLayout("fill"));
-		frame.setSize(new Dimension (700,500));
+		frame.setLayout(new MigLayout());
+		frame.setSize(new Dimension (660,450));
 		frame.setResizable(false);   
 	}
 	

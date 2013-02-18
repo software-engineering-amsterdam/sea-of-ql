@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ui.qlform.interpreter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,9 @@ import org.uva.sea.ql.ast.form.IfThenElse;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.SingleLineElement;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.launcher.QLInputReader;
 import org.uva.sea.ql.ui.qlform.ComputedQuestionPanel;
+import org.uva.sea.ql.ui.qlform.QLElsePanel;
+import org.uva.sea.ql.ui.qlform.QLIfThenPanel;
 import org.uva.sea.ql.ui.qlform.QuestionPanel;
 import org.uva.sea.ql.ui.qlform.renderer.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
@@ -30,14 +32,14 @@ import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
 
 public class SwingGenerator implements IElementVisitor{
 	private final List<JPanel> questionPanelList;
-	private final Map<String,Value> runTimeValues;
+	private  Map<String,Value> runTimeValues;
+	private  VariableUpdater varUpdater;
 	
-	
-	
-	
-	public SwingGenerator(List<JPanel> questionPanelList,Map<String,Value> runTimeValues){
+
+	public SwingGenerator(List<JPanel> questionPanelList,Map<String,Value> runTimeValues,VariableUpdater varUpdater){
 		this.questionPanelList=questionPanelList;
 		this.runTimeValues=runTimeValues;
+		this.varUpdater=varUpdater;
 		
 	}
 	
@@ -51,11 +53,21 @@ public class SwingGenerator implements IElementVisitor{
 	}
 
 	
-	public void regenerate(JFrame frame) {
-		Form form=QLInputReader.getParsedForm();
-		form.accept(this);
-		new Renderer(questionPanelList, frame).refresh();
 
+	
+	private void fillConditionalPanel(Body qlElement){
+		qlElement.accept(this);
+	}
+	
+	private List<JPanel> getConditionalBodyElements(Body qlElement){
+		List<JPanel> bodyPanels=new ArrayList<JPanel>();
+		SwingGenerator gen=new SwingGenerator(bodyPanels,runTimeValues,varUpdater);
+		gen.fillConditionalPanel(qlElement);
+		bodyPanels=gen.getQuestionPanelList();
+		this.runTimeValues=gen.getRunTimeValues();
+		this.varUpdater=gen.getVarUpdater();
+		return bodyPanels;
+		
 	}
 
 	
@@ -93,43 +105,44 @@ public class SwingGenerator implements IElementVisitor{
 	
 	@Override
 	public void visit(IfThenElse qlElement) {
-		Body body = qlElement.getIfBody();
-		Body body2 = qlElement.getElseBody();
+		Body ifBody = qlElement.getIfBody();
+		Body elseBody = qlElement.getElseBody();
+		Expr condition=qlElement.getCondition();
+		
+		List<JPanel> ifBodylist = getConditionalBodyElements(ifBody);
+		questionPanelList.add(new QLIfThenPanel(ifBodylist, condition,
+				varUpdater, runTimeValues).getPanel());
+	
 
-		Expr condition = qlElement.getCondition();
-		Value expr = ExprEvaluator.eval(condition, runTimeValues);
+		List<JPanel> elseBodyList = getConditionalBodyElements(elseBody);
+		questionPanelList.add(new QLElsePanel(elseBodyList, condition, varUpdater, runTimeValues).getPanel());
 
-		if (!((BoolLit) expr).getValue())
-			body2.accept(this);
-		else
-			body.accept(this);
+		
 	}
 
 	@Override
 	public void visit(IfThen qlElement) {
 		Body body = qlElement.getIfBody();
 		Expr condition = qlElement.getCondition();
-		Value expr = ExprEvaluator.eval(condition, runTimeValues);
-
-		if (!((BoolLit) expr).getValue())
-			return;
-
-		body.accept(this);
+	    List<JPanel> list=getConditionalBodyElements(body);
+		questionPanelList.add(new QLIfThenPanel(list, condition, varUpdater, runTimeValues).getPanel());
 
 	}
 	
 	
 	
 	private void addQuestion(Question qlElement,Map<String,Value> declaredVar){
-		QuestionPanel panel=new QuestionPanel(qlElement,declaredVar);
+		QuestionPanel panel=new QuestionPanel(qlElement,declaredVar,varUpdater);
 		questionPanelList.add(panel.getPanel());
+		System.out.println(panel.getPanel().getName()+"  Add to list in Visitor");
 		
 	}
 	
 	private void addComputedQuestion(ComputedQuestion qlElement,Map<String,Value> declaredVar){
-		ComputedQuestionPanel panel=new ComputedQuestionPanel(qlElement, declaredVar);
+		ComputedQuestionPanel panel=new ComputedQuestionPanel(qlElement, declaredVar,varUpdater);
 		questionPanelList.add(panel.getPanel());
-		
+		System.out.println(panel.getPanel().getName()+"  Add to list in Visitor");
+
 		
 	}
 	
@@ -161,5 +174,16 @@ public class SwingGenerator implements IElementVisitor{
 	}
 	
 	
+	private List<JPanel> getQuestionPanelList(){
+		return questionPanelList;
+	}
+	
+	private Map<String,Value> getRunTimeValues(){
+		return runTimeValues;
+	}
+	
+	private VariableUpdater getVarUpdater(){
+		return varUpdater;
+	}
 	
 }
