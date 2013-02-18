@@ -66,6 +66,7 @@ primary returns [Expr result]
     : INT             { $result = new Int(Integer.parseInt($INT.text)); }
   	| IDENT           { $result = new Ident($IDENT.text); }
   	| BOOLEAN         { $result = new Bool(Boolean.parseBoolean($BOOLEAN.text)); }
+  	| STRING_LITERAL  { $result = new Str($STRING_LITERAL.text); }
   	| '(' x=orExpr ')'{ $result = $x.result; }
   	;
     
