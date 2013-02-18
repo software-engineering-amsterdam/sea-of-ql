@@ -48,8 +48,8 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
         final Type type = assignmentNode.getType();
         type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifier(), this.variableState));
 
-        this.panel.add(questionPanel, "right, gapright 12");
-        this.panel.add(typePanel, "span");
+        this.panel.add(questionPanel, "left, gapright 10");
+        this.panel.add(typePanel, "left, span");
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
             Statement statement = (Statement) branch.getBlock();
             JPanel branchBlockPanel = render(statement, this.variableState);
             branchBlockPanel.setVisible(false);
-            panel.add(branchBlockPanel, "right, gapright 12, span");
+            panel.add(branchBlockPanel, "grow, span");
             branchPanels.add(new BranchPanel(branch, branchBlockPanel));
         }
         ifNodes.put(ifNode, branchPanels);
