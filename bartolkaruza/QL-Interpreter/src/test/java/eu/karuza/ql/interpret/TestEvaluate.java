@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import eu.karuza.ql.ast.ConditionalStatement;
+import eu.karuza.ql.ast.IfConditionalStatement;
 import eu.karuza.ql.ast.Form;
 import eu.karuza.ql.ast.expr.grouping.Expr;
 import eu.karuza.ql.ast.expr.value.Value;
@@ -57,14 +57,14 @@ public class TestEvaluate {
 		Form form = parseExpression(src);
 		ParserContext context = new ParserContext();
 		form.accept(new StatementSemanticChecker(context));
-		ConditionalStatement statement = (ConditionalStatement) form.getStatements().get(2);
-		return statement.getExpression().evaluate();
+		IfConditionalStatement statement = (IfConditionalStatement) form.getStatements().get(2);
+		return statement.getExpr().evaluate();
 	}
 
 	private Value getValueFromExpression(String src) throws ParseError {
 		Form form = parseExpression(src);
-		ConditionalStatement statement = (ConditionalStatement) form.getStatements().get(0);
-		Value value = statement.getExpression().evaluate();
+		IfConditionalStatement statement = (IfConditionalStatement) form.getStatements().get(0);
+		Value value = statement.getExpr().evaluate();
 		return value;
 	}
 

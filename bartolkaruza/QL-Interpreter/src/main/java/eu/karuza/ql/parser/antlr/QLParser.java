@@ -241,7 +241,7 @@ public class QLParser extends Parser {
 					state._fsp--;
 					if (state.failed) return result;
 					match(input,32,FOLLOW_32_in_statement152); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new ConditionalStatement(x, stmts, (firstToken!=null?firstToken.getLine():0)); }
+					if ( state.backtracking==0 ) { result = new IfConditionalStatement(x, stmts, (firstToken!=null?firstToken.getLine():0)); }
 					}
 					break;
 				case 2 :

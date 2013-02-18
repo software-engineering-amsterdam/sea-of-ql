@@ -6,7 +6,7 @@ import java.util.List;
 import eu.karuza.ql.ast.expr.grouping.Expr;
 import eu.karuza.ql.visitor.StatementVisitor;
 
-public class ConditionalStatement implements Statement {
+public class IfConditionalStatement implements Statement {
 
 	private static final long serialVersionUID = 8928419604109047055L;
 	private List<Statement> statements;
@@ -14,7 +14,7 @@ public class ConditionalStatement implements Statement {
 	private int lineNumber;
 	private boolean visible;
 
-	public ConditionalStatement(Expr expression, List<Statement> statements, int lineNumber) {
+	public IfConditionalStatement(Expr expression, List<Statement> statements, int lineNumber) {
 		this.statements = statements;
 		this.expression = expression;
 		this.lineNumber = lineNumber;
@@ -29,7 +29,7 @@ public class ConditionalStatement implements Statement {
 		return statements;
 	}
 
-	public Expr getExpression() {
+	public Expr getExpr() {
 		return expression;
 	}
 
