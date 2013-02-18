@@ -1,15 +1,12 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::ExtractDependencies
+//import IO;
 
 import ParseTree;
 import lang::ql::ast::AST;
 import lang::ql::compiler::CompileExpressions;
 
-anno str ConditionalStatement@ref;
-anno str ElseIf@ref;
-anno str FormBodyItem@ref;
-
-public list[str] getVariableDependacies(Expr exp){
+public list[str] getVariableDependecies(Expr exp){
 	list[str] variables=[];
 	
 	visit(exp){
@@ -34,7 +31,7 @@ public map[str,list[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
 }
 
 map[str,list[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,list[str] dependVars] dependenciesMap){
-	vars=getVariableDependacies(exp);
+	vars=getVariableDependecies(exp);
 	
 	for(x<-vars){
 		if(x in dependenciesMap){
@@ -46,4 +43,13 @@ map[str,list[str]] resolveVariableDependencies(Expr exp,str depended,map[str var
 	}
 	
 	return dependenciesMap;
+}
+
+public Type getVariableType(str variableName,list[FormBodyItem] bodyItems){
+	Type variableType=boolean();
+		visit(bodyItems){
+			case q:simpleQuestion(str ident,_,Type qtype) : if(ident==variableName) variableType= qtype;
+			case q:computedQuestion(str ident,_,Type qtype,_) :if(ident==variableName) variableType= qtype;
+		}
+		return variableType;
 }

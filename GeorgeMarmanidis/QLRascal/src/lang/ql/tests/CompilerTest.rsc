@@ -9,5 +9,5 @@ import lang::ql::compiler::CompileForm;
 public void compTest(){
 Form a=load(|project://SofConstr/exampleForms/test5.q|);
 
-print(compileForm(a));
+compileForm(a);
 }
