@@ -1,5 +1,6 @@
 /**
- * This module contains function for the generation of the IDE Outline view  
+ * This module contains function for the generation of the IDE Outline view 
+ * Contains functions in order to match the current QL syntax and generate a outline view 
  * @author  Gerson Delgado
  * @version 1.0, 15/02/2013
  */
@@ -23,10 +24,7 @@ public node genOutline(form(str id, list[Element] fElems)){
  	node outline = makeNode("form", [outQstns, outConds]);
  	return outline;
  }
-
-/**
-* Match function to check a list of Elements and consequently add them to the outline struct 
-*/   
+ 
 private OENV getOutline(list[Element] fElems, OENV nds){
 	top-down visit(fElems){
 		case qstn:computableQuestion(_,_,_,_) 
@@ -41,9 +39,6 @@ private OENV getOutline(list[Element] fElems, OENV nds){
 	return nds;	
 } 
 
-/**
-* Match functions for questions in order to add questions to the outline
-*/   
 private OENV getOutline(question(Question qstn), OENV nds) 
 	= getOutline(qstn, nds);
 	
@@ -54,9 +49,6 @@ private OENV getOutline(qstn:singleQuestion(str qstnIdent, str qstnLabel, DataTy
 private OENV getOutline(qstn:computableQuestion(str cqstnIdent, str cqstnLabel, DataType cqstnDataType, Expr cqstnExpr), OENV nds)
  	= addQstn(nds, cqstnIdent, cqstnLabel, cqstnDataType, qstn@location);
 
-/**
-* Match functions for conditions in order to add the matched condition type to the outline
-*/ 
 private OENV getOutline(condition(Condition cond), OENV nds)
 	= getOutline(cond, nds);
 	 	

@@ -1,10 +1,11 @@
 /**
- * This module contains code revelant to the IDE Javafile generator option  
+ * This module contains code revelant to the IDE Javafile generator option
+ * contains functions in order to add new java strings to the output JENV 
  * @author  Gerson Delgado
  * @version 1.0, 18/02/2013
  */
  
-module lang::ql::ast::JavaGenerator::Environment
+module lang::ql::ide::JavaGenerator::Environment
 
 import lang::ql::ast::AST;
 

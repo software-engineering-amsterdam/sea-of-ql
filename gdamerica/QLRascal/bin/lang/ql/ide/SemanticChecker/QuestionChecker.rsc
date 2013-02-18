@@ -1,5 +1,6 @@
 /**
  * This module contains all functions for Question checker (hooked up to the IDE)  
+ * visit pattern and pattern matching is used in order to check a a QL question for errors
  * @author  Gerson Delgado
  * @version 1.0, 12/02/2013
  */
@@ -8,6 +9,10 @@ module lang::ql::ide::SemanticChecker::QuestionChecker
 import lang::ql::ast::AST;
 import lang::ql::ide::SemanticChecker::Environment;
 
+/**
+* Check function that will visit all questions types 
+* and consequently check them
+*/ 
 public ENV checkQstnDuplicates(list[Element] elem, ENV env){
 	top-down visit(elem){
 		case qstn:computableQuestion(_,_,_,_) 

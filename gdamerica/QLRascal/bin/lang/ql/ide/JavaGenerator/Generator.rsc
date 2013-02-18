@@ -1,13 +1,17 @@
 /**
- * This module contains code revelant to the IDE Javafile generator option  
+ * This module contains code revelant to the IDE Javafile generator option
+ * contains functions in order to match the current QL syntax and generate a java syntax  
  * @author  Gerson Delgado
  * @version 1.0, 18/02/2013
  */
-module lang::ql::ast::JavaGenerator::Generator
+module lang::ql::ide::JavaGenerator::Generator
 
 import lang::ql::ast::AST;
-import lang::ql::ast::JavaGenerator::Environment;
+import lang::ql::ide::JavaGenerator::Environment;
 
+/**
+* Generator function that will construct a coherent Java class from a Form
+*/ 
 public list[str] genJavaFile(form(str id, list[Element] fElems)){
 	JENV tempJava = <[]>;
 	str jClass = getJavaClass(id);
@@ -15,7 +19,12 @@ public list[str] genJavaFile(form(str id, list[Element] fElems)){
 	str jCons = getJavaConstructor(id); 
 	str close = "\n}";
 	output = getJavaFile(fElems, tempJava);
- 	return jClass + jCons + jMethod + output.javaStr + close + close;
+ 	return jClass 
+ 		    + jCons 
+ 			+ jMethod 
+ 			+ output.javaStr 
+ 			+ close 
+ 			+ close;
 } 
 
  
