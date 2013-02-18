@@ -32,7 +32,7 @@ ql.QuestionController = Base.extend({
         var that = this;
         this.view.on("change", function() {
             that.validateInput(function() {
-                var value = that.parseValue(that.view);
+                var value = that.getParsedValue();
                 ql.variableMap[that.questionName] = value;
                 ql.messageBus.signalVariableChanged(that.questionName);
             }, function(errorMessage){
@@ -42,7 +42,7 @@ ql.QuestionController = Base.extend({
     },
 
     validateInput : function(successCallback, failureCallback) {
-        var that = this, data = {identifierName : that.questionName, value : that.view.val()};
+        var that = this, data = {identifierName : that.questionName, value : that.getValue()};
         $.ajax({
             type: "POST",
             url: $(location).attr('href') + "validate/" + that.getValidationSuffix() + "/",
@@ -57,32 +57,44 @@ ql.QuestionController = Base.extend({
 });
 
 ql.IntegerTypeQuestionController = ql.QuestionController.extend({
-    parseValue : function(element) {
-        return parseInt(element.val());
+    getParsedValue : function() {
+        return parseInt(this.getValue());
     },
 
     getValidationSuffix : function() {
         return "integer";
+    },
+
+    getValue : function() {
+        return this.view.val();
     }
 });
 
 ql.BooleanTypeQuestionController = ql.QuestionController.extend({
-    parseValue : function(element) {
-        return element.is(":checked");
+    getParsedValue : function() {
+        return this.getValue();
     },
 
     getValidationSuffix : function() {
         return "boolean";
+    },
+
+    getValue : function() {
+        return this.view.is(":checked");
     }
 });
 
 ql.StringTypeQuestionController = ql.QuestionController.extend({
-    parseValue : function(element) {
-        return element.val();
+    getParsedValue : function() {
+        return this.getValue();
     },
 
     getValidationSuffix : function() {
         return "string";
+    },
+
+    getValue : function() {
+        return this.view.val();
     }
 });
 
