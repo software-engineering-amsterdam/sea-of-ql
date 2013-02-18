@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.primary.typeClasses;
 
-import org.junit.Test;
 import org.uva.sea.ql.ast.primary.Str;
 
 public class StringType implements Type {

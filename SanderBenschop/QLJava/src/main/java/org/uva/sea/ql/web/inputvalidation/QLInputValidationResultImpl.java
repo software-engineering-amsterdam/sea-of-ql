@@ -1,7 +1,5 @@
 package org.uva.sea.ql.web.inputvalidation;
 
-import javax.ws.rs.core.Response;
-
 public class QLInputValidationResultImpl implements QLInputValidationResult {
 
     private final boolean correct;

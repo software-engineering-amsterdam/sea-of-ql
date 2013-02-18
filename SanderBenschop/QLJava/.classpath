@@ -3,16 +3,42 @@
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry including="**/*.java" kind="src" output="target/test-classes" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/antlr-3.5-complete.jar" sourcepath="/home/sander/Downloads/antlr3-antlr-3.5.zip"/>
-	<classpathentry kind="lib" path="lib/mockito-all-1.9.5.jar"/>
-	<classpathentry kind="lib" path="lib/jcommander-1.31.jar"/>
-
-	<classpathentry kind="lib" path="lin/jersey-core-1.17.jar"/>
-	<classpathentry kind="lib" path="lin/jersey-server-1.17.jar"/>
-	<classpathentry kind="lib" path="lin/asm-3.3.1.jar"/>
-
-
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/antlr-3.5-complete.jar"/>
+	<classpathentry kind="lib" path="lib/aopalliance.jar"/>
+	<classpathentry kind="lib" path="lib/asm-3.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/guice-servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-all-1.9.11.jar"/>
+	<classpathentry kind="lib" path="lib/javax.inject.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jcommander-1.31.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-bundle-1.17.jar"/>
+	<classpathentry kind="lib" path="lib/jersey-guice-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-ajp-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-annotations-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-client-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-continuation-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-deploy-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-http-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-io-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-jmx-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-jndi-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-overlay-deployer-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-plus-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-policy-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-rewrite-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-security-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-server-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-servlet-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-servlets-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-util-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-webapp-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-websocket-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/jetty-xml-8.1.9.v20130131.jar"/>
+	<classpathentry kind="lib" path="lib/jetty/servlet-api-3.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
-
 </classpath>

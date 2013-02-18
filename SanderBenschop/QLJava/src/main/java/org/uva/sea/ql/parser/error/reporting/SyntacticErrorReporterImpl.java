@@ -1,10 +1,10 @@
 package org.uva.sea.ql.parser.error.reporting;
 
+import org.uva.sea.ql.parser.error.SyntacticQLError;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.uva.sea.ql.parser.error.SyntacticQLError;
 
 public class SyntacticErrorReporterImpl implements SyntacticErrorReporter {
 

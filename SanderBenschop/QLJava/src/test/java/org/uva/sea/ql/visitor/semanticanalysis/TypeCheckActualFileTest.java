@@ -1,14 +1,5 @@
 package org.uva.sea.ql.visitor.semanticanalysis;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.Scanner;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
@@ -17,6 +8,13 @@ import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.parser.exception.ParseException;
 import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Scanner;
+
+import static junit.framework.Assert.*;
 
 public class TypeCheckActualFileTest {
 

@@ -1,6 +1,9 @@
 package org.uva.sea.ql.visitor.semanticanalysis;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
@@ -15,8 +18,8 @@ import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
 import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.visitor.semanticanalysis.error.IdentifierRedeclarationError;
+import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.visitor.semanticanalysis.error.UnequalTypesError;
 import org.uva.sea.ql.visitor.semanticanalysis.error.UnsupportedTypeError;
 

@@ -1,8 +1,5 @@
 package org.uva.sea.ql.visitor.codegeneration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
@@ -20,6 +17,9 @@ import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WebAppGeneratingVisitorTest {
 

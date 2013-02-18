@@ -1,21 +1,28 @@
-// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-02-12 10:25:15
+// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 20:47:04
 
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.primary.*;
-import org.uva.sea.ql.ast.primary.typeClasses.*;
-import org.uva.sea.ql.ast.unary.*;
-import org.uva.sea.ql.ast.binary.*;
-import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.parser.error.*;
-import org.uva.sea.ql.parser.error.reporting.*;
-
 
 import org.antlr.runtime.*;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.binary.*;
+import org.uva.sea.ql.ast.primary.Bool;
+import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
+import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.primary.typeClasses.StringType;
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.unary.Negative;
+import org.uva.sea.ql.ast.unary.Not;
+import org.uva.sea.ql.ast.unary.Positive;
+import org.uva.sea.ql.parser.error.SyntacticQLError;
+import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporter;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressWarnings("all")
 public class QLParser extends Parser {
