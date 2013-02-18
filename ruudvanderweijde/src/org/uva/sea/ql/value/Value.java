@@ -1,6 +1,11 @@
 package org.uva.sea.ql.value;
 
 public abstract class Value {
+	public boolean isCompatibleToIntegerType() { return false; }
+	public boolean isCompatibleToNumericType() { return false; }
+	public boolean isCompatibleToStringType() { return false; }
+	public boolean isCompatibleToBooleanType() { return false; }
+	
 	public Value add(Value arg) {
 		throw new UnsupportedOperationException();
 	}

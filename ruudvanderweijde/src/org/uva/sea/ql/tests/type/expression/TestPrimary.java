@@ -43,6 +43,7 @@ public class TestPrimary {
 		assertTrue(isValidExpression("1"));
 		assertTrue(isValidExpression("10"));
     	assertTrue(isValidExpression("100"));
+    	assertTrue(isValidExpression("34895734594758943753945738945789573589"));
     	assertTrue(isValidExpression("-100"));
 	}	
 	

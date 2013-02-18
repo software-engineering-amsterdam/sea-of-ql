@@ -10,4 +10,24 @@ public class StringValue extends Value {
 	public String getValue() {
 		return value;
 	}
+
+	@Override
+	public boolean isCompatibleToIntegerType() { 
+		return true; 
+	}
+
+	@Override
+	public boolean isCompatibleToNumericType() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToStringType() {
+		return true;
+	}
+
+	@Override
+	public boolean isCompatibleToBooleanType() {
+		return true;
+	}
 }

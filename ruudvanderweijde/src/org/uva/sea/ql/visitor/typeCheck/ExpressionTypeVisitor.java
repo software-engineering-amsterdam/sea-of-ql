@@ -284,7 +284,6 @@ public class ExpressionTypeVisitor implements IExpressionVisitor<Boolean> {
 		return true;
 	}
 
-
 	public void addError(String message) {
 		Message msg = new Error(message);
 		errors.add(msg);
