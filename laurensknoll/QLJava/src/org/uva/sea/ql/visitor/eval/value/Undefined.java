@@ -53,7 +53,7 @@ public class Undefined extends AbstractValue {
 	}
 
 	public AbstractValue or(AbstractValue value) {
-		return new Bool(false);
+		return value;
 	}
 
 	protected AbstractValue andBool(Bool value) {
@@ -61,7 +61,7 @@ public class Undefined extends AbstractValue {
 	}
 
 	protected AbstractValue orBool(Bool value) {
-		return new Bool(false);
+		return value;
 	}
 
 	public AbstractValue eqBool(Bool value) {
