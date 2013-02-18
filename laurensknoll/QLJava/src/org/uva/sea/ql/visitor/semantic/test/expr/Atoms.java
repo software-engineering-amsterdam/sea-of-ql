@@ -15,11 +15,11 @@ import org.uva.sea.ql.visitor.semantic.Environment;
 import org.uva.sea.ql.visitor.semantic.Expression;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
-public class TestAtoms {
+public class Atoms {
 
 	private IExpression<ValidationResult> visitor;
 
-	public TestAtoms() {
+	public Atoms() {
 		// Create an environment with registered identifiers.
 		Environment env = new Environment();
 		env.declare(new Ident("bool"), new org.uva.sea.ql.ast.type.Bool());
@@ -31,25 +31,25 @@ public class TestAtoms {
 	}
 
 	@Test
-	public void testBools() {
+	public void bools() {
 		assertEquals(true, visitor.visit(new Bool(false)).isValid());
 		assertEquals(true, visitor.visit(new Bool(true)).isValid());
 	}
 
 	@Test
-	public void testIdents() {
+	public void idents() {
 		assertEquals(true, visitor.visit(new Ident("bool")).isValid());
 		assertEquals(false, visitor.visit(new Ident("undefined")).isValid());
 	}
 
 	@Test
-	public void testInts() {
+	public void ints() {
 		assertEquals(true, visitor.visit(new Int(-10)).isValid());
 		assertEquals(true, visitor.visit(new Int(123)).isValid());
 	}
 
 	@Test
-	public void testMoneys() {
+	public void moneys() {
 		assertEquals(true, visitor.visit(new Money(new BigDecimal("-1.00")))
 				.isValid());
 		assertEquals(true, visitor.visit(new Money(new BigDecimal("20.00")))
@@ -57,7 +57,7 @@ public class TestAtoms {
 	}
 
 	@Test
-	public void testStrings() {
+	public void strings() {
 		assertEquals(true, visitor.visit(new String("test")).isValid());
 	}
 

@@ -19,11 +19,11 @@ import org.uva.sea.ql.visitor.semantic.Environment;
 import org.uva.sea.ql.visitor.semantic.Expression;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
-public class TestUnaries {
+public class Unaries {
 
 	private IExpression<ValidationResult> visitor;
 
-	public TestUnaries() {
+	public Unaries() {
 		// Create an environment with registered identifiers.
 		Environment env = new Environment();
 		env.declare(new Ident("bool"), new org.uva.sea.ql.ast.type.Bool());

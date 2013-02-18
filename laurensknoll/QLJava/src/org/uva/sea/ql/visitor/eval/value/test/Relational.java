@@ -13,7 +13,7 @@ import org.uva.sea.ql.visitor.eval.value.Money;
 public class Relational {
 
 	@Test
-	public void testBools() {
+	public void bools() {
 		AbstractValue boolTrue = new Bool(true);
 		AbstractValue boolFalse = new Bool(false);
 
@@ -29,7 +29,7 @@ public class Relational {
 	}
 
 	@Test
-	public void testInts() {
+	public void ints() {
 		AbstractValue zero = new Int(0);
 		AbstractValue one = new Int(1);
 		AbstractValue ten = new Int(10);
@@ -52,7 +52,7 @@ public class Relational {
 	}
 
 	@Test
-	public void testMoneys() {
+	public void moneys() {
 		AbstractValue zero = new Money(new BigDecimal("0.00"));
 		AbstractValue one = new Money(new BigDecimal("1.00"));
 		AbstractValue ten = new Money(new BigDecimal("10.00"));
@@ -75,7 +75,7 @@ public class Relational {
 	}
 
 	@Test
-	public void testNumerics() {
+	public void numerics() {
 		AbstractValue intZero = new Int(0);
 		AbstractValue intOne = new Int(1);
 		AbstractValue intTen = new Int(10);
