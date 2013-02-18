@@ -20,7 +20,7 @@ import lang::ql::syntax::Type;
 import lang::qls::syntax::Color;
 import lang::qls::syntax::Keyword;
 import lang::qls::syntax::QLS;
-import util::ParseTreeHelper;
+import lang::rascal::grammar::definition::Keywords;
 
 public set[str] keywords = {
   x |

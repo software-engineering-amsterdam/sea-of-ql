@@ -13,7 +13,9 @@ module lang::ql::util::ParseHelper
 import IO;
 import ParseTree;
 import lang::ql::ast::AST;
+import lang::ql::syntax::Boolean;
 import lang::ql::syntax::Comment;
+import lang::ql::syntax::Date;
 import lang::ql::syntax::Int;
 import lang::ql::syntax::Keyword;
 import lang::ql::syntax::Layout;
