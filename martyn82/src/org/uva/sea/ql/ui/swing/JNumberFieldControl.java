@@ -1,8 +1,11 @@
 package org.uva.sea.ql.ui.swing;
 
-import javax.swing.JSpinner;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
+import javax.swing.JFormattedTextField;
 
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
@@ -11,14 +14,18 @@ import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
 
 public class JNumberFieldControl extends NumberFieldControl {
-	private final JSpinner control;
+	private final JFormattedTextField control;
 
 	public JNumberFieldControl() {
-		this.control = new JSpinner();
+		NumberFormat formatter = new DecimalFormat();
+		formatter.setMaximumFractionDigits( 0 );
+		formatter.setMinimumFractionDigits( 0 );
+
+		this.control = new JFormattedTextField( formatter );
 	}
 
 	@Override
-	public JSpinner getInnerControl() {
+	public JFormattedTextField getInnerControl() {
 		return this.control;
 	}
 
@@ -44,9 +51,9 @@ public class JNumberFieldControl extends NumberFieldControl {
 
 	@Override
 	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addChangeListener( new ChangeListener() {
+		this.control.addPropertyChangeListener( "value", new PropertyChangeListener() {
 			@Override
-			public void stateChanged( ChangeEvent e ) {
+			public void propertyChange( PropertyChangeEvent evt ) {
 				listener.itemChanged( new ControlEvent( JNumberFieldControl.this ) );
 			}
 		} );

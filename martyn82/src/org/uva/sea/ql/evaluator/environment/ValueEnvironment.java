@@ -26,7 +26,12 @@ public class ValueEnvironment extends Environment {
 	}
 
 	public void assign( IdentifierExpression identifier, Value value ) {
-		this.bindings.put( identifier, new Bindable( value ) );
+		if ( !this.bindings.containsKey( identifier ) ) {
+			this.bindings.put( identifier, new Bindable( value ) );
+			return;
+		}
+
+		this.bindings.get( identifier ).setValue( value );
 	}
 
 	public void registerObserver( IdentifierExpression identifier, Observer observer ) {

@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ui.swing;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.JFormattedTextField;
 
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
@@ -14,27 +14,24 @@ import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
 
 public class JMoneyFieldControl extends MoneyFieldControl {
-	private final JSpinner control;
+	private final JFormattedTextField control;
 
 	public JMoneyFieldControl() {
-		SpinnerNumberModel model = new SpinnerNumberModel();
-		model.setStepSize( 1 );
-
-		this.control = new JSpinner( model );
-
-		JSpinner.NumberEditor editor = (JSpinner.NumberEditor) this.control.getEditor();
-		DecimalFormat formatter = editor.getFormat();
+		NumberFormat formatter = new DecimalFormat();
 		formatter.setMinimumFractionDigits( 2 );
+		formatter.setMaximumFractionDigits( 2 );
+
+		this.control = new JFormattedTextField( formatter );
 	}
 
 	@Override
-	public JSpinner getInnerControl() {
+	public JFormattedTextField getInnerControl() {
 		return this.control;
 	}
 
 	@Override
 	public void setValue( Value value ) {
-		this.control.setValue( Double.parseDouble( value.toString() ) );
+		this.control.setValue( value.getValue() );
 	}
 
 	@Override
@@ -54,9 +51,9 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 
 	@Override
 	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addChangeListener( new ChangeListener() {
+		this.control.addPropertyChangeListener( "value", new PropertyChangeListener() {
 			@Override
-			public void stateChanged( ChangeEvent arg0 ) {
+			public void propertyChange( PropertyChangeEvent arg0 ) {
 				listener.itemChanged( new ControlEvent( JMoneyFieldControl.this ) );
 			}
 		} );

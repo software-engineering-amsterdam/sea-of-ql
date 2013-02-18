@@ -82,14 +82,11 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		return control;
 	}
 
-	private void registerHandler( final QuestionDeclaration question, final Control control ) {
+	private void registerControlHandler( final QuestionDeclaration question, final Control control ) {
 		control.addChangeListener( new ControlEventListener() {
 			@Override
 			public void itemChanged( ControlEvent event ) {
-				Control source = event.getSource();
-				Value value = source.getValue();
-
-				environment.assign( question.getIdentifier(), value );
+				environment.assign( question.getIdentifier(), control.getValue() );
 				environment.notifyObservers( question.getIdentifier() );
 			}
 		} );
@@ -189,7 +186,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addLabel( label );
 		this.addControl( control );
 
-		this.registerHandler( node, control );
+		this.registerControlHandler( node, control );
 
 		return null;
 	}
@@ -208,7 +205,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addControl( control );
 
 		this.registerComputedObservers( node, control );
-		this.registerHandler( node, control );
+		this.registerControlHandler( node, control );
 
 		return null;
 	}
