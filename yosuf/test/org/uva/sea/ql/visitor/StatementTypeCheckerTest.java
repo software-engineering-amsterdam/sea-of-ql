@@ -20,14 +20,12 @@ import org.uva.sea.ql.ast.value.StringValue;
 
 public class StatementTypeCheckerTest {
 
-	private ExpressionTypeChecker expressionChecker;
 	private StatementTypeChecker statementChecker;
 	private Computed computed;
 	private CompoundStatement compound;
 
 	@Before
 	public void setUp() {
-		expressionChecker = new ExpressionTypeChecker(null);
 		statementChecker = new StatementTypeChecker();
 
 		computed = new Computed(new IntegerType(), new Identifier("1"),

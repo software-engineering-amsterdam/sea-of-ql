@@ -30,7 +30,7 @@ public class Identifier extends Expression<Expression<?>> {
 
 	@Override
 	public Nature getNature() {
-		return Nature.TEXTUAL;
+		return new Textual();
 	}
 
 	@Override
