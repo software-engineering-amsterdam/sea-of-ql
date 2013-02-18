@@ -12,10 +12,9 @@ import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.Registry;
 import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.common.interfaces.ElementVisitor;
 
 public class ValidationVisitor implements ElementVisitor {
     private Registry registry;

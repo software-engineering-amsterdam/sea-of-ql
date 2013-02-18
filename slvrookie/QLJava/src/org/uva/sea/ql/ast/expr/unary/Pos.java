@@ -26,6 +26,11 @@ public class Pos extends UnaryExpr {
 		return new Numeric();
 	}
 
+	/*
+	 * Same reason for Numeric as Binary Arithmetic expressions
+	 * but only for one argument.
+	 */
+	
 	@Override
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
 		return ExprVisitor.visit(this);

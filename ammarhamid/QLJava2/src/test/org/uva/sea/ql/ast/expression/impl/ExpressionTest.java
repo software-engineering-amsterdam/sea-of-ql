@@ -5,9 +5,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.uva.sea.ql.ErrorMessage;
 import org.uva.sea.ql.VariableScope;
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.statement.AssignmentNode;
 import org.uva.sea.ql.ast.statement.IfNode;
 import org.uva.sea.ql.value.impl.BooleanValue;
 import org.uva.sea.ql.value.impl.IntegerValue;
@@ -200,10 +198,10 @@ public class ExpressionTest
 
         final IfNode ifNode = new IfNode();
         final ExprNode equalNode = new EqualNode(expectedNode, addNode);
-        final Node assignmentNode = new AssignmentNode(variableName, integerValueNode1, variableScope);
-        final Node assignmentNode2 = new AssignmentNode(variableName, integerValueNode2, variableScope);
-        ifNode.addBranch(equalNode, assignmentNode);
-        ifNode.addBranch(new ValueNode(new BooleanValue("true")), assignmentNode2);
+//        final Node assignmentNode = new AssignmentNode(variableName, integerValueNode1, variableScope);
+//        final Node assignmentNode2 = new AssignmentNode(variableName, integerValueNode2, variableScope);
+//        ifNode.addBranch(equalNode, assignmentNode);
+//        ifNode.addBranch(new ValueNode(new BooleanValue("true")), assignmentNode2);
 //        ifNode.evaluate();
 
         assertEquals("Result should be the same", integerValueNode2.evaluate(), variableScope.resolve(variableName));

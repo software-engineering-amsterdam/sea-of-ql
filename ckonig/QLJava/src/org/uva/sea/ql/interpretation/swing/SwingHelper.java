@@ -1,18 +1,16 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.common.IOHelper;
-import org.uva.sea.ql.common.VisitorDocumentBuilder;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.generation.html.HTMLDocument;
+import org.uva.sea.ql.interpretation.VisitorDocumentBuilder;
+import org.uva.sea.ql.interpretation.swing.components.LeftPanel;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -22,13 +20,12 @@ import org.uva.sea.ql.validation.Validator;
 public class SwingHelper {
     private String fileContent;
     private Form ast;
-    private JTextArea log;
-    private JButton buttonGenerate;
-    private JPanel centerPanel;
+    private final JTextArea log;
+    private final JPanel centerPanel;
+    private SwingRegistry registry;
 
-    public SwingHelper(JTextArea area, JButton generate, JPanel center) {
-        this.log = area;
-        this.buttonGenerate = generate;
+    public SwingHelper(LeftPanel left, JPanel center) {
+        this.log = left.getLog();
         this.centerPanel = center;
     }
 
@@ -40,6 +37,10 @@ public class SwingHelper {
         } catch (IOException ex) {
             this.appendToLog("error reading file");
         }
+    }
+
+    public final SwingRegistry getRegistry() {
+        return this.registry;
     }
 
     private void parseFile() {
@@ -74,8 +75,8 @@ public class SwingHelper {
     }
 
     private void interpretAst() {
-        final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
-                new SwingDocument());
+        final SwingDocument doc = new SwingDocument();
+        final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(doc);
         if (this.ast != null) {
             try {
                 ((Form) this.ast).accept(visitor);
@@ -84,7 +85,7 @@ public class SwingHelper {
                 result.setVisible(true);
                 this.centerPanel.repaint();
                 this.appendToLog("interpretation finished\n");
-                this.buttonGenerate.setEnabled(true);
+                this.registry = doc.getRegistry();
             } catch (QLException ex) {
                 this.appendToLog(ex.getMessage());
             }
@@ -92,29 +93,6 @@ public class SwingHelper {
         } else {
             this.appendToLog("AST INVALID");
         }
-    }
-
-    public final void generateHtml() {
-
-        if (this.ast != null) {
-            try {
-                final VisitorDocumentBuilder visitor = new VisitorDocumentBuilder(
-                        new HTMLDocument());
-                final Form form = (Form) this.ast;
-                form.accept(visitor);
-                final String output = (String) visitor.getOutput();
-                IOHelper.write(IOHelper.OUT_PATH + form.getName() + ".html",
-                        output);
-                this.appendToLog(IOHelper.OUT_PATH + form.getName() + " created");
-            } catch (QLException ex) {
-                this.appendToLog(ex.getMessage());
-            } catch (FileNotFoundException ex) {
-                this.appendToLog(ex.getMessage());
-            }
-        } else {
-            this.appendToLog("invalid AST");
-        }
-
     }
 
     private void appendToLog(String str) {

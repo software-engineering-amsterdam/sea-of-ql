@@ -2,10 +2,10 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
-import org.uva.sea.ql.common.interfaces.TypeVisitor;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
 public abstract class Type extends Expr implements Evaluatable {
-    public Type() {
+    protected Type() {
 
     }
 

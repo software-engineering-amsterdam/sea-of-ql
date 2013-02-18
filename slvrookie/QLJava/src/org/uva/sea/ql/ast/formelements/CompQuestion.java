@@ -14,7 +14,7 @@ public class CompQuestion extends Question {
 		this.expression = expression;
 	}
 
-	public Expr getQuestionExpr() {
+	public Expr getExpr() {
 		return expression;
 	}
 

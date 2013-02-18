@@ -1,35 +1,18 @@
 package org.uva.sea.ql.visitor.semantic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.IStatement;
 
-public class Form implements IForm<Boolean> {
-
-	private final List<String> errors;
-
-	public Form() {
-		this.errors = new ArrayList<String>();
-	}
+public class Form implements IForm<ValidationResult> {
 
 	@Override
-	public Boolean visit(Question questionForm) {
+	public ValidationResult visit(Question questionForm) {
 		// The form identifier is not checked due to
 		// the fact that only one form is allowed.
-		Statement statementVisitor = new Statement(new Environment());
-		Boolean isBlockStatementValid = questionForm.getStatements().accept(
-				statementVisitor);
-		if (!isBlockStatementValid) {
-			this.errors.addAll(statementVisitor.getErrors());
-		}
-
-		return isBlockStatementValid;
-	}
-
-	public List<String> getErrors() {
-		return this.errors;
+		IStatement<ValidationResult> statementVisitor = new Statement(
+				new Environment());
+		return questionForm.getStatements().accept(statementVisitor);
 	}
 
 }

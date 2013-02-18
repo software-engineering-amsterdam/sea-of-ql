@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
 import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {
 	private final static int FormLocation = 0;
@@ -35,12 +36,11 @@ public class Program {
 			return;
 		}
 
-		// TODO: Use interface name.
-		org.uva.sea.ql.visitor.semantic.Form semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
-		Boolean isFormValid = questionForm.accept(semanticFormVistor);
-		if (!isFormValid) {
+		IForm<ValidationResult> semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
+		ValidationResult result = questionForm.accept(semanticFormVistor);
+		if (!result.isValid()) {
 			System.out.println("Form is invalid:");
-			for (String error : semanticFormVistor.getErrors()) {
+			for (String error : result.getErrors()) {
 				System.out.println(error);
 			}
 		} else {

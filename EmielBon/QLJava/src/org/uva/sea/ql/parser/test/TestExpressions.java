@@ -4,20 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.literal.*;
-import org.uva.sea.ql.ast.operators.logical.*;
-import org.uva.sea.ql.ast.operators.numeric.*;
-import org.uva.sea.ql.ast.operators.relational.*;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.operators.logical.*;
+import org.uva.sea.ql.ast.expression.operators.numeric.*;
+import org.uva.sea.ql.ast.expression.operators.relational.*;
+import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.typechecker.CheckExpression;
+import org.uva.sea.ql.typechecker.CheckStatement;
 import org.uva.sea.ql.typechecker.Message;
+import org.uva.sea.ql.typechecker.TypeEnvironment;
 
 public class TestExpressions {
 
@@ -129,12 +127,28 @@ public class TestExpressions {
 	
 	@Test
 	public void testExpressionTypes() throws Exception {
-		assertTrue(CheckExpression.check((Expression) parser.parse("(1 - 2 / 4) * 4"),       new HashMap<Identifier, Type>(), new ArrayList<Message>()));
-		assertTrue(CheckExpression.check((Expression) parser.parse("true && false || true"), new HashMap<Identifier, Type>(), new ArrayList<Message>()));
-		assertTrue(CheckExpression.check((Expression) parser.parse("(1 - 2 / 4) >= 4"),      new HashMap<Identifier, Type>(), new ArrayList<Message>()));
-		assertTrue(CheckExpression.check((Expression) parser.parse("abc"),                   new HashMap<Identifier, Type>(), new ArrayList<Message>()));
-		assertTrue(CheckExpression.check((Expression) parser.parse("\"abc\""),               new HashMap<Identifier, Type>(), new ArrayList<Message>()));
-		assertTrue(CheckExpression.check((Expression) parser.parse("123"),                   new HashMap<Identifier, Type>(), new ArrayList<Message>()));
+		assertTrue(CheckExpression.check((Expression) parser.parse("(1 - 2 / 4) * 4"),       new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckExpression.check((Expression) parser.parse("true && false || true"), new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckExpression.check((Expression) parser.parse("(1 - 2 / 4) >= 4"),      new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckExpression.check((Expression) parser.parse("abc"),                   new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckExpression.check((Expression) parser.parse("\"abc\""),               new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckExpression.check((Expression) parser.parse("123"),                   new TypeEnvironment(), new ArrayList<Message>()));
+	}
+	
+	@Test
+	public void testStatementTypes() throws Exception {
+		assertTrue(CheckStatement.check((Statement)parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean }"), new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckStatement.check((Statement)parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" integer }"), new TypeEnvironment(), new ArrayList<Message>()));
+		assertTrue(CheckStatement.check((Statement)parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean(hasSoldHouse) }"), new TypeEnvironment(), new ArrayList<Message>()));
+
+		assertTrue(CheckStatement.check((Statement) parser.parse("\n" +
+				"form a { \n" +
+				"	hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n" +
+				"	hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		sellingPrice: \"Price the house was sold for:\" integer(1+2)\n" +
+				"	}\n" +
+				"}"), new TypeEnvironment(), new ArrayList<Message>()));
 	}
 	
 }

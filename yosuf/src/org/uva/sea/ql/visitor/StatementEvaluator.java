@@ -28,15 +28,18 @@ public class StatementEvaluator implements StatementVisitor<Block> {
 
 	@Override
 	public Block visit(final Form form) {
-		form.getIdentifier().accept(expressionEvaluator);
 		form.getBody().accept(this);
-		return null;
+		return form;
 	}
 
 	@Override
 	public Block visit(final CompoundStatement compoundStatement) {
-		for (Block statement : compoundStatement.getStatements()) {
-			statement.accept(this);
+		try {
+			for (Block statement : compoundStatement.getStatements()) {
+				statement.accept(this);
+			}
+		} catch (Exception e) {
+			System.out.println("Reference to reference.");
 		}
 		return compoundStatement;
 	}

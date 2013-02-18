@@ -19,9 +19,13 @@ import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestAssignments extends TestExpressions {
-
+    
+    public TestAssignments(){
+        
+    }
+    
     @Test
-    public void testExampleFile() throws ParseError, IOException {
+    public final void testExampleFile() throws ParseError {
         final Form e = parser.parseFile();
         assertNotNull("result was null", e);
         assertEquals(Form.class, e.getClass());
@@ -33,7 +37,7 @@ public class TestAssignments extends TestExpressions {
         testBlock(b);
     }
 
-    private void testBlock(Block b) {
+    private final void testBlock(Block b) {
         for (BlockElement line : b.getContent()) {
             Assert.assertTrue(line.getClass().equals(IfStatement.class)
                     || line.getClass().equals(Question.class));

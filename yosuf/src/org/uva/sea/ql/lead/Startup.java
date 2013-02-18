@@ -11,7 +11,6 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.ExpressionTypeChecker;
 import org.uva.sea.ql.visitor.StatementEvaluator;
 import org.uva.sea.ql.visitor.StatementTypeChecker;
 import org.uva.sea.ql.visitor.TypeCheckException;
@@ -48,8 +47,7 @@ public final class Startup extends Application {
 	 * @return true if no errors detected
 	 */
 	private boolean checkTypes(final Form form) {
-		StatementTypeChecker statementChecker = new StatementTypeChecker(
-				new ExpressionTypeChecker());
+		StatementTypeChecker statementChecker = new StatementTypeChecker();
 		statementChecker.visit(form);
 
 		for (TypeCheckException e : statementChecker.getAllTypeErrors()) {
@@ -88,16 +86,19 @@ public final class Startup extends Application {
 		if (form != null && checkTypes(form)) {
 			evaluate(form);
 			new VisibleForm(model, form).start(stage);
+		} else {
+			System.exit(0);
 		}
-
-		else {
-
-		}
-
 	}
 
 	@SuppressWarnings("static-access")
 	public static void main(final String[] args) {
+		if (args.length > 0 && args[0].contains("help")) {
+			System.out.println("Use " + PATH_PROPERTY
+					+ " system property to provide the file path.\nExample: -D"
+					+ PATH_PROPERTY + "=/forms/taxes.txt");
+			System.exit(0);
+		}
 		new Startup().launch();
 	}
 }

@@ -47,36 +47,57 @@ public class ANTLRParser implements IParse {
 				throw new ParseError(e.getMessage());
 				}
 			}
-		
-	@Override		
-	public Statement parseSimpleQuestion(String src) throws ParseError {
+
+	@Override
+	public Statement parseStatement(String src) throws ParseError {
 		try{
-				return parse(src).simplequestion();
-			}
-			catch (RecognitionException e) {
-				throw new ParseError(e.getMessage());
-				}
+			return parse(src).body();
 		}
-	@Override	
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+			}
+		}
+
+	@Override
 	public Statement parseIfThen(String src) throws ParseError {
 		try{
-				return parse(src).ifthen();
-			}
+			return parse(src).ifthen();
+		}
 		catch (RecognitionException e) {
-				throw new ParseError(e.getMessage());
+			throw new ParseError(e.getMessage());
 			}
 		}
-		
+	
 	@Override
 	public Statement parseIfThenElse(String src) throws ParseError {
 		try{
-				return parse(src).ifthenelse();
-			}
-			catch (RecognitionException e) {
-				throw new ParseError(e.getMessage());
+			return parse(src).ifthenelse();
+		}
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
 			}
 		}
-		
+	
+	
+	@Override
+	public Statement parseSimpleQuestion(String src) throws ParseError {
+		try{
+			return parse(src).simplequestion();
+		}
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+			}
+		}
+
+	@Override
+	public Statement parseComQuestion(String src) throws ParseError {
+		try{
+			return parse(src).comquestion();
+		}
+		catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+			}
+		}
 }
 	
 

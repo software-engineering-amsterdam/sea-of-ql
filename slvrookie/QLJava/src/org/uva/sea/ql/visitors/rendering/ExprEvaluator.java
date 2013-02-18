@@ -138,12 +138,28 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 
 	@Override
 	public Value visit(Ident node) {
-		if (env.containsKey(node.getName())) {
-			return env.get(node.getName());
+		if (env.containsKey(node.getStringName())) {
+			return env.get(node.getStringName());
 		}
 		return null;
 	}
 
+	/* 
+	 *  visit(Ident node) will never return null due to the
+	 *  requirement for sequential processing of the ql.
+	 *  
+	 *  REQ:
+	 * "the ordering of questions should be consistent with how the 
+	 * question variables are used in conditions and computed values."
+	 * 
+	 * non declared idents that exist in expressions and
+	 * conditions are caught during the typecheking phase.
+	 * 
+	 * Sequential processing and value initializer 
+	 * also guarantee that idents that exist in
+	 * expressions and conditions have a value assigned
+	 */
+	
 	@Override
 	public Value visit(IntLiteral node) {
 		return new IntLiteral(node.getValue());

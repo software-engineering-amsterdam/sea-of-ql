@@ -17,15 +17,15 @@ public class Question extends FormElement {
 		this.type = type;
 	}
 
-	public Ident getQuestionName() {
+	public Ident getName() {
 		return name;
 	}
 
-	public StringLiteral getQuestionLabel() {
+	public StringLiteral getLabel() {
 		return label;
 	}
 
-	public Type getQuestionType() {
+	public Type getType() {
 		return type;
 	}
 

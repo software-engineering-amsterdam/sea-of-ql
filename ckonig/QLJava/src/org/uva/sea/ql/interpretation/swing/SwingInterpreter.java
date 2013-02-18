@@ -6,56 +6,38 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
+import org.uva.sea.ql.interpretation.swing.components.CenterPanel;
+import org.uva.sea.ql.interpretation.swing.components.LeftPanel;
+import org.uva.sea.ql.interpretation.swing.components.Sizes;
 import org.uva.sea.ql.interpretation.swing.components.TopPanel;
 
 public class SwingInterpreter extends JFrame {
     private static final long serialVersionUID = -1942492887122279651L;
-    private static final int WINDOW_WIDTH = 800;
-    private static final int WINDOW_HEIGHT = 600;
-    private static final int TOP_HEIGHT = 100;
-    private static final int LEFT_WIDTH = 100;
-    private static final int CENTER_WIDTH = 400;
-    private static final int CENTER_HEIGHT = 400;
-    private static final int BOTTOM_HEIGHT = 100;
+    private static final String TITLE = "QL Interpreter";
 
     private TopPanel topPanel;
-    private JPanel leftPanel;
-    private JPanel bottomPanel;
-    private JPanel centerPanel;
-    private JTextArea log;
-    private SwingHelper helper;
+    private LeftPanel leftPanel;
+    private CenterPanel centerPanel;
 
     public SwingInterpreter() {
-        super("QL Interpreter");
+        super(TITLE);
         createComponents();
         setSizes();
         setLayout();
-        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        setSize(Sizes.WINDOW_WIDTH, Sizes.WINDOW_HEIGHT);
         setVisible(true);
     }
 
     private void setSizes() {
-        this.leftPanel.setBackground(Color.red);
-        this.topPanel.setSize(WINDOW_WIDTH, TOP_HEIGHT);
         this.centerPanel.setBackground(Color.green);
-        this.centerPanel.setSize(CENTER_WIDTH, CENTER_HEIGHT);
-        this.bottomPanel.setSize(WINDOW_WIDTH, BOTTOM_HEIGHT);
-        this.leftPanel.setSize(LEFT_WIDTH, CENTER_HEIGHT);
-        this.log.setSize(LEFT_WIDTH, CENTER_HEIGHT);
-        this.log.setText("");
+        this.centerPanel.setSize(Sizes.CENTER_WIDTH, Sizes.CENTER_HEIGHT);
     }
 
     private void createComponents() {
-
-        this.bottomPanel = new JPanel();
-        this.leftPanel = new JPanel();
-        this.centerPanel = new JPanel();
-        this.log = new JTextArea();
-        this.topPanel = new TopPanel(this.helper, this.log, this.centerPanel);
-        this.log.setLineWrap(true);
-        this.leftPanel.add(this.log);
+        this.leftPanel = new LeftPanel();
+        this.centerPanel = new CenterPanel();
+        this.topPanel = new TopPanel(this.getHelper());
     }
 
     private void setLayout() {
@@ -65,7 +47,6 @@ public class SwingInterpreter extends JFrame {
         addToContentPane(0, 0, 2, this.topPanel, c);
         addToContentPane(0, 1, 1, this.leftPanel, c);
         addToContentPane(1, 1, 1, this.centerPanel, c);
-        addToContentPane(0, 2, 2, this.bottomPanel, c);
 
     }
 
@@ -77,6 +58,10 @@ public class SwingInterpreter extends JFrame {
         c.gridy = y;
         c.gridwidth = gridwidth;
         getContentPane().add(p, c);
+    }
+
+    private SwingHelper getHelper() {
+        return new SwingHelper(this.leftPanel, this.centerPanel);
     }
 
 }

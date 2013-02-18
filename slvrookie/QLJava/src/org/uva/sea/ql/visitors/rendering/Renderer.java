@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitors.rendering;
 
-
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -47,75 +46,82 @@ public class Renderer implements IElementVisitor {
 	}
 	
 	@Override
-	public void visit(Block element) {
-		for (FormElement elem : element.getBlock()) {
+	public void visit(Block block) {
+		for (FormElement elem : block.getBlock()) {
 			elem.accept(this);
 		}
 	}
 
 	@Override
-	public void visit(CompQuestion element) {
-		String name = element.getQuestionName().getName();
-		Type type = element.getQuestionType();
-		Value value = element.getQuestionExpr().accept(exprevaluator);
-		state.setValue(name, value);
-		JComponent component = TypeToWidget.CreateWidget(type, value, false);
-		addQuestion(element.getQuestionLabel().getValue(), component);
-		ActionListenere.CreateListener(name, type, component, state,gui1);
-	}
-
-	@Override
-	public void visit(Form element) {
-		JPanel formPanel = render(element.getFormBody(), state, gui1);
+	public void visit(Form form) {
+		JPanel formPanel = render(form.getBody(), state, gui1);
 		panel.add(formPanel);
-		panel.setBorder(BorderFactory.createTitledBorder(element.getFormName().getName()));
+		panel.setBorder(BorderFactory.createTitledBorder(form.getName().getStringName()));
 	}
 
 	@Override
-	public void visit(IfThen element) {
-		boolean condition = ((BoolLiteral) element.getCondition().accept(exprevaluator)).getValue();
-		JPanel thenPanel = render(element.getThenBody(), state, gui1);
-		thenPanel.setVisible(condition);
-		addPanels(condition, thenPanel, null);
+	public void visit(IfThen ifThen) {
+		boolean condition = ((BoolLiteral) ifThen.getCondition().accept(exprevaluator)).getValue();
+		JPanel thenPanel = render(ifThen.getThenBody(), state, gui1);
+		addConditionalPanels(condition, thenPanel, null);
 	}
 
 	@Override
-	public void visit(IfThenElse element) {
-		boolean condition = ((BoolLiteral) element.getCondition().accept(exprevaluator)).getValue();
-		JPanel thenPanel = render(element.getThenBody(), state, gui1);
-		JPanel elsePanel = render(element.getElseBody(), state, gui1);
-		thenPanel.setVisible(condition);
-		elsePanel.setVisible(!condition);
-		addPanels(condition, thenPanel, elsePanel);
+	public void visit(IfThenElse ifThenElse) {
+		boolean condition = ((BoolLiteral) ifThenElse.getCondition().accept(exprevaluator)).getValue();
+		JPanel thenPanel = render(ifThenElse.getThenBody(), state, gui1);
+		JPanel elsePanel = render(ifThenElse.getElseBody(), state, gui1);
+		addConditionalPanels(condition, thenPanel, elsePanel);
 	}
 
 	@Override
-	public void visit(Question element) {
-		String name = element.getQuestionName().getName();
-		Type type = element.getQuestionType();
+	public void visit(Question question) {
+		String name = question.getName().getStringName();
+		Type type = question.getType();
 		valueInitializer(name, type);
 		Value value = state.getValue(name);
 		JComponent component = TypeToWidget.CreateWidget(type, value, true);
-		addQuestion(element.getQuestionLabel().getValue(), component);
-		ActionListenere.CreateListener(name, type, component, state, gui1);
+		addQuestion(question.getLabel().getValue(), component);
+		QLActionListener.createListener(name, type, component, state, gui1);
+	}
+	
+	@Override
+	public void visit(CompQuestion compQuestion) {
+		String name = compQuestion.getName().getStringName();
+		Type type = compQuestion.getType();
+		Value value = compQuestion.getExpr().accept(exprevaluator);
+		state.setValue(name, value);
+		JComponent component = TypeToWidget.CreateWidget(type, value, false);
+		addQuestion(compQuestion.getLabel().getValue(), component);
+		QLActionListener.createListener(name, type, component, state, gui1);
 	}
 
 	private void addQuestion(String label, JComponent component) {
-		panel.add(new JLabel(label.substring(1, label.length() - 1)),"width :100:,push");
+		panel.add(new JLabel(label.substring(1, label.length() - 1)),"width :100:,push");  //removes StringLiteral quotes before creating the label
 		panel.add(component, "wrap");
 	}
 
-	private void addPanels(boolean condition, JPanel thenPanel, JPanel elsePanel) {
-		if (condition == true) {
+	/* 
+	 * If the condition is not fulfilled don't add the conditional panel 
+	 * to the main panel because it will just be a big non-visible
+	 * block taking space. 
+	 * Only add conditional panels when their condition becomes true.
+	 * 
+	 */
+	
+	private void addConditionalPanels(boolean condition, JPanel thenPanel, JPanel elsePanel) {
+		if (condition) {
+			thenPanel.setVisible(condition);
 			panel.add(thenPanel, "wrap");
 		} else if (elsePanel != null) {
+			elsePanel.setVisible(!condition);
 			panel.add(elsePanel, "wrap");
 		}
 	}
 
 	private void valueInitializer(String name, Type type) {
 		if (!state.hasRegisteredValue(name)) {
-			state.setValue(name, TypeInitializer.typeInitialize(type));
+			state.setValue(name, ValueInitializer.initializeValue(type));
 		}
 	}
 

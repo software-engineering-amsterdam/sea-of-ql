@@ -1,22 +1,34 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Collections;
 
-public class BlockNode implements Node
+public class BlockNode implements Statement
 {
-    private final List<Node> statements;
+    private final Collection<Statement> statements;
 
     public BlockNode()
     {
         this.statements = new ArrayList<>();
     }
 
-    public void addStatement(final Node statement)
+    public void addStatement(final Statement statement)
     {
         this.statements.add(statement);
+    }
+
+    public Collection<Statement> getStatements()
+    {
+        return Collections.unmodifiableCollection(statements);
+    }
+
+    @Override
+    public void accept(StatementVisitor statementVisitor)
+    {
+        statementVisitor.visit(this);
     }
 
     // TODO move this code to GUI interpreter

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.parser.ParseError;
 
-public class MathTestHelper extends TestHelper<MathTestHelper> {
+public class MathTestHelper extends AbstractTestHelper<MathTestHelper> {
     private boolean processFirst;
 
     public MathTestHelper(TestParser parser) {
@@ -41,7 +41,7 @@ public class MathTestHelper extends TestHelper<MathTestHelper> {
 
     public final void testMathOperations(MathTestHelper opposite)
             throws ParseError {
-        testBinary(this.asClass, getBracket(A, this, B), Ident.class,
+        testBinary(this.asClass, A +  this.asString +  B, Ident.class,
                 Ident.class);
         testBinary(this.asClass, A + this.asString + getBracket(B, this, C),
                 Ident.class, this.asClass);

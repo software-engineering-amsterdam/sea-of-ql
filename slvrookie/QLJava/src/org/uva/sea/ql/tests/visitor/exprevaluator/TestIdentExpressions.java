@@ -24,17 +24,18 @@ public class TestIdentExpressions {
 	
 	@Test
 	public void testIdentExpr() throws ParseError {
-		env.put(new Ident("hm").getName(), new IntLiteral(10));
-		env.put(new Ident("hm1").getName(), new IntLiteral(11));
-		env.put(new Ident("mh").getName(), new MoneyLiteral(10.00));
-		env.put(new Ident("mh1").getName(), new MoneyLiteral(11.00));
-		env.put(new Ident("bh").getName(), new BoolLiteral(true));
-		assertEquals( 20 , parser.parseExpr("hm + hm").accept(eval).getValue() );
-		assertEquals( 21 , parser.parseExpr("hm + hm1").accept(eval).getValue() );
-		assertEquals( 1.00 , parser.parseExpr("mh1 - mh").accept(eval).getValue() );
-		assertEquals( 10.00 , parser.parseExpr("mh1 - mh1 + mh").accept(eval).getValue() );
-		assertEquals( true , parser.parseExpr("((mh1 - mh) >= (mh1 - mh)) == bh ").accept(eval).getValue() );
-		assertEquals( false , parser.parseExpr("!bh").accept(eval).getValue() );
+		env.put(new Ident("Taki").getStringName(), new IntLiteral(10));
+		env.put(new Ident("Chan").getStringName(), new IntLiteral(11));
+		env.put(new Ident("Ein").getStringName(), new MoneyLiteral(10.00));
+		env.put(new Ident("o").getStringName(), new MoneyLiteral(11.00));
+		env.put(new Ident("Man").getStringName(), new BoolLiteral(true));
+		
+		assertEquals( 20 , parser.parseExpr("Taki + Taki").accept(eval).getValue() );
+		assertEquals( 21 , parser.parseExpr("Taki + Chan").accept(eval).getValue() );
+		assertEquals( 1.00 , parser.parseExpr("o - Ein").accept(eval).getValue() );
+		assertEquals( 10.00 , parser.parseExpr("o - o + Ein").accept(eval).getValue() );
+		assertEquals( true , parser.parseExpr("((Chan - Taki) >= (Taki - Chan)) == Man ").accept(eval).getValue() );
+		assertEquals( false , parser.parseExpr("!Man").accept(eval).getValue() );
 	}
 	
 }

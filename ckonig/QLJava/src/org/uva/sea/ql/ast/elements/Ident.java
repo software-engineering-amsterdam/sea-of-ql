@@ -3,9 +3,9 @@ package org.uva.sea.ql.ast.elements;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
-import org.uva.sea.ql.common.interfaces.TreeVisitor;
+import org.uva.sea.ql.interpretation.TreeVisitor;
 
 public class Ident extends Expr implements Evaluatable, TreeNode {
 

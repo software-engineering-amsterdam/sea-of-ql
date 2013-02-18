@@ -1,5 +1,5 @@
 /**
- * This module contains the Question checker (hooked up to the IDE)  
+ * This module contains all functions for Question checker (hooked up to the IDE)  
  * @author  Gerson Delgado
  * @version 1.0, 12/02/2013
  */
@@ -8,10 +8,6 @@ module lang::ql::ide::SemanticChecker::QuestionChecker
 import lang::ql::ast::AST;
 import lang::ql::ide::SemanticChecker::Environment;
 
-/**
-* Check function for duplicate labels in a question
-* This function add warnings to the env in case of duplicate labels in questions  
-*/
 public ENV checkQstnDuplicates(list[Element] elem, ENV env){
 	top-down visit(elem){
 		case qstn:computableQuestion(_,_,_,_) 
@@ -21,10 +17,7 @@ public ENV checkQstnDuplicates(list[Element] elem, ENV env){
 	}
 	return env;	
 }
-
-/**
-* Check function for Cyclic dependencies 
-*/   
+  
 public ENV checkCyclic(list[Element] elem, ENV env){
 	top-down visit(elem){
 		case id:ident(str name) 
@@ -33,10 +26,6 @@ public ENV checkCyclic(list[Element] elem, ENV env){
 	return env;	
 }
 
-/**
-* Help function for cyclic dependencies
-* This function add Errors to the env in case of Cyclic dependencies 
-*/
 private ENV cyclicDependecy(str id, loc exprLoc, ENV env){
 	for(var1<-env.elements){
 			if(var1.id == id)
@@ -46,11 +35,6 @@ private ENV cyclicDependecy(str id, loc exprLoc, ENV env){
 	return env;
 }
 
-/**
-* Help Check function for computable questions
-* This function check duplicated id's if so it add errors 
-* This function add questions to the environment  
-*/
 private ENV checkCompQstnDuplicates(question:computableQuestion(str id, str qLabel, DataType qstnDataType,  Expr qstnExpr), ENV env){
 	for(var<-env.elements){
 		if(id == var.id)
@@ -67,11 +51,6 @@ private ENV checkCompQstnDuplicates(question:computableQuestion(str id, str qLab
 	return env = addElement(env, id, qLabel, qstnDataType, question@location);
 }
 
-/**
-* Help Check function for simple questions
-* This function check duplicated id's if so it add errors 
-* This function add questions to the environment  
-*/
 private ENV checkSingQstnDuplicates(question:singleQuestion(str id, str qLabel, DataType qstnDataType), ENV env){
 	for(var<-env.elements){
 		if(id == var.id)
@@ -87,10 +66,6 @@ private ENV checkSingQstnDuplicates(question:singleQuestion(str id, str qLabel, 
 	return env = addElement(env, id, qLabel, qstnDataType, question@location);
 }
 
-/**
-* Check function for duplicate labels
-* This function add warnings to the env in case of duplicate labels  
-*/
 public ENV checkDuplicateLabels(ENV env){
 	for(var1<-env.elements){
 		for(var2<-env.elements){

@@ -1,7 +1,10 @@
 package org.uva.sea.ql.type;
 
+import org.uva.sea.ql.visitor.TypeVisitor;
+
 public abstract class Type
 {
+    public abstract void accept(TypeVisitor typeVisitor);
 
     public abstract boolean isCompatibleTo(Type type);
 

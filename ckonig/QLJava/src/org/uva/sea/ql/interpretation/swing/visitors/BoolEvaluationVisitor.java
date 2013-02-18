@@ -28,9 +28,9 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
@@ -84,7 +84,8 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
 
     @Override
     public final void visit(Eq eq) throws QLException {
-        if (checkReturn(eq, this.registry.getQuestionsAst(), ReturnTypes.BOOLEAN)) {
+        if (checkReturn(eq, this.registry.getQuestionsAst(),
+                ReturnTypes.BOOLEAN)) {
             this.ret = this.eval(eq.getLeft()) == this.eval(eq.getRight());
         }
         if (checkReturn(eq, this.registry.getQuestionsAst(), ReturnTypes.MATH)) {
@@ -93,22 +94,10 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
         }
     }
 
-    private static boolean checkReturn(BinaryExpr ex, List<Question> questions,
-            ReturnTypes type) throws QLException {
-        return checkReturn(ex.getLeft(), questions, type)
-                && checkReturn(ex.getRight(), questions, type);
-    }
-
-    private static boolean checkReturn(Expr ex, List<Question> questions,
-            ReturnTypes type) throws QLException {
-        final ReturnFinder r = new ReturnFinder(questions);
-        ((Evaluatable) ex).accept(r);
-        return r.getResult().equals(type);
-    }
-
     @Override
     public final void visit(NEq neq) throws QLException {
-        if (checkReturn(neq, this.registry.getQuestionsAst(), ReturnTypes.BOOLEAN)) {
+        if (checkReturn(neq, this.registry.getQuestionsAst(),
+                ReturnTypes.BOOLEAN)) {
             this.ret = this.eval(neq.getLeft()) != this.eval(neq.getRight());
         }
         if (checkReturn(neq, this.registry.getQuestionsAst(), ReturnTypes.MATH)) {
@@ -124,7 +113,8 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
 
     @Override
     public final void visit(GEq geq) throws QLException {
-        this.ret = this.math.eval(geq.getLeft()) >= this.math.eval(geq.getRight());
+        this.ret = this.math.eval(geq.getLeft()) >= this.math.eval(geq
+                .getRight());
     }
 
     @Override
@@ -187,6 +177,19 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
     @Override
     public final void visit(StrType strType) {
         throw new NotImplementedException();
+    }
+
+    private static boolean checkReturn(BinaryExpr ex, List<Question> questions,
+            ReturnTypes type) throws QLException {
+        return checkReturn(ex.getLeft(), questions, type)
+                && checkReturn(ex.getRight(), questions, type);
+    }
+
+    private static boolean checkReturn(Expr ex, List<Question> questions,
+            ReturnTypes type) throws QLException {
+        final ReturnFinder r = new ReturnFinder(questions);
+        ((Evaluatable) ex).accept(r);
+        return r.getResult().equals(type);
     }
 
 }
