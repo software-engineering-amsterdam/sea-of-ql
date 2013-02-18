@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.ui.control.PanelControl;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.Value;
 
 public class JPanelControl extends PanelControl {
 	private final JPanel control;

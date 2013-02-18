@@ -1,9 +1,9 @@
 package org.uva.sea.ql;
 
+import org.uva.sea.ql.evaluator.Error;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
-import org.uva.sea.ql.visitor.evaluator.Error;
 
 public class Program {
 	private final QLInterpreter interpreter;

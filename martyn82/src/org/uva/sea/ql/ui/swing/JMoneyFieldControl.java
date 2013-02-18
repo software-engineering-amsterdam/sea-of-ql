@@ -10,8 +10,8 @@ import javax.swing.event.ChangeListener;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.MoneyFieldControl;
-import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.MoneyValue;
+import org.uva.sea.ql.value.Value;
 
 public class JMoneyFieldControl extends MoneyFieldControl {
 	private final JSpinner control;
