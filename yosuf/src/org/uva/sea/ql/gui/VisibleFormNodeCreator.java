@@ -1,8 +1,6 @@
 package org.uva.sea.ql.gui;
 
 import static julius.validation.Assertions.state;
-import static org.uva.sea.ql.gui.TranslationUtil.createExpression;
-import static org.uva.sea.ql.gui.TranslationUtil.isValidUserInput;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -14,8 +12,8 @@ import javafx.scene.layout.VBox;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.exp.Expression;
-import org.uva.sea.ql.ast.exp.Expression.Nature;
 import org.uva.sea.ql.ast.exp.Identifier;
+import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
@@ -24,8 +22,7 @@ import org.uva.sea.ql.ast.stm.IfElseStatement;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.LogPrinter;
 import org.uva.sea.ql.lead.Model;
 import org.uva.sea.ql.lead.ModelChangeListener;
@@ -195,16 +192,15 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 	@Override
 	public Node visit(final Question question) {
 		state.assertNotNull(question, "question");
-		switch (question.getDataType().getNature()) {
-		case BOOLEAN:
+		Nature nature = question.getDataType().getNature();
+
+		if (nature.equals(new org.uva.sea.ql.ast.exp.Bools())) {
 			return createYesNoQuestion(question);
-		case NUMERIC:
-		case TEXTUAL:
+
+		} else {
 			return createOpenQuestion(question);
-		default:
-			throw state.createException("Unsupported nature:"
-					+ question.getDataType().getNature());
 		}
+
 	}
 
 	private Node createOpenQuestion(final Question question) {
@@ -225,10 +221,10 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 			final TextField input, final String oldInput, final String newInput) {
 		Nature nature = question.getDataType().getNature();
 
-		if (isValidUserInput(nature, newInput)) {
+		if (nature.isValidInput(newInput)) {
+
 			Computed computed = new Computed(question.getDataType(),
-					question.getIdentifier(),
-					createExpression(nature, newInput));
+					question.getIdentifier(), nature.createValue(newInput));
 
 			model.registerComputed(computed);
 
@@ -271,26 +267,14 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 	}
 
 	/**
-	 * TODO: This could be moved to {@link TranslationUtil}
-	 * 
 	 * 
 	 * @param expression
 	 * @return
 	 */
 	private String evaluateAndGetValue(final Expression<?> expression) {
-		Expression<?> value = (Expression<?>) expression
-				.accept(expressionEvaluator);
-		state.assertNotNull(value, "Expression does not exist yet.");
+		Value<?> value = (Value<?>) expression.accept(expressionEvaluator);
+		state.assertNotNull(value, "Value does not exist yet.");
 
-		switch (expression.getNature()) {
-		case BOOLEAN:
-			return String.valueOf(((BooleanValue) value).getValue());
-		case NUMERIC:
-			return String.valueOf(((IntegerValue) value).getValue());
-		case TEXTUAL:
-			return ((StringValue) value).getValue();
-		default:
-			throw state.createException("Error getting value: " + expression);
-		}
+		return value.getAsString();
 	}
 }

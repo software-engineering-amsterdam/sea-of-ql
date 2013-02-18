@@ -18,7 +18,7 @@ public class And extends Binary<BooleanValue, BooleanValue> {
 
 	@Override
 	public Nature getNature() {
-		return Nature.BOOLEAN;
+		return new Bools();
 	}
 
 	@Override
