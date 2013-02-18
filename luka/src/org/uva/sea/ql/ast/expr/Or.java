@@ -8,8 +8,6 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 
 
 public class Or extends BinaryExpr{
-
-	//private Expr lhs,rhs;
 	
 	public Or(Expr lhs, Expr rhs){
 		super(lhs,rhs);

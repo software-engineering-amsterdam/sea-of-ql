@@ -1,0 +1,27 @@
+form StudentGaming {
+yourName : "Whats your name, dude?" string
+if(yourName != "lade"){
+niceName: "A better name would be!" string("lade")
+}
+isGamer: "Do you play video games?" boolean
+playTimeDay: "How many hours do you play during the week?" double
+hasFriends: "Do you have real friends?" boolean
+daysLastSeen: "How many days have past since you have seen your friends?" integer
+if(!hasFriends|| daysLastSeen >= 5){
+isAdicted: "Do you think you are addicted to games?" boolean
+if(!isAdicted){
+isLiar1: "are you lying?" boolean
+if(!isLiar1){
+reallyNot: "Really not?" boolean
+if(reallyNot){
+believe: "We believe you!" string("nice dude!")
+}else{
+iGotYou: "At least you are honest" string("anyways I will tell your mum")
+}
+}
+}
+}
+moneySpent: "How much money have you spent on games this year?" money
+lastGame: "Whats the name of the last game you bought?" string
+timePerYear: "Calculated time played this year:" double(playTimeDay * 10.2)
+}

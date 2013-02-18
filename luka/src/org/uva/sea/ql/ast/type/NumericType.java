@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
 import org.uva.sea.ql.questionnaire.ui.swing.control.Control;
 
-public  class NumericType extends Type {
+public class NumericType extends Type {
 
 	@Override
 	public boolean isCompatibleTo(Type t) {
@@ -38,7 +38,7 @@ public  class NumericType extends Type {
 	}
 
 	@Override
-	public Control accept(TypeVisitor visitor){
+	public Control accept(TypeVisitor visitor) {
 		return visitor.visit(this);
 	}
 }

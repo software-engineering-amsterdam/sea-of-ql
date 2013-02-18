@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Ident extends Expr {
@@ -23,7 +24,7 @@ public class Ident extends Expr {
 
 	@Override
 	public boolean equals(Object obj) {
-		return ((Ident) obj).getName().equals(this.name);
+		return obj != null ? ((Ident) obj).getName().equals(this.name) : false;
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class Ident extends Expr {
 		if (typeEnv.containsKey(this)) {
 			return typeEnv.get(this);
 		}
-		throw new RuntimeException("EROR, NOT IN ENV!"); //TODO no exception, just error if not in env yet
+		return new UndefinedType();
 	}
 
 	@Override

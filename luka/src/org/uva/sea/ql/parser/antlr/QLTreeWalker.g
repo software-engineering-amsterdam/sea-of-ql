@@ -51,11 +51,11 @@ blockItem returns [Stat stat]
 	
 
 questionDeclaration returns [Stat stat]
-	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String) 
-	{stat = new AnswerableStat(new Ident($Ident.text),$String.text,$identType.type);}
+	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  Str) 
+	{stat = new AnswerableStat(new Ident($Ident.text),$Str.text,$identType.type);}
 	//Computed question:
 	  (^(ASSIGNMENT_EXPRESSION expression) 
-	  {stat = new VisibleComputetStat(new Ident($Ident.text),$String.text,$expression.result,$identType.type);} )?) 
+	  {stat = new VisibleComputetStat(new Ident($Ident.text),$Str.text,$expression.result,$identType.type);} )?) 
 		
 	 ;
 
@@ -76,14 +76,6 @@ Block elseBl = new Block();
 	;
 	
 	
-//ifStatementBlock returns [Stat	block]
-//	: 	 blockItem* {$block = $blockItem.stat;}
-//	;
-
-//elseBlock returns [Stat block]
-//	:  blockItem* {$block = $blockItem.stat;}
-//	;
-	
 identType returns [Type type]
 	:  BooleanType {$type = new BoolType();} 
 	|  MoneyType  {$type = new MoneyType();}
@@ -94,7 +86,24 @@ identType returns [Type type]
 
 expression returns [Expr result]
   : 
-     (^(Or lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Or($result,rhs);}) | ^(And lhs=expression {$result = $lhs.result;} rhs=expression {$result = new And($result,rhs);}) | ^(Equ lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Eq($result,rhs);}) | ^(NotEqu lhs=expression {$result = $lhs.result;} rhs=expression {$result = new NEq($result,rhs);}) | ^(GTEqu lhs=expression {$result = $lhs.result;} rhs=expression {$result = new GEq($result,rhs);}) | ^(LTEqu lhs=expression {$result = $lhs.result;} rhs=expression {$result = new LEq($result,rhs);}) | ^(GT lhs=expression {$result = $lhs.result;} rhs=expression {$result = new GT($result,rhs);}) | ^(LT lhs=expression {$result = $lhs.result;} rhs=expression {$result = new LT($result,rhs);}) | ^(Add lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Add($result,rhs);}) | ^(Sub lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Sub($result,rhs);}) | ^(Mul lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Mul($result,rhs);}) | ^(Div lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Div($result,rhs);}) | ^(UNARY_MINUS ex=expression {$result = new Neg($ex.result);} ) | ^(UNARY_NEGATE ex=expression {$result = new Not($ex.result);}) | Int  {$result = new Int(Integer.parseInt($Int.text));} | Ident {$result = new Ident($Ident.text);}) // |  BooleanType {$node = new BoolType();}
-  //|  MoneyType {$node = new MoneyType();})*
+     (^(Or lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Or($result,rhs);}) 
+     | ^(And lhs=expression {$result = $lhs.result;} rhs=expression {$result = new And($result,rhs);}) 
+     | ^(Equ lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Eq($result,rhs);}) 
+     | ^(NotEqu lhs=expression {$result = $lhs.result;} rhs=expression {$result = new NEq($result,rhs);}) 
+     | ^(GTEqu lhs=expression {$result = $lhs.result;} rhs=expression {$result = new GEq($result,rhs);}) 
+     | ^(LTEqu lhs=expression {$result = $lhs.result;} rhs=expression {$result = new LEq($result,rhs);}) 
+     | ^(GT lhs=expression {$result = $lhs.result;} rhs=expression {$result = new GT($result,rhs);}) 
+     | ^(LT lhs=expression {$result = $lhs.result;} rhs=expression {$result = new LT($result,rhs);}) 
+     | ^(Add lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Add($result,rhs);}) 
+     | ^(Sub lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Sub($result,rhs);}) 
+     | ^(Mul lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Mul($result,rhs);}) 
+     | ^(Div lhs=expression {$result = $lhs.result;} rhs=expression {$result = new Div($result,rhs);}) 
+     | ^(UNARY_MINUS ex=expression {$result = new Neg($ex.result);} ) 
+     | ^(UNARY_NEGATE ex=expression {$result = new Not($ex.result);}) 
+     | Int  {$result = new Int(Integer.parseInt($Int.text));} 
+     | Doub  {$result = new Doub(Double.parseDouble($Doub.text));} 
+     | Str {$result = new Str($Str.text);} 
+     | Ident {$result = new Ident($Ident.text);}) 
+
   ;
 		 

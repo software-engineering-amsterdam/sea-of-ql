@@ -14,8 +14,6 @@ public class Mul extends BinaryExpr {
 		
 	}
 
-	
-
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new NumericType();

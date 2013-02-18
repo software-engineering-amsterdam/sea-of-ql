@@ -20,14 +20,17 @@ public class ErrorMessage {
 	}
 
 	public String getErrorMeesage() {
-		String errorSource = (this.expression != null) ? "Expr: "+ this.expression.toString() : "Stat: " +this.statement.toString();
-		return "Error: '" + this.errorMessage + "' in "+errorSource;
+		String errorSource = (this.expression != null) ? "Expr: "
+				+ this.expression.toString() : "Stat: "
+				+ this.statement.toString();
+		return "Error: '" + this.errorMessage + "' in " + errorSource;
 	}
 
 	@Override
 	public String toString() {
-		String errorSource = (this.expression != null) ? this.expression.toString() : this.statement.toString();
-		return this.errorMessage + "' in "+errorSource;
-		
+		String errorSource = (this.expression != null) ? this.expression
+				.toString() : this.statement.toString();
+		return this.errorMessage + "' in " + errorSource;
+
 	}
 }

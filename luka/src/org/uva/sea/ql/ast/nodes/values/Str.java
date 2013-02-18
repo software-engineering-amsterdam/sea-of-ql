@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodes.values;
 
+import java.security.InvalidParameterException;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Ident;
@@ -11,13 +12,13 @@ public class Str extends Value {
 
 	private final String value;
 
+	public Str(String val) {
+		this.value = val;
+	}
+
 	@Override
 	public boolean isDefined() {
 		return value != null;
-	}
-
-	public Str(String val) {
-		this.value = val;
 	}
 
 	@Override
@@ -43,187 +44,185 @@ public class Str extends Value {
 	@Override
 	public Value add(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value and(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value or(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value equ(Value arg) {
-
-		return null;
+		return new Bool(arg.getValue().equals(this.value));
 	}
 
 	@Override
 	public Value nEqu(Value arg) {
-
-		return null;
+		return new Bool(!arg.getValue().equals(this.value));
 	}
 
 	@Override
 	public Value not() {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value notBool(Bool arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value pos() {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value div(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value mul(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value sub(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value neg() {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value lt(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value lEq(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value gt(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value gEq(Value arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value andBool(Bool arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value orBool(Bool arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value equBool(Bool arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value addInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value divInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value mulInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value subInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value equInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value posInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value negInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value ltInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value lEqInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value gtInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value gEqInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value nEquInt(Numeric arg) {
 
-		return null;
+		throw new InvalidParameterException();
 	}
 
 }

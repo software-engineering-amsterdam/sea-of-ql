@@ -6,23 +6,6 @@ backtrack=true;
 memoize=true; 
 } 
 
-//TODO: var_scope, var_declaration, 
-// easy & computed question
-//if(VAR > CONST)
-//if(VAR > 100)
-// IF STATEMENT wie ?!
-// SWITCH CASE for QL ?
-// Factory for creating UI
-// default value for user inputs ?
-// Unit tests ?!
-//Each block own variable scope ? holds it for itself
-//use static value NULL in value for null pattern
-//ELSE IF?!
-// Module and square ?!!
-//TODO ELSE IF!?
-// COMBOBOX !? (selection ?!)
-// LOAD AND SAVE ?! 
-// DATETYPE? ?!
 tokens{
 BLOCK;
 ASSIGNMENT;
@@ -37,9 +20,7 @@ IF_BLOCK_FALSE;
 UNARY_MINUS;
 UNARY_NEGATE;
 }
-//BOOL_TYPE;
-//MONEY_TYPE;
-//INTEGER_TYPE;
+
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
@@ -84,7 +65,7 @@ blockItem
 	
 
 questionAssignment 
-	: Ident  Assignment_Indicator  String identType (atom)? {mapIdentToType($Ident.text,$identType.t);}  ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  String)  ^(ASSIGNMENT_EXPRESSION atom)?)
+	: Ident  Assignment_Indicator  Str identType (atom)? {mapIdentToType($Ident.text,$identType.t);}  ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  Str)  ^(ASSIGNMENT_EXPRESSION atom)?)
 	 
 	 ;
 
@@ -95,11 +76,11 @@ constantAssignment
 	
 //
 identType  returns [Type t]	
-	: BooleanType {$t = new BoolType();}  -> BooleanType  //
-	| MoneyType  {$t = new MoneyType();} -> MoneyType  //
-	| IntegerType {$t = new IntType();}  -> IntegerType //
+	: BooleanType {$t = new BoolType();}  -> BooleanType  
+	| MoneyType  {$t = new MoneyType();} -> MoneyType  
+	| IntegerType {$t = new IntType();}  -> IntegerType 
 	| StringType {$t = new StringType();}  -> StringType
-	| DoubleType {$t = new StringType();}  -> DoubleType
+	| DoubleType {$t = new DoubleType();}  -> DoubleType
 	;	
 
 
@@ -110,7 +91,7 @@ ifBlock
 ifCondition
 	:  If RoundLbr orExpr  RoundRbr -> orExpr;	
 	
-//TODO ELSE IF!?	
+	
 ifStatementBlock	
 	: 	Lbr  blockItem* Rbr -> ^(BLOCK blockItem*);
 
@@ -124,15 +105,18 @@ elseBlock
 atom 
   : Int  
   | Ident 
+  | Doub
+  | Str
   | BooleanType
   | MoneyType 
   | IntegerType
- // | Integer {$result = new Ident($Integer.text, new int(1));}
+  | DoubleType
+  | StringType
   |  RoundLbr!  x=orExpr^ RoundRbr! 
   ;
   
 unExpr 
-    :  Sub atom -> ^(UNARY_MINUS atom) //<- NEGATIVE//Add x=atom
+    :  Sub atom -> ^(UNARY_MINUS atom) 
     |  Not atom -> ^(UNARY_NEGATE atom)
     |  atom    
     ;    
@@ -174,80 +158,54 @@ FormStart: 'form'  { System.out.println("Start grammar"); };
 Bool 	: 'true' 
 	| 'false';
 
-BooleanType : 'boolean'; //{ System.out.println("Lex Boolean: "+getText()); };
-MoneyType	: 'money'; //{ System.out.println("Lex Money: "+getText()); };
+BooleanType : 'boolean'; 
+MoneyType	: 'money';
 IntegerType 	: 'integer';	
 StringType : 'string';	
 DoubleType : 'double';	
-If	: 'if'; //{ System.out.println("Lex IF: "+getText()); };
-Else	: 'else'; //{ System.out.println("Lex ELSE: "+getText()); };
-FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+;  //{ System.out.println("Lex FormId: "+getText()); };
-
-String: '"' .*  '"'; //{ System.out.println("Lex String: "+getText()); };
-
+If	: 'if'; 
+Else	: 'else'; 
+FormId 	: 'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')+; 
+Str: '"' .*  '"'; 
 
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')+; //{ System.out.println("Lex Ident: "+getText()); };
-Int: ('0'..'9')+; //{ System.out.println("Lex Int: "+getText()); };
 
-Lbr	:	'{'; //{ System.out.println("Lex {: "+getText()); };
-Rbr	:	'}'; //{ System.out.println("Lex }: "+getText()); };
+Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')+; 
+Int: ('0'..'9')+; 
+Doub	: Int '.' Int;
+
+Lbr	:	'{'; 
+Rbr	:	'}'; 
 
 
 Assignment_Indicator :	':';
 
 RoundLbr : '(';
 
-RoundRbr : ')'	;
+RoundRbr : ')';
 
-Mul
-	:	'*'
-	;
+Mul :	'*';
 
-Div
-	:	'/'
-	;
+Div	:'/';
 
-Add
-	:	'+'
-	;
+Add	:'+';
 
-Sub
-	:	'-'
-	;
+Sub	:'-';
 
-LT
-	:	'<'
-	;
+LT	:'<';
 
-LTEqu
-	:	'<='
-	;
+LTEqu	:'<=';
 
-GT
-	:	'>'
-	;
+GT	:'>';
 
-GTEqu
-	:	'>='
-	;
+GTEqu	:'>=';
 
-Equ
-	:	'=='
-	;
+Equ	:'==';
 
-NotEqu
-	:	'!='
-	;
+NotEqu 	:'!=';
 
-And
-	:	'&&'
-	;
+And	:'&&';
 
-Or
-	:	'||'
-	;
+Or	:'||';
 
-Not
-	:	'!'
-	;
+Not	:'!';

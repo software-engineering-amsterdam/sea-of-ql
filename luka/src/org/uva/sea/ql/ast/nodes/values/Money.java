@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodes.values;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Ident;
@@ -7,18 +8,12 @@ import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
+public class Money extends Numeric {
 
-public class Money extends Numeric {//Value{
-
-//	private final double value;
-	
-	public Money(double val){
-		super(val);
-		this.value =  val;
-	}
-	
-	public void setValue(Number d){
-		this.value = d.doubleValue();
+	public Money(double val) {
+		super();
+		DecimalFormat f = new DecimalFormat("#.##");
+		this.value = Double.valueOf(f.format(val));
 	}
 
 	@Override
@@ -36,8 +31,6 @@ public class Money extends Numeric {//Value{
 		return visitor.visit(this);
 	}
 
-
-
 	@Override
 	protected Value addInt(Numeric arg) {
 		double result = arg.getValue().doubleValue() + getValue();
@@ -48,7 +41,7 @@ public class Money extends Numeric {//Value{
 	protected Value negInt(Numeric arg) {
 		return new Money(this.value.doubleValue());
 	}
-	
+
 	@Override
 	protected Value subInt(Numeric arg) {
 		double result = arg.getValue().doubleValue() - getValue();
@@ -69,7 +62,7 @@ public class Money extends Numeric {//Value{
 
 	@Override
 	protected Value equInt(Numeric arg) {
-		return new Bool( arg.getValue().doubleValue() == getValue());
+		return new Bool(arg.getValue().doubleValue() == getValue());
 	}
 
 	@Override
@@ -85,6 +78,16 @@ public class Money extends Numeric {//Value{
 	@Override
 	protected Value gtInt(Numeric arg) {
 		return new Bool(arg.getValue().doubleValue() > getValue());
+	}
+
+	@Override
+	protected Value posInt(Numeric arg) {
+		return new Money(arg.getValue().doubleValue());
+	}
+
+	@Override
+	protected Value gEqInt(Numeric arg) {
+		return new Bool(arg.getValue().doubleValue() >= getValue());
 	}
 
 }

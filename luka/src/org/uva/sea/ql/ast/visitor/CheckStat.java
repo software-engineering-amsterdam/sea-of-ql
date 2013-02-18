@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
-import org.uva.sea.ql.ast.stat.ComputedStat;
 import org.uva.sea.ql.ast.stat.ConditionalStat;
 import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
@@ -29,7 +28,7 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	public static void checkStatBlock(Block block, Map<Ident, Type> typeEnv,
-		List<ErrorMessage> errorList) {
+			List<ErrorMessage> errorList) {
 		CheckStat statChecker = new CheckStat(typeEnv, errorList);
 		block.accept(statChecker);
 	}
@@ -41,18 +40,18 @@ public class CheckStat implements StatementVisitor {
 		}
 	}
 
-//	@Override
-//	public void visit(ComputedStat stat) {
-//		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
-//		checkExpr(stat.getExpr());
-//	}
-	
+	// @Override
+	// public void visit(ComputedStat stat) {
+	// checkStatType(stat, stat.getExpr().typeOf(typeEnv));
+	// checkExpr(stat.getExpr());
+	// }
+
 	@Override
 	public void visit(VisibleComputetStat stat) {
 		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
 		checkExpr(stat.getExpr());
 	}
-	
+
 	@Override
 	public void visit(HiddenComputetStat stat) {
 		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
@@ -62,7 +61,7 @@ public class CheckStat implements StatementVisitor {
 	@Override
 	public void visit(AnswerableStat stat) {
 		checkLabel(stat);
-		checkStatType(stat, stat.getIdent().typeOf(typeEnv));//getType());
+		checkStatType(stat, stat.getIdent().typeOf(typeEnv));// getType());
 	}
 
 	@Override
@@ -94,10 +93,9 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	private void checkStatType(TypedStat stat, Type typeOf) {
-		//if (!stat.getType().isCompatibleTo(typeOf)) {
 		if (!stat.getIdent().typeOf(typeEnv).isCompatibleTo(typeOf)) {
 			addError(stat, "Given type:" + typeOf.toString()
-					+ " and computed type:" + stat.getIdent().typeOf(typeEnv)//getType().toString()
+					+ " and computed type:" + stat.getIdent().typeOf(typeEnv)// getType().toString()
 					+ "do not match");
 		}
 	}

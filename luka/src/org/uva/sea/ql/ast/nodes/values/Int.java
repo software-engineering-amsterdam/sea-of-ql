@@ -11,14 +11,9 @@ public class Int extends Numeric {
 
 
 	public Int(int val) {
-		super(val);
+		super();
 		this.value = val;
 	}
-	
-	public void setValue(Number n){
-		this.value = n.intValue();
-	}
-
 	
 	@Override
 	public Integer getValue() {
@@ -63,7 +58,7 @@ public class Int extends Numeric {
 
 	@Override
 	protected Value equInt(Numeric arg) {
-		return new Int(arg.getValue().intValue() * getValue());
+		return new Bool(arg.getValue().intValue() == getValue());
 	}
 
 	@Override
@@ -80,5 +75,17 @@ public class Int extends Numeric {
 	protected Value gtInt(Numeric arg) {
 		return new Bool(arg.getValue().intValue() > getValue());
 	}
+
+	@Override
+	protected Value posInt(Numeric arg) {
+		return new Int(arg.getValue().intValue());
+	}
+
+	@Override
+	protected Value gEqInt(Numeric arg) {
+		return new Bool(arg.getValue().intValue() >= getValue());
+	}
+
+	
 	
 }

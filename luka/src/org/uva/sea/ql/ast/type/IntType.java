@@ -17,9 +17,10 @@ public class IntType extends NumericType {
 	public Value getDefaultValue() {
 		return new Int(0);
 	}
-	
+
 	@Override
 	public Control accept(TypeVisitor visitor) {
 		return visitor.visit(this);
 	}
+
 }

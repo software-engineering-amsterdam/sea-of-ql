@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.nodes.values;
 
+import java.security.InvalidParameterException;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Ident;
@@ -90,134 +91,133 @@ public class Bool extends Value {
 	
 	@Override
 	public Value add(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value pos() {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value div(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value mul(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value sub(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value neg() {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value lt(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value lEq(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value gt(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	public Value gEq(Value arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value addInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value divInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value mulInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value subInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value equInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value posInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value negInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value ltInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value lEqInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value gtInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value gEqInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 	@Override
 	protected Value nEquInt(Numeric arg) {
-		// TODO Auto-generated method stub
-		return null;
+
+		throw new InvalidParameterException();
 	}
 
 }

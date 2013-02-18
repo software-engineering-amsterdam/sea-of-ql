@@ -22,7 +22,7 @@ public class StringType extends Type {
 	public Value getDefaultValue() {
 		return new Str("");
 	}
-	
+
 	@Override
 	public Control accept(TypeVisitor visitor) {
 		return visitor.visit(this);
