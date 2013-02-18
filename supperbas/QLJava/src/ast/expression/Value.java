@@ -2,7 +2,7 @@ package ast.expression;
 
 import ast.Expression;
 
-public abstract class Value extends Expression {
+public abstract class Value<T> extends Expression {
 
 	public Value() {
 	}
@@ -15,5 +15,6 @@ public abstract class Value extends Expression {
 	}
 	
 	public String typeStr(){ return null; }
+	public abstract T getValue();
 
 }

@@ -6,6 +6,7 @@ import ast.type.Message;
 import parser.JACCParser;
 import parser.test.ParseError;
 import visitor.Environment;
+import visitor.UIVisitor;
 import visitor.checker.StatementChecker;
 import visitor.evaluator.Bindable;
 import visitor.evaluator.StatementEvaluator;
@@ -14,6 +15,7 @@ public class Program {
 	private Environment environment;
 	private String ql;
 	private JACCParser parser;
+	private UIVisitor ui;
 
 	public Program() {
 		this.environment = new Environment();
@@ -26,7 +28,7 @@ public class Program {
 			return;
 		}
 		eval();
-
+		generateUI();
 		printVariables();
 	}
 
@@ -41,11 +43,12 @@ public class Program {
 				+ "\"Did you enter a loan for maintenance/reconstruction?\" "
 				+ "hasMaintLoan: boolean "
 				// + "valueResidue : integer "
-				+ "if (hasSoldHouse) { "
+				//+ "if (hasSoldHouse) { "
 				+ "\"Private debts for the sold house:\" privateDebt: money "
 				+ "\"Price the house was sold for:\" sellingPrice: money "
-				+ "\"Value residue:\" valueResidue = sellingPrice - privateDebt "
-				+ "}" + "}";
+				//+ "\"Value residue:\" valueResidue = sellingPrice - privateDebt "
+				//+ "}" 
+				+ "}";
 
 		ql = ql.replaceAll("money", "integer");
 	}
@@ -76,8 +79,17 @@ public class Program {
 		return false;
 	}
 
-	private void generateUI() {
-
+	private boolean generateUI() {
+		ui = new UIVisitor(environment);
+		try {
+			parser.parse(ql).accept(ui);
+			return (environment.getMessages().size() == 0);
+		} catch (ParseError e) {
+			System.out.println(e.getMessage());
+			System.exit(0);
+		}
+		ui.generate();
+		return true;
 	}
 
 	private void printVariables(){

@@ -15,7 +15,7 @@ public class Bool extends Value {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public Boolean getValue() {
 		return value;
 	}
 	

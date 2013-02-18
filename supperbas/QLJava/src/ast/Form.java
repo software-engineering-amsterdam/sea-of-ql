@@ -1,5 +1,6 @@
 package ast;
 
+import visitor.UIVisitor;
 import visitor.checker.StatementChecker;
 import visitor.evaluator.StatementEvaluator;
 import ast.expression.Ident;
@@ -29,6 +30,11 @@ public class Form implements ASTNode {
 	}
 
 	public void accept(StatementEvaluator visitor) {
+		visitor.visit(this);
+		
+	}
+
+	public void accept(UIVisitor visitor) {
 		visitor.visit(this);
 		
 	}
