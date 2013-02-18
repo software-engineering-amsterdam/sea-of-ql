@@ -198,7 +198,7 @@ private str individualConditional(int suffix, Statement cond) {
   
   for(cb <- cbs) {
     ret += "
-    '$(\"#<cb>\").on(\"input change\", callback_<suffix>);
+    '$(\"*[name=<cb>]\").on(\"input change\", callback_<suffix>);
     ";
   }
   
