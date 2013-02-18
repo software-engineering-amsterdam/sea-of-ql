@@ -13,7 +13,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Path("/validate")
 public class ValidationController {
@@ -36,26 +35,26 @@ public class ValidationController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/integer")
-    public Response validateIntegerQuestion(IdentifierNameValue identifierNameValue) {
-        return validateInput(identifierNameValue, integerType);
+    public Response validateIntegerQuestion(IdentifierValuePair identifierValuePair) {
+        return validateInput(identifierValuePair, integerType);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/boolean")
-    public Response validateBooleanQuestion(IdentifierNameValue identifierNameValue) {
-        return validateInput(identifierNameValue, booleanType);
+    public Response validateBooleanQuestion(IdentifierValuePair identifierValuePair) {
+        return validateInput(identifierValuePair, booleanType);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/string")
-    public Response validateStringQuestion(IdentifierNameValue identifierNameValue) {
-        return validateInput(identifierNameValue, stringType);
+    public Response validateStringQuestion(IdentifierValuePair identifierValuePair) {
+        return validateInput(identifierValuePair, stringType);
     }
 
-    private Response validateInput(IdentifierNameValue identifierNameValue, Type expectedType) {
-        String identifierName = identifierNameValue.identifierName, value = identifierNameValue.value;
+    private Response validateInput(IdentifierValuePair identifierValuePair, Type expectedType) {
+        String identifierName = identifierValuePair.getIdentifierName(), value = identifierValuePair.getValue();
         if (identifierName != null && identifierIsOfType(identifierName, expectedType) && expectedType.canBeAssignedFromValue(value)) {
             return Response.status(Response.Status.OK).entity("Ok").build();
         } else {
