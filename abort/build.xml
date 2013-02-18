@@ -39,8 +39,8 @@
 		<property name="sonar.tests" value="${test.dir}" />
 		<property name="sonar.binaries" value="${classes.dir}" />
 	
-		<!-- Generated ANTLR stuff that has to be ignored -->
-		<property name="sonar.exclusions" value="**/QLParser.java,**/QLLexer.java,**/QL.g,**/QL.tokens" />
+		<!-- Generated ANTLR stuff that has to be ignored, also ignore Exception wrappers -->
+		<property name="sonar.exclusions" value="**/QLParser.java,**/QLLexer.java,**/QL.g,**/QL.tokens,**/*Exception.java" />
 		<property name="sonar.sourceEncoding" value="UTF-8" />
 		<property name="sonar.surefire.reportsPath" value="${reports.junit.xml.dir}" />   
 	
@@ -110,7 +110,7 @@
 			</jacoco:coverage>
 		</target>
 
-		<target name="sonar" depends="compile">
+		<target name="sonar" depends="test">
 			<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
 				<classpath path="${lib.dir}/sonar-ant-task-2.0.jar" />
 			</taskdef>

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal.codegen;
+package org.uva.sea.ql.ast.traversal.codegeneration;
 
 import java.util.*;
 

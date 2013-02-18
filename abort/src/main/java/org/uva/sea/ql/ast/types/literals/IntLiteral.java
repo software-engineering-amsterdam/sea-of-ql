@@ -1,8 +1,5 @@
 package org.uva.sea.ql.ast.types.literals;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.*;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;

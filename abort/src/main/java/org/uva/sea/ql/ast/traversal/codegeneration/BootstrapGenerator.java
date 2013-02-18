@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal.codegen;
+package org.uva.sea.ql.ast.traversal.codegeneration;
 
 import java.io.*;
 import java.util.*;
@@ -11,13 +11,24 @@ import org.uva.sea.ql.ast.operators.base.*;
 import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.traversal.codegen.base.WebGenerationException;
+import org.uva.sea.ql.ast.traversal.codegeneration.base.WebGenerationException;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
 
+/**
+ * Generates a Twitter Bootstrap Front-end.
+ * 
+ * @author J. Dijkstra
+ */
 public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
+	/**
+	 * Filename of the template to use.
+	 */
 	private static final String TEMPLATE_FILE_NAME = "bootstrap_index.stg";
+	/**
+	 * Delimiter for the template.
+	 */
 	private static final char TEMPLATE_DELIMITER = '$';
 
 	private final BootstrapJavascriptGenerator javascriptGenerator;
@@ -26,15 +37,13 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	// Identifier used for condition blocks
 	private int conditionalIdentifier = 0;
 
-	public String generateFrontend(final Form form) {
-		final ST formTemplate = form.accept(this);
-		final ST pageTemplate = templateGroup.getInstanceOf("page");
-		pageTemplate.add("title", form.getName());
-		pageTemplate.add("javascript", javascriptGenerator.render());
-		pageTemplate.add("fields", formTemplate);
-		return pageTemplate.render();
-	}
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param templatesPath path to retrieve the code generation templates (stringtemplates) from.
+	 * @param serverBaseURL base URL for the server to use in the front-end code.
+	 */
 	public BootstrapGenerator(final String templatesPath, final String serverBaseURL) {
 		final String mainTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
 		templateGroup = new STGroupFile(mainTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
@@ -43,14 +52,23 @@ public class BootstrapGenerator implements IVisitor<ST>, IWebGenerator {
 	}
 
 	@Override
-	public void generateFrontend(final Form form, final String outputDirectory, final String outputFilename) throws WebGenerationException {
+	public void generateFrontEnd(final Form form, final String outputDirectory, final String outputFilename) throws WebGenerationException {
 		try {
 			final File outputFile = new File(outputDirectory, outputFilename);
-			IOUtils.write(generateFrontend(form), new FileOutputStream(outputFile));
+			IOUtils.write(renderFrontEnd(form), new FileOutputStream(outputFile));
 		}
 		catch (IOException e) {
 			throw new WebGenerationException(e);
 		}
+	}
+	
+	private String renderFrontEnd(final Form form) {
+		final ST formTemplate = form.accept(this);
+		final ST pageTemplate = templateGroup.getInstanceOf("page");
+		pageTemplate.add("title", form.getName());
+		pageTemplate.add("javascript", javascriptGenerator.render());
+		pageTemplate.add("fields", formTemplate);
+		return pageTemplate.render();
 	}
 
 	@Override

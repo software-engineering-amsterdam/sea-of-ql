@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal.codegen.base;
+package org.uva.sea.ql.ast.traversal.codegeneration.base;
 
 public class WebGenerationException extends Exception {
 	private static final long serialVersionUID = 1L;

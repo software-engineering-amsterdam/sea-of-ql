@@ -19,7 +19,7 @@ import com.google.inject.Inject;
 @Produces("application/json")
 @Consumes("application/json")
 public class BootstrapService implements IWebService {
-	// Knows all types to validate
+	// Know all types to validate
 	private final StringType stringType = new StringType();
 	private final BoolType boolType = new BoolType();
 	private final IntType intType = new IntType();
