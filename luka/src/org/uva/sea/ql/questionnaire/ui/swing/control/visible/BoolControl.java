@@ -9,7 +9,7 @@ import javax.swing.JRadioButton;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Bool;
 import org.uva.sea.ql.ast.nodes.values.Value;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 
 public class BoolControl extends AbstractVisibleControl {
 	private ButtonGroup radioButtonGroup;

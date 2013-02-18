@@ -10,12 +10,11 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 
 public abstract class KeyControl extends AbstractVisibleControl {
 
 	private JTextField control;
-
 	public KeyControl(State state, Ident ident) {
 		super(state, ident);
 		control = new JTextField();
@@ -72,7 +71,7 @@ public abstract class KeyControl extends AbstractVisibleControl {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-
+				
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					handleKeyPressed(control.getText());
 				}

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.uva.sea.ql.questionnaire.Questionnaire;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 import org.uva.sea.ql.questionnaire.ui.swing.control.SaveButtonActionListener;
 
 public class QuestionnaireGui extends JFrame {
@@ -39,6 +39,7 @@ public class QuestionnaireGui extends JFrame {
 				fileSaveLocation));
 		box.add(saveButton);
 		mainPanel.add(box);
+
 		// ScrollPane
 		JScrollPane scrollPane = new JScrollPane(mainPanel);
 		this.getContentPane().add(scrollPane);

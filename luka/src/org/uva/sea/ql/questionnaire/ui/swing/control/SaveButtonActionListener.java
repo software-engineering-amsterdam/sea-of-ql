@@ -11,7 +11,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.Converter;
@@ -33,7 +33,7 @@ public class SaveButtonActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		final XStream xstream = new XStream(new DomDriver()); 
+		final XStream xstream = new XStream(new DomDriver());
 		try {
 
 			FileOutputStream output = new FileOutputStream(this.fileLocation);

@@ -7,7 +7,7 @@ import javax.swing.border.LineBorder;
 
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Money;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 
 public class MoneyControl extends KeyControl {
 	private JLabel moneyLabel;

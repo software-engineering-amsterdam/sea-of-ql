@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.nodes.values.Bool;
 import org.uva.sea.ql.ast.nodes.values.Value;
+import org.uva.sea.ql.questionnaire.State;
 import org.uva.sea.ql.questionnaire.check.Evaluator;
-import org.uva.sea.ql.questionnaire.state.State;
 
 public class ConditionObserver extends StatementObserver {
 	private State state;

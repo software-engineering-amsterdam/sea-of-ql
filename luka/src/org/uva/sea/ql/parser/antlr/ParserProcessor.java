@@ -17,8 +17,8 @@ public class ParserProcessor {
 
 	private Map<Ident, Type> typeEnv;
 
-	public Expr checkExpression(String src) throws RecognitionException{
-		QLLexer lex= new QLLexer(new ANTLRStringStream(src));
+	public Expr checkExpression(String src) throws RecognitionException {
+		QLLexer lex = new QLLexer(new ANTLRStringStream(src));
 		CommonTokenStream tokens = new CommonTokenStream(lex);
 		QLParser parser = new QLParser(tokens);
 
@@ -26,9 +26,9 @@ public class ParserProcessor {
 		CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
 		QLTreeWalker walker = new QLTreeWalker(nodes);
 		return walker.expression();
-		
-		
+
 	}
+
 	public Questionnaire parse(String src, boolean test) {
 		Questionnaire questionnaire = null;
 		QLLexer lex;
@@ -47,7 +47,7 @@ public class ParserProcessor {
 			CommonTree tree = (CommonTree) parser.parse().getTree();
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
 			QLTreeWalker walker = new QLTreeWalker(nodes);
-			
+
 			questionnaire = walker.walk();
 			this.typeEnv = parser.typeEnv;
 

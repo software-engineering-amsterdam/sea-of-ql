@@ -28,7 +28,7 @@ import org.uva.sea.ql.ast.nodes.values.Int;
 import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.visitor.Visitor;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 
 public abstract class StatementObserver implements Observer, Visitor<Expr> {
 	protected List<Ident> dependencies;

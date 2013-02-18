@@ -57,7 +57,7 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart Ident Lbr blockItem* Rbr EOF{System.out.println("End grammar");} -> ^(Ident ^(BLOCK (blockItem)*));
+	: FormStart Ident Lbr blockItem* Rbr EOF{System.out.println("finished with grammar");} -> ^(Ident ^(BLOCK (blockItem)*));
 	
 blockItem
 	:	(questionAssignment | constantAssignment | ifBlock )^ ; 
@@ -106,11 +106,7 @@ atom
   | Ident 
   | Doub
   | Str
-  | BooleanType
-  | MoneyType 
-  | IntegerType
-  | DoubleType
-  | StringType
+  | Bool
   |  RoundLbr!  x=orExpr^ RoundRbr! 
   ;
   

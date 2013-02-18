@@ -2,7 +2,7 @@ package org.uva.sea.ql.questionnaire.ui.swing.control.hidden;
 
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 
 public class HiddenControl extends AbstractControl {

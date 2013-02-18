@@ -8,8 +8,8 @@ boolCombo : "yeses!" string("righty right")
 }
 intValue1 : "intValue1" integer
 doubleValue1 : "doubleValue1" double
-
-if(intValue1 >0 && (doubleValue1*2-100)<= 100){
+computedBoo4: "computedBool3" boolean(intValue1 > doubleValue1)
+if(false){
 calculatedInt: "first question +2.2 int" integer(intValue1 + 2.2)
 calculatedDouble: "first question +2.2 double" double(intValue1 + 2.2)
 calculatedMoney: "first question +2.2 money" money(intValue1 + 2.2)

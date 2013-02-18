@@ -6,7 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 
 public abstract class AbstractVisibleControl extends AbstractControl {

@@ -19,7 +19,7 @@ public class QuestionnaireValidator {
 		System.out.println("Checking Questionnaire: " + questionnaireName);
 		CheckStat.checkStatBlock(qBlock, typeEnv, errorList);
 		if(errorList.isEmpty()){
-			System.err.println("No errors occured!");
+			System.out.println("No errors occured!");
 			return true;
 		}
 		printErrorList(errorList);

@@ -106,7 +106,7 @@ public class CheckStat implements StatementVisitor {
 	private void checkStatType(TypedStat stat, Type typeOf) {
 		if (!stat.getIdent().typeOf(typeEnv).isCompatibleTo(typeOf)) {
 			addError(stat, "Given type:" + typeOf.toString()
-					+ " and computed type:" + stat.getIdent().typeOf(typeEnv)// getType().toString()
+					+ " and computed type:" + stat.getIdent().typeOf(typeEnv)
 					+ "do not match");
 		}
 	}

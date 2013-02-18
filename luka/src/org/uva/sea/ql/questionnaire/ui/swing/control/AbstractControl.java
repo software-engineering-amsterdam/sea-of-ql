@@ -4,7 +4,7 @@ import java.util.Observable;
 
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
-import org.uva.sea.ql.questionnaire.state.State;
+import org.uva.sea.ql.questionnaire.State;
 
 public abstract class AbstractControl extends Observable {
 
@@ -18,7 +18,4 @@ public abstract class AbstractControl extends Observable {
 
 	public abstract void setValue(Value value);
 
-//	public void setIdent(Ident ident) {
-//		this.ident = ident;
-//	}
 }

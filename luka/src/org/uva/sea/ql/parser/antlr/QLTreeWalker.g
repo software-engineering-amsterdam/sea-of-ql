@@ -41,7 +41,7 @@ root = new Questionnaire($formName.text,statBlock);
 }
 	:  ^(formName=Ident {System.out.println("Start walking");}
 	^(BLOCK (blockItem {statBlock.addStatement($blockItem.stat);})*)) 
-	{System.out.println("End walking");}
+	{System.out.println("finished with walking");}
 	;
 	
 blockItem returns [Stat stat]
@@ -104,6 +104,7 @@ expression returns [Expr result]
      | Int  {$result = new Int(Integer.parseInt($Int.text));} 
      | Doub  {$result = new Doub(Double.parseDouble($Doub.text));} 
      | Str {$result = new Str($Str.text);} 
+     | Bool {$result = new Bool(Boolean.valueOf($Bool.text));}
     
      )
   ;

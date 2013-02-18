@@ -4,8 +4,8 @@ import java.util.Observable;
 
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.stat.ComputedStat;
+import org.uva.sea.ql.questionnaire.State;
 import org.uva.sea.ql.questionnaire.check.Evaluator;
-import org.uva.sea.ql.questionnaire.state.State;
 import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 
 public class ComputedObserver extends StatementObserver {
@@ -29,8 +29,6 @@ public class ComputedObserver extends StatementObserver {
 				value = this.stat.getType().getNumberOfType(
 						(Number) value.getValue());
 			}
-			state.putValue(stat.getIdent(), value);
-			state.notify(stat.getIdent());
 			control.setValue(value);
 		}
 	}

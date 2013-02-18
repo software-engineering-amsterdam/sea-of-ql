@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g 2013-02-18 20:29:58
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g 2013-02-18 23:53:40
 
 package org.uva.sea.ql.parser.antlr;
 import java.util.Map; 
@@ -158,7 +158,7 @@ public class QLTreeWalker extends TreeParser {
 
 			match(input, Token.UP, null); 
 
-			System.out.println("End walking");
+			System.out.println("finished with walking");
 			}
 
 
@@ -977,7 +977,7 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "expression"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:87:1: expression returns [Expr result] : ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:87:1: expression returns [Expr result] : ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str | Bool ) ;
 	public final Expr expression() throws RecognitionException {
 		Expr result = null;
 
@@ -986,16 +986,17 @@ public class QLTreeWalker extends TreeParser {
 		CommonTree Int14=null;
 		CommonTree Doub15=null;
 		CommonTree Str16=null;
+		CommonTree Bool17=null;
 		Expr lhs =null;
 		Expr rhs =null;
 		Expr ex =null;
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:88:3: ( ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:89:6: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:88:3: ( ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str | Bool ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:89:6: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str | Bool )
 			{
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:89:6: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str )
-			int alt8=18;
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:89:6: ( ^( Or lhs= expression rhs= expression ) | ^( And lhs= expression rhs= expression ) | ^( Equ lhs= expression rhs= expression ) | ^( NotEqu lhs= expression rhs= expression ) | ^( GTEqu lhs= expression rhs= expression ) | ^( LTEqu lhs= expression rhs= expression ) | ^( GT lhs= expression rhs= expression ) | ^( LT lhs= expression rhs= expression ) | ^( Add lhs= expression rhs= expression ) | ^( Sub lhs= expression rhs= expression ) | ^( Mul lhs= expression rhs= expression ) | ^( Div lhs= expression rhs= expression ) | ^( UNARY_MINUS ex= expression ) | ^( UNARY_NEGATE ex= expression ) | Ident | Int | Doub | Str | Bool )
+			int alt8=19;
 			switch ( input.LA(1) ) {
 			case Or:
 				{
@@ -1085,6 +1086,11 @@ public class QLTreeWalker extends TreeParser {
 			case Str:
 				{
 				alt8=18;
+				}
+				break;
+			case Bool:
+				{
+				alt8=19;
 				}
 				break;
 			default:
@@ -1377,6 +1383,13 @@ public class QLTreeWalker extends TreeParser {
 					result = new Str((Str16!=null?Str16.getText():null));
 					}
 					break;
+				case 19 :
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:107:8: Bool
+					{
+					Bool17=(CommonTree)match(input,Bool,FOLLOW_Bool_in_expression755); 
+					result = new Bool(Boolean.valueOf((Bool17!=null?Bool17.getText():null)));
+					}
+					break;
 
 			}
 
@@ -1435,40 +1448,40 @@ public class QLTreeWalker extends TreeParser {
 	public static final BitSet FOLLOW_StringType_in_identType347 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DoubleType_in_identType355 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Or_in_expression382 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression386 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression386 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression392 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_And_in_expression406 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression410 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression410 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression416 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_Equ_in_expression430 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression434 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression434 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression440 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_NotEqu_in_expression454 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression458 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression458 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression464 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_GTEqu_in_expression478 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression482 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression482 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression488 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_LTEqu_in_expression502 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression506 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression506 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression512 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_GT_in_expression526 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression530 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression530 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression536 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_LT_in_expression550 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression554 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression554 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression560 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_Add_in_expression574 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression578 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression578 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression584 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_Sub_in_expression598 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression602 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression602 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression608 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_Mul_in_expression622 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression626 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression626 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression632 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_Div_in_expression646 = new BitSet(new long[]{0x0000000000000004L});
-	public static final BitSet FOLLOW_expression_in_expression650 = new BitSet(new long[]{0x0000E869A834C180L});
+	public static final BitSet FOLLOW_expression_in_expression650 = new BitSet(new long[]{0x0000E869A834C980L});
 	public static final BitSet FOLLOW_expression_in_expression656 = new BitSet(new long[]{0x0000000000000008L});
 	public static final BitSet FOLLOW_UNARY_MINUS_in_expression670 = new BitSet(new long[]{0x0000000000000004L});
 	public static final BitSet FOLLOW_expression_in_expression674 = new BitSet(new long[]{0x0000000000000008L});
@@ -1478,4 +1491,5 @@ public class QLTreeWalker extends TreeParser {
 	public static final BitSet FOLLOW_Int_in_expression717 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Doub_in_expression730 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Str_in_expression743 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_Bool_in_expression755 = new BitSet(new long[]{0x0000000000000002L});
 }

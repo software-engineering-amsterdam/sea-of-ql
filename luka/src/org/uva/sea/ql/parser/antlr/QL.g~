@@ -36,7 +36,6 @@ import java.util.HashMap;
 @parser::members{
 	public Map<Ident,Type> typeEnv = new HashMap<Ident,Type>();
 	private void mapIdentToType(String identName,Type type){
-	//System.out.println("Adding: "+identName + type.toString());
 		typeEnv.put(new Ident(identName),type);
 	}
 	
@@ -58,7 +57,7 @@ import org.uva.sea.ql.ast.*;
  *------------------------------------------------------------------*/
  
 parse
-	: FormStart Ident Lbr blockItem* Rbr EOF{System.out.println("End grammar");} -> ^(Ident ^(BLOCK (blockItem)*));
+	: FormStart Ident Lbr blockItem* Rbr EOF{System.out.println("finished with grammar");} -> ^(Ident ^(BLOCK (blockItem)*));
 	
 blockItem
 	:	(questionAssignment | constantAssignment | ifBlock )^ ; 
@@ -107,11 +106,12 @@ atom
   | Ident 
   | Doub
   | Str
-  | BooleanType
-  | MoneyType 
-  | IntegerType
-  | DoubleType
-  | StringType
+  //| BooleanType
+  //| MoneyType 
+  //| IntegerType
+  //| DoubleType
+  //| StringType
+  | Bool
   |  RoundLbr!  x=orExpr^ RoundRbr! 
   ;
   
