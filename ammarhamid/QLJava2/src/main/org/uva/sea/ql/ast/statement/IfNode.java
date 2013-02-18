@@ -33,27 +33,6 @@ public class IfNode implements Statement
         return branches;
     }
 
-    // TODO move this code to GUI interpreter
-//    public Value evaluate()
-//    {
-//        for(final Branch branch : branches)
-//        {
-//            final Value value = branch.evaluateExpression();
-//            if(!value.isCompatibleToBoolean())
-//            {
-//                throw new RuntimeException("illegal boolean expression inside if-block: " + branch.exprNode.toTreeString(" "));
-//            }
-//
-//            if(value.asBooleanValue().getValue())
-//            {
-//                return branch.block.evaluate();
-//                return null;
-//            }
-//        }
-//
-//        return null;
-//    }
-
     public class Branch
     {
         private final ExprNode exprNode;

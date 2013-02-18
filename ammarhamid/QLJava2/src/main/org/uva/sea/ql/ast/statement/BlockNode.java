@@ -31,24 +31,4 @@ public class BlockNode implements Statement
         statementVisitor.visit(this);
     }
 
-    // TODO move this code to GUI interpreter
-//    public Value evaluate()
-//    {
-//        for(final Node statement : statements)
-//        {
-//            statement.evaluate();
-//        }
-//        return null;
-//    }
-
-//    @Override
-//    public String toTreeString(String indent)
-//    {
-//        final StringBuilder stringBuilder = new StringBuilder();
-//        for(final Node statement : statements)
-//        {
-//            stringBuilder.append(statement.toTreeString(" ")).append("\n");
-//        }
-//        return stringBuilder.toString();
-//    }
 }
