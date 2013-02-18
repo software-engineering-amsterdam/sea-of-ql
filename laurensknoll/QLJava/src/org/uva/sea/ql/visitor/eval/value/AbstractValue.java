@@ -2,9 +2,6 @@ package org.uva.sea.ql.visitor.eval.value;
 
 public abstract class AbstractValue {
 
-	/*
-	 * Arithmetic expressions
-	 */
 	public AbstractValue add(AbstractValue value) {
 		throw new UnsupportedOperationException();
 	}
@@ -21,14 +18,7 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Logical expressions
-	 */
 	public AbstractValue and(AbstractValue value) {
-		throw new UnsupportedOperationException();
-	}
-
-	public AbstractValue eq(AbstractValue value) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -48,17 +38,18 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	public AbstractValue neq(AbstractValue value) {
-		throw new UnsupportedOperationException();
-	}
-
 	public AbstractValue or(AbstractValue value) {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Boolean Logical expressions
-	 */
+	public AbstractValue eq(AbstractValue value) {
+		throw new UnsupportedOperationException();
+	}
+
+	public AbstractValue neq(AbstractValue value) {
+		throw new UnsupportedOperationException();
+	}
+
 	protected AbstractValue andBool(Bool value) {
 		throw new UnsupportedOperationException();
 	}
@@ -75,9 +66,6 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Integer Logical expressions
-	 */
 	public AbstractValue eqInt(Int value) {
 		throw new UnsupportedOperationException();
 	}
@@ -102,9 +90,6 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Money Logical expressions
-	 */
 	public AbstractValue eqMoney(Money value) {
 		throw new UnsupportedOperationException();
 	}
@@ -129,9 +114,6 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Unary expressions
-	 */
 	public AbstractValue neg() {
 		throw new UnsupportedOperationException();
 	}
@@ -144,9 +126,6 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Integer arithmetic expressions
-	 */
 	protected AbstractValue addInt(Int value) {
 		throw new UnsupportedOperationException();
 	}
@@ -163,9 +142,6 @@ public abstract class AbstractValue {
 		throw new UnsupportedOperationException();
 	}
 
-	/*
-	 * Money arithmetic expressions
-	 */
 	protected AbstractValue addMoney(Money value) {
 		throw new UnsupportedOperationException();
 	}
