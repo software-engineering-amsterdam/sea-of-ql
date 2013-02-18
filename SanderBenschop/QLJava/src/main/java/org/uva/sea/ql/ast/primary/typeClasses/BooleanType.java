@@ -10,6 +10,11 @@ public class BooleanType implements Type {
     }
 
     @Override
+    public boolean canBeAssignedFromValue(String value) {
+        return value.equals("true") || value.equals("false");
+    }
+
+    @Override
     public boolean isCompatibleTo(Type type) {
         return type.isCompatibleToBooleanType();
     }

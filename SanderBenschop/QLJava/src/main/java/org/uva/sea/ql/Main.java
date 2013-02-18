@@ -1,6 +1,7 @@
 package org.uva.sea.ql;
 
 import com.beust.jcommander.JCommander;
+import com.google.inject.servlet.GuiceFilter;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.spi.container.servlet.ServletContainer;
 import org.eclipse.jetty.server.Server;
@@ -11,12 +12,16 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
-import org.uva.sea.ql.parser.error.reporting.SimpleSyntacticErrorReporter;
+import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.visitor.codegeneration.CodeGenerator;
 import org.uva.sea.ql.visitor.codegeneration.WebAppCodeGeneratingVisitor;
 import org.uva.sea.ql.visitor.semanticanalysis.SemanticAnalysisVisitor;
 import org.uva.sea.ql.visitor.semanticanalysis.SemanticalAnalyser;
+import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.visitor.semanticanalysis.SymbolTableImpl;
 
+import javax.servlet.DispatcherType;
+import java.util.EnumSet;
 import java.util.logging.Logger;
 
 public class Main {
@@ -27,11 +32,12 @@ public class Main {
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
-        QLBootstrapper bootstrapper = createQLBootStrapper();
+        SymbolTable symbolTable = new SymbolTableImpl();
+        QLBootstrapper bootstrapper = createQLBootStrapper(symbolTable);
         try {
             jCommander.parse(arguments);
             if (bootstrapper.checkAndBuildQLFile(commandLineParameters.getInputFile())) {
-                startJettyServer(commandLineParameters.getHostPort());
+                startJettyServer(commandLineParameters.getHostPort(), symbolTable);
             }
         } catch(Exception exception) {
             LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
@@ -39,14 +45,14 @@ public class Main {
         }
     }
 
-    private static QLBootstrapper createQLBootStrapper() {
-        Parser parser = new ANTLRParser(new SimpleSyntacticErrorReporter());
-        SemanticalAnalyser semanticalAnalyser = new SemanticAnalysisVisitor();
+    private static QLBootstrapper createQLBootStrapper(SymbolTable symbolTable) {
+        Parser parser = new ANTLRParser(new SyntacticErrorReporterImpl());
+        SemanticalAnalyser semanticalAnalyser = new SemanticAnalysisVisitor(symbolTable);
         CodeGenerator codeGenerator = new WebAppCodeGeneratingVisitor();
         return new QLBootstrapper(parser, semanticalAnalyser, codeGenerator);
     }
 
-    private static void startJettyServer(int port) {
+    private static void startJettyServer(int port, SymbolTable symbolTable) {
         try {
             Server server = new Server(port);
 
@@ -56,6 +62,8 @@ public class Main {
 
             ServletContextHandler servletsHandler = new ServletContextHandler();
             servletsHandler.setContextPath(WEBAPP_BASE_PATH);
+            servletsHandler.addFilter(GuiceFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+            servletsHandler.addEventListener(new ServletConfiguration(symbolTable));
             servletsHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
 
             HandlerList handlers = new HandlerList();

@@ -8,6 +8,11 @@ public class UndefinedType implements Type {
     }
 
     @Override
+    public boolean canBeAssignedFromValue(String value) {
+        return false;
+    }
+
+    @Override
     public boolean isCompatibleTo(Type type) {
         return false;
     }

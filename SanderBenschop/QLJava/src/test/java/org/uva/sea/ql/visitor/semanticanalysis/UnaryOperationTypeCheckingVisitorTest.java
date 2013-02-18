@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor.semanticanalysis;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
@@ -18,7 +19,7 @@ public class UnaryOperationTypeCheckingVisitorTest {
 
     @Before
     public void init() {
-        sourceCodeInformation = new SourceCodeInformation(0,0);
+        sourceCodeInformation = new SourceCodeInformationImpl(0,0);
         semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 

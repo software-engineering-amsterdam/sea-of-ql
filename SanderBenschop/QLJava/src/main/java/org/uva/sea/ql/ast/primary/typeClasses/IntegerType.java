@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.primary.typeClasses;
 
-import org.junit.Test;
 import org.uva.sea.ql.ast.primary.Int;
 
 public class IntegerType implements Type {
@@ -8,6 +7,16 @@ public class IntegerType implements Type {
     @Override
     public String getObjectLiteralSimpleClassName() {
         return Int.class.getSimpleName();
+    }
+
+    @Override
+    public boolean canBeAssignedFromValue(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 
     @Override

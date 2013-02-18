@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor.semanticanalysis;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.binary.EqualTo;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
@@ -19,7 +20,7 @@ public class QuestionTypeCheckingVisitorTest {
 
     @Before
     public void init() throws IllegalAccessException {
-        sourceCodeInformation = new SourceCodeInformation(0,0);
+        sourceCodeInformation = new SourceCodeInformationImpl(0,0);
         semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 

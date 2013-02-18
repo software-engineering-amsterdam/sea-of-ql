@@ -1,9 +1,6 @@
 package org.uva.sea.ql.visitor.semanticanalysis;
 
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
@@ -36,10 +33,10 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     private List<SemanticQLError> semanticValidationErrors;
 
     public SemanticAnalysisVisitor() {
-        this(new SymbolTable());
+        this(new SymbolTableImpl());
     }
 
-    protected SemanticAnalysisVisitor(SymbolTable symbolTable) {
+    public SemanticAnalysisVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }
@@ -51,6 +48,11 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
 
         visitForm(form);
         return semanticValidationErrors;
+    }
+
+    @Override
+    public SymbolTable getSymbolTable() {
+        return symbolTable;
     }
 
     public List<SemanticQLError> getErrors() {

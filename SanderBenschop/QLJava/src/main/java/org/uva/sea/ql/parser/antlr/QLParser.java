@@ -12,10 +12,9 @@ import org.uva.sea.ql.parser.error.reporting.*;
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
+
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
 
 @SuppressWarnings("all")
@@ -92,7 +91,7 @@ public class QLParser extends Parser {
 	  }
 	  
 	  private SourceCodeInformation createSourceCodeInformation(Token token) {
-	    return new SourceCodeInformation(token.getLine(), token.getCharPositionInLine());
+	    return new SourceCodeInformationImpl(token.getLine(), token.getCharPositionInLine());
 	  }
 
 	  @Override

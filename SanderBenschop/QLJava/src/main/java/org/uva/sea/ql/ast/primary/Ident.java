@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.primary;
 
+import org.uva.sea.ql.ast.NullSourceCodeInformation;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
@@ -10,6 +11,10 @@ import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 public final class Ident extends QLExpression {
 
     private final String name;
+
+    public Ident(String name) {
+        this(name, new NullSourceCodeInformation());
+    }
 
     public Ident(String name, SourceCodeInformation sourceInfo) {
         super(sourceInfo);

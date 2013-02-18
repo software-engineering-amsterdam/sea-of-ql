@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
@@ -26,7 +27,7 @@ public class IdentifierTypeCheckingVisitorTest {
     @Before
     public void init() throws IllegalAccessException {
         semanticAnalysisVisitor = new SemanticAnalysisVisitor(mockedSymbolTable);
-        sourceCodeInformation = new SourceCodeInformation(0, 0);
+        sourceCodeInformation = new SourceCodeInformationImpl(0, 0);
     }
 
     @Test

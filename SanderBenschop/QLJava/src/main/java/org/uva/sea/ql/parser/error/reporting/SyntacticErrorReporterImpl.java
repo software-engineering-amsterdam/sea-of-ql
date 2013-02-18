@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.uva.sea.ql.parser.error.SyntacticQLError;
 
-public class SimpleSyntacticErrorReporter implements SyntacticErrorReporter {
+public class SyntacticErrorReporterImpl implements SyntacticErrorReporter {
 
     private final List<SyntacticQLError> syntacticQLErrors;
 
-    public SimpleSyntacticErrorReporter() {
+    public SyntacticErrorReporterImpl() {
         syntacticQLErrors = new ArrayList<SyntacticQLError>();
     }
 

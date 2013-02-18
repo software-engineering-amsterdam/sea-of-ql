@@ -3,6 +3,7 @@ package org.uva.sea.ql;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
@@ -19,7 +20,7 @@ public class TestQLErrors {
 
     @Before
     public void init() {
-        this.sourceCodeInformation = new SourceCodeInformation(42, 2);
+        this.sourceCodeInformation = new SourceCodeInformationImpl(42, 2);
     }
 
     @Test

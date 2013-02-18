@@ -8,4 +8,6 @@ import java.util.List;
 public interface SemanticalAnalyser {
 
     List<SemanticQLError> semanticallyValidateForm(Form form);
+
+    SymbolTable getSymbolTable();
 }

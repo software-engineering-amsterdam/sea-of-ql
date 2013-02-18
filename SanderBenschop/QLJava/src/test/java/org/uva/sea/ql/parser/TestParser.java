@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.primary.ObjectLiteral;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.statement.Conditional;
-import org.uva.sea.ql.parser.error.reporting.SimpleSyntacticErrorReporter;
+import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.parser.exception.ParseException;
 
 public abstract class TestParser {
@@ -17,7 +17,7 @@ public abstract class TestParser {
 
     @Before
     public void prepareTest() {
-        this.parser = new ANTLRParser(new SimpleSyntacticErrorReporter());
+        this.parser = new ANTLRParser(new SyntacticErrorReporterImpl());
     }
 
     protected Form parseForm(String source) throws ParseException {

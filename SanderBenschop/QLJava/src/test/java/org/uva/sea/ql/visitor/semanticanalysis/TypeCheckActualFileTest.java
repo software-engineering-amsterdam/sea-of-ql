@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
-import org.uva.sea.ql.parser.error.reporting.SimpleSyntacticErrorReporter;
+import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.parser.exception.ParseException;
 import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
 
@@ -25,7 +25,7 @@ public class TypeCheckActualFileTest {
 
     @Before
     public void init() {
-        parser = new ANTLRParser(new SimpleSyntacticErrorReporter());
+        parser = new ANTLRParser(new SyntacticErrorReporterImpl());
         typeChecker = new SemanticAnalysisVisitor();
     }
 

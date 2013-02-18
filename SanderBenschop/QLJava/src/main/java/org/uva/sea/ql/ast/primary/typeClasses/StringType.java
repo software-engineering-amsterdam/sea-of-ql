@@ -11,6 +11,11 @@ public class StringType implements Type {
     }
 
     @Override
+    public boolean canBeAssignedFromValue(String value) {
+        return value != null;
+    }
+
+    @Override
     public boolean isCompatibleTo(Type type) {
         return type.isCompatibleToStringType();
     }

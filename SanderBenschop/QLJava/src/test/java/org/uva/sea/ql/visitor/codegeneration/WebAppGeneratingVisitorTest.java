@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.binary.Multiply;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
@@ -29,7 +30,7 @@ public class WebAppGeneratingVisitorTest {
     @Before
     public void init() {
         this.webAppGeneratingVisitor = new WebAppCodeGeneratingVisitor();
-        this.sourceCodeInformation = new SourceCodeInformation(0, 0);
+        this.sourceCodeInformation = new SourceCodeInformationImpl(0, 0);
     }
 
     @Test

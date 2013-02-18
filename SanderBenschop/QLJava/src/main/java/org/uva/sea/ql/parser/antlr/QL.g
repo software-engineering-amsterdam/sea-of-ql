@@ -27,7 +27,7 @@ import org.uva.sea.ql.parser.error.reporting.*;
   }
   
   private SourceCodeInformation createSourceCodeInformation(Token token) {
-    return new SourceCodeInformation(token.getLine(), token.getCharPositionInLine());
+    return new SourceCodeInformationImpl(token.getLine(), token.getCharPositionInLine());
   }
 
   @Override
