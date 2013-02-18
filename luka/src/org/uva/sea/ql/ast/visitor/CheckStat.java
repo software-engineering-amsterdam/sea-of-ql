@@ -10,10 +10,12 @@ import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
 import org.uva.sea.ql.ast.stat.ComputedStat;
 import org.uva.sea.ql.ast.stat.ConditionalStat;
+import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.Stat;
 import org.uva.sea.ql.ast.stat.TypedStat;
+import org.uva.sea.ql.ast.stat.VisibleComputetStat;
 import org.uva.sea.ql.ast.type.Type;
 
 public class CheckStat implements StatementVisitor {
@@ -39,8 +41,20 @@ public class CheckStat implements StatementVisitor {
 		}
 	}
 
+//	@Override
+//	public void visit(ComputedStat stat) {
+//		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
+//		checkExpr(stat.getExpr());
+//	}
+	
 	@Override
-	public void visit(ComputedStat stat) {
+	public void visit(VisibleComputetStat stat) {
+		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
+		checkExpr(stat.getExpr());
+	}
+	
+	@Override
+	public void visit(HiddenComputetStat stat) {
 		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
 		checkExpr(stat.getExpr());
 	}
