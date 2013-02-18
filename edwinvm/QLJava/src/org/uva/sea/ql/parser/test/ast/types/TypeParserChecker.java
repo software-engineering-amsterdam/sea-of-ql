@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.ast;
+package org.uva.sea.ql.parser.test.ast.types;
 
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Int;
@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserTypes;
+import org.uva.sea.ql.parser.test.ast.ASTNodeChecker;
 
 public class TypeParserChecker extends ASTNodeChecker {
 	
