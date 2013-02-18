@@ -11,6 +11,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
+import org.uva.sea.ql.bootstrapper.QLBootstrapperImpl;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporterImpl;
@@ -20,6 +21,7 @@ import org.uva.sea.ql.visitor.semanticanalysis.SemanticAnalysisVisitor;
 import org.uva.sea.ql.visitor.semanticanalysis.SemanticalAnalyser;
 import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 import org.uva.sea.ql.visitor.semanticanalysis.SymbolTableImpl;
+import org.uva.sea.ql.web.ServletConfiguration;
 
 import javax.servlet.DispatcherType;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class Main {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
         SymbolTable symbolTable = new SymbolTableImpl();
-        QLBootstrapper bootstrapper = createQLBootStrapper(symbolTable);
+        QLBootstrapperImpl bootstrapper = createQLBootStrapper(symbolTable);
         try {
             jCommander.parse(arguments);
             if (bootstrapper.checkAndBuildQLFile(commandLineParameters.getInputFile())) {
@@ -50,11 +52,11 @@ public class Main {
         }
     }
 
-    private static QLBootstrapper createQLBootStrapper(SymbolTable symbolTable) {
+    private static QLBootstrapperImpl createQLBootStrapper(SymbolTable symbolTable) {
         Parser parser = new ANTLRParser(new SyntacticErrorReporterImpl());
         SemanticalAnalyser semanticalAnalyser = new SemanticAnalysisVisitor(symbolTable);
         CodeGenerator codeGenerator = new WebAppCodeGeneratingVisitor();
-        return new QLBootstrapper(parser, semanticalAnalyser, codeGenerator);
+        return new QLBootstrapperImpl(parser, semanticalAnalyser, codeGenerator);
     }
 
     private static void startJettyServer(int port, SymbolTable symbolTable) {

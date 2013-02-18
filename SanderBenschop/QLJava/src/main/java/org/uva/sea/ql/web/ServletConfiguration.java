@@ -1,4 +1,4 @@
-package org.uva.sea.ql;
+package org.uva.sea.ql.web;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
