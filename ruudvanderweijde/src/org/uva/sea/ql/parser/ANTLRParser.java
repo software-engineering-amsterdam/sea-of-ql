@@ -72,5 +72,4 @@ public class ANTLRParser implements IParse {
 	public List<Message> getErrors() {
 		return errors;
 	}
-
 }
