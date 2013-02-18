@@ -107,7 +107,6 @@ public class FormRenderer implements IFormVisitor {
 	}
 
 
-
 	private void openBlock(String id) {
 		ST qlOpenBlock = formTemplate.getInstanceOf("OpenBlock");
 		qlOpenBlock.add("id", id);
