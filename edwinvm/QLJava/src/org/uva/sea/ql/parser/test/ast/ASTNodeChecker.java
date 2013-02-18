@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.ast;
 
 import static org.junit.Assert.assertEquals;
 

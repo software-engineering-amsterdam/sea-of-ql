@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.expressions.binary.relational.LEq;
 import org.uva.sea.ql.ast.expressions.binary.relational.LT;
 import org.uva.sea.ql.ast.expressions.binary.relational.NEq;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.test.ExpressionParserChecker;
 
 public class TestBinaryRelationalExpressions extends ExpressionParserChecker {
 	@Test

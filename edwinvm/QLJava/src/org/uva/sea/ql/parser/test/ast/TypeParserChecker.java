@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.parser.test.ast;
 
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Int;
