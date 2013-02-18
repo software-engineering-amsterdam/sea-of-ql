@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public final class QLBootstrapperImpl {
+public final class QLBootstrapperImpl implements QLBootstrapper {
 
     private static final String DESTINATION_FILE_NAME_TEMPLATE = "%s/index.html";
 
@@ -31,6 +31,7 @@ public final class QLBootstrapperImpl {
         this.codeGenerator = codeGenerator;
     }
 
+    @Override
     public boolean checkAndBuildQLFile(File file) throws IOException {
         Form form = parser.parse(file);
         if (!parser.hasErrors()) {
