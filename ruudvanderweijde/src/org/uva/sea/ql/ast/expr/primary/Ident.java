@@ -22,8 +22,8 @@ public final class Ident extends Expr {
 		return "Ident";
 	}
 	
-	// Implemented "equals" and "hashCode" to be able to compare objects with the same string
-	// If object are they same, but have different references, they will not be found in the hashmap.
+	// Override "equals" and "hashCode" because we want 
+	// to be able to identify Idents by name, not by ref
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Ident) {

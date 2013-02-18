@@ -27,7 +27,6 @@ public class Bool extends Primary<Boolean> {
 		return new BooleanType();
 	}
 
-
 	@Override
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
