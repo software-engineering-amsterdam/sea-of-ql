@@ -26,8 +26,6 @@ public class Form implements IForm<JFrame> {
 		JScrollPane scrollableContainer = new JScrollPane(container);
 		frame.add(scrollableContainer);
 
-		frame.setSize(400, 600);
-
 		return frame;
 	}
 
