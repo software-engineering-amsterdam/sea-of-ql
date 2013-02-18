@@ -22,10 +22,10 @@ import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.evaluation.values.Value;
-import org.uva.sea.ql.evaluation.values.Int;
 import org.uva.sea.ql.evaluation.values.Bool;
+import org.uva.sea.ql.evaluation.values.Int;
 import org.uva.sea.ql.evaluation.values.String;
+import org.uva.sea.ql.evaluation.values.Value;
 
 public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 	
