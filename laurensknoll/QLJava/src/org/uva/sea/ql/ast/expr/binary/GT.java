@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
-public class GT extends AbstractBinary {
+public class GT extends Numeric {
 
 	public GT(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);

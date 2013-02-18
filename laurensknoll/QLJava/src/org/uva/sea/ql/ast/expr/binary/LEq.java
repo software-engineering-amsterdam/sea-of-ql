@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
-public class LEq extends AbstractBinary {
+public class LEq extends Numeric {
 
 	public LEq(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);

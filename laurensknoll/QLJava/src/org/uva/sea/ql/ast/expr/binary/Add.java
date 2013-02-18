@@ -2,11 +2,10 @@ package org.uva.sea.ql.ast.expr.binary;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.type.AbstractType;
-import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
-public class Add extends AbstractBinary {
+public class Add extends Numeric {
 
 	public Add(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);
@@ -19,7 +18,7 @@ public class Add extends AbstractBinary {
 
 	@Override
 	public AbstractType typeOf(Environment environment) {
-		return new Numeric();
+		return new org.uva.sea.ql.ast.type.Numeric();
 	}
 
 	@Override
