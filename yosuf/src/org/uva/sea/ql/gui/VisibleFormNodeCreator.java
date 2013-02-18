@@ -1,6 +1,5 @@
 package org.uva.sea.ql.gui;
 
-import static julius.validation.Assertions.checked;
 import static julius.validation.Assertions.state;
 import static org.uva.sea.ql.gui.TranslationUtil.createExpression;
 import static org.uva.sea.ql.gui.TranslationUtil.isValidUserInput;
@@ -11,13 +10,12 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import julius.validation.ValidationException;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.stm.Block;
 import org.uva.sea.ql.ast.stm.CompoundStatement;
 import org.uva.sea.ql.ast.stm.Computed;
@@ -28,9 +26,11 @@ import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.lead.LogPrinter;
 import org.uva.sea.ql.lead.Model;
 import org.uva.sea.ql.lead.ModelChangeListener;
 import org.uva.sea.ql.visitor.ExpressionEvaluator;
+import org.uva.sea.ql.visitor.ExpressionEvaluator.UnmodifiedException;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
@@ -74,26 +74,47 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final Computed computed) {
+		final Identifier identifier = computed.getIdentifier();
+		state.assertNotNull(model.getComputed(identifier), identifier
+				+ " not registered at model.");
 		Group holder = new Group();
+		final Label text = createText("");
 
-		String eval = "";
-
-		if (model.getComputed(computed.getIdentifier()) != null) {
-			System.out.println("model value: "
-					+ model.getComputed(computed.getIdentifier()));
+		String value = "";
+		if (isExpressionEvaluatable(computed)) {
+			value = evaluateAndGetValue(computed.getExpression());
 		}
-		try {
-			eval = getValue(computed.getExpression().getNature(),
-					computed.getExpression());
 
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		Node text = createText(computed.getIdentifier().getName() + " : "
-				+ eval);
+		model.addListener(identifier, new ModelChangeListener() {
+
+			@Override
+			public void changed(final Expression<?> expression) {
+				if (isExpressionEvaluatable(computed)) {
+					String newVal = evaluateAndGetValue(computed
+							.getExpression());
+					text.setText(identifier.getName() + " : " + newVal);
+					LogPrinter.debugInfo("update recieved: " + expression);
+					return;
+				}
+			}
+		});
+
+		text.setText(identifier.getName() + " : " + value);
+
 		holder.getChildren().add(text);
 
 		return holder;
+	}
+
+	protected boolean isExpressionEvaluatable(final Computed computed) {
+		try {
+			computed.getExpression().accept(expressionEvaluator);
+		} catch (UnmodifiedException e) {
+			LogPrinter.debugInfo("cannot be evaluated");
+			return false;
+		}
+
+		return true;
 	}
 
 	@Override
@@ -106,7 +127,9 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 			@Override
 			public void changed(final Expression<?> expression) {
-				handleVisibility(holder, drawable, isTrueInModel(exp));
+				if (exp.equals(expression)) {
+					handleVisibility(holder, drawable, isTrueInModel(exp));
+				}
 			}
 		});
 
@@ -147,7 +170,9 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 			@Override
 			public void changed(final Expression<?> expression) {
-				handleIfElseVisibility(exp, holder, ifNode, elseNode);
+				if (exp.equals(expression)) {
+					handleIfElseVisibility(exp, holder, ifNode, elseNode);
+				}
 			}
 
 		});
@@ -193,7 +218,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 				handleUserInput(question, input, oldVal, newVal);
 			}
 		});
-		return createHorizontalHolder(createText(question.getText()), input);
+		return createVerticalHolder(createText(question.getText()), input);
 	}
 
 	private void handleUserInput(final Question question,
@@ -228,37 +253,36 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 			}
 		});
 
-		return createHorizontalHolder(createText(question.getText()), checkBox);
+		return createVerticalHolder(createText(question.getText()), checkBox);
 	}
 
-	private HBox createHorizontalHolder(final Node... nodes) {
-		HBox hBox = new HBox();
-		hBox.getStyleClass().add(QUESTION_STYLE);
-		hBox.getChildren().addAll(nodes);
+	private VBox createVerticalHolder(final Node header, final Node inputNode) {
+		VBox verticalHolder = new VBox();
+		verticalHolder.getStyleClass().add(QUESTION_STYLE);
 
-		return hBox;
+		verticalHolder.getChildren().add(header);
+		verticalHolder.getChildren().add(inputNode);
+
+		return verticalHolder;
 	}
 
-	private Node createText(final String text) {
+	private Label createText(final String text) {
 		return new Label(text);
 	}
 
 	/**
 	 * TODO: This could be moved to {@link TranslationUtil}
 	 * 
-	 * @param nature
+	 * 
 	 * @param expression
 	 * @return
-	 * @throws ValidationException
 	 */
-	private String getValue(final Nature nature, final Expression<?> expression)
-			throws ValidationException {
+	private String evaluateAndGetValue(final Expression<?> expression) {
 		Expression<?> value = (Expression<?>) expression
 				.accept(expressionEvaluator);
+		state.assertNotNull(value, "Expression does not exist yet.");
 
-		checked.assertNotNull(value, "Expression does not exist yet.");
-
-		switch (nature) {
+		switch (expression.getNature()) {
 		case BOOLEAN:
 			return String.valueOf(((BooleanValue) value).getValue());
 		case NUMERIC:
@@ -266,8 +290,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		case TEXTUAL:
 			return ((StringValue) value).getValue();
 		default:
-			throw state.createException("Error getting value: " + nature + " "
-					+ expression);
+			throw state.createException("Error getting value: " + expression);
 		}
 	}
 }
