@@ -3,6 +3,7 @@ function show(e) {
     e = $(e);
   }
   e.show();
+  e.find("*[touched=touched]").change();
   $("fieldset").trigger("check");
 }
 

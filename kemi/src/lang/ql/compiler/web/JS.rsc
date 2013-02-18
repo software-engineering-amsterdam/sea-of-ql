@@ -69,9 +69,12 @@ private str JS(Form f) =
   '    }
   '  });
   '
-  '  $(\"#<f.formName.ident>\").on(\"input\", function(evt) {
+  '  $(\"#<f.formName.ident>\").on(\"input change\", function(evt) {
   '    if($(evt.target).attr(\"type\") !== \"date\") {
   '      $(evt.target).valid();
+  '    }
+  '    if(evt.type === \"change\") {
+  '      $(evt.target).attr(\"touched\", \"touched\");
   '    }
   '  });
   '
