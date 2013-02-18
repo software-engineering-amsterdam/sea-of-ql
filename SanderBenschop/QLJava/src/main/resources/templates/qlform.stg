@@ -1,26 +1,25 @@
 form(statements) ::= <<
     <form>
         $statements$
-        <input type="submit" value="Submit"/>
     </form>
 >>
 
 openQuestionHtml(id, labelText) ::= <<
-    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$"/>
+    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$"/><br>
 >>
 
 closedQuestionHtml(id, labelText) ::= <<
-    <label for="$id$">$labelText$</label><input type="checkbox" id="$id$" name="$id$"/>
+    <label for="$id$">$labelText$</label><input type="checkbox" id="$id$" name="$id$"/><br>
 >>
 
 questionJS(id, controllerType) ::= <<
     var $id$QuestionController = ql.$controllerType$.new("$id$");
     $id$QuestionController.bind();
-
+    ql.questionControllerList.push($id$QuestionController);
 >>
 
 computationHtml(id, labelText) ::= <<
-    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$" readonly="readonly"/>
+    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$" readonly="readonly"/><br>
 >>
 
 computationJS(name, variableSubscriptions, expression) ::= <<

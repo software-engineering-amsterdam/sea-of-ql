@@ -14,6 +14,8 @@ import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 import org.uva.sea.ql.web.FormPersistenceController;
 import org.uva.sea.ql.web.GeneratedCodeController;
 import org.uva.sea.ql.web.ValidationController;
+import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
+import org.uva.sea.ql.web.inputvalidation.QuestionValidator;
 
 public class ServletConfiguration extends GuiceServletContextListener {
 
@@ -45,6 +47,7 @@ public class ServletConfiguration extends GuiceServletContextListener {
             bind(FormPersistenceController.class);
             bind(SymbolTable.class).toInstance(symbolTable);
             bind(ObjectMapper.class).toInstance(objectMapper);
+            bind(QLInputValidator.class).to(QuestionValidator.class);
             serve("*").with(GuiceContainer.class);
         }
     }

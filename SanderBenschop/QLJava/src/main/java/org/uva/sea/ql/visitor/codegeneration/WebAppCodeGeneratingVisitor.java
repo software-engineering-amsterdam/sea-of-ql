@@ -42,11 +42,12 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public String generateQLCode(Form form) {
         WebappCodeWrapper webappCodeWrapper = form.accept(this);
+        ST pageTemplate = pageTemplateGroup.getInstanceOf("page"), formTemplate = formTemplateGroup.getInstanceOf("form");
 
-        ST pageTemplate = pageTemplateGroup.getInstanceOf("page");
+        formTemplate.add("statements", webappCodeWrapper.getHTMLCode());
         pageTemplate.add("formName", form.getName());
         pageTemplate.add("documentReadyContent", webappCodeWrapper.getJavascriptCode());
-        pageTemplate.add("formContent", webappCodeWrapper.getHTMLCode());
+        pageTemplate.add("formContent", formTemplate.render());
 
         return pageTemplate.render();
     }

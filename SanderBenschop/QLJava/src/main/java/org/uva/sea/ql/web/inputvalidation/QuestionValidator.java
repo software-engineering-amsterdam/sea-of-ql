@@ -7,30 +7,45 @@ import org.uva.sea.ql.web.IdentifierValuePair;
 
 import javax.inject.Inject;
 
-public class QuestionValidator implements QLInputValidator{
-
-    private static final String OK_MESSAGE = "Input ok.";
-    private static final String ERROR_MESSAGE_TEMPLATE = "No valid %s input.";
+public class QuestionValidator implements QLInputValidator {
 
     @Inject
     private SymbolTable symbolTable;
 
     @Override
-    public QLInputValidationResult validateIdentifierIsOfType(IdentifierValuePair identifierValuePair, Type expectedType) {
+    public QLInputValidationResult validateInputForType(IdentifierValuePair identifierValuePair, Type expectedType) {
         String identifierName = identifierValuePair.getIdentifierName(), value = identifierValuePair.getValue();
-        if (identifierName != null && identifierIsOfType(identifierName, expectedType) && expectedType.canBeAssignedFromValue(value)) {
+        if (identifierName != null && identifierIsOfType(identifierName, expectedType) && expectedType.canBeAssignedFrom(value)) {
             return new QLInputValidationResultImpl(true, OK_MESSAGE);
         } else {
-            return new QLInputValidationResultImpl(false, String.format(ERROR_MESSAGE_TEMPLATE, expectedType.getObjectLiteralSimpleClassName()));
+            return new QLInputValidationResultImpl(false, String.format(TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getObjectLiteralSimpleClassName()));
         }
     }
 
-    private boolean identifierIsOfType(String identName, Type type) {
-        Ident ident = new Ident(identName);
-        Type reduceableType = symbolTable.getReduceableType(ident);
-        if (reduceableType == null) {
-            return false;
+    @Override
+    public QLInputValidationResult validateInput(IdentifierValuePair identifierValuePair) {
+        String identifierName = identifierValuePair.getIdentifierName(), value = identifierValuePair.getValue();
+        Type type = getTypeForIdentifierName(identifierName);
+        if (type != null && type.canBeAssignedFrom(value)) {
+            return new QLInputValidationResultImpl(true, OK_MESSAGE);
+        } else {
+            return new QLInputValidationResultImpl(false, String.format(NAMED_ERROR_MESSAGE_TEMPLATE, identifierName));
         }
-        return reduceableType.isCompatibleTo(type);
+    }
+
+    private Type getTypeForIdentifierName(String identifierName) {
+        Ident ident = new Ident(identifierName);
+        if (symbolTable.containsReductionFor(ident)) {
+            return symbolTable.getReduceableType(ident);
+        }
+        return null;
+    }
+
+    private boolean identifierIsOfType(String identifierName, Type type) {
+        Ident ident = new Ident(identifierName);
+        if (symbolTable.containsReductionFor(ident)) {
+            return symbolTable.getReduceableType(ident).isCompatibleTo(type);
+        }
+        return false;
     }
 }

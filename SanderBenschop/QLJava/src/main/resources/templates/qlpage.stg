@@ -12,6 +12,16 @@ page(formName, formContent, documentReadyContent) ::= <<
                 /* Generated JS code start */
                 $documentReadyContent$
                 /* Generated JS code end */
+
+                jQuery("#submit").on("click", function(){
+                    var identifierValuePairArray = [];
+                    jQuery.each(ql.questionControllerList, function(index, questionController) {
+                       identifierValuePairArray.push({identifierName : questionController.getName(), value : questionController.getValue()});
+                    });
+                    ql.ajaxUtil.doPost("submit/", identifierValuePairArray, function(){
+                        alert("Submit succesful!");
+                    });
+                });
             });
         </script>
         <style type="text/css">
@@ -22,7 +32,7 @@ page(formName, formContent, documentReadyContent) ::= <<
     </head>
     <body>
         $formContent$
-    </form>
     </body>
+    <input id="submit" type="button" value="Persist"/>
 </html>
 >>

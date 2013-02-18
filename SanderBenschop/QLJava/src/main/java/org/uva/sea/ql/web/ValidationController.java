@@ -33,7 +33,7 @@ public class ValidationController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/integer")
     public Response validateIntegerQuestion(IdentifierValuePair identifierValuePair) {
-        QLInputValidationResult result = inputValidator.validateIdentifierIsOfType(identifierValuePair, integerType);
+        QLInputValidationResult result = inputValidator.validateInputForType(identifierValuePair, integerType);
         return result.toResponse();
     }
 
@@ -41,7 +41,7 @@ public class ValidationController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/boolean")
     public Response validateBooleanQuestion(IdentifierValuePair identifierValuePair) {
-        QLInputValidationResult result = inputValidator.validateIdentifierIsOfType(identifierValuePair, booleanType);
+        QLInputValidationResult result = inputValidator.validateInputForType(identifierValuePair, booleanType);
         return result.toResponse();
     }
 
@@ -49,7 +49,7 @@ public class ValidationController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/string")
     public Response validateStringQuestion(IdentifierValuePair identifierValuePair) {
-        QLInputValidationResult result = inputValidator.validateIdentifierIsOfType(identifierValuePair, stringType);
+        QLInputValidationResult result = inputValidator.validateInputForType(identifierValuePair, stringType);
         return result.toResponse();
     }
 }

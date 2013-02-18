@@ -11,7 +11,7 @@ public class StringType implements Type {
     }
 
     @Override
-    public boolean canBeAssignedFromValue(String value) {
+    public boolean canBeAssignedFrom(String value) {
         return value != null;
     }
 

@@ -1,5 +1,6 @@
 ql = {};
 ql.variableMap = {};
+ql.questionControllerList = [];
 
 ql.messageBus = Base.extend({
     initialize : function() {
@@ -22,10 +23,29 @@ ql.messageBus = Base.extend({
     }
 }).new();
 
+ql.ajaxUtil = {
+    doPost : function(urlPostfix, data, successCallback) {
+        $.ajax({
+            type: "POST",
+            url: $(location).attr('href') + urlPostfix,
+            data: JSON.stringify(data),
+            success: successCallback,
+            error : function(jqXHR) {
+                alert(jqXHR.responseText);
+            },
+            contentType: 'application/json'
+        });
+    }
+}
+
 ql.QuestionController = Base.extend({
     initialize : function(questionName) {
         this.questionName = questionName;
         this.view = $("#" + this.questionName);
+    },
+
+    getName : function() {
+        return this.questionName;
     },
 
     bind : function() {
@@ -35,24 +55,13 @@ ql.QuestionController = Base.extend({
                 var value = that.getParsedValue();
                 ql.variableMap[that.questionName] = value;
                 ql.messageBus.signalVariableChanged(that.questionName);
-            }, function(errorMessage){
-                alert(errorMessage);
             });
         });
     },
 
-    validateInput : function(successCallback, failureCallback) {
-        var that = this, data = {identifierName : that.questionName, value : that.getValue()};
-        $.ajax({
-            type: "POST",
-            url: $(location).attr('href') + "validate/" + that.getValidationSuffix() + "/",
-            data: JSON.stringify(data),
-            success: successCallback,
-            error : function(jqXHR) {
-                failureCallback(jqXHR.responseText);
-            },
-            contentType: 'application/json'
-        });
+    validateInput : function(successCallback) {
+        var urlPostfix = "validate/" + this.getValidationSuffix() + "/", data = {identifierName : this.questionName, value : this.getValue()};
+        ql.ajaxUtil.doPost(urlPostfix, data, successCallback);
     }
 });
 

@@ -1,7 +1,5 @@
 package org.uva.sea.ql.web.inputvalidation;
 
-import sun.security.provider.certpath.OCSPResponse;
-
 import javax.ws.rs.core.Response;
 
 public class QLInputValidationResultImpl implements QLInputValidationResult {
@@ -28,9 +26,9 @@ public class QLInputValidationResultImpl implements QLInputValidationResult {
     public Response toResponse() {
         Response.ResponseBuilder builder = null;
         if (correct) {
-            builder.status(Response.Status.OK);
+            builder = Response.status(Response.Status.OK);
         } else {
-            builder.status(Response.Status.BAD_REQUEST);
+            builder = Response.status(Response.Status.BAD_REQUEST);
         }
         return builder.entity(message).build();
     }
