@@ -48,7 +48,7 @@ function validateAndPersistForm(form) {
 
 function showFailedPersist() {
 	clearPersistMessage();
-	$(contents).append('<p class="fail">Failed to persist form (could be related to javascript hacking or a failing server :))</p>');
+	$(contents).append('<p class="fail">Failed to persist form: could be related to the lack of input, a failing server, or you being a script kiddy :)</p>');
 }
 
 function showSuccessfulPersist() {

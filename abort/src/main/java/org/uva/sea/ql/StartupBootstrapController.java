@@ -3,8 +3,8 @@ package org.uva.sea.ql;
 import java.io.*;
 
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.traversal.codegeneration.BootstrapGenerator;
-import org.uva.sea.ql.ast.traversal.codegeneration.base.*;
+import org.uva.sea.ql.ast.traversal.codegeneration.bootstrap.BootstrapGenerator;
+import org.uva.sea.ql.ast.traversal.codegeneration.bootstrap.base.*;
 import org.uva.sea.ql.ast.traversal.typechecking.TypeChecker;
 import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
 import org.uva.sea.ql.parser.antlr.FormParser;
@@ -18,7 +18,7 @@ import org.uva.sea.ql.webserver.base.IWebServer;
  * 
  * @author J. Dijkstra
  */
-public class BootstrapStartupController implements IStartupController {
+public class StartupBootstrapController implements IStartupController {
 	/**
 	 * Output file to generate code to.
 	 */
@@ -54,7 +54,7 @@ public class BootstrapStartupController implements IStartupController {
 	 * 
 	 * @param parameters command line parameters to use.
 	 */
-	public BootstrapStartupController(final CommandLineParameters parameters) {
+	public StartupBootstrapController(final CommandLineParameters parameters) {
 		this.inputFile = parameters.getInputFile();
 	}
 	

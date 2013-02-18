@@ -31,7 +31,7 @@ public class Main {
     		jCommander.parse(args);
     		
     		// Initialize code generation startup
-        	final IStartupController startupController = new BootstrapStartupController(parameters);
+        	final IStartupController startupController = new StartupBootstrapController(parameters);
         	startupController.start();
     	}
     	catch (ParameterException exception) {

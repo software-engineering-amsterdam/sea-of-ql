@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal.codegeneration.base;
+package org.uva.sea.ql.ast.traversal.codegeneration.bootstrap.base;
 
 import org.uva.sea.ql.ast.form.Form;
 

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.uva.sea.ql.util.*;
 
-public class TestBrowserController extends TestBase {
+public class TestBrowserUtils extends TestBase {
 	@Test
 	public void testOpenBrowserInvalidURL() {
 		

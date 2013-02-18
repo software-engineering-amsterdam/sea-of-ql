@@ -1,4 +1,4 @@
-generate_dispatch_function(id) ::= <<
+dispatch_function(id) ::= <<
   \$('#$id$').change(function() {
     updateGUI(this, "$id$");
   });
@@ -14,11 +14,11 @@ document_ready_block(code) ::= <<
   });
 >>
 
-generate_map_function(id, expression) ::= <<
+map_function(id, expression) ::= <<
   functionMap['$id$'] = function() { return ($expression$); }$\n$
 >>
 
-generate_map_var(name) ::= <<
+map_var(name) ::= <<
   variableMap['$name$'] = '';
 >>
 

@@ -16,6 +16,8 @@
 		<property name="jar.dir" value="${build.dir}/exec" />
 		<property name="lib.dir" value="./lib" />
 		<property name="testresources.dir" value="./src/test/resources" />
+		<property name="mainresources.dir" value="./src/main/resources" />
+
 
 		<!-- Used to copy the default code generation boilerplate code (css/js etc) -->
 		<!-- Uses common properties! -->
@@ -61,6 +63,7 @@
 			<delete dir="${build.dir}" />
 			<delete dir="${reports.dir}" />
 			<delete dir="${classes.dir}" />
+			<delete dir="temp" />
 		</target>
 	
 		<target name="init">
@@ -96,6 +99,7 @@
 			        <pathelement path="${classes.dir}"/>
 			    	<pathelement path="${reports.dir}"/>
 			    	<pathelement path="${testresources.dir}"/>
+			    	<pathelement path="${mainresources.dir}"/>
 			    </classpath>
 				<classpath refid="classpath" />
 

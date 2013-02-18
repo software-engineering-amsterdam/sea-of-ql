@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal.codegeneration;
+package org.uva.sea.ql.ast.traversal.codegeneration.bootstrap;
 
 import java.util.*;
 
@@ -100,7 +100,7 @@ class BootstrapJavascriptGenerator {
 	 */
 	public void declareFunction(final String id, final ST expression) {
 		// Store the javascript function in the initialization code
-		final ST functionTemplate = javascriptTemplateGroup.getInstanceOf("generate_map_function");
+		final ST functionTemplate = javascriptTemplateGroup.getInstanceOf("map_function");
 		functionTemplate.add("id", id);
 		functionTemplate.add("expression", expression);
 
@@ -122,7 +122,7 @@ class BootstrapJavascriptGenerator {
 		for (final Ident ident : references.keySet()) {
 			// If there is references to the identity, then generate a dispatch method as we know there are dependencies on this identifier
 			if (references.get(ident) > 0) {
-				final ST dispatchTemplate = javascriptTemplateGroup.getInstanceOf("generate_dispatch_function");
+				final ST dispatchTemplate = javascriptTemplateGroup.getInstanceOf("dispatch_function");
 				dispatchTemplate.add("id", ident.getName());
 				documentReadyBuffer.append(dispatchTemplate.render());
 			}

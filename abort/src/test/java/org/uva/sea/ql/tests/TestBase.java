@@ -1,6 +1,7 @@
 package org.uva.sea.ql.tests;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.*;
 
 import org.antlr.runtime.*;
@@ -56,5 +57,20 @@ abstract class TestBase {
 		final CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		return (new QLParser(tokens)).form();
+	}
+	
+	/**
+	 * Retrieve a file resource.
+	 * 
+	 * @param path path to file
+	 * @return file
+	 * @throws URISyntaxException
+	 */
+	protected File getFileResource(final String path) throws URISyntaxException {
+		return new File(getClass().getClassLoader().getResource(path).toURI());
+	}
+	
+	protected String getFileResourcePath(final String path) {
+		return getClass().getClassLoader().getResource(path).getPath();
 	}
 }

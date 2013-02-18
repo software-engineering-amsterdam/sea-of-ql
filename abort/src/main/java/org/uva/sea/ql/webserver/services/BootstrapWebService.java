@@ -95,7 +95,7 @@ public class BootstrapWebService {
 			
 			// Check if the corresponding name found in the input is assignable according to the symbol table 
 			if (!symbolTable.getDataTypeByName(name).isAssignableFrom(value)) {
-				System.err.println(String.format("Invalid input for %s (value: %s)", name, value));
+				System.err.println(String.format("Invalid input for %s (value: \"%s)\"", name, value));
 				return false;
 			}
 		}
@@ -105,7 +105,8 @@ public class BootstrapWebService {
 	}
 
 	private boolean writeFormToFile(final FormWrapper form) {
-		final File outputFile = new File(String.format("%s/form-%d.json", properties.getSaveFormPath(), Calendar.getInstance().getTimeInMillis()));
+		final String outputPath = generateOutputPath();
+		final File outputFile = new File(outputPath);
 
 		// Try to output the input form to a JSON file
 		try {
@@ -123,7 +124,11 @@ public class BootstrapWebService {
 		catch (IOException e) {
 			System.err.println(String.format("IO Exception (%s)", e.getMessage()));
 		}
-		
+
 		return false;
 	}
+	
+	private String generateOutputPath() {
+		return String.format("%s/form-%d.json", properties.getSaveFormPath(), Calendar.getInstance().getTimeInMillis());
+	}	
 }

@@ -22,10 +22,10 @@ public final class BrowserUtil {
 	 * @param URL URL to open
 	 * @throws BrowserException
 	 */
-	public static void openURL(final String URL) throws BrowserException {
+	public static void openURL(final String url) throws BrowserException {
 		if (Desktop.isDesktopSupported()) {
 			try {
-				Desktop.getDesktop().browse(new URI(URL));
+				Desktop.getDesktop().browse(new URI(url));
 			}
 			catch (IOException e) {
 				throw new BrowserException(e);

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.traversal.codegeneration;
+package org.uva.sea.ql.ast.traversal.codegeneration.bootstrap;
 
 import java.io.*;
 import java.util.*;
@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.operators.base.*;
 import org.uva.sea.ql.ast.operators.binary.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
-import org.uva.sea.ql.ast.traversal.codegeneration.base.*;
+import org.uva.sea.ql.ast.traversal.codegeneration.bootstrap.base.*;
 import org.uva.sea.ql.ast.types.Ident;
 import org.uva.sea.ql.ast.types.datatypes.*;
 import org.uva.sea.ql.ast.types.literals.*;
