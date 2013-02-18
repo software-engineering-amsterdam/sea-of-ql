@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.bool;
 
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class Eq extends BinaryBooleanOperator {
-    public static final String STR = "==";
+    private static final String STR = "==";
 
     public Eq(Expr left, Expr right) {
         super(left, right);

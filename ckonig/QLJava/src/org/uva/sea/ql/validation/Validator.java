@@ -18,10 +18,10 @@ public class Validator {
         this.throwExceptions = throwErrors;
     }
     
-    public List<String> getErrors(){
+    public final List<String> getErrors(){
         return this.errors;
     }
-    public boolean hasErrors(){
+    public final boolean hasErrors(){
         return this.errors.size() > 0;
     }
     public final void validate(Form e) throws AstValidationError {
@@ -31,7 +31,6 @@ public class Validator {
                 final ValidationVisitor validator = new ValidationVisitor(
                         this.throwExceptions);
                 f.accept(validator);
-                System.out.println("validation success");
                 this.errors = validator.getErrors();
             } else {
                 throw new AstValidationError("result was null");

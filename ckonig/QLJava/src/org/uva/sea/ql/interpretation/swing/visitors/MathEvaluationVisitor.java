@@ -24,11 +24,12 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.ReturnFinder;
+import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
+import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
+import org.uva.sea.ql.interpretation.exception.InvalidInputException;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
@@ -133,48 +134,58 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
 
     @Override
     public void visit(Ident i) throws QLException {
-        final QuestionPanel q = this.registry.getQuestionPanelByIdent(i);
-        ReturnFinder f = new ReturnFinder(this.registry.getQuestionsAst());
-        q.getQuestion().getType().accept(f);
-        ReturnTypes r = f.getResult();
-        if (r.equals(ReturnTypes.MATH)) {
-            final String val = q.getStringValue();
+        final QuestionPanel questionPanel = this.registry
+                .getQuestionPanelByIdent(i);
+        final ReturnFinder finder = new ReturnFinder(this.registry.getQuestionsAst());
+        questionPanel.getQuestion().getType().accept(finder);
+        final ReturnTypes result = finder.getResult();
+        if (result.equals(ReturnTypes.MATH)) {
+            final String val = questionPanel.getStringValue();
             if (val.trim().equals("")) {
-                if (replaceEmtyWithZero) {
-                    ret = 0;
-                } else {
-                    throw new EmptyInputException();
-                }
-            }
-            try {
-                ret = Float.parseFloat(q.getStringValue().replace(',', '.'));
-            } catch (NumberFormatException ex) {
-                throw new EvaluationException("invalid user input");
+                this.tryToReplaceEmptyInput();
+            } else {
+                this.tryToParseInput(questionPanel);
             }
         }
     }
+    private void tryToReplaceEmptyInput() throws EmptyInputException{
+        if (this.replaceEmtyWithZero) {
+            this.ret = 0;
+        } else {
+            throw new EmptyInputException();
+        }
+    }
+    private void tryToParseInput(QuestionPanel questionPanel) throws EvaluationException{
+        try {
+            questionPanel.setValid(true);
+            this.ret = Float.parseFloat(questionPanel.getStringValue()
+                    .replace(',', '.'));
+        } catch (NumberFormatException ex) {
+            questionPanel.setValid(false);
+        }
+    }
 
-    public void visit(IntLiteral i) {
-        ret = i.getValue();
+    public final void visit(IntLiteral i) {
+        this.ret = i.getValue();
     }
 
     @Override
-    public void visit(BooleanType booleanType) {
+    public final void visit(BooleanType booleanType) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(IntType intType) {
+    public final void visit(IntType intType) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(Money money) {
+    public final void visit(Money money) {
         throw new NotImplementedException();
     }
 
     @Override
-    public void visit(StrType strType) {
+    public final void visit(StrType strType) {
         throw new NotImplementedException();
     }
 }

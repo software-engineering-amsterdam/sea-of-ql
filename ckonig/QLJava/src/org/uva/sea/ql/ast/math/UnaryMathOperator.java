@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.interfaces.Evaluatable;
 public abstract class UnaryMathOperator extends UnaryExpr implements
         Evaluatable {
 
-    public UnaryMathOperator(Expr ex) {
+    protected UnaryMathOperator(Expr ex) {
         super(ex);
     }
 

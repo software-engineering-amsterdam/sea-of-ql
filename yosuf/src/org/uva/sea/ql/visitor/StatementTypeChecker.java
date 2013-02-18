@@ -28,10 +28,9 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 
 	private final Map<Natural, Natural> environment = new HashMap<Natural, Natural>();
 
-	public StatementTypeChecker(
-			final ExpressionTypeChecker expressionTypeChecker) {
-		this.expressionTypeChecker = expressionTypeChecker;
-		state.assertNotNull(this.expressionTypeChecker, "expressionTypeChecker");
+	public StatementTypeChecker() {
+		expressionTypeChecker = new ExpressionTypeChecker(environment);
+		state.assertNotNull(expressionTypeChecker, "expressionTypeChecker");
 	}
 
 	@Override
@@ -141,7 +140,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 */
 	private void assertIdentifierAndAddToEnvironment(
 			final Identifier identifier, final Natural natural) {
-		identifier.accept(expressionTypeChecker);
+		// identifier.accept(expressionTypeChecker);
 
 		try {
 			checked.assertTrue(!identifier.getName().isEmpty(), natural
@@ -151,6 +150,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 					identifier.getName() + " already exists");
 
 			environment.put(identifier, natural);
+
 		} catch (ValidationException e) {
 			typeErrors.add(new TypeCheckException(identifier.getName()
 					+ " already exists", e));

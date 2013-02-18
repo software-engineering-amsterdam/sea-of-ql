@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class Identifier extends Expression<Expression<?>> {
 
@@ -72,4 +72,5 @@ public class Identifier extends Expression<Expression<?>> {
 		}
 		return true;
 	}
+
 }

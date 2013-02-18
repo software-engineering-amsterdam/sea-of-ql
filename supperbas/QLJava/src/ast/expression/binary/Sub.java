@@ -5,7 +5,8 @@ import java.util.Map;
 import ast.Expression;
 import ast.Type;
 import ast.expression.Binary;
-import ast.visitor.Visitor;
+import ast.expression.Ident;
+import ast.expression.Visitor;
 
 public class Sub extends Binary {
 
@@ -14,13 +15,18 @@ public class Sub extends Binary {
 	}
 
 	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new ast.type.Int();
 	}
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+
+	@Override
+	public String typeStr() {
+		return "-";
 	}
 
 }

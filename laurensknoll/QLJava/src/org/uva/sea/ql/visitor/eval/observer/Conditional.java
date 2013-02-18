@@ -13,19 +13,19 @@ import org.uva.sea.ql.visitor.eval.value.Bool;
 public class Conditional implements Observer {
 
 	private final AbstractExpr condition;
-	private final JPanel panel;
+	private final JPanel truePanel;
 	private final Environment environment;
 
-	public Conditional(AbstractExpr condition, JPanel panel, Environment context) {
+	public Conditional(AbstractExpr condition, JPanel truePanel, Environment environment) {
 		this.condition = condition;
-		this.panel = panel;
-		this.environment = context;
+		this.truePanel = truePanel;
+		this.environment = environment;
 	}
 
 	public void update() {
 		Expression evaluator = new Expression(this.environment);
 		Bool result = (Bool) this.condition.accept(evaluator);
-		this.panel.setVisible(result.getValue());
+		this.truePanel.setVisible(result.getValue());
 	}
 
 	@Override

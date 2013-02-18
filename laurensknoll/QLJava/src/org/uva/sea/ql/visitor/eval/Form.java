@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.IStatement;
 
 public class Form implements IForm<JFrame> {
 
@@ -19,13 +20,11 @@ public class Form implements IForm<JFrame> {
 		frame.setTitle(ident.getName());
 
 		Block statements = form.getStatements();
-		Statement visitor = new Statement(new Environment());
-		JPanel container = statements.accept(visitor);
+		IStatement<JPanel> statementVisitor = new Statement(new Environment());
+		JPanel container = statements.accept(statementVisitor);
 
 		JScrollPane scrollableContainer = new JScrollPane(container);
 		frame.add(scrollableContainer);
-
-		frame.setSize(400, 600);
 
 		return frame;
 	}

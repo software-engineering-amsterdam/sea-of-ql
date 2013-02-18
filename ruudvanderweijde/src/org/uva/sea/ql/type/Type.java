@@ -1,8 +1,8 @@
 package org.uva.sea.ql.type;
 
-
 public abstract class Type {
 	public abstract boolean isCompatibleTo(Type t);
+	public abstract boolean validate(String value);
 	
 	public boolean isCompatibleToIntegerType() { return false; }
 	public boolean isCompatibleToNumericType() { return false; }

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.formelements;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.visitors.IElementVisitor;
 
 public class Block extends FormElement {
 

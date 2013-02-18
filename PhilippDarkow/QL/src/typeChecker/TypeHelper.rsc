@@ -17,7 +17,6 @@ Type findExpressionType(Expression exp, QLTENV env){
 		list [value id] k = getChildren(exp);	
 		list[Type] t = getExpressionType(exp, env);
 		s = toString(t[0]);
-		println("LIST T : <t>");
 		return t[0];
 	}else s = toString(getChildren(exp)[0]);
 	for(b <- env.question){

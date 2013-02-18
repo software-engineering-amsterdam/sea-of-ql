@@ -6,15 +6,15 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.uva.sea.ql.test.TestAssignments;
 import org.uva.sea.ql.test.TestComparisons;
 import org.uva.sea.ql.test.TestFields;
-import org.uva.sea.ql.test.TestHtmlGenerator;
+import org.uva.sea.ql.test.TestLiterals;
 import org.uva.sea.ql.test.TestLogical;
 import org.uva.sea.ql.test.TestMath;
 import org.uva.sea.ql.test.TestValidator;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestComparisons.class, TestFields.class,
-		TestLogical.class, TestMath.class, TestAssignments.class, TestValidator.class, TestHtmlGenerator.class })
- class TestRunner {
+		TestLogical.class, TestMath.class, TestAssignments.class, TestValidator.class, TestLiterals.class })
+final class TestRunner {
     public TestRunner(){
         
     }

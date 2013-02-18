@@ -1,0 +1,42 @@
+import "statements.stg"
+
+page(formName, formContent, scriptFunctions, scriptCommands) ::= <<
+<html>
+  <head>
+    <title>$formName$</title>
+   
+    <link rel="stylesheet" href="css/jquery-mobile.css" />
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-migrate.js"></script>
+    <script src="js/jquery-mobile.js"></script>
+    <script src="js/helper.js"></script>
+    
+    <script type="text/javascript">
+      /* generated javascript functions */
+      $scriptFunctions$
+      /* end of generated javascript functions */
+     
+      \$(document).bind('pageinit', function(event){
+        \$('form').submit(customSubmit);
+        /** generated javascript **/
+        $scriptCommands$
+        /** end of generated javascript **/
+      });
+    </script>
+  </head>
+  <body>
+    <div data-role="page" id="QLFormPage">
+      <div data-role="header" data-position="fixed">
+        <h3 id="header">$formName$</h3>
+      </div>
+      <form id="form">
+        <div data-role="content">
+          $formContent$
+          <input type="submit" value="Submit values" data-mini="true" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+>>

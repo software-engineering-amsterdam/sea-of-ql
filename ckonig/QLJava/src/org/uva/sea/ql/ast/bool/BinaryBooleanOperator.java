@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.interfaces.Evaluatable;
 
 public abstract class BinaryBooleanOperator extends BinaryExpr implements
         Evaluatable {
-    public BinaryBooleanOperator(Expr l, Expr r) {
+    protected BinaryBooleanOperator(Expr l, Expr r) {
         super(l, r);
     }
 }

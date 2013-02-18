@@ -11,6 +11,7 @@ options
 {
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
+	import org.uva.sea.ql.ast.statement.Statement;
 	import org.uva.sea.ql.ast.statement.IfNode;
 	import org.uva.sea.ql.ast.statement.BlockNode;
 	import org.uva.sea.ql.ast.statement.AssignmentNode;
@@ -37,6 +38,11 @@ options
 	import org.uva.sea.ql.value.impl.BooleanValue;
 	import org.uva.sea.ql.value.impl.MoneyValue;
 	import org.uva.sea.ql.value.impl.StringValue;
+	import org.uva.sea.ql.type.Type;
+	import org.uva.sea.ql.type.impl.BooleanType;
+	import org.uva.sea.ql.type.impl.IntegerType;
+	import org.uva.sea.ql.type.impl.StringType;
+	import org.uva.sea.ql.type.impl.MoneyType;
 }
 
 @members
@@ -44,15 +50,15 @@ options
     VariableScope currentScope = new VariableScope();
 }
 
-walk
-    :   form
+walk returns [Node node]
+    :   form { $node = $form.node; }
     ;   
    
-form
-	:	^(FORM Identifier ^(BLOCK block))
+form returns [Node node]
+	:	^(FORM Identifier ^(BLOCK block)) { $node = $block.node; }
 	;
 
-block returns [Node node]
+block returns [Statement node]
 @init
 {
     final BlockNode blockNode = new BlockNode();
@@ -67,12 +73,12 @@ block returns [Node node]
     :   (statement { blockNode.addStatement($statement.node); })*
     ;
 
-statement returns [Node node]
+statement returns [Statement node]
 	:	ifStatement { $node = $ifStatement.node; }
 		| assignmentStatement { $node = $assignmentStatement.node; }
 	;
 
-ifStatement returns [Node node]
+ifStatement returns [Statement node]
 @init
 {
     final IfNode ifNode = new IfNode();
@@ -84,16 +90,15 @@ ifStatement returns [Node node]
 	     )
 	;
 
-assignmentStatement returns [Node node]
-	:	^(ASSIGNMENT Identifier type) // TODO check !! { $node = new AssignmentNode($Identifier.text, $type.node, currentScope); }
+assignmentStatement returns [Statement node]
+	:	^(ASSIGNMENT StringLiteral Identifier type) { $node = new AssignmentNode($StringLiteral.text, $Identifier.text, $type.type); }
 	;
 
-type returns [Node node]
-// TODO check with immutable value object
-	:	'boolean' {$node = new ValueNode(new BooleanValue("false")); }
-		| 'integer' {$node = new ValueNode(new IntegerValue(0)); }
-		| 'string' {$node = new ValueNode(new StringValue(""));}
-		| 'money' {$node = new ValueNode(new MoneyValue("0"));}
+type returns [Type type]
+	:	'boolean' {$type = new BooleanType(); }
+		| 'integer' {$type = new IntegerType(); }
+		| 'string' {$type = new StringType(); }
+		| 'money' {$type = new MoneyType(); }
 	;
 
 expression returns [ExprNode node]

@@ -4,8 +4,9 @@ import java.util.Map;
 
 import ast.Expression;
 import ast.Type;
+import ast.expression.Ident;
+import ast.expression.Visitor;
 import ast.expression.Unary;
-import ast.visitor.Visitor;
 
 public class Neg extends Unary {
 
@@ -14,13 +15,18 @@ public class Neg extends Unary {
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new ast.type.Int();
 	}
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+
+	@Override
+	public String typeStr() {
+		return "(-)";
 	}
 
 }

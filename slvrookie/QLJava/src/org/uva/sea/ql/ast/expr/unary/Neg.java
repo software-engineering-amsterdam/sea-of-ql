@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class Neg extends UnaryExpr {
 
@@ -25,6 +25,11 @@ public class Neg extends UnaryExpr {
 		}
 		return new Numeric();
 	}
+	
+	/*
+	 * Same reason for Numeric as Binary Arithmetic expression
+	 * but only for one argument.
+	 */
 
 	@Override
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {

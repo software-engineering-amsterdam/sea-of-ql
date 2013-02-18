@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class LEq extends BinaryExpr {
 

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.common.interfaces.TreeVisitor;
+import org.uva.sea.ql.interpretation.TreeVisitor;
 
 public class BinaryExpr extends Expr implements TreeNode{
 	private Expr left;

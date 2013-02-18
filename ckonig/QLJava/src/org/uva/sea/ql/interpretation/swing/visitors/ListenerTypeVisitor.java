@@ -12,8 +12,8 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.IdentFinder;
-import org.uva.sea.ql.common.interfaces.TypeVisitor;
+import org.uva.sea.ql.interpretation.IdentFinder;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
@@ -29,14 +29,13 @@ public class ListenerTypeVisitor implements TypeVisitor {
 
     @Override
     public void visit(BooleanType b) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void visit(Money m) {
+    public final void visit(Money m) {
         if (m.getExpr() != null) {
-            IdentFinder finder = new IdentFinder();
+            final IdentFinder finder = new IdentFinder();
             ((TreeNode) m.getExpr()).accept(finder);
             final List<Ident> idents = finder.getIdents();
             for (Ident i : idents) {
@@ -49,13 +48,11 @@ public class ListenerTypeVisitor implements TypeVisitor {
 
     @Override
     public void visit(StrType s) {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void visit(IntType i) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -91,7 +88,7 @@ public class ListenerTypeVisitor implements TypeVisitor {
     }
 
     private void evaluateMoneyValue() {
-        AutoValueTypeVisitor v = new AutoValueTypeVisitor(this.questionPanel,
+        final AutoValueTypeVisitor v = new AutoValueTypeVisitor(this.questionPanel,
                 this.registry);
         this.questionPanel.getQuestion().getType().accept(v);
     }

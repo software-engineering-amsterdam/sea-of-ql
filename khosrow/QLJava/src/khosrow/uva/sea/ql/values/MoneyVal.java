@@ -11,6 +11,15 @@ public class MoneyVal extends NumericVal {
 		return value;
 	}
 	
+	public static MoneyVal tryParse(String s) {
+		try{
+			return new MoneyVal(Double.parseDouble(s));			
+		}
+		catch(NumberFormatException ex){
+			return null;
+		}
+	}
+	
 	@Override
 	public String toString(){
 		return getValue().toString();

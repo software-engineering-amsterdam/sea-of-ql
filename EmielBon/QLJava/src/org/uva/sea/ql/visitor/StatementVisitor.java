@@ -1,12 +1,13 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statement.*;
 
 public interface StatementVisitor<T> {
 
-	T visit(Statements stat);
 	T visit(ComputedQuestion stat);
-	T visit(IfBlock stat);
 	T visit(Question stat);
+	T visit(IfBlock stat);
+	T visit(Form stat);
+	T visit(Statements stat);
 	
 }

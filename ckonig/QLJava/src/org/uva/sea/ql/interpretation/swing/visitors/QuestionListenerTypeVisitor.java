@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.interfaces.TypeVisitor;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
@@ -44,7 +44,7 @@ public class QuestionListenerTypeVisitor implements TypeVisitor{
     }
     
     private void listenToText(){
-        final JTextField t = (JTextField) questionPanel.getInput();
+        final JTextField t = (JTextField) this.questionPanel.getInput();
         t.addActionListener(new ActionListener() {
 
             @Override

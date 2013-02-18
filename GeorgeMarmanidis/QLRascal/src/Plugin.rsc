@@ -7,6 +7,7 @@ import lang::ql::util::Implode;
 import lang::ql::ast::semanticcheck::SemanticCheck;
 import lang::ql::ide::Outline;
 import lang::ql::ast::AST;
+import lang::ql::compiler::CompileForm;
 import ParseTree;
 
 import Node;
@@ -15,8 +16,9 @@ import IO;
 private str LANG = "QL-R";
 private str EXT = "q";
 
-public void compileQL(Tree x, loc selection) {
+public void compileQL(Tree f, loc selection) {
 	
+	compileForm(implode(#Form,f));
 }
 
 public void main() {

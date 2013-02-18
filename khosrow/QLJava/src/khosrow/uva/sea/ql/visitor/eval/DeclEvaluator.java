@@ -48,9 +48,7 @@ public class DeclEvaluator implements IStmtVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Label stmt) {
-		// will be handled by 
-		// the statement evaluator
-		return true;
+		return DeclareLabel(stmt);
 	}
 
 	@Override
@@ -73,6 +71,16 @@ public class DeclEvaluator implements IStmtVisitor<Boolean> {
 		return true;
 	}
 	
+	private boolean DeclareLabel(Label stmt) {
+		Ident ident = stmt.getIdent();
+		if(env.lookUpIdent(ident)) {
+			addToErrorList(stmt, ident.getName() + " is internally in use. Define another name.");
+			return false;
+		}
+		env.declareType(ident, stmt.getType());
+		return true;
+	}
+		
 	private void addToErrorList(ASTNode ast, String message) {
 		declarationErros.add(new QlDeclarationError("Declaration error at node " + 
 			ast.getClass() + ". Message: " + message));		

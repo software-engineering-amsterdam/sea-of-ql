@@ -1,7 +1,9 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
@@ -60,10 +62,27 @@ public class SwingRegistry {
     }
 
     public final List<Question> getQuestionsAst() {
-        List<Question> questions = new ArrayList();
-        for (QuestionPanel qp : getQuestions()) {
-            questions.add(qp.getQuestion());
+        final List<Question> ret = new ArrayList<Question>();
+        for (QuestionPanel qp : this.getQuestions()) {
+            ret.add(qp.getQuestion());
         }
-        return questions;
+        return ret;
+    }
+    
+    public final boolean isValid(){
+        for(QuestionPanel qp : this.questions){
+            if(!qp.isValidInput()){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public final Map<String, Object> getInput() {
+        final Map<String,Object> ret = new HashMap<String, Object>();
+        for(QuestionPanel q : this.getQuestions()){
+            ret.put(q.getIdentName(), q.getUserInput());
+        }
+        return ret;
     }
 }

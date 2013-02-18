@@ -7,31 +7,31 @@ import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.String;
 import org.uva.sea.ql.visitor.IType;
 
-public class Type implements IType<Boolean> {
+public class Type implements IType<ValidationResult> {
 
 	@Override
-	public Boolean visit(Bool bool) {
-		return true;
+	public ValidationResult visit(Bool bool) {
+		return new ValidationResult();
 	}
 
 	@Override
-	public Boolean visit(Int intType) {
-		return true;
+	public ValidationResult visit(Int intType) {
+		return new ValidationResult();
 	}
 
 	@Override
-	public Boolean visit(Money money) {
-		return true;
+	public ValidationResult visit(Money money) {
+		return new ValidationResult();
 	}
 
 	@Override
-	public Boolean visit(String string) {
-		return true;
+	public ValidationResult visit(String string) {
+		return new ValidationResult();
 	}
 
 	@Override
-	public Boolean visit(Numeric numeric) {
-		return true;
+	public ValidationResult visit(Numeric numeric) {
+		return new ValidationResult();
 	}
 
 }

@@ -16,8 +16,8 @@ public class QuestionListener {
         addListeners(qp);
     }
 
-    private void addListeners(QuestionPanel questionPanel) {
-        final QuestionListenerTypeVisitor v = new QuestionListenerTypeVisitor(questionPanel, registry);
+    private final void addListeners(QuestionPanel questionPanel) {
+        final QuestionListenerTypeVisitor v = new QuestionListenerTypeVisitor(questionPanel, this.registry);
         questionPanel.getQuestion().getType().accept(v);
     }
 

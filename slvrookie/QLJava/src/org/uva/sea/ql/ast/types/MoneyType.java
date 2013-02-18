@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.visitors.interfaces.ITypeVisitor;
+import org.uva.sea.ql.visitors.ITypeVisitor;
 
 public class MoneyType extends Numeric {
 
@@ -14,6 +14,11 @@ public class MoneyType extends Numeric {
 		return true;
 	}
 
+	/*
+	 * Money is not compatible with int
+	 * to ensure Type consistency in the QL
+	 */
+	
 	@Override
 	public boolean isCompatibleToIntType() {
 		return false;

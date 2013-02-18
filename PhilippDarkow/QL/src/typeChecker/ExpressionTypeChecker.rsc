@@ -29,25 +29,8 @@ public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   }  
 }
 
-// OR AND EXPRESSIONS
-//public QLTENV checkExp(exp:or(Expression E1, Expression E2), Type req, QLTENV env) {                    
-//  println("E1 : <E1>");
-//  println("E1 : <E2>");
-//  println("REQ : <req>");
-//  if(req == boolean()){
-//  	println("req is boolean");
-//  	return req == boolean() ? checkExp(E1, boolean(), checkExp(E2, money(), env))
-//                   : addError(env, exp@location, required(req, "booleanwwwss"));
-//  }
-//  req == boolean() ? checkExp(E1, boolean(), checkExp(E2, money(), env))
-//                   : addError(env, exp@location, required(req, "booleanwwwss")); 
-//                   }
-
-
 // CHECK BOOLEAN EXPRESSIONS
 public QLTENV checkExp(exp:and(Expression E1, Expression E2), Type req, QLTENV env) {                        
-  println("E1 : <E1>");
-  println("E1 : <E2>");
   return req == boolean() ? checkExp(E1, boolean(), checkExp(E2, boolean(), env))
                    : addError(env, exp@location, required(req, "boolean"));
                    }

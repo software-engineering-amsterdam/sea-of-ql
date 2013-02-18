@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class Sub extends BinaryExpr {
 
@@ -26,10 +26,12 @@ public class Sub extends BinaryExpr {
 		return new Numeric();
 	}
 
-	/**
-	 * return numeric type when not evaluating leaf nodes if there is a type
-	 * mismatch when in the leaf nodes the visitor will catch it at a later
-	 * state of the visit
+	/* 
+	 * When typechecking non-leaf nodes if the types are not consistent return a numeric type.
+	 * The TypeChecker will identify the inconsistency -if any- when it checks an expression consisted
+	 * of leaf nodes.
+	 * Ex. (2-3.00) + 3  return Numeric + IntType and let the TypeChecker
+	 * catch the IntType-MoneyType inconsistency when it visits the (2-3.00) node.
 	 */
 
 	@Override

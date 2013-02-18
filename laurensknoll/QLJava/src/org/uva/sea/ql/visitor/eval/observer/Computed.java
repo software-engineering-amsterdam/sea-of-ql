@@ -11,20 +11,20 @@ import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Computed implements Observer {
 
-	private final AbstractExpr compute;
+	private final AbstractExpr computation;
 	private final Ident ident;
 	private final Environment environment;
 
-	public Computed(AbstractExpr computeExpression, Ident ident,
-			Environment context) {
-		this.compute = computeExpression;
+	public Computed(AbstractExpr computation, Ident ident,
+			Environment environment) {
+		this.computation = computation;
 		this.ident = ident;
-		this.environment = context;
+		this.environment = environment;
 	}
 
 	public void update() {
 		Expression evaluator = new Expression(this.environment);
-		AbstractValue result = this.compute.accept(evaluator);
+		AbstractValue result = this.computation.accept(evaluator);
 		this.environment.setValue(this.ident, result);
 	}
 

@@ -1,4 +1,11 @@
-form Box1HouseOwning{ name: "test Question23 " int
-					  name5: "test Question235 " int
-					  name8: "test Question34 " int(name + name5) 
-					  if (name == name5) {name3: "test Question234 " int}}
+form Box1HouseOwning{ Q1: "test Question1 " int
+					  Q2: "test Question2 " int
+					  Q3: "test Question3 " int(Q1 + Q2) 
+					  	if (Q1 == Q2) {
+					  		Q4: "test Question4 " int
+					  	} 
+					  	if (Q4  > 100) {
+					  		Q5: "test Qduestion5 " int
+					  	}
+						
+}

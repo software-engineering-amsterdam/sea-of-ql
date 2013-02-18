@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.statements.ComQuestion;
 import org.uva.sea.ql.ast.statements.IfThen;
 import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.SimpleQuestion;
@@ -35,6 +36,11 @@ public class TestStatements {
 	@Test	
 	public void testIfThenElse() throws ParseError{
 		assertEquals(IfThenElse.class, parser.parseIfThenElse(ifBlock + elseBlock).getClass());
+	}
+	
+	@Test	
+	public void testComQuestion() throws ParseError{
+		assertEquals(ComQuestion.class, parser.parseComQuestion(comquestion).getClass());
 	}
 
 }

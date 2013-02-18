@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.eval;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -30,7 +31,9 @@ public class Environment {
 		}
 
 		public void setValue(AbstractValue value) {
-			// This will trigger the observer pattern
+			this.value = value;
+
+			// Update GUI (This will trigger the observer pattern).
 			this.widget.setValue(value);
 		}
 
@@ -46,7 +49,7 @@ public class Environment {
 	}
 
 	private final Environment parent;
-	private HashMap<Ident, Binding> bindings;
+	private Map<Ident, Binding> bindings;
 
 	public Environment() {
 		this(null);

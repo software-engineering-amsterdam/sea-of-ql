@@ -25,7 +25,6 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.interfaces.EvaluationVisitor;
 
 public class ReturnFinder implements EvaluationVisitor {
 
@@ -120,7 +119,7 @@ public class ReturnFinder implements EvaluationVisitor {
         boolean found = false;
         for (Question question : this.questions) {
             if (question.getIdentName().equals(ident.getName())) {
-                final ReturnFinder f = new ReturnFinder(questions);
+                final ReturnFinder f = new ReturnFinder(this.questions);
                 question.getType().accept(f);
               this.ret = f.getResult();
                 found = true;
