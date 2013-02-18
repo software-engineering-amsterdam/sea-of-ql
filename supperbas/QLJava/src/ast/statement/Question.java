@@ -1,8 +1,8 @@
 package ast.statement;
 
 import ast.Statement;
+import ast.expression.Ident;
 import ast.expression.value.Str;
-import ast.expression.value.Ident;
 
 public abstract class Question extends Statement {
 	

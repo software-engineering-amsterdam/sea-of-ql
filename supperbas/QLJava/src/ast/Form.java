@@ -1,8 +1,9 @@
 package ast;
 
-import ast.expression.value.Ident;
+import visitor.checker.StatementChecker;
+import visitor.evaluator.StatementEvaluator;
+import ast.expression.Ident;
 import ast.statement.Block;
-import ast.visitor.PrintExpressionVisitor;
 
 public class Form implements ASTNode {
 	
@@ -22,8 +23,13 @@ public class Form implements ASTNode {
 		return content;
 	}
 
-	public void accept(PrintExpressionVisitor printExpressionVisitor) {
-		printExpressionVisitor.visit(this);
+	public void accept(StatementChecker visitor) {
+		visitor.visit(this);
+		
+	}
+
+	public void accept(StatementEvaluator visitor) {
+		visitor.visit(this);
 		
 	}
 

@@ -1,7 +1,7 @@
 package ast.statement;
 
 import ast.*;
-import ast.expression.value.Ident;
+import ast.expression.Ident;
 
 public class Assignment extends Statement {
 	
@@ -15,7 +15,6 @@ public class Assignment extends Statement {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		System.out.println("ASSIGNMENT");
 		return visitor.visit(this);
 	}
 

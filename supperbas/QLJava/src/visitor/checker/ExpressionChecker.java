@@ -1,53 +1,49 @@
-package ast.visitor;
+package visitor.checker;
 
-import java.util.List;
-import java.util.Map;
-
+import visitor.Environment;
 import ast.Expression;
 import ast.Type;
 import ast.expression.*;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.Bool;
-import ast.expression.value.Ident;
 import ast.expression.value.Int;
 import ast.expression.value.Str;
 import ast.type.Message;
 
 public class ExpressionChecker implements ast.expression.Visitor<Boolean> {
 
-	private final Map<Ident, Type> typeEnv;
-	private final List<Message> messages;
+	private Environment environment;
 
-	private ExpressionChecker(Map<Ident, Type> typeEnv, List<Message> messages) {
-		this.typeEnv = typeEnv;
-		this.messages = messages;
-	}
-
-	public boolean check(Expression expr, Map<Ident, Type> typeEnv,
-			List<Message> errs) {
-		ExpressionChecker check = new ExpressionChecker(typeEnv, errs);
-		return expr.accept(check);
+	public ExpressionChecker(Environment environment) {
+		this.environment = environment;
 	}
 
 	private boolean check(Expression ast, Type type) {
 		if (ast instanceof Binary) {
-			if (type.isCompatibleTo(((Binary) ast).getLhs().typeOf(typeEnv))
+			if (type.isCompatibleTo(((Binary) ast).getLhs().typeOf(
+					environment.getTypeEnv()))
 					&& type.isCompatibleTo(((Binary) ast).getRhs().typeOf(
-							typeEnv)))
+							environment.getTypeEnv())))
 				return true;
 			addError(ast.typeStr() + " Incompatible types (required: " + type
-					+ "; got: " + ((Binary) ast).getLhs().typeOf(typeEnv)
-					+ " and " + ((Binary) ast).getRhs().typeOf(typeEnv) + ")");
+					+ "; got: "
+					+ ((Binary) ast).getLhs().typeOf(environment.getTypeEnv())
+					+ " and "
+					+ ((Binary) ast).getRhs().typeOf(environment.getTypeEnv())
+					+ ")");
 			return false;
 
 		} else if (ast instanceof Unary) {
 			if (type.isCompatibleTo(((Unary) ast).getExpression().typeOf(
-					typeEnv)))
+					environment.getTypeEnv())))
 				return true;
-			addError(ast.typeStr() + " Incompatible type (required: " + type
-					+ "; got: " + ((Unary) ast).getExpression().typeOf(typeEnv)
-					+ ")");
+			addError(ast.typeStr()
+					+ " Incompatible type (required: "
+					+ type
+					+ "; got: "
+					+ ((Unary) ast).getExpression().typeOf(
+							environment.getTypeEnv()) + ")");
 			return false;
 
 		}
@@ -64,8 +60,8 @@ public class ExpressionChecker implements ast.expression.Visitor<Boolean> {
 	}
 
 	private boolean checkEqual(Binary ast) {
-		Type tLhs = ast.getLhs().typeOf(typeEnv);
-		Type tRhs = ast.getLhs().typeOf(typeEnv);
+		Type tLhs = ast.getLhs().typeOf(environment.getTypeEnv());
+		Type tRhs = ast.getLhs().typeOf(environment.getTypeEnv());
 		if (!tLhs.isCompatibleTo(tRhs)) {
 			addError(ast.typeStr() + " Incompatible types");
 			return false;
@@ -150,6 +146,8 @@ public class ExpressionChecker implements ast.expression.Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Bool ast) {
+		System.out.println("X");
+		System.out.println(ast.getValue());
 		return true;
 	}
 
@@ -165,15 +163,15 @@ public class ExpressionChecker implements ast.expression.Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident ast) {
-		if (!typeEnv.containsKey(ast)) {
-			addError("undefined identifier");
+		if (!environment.getTypeEnv().containsKey(ast)) {
+			addError("undefined identifier ("+ast.getValue()+")");
 			return false;
 		}
 		return true;
 	}
 
 	private void addError(String message) {
-		messages.add(new Message(message));
+		environment.addError(message);
 	}
 
 }

@@ -12,6 +12,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import parser.JACCParser;
 
+import ast.expression.Ident;
 import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.*;

@@ -8,14 +8,14 @@ public class Undefined extends Type {
 	public boolean isCompatibleTo(Type t) {
 		return false;
 	}
-	
-	@Override
-	public <T> T accept(Visitor<T> visitor) {
-		return visitor.visit(this);
-	}
 
 	@Override
 	public boolean isError() {
 		return true;
+	}
+
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		return null;
 	}
 }
