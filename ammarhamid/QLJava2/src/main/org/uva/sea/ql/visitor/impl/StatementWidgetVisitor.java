@@ -6,33 +6,29 @@ import org.uva.sea.ql.ast.statement.AssignmentNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.IfNode;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.main.QLMainApp;
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.value.impl.BooleanValue;
+import org.uva.sea.ql.visitor.ConditionObserver;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import javax.swing.*;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class StatementWidgetVisitor implements StatementVisitor, Observer
+public class StatementWidgetVisitor implements StatementVisitor
 {
     private final JPanel panel;
     private final VariableState variableState;
-    private final ConcurrentMap<IfNode, List<BranchPanel>> ifNodes;
 
     private StatementWidgetVisitor(final VariableState variableState)
     {
         this.panel = new JPanel(new MigLayout("hidemode 3"));
         this.variableState = variableState;
-        variableState.addObserver(this);
-        this.ifNodes = new ConcurrentHashMap<>();
     }
 
-    public static JPanel render(Statement statement, VariableState variableState) {
-        StatementWidgetVisitor statementWidgetVisitor = new StatementWidgetVisitor(variableState);
+    public static JPanel render(final Statement statement, final VariableState variableState)
+    {
+        final StatementWidgetVisitor statementWidgetVisitor = new StatementWidgetVisitor(variableState);
         statement.accept(statementWidgetVisitor);
         return statementWidgetVisitor.getPanel();
     }
@@ -55,7 +51,7 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
     @Override
     public void visit(final BlockNode blockNode)
     {
-        Collection<Statement> statements = blockNode.getStatements();
+        final Collection<Statement> statements = blockNode.getStatements();
         for(Statement statement : statements)
         {
             statement.accept(this);
@@ -63,22 +59,23 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
     }
 
     @Override
-    public void visit(IfNode ifNode)
+    public void visit(final IfNode ifNode)
     {
-        final List<BranchPanel> branchPanels = new ArrayList<>();
+        final List<ConditionObserver.BranchPanel> branchPanels = new ArrayList<>();
         final List<IfNode.Branch> branches = ifNode.getBranches();
         for(final IfNode.Branch branch : branches)
         {
-            Statement statement = (Statement) branch.getBlock();
-            JPanel branchBlockPanel = render(statement, this.variableState);
+            final Statement statement = (Statement) branch.getBlock();
+            final JPanel branchBlockPanel = render(statement, this.variableState);
             branchBlockPanel.setVisible(false);
-            panel.add(branchBlockPanel, "grow, span");
-            branchPanels.add(new BranchPanel(branch, branchBlockPanel));
+            this.panel.add(branchBlockPanel, "grow, span");
+            branchPanels.add(new ConditionObserver.BranchPanel(branch, branchBlockPanel));
         }
-        ifNodes.put(ifNode, branchPanels);
+        // register dependencies
+        final ConditionObserver conditionObserver = registerConditionDependency(branchPanels);
 
-        // trigger if there is an else statement to be initialize
-        update(null, null);
+        // trigger if there is an 'else' statement to be initialize
+        conditionObserver.update(null, null);
     }
 
     public JPanel getPanel()
@@ -86,72 +83,11 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
         return panel;
     }
 
-
-    // TODO maybe move this observer to a new class ???
-    @Override
-    public void update(Observable o, Object arg)
+    public ConditionObserver registerConditionDependency(final Collection<ConditionObserver.BranchPanel> branchPanels)
     {
-        // TODO refactor this IfNode update task !!!
-        for(Map.Entry<IfNode, List<BranchPanel>> ifNodeListEntry : ifNodes.entrySet())
-        {
-            IfNode key = ifNodeListEntry.getKey();
-            List<BranchPanel> branchPanels = ifNodeListEntry.getValue();
-
-            List<JPanel> jPanels = new ArrayList<>();
-            for(BranchPanel branchPanel : branchPanels)
-            {
-                jPanels.add(branchPanel.getjPanel());
-            }
-
-            for(BranchPanel branchPanel : branchPanels)
-            {
-                IfNode.Branch branch = branchPanel.getBranch();
-                JPanel panel = branchPanel.getjPanel();
-                Value value = branch.evaluateExpression();
-                BooleanValue value1 = ((BooleanValue) value);
-                if(value1!=null && value1.getValue())
-                {
-                    // clearing all states
-                    for(JPanel jPanel1 : jPanels)
-                    {
-                        jPanel1.setVisible(false);
-                    }
-                    // set the current block to be true and exit the loop right away
-                    panel.setVisible(!panel.isVisible());
-                    break;
-                }
-                else
-                {
-                    panel.setVisible(false);
-                }
-
-            }
-        }
-
-        QLMainApp.getFrame().pack();
-    }
-
-    // TODO refactor this, maybe a new class ??
-    private class BranchPanel
-    {
-        private final IfNode.Branch branch;
-        private final JPanel jPanel;
-
-        private BranchPanel(IfNode.Branch branch, JPanel jPanel)
-        {
-            this.branch = branch;
-            this.jPanel = jPanel;
-        }
-
-        public IfNode.Branch getBranch()
-        {
-            return branch;
-        }
-
-        public JPanel getjPanel()
-        {
-            return jPanel;
-        }
+        final ConditionObserver conditionObserver = new ConditionObserver(branchPanels);
+        this.variableState.addObserver(conditionObserver);
+        return conditionObserver;
     }
 
 }

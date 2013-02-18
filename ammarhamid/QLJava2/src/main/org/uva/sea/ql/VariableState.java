@@ -26,7 +26,6 @@ public class VariableState extends Observable
 
     public static Map<String, Value> getVariableMap()
     {
-//        return Collections.unmodifiableMap(this.variableMap);
         return variableMap;
     }
 

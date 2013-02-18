@@ -11,17 +11,14 @@ import java.io.IOException;
 
 public class QLMainApp
 {
-
-    private static JPanel createPanel(final Statement statement) throws IOException
-    {
-        return StatementWidgetVisitor.render(statement, new VariableState());
-    }
+    private static JFrame frame;
 
     public static void main(String[] args) throws IOException
     {
         final IParser parser = new ANTLRParser();
+        final String qlFilename = "/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql";
         // TODO check why cast is needed !!!
-        final Statement statement = (Statement)parser.parseFormFromFile("/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql");
+        final Statement statement = (Statement)parser.parseFormFromFile(qlFilename);
 
         SwingUtilities.invokeLater(new Runnable()
         {
@@ -38,22 +35,14 @@ public class QLMainApp
 
                 // TODO title from the form name ??
                 frame = new JFrame("QL Main Application");
-                try
-                {
-                    frame.getContentPane().add(createPanel(statement));
-                }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
+                final JPanel jPanel = StatementWidgetVisitor.render(statement, new VariableState());
+                frame.getContentPane().add(jPanel);
                 frame.pack();
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setVisible(true);
             }
         });
     }
-
-    private static JFrame frame;
 
     public static JFrame getFrame()
     {
