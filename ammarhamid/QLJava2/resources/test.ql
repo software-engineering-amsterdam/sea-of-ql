@@ -12,6 +12,13 @@ form test
         "Definitely sure?" sure: boolean
     }
 
+    "Are you married?" married: boolean
+
+    if(married)
+    {
+        "When is that?" married: string
+    }
+
     "Did you sell a car in 2010?" hasSoldCar: boolean
 
     if(hasSoldCar)
@@ -23,5 +30,5 @@ form test
         "Absolutely sure?" sure: boolean
     }
 
-    "Are you married?" married: boolean
+
 }

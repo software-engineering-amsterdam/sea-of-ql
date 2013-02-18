@@ -120,6 +120,10 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
                     panel.setVisible(!panel.isVisible());
                     break;
                 }
+                else
+                {
+                    panel.setVisible(false);
+                }
 
             }
         }
