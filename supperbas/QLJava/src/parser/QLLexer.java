@@ -170,6 +170,7 @@ public class QLLexer implements QLTokens {
 			}
 
 			case '\"': {
+				nextChar(); // remove the "
 				StringBuilder sb = new StringBuilder();
 				do {
 					sb.append((char) c);
