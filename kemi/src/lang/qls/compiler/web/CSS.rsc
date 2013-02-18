@@ -10,14 +10,16 @@
 
 module lang::qls::compiler::web::CSS
 
+import Configuration;
 import IO;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
+import lang::ql::util::FormHelper;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
 
 public void CSS(Stylesheet sheet, loc dest) {
-  dest += "style.css";
+  dest += getCSSStylesheetName();
   
   writeFile(dest, CSS(sheet));
 }
@@ -46,7 +48,7 @@ private str CSS(Stylesheet s) {
 }
 
 private str blockIdent(str ident) =
-  "<ident>Block";
+  "<ident><getBlockSuffix()>";
 
 private str CSS(str ident, StyleRule r: 
     intStyleRule(StyleAttr attr, int \value)) =

@@ -10,12 +10,12 @@
 
 module lang::ql::compiler::web::CSS
 
+import Configuration;
 import IO;
 import lang::ql::ast::AST;
 
 public void CSS(Form f, loc dest) =
-  writeFile(
-    dest + "style.css",
+  writeFile(dest + getCSSStylesheetName(),
     ".error {
     '  float: none;
     '  color: red;

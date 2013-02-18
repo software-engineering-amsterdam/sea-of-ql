@@ -10,20 +10,18 @@
 
 module lang::qls::compiler::web::JS
 
+import Configuration;
 import IO;
+import String;
 import lang::ql::analysis::State;
 import lang::ql::ast::AST;
+import lang::ql::util::FormHelper;
 import lang::qls::ast::AST;
 import lang::qls::util::StyleHelper;
-import String;
 import util::StringHelper;
 
-private str LABEL_CHOOSE = "Choose an answer";
-private str LABEL_TRUE = "Yes";
-private str LABEL_FALSE = "No";
-
 public void JS(Stylesheet sheet, loc dest) =
-  writeFile(dest + "styling.js", JS(sheet));
+  writeFile(dest + getStylingJSName(), JS(sheet));
 
 public str JS(Stylesheet s) =
   "function styling() {
@@ -44,7 +42,7 @@ private str sectionName(Definition d: sectionDefinition(ident, _)) =
   "$(\"\<legend/\>\").text(\"<trimQuotes(ident)>\")";
 
 private str blockIdent(Definition d) =
-  "<d.ident>Block"
+  "<d.ident><getBlockSuffix()>"
     when d is questionDefinition;
 
 private str layoutJS(Stylesheet s) =
@@ -219,7 +217,7 @@ private str styleJS(str ident, StyleRule r:
   '          .attr({
   '            for: \"<ident>\"
   '          })
-  '          .text(\"<LABEL_TRUE>\")
+  '          .text(\"<getLabelTextTrue()>\")
   '      )
   '      .append(
   '        $(\"\<input /\>\")
@@ -236,7 +234,7 @@ private str styleJS(str ident, StyleRule r:
   '          .attr({
   '            for: \"<ident>False\"
   '          })
-  '          .text(\"<LABEL_FALSE>\")
+  '          .text(\"<getLabelTextFalse()>\")
   '      )
   '  );
   '
@@ -262,7 +260,7 @@ private str styleJS(str ident, StyleRule r:
   '          .attr({
   '            for: \"<ident>\"
   '          })
-  '          .text(\"<LABEL_TRUE>\")
+  '          .text(\"<getLabelTextTrue()>\")
   '      )
   '  );
   '

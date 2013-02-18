@@ -10,6 +10,7 @@
 
 module lang::ql::Plugin
 
+import Configuration;
 import IO;
 import ParseTree;
 import util::IDE;
@@ -23,24 +24,21 @@ import lang::ql::ide::Outline;
 import lang::ql::syntax::QL;
 import lang::ql::util::ParseHelper;
 
-private str LANG_QL = "QL-R";
-private str EXT_QL = "q";
 private str ACTION_FORMAT = "Format (removes comments)";
 private str ACTION_BUILD = "Build form";
-private loc FORM_TARGET = |project://QL-R-kemi/output/|;
 
 private void format(start[Form] f, loc l) =
   writeFile(l, prettyPrint(implode(f)));
   
 private void build(start[Form] form, loc source) {
-  messages = buildAndReturnMessages(form, FORM_TARGET);
+  messages = buildAndReturnMessages(form, getCompileTarget());
   
   errors = {m | m <- messages, error(_, _) := m};
   
   if(errors != {}) {
     alert("The form cannot be built when it still contains errors.");
   } else {
-    alert("The form is built in <FORM_TARGET>.");
+    alert("The form is built in <getCompileTarget()>.");
   }
   return;
 }
@@ -62,7 +60,7 @@ public set[Message] buildAndReturnMessages(Form form, loc target) {
 }
 
 public void setupQL() {
-  registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {
+  registerLanguage(getQLLangName(), getQLLangExt(), Tree(str src, loc l) {
     return parse(src, l);
   });
   
@@ -76,17 +74,17 @@ public void setupQL() {
     }),
     
     popup(
-      menu(LANG_QL,[
+      menu(getQLLangName(),[
         action(ACTION_BUILD, build),
         action(ACTION_FORMAT, format)
       ])
     ), 
     
     builder(set[Message] (Tree input) {
-      messages = buildAndReturnMessages(implode(input), FORM_TARGET);
+      messages = buildAndReturnMessages(implode(input), getCompileTarget());
       return messages;
     })
   };
   
-  registerContributions(LANG_QL, contribs);
+  registerContributions(getQLLangName(), contribs);
 }
