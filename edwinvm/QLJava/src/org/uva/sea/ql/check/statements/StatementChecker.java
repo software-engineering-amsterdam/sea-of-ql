@@ -57,15 +57,23 @@ public class StatementChecker implements Visitor {
 	private void checkName(Question statement, Type type) {
 		Ident questionVariable = statement.getVariable();
 		storeQuestionVariable(questionVariable, type);
-		if (!type.isCompatibleTo(questionVariable.typeOf(_supportedTypes))) {
-			_errorMessages.add("Invalid type for identifier " + questionVariable.getValue().toString());
-		}
+		checkQuestionCompatibility(type, questionVariable);
 	}
 	
 	private void storeQuestionVariable(Ident questionVariable, Type type) {
 		if (!_supportedTypes.contains(questionVariable)) {
 			_supportedTypes.add(questionVariable.toString(), type);
 		}
+	}
+	
+	private void checkQuestionCompatibility(Type type, Ident questionVariable) {
+		if (!type.isCompatibleTo(questionVariable.typeOf(_supportedTypes))) {
+			addError(questionVariable);
+		}
+	}
+	
+	private void addError(Ident ident) {
+		_errorMessages.add("Invalid type for identifier " + ident.getValue().toString());
 	}
 	
 }
