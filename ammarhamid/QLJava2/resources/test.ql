@@ -1,4 +1,4 @@
-form test
+form TestQL
 {
     "First name" name: string
 

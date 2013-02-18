@@ -11,6 +11,7 @@ options
 {
 	package org.uva.sea.ql.parser;
 	import org.uva.sea.ql.ast.Node;
+	import org.uva.sea.ql.ast.FormNode;
 	import org.uva.sea.ql.ast.statement.Statement;
 	import org.uva.sea.ql.ast.statement.impl.IfNode;
 	import org.uva.sea.ql.ast.statement.impl.BlockNode;
@@ -44,12 +45,12 @@ options
 	import org.uva.sea.ql.type.impl.MoneyType;
 }
 
-walk returns [BlockNode node]
+walk returns [FormNode node]
     :   form { $node = $form.node; }
     ;   
    
-form returns [BlockNode node]
-	:	^(FORM Identifier ^(BLOCK block)) { $node = $block.node; }
+form returns [FormNode node]
+	:	^(FORM Identifier ^(BLOCK block)) { $node = new FormNode($Identifier.text, $block.node); }
 	;
 
 block returns [BlockNode node]

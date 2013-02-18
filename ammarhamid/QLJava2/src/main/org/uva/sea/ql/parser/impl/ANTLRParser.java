@@ -3,8 +3,8 @@ package org.uva.sea.ql.parser.impl;
 import org.antlr.runtime.*;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
+import org.uva.sea.ql.ast.FormNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.statement.impl.BlockNode;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.QLLexer;
 import org.uva.sea.ql.parser.QLParser;
@@ -17,17 +17,17 @@ public class ANTLRParser implements IParser
 {
 
 	@Override
-	public BlockNode parseForm(String src) throws ParserException
+	public FormNode parseForm(String src) throws ParserException
 	{
 		final QLParser parser = createQLParser(src);		
-		return createBlockNode(parser);
+		return createFormNode(parser);
 	}
 
     @Override
-    public BlockNode parseFormFromFile(String filename) throws ParserException, IOException
+    public FormNode parseFormFromFile(String filename) throws ParserException, IOException
     {
         final QLParser parser = createQLParserFromFile(filename);
-        return createBlockNode(parser);
+        return createFormNode(parser);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ANTLRParser implements IParser
         }
     }
 
-    private BlockNode createBlockNode(QLParser parser)
+    private FormNode createFormNode(QLParser parser)
     {
         try
         {
