@@ -8,7 +8,6 @@ import java.io.*;
 import org.antlr.runtime.RecognitionException;
 import org.junit.*;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.ast.traversal.codegeneration.BootstrapGenerator;
 import org.uva.sea.ql.ast.traversal.typechecking.*;
 import org.uva.sea.ql.ast.types.datatypes.*;
 

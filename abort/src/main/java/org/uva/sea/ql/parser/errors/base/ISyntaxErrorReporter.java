@@ -2,6 +2,8 @@ package org.uva.sea.ql.parser.errors.base;
 
 import java.util.List;
 
+import org.uva.sea.ql.parser.errors.SyntaxErrorMessage;
+
 /**
  * Interface for syntax error reporters for the QL language.
  * 

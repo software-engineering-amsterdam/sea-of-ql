@@ -30,12 +30,7 @@ public class BoolLiteral extends LiteralType<Boolean> {
 		super(syntaxPosition);
 		this.value = value;
 	}
-	
-	/**
-	 * Retrieve the value of this data type.
-	 * 
-	 * @return value
-	 */
+
 	@Override
 	public Boolean getValue() {
 		return value;

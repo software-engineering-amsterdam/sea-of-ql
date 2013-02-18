@@ -20,11 +20,6 @@ public class SyntaxErrorReporter implements ISyntaxErrorReporter {
 		errors.add(syntaxErrorMessage);
 	}
 
-	/**
-	 * Check if there are any syntax errors.
-	 * 
-	 * @return whether there are syntax errors or not
-	 */
 	@Override
 	public boolean hasSyntaxErrors() {
 		return (errors.size() > 0);

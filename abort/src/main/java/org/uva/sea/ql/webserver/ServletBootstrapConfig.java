@@ -7,17 +7,17 @@ import javax.ws.rs.ext.*;
 import org.codehaus.jackson.jaxrs.*;
 import org.uva.sea.ql.ServerProperties;
 import org.uva.sea.ql.ast.traversal.typechecking.base.ISymbolTable;
-import org.uva.sea.ql.webserver.services.BootstrapService;
+import org.uva.sea.ql.webserver.services.BootstrapWebService;
 
 import com.google.inject.*;
 import com.google.inject.servlet.*;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
-public class BootstrapServletConfig extends GuiceServletContextListener {
+public class ServletBootstrapConfig extends GuiceServletContextListener {
 	private final ISymbolTable symbolTable;
 	private final ServerProperties properties;
 	
-	public BootstrapServletConfig(final ISymbolTable symbolTable, final ServerProperties properties) {
+	public ServletBootstrapConfig(final ISymbolTable symbolTable, final ServerProperties properties) {
 		this.symbolTable = symbolTable;
 		this.properties = properties;
 	}
@@ -30,7 +30,7 @@ public class BootstrapServletConfig extends GuiceServletContextListener {
                 /* bind the REST resources */
         		bind(ISymbolTable.class).toInstance(symbolTable);
         		bind(ServerProperties.class).toInstance(properties);
-                bind(BootstrapService.class);
+                bind(BootstrapWebService.class);
                 
                 /* bind jackson converters for JAXB/JSON serialization */
                 bind(JacksonJaxbJsonProvider.class).in(Singleton.class);

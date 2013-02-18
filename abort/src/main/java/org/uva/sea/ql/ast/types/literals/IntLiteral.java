@@ -36,11 +36,6 @@ public class IntLiteral extends NumericLiteral<Integer> {
 		this.value = value;
 	}
 
-	/**
-	 * Retrieve the value.
-	 * 
-	 * @return value
-	 */
 	@Override
 	public Integer getValue() {
 		return value;

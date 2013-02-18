@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.types.literals;
 
-import org.codehaus.jackson.annotate.*;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
@@ -31,17 +30,7 @@ public class StringLiteral extends LiteralType<String> {
 		super(syntaxPosition);
 		this.value = value;
 	}
-	
-	@JsonCreator
-	public StringLiteral(@JsonProperty("value") String value) {
-		this(value, null);
-	}
 
-	/**
-	 * Retrieve the value of the data type.
-	 * 
-	 * @return value
-	 */
 	@Override
 	public String getValue() {
 		return value;

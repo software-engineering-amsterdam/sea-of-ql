@@ -146,11 +146,6 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 
 		final DataType leftType = leftHandSide.typeOf(symbolTable);
 		final DataType rightType = rightHandSide.typeOf(symbolTable);
-		// Invalid reference
-		if ((leftType == null) || (rightType == null)) {
-			return true;
-		}
-
 		// Equals requires both left and the right handside to be of the same type
 		if (!leftType.isSameTypeAs(rightType)) {
 			errorLog.addBothSidesAreDifferentTypes(eq);
@@ -300,13 +295,8 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 			return true;
 		}
 
-		// TODO: is this necessary?
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
-		if ((leftHandSideType == null) || (rightHandSideType == null)) {
-			return true;
-		}
-
 		// Both hand sides should be compatible to numeric
 		boolean error = false;
 		if (!leftHandSideType.isCompatibleToNumeric()) {
@@ -341,10 +331,6 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 
 		final DataType leftHandSideType = checkTypeOf(leftHandSide);
 		final DataType rightHandSideType = checkTypeOf(rightHandSide);
-		if ((leftHandSideType == null) || (rightHandSideType == null)) {
-			return true;
-		}
-
 		// Both hand sides should be compatible to bool
 		boolean error = false;
 		if (!leftHandSideType.isCompatibleToBool()) {
@@ -425,6 +411,12 @@ public class TypeChecker implements IVisitor<Boolean>, ITypeChecker {
 		return errors;
 	}
 
+	/**
+	 * Retrieve the type of the expression.
+	 * 
+	 * @param expression expression
+	 * @return type
+	 */
 	private DataType checkTypeOf(final Expression expression) {
 		final DataType type = expression.typeOf(symbolTable);
 		if (type == null) {

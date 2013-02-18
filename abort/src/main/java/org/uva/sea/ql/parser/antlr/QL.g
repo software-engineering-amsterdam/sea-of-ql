@@ -21,6 +21,7 @@ import org.uva.sea.ql.ast.conditionals.*;
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
+import org.uva.sea.ql.ast.base.*;
 import org.uva.sea.ql.parser.errors.*;
 import org.uva.sea.ql.parser.errors.base.*;
 }
@@ -40,7 +41,7 @@ import org.uva.sea.ql.parser.errors.base.*;
       return;
     }
     final String message = getErrorMessage(e, this.getTokenNames());
-    syntaxErrorReporter.reportError(new SyntaxErrorMessage(e.line, e.charPositionInLine, message));
+    syntaxErrorReporter.reportError(new SyntaxErrorMessage(new SyntaxPosition(e.line, e.charPositionInLine), message));
   }
 }
 
@@ -68,7 +69,7 @@ import org.uva.sea.ql.parser.errors.base.*;
     }
     
     final String message = getErrorMessage(e, this.getTokenNames());
-    syntaxErrorReporter.reportError(new SyntaxErrorMessage(e.line, e.charPositionInLine, message));
+    syntaxErrorReporter.reportError(new SyntaxErrorMessage(new SyntaxPosition(e.line, e.charPositionInLine), message));
   }
 }
 
@@ -208,6 +209,4 @@ Int: ('0'..'9')+;
 Money: ('0'..'9')+ ('.' ('0'..'9')+)?;
 
 String: '"' (EscapedCharacterSequence | ~('\\' | '"'))* '"';
-fragment
-EscapedCharacterSequence: '\\' ('\"' | '\\')
-;
+fragment EscapedCharacterSequence: '\\' ('\"' | '\\');

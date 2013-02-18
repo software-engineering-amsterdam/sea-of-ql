@@ -4,16 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.uva.sea.ql.base.*;
+import org.uva.sea.ql.util.BrowserUtil;
 
 public class TestBrowserController extends TestBase {
-	private final BrowserController controller = new BrowserController();
-	
 	@Test
 	public void testOpenBrowserInvalidURL() {
 		
 		boolean exceptionThrown = false;
 		try {
-			controller.openURL("invalidURL");
+			BrowserUtil.openURL("invalidURL");
 		}
 		catch (BrowserException e) {
 			exceptionThrown = true;
@@ -24,7 +23,7 @@ public class TestBrowserController extends TestBase {
 	@Test
 	public void testOpenBrowserValidURL() {
 		try {
-			controller.openURL("http://www.google.nl");
+			BrowserUtil.openURL("http://www.google.nl");
 		}
 		catch (BrowserException e) {
 			fail();

@@ -4,12 +4,9 @@ import java.io.*;
 
 import org.antlr.runtime.*;
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.parser.*;
-import org.uva.sea.ql.parser.base.IFormParser;
+import org.uva.sea.ql.parser.base.*;
 
 public class FormParser implements IFormParser {
-	public FormParser() { }
-
 	@Override
 	public Form parseForm(final File inputFile) throws ParsingException {
 		try {

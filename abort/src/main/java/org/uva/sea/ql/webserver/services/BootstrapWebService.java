@@ -10,15 +10,19 @@ import org.codehaus.jackson.map.*;
 import org.uva.sea.ql.ServerProperties;
 import org.uva.sea.ql.ast.traversal.typechecking.base.ISymbolTable;
 import org.uva.sea.ql.ast.types.datatypes.*;
-import org.uva.sea.ql.webserver.base.IWebService;
 import org.uva.sea.ql.webserver.models.*;
 
 import com.google.inject.Inject;
 
+/**
+ * WebService for a generated bootstrap FrontEnd.
+ * 
+ * @author J. Dijkstra
+ */
 @Path("/bootstrap")
 @Produces("application/json")
 @Consumes("application/json")
-public class BootstrapService implements IWebService {
+public class BootstrapWebService {
 	// Know all types to validate
 	private final StringType stringType = new StringType();
 	private final BoolType boolType = new BoolType();
@@ -58,34 +62,29 @@ public class BootstrapService implements IWebService {
 	@POST
 	@Path("/persist")
 	public boolean validateAndPersistForm(final FormWrapper form) {
+		// Iterate over the input form map
 		Map<String, String> inputValues = form.getFormMap();
 		for (Map.Entry<String,String> entry : inputValues.entrySet()) {
 			final String name = entry.getKey();
 			final String value = entry.getValue();
 			
+			// Check if the corresponding name found in the input is assignable according to the symbol table 
 			if (!symbolTable.getDataTypeByName(name).isAssignableFrom(value)) {
 				System.err.println(String.format("Invalid input for %s (value: %s)", name, value));
 				return false;
 			}
 		}
-		
-		if (hasMissingIdents(form)) {
-			System.err.println("The form has been posted incomplete");
-			return false;
-		}
 
+		// Write to file and return whether it was successful or not
 		return writeFormToFile(form);
 	}
-	
-	private boolean hasMissingIdents(final FormWrapper form) {
-		return symbolTable.isInputIncomplete(form.getFormMap().keySet());
-	}
-	
+
 	private boolean writeFormToFile(final FormWrapper form) {
 		final File outputFile = new File(String.format("%s/form-%d.json", properties.getSaveFormPath(), Calendar.getInstance().getTimeInMillis()));
 
-		final ObjectMapper mapper = new ObjectMapper();
+		// Try to output the input form to a JSON file
 		try {
+			final ObjectMapper mapper = new ObjectMapper();
 			mapper.writeValue(outputFile, form.getFormMap());
 			
 			return true;

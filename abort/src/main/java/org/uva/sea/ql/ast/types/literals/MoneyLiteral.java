@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.types.literals;
 
 import java.math.BigDecimal;
 
-import org.codehaus.jackson.annotate.*;
 import org.uva.sea.ql.ast.base.SyntaxPosition;
 import org.uva.sea.ql.ast.traversal.base.IVisitor;
 import org.uva.sea.ql.ast.traversal.typechecking.SymbolTable;
@@ -34,16 +33,6 @@ public class MoneyLiteral extends NumericLiteral<BigDecimal> {
 		this.value = new BigDecimal(value);
 	}
 
-	@JsonCreator
-	public MoneyLiteral(@JsonProperty("value") final String value) {
-		this(value, null);
-	}
-	
-	/**
-	 * Retrieve the value of the data type.
-	 * 
-	 * @return value
-	 */
 	@Override
 	public BigDecimal getValue() {
 		return value;

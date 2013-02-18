@@ -4,31 +4,57 @@ import java.io.*;
 
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.traversal.codegeneration.*;
-import org.uva.sea.ql.ast.traversal.codegeneration.base.WebGenerationException;
+import org.uva.sea.ql.ast.traversal.codegeneration.base.*;
 import org.uva.sea.ql.ast.traversal.typechecking.TypeChecker;
 import org.uva.sea.ql.ast.traversal.typechecking.base.ITypeChecker;
 import org.uva.sea.ql.base.*;
-import org.uva.sea.ql.parser.ParsingException;
 import org.uva.sea.ql.parser.antlr.FormParser;
-import org.uva.sea.ql.parser.base.IFormParser;
+import org.uva.sea.ql.parser.base.*;
+import org.uva.sea.ql.util.BrowserUtil;
 import org.uva.sea.ql.webserver.*;
+import org.uva.sea.ql.webserver.base.IWebServer;
 
 /**
- * Startup an instance of the bootstrap code generation, typechecking, server and interpreting module.
+ * Startup an instance of the bootstrap code generation, type checking, server and interpreting module.
  * 
  * @author J. Dijkstra
  */
 public class BootstrapStartupController implements IStartupController {
+	/**
+	 * Output file to generate code to.
+	 */
 	private static final String OUTPUT_FILE_NAME = "index.html";
+	
+	/**
+	 * Input file to generate code from.
+	 */
 	private final File inputFile;
+	
+	/**
+	 * Server properties (shared with ANT).
+	 */
 	private final ServerProperties properties = new ServerProperties();
 
-	private BootstrapJettyServer server;
+	/**
+	 * Bootstrap Server to spawn after code generation.
+	 */
+	private IWebServer server;
+	
+	/**
+	 * Form used to type check, generate code 
+	 */
 	private Form form;
 
-	// Shared typechecker between server and form checking
+	/**
+	 * One type checker that is first used to type check and later to validate server form input.
+	 */
 	private final ITypeChecker typeChecker = new TypeChecker();
 	
+	/**
+	 * Constructor.
+	 * 
+	 * @param parameters command line parameters to use.
+	 */
 	public BootstrapStartupController(final CommandLineParameters parameters) {
 		this.inputFile = parameters.getInputFile();
 	}
@@ -82,10 +108,10 @@ public class BootstrapStartupController implements IStartupController {
 	
 	private boolean checkAndStartServer() {
 		try {
-			server = new BootstrapJettyServer(properties, typeChecker);
+			server = new JettyBootstrapServer(properties, typeChecker, OUTPUT_FILE_NAME);
 			server.startServer();
 		}
-		catch (ServerException e) {
+		catch (WebServerException e) {
 			System.err.println(String.format("Server Exception: %s", e.getMessage()));
 			return false;
 		}
@@ -97,7 +123,7 @@ public class BootstrapStartupController implements IStartupController {
 		try {
 			server.waitForServerThread();
 		} 
-		catch (ServerException e) {
+		catch (WebServerException e) {
 			System.err.println(String.format("Server Exception: %s", e.getMessage()));
 		}
 	}
@@ -123,6 +149,7 @@ public class BootstrapStartupController implements IStartupController {
 		return errors;
 	}
 
+	// Generates bootstrap HTML front-end
 	private boolean checkAndGenerateFrontend() {
 		try {
 			final IWebGenerator generator = new BootstrapGenerator(properties.getTemplatesPath(), properties.getServerBaseURL());
@@ -135,12 +162,11 @@ public class BootstrapStartupController implements IStartupController {
 		
 		return true;
 	}
-	
-	private void openGeneratedPageInBrowser() {
-		final BrowserController browserController = new BrowserController();
 
+	// Try to spawn the default browser with the generated front-end content
+	private void openGeneratedPageInBrowser() {
 		try {
-			browserController.openURL(properties.getServerBaseURL());
+			BrowserUtil.openURL(properties.getServerBaseURL());
 		} 
 		catch (BrowserException e) {
 			System.err.println(String.format("Failed to open browser: %s", e.getMessage()));

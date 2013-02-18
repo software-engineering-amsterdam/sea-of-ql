@@ -48,6 +48,7 @@ public class Ident extends Expression {
 
 	@Override
 	public boolean equals(final Object obj) {
+		// Equal names result in the same Ident, regardless of syntax position.
 		if (this == obj) {
 			return true;
 		}

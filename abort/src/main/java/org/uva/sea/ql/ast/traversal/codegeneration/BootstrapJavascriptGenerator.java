@@ -46,10 +46,15 @@ class BootstrapJavascriptGenerator {
 		final String javascriptTemplateFilePath = String.format("%s/%s", templatesPath, TEMPLATE_FILE_NAME);
 		javascriptTemplateGroup = new STGroupFile(javascriptTemplateFilePath, TEMPLATE_DELIMITER, TEMPLATE_DELIMITER);
 	
-		initServerPort(serverBaseURL);
+		initServerBaseURL(serverBaseURL);
 	}
 
-	private void initServerPort(final String serverBaseURL) {
+	/**
+	 * Setup the server base URL in javascript. To post to and use for validation.
+	 * 
+	 * @param serverBaseURL server base URL
+	 */
+	private void initServerBaseURL(final String serverBaseURL) {
 		final ST baseURLDeclarationTemplate = javascriptTemplateGroup.getInstanceOf("server_base_url_declaration");
 		baseURLDeclarationTemplate.add("url", serverBaseURL);
 		
@@ -110,11 +115,12 @@ class BootstrapJavascriptGenerator {
 		final StringBuffer documentReadyBuffer = new StringBuffer();
 		final StringBuffer javascriptBuffer = new StringBuffer();
 
-		// Generate functions and initial code
+		// Generate functions and initial code and append them to the final javascript code 
 		javascriptBuffer.append(initialCode);
 		
 		// Generate dispatch methods in the document ready
 		for (final Ident ident : references.keySet()) {
+			// If there is references to the identity, then generate a dispatch method as we know there are dependencies on this identifier
 			if (references.get(ident) > 0) {
 				final ST dispatchTemplate = javascriptTemplateGroup.getInstanceOf("generate_dispatch_function");
 				dispatchTemplate.add("id", ident.getName());
@@ -122,6 +128,7 @@ class BootstrapJavascriptGenerator {
 			}
 		}
 		
+		// Append the document ready code to the final javascript code
 		javascriptBuffer.append(getTemplatedDocumentReadyCode(documentReadyBuffer));		
 		
 		return javascriptBuffer.toString();

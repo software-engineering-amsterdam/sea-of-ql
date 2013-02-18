@@ -1,14 +1,15 @@
-package org.uva.sea.ql.parser.errors.base;
+package org.uva.sea.ql.parser.errors;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import org.uva.sea.ql.ast.base.SyntaxPosition;
 
 /**
  * Syntax Error Message that could be constructed by failure in syntax parsing.
  * 
  * @author J. Dijkstra
  */
-// TODO: refactor with typecheckerror and syntaxposition
 public class SyntaxErrorMessage {
 	/**
 	 * Time format to use when displaying the log.
@@ -18,20 +19,35 @@ public class SyntaxErrorMessage {
 	 * Date format used when displaying the log.
 	 */
 	private final SimpleDateFormat dateFormat = new SimpleDateFormat(TIME_FORMAT);
-	private final int lineNumber;
-	private final int columnNumber;
+
+	/**
+	 * Syntax position where the error occurred.
+	 */
+	private final SyntaxPosition syntaxPosition;
+
+	/**
+	 * Message provided by ANTLR.
+	 */
 	private final String originalMessage;
+	/**
+	 * Current calendar to use for printing a timestamp.
+	 */
 	private final Calendar calendar = Calendar.getInstance();
 
-	public SyntaxErrorMessage(final int lineNumber, final int columnNumber, final String originalMessage) {
-		this.lineNumber = lineNumber;
-		this.columnNumber = columnNumber;
+	/**
+	 * Constructor.
+	 * 
+	 * @param syntaxPosition syntax position
+	 * @param originalMessage original message
+	 */
+	public SyntaxErrorMessage(final SyntaxPosition syntaxPosition, final String originalMessage) {
+		this.syntaxPosition = syntaxPosition; 
 		this.originalMessage = originalMessage;
 	}
 
 	@Override
 	public String toString() {
 		return String.format("[%s] %s (line: %d, column: %d)\n", dateFormat.format(calendar.getTime()),
-				originalMessage, lineNumber, columnNumber);
+				originalMessage, syntaxPosition.getLineNumber(), syntaxPosition.getColumnNumber());
 	}
 }
