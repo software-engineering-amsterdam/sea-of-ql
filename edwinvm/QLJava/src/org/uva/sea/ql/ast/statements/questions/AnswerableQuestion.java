@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
 public class AnswerableQuestion extends Question {
 	private final Type _type;
@@ -15,5 +16,10 @@ public class AnswerableQuestion extends Question {
 	
 	public Type getType() {
 		return _type;
+	}
+	
+	@Override
+	public void accept(Visitor visitor) {
+		visitor.visit(this);
 	}
 }
