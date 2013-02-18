@@ -1,24 +1,25 @@
 package org.uva.sea.ql.ast.visitor;
 
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.IntType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.NumericType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.UndefinedType;
-import org.uva.sea.ql.questionnaire.ui.swing.control.Control;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleControl;
 
 public interface TypeVisitor {
 
-	Control visit(BoolType bool);
+	AbstractVisibleControl visit(BoolType bool, Ident ident);
 
-	Control visit(IntType i);
+	AbstractVisibleControl visit(IntType i, Ident ident);
 
-	Control visit(MoneyType money);
+	AbstractVisibleControl visit(MoneyType money, Ident ident);
 
-	Control visit(StringType str);
+	AbstractVisibleControl visit(StringType str, Ident ident);
 
-	Control visit(NumericType i);
+	AbstractVisibleControl visit(NumericType i, Ident ident);
 
-	Control visit(UndefinedType i);
+	AbstractVisibleControl visit(UndefinedType i, Ident ident);
 }

@@ -2,18 +2,11 @@ package org.uva.sea.ql.questionnaire;
 
 import java.util.Map;
 
-import org.antlr.runtime.ANTLRFileStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
-import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.uva.sea.ql.ast.expr.ASTNode;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stat.Block;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.parser.antlr.QLLexer;
-import org.uva.sea.ql.parser.antlr.QLParser;
-import org.uva.sea.ql.parser.antlr.QLTreeWalker;
+import org.uva.sea.ql.parser.antlr.ParserProcessor;
 
 public class Questionnaire extends ASTNode {
 
@@ -26,35 +19,15 @@ public class Questionnaire extends ASTNode {
 	}
 
 	public static void main(String args[]) throws Exception {
-		QLLexer lex = new QLLexer(
-				new ANTLRFileStream(
-						"/Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/questionnaireTemplate/gaming.txt",
-						"UTF8"));
+		String qlLocation = "/Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/questionnaireTemplate/something.txt";
+		ParserProcessor parser = new ParserProcessor();
+		Questionnaire questionnaire  = parser.parse(qlLocation,false);
+		Map<Ident, Type> typeEnv = parser.getTypeEnv();
 
-		CommonTokenStream tokens = new CommonTokenStream(lex);
-		boolean onlyParse = false;
-		QLParser parser = new QLParser(tokens);
+		QuestionnaireProcessor processor = new QuestionnaireProcessor(
+				questionnaire, typeEnv);
+		processor.process();
 
-		try {
-			if (onlyParse) {
-				parser.parse();
-			} else {
-				CommonTree tree = (CommonTree) parser.parse().getTree();
-				CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
-				QLTreeWalker walker = new QLTreeWalker(nodes);
-
-				Questionnaire questionnaire = walker.walk();
-
-				Map<Ident, Type> typeEnv = parser.typeEnv;
-
-				QuestionnaireProcessor processor = new QuestionnaireProcessor(
-						questionnaire, typeEnv);
-				processor.process();
-			}
-
-		} catch (RecognitionException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

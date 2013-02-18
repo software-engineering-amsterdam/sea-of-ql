@@ -6,17 +6,17 @@ import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.stat.ComputedStat;
 import org.uva.sea.ql.ast.visitor.Evaluator;
 import org.uva.sea.ql.questionnaire.state.State;
-import org.uva.sea.ql.questionnaire.ui.swing.control.Control;
+import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 
 public class ComputedObserver extends StatementObserver {
 
-	private final Control control;
+	private final AbstractControl control;
 	private final State state;
 	private final ComputedStat stat;
 
-	public ComputedObserver(Control control, State state, ComputedStat stat) {
+	public ComputedObserver(AbstractControl ctl, State state, ComputedStat stat) {
 		super(state, stat.getExpr());
-		this.control = control;
+		this.control = ctl;
 		this.state = state;
 		this.stat = stat;
 	}

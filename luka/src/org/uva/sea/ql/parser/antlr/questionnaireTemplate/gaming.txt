@@ -4,7 +4,6 @@ if(yourName != "lade"){
 niceName: "A better name would be!" string("lade")
 }
 isGamer: "Do you play video games?" boolean
-playTimeDay: "How many hours do you play during the week?" double
 hasFriends: "Do you have real friends?" boolean
 daysLastSeen: "How many days have past since you have seen your friends?" integer
 if(!hasFriends|| daysLastSeen >= 5){
@@ -23,5 +22,8 @@ iGotYou: "At least you are honest" string("anyways I will tell your mum")
 }
 moneySpent: "How much money have you spent on games this year?" money
 lastGame: "Whats the name of the last game you bought?" string
+playTimeDay: "How many hours do you play during the week?" double
 timePerYear: "Calculated time played this year:" double(playTimeDay * 10.2)
+hiddenComp : double(timePerYear + 2)
+visibleComp : "Visible comp->" integer(hiddenComp)
 }

@@ -10,10 +10,9 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 public class Doub extends Numeric {
 
 	public Doub(Double value) {
-		super(); 
+		super();
 		this.value = value;
 	}
-
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {

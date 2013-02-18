@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 05:58:18
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 19:46:46
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -26,7 +26,7 @@ public class QLParser extends Parser {
 		"<invalid>", "<EOR>", "<DOWN>", "<UP>", "ASSIGNMENT", "ASSIGNMENT_EXPRESSION", 
 		"ASSIGNMENT_TYPE", "Add", "And", "Assignment_Indicator", "BLOCK", "Bool", 
 		"BooleanType", "COMMENT", "Div", "Doub", "DoubleType", "Else", "Equ", 
-		"FormId", "FormStart", "GT", "GTEqu", "IDENT", "IF_BLOCK_FALSE", "IF_BLOCK_TRUE", 
+		"FormStart", "GT", "GTEqu", "IDENT", "IF_BLOCK_FALSE", "IF_BLOCK_TRUE", 
 		"IF_CONDITION", "IF_STATEMENT", "Ident", "If", "Int", "IntegerType", "LT", 
 		"LTEqu", "Lbr", "MoneyType", "Mul", "Not", "NotEqu", "Or", "QUESTION_LABEL", 
 		"Rbr", "RoundLbr", "RoundRbr", "Str", "StringType", "Sub", "UNARY_MINUS", 
@@ -48,37 +48,36 @@ public class QLParser extends Parser {
 	public static final int DoubleType=16;
 	public static final int Else=17;
 	public static final int Equ=18;
-	public static final int FormId=19;
-	public static final int FormStart=20;
-	public static final int GT=21;
-	public static final int GTEqu=22;
-	public static final int IDENT=23;
-	public static final int IF_BLOCK_FALSE=24;
-	public static final int IF_BLOCK_TRUE=25;
-	public static final int IF_CONDITION=26;
-	public static final int IF_STATEMENT=27;
-	public static final int Ident=28;
-	public static final int If=29;
-	public static final int Int=30;
-	public static final int IntegerType=31;
-	public static final int LT=32;
-	public static final int LTEqu=33;
-	public static final int Lbr=34;
-	public static final int MoneyType=35;
-	public static final int Mul=36;
-	public static final int Not=37;
-	public static final int NotEqu=38;
-	public static final int Or=39;
-	public static final int QUESTION_LABEL=40;
-	public static final int Rbr=41;
-	public static final int RoundLbr=42;
-	public static final int RoundRbr=43;
-	public static final int Str=44;
-	public static final int StringType=45;
-	public static final int Sub=46;
-	public static final int UNARY_MINUS=47;
-	public static final int UNARY_NEGATE=48;
-	public static final int WS=49;
+	public static final int FormStart=19;
+	public static final int GT=20;
+	public static final int GTEqu=21;
+	public static final int IDENT=22;
+	public static final int IF_BLOCK_FALSE=23;
+	public static final int IF_BLOCK_TRUE=24;
+	public static final int IF_CONDITION=25;
+	public static final int IF_STATEMENT=26;
+	public static final int Ident=27;
+	public static final int If=28;
+	public static final int Int=29;
+	public static final int IntegerType=30;
+	public static final int LT=31;
+	public static final int LTEqu=32;
+	public static final int Lbr=33;
+	public static final int MoneyType=34;
+	public static final int Mul=35;
+	public static final int Not=36;
+	public static final int NotEqu=37;
+	public static final int Or=38;
+	public static final int QUESTION_LABEL=39;
+	public static final int Rbr=40;
+	public static final int RoundLbr=41;
+	public static final int RoundRbr=42;
+	public static final int Str=43;
+	public static final int StringType=44;
+	public static final int Sub=45;
+	public static final int UNARY_MINUS=46;
+	public static final int UNARY_NEGATE=47;
+	public static final int WS=48;
 
 	// delegates
 	public Parser[] getDelegates() {
@@ -129,7 +128,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "parse"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:60:1: parse : FormStart FormId Lbr ( blockItem )* Rbr EOF -> ^( FormId ^( BLOCK ( blockItem )* ) ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:60:1: parse : FormStart Ident Lbr ( blockItem )* Rbr EOF -> ^( Ident ^( BLOCK ( blockItem )* ) ) ;
 	public final QLParser.parse_return parse() throws RecognitionException {
 		QLParser.parse_return retval = new QLParser.parse_return();
 		retval.start = input.LT(1);
@@ -138,40 +137,40 @@ public class QLParser extends Parser {
 		Object root_0 = null;
 
 		Token FormStart1=null;
-		Token FormId2=null;
+		Token Ident2=null;
 		Token Lbr3=null;
 		Token Rbr5=null;
 		Token EOF6=null;
 		ParserRuleReturnScope blockItem4 =null;
 
 		Object FormStart1_tree=null;
-		Object FormId2_tree=null;
+		Object Ident2_tree=null;
 		Object Lbr3_tree=null;
 		Object Rbr5_tree=null;
 		Object EOF6_tree=null;
-		RewriteRuleTokenStream stream_FormId=new RewriteRuleTokenStream(adaptor,"token FormId");
 		RewriteRuleTokenStream stream_FormStart=new RewriteRuleTokenStream(adaptor,"token FormStart");
 		RewriteRuleTokenStream stream_Lbr=new RewriteRuleTokenStream(adaptor,"token Lbr");
 		RewriteRuleTokenStream stream_Rbr=new RewriteRuleTokenStream(adaptor,"token Rbr");
+		RewriteRuleTokenStream stream_Ident=new RewriteRuleTokenStream(adaptor,"token Ident");
 		RewriteRuleTokenStream stream_EOF=new RewriteRuleTokenStream(adaptor,"token EOF");
 		RewriteRuleSubtreeStream stream_blockItem=new RewriteRuleSubtreeStream(adaptor,"rule blockItem");
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return retval; }
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:2: ( FormStart FormId Lbr ( blockItem )* Rbr EOF -> ^( FormId ^( BLOCK ( blockItem )* ) ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:4: FormStart FormId Lbr ( blockItem )* Rbr EOF
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:2: ( FormStart Ident Lbr ( blockItem )* Rbr EOF -> ^( Ident ^( BLOCK ( blockItem )* ) ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:4: FormStart Ident Lbr ( blockItem )* Rbr EOF
 			{
 			FormStart1=(Token)match(input,FormStart,FOLLOW_FormStart_in_parse107); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_FormStart.add(FormStart1);
 
-			FormId2=(Token)match(input,FormId,FOLLOW_FormId_in_parse109); if (state.failed) return retval; 
-			if ( state.backtracking==0 ) stream_FormId.add(FormId2);
+			Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_parse109); if (state.failed) return retval; 
+			if ( state.backtracking==0 ) stream_Ident.add(Ident2);
 
 			Lbr3=(Token)match(input,Lbr,FOLLOW_Lbr_in_parse111); if (state.failed) return retval; 
 			if ( state.backtracking==0 ) stream_Lbr.add(Lbr3);
 
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:25: ( blockItem )*
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:24: ( blockItem )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -182,7 +181,7 @@ public class QLParser extends Parser {
 
 				switch (alt1) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:25: blockItem
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:24: blockItem
 					{
 					pushFollow(FOLLOW_blockItem_in_parse113);
 					blockItem4=blockItem();
@@ -205,7 +204,7 @@ public class QLParser extends Parser {
 
 			if ( state.backtracking==0 ) {System.out.println("End grammar");}
 			// AST REWRITE
-			// elements: FormId, blockItem
+			// elements: blockItem, Ident
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -216,17 +215,17 @@ public class QLParser extends Parser {
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (Object)adaptor.nil();
-			// 61:80: -> ^( FormId ^( BLOCK ( blockItem )* ) )
+			// 61:79: -> ^( Ident ^( BLOCK ( blockItem )* ) )
 			{
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:83: ^( FormId ^( BLOCK ( blockItem )* ) )
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:82: ^( Ident ^( BLOCK ( blockItem )* ) )
 				{
 				Object root_1 = (Object)adaptor.nil();
-				root_1 = (Object)adaptor.becomeRoot(stream_FormId.nextNode(), root_1);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:92: ^( BLOCK ( blockItem )* )
+				root_1 = (Object)adaptor.becomeRoot(stream_Ident.nextNode(), root_1);
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:90: ^( BLOCK ( blockItem )* )
 				{
 				Object root_2 = (Object)adaptor.nil();
 				root_2 = (Object)adaptor.becomeRoot((Object)adaptor.create(BLOCK, "BLOCK"), root_2);
-				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:100: ( blockItem )*
+				// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QL.g:61:98: ( blockItem )*
 				while ( stream_blockItem.hasNext() ) {
 					adaptor.addChild(root_2, stream_blockItem.nextTree());
 				}
@@ -494,7 +493,7 @@ public class QLParser extends Parser {
 
 			if ( state.backtracking==0 ) {mapIdentToType((Ident10!=null?Ident10.getText():null),(identType13!=null?((QLParser.identType_return)identType13).t:null));}
 			// AST REWRITE
-			// elements: atom, Ident, Str, identType
+			// elements: atom, Ident, identType, Str
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -633,7 +632,7 @@ public class QLParser extends Parser {
 			if ( state.backtracking==0 ) stream_atom.add(atom18.getTree());
 			if ( state.backtracking==0 ) {mapIdentToType((Ident15!=null?Ident15.getText():null),(identType17!=null?((QLParser.identType_return)identType17).t:null));}
 			// AST REWRITE
-			// elements: identType, atom, Ident
+			// elements: atom, identType, Ident
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1014,7 +1013,7 @@ public class QLParser extends Parser {
 			}
 
 			// AST REWRITE
-			// elements: ifStatementBlock, elseBlock, ifCondition
+			// elements: ifCondition, ifStatementBlock, elseBlock
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -2383,42 +2382,42 @@ public class QLParser extends Parser {
 
 
 
-	public static final BitSet FOLLOW_FormStart_in_parse107 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_FormId_in_parse109 = new BitSet(new long[]{0x0000000400000000L});
-	public static final BitSet FOLLOW_Lbr_in_parse111 = new BitSet(new long[]{0x0000020030000000L});
-	public static final BitSet FOLLOW_blockItem_in_parse113 = new BitSet(new long[]{0x0000020030000000L});
+	public static final BitSet FOLLOW_FormStart_in_parse107 = new BitSet(new long[]{0x0000000008000000L});
+	public static final BitSet FOLLOW_Ident_in_parse109 = new BitSet(new long[]{0x0000000200000000L});
+	public static final BitSet FOLLOW_Lbr_in_parse111 = new BitSet(new long[]{0x0000010018000000L});
+	public static final BitSet FOLLOW_blockItem_in_parse113 = new BitSet(new long[]{0x0000010018000000L});
 	public static final BitSet FOLLOW_Rbr_in_parse116 = new BitSet(new long[]{0x0000000000000000L});
 	public static final BitSet FOLLOW_EOF_in_parse118 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_questionAssignment_in_blockItem145 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_constantAssignment_in_blockItem149 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_ifBlock_in_blockItem153 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Ident_in_questionAssignment170 = new BitSet(new long[]{0x0000000000000200L});
-	public static final BitSet FOLLOW_Assignment_Indicator_in_questionAssignment173 = new BitSet(new long[]{0x0000100000000000L});
-	public static final BitSet FOLLOW_Str_in_questionAssignment176 = new BitSet(new long[]{0x0000200880011000L});
-	public static final BitSet FOLLOW_identType_in_questionAssignment178 = new BitSet(new long[]{0x00003408D0019002L});
+	public static final BitSet FOLLOW_Assignment_Indicator_in_questionAssignment173 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_Str_in_questionAssignment176 = new BitSet(new long[]{0x0000100440011000L});
+	public static final BitSet FOLLOW_identType_in_questionAssignment178 = new BitSet(new long[]{0x00001A0468019002L});
 	public static final BitSet FOLLOW_atom_in_questionAssignment181 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Ident_in_constantAssignment234 = new BitSet(new long[]{0x0000000000000200L});
-	public static final BitSet FOLLOW_Assignment_Indicator_in_constantAssignment237 = new BitSet(new long[]{0x0000200880011000L});
-	public static final BitSet FOLLOW_identType_in_constantAssignment239 = new BitSet(new long[]{0x00003408D0019000L});
+	public static final BitSet FOLLOW_Assignment_Indicator_in_constantAssignment237 = new BitSet(new long[]{0x0000100440011000L});
+	public static final BitSet FOLLOW_identType_in_constantAssignment239 = new BitSet(new long[]{0x00001A0468019000L});
 	public static final BitSet FOLLOW_atom_in_constantAssignment241 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_BooleanType_in_identType288 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_MoneyType_in_identType302 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_IntegerType_in_identType316 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_StringType_in_identType329 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DoubleType_in_identType341 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifCondition_in_ifBlock362 = new BitSet(new long[]{0x0000000400000000L});
+	public static final BitSet FOLLOW_ifCondition_in_ifBlock362 = new BitSet(new long[]{0x0000000200000000L});
 	public static final BitSet FOLLOW_ifStatementBlock_in_ifBlock365 = new BitSet(new long[]{0x0000000000020002L});
 	public static final BitSet FOLLOW_elseBlock_in_ifBlock369 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_If_in_ifCondition413 = new BitSet(new long[]{0x0000040000000000L});
-	public static final BitSet FOLLOW_RoundLbr_in_ifCondition415 = new BitSet(new long[]{0x00007428D0019000L});
-	public static final BitSet FOLLOW_orExpr_in_ifCondition417 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_If_in_ifCondition413 = new BitSet(new long[]{0x0000020000000000L});
+	public static final BitSet FOLLOW_RoundLbr_in_ifCondition415 = new BitSet(new long[]{0x00003A1468019000L});
+	public static final BitSet FOLLOW_orExpr_in_ifCondition417 = new BitSet(new long[]{0x0000040000000000L});
 	public static final BitSet FOLLOW_RoundRbr_in_ifCondition420 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Lbr_in_ifStatementBlock439 = new BitSet(new long[]{0x0000020030000000L});
-	public static final BitSet FOLLOW_blockItem_in_ifStatementBlock442 = new BitSet(new long[]{0x0000020030000000L});
+	public static final BitSet FOLLOW_Lbr_in_ifStatementBlock439 = new BitSet(new long[]{0x0000010018000000L});
+	public static final BitSet FOLLOW_blockItem_in_ifStatementBlock442 = new BitSet(new long[]{0x0000010018000000L});
 	public static final BitSet FOLLOW_Rbr_in_ifStatementBlock445 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Else_in_elseBlock463 = new BitSet(new long[]{0x0000000400000000L});
-	public static final BitSet FOLLOW_Lbr_in_elseBlock465 = new BitSet(new long[]{0x0000020030000000L});
-	public static final BitSet FOLLOW_blockItem_in_elseBlock467 = new BitSet(new long[]{0x0000020030000000L});
+	public static final BitSet FOLLOW_Else_in_elseBlock463 = new BitSet(new long[]{0x0000000200000000L});
+	public static final BitSet FOLLOW_Lbr_in_elseBlock465 = new BitSet(new long[]{0x0000010018000000L});
+	public static final BitSet FOLLOW_blockItem_in_elseBlock467 = new BitSet(new long[]{0x0000010018000000L});
 	public static final BitSet FOLLOW_Rbr_in_elseBlock470 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Int_in_atom499 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_Ident_in_atom507 = new BitSet(new long[]{0x0000000000000002L});
@@ -2429,27 +2428,27 @@ public class QLParser extends Parser {
 	public static final BitSet FOLLOW_IntegerType_in_atom539 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_DoubleType_in_atom545 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_StringType_in_atom551 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_RoundLbr_in_atom558 = new BitSet(new long[]{0x00007428D0019000L});
-	public static final BitSet FOLLOW_orExpr_in_atom564 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_RoundLbr_in_atom558 = new BitSet(new long[]{0x00003A1468019000L});
+	public static final BitSet FOLLOW_orExpr_in_atom564 = new BitSet(new long[]{0x0000040000000000L});
 	public static final BitSet FOLLOW_RoundRbr_in_atom567 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Sub_in_unExpr588 = new BitSet(new long[]{0x00003408D0019000L});
+	public static final BitSet FOLLOW_Sub_in_unExpr588 = new BitSet(new long[]{0x00001A0468019000L});
 	public static final BitSet FOLLOW_atom_in_unExpr590 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_Not_in_unExpr608 = new BitSet(new long[]{0x00003408D0019000L});
+	public static final BitSet FOLLOW_Not_in_unExpr608 = new BitSet(new long[]{0x00001A0468019000L});
 	public static final BitSet FOLLOW_atom_in_unExpr610 = new BitSet(new long[]{0x0000000000000002L});
 	public static final BitSet FOLLOW_atom_in_unExpr627 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr661 = new BitSet(new long[]{0x0000001000004002L});
-	public static final BitSet FOLLOW_set_in_mulExpr668 = new BitSet(new long[]{0x00007428D0019000L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr681 = new BitSet(new long[]{0x0000001000004002L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr713 = new BitSet(new long[]{0x0000400000000082L});
-	public static final BitSet FOLLOW_set_in_addExpr719 = new BitSet(new long[]{0x00007428D0019000L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr731 = new BitSet(new long[]{0x0000400000000082L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr758 = new BitSet(new long[]{0x0000004300640002L});
-	public static final BitSet FOLLOW_set_in_relExpr765 = new BitSet(new long[]{0x00007428D0019000L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr787 = new BitSet(new long[]{0x0000004300640002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr661 = new BitSet(new long[]{0x0000000800004002L});
+	public static final BitSet FOLLOW_set_in_mulExpr668 = new BitSet(new long[]{0x00003A1468019000L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr681 = new BitSet(new long[]{0x0000000800004002L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr713 = new BitSet(new long[]{0x0000200000000082L});
+	public static final BitSet FOLLOW_set_in_addExpr719 = new BitSet(new long[]{0x00003A1468019000L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr731 = new BitSet(new long[]{0x0000200000000082L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr758 = new BitSet(new long[]{0x0000002180340002L});
+	public static final BitSet FOLLOW_set_in_relExpr765 = new BitSet(new long[]{0x00003A1468019000L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr787 = new BitSet(new long[]{0x0000002180340002L});
 	public static final BitSet FOLLOW_relExpr_in_andExpr816 = new BitSet(new long[]{0x0000000000000102L});
-	public static final BitSet FOLLOW_And_in_andExpr820 = new BitSet(new long[]{0x00007428D0019000L});
+	public static final BitSet FOLLOW_And_in_andExpr820 = new BitSet(new long[]{0x00003A1468019000L});
 	public static final BitSet FOLLOW_relExpr_in_andExpr825 = new BitSet(new long[]{0x0000000000000102L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr856 = new BitSet(new long[]{0x0000008000000002L});
-	public static final BitSet FOLLOW_Or_in_orExpr860 = new BitSet(new long[]{0x00007428D0019000L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr865 = new BitSet(new long[]{0x0000008000000002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr856 = new BitSet(new long[]{0x0000004000000002L});
+	public static final BitSet FOLLOW_Or_in_orExpr860 = new BitSet(new long[]{0x00003A1468019000L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr865 = new BitSet(new long[]{0x0000004000000002L});
 }

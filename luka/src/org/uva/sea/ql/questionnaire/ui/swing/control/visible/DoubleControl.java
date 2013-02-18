@@ -1,16 +1,18 @@
-package org.uva.sea.ql.questionnaire.ui.swing.control;
+package org.uva.sea.ql.questionnaire.ui.swing.control.visible;
 
 import java.awt.Color;
 
 import javax.swing.border.LineBorder;
 
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Doub;
 import org.uva.sea.ql.questionnaire.state.State;
 
 public class DoubleControl extends KeyControl {
 
-	public DoubleControl(State state) {
-		super(state);
+	public DoubleControl(State state,Ident ident) {
+		super(state, ident);
+		initEventListener();
 	}
 
 	@Override

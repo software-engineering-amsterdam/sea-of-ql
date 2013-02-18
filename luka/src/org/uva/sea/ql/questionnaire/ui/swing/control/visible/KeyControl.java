@@ -1,4 +1,4 @@
-package org.uva.sea.ql.questionnaire.ui.swing.control;
+package org.uva.sea.ql.questionnaire.ui.swing.control.visible;
 
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
@@ -12,15 +12,16 @@ import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.questionnaire.state.State;
 
-public abstract class KeyControl extends Control {
+public abstract class KeyControl extends AbstractVisibleControl {
 
 	private JTextField control;
 
-	public KeyControl(State state) {
-		super(state);
+	public KeyControl(State state, Ident ident) {
+		super(state, ident);
 		control = new JTextField();
 		control.setPreferredSize(new Dimension(200, 30));
 		this.controlPanel.add(control);
+		initEventListener();
 	}
 
 	@Override
@@ -39,9 +40,9 @@ public abstract class KeyControl extends Control {
 	protected abstract void handleKeyPressed(String input);
 
 	@Override
-	public void initEventListener(final Ident ident, final State state) {
-		this.ident = ident;
-		this.state = state;
+	public void initEventListener() { // final Ident ident, final State state
+		// this.ident = ident;
+		// this.state = state;
 		control.addFocusListener(new FocusListener() {
 
 			@Override
@@ -52,7 +53,6 @@ public abstract class KeyControl extends Control {
 
 			@Override
 			public void focusGained(FocusEvent arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});

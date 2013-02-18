@@ -1,12 +1,14 @@
-package org.uva.sea.ql.questionnaire.ui.swing.control;
+package org.uva.sea.ql.questionnaire.ui.swing.control.visible;
 
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.questionnaire.state.State;
 
 public class TextControl extends KeyControl {
 
-	public TextControl(State state) {
-		super(state);
+	public TextControl(State state,Ident ident) {
+		super(state, ident);
+		initEventListener();
 	}
 
 	@Override

@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.type;
 
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Bool;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
-import org.uva.sea.ql.questionnaire.ui.swing.control.Control;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleControl;
 
 
 public class BoolType extends Type {
@@ -31,7 +32,7 @@ public class BoolType extends Type {
 	}
 
 	@Override
-	public Control accept(TypeVisitor visitor) {
-		return visitor.visit(this);
+	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
+		return visitor.visit(this,ident);
 	}
 }

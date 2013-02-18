@@ -1,4 +1,4 @@
-package org.uva.sea.ql.questionnaire.ui.swing.control;
+package org.uva.sea.ql.questionnaire.ui.swing.control.visible;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import org.uva.sea.ql.ast.nodes.values.Bool;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.questionnaire.state.State;
 
-public class BoolControl extends Control {
+public class BoolControl extends AbstractVisibleControl {
 	private ButtonGroup radioButtonGroup;
 	private JRadioButton trueButton, falseButton;
 
-	public BoolControl(State state) {
-		super(state);
+	public BoolControl(State state, Ident ident) {
+		super(state, ident);
 		this.trueButton = new JRadioButton("yes");
 		this.falseButton = new JRadioButton("no");
 		this.radioButtonGroup = new ButtonGroup();
@@ -24,6 +24,7 @@ public class BoolControl extends Control {
 		radioButtonGroup.add(falseButton);
 		this.controlPanel.add(trueButton);
 		this.controlPanel.add(falseButton);
+		initEventListener();
 	}
 
 	@Override
@@ -44,9 +45,9 @@ public class BoolControl extends Control {
 	}
 
 	@Override
-	public void initEventListener(final Ident ident, final State state) {
-		this.state = state;
-		this.ident = ident;
+	public void initEventListener() { //final Ident ident, final State state
+//		this.state = state;
+//		this.ident = ident;
 		this.trueButton.addActionListener(new ActionListener() {
 
 			@Override

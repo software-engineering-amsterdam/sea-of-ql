@@ -6,8 +6,9 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
-public class Ident extends Expr {
-	// private final Value value;
+public class Ident extends Expr  {
+
+
 	private String name;
 
 	public Ident(String idName) {

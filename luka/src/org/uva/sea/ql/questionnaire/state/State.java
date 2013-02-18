@@ -8,7 +8,11 @@ import java.util.Observer;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
 
+import com.thoughtworks.xstream.annotations.XStreamImplicit;
+
 public class State {
+	
+	@XStreamImplicit(keyFieldName = "question", itemFieldName = "answer")
 	private final Map<Ident, Value> env;
 	private final Map<Ident, Observable> observables;
 

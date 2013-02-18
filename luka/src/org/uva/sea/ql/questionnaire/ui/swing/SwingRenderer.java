@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
@@ -33,12 +34,14 @@ import org.uva.sea.ql.ast.visitor.TypeVisitor;
 import org.uva.sea.ql.questionnaire.observer.ComputedObserver;
 import org.uva.sea.ql.questionnaire.observer.ConditionObserver;
 import org.uva.sea.ql.questionnaire.state.State;
-import org.uva.sea.ql.questionnaire.ui.swing.control.BoolControl;
-import org.uva.sea.ql.questionnaire.ui.swing.control.Control;
-import org.uva.sea.ql.questionnaire.ui.swing.control.DoubleControl;
-import org.uva.sea.ql.questionnaire.ui.swing.control.IntControl;
-import org.uva.sea.ql.questionnaire.ui.swing.control.MoneyControl;
-import org.uva.sea.ql.questionnaire.ui.swing.control.TextControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.hidden.HiddenControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.BoolControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.DoubleControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.IntControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.MoneyControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.TextControl;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -50,13 +53,17 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	private SwingRenderer(State state) {
 		this.state = state;
 		panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
-
+	
 	public static JPanel renderStatement(Stat statement, State state) {
 		SwingRenderer renderer = new SwingRenderer(state);
 		statement.accept(renderer);
 		return renderer.getPanel();
+	}
+	
+	private void initVisibleComponents(){
+		
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 
 	private JPanel getPanel() {
@@ -72,7 +79,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		this.panel.add(panel);
 	}
 
-	private void add(Control ctl) {
+	private void add(AbstractVisibleControl ctl) {
 		this.panel.add(ctl.getControlElement());
 	}
 
@@ -83,16 +90,16 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		observer.evaluateDependencies();
 	}
 
-	private void registerComputedDeps(ComputedStat stat, Control ctl) {
+	private void registerComputedDeps(ComputedStat stat, AbstractControl ctl) {
 		ComputedObserver observer = new ComputedObserver(ctl, this.state, stat);
 		observer.evaluateDependencies();
 	}
 
-	private void registerPropagator(ComputedStat stat, Control control) {
+	private void registerPropagator(ComputedStat stat, AbstractControl control) {
 		this.state.putObservable(stat.getIdent(), control);
 	}
 
-	private void initValue(ComputedStat stat, Control ctl) {
+	private void initValue(ComputedStat stat, AbstractControl ctl) {
 		Value value = stat.getExpr().accept(new Evaluator(this.state.getEnv()));
 		if (value == null || !value.isDefined()) {
 			value = stat.getType().getDefaultValue();
@@ -102,22 +109,24 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	}
 
 	private void registerHandler(final AnswerableStat stat,
-			final Control control) {
-		control.initEventListener(stat.getIdent(), state);
+			final AbstractVisibleControl control) {
+//		control.initEventListener(stat.getIdent(), state);
 		this.state.putObservable(stat.getIdent(), control);
 	}
 
-	private Control typeToWidget(TypedStat stat, boolean changeable) {
-		Control control = stat.getType().accept(this);
-		control.initEventListener(stat.getIdent(), this.state);
+	private AbstractVisibleControl typeToWidget(TypedStat stat, boolean changeable) {
+		AbstractVisibleControl control = stat.getType().accept(this,stat.getIdent());
+//		control.initEventListener(stat.getIdent(), this.state);
 		control.setIsChangeable(changeable);
 		return control;
 	}
+	
 
 	@Override
 	public void visit(VisibleComputetStat stat) {
+		initVisibleComponents();
 		addLabel(stat.getLabel());
-		Control ctl = typeToWidget(stat, false);
+		AbstractVisibleControl ctl = typeToWidget(stat, false);
 		registerComputedDeps(stat, ctl);
 		registerPropagator(stat, ctl);
 		initValue(stat, ctl);
@@ -126,14 +135,16 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public void visit(AnswerableStat stat) {
+		initVisibleComponents();
 		addLabel(stat.getLabel());
-		Control ctl = typeToWidget(stat, true);
+		AbstractVisibleControl ctl = typeToWidget(stat, true);
 		registerHandler(stat, ctl);
 		add(ctl);
 	}
 
 	@Override
 	public void visit(IfThenStat stat) {
+		initVisibleComponents();
 		JPanel tru = renderStatement(stat.getBody(), state);
 		tru.setBackground(Color.green);
 		registerConditionDeps(stat, tru, null);
@@ -147,6 +158,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public void visit(IfThenElseStat stat) {
+		initVisibleComponents();
 		JPanel tru = renderStatement(stat.getBody(), state);
 		JPanel fls = renderStatement(stat.getElseBody(), state);
 		tru.setBackground(Color.green);
@@ -166,6 +178,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public void visit(Block block) {
+		initVisibleComponents();
 		JPanel blockPanel = new JPanel();
 		blockPanel.setLayout(new BoxLayout(blockPanel, BoxLayout.Y_AXIS));
 		Box box = Box.createVerticalBox();
@@ -178,41 +191,39 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public void visit(HiddenComputetStat stat) {
-		// addLabel(stat.getLabel());
-		// Control ctl = typeToWidget(stat, false);
-		// registerComputedDeps(stat, ctl);
-		// registerPropagator(stat, ctl);
-		// initValue(stat, ctl);
-		// add(ctl);
+		AbstractControl ctl =  new HiddenControl(state,stat.getIdent());//typeToWidget(stat, false);
+		registerComputedDeps(stat, ctl);
+		registerPropagator(stat, ctl);
+		initValue(stat, ctl);
 	}
 
 	@Override
-	public Control visit(BoolType bool) {
-		return new BoolControl(this.state);
+	public AbstractVisibleControl visit(BoolType bool, Ident ident) {
+		return new BoolControl(this.state,ident);
 	}
 
 	@Override
-	public Control visit(IntType i) {
-		return new IntControl(this.state);
+	public AbstractVisibleControl visit(IntType i, Ident ident) {
+		return new IntControl(this.state,ident);
 	}
 
 	@Override
-	public Control visit(MoneyType money) {
-		return new MoneyControl(this.state);
+	public AbstractVisibleControl visit(MoneyType money, Ident ident) {
+		return new MoneyControl(this.state,ident);
 	}
 
 	@Override
-	public Control visit(StringType str) {
-		return new TextControl(this.state);
+	public AbstractVisibleControl visit(StringType str, Ident ident) {
+		return new TextControl(this.state,ident);
 	}
 
 	@Override
-	public Control visit(NumericType i) {
-		return new DoubleControl(this.state);
+	public AbstractVisibleControl visit(NumericType i, Ident ident) {
+		return new DoubleControl(this.state,ident);
 	}
 
 	@Override
-	public Control visit(UndefinedType i) {
+	public AbstractVisibleControl visit(UndefinedType i, Ident ident) {
 		throw new NotImplementedException();
 	}
 

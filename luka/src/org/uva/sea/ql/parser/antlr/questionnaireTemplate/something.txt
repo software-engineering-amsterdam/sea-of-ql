@@ -1,0 +1,8 @@
+form Something{
+intValue : "intValue" integer
+intValue2 : "intValue2" integer
+if(intValue < intValue2){
+intMinusInt: "intMinusInt" boolean
+}
+
+}
