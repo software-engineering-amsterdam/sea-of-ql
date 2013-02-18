@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
-public class Div extends Numeric {
+public class Div extends Arithmetic {
 
 	public Div(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);

@@ -7,17 +7,18 @@ import org.uva.sea.ql.ast.expr.atom.Money;
 import org.uva.sea.ql.ast.expr.binary.AbstractBinary;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
+import org.uva.sea.ql.ast.expr.binary.Arithmetic;
 import org.uva.sea.ql.ast.expr.binary.Div;
 import org.uva.sea.ql.ast.expr.binary.Eq;
+import org.uva.sea.ql.ast.expr.binary.Equality;
 import org.uva.sea.ql.ast.expr.binary.GEq;
 import org.uva.sea.ql.ast.expr.binary.GT;
 import org.uva.sea.ql.ast.expr.binary.LEq;
 import org.uva.sea.ql.ast.expr.binary.LT;
-import org.uva.sea.ql.ast.expr.binary.Logic;
 import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.binary.NEq;
-import org.uva.sea.ql.ast.expr.binary.Numeric;
 import org.uva.sea.ql.ast.expr.binary.Or;
+import org.uva.sea.ql.ast.expr.binary.Relational;
 import org.uva.sea.ql.ast.expr.binary.Sub;
 import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
@@ -65,7 +66,7 @@ public class Expression implements IExpression<ValidationResult> {
 		result.addError(differentType);
 	}
 
-	private ValidationResult validateBinary(Numeric expr) {
+	private ValidationResult validateBinary(Arithmetic expr) {
 		ValidationResult result = new ValidationResult();
 
 		result.addValidationResult(this.validateChildren(expr));
@@ -85,7 +86,7 @@ public class Expression implements IExpression<ValidationResult> {
 		return result;
 	}
 
-	private ValidationResult validateBinary(Logic expr) {
+	private ValidationResult validateBinary(Relational expr) {
 		ValidationResult result = new ValidationResult();
 
 		result.addValidationResult(this.validateChildren(expr));
@@ -100,6 +101,21 @@ public class Expression implements IExpression<ValidationResult> {
 		Boolean isRightBool = this.isOfBooleanType(right);
 		if (!isRightBool) {
 			this.addUnexpectedTypeError(result, expr, right, "Bool");
+		}
+
+		return result;
+	}
+
+	private ValidationResult validateBinary(Equality expr) {
+		ValidationResult result = new ValidationResult();
+
+		result.addValidationResult(this.validateChildren(expr));
+
+		AbstractExpr left = expr.getLeftHandSide();
+		AbstractExpr right = expr.getRightHandSide();
+		Boolean isOfSameType = this.isOfSameType(left, right);
+		if (!isOfSameType) {
+			this.addDifferentTypeError(result, expr, left, right);
 		}
 
 		return result;
@@ -134,20 +150,7 @@ public class Expression implements IExpression<ValidationResult> {
 
 	@Override
 	public ValidationResult visit(Eq eq) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = eq.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = eq.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isOfSameType = this.isOfSameType(left, right);
-		if (!isOfSameType) {
-			this.addDifferentTypeError(result, eq, left, right);
-		}
-
-		return result;
+		return this.validateBinary(eq);
 	}
 
 	@Override
@@ -192,20 +195,7 @@ public class Expression implements IExpression<ValidationResult> {
 
 	@Override
 	public ValidationResult visit(NEq neq) {
-		ValidationResult result = new ValidationResult();
-
-		AbstractExpr left = neq.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
-
-		AbstractExpr right = neq.getRightHandSide();
-		result.addValidationResult(right.accept(this));
-
-		Boolean isOfSameType = this.isOfSameType(left, right);
-		if (!isOfSameType) {
-			this.addDifferentTypeError(result, neq, left, right);
-		}
-
-		return result;
+		return this.validateBinary(neq);
 	}
 
 	@Override

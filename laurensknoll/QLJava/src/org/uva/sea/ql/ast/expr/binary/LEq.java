@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
-public class LEq extends Numeric {
+public class LEq extends Arithmetic {
 
 	public LEq(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);

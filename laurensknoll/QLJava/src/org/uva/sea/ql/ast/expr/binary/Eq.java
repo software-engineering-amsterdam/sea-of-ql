@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.semantic.Environment;
 
-public class Eq extends AbstractBinary {
+public class Eq extends Equality {
 
 	public Eq(AbstractExpr lhsExpr, AbstractExpr rhsExpr) {
 		super(lhsExpr, rhsExpr);
