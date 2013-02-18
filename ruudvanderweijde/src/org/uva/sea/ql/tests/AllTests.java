@@ -24,12 +24,12 @@ import org.uva.sea.ql.tests.value.expression.TestValues;
 	TestCombinations.class, 
 	TestPrimary.class,
 	TestUnary.class, 
-	TestValues.class, 
 	
 	TestIfThen.class,
 	TestIfThenElse.class, 
-	TestQuestion.class
+	TestQuestion.class,
+	
+	TestValues.class 
 })
 public class AllTests {
-
 }
