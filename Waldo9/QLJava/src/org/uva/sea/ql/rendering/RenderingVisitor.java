@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.statements.StatementVisitor;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class RenderingVisitor implements StatementVisitor<Object>, FocusListener {
+public class RenderingVisitor implements StatementVisitor<Object> {
 	
 	private final JPanel panel;
 	private final State state;
@@ -86,7 +86,7 @@ public class RenderingVisitor implements StatementVisitor<Object>, FocusListener
 	}
 	
 	private void registerEventHandler(Question question, JComponent control) {
-		control.addFocusListener(this);
+		control.addFocusListener(new ObservableQuestion(question));
 	}
 
 	private JComponent typeToControl(Type type) {
@@ -98,18 +98,6 @@ public class RenderingVisitor implements StatementVisitor<Object>, FocusListener
 	
 	private void addLabel(StringLiteral label) {
 		panel.add(new JLabel(label.getValue()));
-	}
-
-	@Override
-	public void focusGained(FocusEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void focusLost(FocusEvent arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
