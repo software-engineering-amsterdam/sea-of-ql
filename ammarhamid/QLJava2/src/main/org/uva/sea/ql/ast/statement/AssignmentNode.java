@@ -36,16 +36,4 @@ public class AssignmentNode implements Statement
         return type;
     }
 
-    // TODO move this code to GUI interpreter
-//    public Value evaluate()
-//    {
-//        this.variableScope.assign(this.identifier, this.value);
-//        return null;
-//    }
-
-//    @Override
-//    public String toTreeString(final String indent)
-//    {
-//        return '\n' + this.identifier + " = " +this.value.toTreeString(" ");
-//    }
 }

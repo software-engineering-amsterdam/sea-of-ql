@@ -32,7 +32,6 @@ options
 	import org.uva.sea.ql.ast.expression.impl.NotNode;
 	import org.uva.sea.ql.ast.expression.impl.NegateNode;
 	import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
-	import org.uva.sea.ql.VariableScope;
 	import org.uva.sea.ql.value.Value;
 	import org.uva.sea.ql.value.impl.IntegerValue;
 	import org.uva.sea.ql.value.impl.BooleanValue;
@@ -43,11 +42,6 @@ options
 	import org.uva.sea.ql.type.impl.IntegerType;
 	import org.uva.sea.ql.type.impl.StringType;
 	import org.uva.sea.ql.type.impl.MoneyType;
-}
-
-@members
-{
-    VariableScope currentScope = new VariableScope();
 }
 
 walk returns [Node node]
@@ -63,12 +57,6 @@ block returns [Statement node]
 {
     final BlockNode blockNode = new BlockNode();
     $node = blockNode;
-    final VariableScope scope = new VariableScope(this.currentScope);
-    currentScope = scope;
-}
-@after
-{
-    currentScope = currentScope.getParent();
 }
     :   (statement { blockNode.addStatement($statement.node); })*
     ;
