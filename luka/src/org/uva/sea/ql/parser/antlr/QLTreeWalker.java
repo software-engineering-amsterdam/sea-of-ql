@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g 2013-02-18 19:46:57
+// $ANTLR 3.5 /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g 2013-02-18 20:29:58
 
 package org.uva.sea.ql.parser.antlr;
 import java.util.Map; 
@@ -750,7 +750,7 @@ public class QLTreeWalker extends TreeParser {
 
 
 	// $ANTLR start "ifBlock"
-	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:69:1: ifBlock returns [Stat stat] : ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )? ) ;
+	// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:69:1: ifBlock returns [Stat stat] : ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )* ) ) )? ) ;
 	public final Stat ifBlock() throws RecognitionException {
 		Stat stat = null;
 
@@ -764,8 +764,8 @@ public class QLTreeWalker extends TreeParser {
 		Block elseBl = new Block();
 
 		try {
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:2: ( ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )? ) )
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:4: ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )? )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:2: ( ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )* ) ) )? ) )
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:74:4: ^( IF_STATEMENT ^( IF_CONDITION expression ) ^( IF_BLOCK_TRUE ^( BLOCK (ifBlockItems= blockItem )* ) ) ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )* ) ) )? )
 			{
 			match(input,IF_STATEMENT,FOLLOW_IF_STATEMENT_in_ifBlock250); 
 			match(input, Token.DOWN, null); 
@@ -814,7 +814,7 @@ public class QLTreeWalker extends TreeParser {
 			match(input, Token.UP, null); 
 
 			stat = new IfThenStat(expression12,ifBl);
-			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:2: ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) ) )?
+			// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:2: ( ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )* ) ) )?
 			int alt6=2;
 			int LA6_0 = input.LA(1);
 			if ( (LA6_0==IF_BLOCK_FALSE) ) {
@@ -822,43 +822,41 @@ public class QLTreeWalker extends TreeParser {
 			}
 			switch (alt6) {
 				case 1 :
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:3: ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )+ ) )
+					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:3: ^( IF_BLOCK_FALSE ^( BLOCK (elseBlockItems= blockItem )* ) )
 					{
 					match(input,IF_BLOCK_FALSE,FOLLOW_IF_BLOCK_FALSE_in_ifBlock282); 
 					match(input, Token.DOWN, null); 
 					match(input,BLOCK,FOLLOW_BLOCK_in_ifBlock285); 
-					match(input, Token.DOWN, null); 
-					// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:28: (elseBlockItems= blockItem )+
-					int cnt5=0;
-					loop5:
-					while (true) {
-						int alt5=2;
-						int LA5_0 = input.LA(1);
-						if ( (LA5_0==ASSIGNMENT||LA5_0==IF_STATEMENT) ) {
-							alt5=1;
-						}
-
-						switch (alt5) {
-						case 1 :
-							// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:29: elseBlockItems= blockItem
-							{
-							pushFollow(FOLLOW_blockItem_in_ifBlock290);
-							elseBlockItems=blockItem();
-							state._fsp--;
-
-							elseBl.addStatement(elseBlockItems);
+					if ( input.LA(1)==Token.DOWN ) {
+						match(input, Token.DOWN, null); 
+						// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:28: (elseBlockItems= blockItem )*
+						loop5:
+						while (true) {
+							int alt5=2;
+							int LA5_0 = input.LA(1);
+							if ( (LA5_0==ASSIGNMENT||LA5_0==IF_STATEMENT) ) {
+								alt5=1;
 							}
-							break;
 
-						default :
-							if ( cnt5 >= 1 ) break loop5;
-							EarlyExitException eee = new EarlyExitException(5, input);
-							throw eee;
+							switch (alt5) {
+							case 1 :
+								// /Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/QLTreeWalker.g:75:29: elseBlockItems= blockItem
+								{
+								pushFollow(FOLLOW_blockItem_in_ifBlock290);
+								elseBlockItems=blockItem();
+								state._fsp--;
+
+								elseBl.addStatement(elseBlockItems);
+								}
+								break;
+
+							default :
+								break loop5;
+							}
 						}
-						cnt5++;
-					}
 
-					match(input, Token.UP, null); 
+						match(input, Token.UP, null); 
+					}
 
 					match(input, Token.UP, null); 
 

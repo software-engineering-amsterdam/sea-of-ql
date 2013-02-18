@@ -33,8 +33,7 @@ public class SaveButtonActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		final XStream xstream = new XStream(new DomDriver()); // new
-																// StaxDriver()
+		final XStream xstream = new XStream(new DomDriver()); 
 		try {
 
 			FileOutputStream output = new FileOutputStream(this.fileLocation);

@@ -17,6 +17,7 @@ public class UndefinedValue extends Value {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		throw new RuntimeException("Can not visit Type UndefinedValue");
+//		return visitor.visit(this);
 	}
 
 	@Override
@@ -36,27 +37,27 @@ public class UndefinedValue extends Value {
 
 	@Override
 	public Value add(Value arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
 	public Value and(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	public Value or(Value arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
 	public Value equ(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	public Value nEqu(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class UndefinedValue extends Value {
 
 	@Override
 	protected Value notBool(Bool arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
@@ -76,17 +77,17 @@ public class UndefinedValue extends Value {
 
 	@Override
 	public Value div(Value arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
 	public Value mul(Value arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
 	public Value sub(Value arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
@@ -96,105 +97,97 @@ public class UndefinedValue extends Value {
 
 	@Override
 	public Value lt(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	public Value lEq(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	public Value gt(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	public Value gEq(Value arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value andBool(Bool arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value orBool(Bool arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value equBool(Bool arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value addInt(Numeric arg) {
-
-		return arg;
+		return this;
 	}
 
 	@Override
 	protected Value divInt(Numeric arg) {
-
-		return arg;
+		return this;
 	}
 
 	@Override
 	protected Value mulInt(Numeric arg) {
-
-		return arg;
+		return this;
 	}
 
 	@Override
 	protected Value subInt(Numeric arg) {
-		return arg;
+		return this;
 	}
 
 	@Override
 	protected Value equInt(Numeric arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value posInt(Numeric arg) {
-
-		return new Int(arg.getValue().intValue());
+		return this;
 	}
 
 	@Override
 	protected Value negInt(Numeric arg) {
-
-		return new Int(-arg.getValue().intValue());
+		return this;
 	}
 
 	@Override
 	protected Value ltInt(Numeric arg) {
-
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value lEqInt(Numeric arg) {
-
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value gtInt(Numeric arg) {
-
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value gEqInt(Numeric arg) {
-		return new Bool(false);
+		return this;
 	}
 
 	@Override
 	protected Value nEquInt(Numeric arg) {
-		return new Bool(false);
+		return this;
 	}
 
 }

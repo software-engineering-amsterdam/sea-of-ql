@@ -37,6 +37,10 @@ public class BoolControl extends AbstractVisibleControl {
 	public void setValue(Value value) {
 
 		if (value.isDefined() && value.typeOf(null).isCompatibleToBool()) {
+			if(!isChangeable){
+				trueButton.setSelected((Boolean) value.getValue());
+				falseButton.setSelected(!(Boolean) value.getValue());
+			}
 			setChanged();
 			state.putValue(this.ident, value);
 			state.notify(this.ident);

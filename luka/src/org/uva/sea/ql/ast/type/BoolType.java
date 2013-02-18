@@ -8,9 +8,12 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleCont
 
 
 public class BoolType extends Type {
+	
+	@Override
+	public Value getNumberOfType(Number number) {
+		throw new UnsupportedOperationException();
+	}
 
-
-	//Double dispatch
 	@Override
 	  public boolean isCompatibleTo(Type t){
 		return t.isCompatibleToBool();

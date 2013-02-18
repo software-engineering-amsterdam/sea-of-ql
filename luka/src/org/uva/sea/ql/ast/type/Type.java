@@ -7,8 +7,11 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleCont
 
 public abstract class Type {
 
-	public abstract AbstractVisibleControl accept(TypeVisitor visitor, Ident ident);
-	
+	public abstract Value getNumberOfType(Number number);
+
+	public abstract AbstractVisibleControl accept(TypeVisitor visitor,
+			Ident ident);
+
 	public abstract Value getDefaultValue();
 
 	public abstract boolean isCompatibleTo(Type t);
@@ -32,10 +35,9 @@ public abstract class Type {
 	public boolean isCompatibleToMoney() {
 		return false;
 	}
-	
-	public boolean isCompatibleToDoule(){
+
+	public boolean isCompatibleToDoule() {
 		return false;
 	}
-	
-	
+
 }

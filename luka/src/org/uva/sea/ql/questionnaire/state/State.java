@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.nodes.values.Value;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
 public class State {
-	
+
 	@XStreamImplicit(keyFieldName = "question", itemFieldName = "answer")
 	private final Map<Ident, Value> env;
 	private final Map<Ident, Observable> observables;
@@ -40,4 +40,12 @@ public class State {
 	public Map<Ident, Value> getEnv() {
 		return this.env;
 	}
+
+//	private void printEnv() {
+//		System.err.println("----->");
+//		for (Ident i : env.keySet()) {
+//			System.err.println(i.toString() + " - " + env.get(i).toString());
+//		}
+//		System.err.println("<-----");
+//	}
 }

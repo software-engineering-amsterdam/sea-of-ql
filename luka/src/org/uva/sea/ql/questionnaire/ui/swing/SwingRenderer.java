@@ -28,9 +28,9 @@ import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.NumericType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.UndefinedType;
-import org.uva.sea.ql.ast.visitor.Evaluator;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
+import org.uva.sea.ql.questionnaire.check.Evaluator;
 import org.uva.sea.ql.questionnaire.observer.ComputedObserver;
 import org.uva.sea.ql.questionnaire.observer.ConditionObserver;
 import org.uva.sea.ql.questionnaire.state.State;
@@ -54,15 +54,15 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		this.state = state;
 		panel = new JPanel();
 	}
-	
+
 	public static JPanel renderStatement(Stat statement, State state) {
 		SwingRenderer renderer = new SwingRenderer(state);
 		statement.accept(renderer);
 		return renderer.getPanel();
 	}
-	
-	private void initVisibleComponents(){
-		
+
+	private void initVisibleComponents() {
+
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 
@@ -101,26 +101,26 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	private void initValue(ComputedStat stat, AbstractControl ctl) {
 		Value value = stat.getExpr().accept(new Evaluator(this.state.getEnv()));
-		if (value == null || !value.isDefined()) {
-			value = stat.getType().getDefaultValue();
+		if (value != null && value.isDefined()) {
+			ctl.setValue(value);
+			this.state.putValue(stat.getIdent(), value);
 		}
-		ctl.setValue(value);
-		this.state.putValue(stat.getIdent(), value);
 	}
 
 	private void registerHandler(final AnswerableStat stat,
 			final AbstractVisibleControl control) {
-//		control.initEventListener(stat.getIdent(), state);
+		// control.initEventListener(stat.getIdent(), state);
 		this.state.putObservable(stat.getIdent(), control);
 	}
 
-	private AbstractVisibleControl typeToWidget(TypedStat stat, boolean changeable) {
-		AbstractVisibleControl control = stat.getType().accept(this,stat.getIdent());
-//		control.initEventListener(stat.getIdent(), this.state);
+	private AbstractVisibleControl typeToWidget(TypedStat stat,
+			boolean changeable) {
+		AbstractVisibleControl control = stat.getType().accept(this,
+				stat.getIdent());
+		// control.initEventListener(stat.getIdent(), this.state);
 		control.setIsChangeable(changeable);
 		return control;
 	}
-	
 
 	@Override
 	public void visit(VisibleComputetStat stat) {
@@ -166,6 +166,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		registerConditionDeps(stat, tru, fls);
 		Value trueState = stat.getCondition().accept(
 				new Evaluator(this.state.getEnv()));
+		System.err.println("trueState: " + trueState.toString());
 		boolean isTruVisible = trueState.isDefined()
 				&& (Boolean) trueState.getValue();
 		boolean isFalseVisible = trueState.isDefined()
@@ -191,7 +192,8 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public void visit(HiddenComputetStat stat) {
-		AbstractControl ctl =  new HiddenControl(state,stat.getIdent());//typeToWidget(stat, false);
+		AbstractControl ctl = new HiddenControl(state, stat.getIdent());// typeToWidget(stat,
+																		// false);
 		registerComputedDeps(stat, ctl);
 		registerPropagator(stat, ctl);
 		initValue(stat, ctl);
@@ -199,27 +201,27 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public AbstractVisibleControl visit(BoolType bool, Ident ident) {
-		return new BoolControl(this.state,ident);
+		return new BoolControl(this.state, ident);
 	}
 
 	@Override
 	public AbstractVisibleControl visit(IntType i, Ident ident) {
-		return new IntControl(this.state,ident);
+		return new IntControl(this.state, ident);
 	}
 
 	@Override
 	public AbstractVisibleControl visit(MoneyType money, Ident ident) {
-		return new MoneyControl(this.state,ident);
+		return new MoneyControl(this.state, ident);
 	}
 
 	@Override
 	public AbstractVisibleControl visit(StringType str, Ident ident) {
-		return new TextControl(this.state,ident);
+		return new TextControl(this.state, ident);
 	}
 
 	@Override
 	public AbstractVisibleControl visit(NumericType i, Ident ident) {
-		return new DoubleControl(this.state,ident);
+		return new DoubleControl(this.state, ident);
 	}
 
 	@Override

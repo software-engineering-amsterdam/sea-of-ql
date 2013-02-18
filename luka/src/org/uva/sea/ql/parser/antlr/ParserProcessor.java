@@ -18,15 +18,6 @@ public class ParserProcessor {
 	private Map<Ident, Type> typeEnv;
 
 	public Expr checkExpression(String src) throws RecognitionException{
-//		QLLexer lex = new QLLexer(new ANTLRStringStream(src));
-//		CommonTokenStream tokens = new CommonTokenStream(lex);
-//		QLParser parser = new QLParser(tokens);
-//
-//		CommonTree tree = (CommonTree) parser.parse().getTree();
-//		CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);
-//		QLTreeWalker walker = new QLTreeWalker(nodes);
-//		return walker.expression();
-		
 		QLLexer lex= new QLLexer(new ANTLRStringStream(src));
 		CommonTokenStream tokens = new CommonTokenStream(lex);
 		QLParser parser = new QLParser(tokens);

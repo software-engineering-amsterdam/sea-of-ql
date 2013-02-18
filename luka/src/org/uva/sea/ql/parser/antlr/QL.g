@@ -36,7 +36,6 @@ import java.util.HashMap;
 @parser::members{
 	public Map<Ident,Type> typeEnv = new HashMap<Ident,Type>();
 	private void mapIdentToType(String identName,Type type){
-	//System.out.println("Adding: "+identName + type.toString());
 		typeEnv.put(new Ident(identName),type);
 	}
 	

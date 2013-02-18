@@ -72,7 +72,7 @@ Block ifBl = new Block();
 Block elseBl = new Block();
 }
 	: ^(IF_STATEMENT  ^(IF_CONDITION expression ) ^(IF_BLOCK_TRUE ^(BLOCK (ifBlockItems=blockItem {ifBl. addStatement($ifBlockItems.stat);})*)) {$stat = new IfThenStat($expression.result,ifBl);}
-	(^(IF_BLOCK_FALSE ^(BLOCK (elseBlockItems=blockItem {elseBl.addStatement($elseBlockItems.stat);})+)) {$stat = new IfThenElseStat($expression.result,ifBl,elseBl);} )?) 
+	(^(IF_BLOCK_FALSE ^(BLOCK (elseBlockItems=blockItem {elseBl.addStatement($elseBlockItems.stat);})*)) {$stat = new IfThenElseStat($expression.result,ifBl,elseBl);} )?) 
 	;
 	
 	

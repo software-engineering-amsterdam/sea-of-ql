@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.visitor;
+package org.uva.sea.ql.questionnaire.check;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,9 @@ import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.Stat;
 import org.uva.sea.ql.ast.stat.TypedStat;
 import org.uva.sea.ql.ast.stat.VisibleComputetStat;
+import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class CheckStat implements StatementVisitor {
 
@@ -40,12 +42,6 @@ public class CheckStat implements StatementVisitor {
 		}
 	}
 
-	// @Override
-	// public void visit(ComputedStat stat) {
-	// checkStatType(stat, stat.getExpr().typeOf(typeEnv));
-	// checkExpr(stat.getExpr());
-	// }
-
 	@Override
 	public void visit(VisibleComputetStat stat) {
 		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
@@ -67,12 +63,22 @@ public class CheckStat implements StatementVisitor {
 	@Override
 	public void visit(IfThenStat stat) {
 		checkCondition(stat);
+		if (stat.getBody() == null || stat.getBody().getStatements().isEmpty()) {
+			addError(stat, "Empty body in <if> not allowed!");
+		}
 		stat.getBody().accept(this);
 	}
 
 	@Override
 	public void visit(IfThenElseStat stat) {
 		checkCondition(stat);
+		if (stat.getBody() == null || stat.getBody().getStatements().isEmpty()) {
+			addError(stat, "Empty body in <if> not allowed!");
+		}
+		if (stat.getElseBody() == null
+				|| stat.getElseBody().getStatements().isEmpty()) {
+			addError(stat, "Empty body in <else> not allowed!");
+		}
 		stat.getBody().accept(this);
 		stat.getElseBody().accept(this);
 	}
@@ -82,9 +88,14 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	private void checkCondition(ConditionalStat stat) {
-		checkExpr(stat.getCondition());
-		if (stat.getBody().getStatements().isEmpty()) {
-			addError(stat, "Invalid if block size, must not be empty");
+		if (!checkExpr(stat.getCondition())) {
+			addError(stat, "Something wrong with conditional statement !");
+		}
+		if (stat.getCondition() == null
+				|| stat.getCondition().typeOf(typeEnv).getClass() != BoolType.class) {
+			addError(stat,
+					"Conditional statemant  must be of type <boolean> but is :"
+							+ stat.getCondition().typeOf(typeEnv).toString());
 		}
 	}
 

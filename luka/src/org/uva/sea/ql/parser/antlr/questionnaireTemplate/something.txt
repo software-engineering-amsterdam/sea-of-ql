@@ -1,8 +1,31 @@
 form Something{
-intValue : "intValue" integer
-intValue2 : "intValue2" integer
-if(intValue < intValue2){
-intMinusInt: "intMinusInt" boolean
+boolVal1 : "boolVal1" boolean
+computedBool1: "computedBool1" boolean(boolVal1)
+computedBoo2: "computedBool2" boolean(computedBool1)
+computedBoo3: "computedBool3" boolean(computedBoo2)
+if(computedBoo3){
+boolCombo : "yeses!" string("righty right")
 }
+intValue1 : "intValue1" integer
+doubleValue1 : "doubleValue1" double
+
+if(intValue1 >0 && (doubleValue1*2-100)<= 100){
+calculatedInt: "first question +2.2 int" integer(intValue1 + 2.2)
+calculatedDouble: "first question +2.2 double" double(intValue1 + 2.2)
+calculatedMoney: "first question +2.2 money" money(intValue1 + 2.2)
+}
+if(doubleValue1 >0){
+calculatedInt1: "first question +2.2 int" integer(doubleValue1 + 2.2)
+calculatedDouble1: "first question +2.2 double" double(doubleValue1 + 2.2)
+calculatedMoney1: "first question +2.2 money" money(doubleValue1 + 2.2)
+}
+intValue2 : "intValue2" integer
+doubleValue2 : "intValue2" double
+if(intValue2 >0){
+calculatedInt3: "first question /2.2 int" integer(intValue2 / 2.2)
+calculatedDouble2: "first question /2.2 double" double(intValue2 / 2.2)
+calculatedMoney2: "first question /2.2 money" money(intValue2 / 2.2)
+}
+calculatedHIDDENInt:  integer(intValue2 * 2.2)
 
 }

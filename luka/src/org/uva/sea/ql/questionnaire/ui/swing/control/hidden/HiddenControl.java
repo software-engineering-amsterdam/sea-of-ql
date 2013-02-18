@@ -14,7 +14,6 @@ public class HiddenControl extends AbstractControl {
 
 	@Override
 	public void setValue(Value value) {
-		System.err.println("setting value for hiddenControl:"+value.getValue().toString());
 		setChanged();
 		state.putValue(this.ident, value);
 		state.notify(ident);

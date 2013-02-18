@@ -34,15 +34,17 @@ public abstract class KeyControl extends AbstractVisibleControl {
 		setChanged();
 		state.putValue(this.ident, value);
 		state.notify(ident);
-		control.setText(value.getValue().toString());
+		if(value.isDefined()){
+			control.setText(value.getValue().toString());
+		}
+		
 	}
 
 	protected abstract void handleKeyPressed(String input);
 
 	@Override
-	public void initEventListener() { // final Ident ident, final State state
-		// this.ident = ident;
-		// this.state = state;
+	public void initEventListener() { 
+
 		control.addFocusListener(new FocusListener() {
 
 			@Override

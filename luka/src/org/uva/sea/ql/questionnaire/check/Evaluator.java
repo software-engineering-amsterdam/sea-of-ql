@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.visitor;
+package org.uva.sea.ql.questionnaire.check;
 
 import java.util.Collections;
 import java.util.Map;
@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.nodes.values.UndefinedValue;
 import org.uva.sea.ql.ast.nodes.values.Value;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class Evaluator implements Visitor<Value> {
 
@@ -79,7 +80,6 @@ public class Evaluator implements Visitor<Value> {
 
 	@Override
 	public Value visit(Add exp) {
-
 		Value l = exp.getLhs().accept(this);
 		Value r = exp.getRhs().accept(this);
 		return l.add(r);

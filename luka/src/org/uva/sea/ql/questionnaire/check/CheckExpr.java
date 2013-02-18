@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.visitor;
+package org.uva.sea.ql.questionnaire.check;
 
 import java.util.List;
 import java.util.Map;
@@ -27,6 +27,7 @@ import org.uva.sea.ql.ast.nodes.values.Int;
 import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class CheckExpr implements Visitor<Boolean> {
 
