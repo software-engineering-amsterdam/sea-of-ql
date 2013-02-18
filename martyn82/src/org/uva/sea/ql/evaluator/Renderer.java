@@ -137,7 +137,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( IfThen node ) {
-		Value conditionValue = Evaluator.evaluate( node.getCondition(), this.environment );
+		Value conditionValue = ExpressionEvaluator.evaluate( node.getCondition(), this.environment );
 		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
@@ -156,7 +156,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( IfThenElse node ) {
-		Value conditionValue = Evaluator.evaluate( node.getCondition(), this.environment );
+		Value conditionValue = ExpressionEvaluator.evaluate( node.getCondition(), this.environment );
 		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
 		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
@@ -175,7 +175,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( VariableDeclaration node ) {
-		Value value = TypeInitializer.initType( node.getType() );
+		Value value = TypeEvaluator.initType( node.getType() );
 		this.environment.assign( node.getIdentifier(), value );
 
 		return null;
@@ -183,7 +183,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( Assignment node ) {
-		Value value = Evaluator.evaluate( node.getExpression(), this.environment );
+		Value value = ExpressionEvaluator.evaluate( node.getExpression(), this.environment );
 		this.environment.assign( node.getIdentifier(), value );
 
 		return null;
@@ -205,7 +205,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		node.getVarDeclaration().accept( this );
 
 		Type type = node.getType();
-		Value value = TypeInitializer.initType( type );
+		Value value = TypeEvaluator.initType( type );
 
 		String label = node.getLabel().getValue();
 		Control control = this.createEditableControlFromType( type, value );

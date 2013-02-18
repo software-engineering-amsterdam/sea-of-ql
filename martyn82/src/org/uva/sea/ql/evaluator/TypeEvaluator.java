@@ -12,13 +12,13 @@ import org.uva.sea.ql.value.StringValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
-class TypeInitializer implements TypeVisitor<Value> {
+class TypeEvaluator implements TypeVisitor<Value> {
 	public static Value initType( Type node ) {
-		TypeInitializer init = new TypeInitializer();
+		TypeEvaluator init = new TypeEvaluator();
 		return node.accept( init );
 	}
 
-	private TypeInitializer() {}
+	private TypeEvaluator() {}
 
 	@Override
 	public Value visit( BooleanType node ) {
@@ -37,6 +37,6 @@ class TypeInitializer implements TypeVisitor<Value> {
 
 	@Override
 	public Value visit( MoneyType node ) {
-		return new MoneyValue( 0d );
+		return new MoneyValue( 0.00d );
 	}
 }

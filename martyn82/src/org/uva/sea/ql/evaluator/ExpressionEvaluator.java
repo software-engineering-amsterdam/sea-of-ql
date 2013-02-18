@@ -29,15 +29,15 @@ import org.uva.sea.ql.value.StringValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-class Evaluator implements ExpressionVisitor<Value> {
+class ExpressionEvaluator implements ExpressionVisitor<Value> {
 	private final ValueEnvironment environment;
 
-	private Evaluator( ValueEnvironment environment ) {
+	private ExpressionEvaluator( ValueEnvironment environment ) {
 		this.environment = environment;
 	}
 
 	public static Value evaluate( Expression node, ValueEnvironment environment ) {
-		return node.accept( new Evaluator( environment ) );
+		return node.accept( new ExpressionEvaluator( environment ) );
 	}
 
 	@Override

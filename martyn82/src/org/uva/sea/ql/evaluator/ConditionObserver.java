@@ -26,7 +26,7 @@ class ConditionObserver implements Observer {
 
 	@Override
 	public void update( Observable observable, Object arg ) {
-		Value value = Evaluator.evaluate( this.condition, this.environment );
+		Value value = ExpressionEvaluator.evaluate( this.condition, this.environment );
 		boolean visible = ( (BooleanValue) value ).getValue();
 
 		this.trueControl.setVisible( visible );
