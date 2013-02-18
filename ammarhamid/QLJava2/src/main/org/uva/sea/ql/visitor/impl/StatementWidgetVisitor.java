@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.statement.impl.BlockNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.visitor.observer.ConditionObserver;
+import org.uva.sea.ql.observer.ConditionObserver;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import javax.swing.*;
