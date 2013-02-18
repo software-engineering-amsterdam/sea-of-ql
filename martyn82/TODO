@@ -1,11 +1,6 @@
 TODO
 ----
-- Environment
-    - Add column and linenumber to TypeErrors.
-- Store type in question
-
-operator instanceof is only valid in some cases when the RHS is a type/interface, not a class.
-
+- Add column and linenumber to TypeErrors.
 - The type checker needs an environment with an Identity:Type map
 - The evaluator needs an environment with an Identity:Value map
 - Use interface types as typehint for arguments and return types.
