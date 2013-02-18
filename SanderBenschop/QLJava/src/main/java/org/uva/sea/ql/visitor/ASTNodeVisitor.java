@@ -19,32 +19,48 @@ public interface ASTNodeVisitor<T> {
     T visitForm(Form form);
 
     T visitComputation(Computation computation);
+
     T visitIfStatement(IfStatement ifStatement);
+
     T visitIfElseStatement(IfElseStatement ifElseStatement);
+
     T visitQuestion(Question question);
 
     T visitPositive(Positive positive);
+
     T visitNegative(Negative negative);
+
     T visitNot(Not not);
 
     T visitMultiply(Multiply multiply);
+
     T visitDivide(Divide divide);
+
     T visitSubtract(Subtract subtract);
+
     T visitAdd(Add add);
 
     T visitAnd(And and);
+
     T visitOr(Or or);
 
     T visitEqualTo(EqualTo equalTo);
+
     T visitNotEqualTo(NotEqualTo notEqualTo);
 
     T visitGreaterThan(GreaterThan greaterThan);
+
     T visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo);
+
     T visitLessThan(LessThan lessThan);
+
     T visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo);
 
     T visitIdent(Ident ident);
+
     T visitBool(Bool boolLiteral);
+
     T visitInt(Int intLiteral);
+
     T visitStr(Str str);
 }

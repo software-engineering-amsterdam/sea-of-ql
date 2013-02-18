@@ -20,7 +20,7 @@ public class QuestionTypeCheckingVisitorTest {
 
     @Before
     public void init() throws IllegalAccessException {
-        sourceCodeInformation = new SourceCodeInformationImpl(0,0);
+        sourceCodeInformation = new SourceCodeInformationImpl(0, 0);
         semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 

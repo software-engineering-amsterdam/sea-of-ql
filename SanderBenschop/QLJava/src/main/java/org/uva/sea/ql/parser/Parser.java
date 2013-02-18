@@ -11,7 +11,7 @@ public interface Parser {
 
     Form parse(File file) throws IOException;
 
-	Form parse(String src);
+    Form parse(String src);
 
     boolean hasErrors();
 

@@ -32,14 +32,14 @@ public class ConditionalTest extends TestParser {
     @Test
     public void shouldNotHaveDanglingElseProblemBecauseOfMandatoryBrackets() throws ParseException {
         String parseText = "if(true) {" +       //Outer conditional & successBlock start
-                                "if(false) {" + //Inner conditional & successBlock start
-                                "q1 : \"What is 2*2?\" integer" +
-                                "} else {" +    //Inner successBlock end & failureBlock start
-                                "q2 : \"What is 1+1?\" integer" +
-                                "}" +           //Inner failureBlock end
-                            "} else {" +        //Outer successBlock end & failureBlock start
-                            "q3 : \"What is 2^9?\" integer" +
-                            "}";                //Outer failureBlock & conditional end
+                "if(false) {" + //Inner conditional & successBlock start
+                "q1 : \"What is 2*2?\" integer" +
+                "} else {" +    //Inner successBlock end & failureBlock start
+                "q2 : \"What is 1+1?\" integer" +
+                "}" +           //Inner failureBlock end
+                "} else {" +        //Outer successBlock end & failureBlock start
+                "q3 : \"What is 2^9?\" integer" +
+                "}";                //Outer failureBlock & conditional end
 
         assertOuterConditional(parseText);
     }

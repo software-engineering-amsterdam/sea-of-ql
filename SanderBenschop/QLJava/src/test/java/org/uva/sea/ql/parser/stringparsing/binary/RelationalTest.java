@@ -13,12 +13,12 @@ public class RelationalTest extends TestParser {
 
     @Test
     public void shouldEvaluateToRelationalClasses() throws ParseException {
-        assertEquals(LessThan.class,  parseExpression("a < b").getClass());
-        assertEquals(LessThan.class,  parseExpression("a < b + c").getClass());
-        assertEquals(LessThan.class,  parseExpression("a < (b * c)").getClass());
-        assertEquals(LessThan.class,  parseExpression("(a * b) < c").getClass());
+        assertEquals(LessThan.class, parseExpression("a < b").getClass());
+        assertEquals(LessThan.class, parseExpression("a < b + c").getClass());
+        assertEquals(LessThan.class, parseExpression("a < (b * c)").getClass());
+        assertEquals(LessThan.class, parseExpression("(a * b) < c").getClass());
         assertEquals(LessThanOrEqualTo.class, parseExpression("(a <= b)").getClass());
-        assertEquals(GreaterThan.class,  parseExpression("a + b > c").getClass());
-        assertEquals(GreaterThan.class,  parseExpression("a > b + c").getClass());
+        assertEquals(GreaterThan.class, parseExpression("a + b > c").getClass());
+        assertEquals(GreaterThan.class, parseExpression("a > b + c").getClass());
     }
 }

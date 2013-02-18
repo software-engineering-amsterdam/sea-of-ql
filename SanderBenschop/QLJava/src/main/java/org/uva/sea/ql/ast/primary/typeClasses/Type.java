@@ -7,7 +7,10 @@ public interface Type {
     boolean canBeAssignedFrom(String value);
 
     boolean isCompatibleTo(Type type);
+
     boolean isCompatibleToBooleanType();
+
     boolean isCompatibleToIntegerType();
+
     boolean isCompatibleToStringType();
 }

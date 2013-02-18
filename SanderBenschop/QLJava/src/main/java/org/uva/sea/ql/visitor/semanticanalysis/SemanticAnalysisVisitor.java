@@ -238,7 +238,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
         QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
-        if (! (leftHandSideCorrect && rightHandSideCorrect) ) {
+        if (!(leftHandSideCorrect && rightHandSideCorrect)) {
             return false;
         }
 
@@ -246,11 +246,11 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
 
         boolean leftHandSideCompatible = leftHandSideType.isCompatibleTo(expectedType), rightHandSideCompatible = rightHandSideType.isCompatibleTo(expectedType);
 
-        if(!leftHandSideCompatible) {
+        if (!leftHandSideCompatible) {
             addErrorForUnsupportedType(binaryOperation.getSourceCodeInformation(), expectedType, leftHandSideType);
         }
 
-        if(!rightHandSideCompatible) {
+        if (!rightHandSideCompatible) {
             addErrorForUnsupportedType(binaryOperation.getSourceCodeInformation(), expectedType, rightHandSideType);
         }
 
@@ -261,7 +261,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
         QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
-        if (! (leftHandSideCorrect && rightHandSideCorrect) ) {
+        if (!(leftHandSideCorrect && rightHandSideCorrect)) {
             return false;
         }
 

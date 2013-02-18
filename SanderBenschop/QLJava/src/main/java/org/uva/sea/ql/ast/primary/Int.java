@@ -8,19 +8,19 @@ import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 
 public final class Int extends ObjectLiteral<Integer> {
 
-	private final int value;
+    private final int value;
     private final Type returningType;
 
-	public Int(int value, SourceCodeInformation sourceInfo) {
+    public Int(int value, SourceCodeInformation sourceInfo) {
         super(sourceInfo);
-		this.value = value;
+        this.value = value;
         this.returningType = new IntegerType();
-	}
+    }
 
-	@Override
-	public Integer getValue() {
-		return value;
-	}
+    @Override
+    public Integer getValue() {
+        return value;
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor.codegeneration.codewrapper;
 
-public class SimpleStatementWebappCodeWrapper implements StatementWebappCodeWrapper{
+public class SimpleStatementWebappCodeWrapper implements StatementWebappCodeWrapper {
 
     private final String javascriptCode;
     private final String htmlCode;

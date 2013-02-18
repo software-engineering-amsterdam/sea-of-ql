@@ -11,10 +11,10 @@ public class Positive extends UnaryOperation {
 
     private final Type returningType;
 
-	public Positive(QLExpression expression, SourceCodeInformation sourceInfo) {
-		super(expression, sourceInfo);
+    public Positive(QLExpression expression, SourceCodeInformation sourceInfo) {
+        super(expression, sourceInfo);
         this.returningType = new IntegerType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

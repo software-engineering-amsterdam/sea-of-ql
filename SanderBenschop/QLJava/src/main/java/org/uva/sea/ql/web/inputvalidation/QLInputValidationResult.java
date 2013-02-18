@@ -7,5 +7,6 @@ public interface QLInputValidationResult {
     String NAMED_ERROR_MESSAGE_TEMPLATE = "No valid input for passed identifier name '%s'. ";
 
     boolean isCorrect();
+
     String getMessage();
 }

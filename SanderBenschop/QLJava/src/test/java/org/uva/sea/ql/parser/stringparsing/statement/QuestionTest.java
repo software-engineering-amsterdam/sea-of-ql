@@ -16,20 +16,20 @@ public class QuestionTest extends TestParser {
 
     @Test
     public void shouldEvaluateToQuestionClass() throws ParseException {
-    	QLStatement question = parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
+        QLStatement question = parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
         assertEquals(Question.class, question.getClass());
         assertEquals(BooleanType.class, ((Question) question).getDatatype().getClass());
     }
 
     @Test
     public void shouldHaveDatatypeBool() throws ParseException {
-    	Question question = (Question) parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
+        Question question = (Question) parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
         assertEquals(BooleanType.class, question.getDatatype().getClass());
     }
 
     @Test
     public void shouldHaveDatatypeInt() throws ParseException {
-    	Question question = (Question) parseStatement("age : \"How old are you?\" integer");
+        Question question = (Question) parseStatement("age : \"How old are you?\" integer");
         assertEquals(IntegerType.class, question.getDatatype().getClass());
     }
 

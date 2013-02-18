@@ -25,7 +25,7 @@ public class QuestionValidator implements QLInputValidator {
     @Override
     public QLInputValidationResult validateInput(IdentifierValuePair[] identifierValuePairs) {
         CompoundValidationResult compoundValidationResult = new CompoundValidationResult();
-        for(IdentifierValuePair identifierValuePair : identifierValuePairs) {
+        for (IdentifierValuePair identifierValuePair : identifierValuePairs) {
             QLInputValidationResult result = validateInput(identifierValuePair);
             compoundValidationResult.addInputValidationResult(result);
         }

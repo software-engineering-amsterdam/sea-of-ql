@@ -8,19 +8,19 @@ import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 
 public final class Bool extends ObjectLiteral<Boolean> {
 
-	private final boolean value;
-	private final Type returningType;
+    private final boolean value;
+    private final Type returningType;
 
-	public Bool(boolean value, SourceCodeInformation sourceInfo) {
+    public Bool(boolean value, SourceCodeInformation sourceInfo) {
         super(sourceInfo);
-		this.value = value;
+        this.value = value;
         this.returningType = new BooleanType();
-	}
-	
-	@Override
-	public Boolean getValue() {
-		return value;
-	}
+    }
+
+    @Override
+    public Boolean getValue() {
+        return value;
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

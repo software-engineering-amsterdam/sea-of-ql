@@ -20,15 +20,15 @@ public class CompleteFormTest extends TestParser {
     public void shouldParseCompleteForm() throws ParseException {
         //Source is from lecture #1
         String source = "form Box1HouseOwning {\n" +
-        "hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n"  +
-        "hasBoughtHouse: \"Did you buy a house in 2010?\" boolean\n"  +
-        "hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n"  +
-        "if (hasSoldHouse) {\n" +
-        "sellingPrice: \"Price the house was sold for:\" integer\n" +
-        "privateDebt: \"Private debts for the sold house:\" integer\n" +
-        "valueResidue: \"Value residue:\" (sellingPrice - privateDebt)\n" +
-        "}\n" +
-        "}\n";
+                "hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n" +
+                "hasBoughtHouse: \"Did you buy a house in 2010?\" boolean\n" +
+                "hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n" +
+                "if (hasSoldHouse) {\n" +
+                "sellingPrice: \"Price the house was sold for:\" integer\n" +
+                "privateDebt: \"Private debts for the sold house:\" integer\n" +
+                "valueResidue: \"Value residue:\" (sellingPrice - privateDebt)\n" +
+                "}\n" +
+                "}\n";
 
         Form form = parseForm(source);
         List<QLStatement> statements = form.getStatements();

@@ -41,7 +41,7 @@ public class Main {
             if (bootstrapper.checkAndBuildQLFile(commandLineParameters.getInputFile())) {
                 startJettyServer(commandLineParameters.getHostPort(), symbolTable);
             }
-        } catch(ParameterException exception) {
+        } catch (ParameterException exception) {
             LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
             jCommander.usage();
         } catch (IOException e) {

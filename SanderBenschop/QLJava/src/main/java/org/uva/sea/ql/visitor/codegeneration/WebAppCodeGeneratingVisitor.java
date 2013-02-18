@@ -35,8 +35,8 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     private final STGroupFile formTemplateGroup;
 
     public WebAppCodeGeneratingVisitor() {
-        this.pageTemplateGroup =  new STGroupFile("src/main/resources/templates/qlpage.stg", '$', '$');
-        this.formTemplateGroup =  new STGroupFile("src/main/resources/templates/qlform.stg", '$', '$');
+        this.pageTemplateGroup = new STGroupFile("src/main/resources/templates/qlpage.stg", '$', '$');
+        this.formTemplateGroup = new STGroupFile("src/main/resources/templates/qlform.stg", '$', '$');
     }
 
     @Override
@@ -83,7 +83,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         String preRegex = formTemplateGroup.getInstanceOf("variableMapStart").render(), postRegex = formTemplateGroup.getInstanceOf("variableMapEnd").render();
         Pattern pattern = Pattern.compile(preRegex.replace("[", "\\[") + "(.+?)" + postRegex.replace("]", "\\]"));
         Matcher matcher = pattern.matcher(expression);
-        while(matcher.find()) {
+        while (matcher.find()) {
             ST variableSubscriptionTemplate = formTemplateGroup.getInstanceOf("variableSubscription");
             variableSubscriptionTemplate.add("variableName", matcher.group(1).trim());
             variableSubscriptions.add(variableSubscriptionTemplate.render());
@@ -103,7 +103,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ifStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, expressionJSCodeWrapper));
         ifStatementHtmlTemplate.add("identifier", identifier);
 
-        for(QLStatement successStatement : ifStatement.getSuccessBlock()) {
+        for (QLStatement successStatement : ifStatement.getSuccessBlock()) {
             WebappCodeWrapper statementWrapper = successStatement.accept(this);
             ifStatementHtmlTemplate.add("successBodyContent", statementWrapper.getHTMLCode());
             ifStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
@@ -125,13 +125,13 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ifElseStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, expressionJSCodeWrapper));
         ifElseStatementHtmlTemplate.add("identifier", identifier);
 
-        for(QLStatement successStatement : ifElseStatement.getSuccessBlock()) {
+        for (QLStatement successStatement : ifElseStatement.getSuccessBlock()) {
             WebappCodeWrapper statementWrapper = successStatement.accept(this);
             ifElseStatementHtmlTemplate.add("successBodyContent", statementWrapper.getHTMLCode());
             ifElseStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
         }
 
-        for(QLStatement failureStatement : ifElseStatement.getFailureBlock()) {
+        for (QLStatement failureStatement : ifElseStatement.getFailureBlock()) {
             WebappCodeWrapper statementWrapper = failureStatement.accept(this);
             ifElseStatementHtmlTemplate.add("failureBodyContent", statementWrapper.getHTMLCode());
             ifElseStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());

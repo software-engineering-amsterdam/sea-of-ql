@@ -12,9 +12,9 @@ public class Divide extends BinaryOperation {
     private final Type returningType;
 
     public Divide(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
-		super(leftHandSide, rightHandSide, sourceInfo);
+        super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new IntegerType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

@@ -12,9 +12,9 @@ public class And extends BinaryOperation {
     private final Type returningType;
 
     public And(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
-		super(leftHandSide, rightHandSide, sourceInfo);
+        super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new BooleanType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

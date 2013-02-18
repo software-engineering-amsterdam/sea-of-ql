@@ -11,10 +11,10 @@ public class LessThan extends BinaryOperation {
 
     private final Type returningType;
 
-	public LessThan(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
-		super(leftHandSide, rightHandSide, sourceInfo);
+    public LessThan(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
+        super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new BooleanType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

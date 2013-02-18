@@ -14,6 +14,9 @@ public final class QLPropertiesUtil {
         return properties.getProperty(name);
     }
 
-    /** Utility class, do not instantiate. */
-    private QLPropertiesUtil(){}
+    /**
+     * Utility class, do not instantiate.
+     */
+    private QLPropertiesUtil() {
+    }
 }

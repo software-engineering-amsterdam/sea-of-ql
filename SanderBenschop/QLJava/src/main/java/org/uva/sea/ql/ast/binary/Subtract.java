@@ -11,10 +11,10 @@ public class Subtract extends BinaryOperation {
 
     private final Type returningType;
 
-	public Subtract(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
-		super(leftHandSide, rightHandSide, sourceInfo);
+    public Subtract(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
+        super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new IntegerType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

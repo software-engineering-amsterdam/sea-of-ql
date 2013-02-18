@@ -11,10 +11,10 @@ public class Or extends BinaryOperation {
 
     private final Type returningType;
 
-	public Or(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
-		super(leftHandSide, rightHandSide, sourceInfo);
+    public Or(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
+        super(leftHandSide, rightHandSide, sourceInfo);
         this.returningType = new BooleanType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

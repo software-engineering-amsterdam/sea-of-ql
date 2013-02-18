@@ -8,19 +8,19 @@ import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
 
 public final class Str extends ObjectLiteral<String> {
 
-	private final String value;
-	private final Type returningType;
+    private final String value;
+    private final Type returningType;
 
-	public Str(String value, SourceCodeInformation sourceInfo) {
+    public Str(String value, SourceCodeInformation sourceInfo) {
         super(sourceInfo);
-		this.value = value;
+        this.value = value;
         this.returningType = new StringType();
-	}
-	
-	@Override
-	public String getValue() {
-		return value;
-	}
+    }
+
+    @Override
+    public String getValue() {
+        return value;
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

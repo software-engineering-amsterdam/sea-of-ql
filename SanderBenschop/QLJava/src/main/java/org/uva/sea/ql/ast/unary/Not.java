@@ -11,10 +11,10 @@ public class Not extends UnaryOperation {
 
     private final Type returningType;
 
-	public Not(QLExpression expression, SourceCodeInformation sourceInfo) {
-		super(expression, sourceInfo);
+    public Not(QLExpression expression, SourceCodeInformation sourceInfo) {
+        super(expression, sourceInfo);
         this.returningType = new BooleanType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

@@ -11,10 +11,10 @@ public class Negative extends UnaryOperation {
 
     private final Type returningType;
 
-	public Negative(QLExpression expression, SourceCodeInformation sourceInfo) {
-		super(expression, sourceInfo);
+    public Negative(QLExpression expression, SourceCodeInformation sourceInfo) {
+        super(expression, sourceInfo);
         this.returningType = new IntegerType();
-	}
+    }
 
     @Override
     public Type getType(SymbolTable symbolTable) {

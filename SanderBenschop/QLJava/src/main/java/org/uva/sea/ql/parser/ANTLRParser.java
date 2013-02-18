@@ -28,7 +28,7 @@ public class ANTLRParser implements Parser {
     }
 
     @Override
-	public Form parse(String src) {
+    public Form parse(String src) {
         syntacticErrorReporter.clearErrors();
         try {
             ANTLRStringStream stream = new ANTLRStringStream(src);
@@ -37,10 +37,10 @@ public class ANTLRParser implements Parser {
             QLParser parser = new QLParser(tokens);
             parser.setErrorReporter(syntacticErrorReporter);
             return parser.form();
-        } catch(RecognitionException ex) {
+        } catch (RecognitionException ex) {
             throw new RuntimeException(ex);
         }
-	}
+    }
 
     @Override
     public boolean hasErrors() {
