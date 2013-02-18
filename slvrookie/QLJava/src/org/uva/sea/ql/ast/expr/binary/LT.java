@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class LT extends BinaryExpr {
 
@@ -22,5 +22,5 @@ public class LT extends BinaryExpr {
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
 		return ExprVisitor.visit(this);
 	}
-	
+
 }

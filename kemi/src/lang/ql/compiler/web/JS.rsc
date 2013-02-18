@@ -40,17 +40,12 @@ private str hideElement(str name) =
 private str assignVar(str ident) =
   "var <ident> = getFormValue(\"#<ident>\");";
   
-private set[str] getDirectDescendingIdents(Statement cond) {
-  list[Statement] items = cond.ifPart.body;
-  
-  for(ei <- cond.elseIfs)
-    items += ei.body;
-
-  for(ep <- cond.elsePart)
-    items += ep.body;
-  
-  return getDirectDescendingIdents(items);
-}
+private set[str] getDirectDescendingIdents(Statement cond) =
+  getDirectDescendingIdents(
+    cond.ifPart.body + 
+    [*ei.body | ei <- cond.elseIfs] +
+    [*ep.body | ep <- cond.elsePart]
+  );
 
 private set[str] getDirectDescendingIdents(list[Statement] items) =
   {q.answerIdentifier.ident | i <- items, question(Question q) := i};
@@ -74,6 +69,12 @@ private str JS(Form f) =
   '    }
   '  });
   '
+  '  $(\"#<f.formName.ident>\").on(\"input\", function(evt) {
+  '    if($(evt.target).attr(\"type\") !== \"date\") {
+  '      $(evt.target).valid();
+  '    }
+  '  });
+  '
   '  // Make sure all elements are properly styled before registering events
   '  styling();
   '
@@ -86,23 +87,23 @@ private str JS(Form f) =
   ";
   
 private str calculatedFields(Form f) {
-  list[tuple[str ident, Expr expr]] cfs = [];
+  list[tuple[Type \type, str ident, Expr expr]] cfs = [];
   
   int cbcounter = 0;
   
   top-down visit(f) {
-    case q: question(_, _, i, e): cfs += [<i.ident, e>];
+    case q: question(_, t, i, e): cfs += [<t, i.ident, e>];
   }
   
   str ret = "";
   for(c <- cfs) {
-    ret += "<individualCalculatedField(cbcounter, c.ident, c.expr)>";
+    ret += "<individualCalculatedField(cbcounter, c.\type, c.ident, c.expr)>";
     cbcounter += 1;
   }
   return ret;
 }
   
-private str individualCalculatedField(int cnt, str ident, Expr expr) {  
+private str individualCalculatedField(int cnt, Type \type, str ident, Expr expr) {  
   list[str] eidents = [];
   
   top-down visit(expr) {
@@ -111,7 +112,7 @@ private str individualCalculatedField(int cnt, str ident, Expr expr) {
 
   return "
     '<for(e <- eidents) {>
-    '$(\"#<e>\").change(calc_callback_<cnt>);
+    '$(\"#<e>\").on(\"input change\", calc_callback_<cnt>);
     '<}>
     '
     'function calc_callback_<cnt>(e) {
@@ -120,7 +121,11 @@ private str individualCalculatedField(int cnt, str ident, Expr expr) {
     '  <assignVar(e)>
     '<}>
     '  result = <jsPrint(expr)>;
+    '<if(\type == moneyType("money")){>
+    '  setFormValue(\"#<ident>\", roundMoney(result));
+    '<} else {>
     '  setFormValue(\"#<ident>\", result);
+    '<}>
     '}
     ";
 }  
@@ -153,7 +158,8 @@ private str getTypeRule(Type t: dateType(_)) =
 
 private str getTypeRule(Type t: moneyType(_)) =
   "required: true,
-  'number: true
+  'number: true,
+  'moneyValidator: true
   ";
 
 private str getTypeRule(Type t: stringType(_)) =
@@ -198,7 +204,7 @@ private str individualConditional(int suffix, Statement cond) {
   
   for(cb <- cbs) {
     ret += "
-    '$(\"#<cb>\").change(callback_<suffix>);
+    '$(\"#<cb>\").on(\"input change\", callback_<suffix>);
     ";
   }
   

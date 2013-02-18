@@ -23,12 +23,12 @@ public class Stmts extends Stmt implements Iterable<Stmt> {
 	}
 
 	@Override
-	public Iterator<Stmt> iterator() {
+	public Iterator<Stmt> iterator() {			
 		return stmts.iterator();
 	}
 
 	@Override
-	public <T> T accept(IStmtVisitor<T> visitor) {
+	public <T> T accept(IStmtVisitor<T> visitor) {		
 		return visitor.visit(this);
-	}
+	}	
 }

@@ -1,22 +1,26 @@
 package org.uva.sea.ql.visitor.evaluator;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.arithmetic.Add;
-import org.uva.sea.ql.ast.expression.arithmetic.Div;
-import org.uva.sea.ql.ast.expression.arithmetic.Mul;
-import org.uva.sea.ql.ast.expression.arithmetic.Sub;
-import org.uva.sea.ql.ast.expression.comparison.Eq;
-import org.uva.sea.ql.ast.expression.comparison.GEq;
-import org.uva.sea.ql.ast.expression.comparison.GT;
-import org.uva.sea.ql.ast.expression.comparison.LEq;
-import org.uva.sea.ql.ast.expression.comparison.LT;
-import org.uva.sea.ql.ast.expression.comparison.NEq;
-import org.uva.sea.ql.ast.expression.logical.And;
-import org.uva.sea.ql.ast.expression.logical.Or;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.DivideExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.MultiplyExpression;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
+import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
+import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
 import org.uva.sea.ql.visitor.evaluator.value.IntegerValue;
@@ -24,7 +28,7 @@ import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
 import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 import org.uva.sea.ql.visitor.evaluator.value.Value;
 
-public class Evaluator implements ExpressionVisitor<Value> {
+class Evaluator implements ExpressionVisitor<Value> {
 	private final Environment environment;
 
 	private Evaluator( Environment environment ) {
@@ -36,129 +40,129 @@ public class Evaluator implements ExpressionVisitor<Value> {
 	}
 
 	@Override
-	public Value visit( Add node ) {
+	public Value visit( AddExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
 		return left.add( right );
 	}
 
 	@Override
-	public Value visit( Sub node ) {
+	public Value visit( SubtractExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.sub( right );
+		return left.subtract( right );
 	}
 
 	@Override
-	public Value visit( Div node ) {
+	public Value visit( DivideExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.div( right );
+		return left.divide( right );
 	}
 
 	@Override
-	public Value visit( Mul node ) {
+	public Value visit( MultiplyExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.mul( right );
+		return left.multiply( right );
 	}
 
 	@Override
-	public Value visit( And node ) {
+	public Value visit( AndExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
 		return left.and( right );
 	}
 
 	@Override
-	public Value visit( Or node ) {
+	public Value visit( OrExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
 		return left.or( right );
 	}
 
 	@Override
-	public Value visit( Eq node ) {
+	public Value visit( EqualExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.eq( right );
+		return left.equals( right );
 	}
 
 	@Override
-	public Value visit( GEq node ) {
+	public Value visit( GreaterThanOrEqualExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.geq( right );
+		return left.greaterThanOrEquals( right );
 	}
 
 	@Override
-	public Value visit( GT node ) {
+	public Value visit( GreaterThanExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.gt( right );
+		return left.greaterThan( right );
 	}
 
 	@Override
-	public Value visit( LEq node ) {
+	public Value visit( LesserThanOrEqualExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.leq( right );
+		return left.lesserThanOrEquals( right );
 	}
 
 	@Override
-	public Value visit( LT node ) {
+	public Value visit( LesserThanExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.lt( right );
+		return left.lesserThan( right );
 	}
 
 	@Override
-	public Value visit( NEq node ) {
+	public Value visit( NotEqualExpression node ) {
 		Value left = node.getLhs().accept( this );
 		Value right = node.getRhs().accept( this );
-		return left.neq( right );
+		return left.notEquals( right );
 	}
 
 	@Override
-	public Value visit( Not node ) {
+	public Value visit( NotExpression node ) {
 		Value value = node.getExpression().accept( this );
 		return value.not();
 	}
 
 	@Override
-	public Value visit( Pos node ) {
+	public Value visit( PositiveExpression node ) {
 		Value value = node.getExpression().accept( this );
-		return value.pos();
+		return value.positive();
 	}
 
 	@Override
-	public Value visit( Neg node ) {
+	public Value visit( NegativeExpression node ) {
 		Value value = node.getExpression().accept( this );
-		return value.neg();
+		return value.negative();
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Int node ) {
+	public Value visit( IntegerLiteral node ) {
 		return new IntegerValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Bool node ) {
+	public Value visit( BooleanLiteral node ) {
 		return new BooleanValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Money node ) {
+	public Value visit( MoneyLiteral node ) {
 		return new MoneyValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( org.uva.sea.ql.ast.expression.literal.Str node ) {
+	public Value visit( StringLiteral node ) {
 		return new StringValue( node.getValue() );
 	}
 
 	@Override
-	public Value visit( Ident node ) {
+	public Value visit( IdentifierExpression node ) {
 		return this.environment.lookup( node );
 	}
 }

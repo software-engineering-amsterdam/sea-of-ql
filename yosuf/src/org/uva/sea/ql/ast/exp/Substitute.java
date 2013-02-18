@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.visitor.NaturalVisitor;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Substitute extends Binary<IntegerValue, IntegerValue> {
 
@@ -17,7 +17,7 @@ public class Substitute extends Binary<IntegerValue, IntegerValue> {
 	}
 
 	@Override
-	public IntegerValue accept(final ValuableVisitor visitor) {
+	public IntegerValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

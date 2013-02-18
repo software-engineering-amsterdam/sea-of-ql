@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.expressions.Str;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.StmtVisitor;
 
 public class Question extends Statement {
 	private final Ident ident;
@@ -25,5 +26,10 @@ public class Question extends Statement {
 	
 	public Type getType() {
 		return type;
+	}
+
+	@Override
+	public void accept(StmtVisitor visitor) {
+		visitor.visit(this);		
 	}
 }

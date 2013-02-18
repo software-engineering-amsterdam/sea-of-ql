@@ -3,15 +3,15 @@ package org.uva.sea.ql.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Block<T extends Statement> {
+public class Block implements ASTNode {
 	
-	private final List<T> blockElements = new ArrayList<T>();
+	private final List<Statement> blockElements = new ArrayList<Statement>();
 
-	public List<T> getBlockElements() {
+	public List<Statement> getBlockElements() {
 		return blockElements;
 	}
 	
-	public void addBlockElement(T element) {
+	public void addBlockElement(Statement element) {
 		blockElements.add(element);
 	}
 }

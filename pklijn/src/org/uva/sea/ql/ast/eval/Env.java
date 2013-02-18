@@ -1,11 +1,8 @@
 package org.uva.sea.ql.ast.eval;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.extensions.Tuple;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
@@ -14,8 +11,8 @@ import org.uva.sea.ql.ast.values.Value;
 public class Env {
 	
 	private final Env parent;
-	private Map<Ident, Type> types;
-	private Map<Ident, Value> values;
+	private final Map<Ident, Type> types;
+	private final Map<Ident, Value> values;
 	
 	public Env() {
 		this(null);
@@ -82,13 +79,5 @@ public class Env {
 		} else {
 			throw new IllegalArgumentException("The ident " + ident.getName() + " does not exist in the values of this environment");
 		}
-	}
-	
-	public List<Tuple<Ident, Value>> getAllValues() {
-		List<Tuple<Ident, Value>> allValues = new ArrayList<Tuple<Ident, Value>>();
-		for (Ident i : values.keySet()) {
-			allValues.add(new Tuple<Ident, Value>(i,values.get(i)));
-		}
-		return allValues;
 	}
 }

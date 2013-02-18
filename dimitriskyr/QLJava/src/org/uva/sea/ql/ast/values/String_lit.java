@@ -17,12 +17,10 @@ public class String_lit extends Value{
 		return value;
 	}
 	
-	@Override
 	public <T> T accept(ICheckExprVisitor <T> visitor) {
 		return visitor.visit(this);
 	}
 
-	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new StringType();
 	}

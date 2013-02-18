@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g 2013-02-04 15:19:51
+// $ANTLR 3.5 C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g 2013-02-17 16:01:19
 
 package org.uva.sea.ql.parsers.antlr; 
 
@@ -31,6 +31,7 @@ public class QLLexer extends Lexer {
 	public static final int T__29=29;
 	public static final int T__30=30;
 	public static final int T__31=31;
+	public static final int T__32=32;
 	public static final int BOOL=4;
 	public static final int COLON=5;
 	public static final int COMMENT=6;
@@ -53,15 +54,15 @@ public class QLLexer extends Lexer {
 	public QLLexer(CharStream input, RecognizerSharedState state) {
 		super(input,state);
 	}
-	@Override public String getGrammarFileName() { return "C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g"; }
+	@Override public String getGrammarFileName() { return "C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g"; }
 
 	// $ANTLR start "T__12"
 	public final void mT__12() throws RecognitionException {
 		try {
 			int _type = T__12;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:6:7: ( '!' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:6:9: '!'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:6:7: ( '!' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:6:9: '!'
 			{
 			match('!'); 
 			}
@@ -80,8 +81,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__13;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:7:7: ( '!=' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:7:9: '!='
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:7:7: ( '!=' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:7:9: '!='
 			{
 			match("!="); 
 
@@ -101,8 +102,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__14;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:8:7: ( '&&' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:8:9: '&&'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:8:7: ( '&&' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:8:9: '&&'
 			{
 			match("&&"); 
 
@@ -122,8 +123,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__15;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:9:7: ( '(' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:9:9: '('
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:9:7: ( '(' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:9:9: '('
 			{
 			match('('); 
 			}
@@ -142,8 +143,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__16;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:10:7: ( ')' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:10:9: ')'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:10:7: ( ')' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:10:9: ')'
 			{
 			match(')'); 
 			}
@@ -162,8 +163,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__17;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:11:7: ( '*' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:11:9: '*'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:11:7: ( '*' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:11:9: '*'
 			{
 			match('*'); 
 			}
@@ -182,8 +183,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__18;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:12:7: ( '+' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:12:9: '+'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:12:7: ( '+' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:12:9: '+'
 			{
 			match('+'); 
 			}
@@ -202,8 +203,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__19;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:13:7: ( '-' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:13:9: '-'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:13:7: ( '-' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:13:9: '-'
 			{
 			match('-'); 
 			}
@@ -222,8 +223,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__20;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:14:7: ( '/' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:14:9: '/'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:14:7: ( '/' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:14:9: '/'
 			{
 			match('/'); 
 			}
@@ -242,8 +243,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__21;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:15:7: ( '<' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:15:9: '<'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:15:7: ( '<' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:15:9: '<'
 			{
 			match('<'); 
 			}
@@ -262,8 +263,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__22;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:16:7: ( '<=' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:16:9: '<='
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:16:7: ( '<=' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:16:9: '<='
 			{
 			match("<="); 
 
@@ -283,8 +284,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__23;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:17:7: ( '==' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:17:9: '=='
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:17:7: ( '==' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:17:9: '=='
 			{
 			match("=="); 
 
@@ -304,8 +305,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__24;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:18:7: ( '>' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:18:9: '>'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:18:7: ( '>' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:18:9: '>'
 			{
 			match('>'); 
 			}
@@ -324,8 +325,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__25;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:19:7: ( '>=' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:19:9: '>='
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:19:7: ( '>=' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:19:9: '>='
 			{
 			match(">="); 
 
@@ -345,8 +346,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__26;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:20:7: ( 'boolean' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:20:9: 'boolean'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:20:7: ( 'boolean' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:20:9: 'boolean'
 			{
 			match("boolean"); 
 
@@ -366,10 +367,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__27;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:21:7: ( 'integer' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:21:9: 'integer'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:21:7: ( 'if' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:21:9: 'if'
 			{
-			match("integer"); 
+			match("if"); 
 
 			}
 
@@ -387,10 +388,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__28;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:22:7: ( 'string' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:22:9: 'string'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:22:7: ( 'integer' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:22:9: 'integer'
 			{
-			match("string"); 
+			match("integer"); 
 
 			}
 
@@ -408,10 +409,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__29;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:23:7: ( '{' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:23:9: '{'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:23:7: ( 'string' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:23:9: 'string'
 			{
-			match('{'); 
+			match("string"); 
+
 			}
 
 			state.type = _type;
@@ -428,11 +430,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__30;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:24:7: ( '||' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:24:9: '||'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:24:7: ( '{' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:24:9: '{'
 			{
-			match("||"); 
-
+			match('{'); 
 			}
 
 			state.type = _type;
@@ -449,10 +450,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:25:7: ( '}' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:25:9: '}'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:25:7: ( '||' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:25:9: '||'
 			{
-			match('}'); 
+			match("||"); 
+
 			}
 
 			state.type = _type;
@@ -464,13 +466,33 @@ public class QLLexer extends Lexer {
 	}
 	// $ANTLR end "T__31"
 
+	// $ANTLR start "T__32"
+	public final void mT__32() throws RecognitionException {
+		try {
+			int _type = T__32;
+			int _channel = DEFAULT_TOKEN_CHANNEL;
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:26:7: ( '}' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:26:9: '}'
+			{
+			match('}'); 
+			}
+
+			state.type = _type;
+			state.channel = _channel;
+		}
+		finally {
+			// do for sure before leaving
+		}
+	}
+	// $ANTLR end "T__32"
+
 	// $ANTLR start "WS"
 	public final void mWS() throws RecognitionException {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:111:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:111:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:131:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:131:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -497,12 +519,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:115:6: ( '/*' ( . )* '*/' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:115:8: '/*' ( . )* '*/'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:6: ( '/*' ( . )* '*/' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:8: '/*' ( . )* '*/'
 			{
 			match("/*"); 
 
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:115:13: ( . )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:13: ( . )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -523,7 +545,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt1) {
 				case 1 :
-					// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:115:13: .
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:13: .
 					{
 					matchAny(); 
 					}
@@ -553,8 +575,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COLON;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:119:5: ( ':' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:119:6: ':'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:139:5: ( ':' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:139:6: ':'
 			{
 			match(':'); 
 			}
@@ -573,7 +595,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = BOOL;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:123:3: ( 'true' | 'false' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:143:3: ( 'true' | 'false' )
 			int alt2=2;
 			int LA2_0 = input.LA(1);
 			if ( (LA2_0=='t') ) {
@@ -591,14 +613,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt2) {
 				case 1 :
-					// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:123:5: 'true'
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:143:5: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:124:5: 'false'
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:144:5: 'false'
 					{
 					match("false"); 
 
@@ -620,8 +642,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = FORM;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:128:3: ( 'form' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:128:5: 'form'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:148:3: ( 'form' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:148:5: 'form'
 			{
 			match("form"); 
 
@@ -641,11 +663,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = STRING;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:131:7: ( '\"' ( . )* '\"' )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:131:9: '\"' ( . )* '\"'
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:151:7: ( '\"' ( . )* '\"' )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:151:9: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:131:13: ( . )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:151:13: ( . )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -659,7 +681,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt3) {
 				case 1 :
-					// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:131:13: .
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:151:13: .
 					{
 					matchAny(); 
 					}
@@ -687,8 +709,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = IDENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:133:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:133:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:153:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:153:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -698,7 +720,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:133:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:153:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop4:
 			while (true) {
 				int alt4=2;
@@ -709,7 +731,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt4) {
 				case 1 :
-					// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:
 					{
 					if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 						input.consume();
@@ -743,10 +765,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = INT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:4: ( ( '0' .. '9' )+ )
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:6: ( '0' .. '9' )+
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:155:4: ( ( '0' .. '9' )+ )
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:155:6: ( '0' .. '9' )+
 			{
-			// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:135:6: ( '0' .. '9' )+
+			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:155:6: ( '0' .. '9' )+
 			int cnt5=0;
 			loop5:
 			while (true) {
@@ -758,7 +780,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt5) {
 				case 1 :
-					// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:
+					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:
 					{
 					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
 						input.consume();
@@ -792,201 +814,208 @@ public class QLLexer extends Lexer {
 
 	@Override
 	public void mTokens() throws RecognitionException {
-		// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | COLON | BOOL | FORM | STRING | IDENT | INT )
-		int alt6=28;
+		// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:8: ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | WS | COMMENT | COLON | BOOL | FORM | STRING | IDENT | INT )
+		int alt6=29;
 		alt6 = dfa6.predict(input);
 		switch (alt6) {
 			case 1 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:10: T__12
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:10: T__12
 				{
 				mT__12(); 
 
 				}
 				break;
 			case 2 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:16: T__13
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:16: T__13
 				{
 				mT__13(); 
 
 				}
 				break;
 			case 3 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:22: T__14
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:22: T__14
 				{
 				mT__14(); 
 
 				}
 				break;
 			case 4 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:28: T__15
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:28: T__15
 				{
 				mT__15(); 
 
 				}
 				break;
 			case 5 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:34: T__16
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:34: T__16
 				{
 				mT__16(); 
 
 				}
 				break;
 			case 6 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:40: T__17
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:40: T__17
 				{
 				mT__17(); 
 
 				}
 				break;
 			case 7 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:46: T__18
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:46: T__18
 				{
 				mT__18(); 
 
 				}
 				break;
 			case 8 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:52: T__19
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:52: T__19
 				{
 				mT__19(); 
 
 				}
 				break;
 			case 9 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:58: T__20
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:58: T__20
 				{
 				mT__20(); 
 
 				}
 				break;
 			case 10 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:64: T__21
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:64: T__21
 				{
 				mT__21(); 
 
 				}
 				break;
 			case 11 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:70: T__22
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:70: T__22
 				{
 				mT__22(); 
 
 				}
 				break;
 			case 12 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:76: T__23
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:76: T__23
 				{
 				mT__23(); 
 
 				}
 				break;
 			case 13 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:82: T__24
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:82: T__24
 				{
 				mT__24(); 
 
 				}
 				break;
 			case 14 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:88: T__25
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:88: T__25
 				{
 				mT__25(); 
 
 				}
 				break;
 			case 15 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:94: T__26
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:94: T__26
 				{
 				mT__26(); 
 
 				}
 				break;
 			case 16 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:100: T__27
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:100: T__27
 				{
 				mT__27(); 
 
 				}
 				break;
 			case 17 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:106: T__28
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:106: T__28
 				{
 				mT__28(); 
 
 				}
 				break;
 			case 18 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:112: T__29
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:112: T__29
 				{
 				mT__29(); 
 
 				}
 				break;
 			case 19 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:118: T__30
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:118: T__30
 				{
 				mT__30(); 
 
 				}
 				break;
 			case 20 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:124: T__31
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:124: T__31
 				{
 				mT__31(); 
 
 				}
 				break;
 			case 21 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:130: WS
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:130: T__32
+				{
+				mT__32(); 
+
+				}
+				break;
+			case 22 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:136: WS
 				{
 				mWS(); 
 
 				}
 				break;
-			case 22 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:133: COMMENT
+			case 23 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:139: COMMENT
 				{
 				mCOMMENT(); 
 
 				}
 				break;
-			case 23 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:141: COLON
+			case 24 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:147: COLON
 				{
 				mCOLON(); 
 
 				}
 				break;
-			case 24 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:147: BOOL
+			case 25 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:153: BOOL
 				{
 				mBOOL(); 
 
 				}
 				break;
-			case 25 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:152: FORM
+			case 26 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:158: FORM
 				{
 				mFORM(); 
 
 				}
 				break;
-			case 26 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:157: STRING
+			case 27 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:163: STRING
 				{
 				mSTRING(); 
 
 				}
 				break;
-			case 27 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:164: IDENT
+			case 28 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:170: IDENT
 				{
 				mIDENT(); 
 
 				}
 				break;
-			case 28 :
-				// C:\\WINNT\\profiles\\10449574\\workspace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:170: INT
+			case 29 :
+				// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:1:176: INT
 				{
 				mINT(); 
 
@@ -1000,26 +1029,26 @@ public class QLLexer extends Lexer {
 	protected DFA6 dfa6 = new DFA6(this);
 	static final String DFA6_eotS =
 		"\1\uffff\1\32\6\uffff\1\34\1\36\1\uffff\1\40\3\27\5\uffff\2\27\13\uffff"+
-		"\17\27\1\66\1\27\1\70\3\27\1\uffff\1\66\1\uffff\2\27\1\76\1\77\1\100\3"+
-		"\uffff";
+		"\1\27\1\51\6\27\1\uffff\10\27\1\70\1\27\1\72\3\27\1\uffff\1\70\1\uffff"+
+		"\2\27\1\100\1\101\1\102\3\uffff";
 	static final String DFA6_eofS =
-		"\101\uffff";
+		"\103\uffff";
 	static final String DFA6_minS =
-		"\1\11\1\75\6\uffff\1\52\1\75\1\uffff\1\75\1\157\1\156\1\164\5\uffff\1"+
-		"\162\1\141\13\uffff\1\157\1\164\1\162\1\165\1\154\1\162\1\154\1\145\1"+
-		"\151\1\145\1\163\1\155\1\145\1\147\1\156\1\60\1\145\1\60\1\141\1\145\1"+
-		"\147\1\uffff\1\60\1\uffff\1\156\1\162\3\60\3\uffff";
+		"\1\11\1\75\6\uffff\1\52\1\75\1\uffff\1\75\1\157\1\146\1\164\5\uffff\1"+
+		"\162\1\141\13\uffff\1\157\1\60\1\164\1\162\1\165\1\154\1\162\1\154\1\uffff"+
+		"\1\145\1\151\1\145\1\163\1\155\1\145\1\147\1\156\1\60\1\145\1\60\1\141"+
+		"\1\145\1\147\1\uffff\1\60\1\uffff\1\156\1\162\3\60\3\uffff";
 	static final String DFA6_maxS =
 		"\1\175\1\75\6\uffff\1\52\1\75\1\uffff\1\75\1\157\1\156\1\164\5\uffff\1"+
-		"\162\1\157\13\uffff\1\157\1\164\1\162\1\165\1\154\1\162\1\154\1\145\1"+
-		"\151\1\145\1\163\1\155\1\145\1\147\1\156\1\172\1\145\1\172\1\141\1\145"+
-		"\1\147\1\uffff\1\172\1\uffff\1\156\1\162\3\172\3\uffff";
+		"\162\1\157\13\uffff\1\157\1\172\1\164\1\162\1\165\1\154\1\162\1\154\1"+
+		"\uffff\1\145\1\151\1\145\1\163\1\155\1\145\1\147\1\156\1\172\1\145\1\172"+
+		"\1\141\1\145\1\147\1\uffff\1\172\1\uffff\1\156\1\162\3\172\3\uffff";
 	static final String DFA6_acceptS =
-		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\2\uffff\1\14\4\uffff\1\22\1\23\1\24"+
-		"\1\25\1\27\2\uffff\1\32\1\33\1\34\1\2\1\1\1\26\1\11\1\13\1\12\1\16\1\15"+
-		"\25\uffff\1\30\1\uffff\1\31\5\uffff\1\21\1\17\1\20";
+		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\2\uffff\1\14\4\uffff\1\23\1\24\1\25"+
+		"\1\26\1\30\2\uffff\1\33\1\34\1\35\1\2\1\1\1\27\1\11\1\13\1\12\1\16\1\15"+
+		"\10\uffff\1\20\16\uffff\1\31\1\uffff\1\32\5\uffff\1\22\1\17\1\21";
 	static final String DFA6_specialS =
-		"\101\uffff}>";
+		"\103\uffff}>";
 	static final String[] DFA6_transitionS = {
 			"\2\22\2\uffff\1\22\22\uffff\1\22\1\1\1\26\3\uffff\1\2\1\uffff\1\3\1\4"+
 			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\30\1\23\1\uffff\1\11\1\12\1\13\2"+
@@ -1037,15 +1066,15 @@ public class QLLexer extends Lexer {
 			"",
 			"\1\37",
 			"\1\41",
-			"\1\42",
-			"\1\43",
-			"",
-			"",
-			"",
-			"",
-			"",
+			"\1\42\7\uffff\1\43",
 			"\1\44",
-			"\1\45\15\uffff\1\46",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"\1\45",
+			"\1\46\15\uffff\1\47",
 			"",
 			"",
 			"",
@@ -1057,32 +1086,34 @@ public class QLLexer extends Lexer {
 			"",
 			"",
 			"",
-			"\1\47",
 			"\1\50",
-			"\1\51",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\52",
 			"\1\53",
 			"\1\54",
 			"\1\55",
 			"\1\56",
 			"\1\57",
+			"",
 			"\1\60",
 			"\1\61",
 			"\1\62",
 			"\1\63",
 			"\1\64",
 			"\1\65",
-			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
+			"\1\66",
 			"\1\67",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\71",
-			"\1\72",
+			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\1\73",
+			"\1\74",
+			"\1\75",
 			"",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"",
-			"\1\74",
-			"\1\75",
+			"\1\76",
+			"\1\77",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
 			"\12\27\7\uffff\32\27\4\uffff\1\27\1\uffff\32\27",
@@ -1122,7 +1153,7 @@ public class QLLexer extends Lexer {
 		}
 		@Override
 		public String getDescription() {
-			return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | WS | COMMENT | COLON | BOOL | FORM | STRING | IDENT | INT );";
+			return "1:1: Tokens : ( T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | WS | COMMENT | COLON | BOOL | FORM | STRING | IDENT | INT );";
 		}
 	}
 

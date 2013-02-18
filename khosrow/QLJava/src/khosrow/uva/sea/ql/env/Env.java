@@ -1,46 +1,54 @@
 package khosrow.uva.sea.ql.env;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.values.Value;
 
-public class Env {
-	private final Map<Ident, Type> types;
-	private final Map<Ident, Value> bindings;
+public class Env implements Iterable<TypeValuePair> {
+	private final Map<Ident, TypeValuePair> symbolTable;
 	
 	public Env() {
-		this.types = new HashMap<Ident, Type>();
-		this.bindings = new HashMap<Ident, Value>();
+		this.symbolTable = new HashMap<Ident, TypeValuePair>();
 	}
 	
 	public boolean lookUpIdent(Ident name) {
-		if (types.containsKey(name)) 
+		if (symbolTable.containsKey(name)) 
 			return true;		
 		return false;
 	}
 	
 	public boolean lookUpValue(Ident name) {
-		if (bindings.containsKey(name)) 
+		if (symbolTable.containsKey(name)) 
 			return true;		
 		return false;
 	}
 	
 	public Type typeOf(Ident name) {
-		return types.get(name);
+		return symbolTable.get(name).getType();
 	}
 	
 	public Value valueOf(Ident name) {
-		return bindings.get(name);
+		return symbolTable.get(name).getValue();
 	}
 	
 	public void declareType(Ident name, Type type) {
-		types.put(name, type);
+		symbolTable.put(name, new TypeValuePair(type, type.initialize()));
 	}
 		
-	public void declareValue(Ident name, Value value) {
-		bindings.put(name, value);
+	public void assignValue(Ident name, Value value) {
+		symbolTable.get(name).setValue(value);
+	}
+	
+	public Map<Ident, TypeValuePair> getSymbolTable(){
+		return symbolTable;
+	}
+
+	@Override
+	public Iterator<TypeValuePair> iterator() {		
+		return symbolTable.values().iterator();
 	}
 }

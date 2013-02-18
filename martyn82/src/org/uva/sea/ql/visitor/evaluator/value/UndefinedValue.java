@@ -9,7 +9,7 @@ public class UndefinedValue extends Value {
 
 	@Override
 	public UndefinedType getType() {
-		return new UndefinedType();
+		return UndefinedType.UNDEFINED;
 	}
 
 	@Override
@@ -20,5 +20,10 @@ public class UndefinedValue extends Value {
 	@Override
 	public boolean isDefined() {
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "";
 	}
 }

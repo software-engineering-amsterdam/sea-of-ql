@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Natural;
-import org.uva.sea.ql.visitor.ValuableVisitor;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 /**
  * 
@@ -20,5 +20,5 @@ public abstract class Expression<T> implements ASTNode, Natural {
 		super();
 	}
 
-	public abstract T accept(ValuableVisitor visitor);
+	public abstract T accept(ExpressionVisitor visitor);
 }

@@ -3,10 +3,10 @@ package org.uva.sea.ql.parser.jacc;
 import java.io.StringReader;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.ParseError;
 
-public class QLParser implements IParser {
+public class QLParser implements Parser {
 	@Override
 	public Statement parse( String src ) throws ParseError {
 		QLLexer lexer = new QLLexer( new StringReader( src ) );

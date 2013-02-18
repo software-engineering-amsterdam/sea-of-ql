@@ -6,12 +6,12 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 
 public interface ElementVisitor {
-	void visit(Form form) throws VisitorException;
+	void visit(Form form) throws QLException;
 
-	void visit(Block block) throws VisitorException;
+	void visit(Block block) throws QLException;
 
-	void visit(Question question) throws VisitorException;
+	void visit(Question question) throws QLException;
 
-	void visit(IfStatement ifStatement) throws VisitorException;
+	void visit(IfStatement ifStatement) throws QLException;
 	
 }

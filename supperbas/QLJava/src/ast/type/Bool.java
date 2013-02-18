@@ -1,7 +1,6 @@
 package ast.type;
 
 import ast.Type;
-import ast.visitor.Visitor;
 
 public class Bool extends Type {
 
@@ -17,7 +16,8 @@ public class Bool extends Type {
 
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
-		// TODO Auto-generated method stub
-		return null;
+		return visitor.visit(this);
 	}
+	
+	
 }

@@ -25,10 +25,15 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.Model;
 
-public class ExpressionEvaluator implements ValuableVisitor {
+public class ExpressionEvaluator implements ExpressionVisitor {
 
 	private final Model model;
 
+	/**
+	 * 
+	 * @param model
+	 *            (not null)
+	 */
 	public ExpressionEvaluator(final Model model) {
 		this.model = model;
 		state.assertNotNull(this.model, "ExpressionEvaluator.model");
@@ -97,13 +102,16 @@ public class ExpressionEvaluator implements ValuableVisitor {
 		return new BooleanValue(left.getValue() > right.getValue());
 	}
 
+	/**
+	 * TODO
+	 */
 	@Override
 	public Expression<?> visit(final Identifier identifier) {
-		Computed computed = model.getValue(identifier);
+		Computed computed = model.getComputed(identifier);
 		if (computed != null) {
 			return (Expression<?>) computed.getExpression().accept(this);
 		} else {
-			return null;
+			return identifier;
 		}
 	}
 

@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitor.TypeVisitor;
+
 /**
  * Class: Int
  * @author Danny
@@ -20,7 +22,10 @@ public class IntType extends Type {
 	 */
 	@Override
 	public boolean isCompatibleTo(Type t) {
-		// TODO Auto-generated method stub
 		return t.isCompatibleWithInt();
+	}
+	@Override
+	public <T> T accept(TypeVisitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

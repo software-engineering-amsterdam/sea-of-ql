@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.TextFieldControl;
+import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.visitor.evaluator.value.StringValue;
 
 public class JTextFieldControl extends TextFieldControl {
 	private final JTextField control;
@@ -17,17 +19,13 @@ public class JTextFieldControl extends TextFieldControl {
 	}
 
 	@Override
-	public JTextField getControl() {
+	public JTextField getInnerControl() {
 		return this.control;
 	}
 
 	@Override
-	public void setValue( Object value ) {
-		this.setValue( value.toString() );
-	}
-
-	public void setValue( String value ) {
-		this.control.setText( value );
+	public void setValue( Value value ) {
+		this.control.setText( value.toString() );
 	}
 
 	@Override
@@ -41,8 +39,8 @@ public class JTextFieldControl extends TextFieldControl {
 	}
 
 	@Override
-	public String getValue() {
-		return this.control.getText();
+	public StringValue getValue() {
+		return new StringValue( this.control.getText() );
 	}
 
 	@Override
@@ -50,9 +48,6 @@ public class JTextFieldControl extends TextFieldControl {
 		this.control.addFocusListener( new FocusListener() {
 			@Override
 			public void focusLost( FocusEvent focusEvent ) {
-				JTextField component = (JTextField) focusEvent.getSource();
-				JTextFieldControl.this.setValue( component.getText() );
-
 				listener.itemChanged( new ControlEvent( JTextFieldControl.this ) );
 			}
 

@@ -17,8 +17,9 @@ import javax.swing.JTextPane;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.statements.QLProgram;
-import org.uva.sea.ql.ast.visitor.TypeCheck;
+import org.uva.sea.ql.ast.visitor.QLFormTypeCheck;
 import org.uva.sea.ql.parser.antlr.QLLexer;
 import org.uva.sea.ql.parser.antlr.QLParser;
 import org.uva.sea.ql.ui.QLForm;
@@ -27,7 +28,7 @@ public class QLDriver extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5869298083469486262L;
 	private JButton runButton;
-	private JTextPane sourcePAne;
+	private JTextPane sourcePane;
 
 	/**
 	 * Launch the application.
@@ -55,26 +56,33 @@ public class QLDriver extends JFrame implements ActionListener {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnNewMenu = new JMenu("File");
-		menuBar.add(mnNewMenu);
+		JMenu menu = new JMenu("File");
+		menuBar.add(menu);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("Exit");
-		mntmNewMenuItem.addMouseListener(new MouseAdapter() {
+		JMenuItem menuItem = new JMenuItem("Exit");
+		menuItem.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				System.exit(0);
 			}
 		});
 
-		mnNewMenu.add(mntmNewMenuItem);
+		menu.add(menuItem);
 		getContentPane().setLayout(null);
 
-		sourcePAne = new JTextPane();
-		sourcePAne.setFont(new Font("Arial", Font.PLAIN, 12));
-		sourcePAne.setBounds(10, 0, 444, 382);
-		sourcePAne
-				.setText("form Box1HouseOwning {\n   hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n   hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n   hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n   if (hasSoldHouse) {\n     sellingPrice: \"Price the house was sold for:\" money\n     privateDebt: \"Private debts for the sold house:\" money\n     valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\n     taxOwed: \"Value residue:\" money(valueResidue * 0.21 )\n   }\n   else {\n     happyLiving: \"Do you like your current house?\" boolean    \n   }\n}\n");
-		getContentPane().add(sourcePAne);
+		sourcePane = new JTextPane();
+		sourcePane.setFont(new Font("Arial", Font.PLAIN, 12));
+		sourcePane.setBounds(10, 0, 444, 382);
+		sourcePane
+				.setText("form Box1HouseOwning {\n    hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n "
+						+ "  hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n "
+						+ "  hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean\n "
+						+ "if (hasSoldHouse) {\n     sellingPrice: \"Price the house was sold for:\" money\n "
+						+ "privateDebt: \"Private debts for the sold house:\" money\n "
+						+ "    valueResidue: \"Value residue:\" money(sellingPrice - privateDebt)\n  "
+						+ "   taxOwed: \"Tax payment due, amount:\" money(valueResidue * 0.21 )\n  "
+						+ "  }\n   else {\n     happyLiving: \"Do you like your current house?\" boolean    \n   }\n}\n");
+		getContentPane().add(sourcePane);
 
 		runButton = new JButton("Run");
 		runButton.setBounds(16, 393, 96, 29);
@@ -90,34 +98,36 @@ public class QLDriver extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == runButton) {
-			try {
-				ANTLRStringStream stream = new ANTLRStringStream(sourcePAne.getText());
-				CommonTokenStream tokens = new CommonTokenStream();
-				tokens.setTokenSource(new QLLexer(stream));
-				QLParser parser = new QLParser(tokens);
+			ANTLRStringStream stream = new ANTLRStringStream(sourcePane.getText());
+			CommonTokenStream tokens = new CommonTokenStream();
+			tokens.setTokenSource(new QLLexer(stream));
+			QLParser parser = new QLParser(tokens);
 
+			try {
 				QLProgram qlprogram = parser.qlprogram();
 
 				if (parser.getErrorCount() == 0) {
 
-					TypeCheck typeCheck = new TypeCheck();
-					qlprogram.accept(typeCheck);
+					QLFormTypeCheck qlFormtypeCheck = new QLFormTypeCheck();
+					qlprogram.accept(qlFormtypeCheck);
 
-					if (typeCheck.getErrorCount() == 0) {
+					if (qlFormtypeCheck.getErrorCount() == 0) {
+						// No errors create and show jFrame with nested panels
 						QLForm frame = new QLForm(qlprogram);
 						frame.setVisible(true);
 					} else {
-						for (String errorString : typeCheck.getErrorList())
+						for (String errorString : qlFormtypeCheck.getErrorList())
 							System.out.println(errorString);
 					}
 				} else {
 					for (String errorString : parser.getErrors())
 						System.out.println(errorString);
 				}
-
-			} catch (Exception be) {
-				be.printStackTrace();
+			} catch (RecognitionException e1) {
+				// 
+				e1.printStackTrace();
 			}
+
 		}
 	}
 }

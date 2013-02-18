@@ -1,7 +1,9 @@
 package org.uva.sea.ql.visitor.print;
 
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.IStatement;
 
 public class Form implements IForm<String> {
 
@@ -13,10 +15,10 @@ public class Form implements IForm<String> {
 
 	@Override
 	public String visit(Question questionForm) {
-		Expression expressionVisitor = new Expression();
+		IExpression<String> expressionVisitor = new Expression();
 		String ident = questionForm.getIdent().accept(expressionVisitor);
 
-		Statement statementVisitor = new Statement(this.environment);
+		IStatement<String> statementVisitor = new Statement(this.environment);
 		String statements = questionForm.getStatements().accept(
 				statementVisitor);
 

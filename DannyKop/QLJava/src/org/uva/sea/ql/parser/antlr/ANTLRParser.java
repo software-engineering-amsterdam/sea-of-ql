@@ -1,16 +1,10 @@
 package org.uva.sea.ql.parser.antlr;
 
-
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-
 import org.antlr.runtime.*;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.visitor.SemanticVisitor;
-import org.uva.sea.ql.ast.visitor.messages.Error;
-import org.uva.sea.ql.ast.visitor.messages.Message;
 import org.uva.sea.ql.parser.test.*;
+
 
 
 public class ANTLRParser implements IParse {

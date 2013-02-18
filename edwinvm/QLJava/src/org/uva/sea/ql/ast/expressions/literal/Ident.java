@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ast.expressions.literal;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.LiteralExpr;
 import org.uva.sea.ql.ast.types.Error;
-import org.uva.sea.ql.ast.visitors.checkexpr.Visitor;
+import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
+import org.uva.sea.ql.parser.SupportedTypes;
 
 public class Ident extends LiteralExpr {
 
@@ -13,9 +12,9 @@ public class Ident extends LiteralExpr {
 		super(name);
 	}
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
+	public Type typeOf(SupportedTypes supportedTypes) {
+		if (supportedTypes.contains(this)) {
+			return supportedTypes.get(this);
 		}
 		return new Error();
 	}

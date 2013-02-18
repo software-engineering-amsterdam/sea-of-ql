@@ -10,7 +10,6 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
 
-
 public class TestExpressions {
 
 	final private IParse parser = new ANTLRParser();

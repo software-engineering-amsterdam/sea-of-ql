@@ -6,7 +6,7 @@ public class Location {
 	private int startColumn;
 	private int endColumn;
 	
-	public Location(int startLine, int endLine, int startColumn,
+	public Location(int startLine, int startColumn,  int endLine,
 			int endColumn)
 	{
 		this.startLine = startLine;
@@ -15,11 +15,42 @@ public class Location {
 		this.endColumn = endColumn;
 	}
 	
+	public Location(Location startLocation, int endLine, int endColumn) {
+		if (startLocation != null) {
+			this.startLine = startLocation.startLine;
+			this.startColumn = startLocation.startColumn;
+		}
+		
+		this.endLine = endLine;
+		this.endColumn = endColumn;
+	}
+	
+	public Location(int startLine, int startColumn, Location endLocation) {
+		this.startLine = startLine;
+		this.startColumn = startColumn;
+		
+		if (endLocation != null) {
+			this.startLine = endLocation.startLine;
+			this.startColumn = endLocation.startColumn;
+		}
+	}
+	
 	public Location(Location startLocation, Location endLocation) {
-		this.startLine = startLocation.getStartLine();
-		this.endLine = startLocation.getEndLine();
-		this.startColumn = startLocation.getStartColumn();
-		this.endColumn = startLocation.getEndColumn();
+		if (startLocation != null) {
+			this.startLine = startLocation.getStartLine();
+			this.startColumn = startLocation.getStartColumn();
+		} else {
+			this.startLine = -1;
+			this.startColumn = -1;
+		}
+		
+		if (endLocation != null) {
+			this.endLine = startLocation.getEndLine();
+			this.endColumn = startLocation.getEndColumn();
+		} else {
+			this.endLine = -1;
+			this.endColumn = -1;
+		}
 	}
 
 	public int getStartLine() {

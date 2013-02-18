@@ -6,12 +6,12 @@ import java.util.List;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.checker.VisitorChecker;
-import org.uva.sea.ql.checker.errors.Error;
-import org.uva.sea.ql.checker.errors.ExpressionTypeError;
-import org.uva.sea.ql.checker.errors.IdentifierExistsError;
-import org.uva.sea.ql.checker.errors.IdentifierScopeError;
-import org.uva.sea.ql.interfaces.IParse;
+import org.uva.sea.ql.checker.Error;
+import org.uva.sea.ql.checker.ErrorExpressionType;
+import org.uva.sea.ql.checker.ErrorIdentifierExists;
+import org.uva.sea.ql.checker.ErrorIdentifierScope;
+import org.uva.sea.ql.checker.VisitorStatementChecker;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.rats.RatsParser;
 import org.uva.sea.ql.util.FormStringBuilder;
 
@@ -19,7 +19,7 @@ import org.uva.sea.ql.util.FormStringBuilder;
 public class TestForms {
 
 	/** Confirm that the checker found the error we were expecting to get.
-	 * Provided is the list of errors that were enocuntered by the checker
+	 * Provided is the list of errors that were encountered by the checker
 	 * It is possible that more than one error is contained in the list due to errors
 	 * cascading. Therefore, this method checks to see if the expected error is found 
 	 * amongst those received
@@ -55,7 +55,7 @@ public class TestForms {
 	 */
 	private boolean faulty(Class<?> expectedFailureType, String... args) throws Exception{
 		
-		VisitorChecker checker = new VisitorChecker();
+		VisitorStatementChecker checker = new VisitorStatementChecker();
 		
 		Statement form = execute(args);
 		form.accept(checker);
@@ -72,7 +72,7 @@ public class TestForms {
 	 *  no errors
 	 */
 	private boolean correct(String... args) throws Exception{
-		VisitorChecker checker = new VisitorChecker();
+		VisitorStatementChecker checker = new VisitorStatementChecker();
 		
 		Statement form = execute(args);
 		form.accept(checker);
@@ -91,7 +91,7 @@ public class TestForms {
 		String sBranch2 = FormStringBuilder.ifStatement("q2", ""); 
 		
 		//the second branch statement evaluates q2 as its condition, but q2 is out of scope 
-		assertTrue(faulty(IdentifierScopeError.class, q1, sBranch1, sBranch2));
+		assertTrue(faulty(ErrorIdentifierScope.class, q1, sBranch1, sBranch2));
 	}
 	
 	
@@ -105,7 +105,7 @@ public class TestForms {
 		String sBranch2 = FormStringBuilder.ifStatement("q1 && q2", "");
 		
 		//the second branch statement evaluates the conjunction q1 and q2, but q2 is out of scope
-		assertTrue(faulty(IdentifierScopeError.class, q1, sBranch1, sBranch2));
+		assertTrue(faulty(ErrorIdentifierScope.class, q1, sBranch1, sBranch2));
 
 	}
 	
@@ -121,7 +121,7 @@ public class TestForms {
 		
 		//q2 will be out of scope when q3 attempts to calculate it's value based on q2
 		//this is because q2's scope is only within the branch's body
-		assertTrue(faulty(IdentifierScopeError.class, q1, sBranch1, q3));
+		assertTrue(faulty(ErrorIdentifierScope.class, q1, sBranch1, q3));
 	}
 		
 	
@@ -132,7 +132,7 @@ public class TestForms {
 		String q2 = FormStringBuilder.question("q1", "integer");
 		
 		//should fail because q1 is defined twice
-		assertTrue(faulty(IdentifierExistsError.class, q1, q2));
+		assertTrue(faulty(ErrorIdentifierExists.class, q1, q2));
 	}
 	
 	
@@ -143,7 +143,7 @@ public class TestForms {
 		String q2 = FormStringBuilder.question("q1", "boolean");
 		
 		//should fail because q1 is defined twice
-		assertTrue(faulty(IdentifierExistsError.class, q1, q2));
+		assertTrue(faulty(ErrorIdentifierExists.class, q1, q2));
 
 	}
 	
@@ -156,7 +156,7 @@ public class TestForms {
 		String q3 = FormStringBuilder.question("q3", "q2+q1");
 		
 		//q3 should fail due to a type mismatch: boolean(q1)+integer(q2)
-		assertTrue(faulty(ExpressionTypeError.class, q1, q2, q3));
+		assertTrue(faulty(ErrorExpressionType.class, q1, q2, q3));
 		
 	}
 	
@@ -169,7 +169,7 @@ public class TestForms {
 		String q3 = FormStringBuilder.question("q3", "q2&&q1");
 		
 		//q3 should fail due to a type mismatch: boolean(q1)&&integer(q2)
-		assertTrue(faulty(ExpressionTypeError.class, q1, q2, q3));
+		assertTrue(faulty(ErrorExpressionType.class, q1, q2, q3));
 	}
 	
 	
@@ -181,7 +181,7 @@ public class TestForms {
 		String q3 = FormStringBuilder.question("q3", "q2>q1");
 		
 		//q3 should fail due to a type mismatch: boolean(q1)>integer(q2)
-		assertTrue(faulty(ExpressionTypeError.class, q1, q2, q3));
+		assertTrue(faulty(ErrorExpressionType.class, q1, q2, q3));
 	}
 	
 	
@@ -189,7 +189,7 @@ public class TestForms {
 	public void expressionTypeCheckingNumeric() throws Exception{
 		
 		//should fail because 'false' is not a numeric expression
-		assertTrue(faulty(ExpressionTypeError.class, FormStringBuilder.question("q1", "1 + false")));
+		assertTrue(faulty(ErrorExpressionType.class, FormStringBuilder.question("q1", "1 + false")));
 	}
 	
 	
@@ -197,7 +197,7 @@ public class TestForms {
 	public void expressionTypeCheckingComparative() throws Exception{
 		
 		//should fail because 'false' is not a numeric expression	
-		assertTrue(faulty(ExpressionTypeError.class, FormStringBuilder.question("q1", "1 > false")));
+		assertTrue(faulty(ErrorExpressionType.class, FormStringBuilder.question("q1", "1 > false")));
 	}
 	
 	
@@ -205,7 +205,7 @@ public class TestForms {
 	public void expressionTypeCheckingBoolean() throws Exception{
 		
 		//should fail because (1+1) is not a boolean expression
-		assertTrue(faulty(ExpressionTypeError.class, FormStringBuilder.question("q1", "(1+1) && false")));
+		assertTrue(faulty(ErrorExpressionType.class, FormStringBuilder.question("q1", "(1+1) && false")));
 	}
 	
 

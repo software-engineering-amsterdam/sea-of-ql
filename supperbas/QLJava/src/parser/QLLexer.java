@@ -6,22 +6,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ast.ASTNode;
+import ast.expression.Ident;
 import ast.expression.value.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
+	private static final Map<String, Ident> IDENTS = new HashMap<String, Ident>();
 
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put("form", FORM);
-		KEYWORDS.put("money", MONEY);
-		KEYWORDS.put("integer", tInt);
-		KEYWORDS.put("string", tStr);
 		KEYWORDS.put("if", IF);
 		KEYWORDS.put("else", ELSE);
 		KEYWORDS.put("boolean", tBool);
 		KEYWORDS.put("true", TRUE);
 		KEYWORDS.put("false", FALSE);
+		KEYWORDS.put("integer", tInt);
+		KEYWORDS.put("string", tStr);
 	}
 
 	private int token;
@@ -46,9 +47,9 @@ public class QLLexer implements QLTokens {
 			try {
 				cOld = c;
 				c = input.read();
-				System.out.print((char) c);
+				//System.out.print((char) c);
 				if (c == '\n') {
-					System.out.println();
+					//System.out.println();
 					line++;
 					column = 0;
 				}
@@ -63,7 +64,6 @@ public class QLLexer implements QLTokens {
 
 	public int nextToken() {
 		boolean inComment = false;
-		boolean inQuestion = false;
 		for (;;) {
 			if (inComment) {
 				while (c != '*' && c != -1) {
@@ -76,21 +76,6 @@ public class QLLexer implements QLTokens {
 						inComment = false;
 					}
 					continue;
-				}
-			}
-			
-			if (inQuestion) {
-				while (c != '"' && c != -1) {
-					tempStr[tempStr.length] = (char)c; 
-					nextChar();
-				}
-				if (c == '"') {
-					nextChar();
-					inQuestion = false;
-					yylval = new Str(tempStr.toString());
-					return token = tStr;
-				}else{
-					throw new RuntimeException("Unexpected ENDINPUT"); 
 				}
 			}
 
@@ -126,6 +111,7 @@ public class QLLexer implements QLTokens {
 			case '-':
 			case ':':
 			case ';':
+			case '!':
 				nextChar();
 				return token = cOld;
 
@@ -138,7 +124,7 @@ public class QLLexer implements QLTokens {
 				}
 				return token = '*';
 			}
-			
+
 			case '&': {
 				nextChar();
 				if (c == '&') {
@@ -155,9 +141,6 @@ public class QLLexer implements QLTokens {
 				}
 				throw new RuntimeException("Unexpected character: " + (char) c);
 			}
-			case '!':
-				nextChar();
-				return token = '!';
 			case '<': {
 				nextChar();
 				if (c == '=') {
@@ -170,8 +153,12 @@ public class QLLexer implements QLTokens {
 				nextChar();
 				if (c == '=') {
 					return token = EQ;
+				} else {
+					nextChar();
+					return token = '=';
 				}
-				throw new RuntimeException("Unexpected character: " + (char) c);
+				// throw new RuntimeException("Unexpected character: " + (char)
+				// c);
 			}
 			case '>': {
 				nextChar();
@@ -181,21 +168,31 @@ public class QLLexer implements QLTokens {
 				}
 				return token = '>';
 			}
-			
-			case '"':{
-				inQuestion = true;
-				tempStr = null;
-				nextChar();
+
+			case '\"': {
+				StringBuilder sb = new StringBuilder();
+				do {
+					sb.append((char) c);
+					nextChar();
+					if (c == -1)
+						throw new RuntimeException(
+								"String ended unexpectedly: " + (char) c);
+				} while (c != '\"' && c != -1);
+				nextChar(); // for the last 
+				yylval = new ast.expression.value.Str(sb.toString());
+				return token = STR;
 			}
-			
+
 			default: {
+
 				if (Character.isDigit(c)) {
 					int n = 0;
 					do {
 						n = 10 * n + (c - '0');
 						nextChar();
 					} while (Character.isDigit(c));
-					yylval = new Int(n);
+					yylval = new ast.expression.value.Int(n);
+					//System.out.println("FOUND");
 					return token = INT;
 				}
 				if (Character.isLetter(c)) {
@@ -206,10 +203,17 @@ public class QLLexer implements QLTokens {
 					} while (Character.isLetterOrDigit(c));
 					String name = sb.toString();
 					if (KEYWORDS.containsKey(name)) {
-						System.out.println("FOUND!");
+						//System.out.println("FOUND!");
 						return token = KEYWORDS.get(name);
 					}
+					
+					if (IDENTS.containsKey(name)) {
+						//System.out.println("FOUND!");
+						yylval = IDENTS.get(name);
+						return token = IDENT;
+					}
 					yylval = new Ident(name);
+					IDENTS.put(name, (Ident) yylval);
 					return token = IDENT;
 				}
 				throw new RuntimeException("Unexpected character: " + (char) c);

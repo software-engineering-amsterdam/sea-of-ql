@@ -2,7 +2,7 @@
 module lang::ql::ast::semanticcheck::DuplicateLabelsCheck
 
 import lang::ql::ast::semanticcheck::TypeEnvUtils;
-
+		
 //For each symbol in Type Enviroment (env)
 //we check if the labels are the same. In this case, if the ident is also the same
 //we add a warning to the env
@@ -16,4 +16,4 @@ public TENV duplicateLabelsCheck(TENV env){
 	}
 	return env;
 }
-
+		

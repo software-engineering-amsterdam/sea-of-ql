@@ -1,8 +1,13 @@
-module util::Priorities
+@license{
+  Copyright (c) 2009-2013 CWI
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Tijs van der Storm - Tijs.van.der.Storm@cwi.nl}
 
-// Courtesy of CWI-SWAT:
-// https://github.com/cwi-swat/oberon0/blob/master/
-// src/ldta/oberon0/util/Priorities.rsc 
+module util::Priorities
 
 import Grammar;
 import Node;

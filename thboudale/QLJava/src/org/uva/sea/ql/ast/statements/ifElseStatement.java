@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.visitor.StmtVisitor;
 
 public class ifElseStatement extends ifStatement {
 	private final BlockOfStatements elseStms;
@@ -12,5 +13,10 @@ public class ifElseStatement extends ifStatement {
 	
 	public BlockOfStatements getElseStms() {
 		return elseStms;
+	}
+	
+	@Override
+	public void accept(StmtVisitor visitor) {
+		visitor.visit(this);		
 	}
 }

@@ -18,7 +18,7 @@ public class Assign extends Stmt {
 		return expr;
 	}
 	
-	public Type getExprTypeOf(Env typeEnv) {
+	public Type exprTypeOf(Env typeEnv) {
 		return expr.typeOf(typeEnv);
 	}
 	
@@ -27,7 +27,7 @@ public class Assign extends Stmt {
 	}
 
 	@Override
-	public <T> T accept(IStmtVisitor<T> visitor) {
+	public <T> T accept(IStmtVisitor<T> visitor) {		
 		return visitor.visit(this);
 	}		
 }

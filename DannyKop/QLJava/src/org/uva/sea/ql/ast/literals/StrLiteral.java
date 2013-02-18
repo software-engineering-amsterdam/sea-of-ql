@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 public class StrLiteral extends Literal<String> {
 
@@ -15,14 +15,12 @@ public class StrLiteral extends Literal<String> {
 	public StrLiteral(String v) {
 		this.value = v;
 	}
-
+	public String getValue(){
+		return this.value;
+	}
 	@Override
 	public Type typeOf(SymbolTable st) {
 		return new StrType();
-	}
-	
-	public String getValue(){
-		return this.value;
 	}
 
 }

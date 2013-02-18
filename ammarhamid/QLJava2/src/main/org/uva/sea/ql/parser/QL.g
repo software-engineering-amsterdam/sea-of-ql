@@ -72,7 +72,7 @@ elseStat
     ;
 
 assignmentStatement
-	:	Identifier ':' StringLiteral type -> ^(ASSIGNMENT Identifier type)
+	:	StringLiteral Identifier ':' type -> ^(ASSIGNMENT StringLiteral Identifier type)
 	;
 
 type

@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.interfaces.IVisitor;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 
 public class IfThenElse extends IfThen{
 	
-	private Block	 	elseBlock;
+	private Block elseBlock;
 
 	public IfThenElse(Expr ifCondition, Block ifBlock, Block elseBlock){
 		super(ifCondition, ifBlock);
@@ -19,7 +19,7 @@ public class IfThenElse extends IfThen{
 	
 	
 	@Override
-	public <T> T accept(IVisitor<T> visitor) {
+	public <T> T accept(IVisitorStatement<T> visitor) {
 		return visitor.visit(this);
 	}
 }

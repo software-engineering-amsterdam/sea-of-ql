@@ -1,7 +1,6 @@
 package org.uva.sea.ql.visitor;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class ExpressoinEvaluatorTest {
 	private final BooleanValue trueVal = new BooleanValue(true);
 	private final BooleanValue falseVal = new BooleanValue(false);
 
-	private ValuableVisitor evaluator;
+	private ExpressionVisitor evaluator;
 	private Model model;
 
 	@Before
@@ -97,8 +96,6 @@ public class ExpressoinEvaluatorTest {
 	@Test
 	public void testVisitIdentifier() {
 		Identifier identifier = new Identifier("test");
-		// model has no reference for this id yet.
-		assertNull(identifier.accept(evaluator));
 
 		model.registerComputed(new Computed(new IntegerType(), identifier, one));
 		assertEquals(one, identifier.accept(evaluator));

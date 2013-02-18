@@ -1,23 +1,27 @@
 package org.uva.sea.ql.ast.ql;
 
 import org.uva.sea.ql.ast.Block;
-import org.uva.sea.ql.ast.cond.IfThenElse;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.semanticchecker.QLItemSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
 
-public class ConditionalElseQuestion extends IfThenElse implements ConditionalQuestion {
+public class ConditionalElseQuestion extends ConditionalQuestion {
+	
+	private final Block elseStatements;
 
 	public ConditionalElseQuestion(Expr condition,
-			Block<QLItem> statements,
-			Block<QLItem> elseStatements) {
-		super(condition, statements, elseStatements);
+			Block statements,
+			Block elseStatements) {
+		super(condition, statements);
+		this.elseStatements = elseStatements;
+	}
+
+	public Block getElseStatements() {
+		return elseStatements;
 	}
 
 	@Override
-	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
-		
-		visitor.visit((ConditionalElseQuestion) visitableElement);
+	public void accept(StatementVisitor visitor) {
+		visitor.visit(this);		
 	}
-	
 	
 }
