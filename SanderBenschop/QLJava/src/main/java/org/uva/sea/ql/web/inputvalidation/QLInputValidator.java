@@ -1,6 +1,9 @@
 package org.uva.sea.ql.web.inputvalidation;
 
+import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.web.IdentifierValuePair;
+
 public interface QLInputValidator {
 
-    QLInputValidationResult validate(String identifierName, String value);
+    QLInputValidationResult validateIdentifierIsOfType(IdentifierValuePair identifierValuePair, Type expectedType);
 }

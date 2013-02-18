@@ -1,5 +1,9 @@
 package org.uva.sea.ql.web.inputvalidation;
 
+import sun.security.provider.certpath.OCSPResponse;
+
+import javax.ws.rs.core.Response;
+
 public class QLInputValidationResultImpl implements QLInputValidationResult {
 
     private final boolean correct;
@@ -18,5 +22,16 @@ public class QLInputValidationResultImpl implements QLInputValidationResult {
     @Override
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public Response toResponse() {
+        Response.ResponseBuilder builder = null;
+        if (correct) {
+            builder.status(Response.Status.OK);
+        } else {
+            builder.status(Response.Status.BAD_REQUEST);
+        }
+        return builder.entity(message).build();
     }
 }
