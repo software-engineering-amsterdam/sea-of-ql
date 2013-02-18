@@ -11,17 +11,11 @@ import lang::ql::ast::AST;
 import ParseTree;
 import IO;
 
-/**
-* Implode function fucntion 
-* A implode function Implode a parse tree according to a given ADT
-*/
-public Form implode(Tree t) = implode(#Form, t);
+public Form implode(Tree t) 
+	= implode(#Form, t);
 
-/**
-* Load function fucntion 
-* load or implode a .q file from given location
-*/
-public Form load(loc l) = implode(parseForm(readFile(l)));
+public Form load(loc l) 
+	= implode(parseForm(readFile(l)));
 
 
 

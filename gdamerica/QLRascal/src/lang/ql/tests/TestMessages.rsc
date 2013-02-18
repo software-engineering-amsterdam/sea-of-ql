@@ -5,17 +5,18 @@
  * @author  Gerson Delgado
  * @version 1.0, 12/02/2013
  */
-module lang::ql::tests::TestFormChecker
+module lang::ql::tests::TestMessages
 
 import lang::ql::ide::SemanticChecker::FormChecker;
-import lang::ql::ast::AST;
-import lang::ql::ide::SemanticChecker::Environment;
-import Type;
+import lang::ql::util::Implode;
 import Message;
 
 loc testFile = |project://QLRascal/src/lang/ql/tests/test.q|;
 
-private set[Message] p(loc l) = checkForm(l);
+private set[Message] p(loc l) 
+	= checkQl(load(l));
 
-public test set[Message] testFormChecker() = p(testFile);
+public test set[Message] testFormChecker() 
+	= p(testFile);
+
 
