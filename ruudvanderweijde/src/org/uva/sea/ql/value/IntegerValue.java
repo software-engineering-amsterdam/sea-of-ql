@@ -1,7 +1,5 @@
 package org.uva.sea.ql.value;
 
-
-
 public class IntegerValue extends Value {
 	private final Integer value;
 	
@@ -40,7 +38,7 @@ public class IntegerValue extends Value {
 	
 	@Override
 	public Value neg() {
-		return new IntegerValue(getValue()*-1);
+		return new IntegerValue(getValue()*(-1));
 	}
 
 	@Override

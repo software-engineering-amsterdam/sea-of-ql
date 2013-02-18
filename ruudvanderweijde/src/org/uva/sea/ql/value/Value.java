@@ -61,7 +61,7 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
-	// Int functions
+	// Integer functions
 	protected Value addInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
 	}
@@ -94,7 +94,7 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
-	// Bool functions
+	// Boolean functions
 	protected Value andBool(BooleanValue arg) {
 		throw new UnsupportedOperationException();
 	}

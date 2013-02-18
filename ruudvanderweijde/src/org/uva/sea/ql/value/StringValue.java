@@ -10,5 +10,4 @@ public class StringValue extends Value {
 	public String getValue() {
 		return value;
 	}
-
 }
