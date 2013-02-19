@@ -32,6 +32,7 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.HandlesEvent;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
 
 @UrlBinding(value = DisplayQLActionBean.URL_BINDING)
@@ -50,6 +51,8 @@ public class DisplayQLActionBean implements ActionBean {
 	private static final String FORM_FRAGMENT_VIEW_PATH = "/WEB-INF/jsp/questionsFragment.jsp";
 	
 	private List<QuestionWithAnswer> questions;
+	
+	private String errors;
 	
 	private ActionBeanContext context;
 	
@@ -107,6 +110,7 @@ public class DisplayQLActionBean implements ActionBean {
 		Map<Ident, TypeValuePair> symbolTypeValueTable = (Map<Ident, TypeValuePair>) session.getAttribute(SYMBOL_TABLE_SESSION_ATTR);
 		InterpreterVisitor interpreterVisitor = new InterpreterVisitor(symbolTypeValueTable);
 		questions = ((EnabledQuestions) questionsForm.accept(interpreterVisitor)).getQuestions();
+		String answer = getContext().getRequest().getParameter("answer");
 		return new ForwardResolution(FORM_FRAGMENT_VIEW_PATH);
 	}
 	
@@ -121,6 +125,14 @@ public class DisplayQLActionBean implements ActionBean {
 
 	public void setQuestions(List<QuestionWithAnswer> questions) {
 		this.questions = questions;
+	}
+	
+	public void setErrors(String errors) {
+		this.errors = errors;
+	}
+
+	public String getErrors() {
+		return errors;
 	}
 	
 	@Override

@@ -1,15 +1,11 @@
 package org.uva.sea.ql.interpreter.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.value.Val;
-import org.uva.sea.ql.ast.ql.QLForm;
-import org.uva.sea.ql.interpreter.EnabledQuestions;
-import org.uva.sea.ql.interpreter.InterpreterVisitor;
 
 import net.sourceforge.stripes.action.ActionBean;
 import net.sourceforge.stripes.action.ActionBeanContext;
@@ -17,29 +13,23 @@ import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.RedirectResolution;
 import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.controller.StripesFilter;
 import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidationError;
+import net.sourceforge.stripes.validation.ValidationErrorHandler;
+import net.sourceforge.stripes.validation.ValidationErrors;
 
-public abstract class ProcessResponseActionBean implements ActionBean {
+public abstract class ProcessResponseActionBean implements ActionBean, ValidationErrorHandler {
     
-	private static final String ACTION_BEAN_PATH_PARAM = "actionBeanPath";
-
-	/** Constant denoting the path to the form view. */
-	private static final String FORM_VIEW_PATH = "/WEB-INF/jsp/extraQuestionsFragment.jsp";
-	
 	@Validate(required=true)
 	private String identName;
 	
-	private QLForm questionsForm;
-	
 	private Map<Ident, TypeValuePair> symbolTypeValueTable;
-	
-//	private List<QuestionWithAnswer> questions;
 	
 	private ActionBeanContext context;
 	
 	private void initAttrFromSession() {
 		HttpSession session = context.getRequest().getSession(); 
-		questionsForm = (QLForm) session.getAttribute(DisplayQLActionBean.QUESTIONS_FORM_SESSION_ATTR);
 		symbolTypeValueTable = (Map<Ident, TypeValuePair>) session.getAttribute(DisplayQLActionBean.SYMBOL_TABLE_SESSION_ATTR);
 	}
 	
@@ -55,23 +45,25 @@ public abstract class ProcessResponseActionBean implements ActionBean {
 		Ident ident = new Ident(getIdentName());
 		Val val = getAnswerVal();
 		symbolTypeValueTable.get(ident).setValue(val);
-//		questions = new ArrayList<QuestionWithAnswer>();
-//		findEnabledQuestionsToBeAnswered();
 		saveAttrOnSession();
-		resetAnswer();
 		return new RedirectResolution(DisplayQLActionBean.URL_BINDING + "?view=");
-//		return new ForwardResolution(FORM_VIEW_PATH).
-//				addParameter(ACTION_BEAN_PATH_PARAM, getActionBeanClassName());
 	}
 	
-	protected abstract void resetAnswer();
-	
-	protected abstract String getActionBeanClassName();
-	
-//	private void findEnabledQuestionsToBeAnswered() {
-//		InterpreterVisitor visitor = new InterpreterVisitor(symbolTypeValueTable);
-//		questions = ((EnabledQuestions) questionsForm.accept(visitor)).getQuestions();
-//	}
+	@Override
+	public Resolution handleValidationErrors(ValidationErrors errors)
+			throws Exception {
+		StringBuilder errorsBuilder = new StringBuilder();
+		for (Map.Entry<String, List<ValidationError>> entry : errors.entrySet()) {
+			for (ValidationError error : entry.getValue()) {
+				errorsBuilder.append(error.getMessage(context.getLocale()) + "\n");
+			}
+		}
+		return new ForwardResolution(DisplayQLActionBean.URL_BINDING + "?view=")
+			.addParameter("errors", errorsBuilder.toString());
+
+	}
+
+//	public abstract void resetAnswer();
 	
 	public String getIdentName() {
 		return identName;
@@ -82,10 +74,6 @@ public abstract class ProcessResponseActionBean implements ActionBean {
 	}
 	
 	public abstract Val getAnswerVal();
-
-//	public List<QuestionWithAnswer> getQuestions() {
-//		return questions;
-//	}
 
 	@Override
 	public ActionBeanContext getContext() {

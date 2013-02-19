@@ -1,6 +1,7 @@
 package org.uva.sea.ql.interpreter.controller;
 
 import org.uva.sea.ql.ast.expr.value.BooleanVal;
+import org.uva.sea.ql.ast.expr.value.UndefinedVal;
 import org.uva.sea.ql.ast.expr.value.Val;
 
 import net.sourceforge.stripes.action.UrlBinding;
@@ -12,7 +13,6 @@ public class ProcessBooleanResponseActionBean extends ProcessResponseActionBean 
 	/** Constant denoting the url binding for the current action bean. */
     public static final String URL_BINDING = "/protected/question/process/bool";
 	
-	@Validate(required=true)
 	private Boolean answer;
 	
 	public Boolean getAnswer() {
@@ -25,17 +25,10 @@ public class ProcessBooleanResponseActionBean extends ProcessResponseActionBean 
 
 	@Override
 	public Val getAnswerVal() {
+		if (answer == null) {
+			return new UndefinedVal();
+		}
 		return new BooleanVal(answer);
-	}
-
-	@Override
-	protected void resetAnswer() {
-		answer = null;
-	}
-
-	@Override
-	protected String getActionBeanClassName() {
-		return getClass().getName();
 	}
 
 }
