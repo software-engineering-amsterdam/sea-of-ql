@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.statements.StatementVisitor;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.rendering.controls.Control;
 
-public class RenderingVisitor implements StatementVisitor<Object> {
+public class RenderingVisitor implements StatementVisitor<Void> {
 	
 	private final JPanel panel;
 	private final State state;
@@ -48,7 +48,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	}
 
 	@Override
-	public Object visit(Question question) {
+	public Void visit(Question question) {
 		addLabel(question.getLabel());
 		Control control = createControl(question);
 		initializeValues(question);
@@ -58,7 +58,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	}	
 
 	@Override
-	public Object visit(ComputedQuestion computedQuestion) {
+	public Void visit(ComputedQuestion computedQuestion) {
 		addLabel(computedQuestion.getLabel());
 		Control control = createControl(computedQuestion);
 		initializeValues(computedQuestion);
@@ -70,14 +70,14 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	}	
 
 	@Override
-	public Object visit(Block block) {
+	public Void visit(Block block) {
 		for (Statement statement : block.getStatements())
 			statement.accept(this);
 		return null;
 	}
 
 	@Override
-	public Object visit(IfThenElse ifThenElse) {
+	public Void visit(IfThenElse ifThenElse) {
 		JPanel conditionTrue = render(ifThenElse.getBody(), state);
 		JPanel conditionFalse = render(ifThenElse.getElseBody(), state);
 		conditionTrue.setVisible(false);

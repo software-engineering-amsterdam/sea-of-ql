@@ -1,6 +1,6 @@
-hasBoughtHouse, false
-sellingPrice, 20
-valueResidue, 15
+hasBoughtHouse, true
+sellingPrice, 300
+valueResidue, 200
 hasSoldHouse, true
-privateDebt, 5
-hasMaintLoan, true
+privateDebt, 100
+hasMaintLoan, false

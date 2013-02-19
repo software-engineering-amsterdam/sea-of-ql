@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.types.TypeVisitor;
 import org.uva.sea.ql.evaluation.values.Bool;
 import org.uva.sea.ql.evaluation.values.Int;
 
-public class InitializationTypeVisitor implements TypeVisitor<Object> {
+public class InitializationTypeVisitor implements TypeVisitor<Void> {
 	
 	private final State state;
 	private final Ident identifier;
@@ -20,25 +20,25 @@ public class InitializationTypeVisitor implements TypeVisitor<Object> {
 	}
 
 	@Override
-	public Object visit(IntType intType) {
+	public Void visit(IntType intType) {
 		state.putValue(identifier, new Int(0));
 		return null;
 	}
 
 	@Override
-	public Object visit(StringType stringType) {
+	public Void visit(StringType stringType) {
 		state.putValue(identifier, new org.uva.sea.ql.evaluation.values.String(""));
 		return null;
 	}
 
 	@Override
-	public Object visit(BoolType boolType) {
+	public Void visit(BoolType boolType) {
 		state.putValue(identifier, new Bool(false));
 		return null;
 	}
 
 	@Override
-	public Object visit(ErrorType errorType) {
+	public Void visit(ErrorType errorType) {
 		return null;
 	}
 
