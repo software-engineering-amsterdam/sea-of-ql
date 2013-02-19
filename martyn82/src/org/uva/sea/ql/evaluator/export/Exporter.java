@@ -2,14 +2,13 @@ package org.uva.sea.ql.evaluator.export;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expression.IdentifierExpression;
-import org.uva.sea.ql.evaluator.environment.Bindable;
+import org.uva.sea.ql.evaluator.environment.Binding;
 
 abstract public class Exporter {
 	private final String name;
-	private final Map<IdentifierExpression, Bindable> bindings;
+	private final Map<String, Binding> bindings;
 
-	public Exporter( String formName, Map<IdentifierExpression, Bindable> bindings ) {
+	public Exporter( String formName, Map<String, Binding> bindings ) {
 		this.name = formName;
 		this.bindings = bindings;
 	}
@@ -18,7 +17,7 @@ abstract public class Exporter {
 		return this.name;
 	}
 
-	protected Map<IdentifierExpression, Bindable> getBindings() {
+	protected Map<String, Binding> getBindings() {
 		return this.bindings;
 	}
 

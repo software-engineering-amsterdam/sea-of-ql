@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
+import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
@@ -32,13 +32,13 @@ public class StatementMapperTest extends EvaluatorTest implements StatementTest 
 	private final ControlFactory factory;
 
 	public StatementMapperTest() {
-		super( new ValueEnvironment() );
+		super( new BindingEnvironment() );
 
 		this.factory = new SwingControlFactory();
 	}
 
 	private void eval( Statement statement ) {
-		StatementMapper.createPart( statement, this.environment, this.factory );
+		Renderer.createPart( statement, this.environment, this.factory );
 	}
 
 	@Test

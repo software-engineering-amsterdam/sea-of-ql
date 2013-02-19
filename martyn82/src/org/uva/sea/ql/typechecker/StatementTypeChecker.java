@@ -77,7 +77,7 @@ class StatementTypeChecker implements StatementVisitor<Boolean> {
 	@Override
 	public Boolean visit( VariableDeclaration node ) {
 		if ( this.environment.isDeclared( node.getIdentifier() ) ) {
-			Type identType = this.environment.lookupType( node.getIdentifier() );
+			Type identType = this.environment.lookup( node.getIdentifier() );
 			Type declaredType = node.getType();
 
 			if ( !identType.equals( declaredType ) ) {

@@ -100,7 +100,7 @@ class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	@Override
 	public Type visit( IdentifierExpression node ) {
 		if ( this.environment.isDeclared( node ) ) {
-			return this.environment.lookupType( node );
+			return this.environment.lookup( node );
 		}
 
 		return UndefinedType.UNDEFINED;

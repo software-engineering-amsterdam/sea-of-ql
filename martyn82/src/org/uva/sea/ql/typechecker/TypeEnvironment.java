@@ -7,16 +7,16 @@ import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.Environment;
 
-public class TypeEnvironment extends Environment {
+public class TypeEnvironment extends Environment<Type> {
 	private final Map<IdentifierExpression, Type> types;
 
 	public TypeEnvironment() {
 		super();
-
 		this.types = new HashMap<IdentifierExpression, Type>();
 	}
 
-	public Type lookupType( IdentifierExpression identifier ) {
+	@Override
+	public Type lookup( IdentifierExpression identifier ) {
 		if ( this.types.containsKey( identifier ) ) {
 			return this.types.get( identifier );
 		}
@@ -24,6 +24,7 @@ public class TypeEnvironment extends Environment {
 		throw new RuntimeException( "Undefined variable: " + identifier.getName() );
 	}
 
+	@Override
 	public void declare( IdentifierExpression identifier, Type type ) {
 		if ( this.isDeclared( identifier ) ) {
 			throw new RuntimeException( "Variable " + identifier.getName() + " already declared." );
@@ -32,6 +33,7 @@ public class TypeEnvironment extends Environment {
 		this.types.put( identifier, type );
 	}
 
+	@Override
 	public boolean isDeclared( IdentifierExpression identifier ) {
 		return this.types.containsKey( identifier );
 	}

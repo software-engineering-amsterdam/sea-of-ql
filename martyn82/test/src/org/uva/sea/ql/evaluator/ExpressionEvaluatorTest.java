@@ -24,12 +24,12 @@ import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
-import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
+import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.value.StringValue;
 
 public class ExpressionEvaluatorTest extends EvaluatorTest implements ExpressionTest {
 	public ExpressionEvaluatorTest() {
-		super( new ValueEnvironment() );
+		super( new BindingEnvironment() );
 	}
 
 	@Test
@@ -236,7 +236,7 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 	@Test
 	@Override
 	public void testIdentifierExpression() {
-		this.environment.assign( new IdentifierExpression( "x" ), new StringValue( "value of x" ) );
+		this.environment.declare( new IdentifierExpression( "x" ), new StringValue( "value of x" ) );
 		assertEquals( "value of x", eval( new IdentifierExpression( "x" ) ) );
 	}
 

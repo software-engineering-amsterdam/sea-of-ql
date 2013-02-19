@@ -1,9 +1,8 @@
 package org.uva.sea.ql.evaluator;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Observer;
 import java.util.Set;
 
@@ -24,47 +23,54 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
-import org.uva.sea.ql.evaluator.export.Exporter;
-import org.uva.sea.ql.evaluator.export.XmlExporter;
+import org.uva.sea.ql.evaluator.environment.Binding;
+import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
-import org.uva.sea.ql.ui.control.ButtonControl;
 import org.uva.sea.ql.ui.control.Control;
+import org.uva.sea.ql.ui.control.InputControl;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
-class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
-	private final static String SUBMIT_TEXT = "Save";
-
-	private final ValueEnvironment environment;
+class Renderer implements StatementVisitor<Void>, TypeVisitor<InputControl> {
+	private final BindingEnvironment environment;
 	private final ControlFactory factory;
 	private final PanelControl panel;
 
-	public StatementMapper( ControlFactory factory, ValueEnvironment environment ) {
+	public Renderer( ControlFactory factory, BindingEnvironment environment ) {
 		this.factory = factory;
 		this.environment = environment;
 		this.panel = this.factory.createPanel();
 	}
 
 	protected static PanelControl createPart(
-		Statement statement, ValueEnvironment environment, ControlFactory factory
+		Statement statement, BindingEnvironment environment, ControlFactory factory
 	) {
-		StatementMapper mapper = new StatementMapper( factory, environment );
+		Renderer mapper = new Renderer( factory, environment );
 		statement.accept( mapper );
 		return mapper.panel;
 	}
 
+	public Map<String, Binding> getBoundValues() {
+		Map<IdentifierExpression, Binding> bindings = this.environment.getBindings();
+		Map<String, Binding> result = new HashMap<String, Binding>();
+
+		for ( Map.Entry<IdentifierExpression, Binding> each : bindings.entrySet() ) {
+			result.put( each.getKey().getName(), each.getValue() );
+		}
+
+		return result;
+	}
+
 	public PanelControl getPanel() {
-		this.addSubmitButton();
 		return this.panel;
 	}
 
-	private void addControl( Control control ) {
+	public void addControl( Control control ) {
 		this.panel.add( control );
 	}
 
@@ -72,45 +78,27 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.addControl( this.factory.createLabel( label ) );
 	}
 
-	private void addSubmitButton() {
-		ButtonControl button = this.factory.createButton( SUBMIT_TEXT );
-
-		button.addChangeListener(
-			new ControlEventListener() {
-				@Override
-				public void itemChanged( ControlEvent event ) {
-					DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
-					String dateString = format.format( new Date() );
-
-					Exporter exporter = new XmlExporter( panel.getName(), environment.getBindings() );
-					exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
-				}
-			}
-		);
-		this.addControl( button );
-	}
-
-	private Control createEditableControlFromType( Type type, Value value ) {
+	private InputControl createEditableControlFromType( Type type, Value value ) {
 		return this.createControlFromType( type, value, true );
 	}
 
-	private Control createReadOnlyControlFromType( Type type, Value value ) {
+	private InputControl createReadOnlyControlFromType( Type type, Value value ) {
 		return this.createControlFromType( type, value, false );
 	}
 
-	private Control createControlFromType( Type type, Value value, boolean editable ) {
-		Control control = type.accept( this );
+	private InputControl createControlFromType( Type type, Value value, boolean editable ) {
+		InputControl control = type.accept( this );
 		control.setEnabled( editable );
 		control.setValue( value );
 		return control;
 	}
 
-	private void registerControlHandler( final QuestionDeclaration question, final Control control ) {
+	private void registerControlHandler( final QuestionDeclaration question, final InputControl control ) {
 		control.addChangeListener(
 			new ControlEventListener() {
 				@Override
 				public void itemChanged( ControlEvent event ) {
-					environment.assign( question.getIdentifier(), control.getValue() );
+					environment.declare( question.getIdentifier(), control.getValue() );
 					environment.notifyObservers( question.getIdentifier() );
 				}
 			}
@@ -122,7 +110,7 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.registerDependencies( observer, expression );
 	}
 
-	private void registerComputedObservers( ComputedQuestion question, Control control ) {
+	private void registerComputedObservers( ComputedQuestion question, InputControl control ) {
 		Observer observer = new ComputedObserver( control, this.environment, question );
 		this.registerDependencies( observer, question.getExpression() );
 	}
@@ -137,22 +125,22 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 	}
 
 	@Override
-	public Control visit( BooleanType node ) {
+	public InputControl visit( BooleanType node ) {
 		return this.factory.createCheckBox();
 	}
 
 	@Override
-	public Control visit( IntegerType node ) {
+	public InputControl visit( IntegerType node ) {
 		return this.factory.createNumberBox();
 	}
 
 	@Override
-	public Control visit( StringType node ) {
+	public InputControl visit( StringType node ) {
 		return this.factory.createTextBox();
 	}
 
 	@Override
-	public Control visit( MoneyType node ) {
+	public InputControl visit( MoneyType node ) {
 		return this.factory.createMoneyBox();
 	}
 
@@ -197,7 +185,7 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 	@Override
 	public Void visit( VariableDeclaration node ) {
 		Value value = TypeEvaluator.initType( node.getType() );
-		this.environment.assign( node.getIdentifier(), value );
+		this.environment.declare( node.getIdentifier(), value );
 
 		return null;
 	}
@@ -205,7 +193,7 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 	@Override
 	public Void visit( Assignment node ) {
 		Value value = ExpressionEvaluator.evaluate( node.getExpression(), this.environment );
-		this.environment.assign( node.getIdentifier(), value );
+		this.environment.declare( node.getIdentifier(), value );
 
 		return null;
 	}
@@ -228,7 +216,7 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 		Value value = TypeEvaluator.initType( type );
 
 		String label = node.getLabel().getValue();
-		Control control = this.createEditableControlFromType( type, value );
+		InputControl control = this.createEditableControlFromType( type, value );
 
 		this.addLabel( label );
 		this.addControl( control );
@@ -246,7 +234,7 @@ class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 		Type type = value.getType();
 
 		String label = node.getLabel().getValue();
-		Control control = this.createReadOnlyControlFromType( type, value );
+		InputControl control = this.createReadOnlyControlFromType( type, value );
 
 		this.addLabel( label );
 		this.addControl( control );
