@@ -17,6 +17,7 @@ import org.uva.sea.ql.interpretation.QLDocument;
 import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 import org.uva.sea.ql.interpretation.swing.components.Sizes;
+import org.uva.sea.ql.interpretation.swing.visitors.ListenerFactory;
 import org.uva.sea.ql.interpretation.swing.visitors.QuestionListener;
 
 public class SwingDocument implements QLDocument {
@@ -69,7 +70,7 @@ public class SwingDocument implements QLDocument {
     @Override
     public final void create() {
         for (QuestionPanel questionPanel : this.registry.getQuestions()) {
-            new AutoValueSetter(this.registry, questionPanel).createListeners();
+            addQuestionListener(questionPanel);
         }
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
             addIdentListener(ifPanel);
@@ -80,6 +81,10 @@ public class SwingDocument implements QLDocument {
         return this.registry;
     }
 
+    private void addQuestionListener(QuestionPanel qp) {
+        ListenerFactory.createListeners(qp, this.registry);
+    }
+
     private void addIdentListener(IfStatementPanel ifPanel) {
         final IfStatement ifStatement = ifPanel.getIfStatement();
         final IdentFinder finder = new IdentFinder(
@@ -88,8 +93,8 @@ public class SwingDocument implements QLDocument {
         for (Ident ident : idents) {
             final QuestionPanel questionPanel = this.registry
                     .getQuestionPanelByIdent(ident);
-            final QuestionListener v = new QuestionListener(
-                    questionPanel, this.registry);
+            final QuestionListener v = new QuestionListener(questionPanel,
+                    this.registry);
         }
     }
 }

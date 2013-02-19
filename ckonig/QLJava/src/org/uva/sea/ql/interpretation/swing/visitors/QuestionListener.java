@@ -17,76 +17,83 @@ import org.uva.sea.ql.interpretation.TypeVisitor;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
-public class QuestionListener implements TypeVisitor{
+public class QuestionListener {
     private QuestionPanel questionPanel;
     private SwingRegistry registry;
-    public QuestionListener(QuestionPanel q, SwingRegistry reg){
+
+    public QuestionListener(QuestionPanel q, SwingRegistry reg) {
         this.questionPanel = q;
         this.registry = reg;
-        questionPanel.getQuestion().getType().accept(this);
-    }
-    @Override
-    public final void visit(BooleanType b) {
-        listenToBoolean();
+        questionPanel.getQuestion().getType()
+                .accept(new QuestionListenerTypeVisitor());
     }
 
-    @Override
-    public final void visit(Money m) {
-        listenToText();
+   private class QuestionListenerTypeVisitor implements TypeVisitor {
+        @Override
+        public final void visit(BooleanType b) {
+            listenToBoolean();
+        }
+
+        @Override
+        public final void visit(Money m) {
+            listenToText();
+        }
+
+        @Override
+        public final void visit(StrType s) {
+            listenToText();
+        }
+
+        @Override
+        public final void visit(IntType i) {
+            listenToText();
+        }
+
+        private void listenToText() {
+            final JTextField t = (JTextField) questionPanel.getInput();
+            t.addActionListener(new ActionListener() {
+
+                @Override
+                public final void actionPerformed(ActionEvent e) {
+                    registry.evaluateFunctions();
+                }
+            });
+            t.addKeyListener(new KeyListener() {
+
+                @Override
+                public final void keyTyped(KeyEvent arg0) {
+                    registry.evaluateFunctions();
+                }
+
+                @Override
+                public final void keyReleased(KeyEvent arg0) {
+                    registry.evaluateFunctions();
+
+                }
+
+                @Override
+                public final void keyPressed(KeyEvent arg0) {
+                    registry.evaluateFunctions();
+                }
+            });
+        }
+
+        private void listenToBoolean() {
+            final JCheckBox checkbox = (JCheckBox) questionPanel.getInput();
+            checkbox.addActionListener(new ActionListener() {
+
+                @Override
+                public final void actionPerformed(ActionEvent e) {
+                    registry.evaluateFunctions();
+                }
+            });
+        }
+
+        @Override
+        public void visit(NullType n) {
+            // TODO Auto-generated method stub
+
+        }
     }
 
-    @Override
-    public final void visit(StrType s) {
-        listenToText();        
-    }
-    
-    @Override
-    public final void visit(IntType i) {
-        listenToText();
-    }
-    
-    private void listenToText(){
-        final JTextField t = (JTextField) this.questionPanel.getInput();
-        t.addActionListener(new ActionListener() {
-
-            @Override
-            public final void actionPerformed(ActionEvent e) {
-                registry.evaluateFunctions();
-            }
-        });
-        t.addKeyListener(new KeyListener() {
-
-            @Override
-            public final void keyTyped(KeyEvent arg0) {
-                registry.evaluateFunctions();
-            }
-
-            @Override
-            public final void keyReleased(KeyEvent arg0) {
-                registry.evaluateFunctions();
-
-            }
-
-            @Override
-            public final void keyPressed(KeyEvent arg0) {
-                registry.evaluateFunctions();
-            }
-        });
-    }
-    
-    private void listenToBoolean(){
-        final JCheckBox checkbox = (JCheckBox) questionPanel.getInput();
-        checkbox.addActionListener(new ActionListener() {
-
-            @Override
-            public final void actionPerformed(ActionEvent e) {
-                registry.evaluateFunctions();
-            }
-        });
-    }
-    @Override
-    public void visit(NullType n) {
-        // TODO Auto-generated method stub
-        
-    }
 }

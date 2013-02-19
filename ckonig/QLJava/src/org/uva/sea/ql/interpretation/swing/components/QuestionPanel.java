@@ -46,7 +46,6 @@ public class QuestionPanel extends JPanel {
     public final Object getUserInput() {
         final UserInputReader v = new UserInputReader(this);
         final AbstractType t = this.question.getType();
-        t.accept(v);
         return v.getUserInput();
     }
 
@@ -75,7 +74,6 @@ public class QuestionPanel extends JPanel {
 
     private void createInputElement() {
         final SwingInputComponentFactory v = new SwingInputComponentFactory(this);
-        this.question.getType().accept(v);
         this.input = v.getInputComponent();
         this.add(this.input, BorderLayout.LINE_END);
     }

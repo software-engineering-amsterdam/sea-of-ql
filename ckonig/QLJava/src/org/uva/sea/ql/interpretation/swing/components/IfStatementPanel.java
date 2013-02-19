@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.ReturnFinder;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
-import org.uva.sea.ql.interpretation.swing.visitors.BoolEvaluationVisitor;
+import org.uva.sea.ql.interpretation.swing.visitors.BoolEvaluator;
 
 public class IfStatementPanel extends JPanel {
     private static final long serialVersionUID = -365544076190441356L;
@@ -32,7 +32,7 @@ public class IfStatementPanel extends JPanel {
         ((Evaluatable) e).accept(f);
         if (f.getResult().equals(BooleanType.class)) {
 
-            final boolean result = new BoolEvaluationVisitor(registry)
+            final boolean result = new BoolEvaluator(registry)
                     .eval(this.ifStatement.getCondition());
             this.setVisible(result);
 
