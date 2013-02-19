@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::Int
+module lang::ql::\syntax::Int
 
 lexical Int =
   @category="Constant" [0-9]+ !>> [0-9]

@@ -8,23 +8,9 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::compiler::web::CSS
+module lang::ql::\syntax::Boolean
 
-import IO;
-import lang::ql::ast::AST;
-
-public void CSS(Form f, loc dest) =
-  writeFile(
-    dest + "style.css",
-    ".error {
-    '  float: none;
-    '  color: red;
-    '  padding-left: .5em;
-    '  vertical-align: top;
-    '}
-    '
-    'label {
-    '  display: block;
-    '}
-    '"
-  );
+lexical Boolean
+  = "true"
+  | "false"
+  ;

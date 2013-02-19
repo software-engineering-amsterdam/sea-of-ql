@@ -1,0 +1,10 @@
+.error {
+  float: none !important;
+  color: red !important;
+  padding-left: .5em !important;
+  vertical-align: top !important;
+}
+
+label:first-child {
+  display: block;
+}

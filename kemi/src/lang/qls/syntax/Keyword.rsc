@@ -1,4 +1,4 @@
-module lang::qls::syntax::Keyword
+module lang::qls::\syntax::Keyword
 
 keyword Keywords 
   = stylesheet: "stylesheet"

@@ -8,11 +8,21 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module util::ParseTreeHelper
+module lang::ql::\syntax::Date
 
-import Grammar;
-import ParseTree;
+lexical Date = 
+  @category="Constant" "$" Year "-" Month "-" Day;
 
-// From: lang::rascal::grammar::definition::Keywords
-public set[Production] getKeywords(Grammar g) =
-  {g.rules[s] | s:keywords(_) <- g.rules};
+// Note: We assume that dates are valid in domain [1000 to 2999]
+lexical Year =  
+  [1-2][0-9][0-9][0-9];
+
+lexical Month
+  = [0][0-9]
+  | [1][0-2]
+  ;
+
+lexical Day
+  = [0-2][0-9]
+  | [3][0-1]
+  ;
