@@ -1,10 +1,11 @@
 stylesheet demo {
   page "Age precondition" {
     question theAge {
-      widget number[0, 125, 1]
+      widget number[0., 125., 1.]
     }
+    
     question theAge2 {
-      widget slider[0, 125, 1]
+      widget slider[0., 125., 1.]
       width 400
       font "Arial"
       fontsize 14
@@ -13,22 +14,26 @@ stylesheet demo {
       label-fontsize 16
       label-color #2E31C2
     }
+    
     question ofAge {
       widget checkbox
       font "Courier"
       fontsize 20
       color #FF0000
     }
+    
     question ofAge2 {
       widget radio
       color #00AA00
     }
+    
   }
   
   page "Information" {
     section "Too young" {
       question theAgeToYoung
     }
+    
     section "Income" {
       question hourlyRate
       question lowRemark
@@ -36,14 +41,16 @@ stylesheet demo {
       question highRemark
       question hoursAWeek
     }
+    
   }
-
+  
   page "Income overview" {
     question weeklyIncome {
       font "Arial"
       fontsize 14
       color #3C3C3C
     }
+    
   }
   
   page "Date information" {
