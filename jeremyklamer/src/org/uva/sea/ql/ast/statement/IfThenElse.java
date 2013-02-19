@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.statement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.interpreter.BoolVal;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
+import org.uva.sea.ql.ui.observing.ConditionObserver;
 
 
 public class IfThenElse extends If{
@@ -33,26 +34,26 @@ public class IfThenElse extends If{
 	}
 	
 	@Override
-	public void getUIComponents(List<BaseComponent> components, Env env, Form form) {		
-		super.getUIComponents(components, env, form);
+	public List<BaseComponent> getUIComponents(Env env, Form form) {		
+		List<BaseComponent> components = new ArrayList<BaseComponent>();
+		List<BaseComponent> ifComponents = new ArrayList<BaseComponent>();
+		List<BaseComponent> elseComponents = new ArrayList<BaseComponent>();
+		
+		for(Statement statement : ifBody){
+			ifComponents.addAll(statement.getUIComponents(env, form));
+		}
 		
 		for(Statement statement : elseBody){
-			statement.getUIComponents(components, env, form);
+			elseComponents.addAll(statement.getUIComponents(env, form));
 		}
+		env.registerObserver(new ConditionObserver(condition, elseComponents, ifComponents, env));
+		
+		components.addAll(ifComponents);
+		components.addAll(elseComponents);
+		
+		return components;
 	}
-	
-	@Override
-	public void eval(Env env) {
-		evalIf(env);
-		setVisible(!((BoolVal)condition.eval(env)).getValue());
-		//boolean retVal = true; 
-		for(Statement statement : elseBody){
-			//retVal = statement.eval(env) && retVal;
-			statement.eval(env);
-		}
-		//return retVal; 
-	}
-	
+
 	@Override
 	public void initTypes(Env env) {
 		super.initTypes(env);
@@ -60,15 +61,6 @@ public class IfThenElse extends If{
 			statement.initTypes(env);
 		}
 	}
-	
-	@Override
-	public void setVisible(boolean visible) {
-		super.setVisible(!visible);
-		for(Statement statement : elseBody){
-			statement.setVisible(visible);
-		}
-	}
-	
 	
 	@Override
 	public String genFormFeedBack(Env env, int indentation) {

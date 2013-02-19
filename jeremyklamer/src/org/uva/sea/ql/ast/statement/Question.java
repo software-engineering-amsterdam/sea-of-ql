@@ -11,6 +11,7 @@ import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
 import org.uva.sea.ql.ui.components.QuestionComponent;
+import org.uva.sea.ql.ui.observing.QuestionObservable;
 
 
 public class Question extends Statement {	
@@ -18,7 +19,6 @@ public class Question extends Statement {
 	protected final Ident name; 
 	protected final String sentence; 
 	protected final Type returnType; 
-	protected QuestionComponent uiComponent; 
 	
 	public Question(Ident ident, String sentence , Type returnType) {
 		this.name = ident; 
@@ -30,10 +30,19 @@ public class Question extends Statement {
 		return returnType;
 	}
 	
+	public Ident getName() {
+		return name; 
+	}
+	
 	@Override
-	public void getUIComponents(List<BaseComponent> components, Env env, Form form) { 	
-		uiComponent = new QuestionComponent(sentence, false, returnType.getAnswerComponent(env, form, name));
+	public List<BaseComponent> getUIComponents(Env env, Form form) { 	
+		List<BaseComponent> components = new ArrayList<BaseComponent>();
+		QuestionComponent uiComponent = new QuestionComponent(sentence, false, returnType.getAnswerComponent());
+		QuestionObservable observable = new QuestionObservable(this, env, uiComponent);
+		env.registerObservable(name, observable);
+		uiComponent.getAnswerField().addFocusListener(observable);
 		components.add(uiComponent);
+		return components;
 	}
 	
 	@Override
@@ -51,12 +60,6 @@ public class Question extends Statement {
 	}	
 
 	@Override
-	public void eval(Env env) {
-		//TODO Slaat nergens op>? 
-		//return env.containsValue(name);
-	}
-
-	@Override
 	public void initTypes(Env env) {
 		if(!(env.containsType(name))){
 			env.putType(name, returnType);
@@ -64,12 +67,6 @@ public class Question extends Statement {
 		}
 	}
 
-	@Override
-	public void setVisible(boolean visible) {
-		uiComponent.setVisible(visible);
-	}
-
-	
 	@Override
 	public String genFormFeedBack(Env env, int indentation) {
 		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));

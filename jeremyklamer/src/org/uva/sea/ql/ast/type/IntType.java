@@ -1,8 +1,5 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.ui.components.ActiveComponent;
@@ -16,8 +13,8 @@ public class IntType extends Type{
 	}
 
 	@Override
-	public ActiveComponent getAnswerComponent(final Env env, final Form form, final Ident name) {
-		return new IntComponent(env, form, name);
+	public ActiveComponent getAnswerComponent() {
+		return new IntComponent();
 	}
 
 	@Override
