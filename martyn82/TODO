@@ -5,8 +5,6 @@ TODO
 
 - review typecheckerhelper
 
-- test for typeresolver
-- test for typeinitializer
 - test for controls
 
 - renderer:124 - no finals
