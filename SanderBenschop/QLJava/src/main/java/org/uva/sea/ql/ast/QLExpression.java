@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 

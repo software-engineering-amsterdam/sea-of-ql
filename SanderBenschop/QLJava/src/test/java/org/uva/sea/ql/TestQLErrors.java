@@ -2,9 +2,9 @@ package org.uva.sea.ql;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
-import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;

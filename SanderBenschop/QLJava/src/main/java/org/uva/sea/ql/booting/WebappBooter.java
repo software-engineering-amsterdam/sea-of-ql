@@ -1,4 +1,4 @@
-package org.uva.sea.ql.bootstrapping;
+package org.uva.sea.ql.booting;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.codegeneration.CodeGenerator;
@@ -12,21 +12,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public final class QLBootstrapperImpl implements QLBootstrapper {
+public final class WebappBooter {
 
-    private static final Logger LOGGER = Logger.getLogger(QLBootstrapperImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(WebappBooter.class.getName());
 
     private final Parser parser;
     private final SemanticalAnalyser semanticalAnalyser;
     private final CodeGenerator codeGenerator;
 
-    public QLBootstrapperImpl(Parser parser, SemanticalAnalyser semanticalAnalyser, CodeGenerator codeGenerator) {
+    public WebappBooter(Parser parser, SemanticalAnalyser semanticalAnalyser, CodeGenerator codeGenerator) {
         this.parser = parser;
         this.semanticalAnalyser = semanticalAnalyser;
         this.codeGenerator = codeGenerator;
     }
 
-    @Override
     public QLProgram bootstrapQLProgram(File sourceCode) throws IOException {
         Form form = parser.parse(sourceCode);
         if (!parser.hasErrors()) {

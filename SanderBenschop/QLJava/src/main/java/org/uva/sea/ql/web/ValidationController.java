@@ -1,8 +1,8 @@
 package org.uva.sea.ql.web;
 
-import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
-import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
-import org.uva.sea.ql.ast.primary.typeClasses.StringType;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidationResult;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
 

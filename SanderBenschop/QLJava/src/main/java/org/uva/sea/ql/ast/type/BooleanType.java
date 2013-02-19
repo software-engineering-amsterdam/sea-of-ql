@@ -1,12 +1,10 @@
-package org.uva.sea.ql.ast.primary.typeClasses;
-
-import org.uva.sea.ql.ast.primary.Bool;
+package org.uva.sea.ql.ast.type;
 
 public class BooleanType implements Type {
 
     @Override
-    public String getObjectLiteralSimpleClassName() {
-        return Bool.class.getSimpleName();
+    public String getName() {
+        return "Bool";
     }
 
     @Override

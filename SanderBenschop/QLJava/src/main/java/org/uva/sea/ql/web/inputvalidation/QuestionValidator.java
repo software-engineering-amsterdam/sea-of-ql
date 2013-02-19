@@ -1,7 +1,7 @@
 package org.uva.sea.ql.web.inputvalidation;
 
 import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 import org.uva.sea.ql.web.IdentifierValuePair;
 
@@ -18,7 +18,7 @@ public class QuestionValidator implements QLInputValidator {
         if (identifier != null && identifierIsOfType(identifier, expectedType) && expectedType.canTakeValue(identifierValuePair.getValue())) {
             return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
         } else {
-            return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getObjectLiteralSimpleClassName()));
+            return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getName()));
         }
     }
 

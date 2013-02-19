@@ -1,30 +1,28 @@
 package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.primary.typeClasses.StringType;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.type.StringType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public final class Str extends ObjectLiteral<String> {
+public final class Str extends QLExpression {
 
     private final String value;
-    private final Type returningType;
 
-    public Str(String value, SourceCodeInformation sourceInfo) {
-        super(sourceInfo);
+    public Str(String value, SourceCodeInformation sourceCodeInformation) {
+        super(sourceCodeInformation);
         this.value = value;
-        this.returningType = new StringType();
     }
 
-    @Override
     public String getValue() {
         return value;
     }
 
     @Override
     public Type getType(SymbolTable symbolTable) {
-        return returningType;
+        return new StringType();
     }
 
     @Override

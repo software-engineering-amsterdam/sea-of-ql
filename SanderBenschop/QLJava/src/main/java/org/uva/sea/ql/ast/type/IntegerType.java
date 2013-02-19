@@ -1,22 +1,25 @@
-package org.uva.sea.ql.ast.primary.typeClasses;
+package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.primary.Str;
-
-public class StringType implements Type {
+public class IntegerType implements Type {
 
     @Override
-    public String getObjectLiteralSimpleClassName() {
-        return Str.class.getSimpleName();
+    public String getName() {
+        return "Int";
     }
 
     @Override
     public boolean canTakeValue(String value) {
-        return value != null;
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
     }
 
     @Override
     public boolean isCompatibleTo(Type type) {
-        return type.isCompatibleToStringType();
+        return type.isCompatibleToIntegerType();
     }
 
     @Override
@@ -26,11 +29,11 @@ public class StringType implements Type {
 
     @Override
     public boolean isCompatibleToIntegerType() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCompatibleToStringType() {
-        return true;
+        return false;
     }
 }

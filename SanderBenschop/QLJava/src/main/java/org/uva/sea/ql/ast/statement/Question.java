@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.Type;
 
 public class Question extends QLStatement {
 

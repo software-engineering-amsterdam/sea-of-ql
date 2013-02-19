@@ -1,6 +1,6 @@
 package org.uva.sea.ql.web;
 
-import org.uva.sea.ql.bootstrapping.QLProgram;
+import org.uva.sea.ql.booting.QLProgram;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

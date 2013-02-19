@@ -2,23 +2,20 @@ package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
 public class NotEqualTo extends BinaryOperation {
 
-    private final Type returningType;
-
-    public NotEqualTo(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceInfo) {
-        super(leftHandSide, rightHandSide, sourceInfo);
-        this.returningType = new BooleanType();
+    public NotEqualTo(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceCodeInformation) {
+        super(leftHandSide, rightHandSide, sourceCodeInformation);
     }
 
     @Override
     public Type getType(SymbolTable symbolTable) {
-        return returningType;
+        return new BooleanType();
     }
 
     @Override

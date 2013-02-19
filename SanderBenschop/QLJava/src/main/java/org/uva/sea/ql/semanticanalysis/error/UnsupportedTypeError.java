@@ -1,6 +1,6 @@
 package org.uva.sea.ql.semanticanalysis.error;
 
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 
 public class UnsupportedTypeError extends SemanticQLError {
@@ -19,6 +19,6 @@ public class UnsupportedTypeError extends SemanticQLError {
     @Override
     public String getErrorMessage() {
         int lineNumber = getSourceCodeInformation().getLineNumber(), columnPosition = getSourceCodeInformation().getColumnPosition();
-        return String.format(ERROR_MESSAGE_TEMPLATE, lineNumber, columnPosition, actualType.getObjectLiteralSimpleClassName(), expectedType.getObjectLiteralSimpleClassName());
+        return String.format(ERROR_MESSAGE_TEMPLATE, lineNumber, columnPosition, actualType.getName(), expectedType.getName());
     }
 }

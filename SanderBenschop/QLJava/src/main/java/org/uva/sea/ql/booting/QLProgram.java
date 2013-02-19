@@ -1,4 +1,4 @@
-package org.uva.sea.ql.bootstrapping;
+package org.uva.sea.ql.booting;
 
 /**
  * Interface for classes that wrap a QLProgram.

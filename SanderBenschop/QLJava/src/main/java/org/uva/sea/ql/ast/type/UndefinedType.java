@@ -1,9 +1,9 @@
-package org.uva.sea.ql.ast.primary.typeClasses;
+package org.uva.sea.ql.ast.type;
 
 public class UndefinedType implements Type {
 
     @Override
-    public String getObjectLiteralSimpleClassName() {
+    public String getName() {
         return "Undefined";
     }
 

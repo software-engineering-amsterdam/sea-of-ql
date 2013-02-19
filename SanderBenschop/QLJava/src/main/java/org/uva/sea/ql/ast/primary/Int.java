@@ -1,30 +1,28 @@
 package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public final class Int extends ObjectLiteral<Integer> {
+public final class Int extends QLExpression {
 
     private final int value;
-    private final Type returningType;
 
-    public Int(int value, SourceCodeInformation sourceInfo) {
-        super(sourceInfo);
+    public Int(int value, SourceCodeInformation sourceCodeInformation) {
+        super(sourceCodeInformation);
         this.value = value;
-        this.returningType = new IntegerType();
     }
 
-    @Override
     public Integer getValue() {
         return value;
     }
 
     @Override
     public Type getType(SymbolTable symbolTable) {
-        return returningType;
+        return new IntegerType();
     }
 
     @Override

@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.ObjectLiteral;
 import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.parsing.exception.ParseException;
@@ -43,11 +42,10 @@ public abstract class TestParser {
 
     }
 
-    protected ObjectLiteral<?> parsePrimary(String source) throws ParseException {
+    protected QLExpression parsePrimary(String source) throws ParseException {
         String template = "if(%s){}";
         Conditional statement = (Conditional) parseStatement(String.format(template, source));
-        Assert.assertTrue("Attempted to parse non-expression to an expression.", statement.getCondition() instanceof ObjectLiteral<?>);
-        return (ObjectLiteral<?>) statement.getCondition();
+        return statement.getCondition();
     }
 
     private Conditional wrapInConditionalAndParse(String source) throws ParseException {

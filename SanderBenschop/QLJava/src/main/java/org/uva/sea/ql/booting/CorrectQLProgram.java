@@ -1,4 +1,4 @@
-package org.uva.sea.ql.bootstrapping;
+package org.uva.sea.ql.booting;
 
 public class CorrectQLProgram implements QLProgram {
 

@@ -1,8 +1,8 @@
-package org.uva.sea.ql.ast.primary.typeClasses;
+package org.uva.sea.ql.ast.type;
 
 public interface Type {
 
-    String getObjectLiteralSimpleClassName();
+    String getName();
 
     boolean canTakeValue(String value);
 

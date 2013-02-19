@@ -1,30 +1,28 @@
 package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public final class Bool extends ObjectLiteral<Boolean> {
+public final class Bool extends QLExpression {
 
     private final boolean value;
-    private final Type returningType;
 
-    public Bool(boolean value, SourceCodeInformation sourceInfo) {
-        super(sourceInfo);
+    public Bool(boolean value, SourceCodeInformation sourceCodeInformation) {
+        super(sourceCodeInformation);
         this.value = value;
-        this.returningType = new BooleanType();
     }
 
-    @Override
     public Boolean getValue() {
         return value;
     }
 
     @Override
     public Type getType(SymbolTable symbolTable) {
-        return returningType;
+        return new BooleanType();
     }
 
     @Override

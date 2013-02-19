@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.ast.primary.typeClasses.UndefinedType;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.ast.sourcecodeinformation.NullSourceCodeInformation;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
@@ -16,13 +16,26 @@ public final class Ident extends QLExpression {
         this(name, new NullSourceCodeInformation());
     }
 
-    public Ident(String name, SourceCodeInformation sourceInfo) {
-        super(sourceInfo);
+    public Ident(String name, SourceCodeInformation sourceCodeInformation) {
+        super(sourceCodeInformation);
         this.name = name;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Type getType(SymbolTable symbolTable) {
+        if (symbolTable.containsIdentifier(this)) {
+            return symbolTable.getIdentifier(this);
+        }
+        return new UndefinedType();
+    }
+
+    @Override
+    public <T> T accept(ASTNodeVisitor<T> visitor) {
+        return visitor.visitIdent(this);
     }
 
     @Override
@@ -38,18 +51,5 @@ public final class Ident extends QLExpression {
             Ident otherIdent = (Ident) other;
             return hashCode() == otherIdent.hashCode();
         }
-    }
-
-    @Override
-    public Type getType(SymbolTable symbolTable) {
-        if (symbolTable.containsIdentifier(this)) {
-            return symbolTable.getIdentifier(this);
-        }
-        return new UndefinedType();
-    }
-
-    @Override
-    public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitIdent(this);
     }
 }

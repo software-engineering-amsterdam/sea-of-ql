@@ -2,9 +2,9 @@ package org.uva.sea.ql.parsing.statement;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
-import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
-import org.uva.sea.ql.ast.primary.typeClasses.StringType;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.semanticanalysis.error;
 
-import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 
 public class UnequalTypesError extends SemanticQLError {
@@ -19,6 +19,6 @@ public class UnequalTypesError extends SemanticQLError {
     @Override
     public String getErrorMessage() {
         int lineNumber = getSourceCodeInformation().getLineNumber(), columnPosition = getSourceCodeInformation().getColumnPosition();
-        return String.format(ERROR_MESSAGE_TEMPLATE, lineNumber, columnPosition, leftHandSideType.getObjectLiteralSimpleClassName(), rightHandSideType.getObjectLiteralSimpleClassName());
+        return String.format(ERROR_MESSAGE_TEMPLATE, lineNumber, columnPosition, leftHandSideType.getName(), rightHandSideType.getName());
     }
 }
