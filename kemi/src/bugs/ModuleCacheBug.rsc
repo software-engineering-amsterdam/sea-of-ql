@@ -17,8 +17,6 @@ import bugs::ExtendSyntax;
  * to correctly detect al keywords again, the associated rascal console has to 
  * be terminated and the module must be reloaded in a new console.  
  */
- 
-// Remove this line after the first run. 
 
 public void main() {
   int kc = size(keywords);

@@ -13,7 +13,7 @@ module lang::ql::compiler::web::PHP
 import Configuration;
 import IO;
 import String;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::web::PHPExpressionPrinter;
 
 private str title = "";

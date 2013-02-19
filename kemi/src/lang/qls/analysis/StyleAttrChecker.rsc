@@ -12,9 +12,9 @@ module lang::qls::analysis::StyleAttrChecker
 
 import IO;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::qls::analysis::Messages;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 import util::IDE;
 

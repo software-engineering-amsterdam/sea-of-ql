@@ -1,6 +1,6 @@
 stylesheet calculatedField {
-  question \number
-  question numberx3 {
+  question anumber
+  question anumberx3 {
     width 100
   }
   

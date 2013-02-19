@@ -13,9 +13,9 @@ module lang::qls::compiler::web::CSS
 import Configuration;
 import IO;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::util::FormHelper;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 
 public void CSS(Stylesheet sheet, loc dest) {

@@ -8,16 +8,16 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::syntax::QLS
+module lang::qls::\syntax::QLS
 
-extend lang::ql::syntax::Comment;
-extend lang::ql::syntax::Int;
-extend lang::ql::syntax::Layout;
-extend lang::ql::syntax::Money;
-extend lang::ql::syntax::String;
-extend lang::ql::syntax::Type;
-extend lang::qls::syntax::Color;
-extend lang::qls::syntax::Keyword;
+extend lang::ql::\syntax::Comment;
+extend lang::ql::\syntax::Int;
+extend lang::ql::\syntax::Layout;
+extend lang::ql::\syntax::Money;
+extend lang::ql::\syntax::String;
+extend lang::ql::\syntax::Type;
+extend lang::qls::\syntax::Color;
+extend lang::qls::\syntax::Keyword;
 
 start syntax Stylesheet
   = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
@@ -126,12 +126,12 @@ lexical ColorStyleAttr
   = @category="Identifier" color: "color"
   | @category="Identifier" labelColor: "label-color"
   ;
-
+  
 syntax Ident
   = @category="Variable" IdentLexical \ Keywords
-  | @category="Variable" ("\\" IdentLexical) \ Keywords
+  | @category="Variable" ("\\" IdentLexical)
   ;
 
 lexical IdentLexical
   = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
-  ;
+   ;

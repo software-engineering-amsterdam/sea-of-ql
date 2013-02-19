@@ -10,7 +10,7 @@
 
 module lang::qls::ide::Outline
 
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 import List;
 import Node;

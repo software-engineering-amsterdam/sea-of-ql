@@ -13,7 +13,7 @@ module lang::ql::compiler::web::JS
 import Configuration;
 import IO;
 import String;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::web::JSExpressionPrinter;
 import lang::ql::util::FormHelper;
 

@@ -12,7 +12,7 @@ module lang::ql::compiler::web::CSS
 
 import Configuration;
 import IO;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 
 public void CSS(Form f, loc dest) =
   writeFile(dest + getCSSStylesheetName(),

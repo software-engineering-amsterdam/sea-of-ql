@@ -12,8 +12,8 @@ module lang::ql::util::ParenthesizeExpressions
 
 import Grammar; 
 import Node;
-import lang::ql::ast::AST;
-import lang::ql::syntax::QL;
+import lang::ql::\ast::AST;
+import lang::ql::\syntax::QL;
 import lang::rascal::grammar::definition::Priorities;
 import util::Priorities;
 
@@ -29,7 +29,7 @@ private Expr parenizeExpr(Expr parent, Expr kid) =
   parens(parent, kid, parenizeExpr(kid), parenizer);
 
 private DoNotNest PRIOS = 
-  doNotNest(grammar({}, #lang::ql::syntax::QL::Form.definitions));
+  doNotNest(grammar({}, #lang::ql::\syntax::QL::Form.definitions));
 
 private &T parens(node parent, node kid, &T x,  &T(&T x) parenizer) = 
   parens(PRIOS, parent, kid, x, parenizer);

@@ -11,8 +11,8 @@
 module lang::qls::compiler::web::Web
 
 import IO;
-import lang::ql::ast::AST;
-import lang::qls::ast::AST;
+import lang::ql::\ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::compiler::web::CSS;
 import lang::qls::compiler::web::JS;
 

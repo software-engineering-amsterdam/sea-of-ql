@@ -14,9 +14,9 @@ import Configuration;
 import IO;
 import String;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::util::FormHelper;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 import util::StringHelper;
 
@@ -80,7 +80,18 @@ private str layoutJS(Definition d, str parentID) =
   '
   '"
     when d is questionDefinition;
-
+    
+private str layoutJS(Definition d, str parentID) =
+  "/*
+  'Why is the defaultDefinition not matched?
+  'Definition d: 
+  '<d>
+  '
+  'str parentID: 
+  '<parentID>
+  '*/"
+    when d is defaultDefinition;
+    
 private str styleJS(Stylesheet s) {
   Form f = getAccompanyingForm(s);
   TypeMap typeMap = getTypeMap(f);

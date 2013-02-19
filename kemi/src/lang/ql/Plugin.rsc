@@ -16,12 +16,12 @@ import ParseTree;
 import util::IDE;
 import util::Prompt;
 
-import lang::ql::analysis::SemanticChecker;
-import lang::ql::ast::AST;
+import lang::ql::\analysis::SemanticChecker;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::compiler::web::Web;
 import lang::ql::ide::Outline;
-import lang::ql::syntax::QL;
+import lang::ql::\syntax::QL;
 import lang::ql::util::ParseHelper;
 
 private str ACTION_FORMAT = "Format (removes comments)";

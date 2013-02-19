@@ -12,14 +12,14 @@ module lang::qls::Plugin
 
 import Configuration;
 import IO;
-import ParseTree;
+import \ParseTree;
 import lang::ql::Plugin;
 import lang::qls::analysis::SemanticChecker;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::compiler::PrettyPrinter;
 import lang::qls::compiler::web::Web;
 import lang::qls::ide::Outline;
-import lang::qls::syntax::QLS;
+import lang::qls::\syntax::QLS;
 import lang::qls::util::ParseHelper;
 import lang::qls::util::StyleHelper;
 import util::IDE;

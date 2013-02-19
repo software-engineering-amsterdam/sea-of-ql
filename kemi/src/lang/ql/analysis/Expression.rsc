@@ -14,7 +14,7 @@ import Node;
 import Set;
 import lang::ql::analysis::Messages;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import util::IDE;
 
 private Type i() = integerType("integer");

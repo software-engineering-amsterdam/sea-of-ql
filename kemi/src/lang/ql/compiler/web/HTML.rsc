@@ -12,7 +12,7 @@ module lang::ql::compiler::web::HTML
 
 import Configuration;
 import IO;
-import lang::ql::ast::AST; 
+import lang::ql::\ast::AST; 
 import util::StringHelper;
 
 public void HTML(Form f, loc dest) {

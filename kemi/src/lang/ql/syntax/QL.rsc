@@ -8,17 +8,17 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::QL
+module lang::ql::\syntax::QL
 
-extend lang::ql::syntax::Boolean;
-extend lang::ql::syntax::Comment;
-extend lang::ql::syntax::Date;
-extend lang::ql::syntax::Int;
-extend lang::ql::syntax::Keyword;
-extend lang::ql::syntax::Layout;
-extend lang::ql::syntax::Money;
-extend lang::ql::syntax::String;
-extend lang::ql::syntax::Type;
+extend lang::ql::\syntax::Boolean;
+extend lang::ql::\syntax::Comment;
+extend lang::ql::\syntax::\Date;
+extend lang::ql::\syntax::Int;
+extend lang::ql::\syntax::Keyword;
+extend lang::ql::\syntax::Layout;
+extend lang::ql::\syntax::Money;
+extend lang::ql::\syntax::String;
+extend lang::ql::\syntax::Type;
 
 start syntax Form = 
   @Foldable form: "form" IdentDefinition formName "{" Statement+ formElements "}";

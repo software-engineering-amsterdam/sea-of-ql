@@ -1,6 +1,6 @@
 module lang::ql::util::FormHelper
 
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 
 private list[Statement] getConditionalBodies(Statement cond) = 
   cond.ifPart.body + 

@@ -10,8 +10,8 @@
 
 module lang::qls::compiler::PrettyPrinter
 
-import lang::qls::ast::AST;
-import lang::qls::ast::Keyword;
+import lang::qls::\ast::AST;
+import lang::qls::\ast::Keyword;
 
 public str prettyPrint(Stylesheet s) =
   "stylesheet <prettyPrint(s.ident)> {<for(st <- s.definitions) {>

@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::Date
+module lang::ql::\syntax::Date
 
 lexical Date = 
   @category="Constant" "$" Year "-" Month "-" Day;
