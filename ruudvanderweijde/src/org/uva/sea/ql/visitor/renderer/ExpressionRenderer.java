@@ -27,11 +27,12 @@ import org.uva.sea.ql.ast.expr.unary.Unary;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class ExpressionRenderer implements IExpressionVisitor<String> {
-	private String strExpression = new String();
+	private String strExpression;
 	private List<Ident> idents;
 	
-	public ExpressionRenderer(List<Ident> idents) {
+	public ExpressionRenderer() {
 		this.idents = new LinkedList<Ident>();
+		this.strExpression = new String();
 	}
 	
 	@Override

@@ -10,45 +10,45 @@
 
 module lang::ql::Plugin
 
+import Configuration;
 import IO;
 import ParseTree;
 import util::IDE;
 import util::Prompt;
 
-import lang::ql::analysis::SemanticChecker;
-import lang::ql::ast::AST;
+import lang::ql::\analysis::SemanticChecker;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::compiler::web::Web;
 import lang::ql::ide::Outline;
-import lang::ql::syntax::QL;
+import lang::ql::\syntax::QL;
 import lang::ql::util::ParseHelper;
 
-private str LANG_QL = "QL-R";
-private str EXT_QL = "q";
-private str ACTION_FORMAT = "Format (removes comments)";
-private str ACTION_BUILD = "Build form";
-private loc FORM_TARGET = |project://QL-R-kemi/output/|;
+private str actionBuild = "Build form";
+private str actionFormat = "Format (removes comments)";
 
-private void format(start[Form] f, loc l) =
-  writeFile(l, prettyPrint(implode(f)));
+private void format(Form f, loc l) =
+  writeFile(l, prettyPrint(f));
   
-private void build(start[Form] form, loc source) {
-  messages = buildAndReturnMessages(form, FORM_TARGET);
+private void build(Form form, loc source) {
+  messages = buildAndReturnMessages(form, getCompileTarget());
   
-  if(messages != {}) {
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
     alert("The form cannot be built when it still contains errors.");
   } else {
-    alert("The form is built in <FORM_TARGET>.");
+    alert("The form is built in <getCompileTarget()>.");
   }
   return;
 }
   
-public set[Message] buildAndReturnMessages(start[Form] form, loc target) =
-  buildAndReturnMessages(implode(form), target);
-  
 public set[Message] buildAndReturnMessages(Form form, loc target) {
   messages = semanticChecker(form);
-  if(messages != {}) {
+  
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
     return messages;
   }
   buildForm(form, target);
@@ -57,7 +57,7 @@ public set[Message] buildAndReturnMessages(Form form, loc target) {
 }
 
 public void setupQL() {
-  registerLanguage(LANG_QL, EXT_QL, Tree(str src, loc l) {
+  registerLanguage(getQLLangName(), getQLLangExt(), Tree(str src, loc l) {
     return parse(src, l);
   });
   
@@ -71,17 +71,21 @@ public void setupQL() {
     }),
     
     popup(
-      menu(LANG_QL,[
-        action(ACTION_BUILD, build),
-        action(ACTION_FORMAT, format)
+      menu(getQLLangName(),[
+        action(actionBuild, (Tree tree, loc source) {
+          build(implode(tree), source);
+        }),
+        action(actionFormat, (Tree tree, loc source) {
+          format(implode(tree), source);
+        })
       ])
     ), 
     
     builder(set[Message] (Tree input) {
-      messages = buildAndReturnMessages(implode(input), FORM_TARGET);
+      messages = buildAndReturnMessages(implode(input), getCompileTarget());
       return messages;
     })
   };
   
-  registerContributions(LANG_QL, contribs);
+  registerContributions(getQLLangName(), contribs);
 }

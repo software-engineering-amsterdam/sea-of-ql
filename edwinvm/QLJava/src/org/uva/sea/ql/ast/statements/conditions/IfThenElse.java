@@ -6,17 +6,10 @@ import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
 public class IfThenElse extends ConditionBlock {
-	private final FormStatement _body;
 	private final FormStatement _elseBody;
 	
 	public IfThenElse(Expr condition, FormStatement body, FormStatement elseBody) {
-		super(condition);
-		_body = body;
-		_elseBody = elseBody;
-	}
-	
-	public FormStatement getBody() {
-		return _body;
+		super(condition, body); _elseBody = elseBody;
 	}
 	
 	public FormStatement getElseBody() {

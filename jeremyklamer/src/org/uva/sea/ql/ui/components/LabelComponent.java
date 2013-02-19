@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ui.components;
 
-import java.awt.Component;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 public class LabelComponent extends BaseComponent {
@@ -15,7 +15,7 @@ public class LabelComponent extends BaseComponent {
 	}
 	
 	@Override
-	public Component getComponent() {
+	public JComponent getComponent() {
 		return textLabel;
 	}
 	@Override

@@ -14,7 +14,6 @@ public abstract class Literal<T> extends Expression {
 		return value;
 	}
 	
-	@Override
 	public String getRepresentation() {
 		return value.toString();
 	}

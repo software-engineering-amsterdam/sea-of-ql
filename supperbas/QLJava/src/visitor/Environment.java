@@ -1,10 +1,10 @@
 package visitor;
 
-import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observer;
 
 import visitor.evaluator.Bindable;
 
@@ -80,6 +80,20 @@ public class Environment {
 
 	public void addError(String err) {
 		this.messages.add(new Message(err));
+	}
+	
+	public void addObserver(Ident ident, Observer observer){
+		this.valEnv.get(ident).addObserver(observer);
+	}
+	
+	public void notifyObservers(Ident ident){
+		this.valEnv.get(ident).notifyObservers();
+	}
+	
+	public void printErrors(){
+		System.out.println("There was an error during parsing:");
+		for (Message i : this.getMessages())
+			System.out.println("-" + i.getMessage());
 	}
 
 }

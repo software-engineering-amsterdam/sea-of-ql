@@ -2,7 +2,6 @@ package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Identifier extends Expression {
 
@@ -16,10 +15,10 @@ public class Identifier extends Expression {
 		return name;
 	}
 
-	public Type typeOf(TypeEnvironment typeEnv) {
-		return typeEnv.getType(this);
+	public Type typeOf(TypeEnvironment env) {
+		return env.getType(this);
 	}
-
+	
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}

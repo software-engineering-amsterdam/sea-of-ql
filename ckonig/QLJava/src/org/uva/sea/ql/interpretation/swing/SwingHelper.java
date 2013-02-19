@@ -42,6 +42,10 @@ public class SwingHelper {
     public final SwingRegistry getRegistry() {
         return this.registry;
     }
+    
+    public final void pushLog(String message) {
+        this.appendToLog(message);        
+    }
 
     private void parseFile() {
         if (this.fileContent != null) {
@@ -98,5 +102,4 @@ public class SwingHelper {
     private void appendToLog(String str) {
         this.log.append(str + "\n");
     }
-
 }

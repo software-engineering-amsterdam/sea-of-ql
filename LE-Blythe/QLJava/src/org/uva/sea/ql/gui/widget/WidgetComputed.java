@@ -1,19 +1,20 @@
 package org.uva.sea.ql.gui.widget;
 
 import java.awt.Component;
-import java.awt.Label;
+
+import javax.swing.JLabel;
 
 import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Undefined;
 
 public class WidgetComputed extends Widget {
 	
-	private Label label;
+	private JLabel label;
 	private Primitive value;
 	
 	public WidgetComputed(){
 		super();
-		this.label = new Label();
+		this.label = new JLabel();
 		this.value = new Undefined();
 	}
 	

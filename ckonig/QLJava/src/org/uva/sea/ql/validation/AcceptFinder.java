@@ -10,7 +10,6 @@ import org.uva.sea.ql.ast.bool.NEq;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -24,6 +23,7 @@ import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.ReturnTypes;
 
  class AcceptFinder implements EvaluationVisitor {
     private ReturnTypes result;

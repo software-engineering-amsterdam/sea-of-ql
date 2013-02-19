@@ -1,20 +1,21 @@
 package org.uva.sea.ql.gui.widget;
 
 import java.awt.Component;
-import java.awt.TextField;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Str;
 
 public class WidgetStr extends Widget implements KeyListener{
 
-	private TextField txtfield;
+	private JTextField txtfield;
 	
 	public WidgetStr(){
 		super();
-		txtfield = new TextField();
+		txtfield = new JTextField();
 		txtfield.addKeyListener(this);
 	}
 

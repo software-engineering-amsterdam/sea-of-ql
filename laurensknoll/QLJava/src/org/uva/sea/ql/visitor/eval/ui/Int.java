@@ -6,6 +6,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
+import org.uva.sea.ql.visitor.eval.value.Undefined;
 
 public class Int extends Widget implements DocumentListener {
 
@@ -13,10 +14,6 @@ public class Int extends Widget implements DocumentListener {
 
 	public Int() {
 		this.component = new JTextField();
-		this.component.setText("0");
-
-		// Listener must be added after the initial text is set to prevent
-		// propagation.
 		this.component.getDocument().addDocumentListener(this);
 	}
 
@@ -27,19 +24,21 @@ public class Int extends Widget implements DocumentListener {
 
 	@Override
 	public void setValue(AbstractValue value) {
-		// The semantic check guarantees that this is a Int.
-		org.uva.sea.ql.visitor.eval.value.Int valueAsInt = (org.uva.sea.ql.visitor.eval.value.Int) value;
-
 		// JTextField.setText() fires a remove and insert event.
 		// We however only want to trigger an update once.
 		// Therefore we remove the eventlistener and add it
 		// after the change is made.
 		this.component.getDocument().removeDocumentListener(this);
 
-		java.lang.String valueAsString = java.lang.String.format("%d",
-				valueAsInt.getValue());
-		this.component.setText(valueAsString);
-
+		if (value.equals(Undefined.UNDEFINED)) {
+			this.component.setText("");
+		} else {
+			// The semantic check guarantees that this is a Int.
+			org.uva.sea.ql.visitor.eval.value.Int valueAsInt = (org.uva.sea.ql.visitor.eval.value.Int) value;
+			java.lang.String valueAsString = java.lang.String.format("%d",
+					valueAsInt.getValue());
+			this.component.setText(valueAsString);
+		}
 		this.propagateChange();
 
 		this.component.getDocument().addDocumentListener(this);
@@ -48,8 +47,13 @@ public class Int extends Widget implements DocumentListener {
 	@Override
 	public AbstractValue getValue() {
 		java.lang.String value = this.component.getText();
-		int i = Integer.parseInt(value);
-		return new org.uva.sea.ql.visitor.eval.value.Int(i);
+
+		try {
+			int i = Integer.parseInt(value);
+			return new org.uva.sea.ql.visitor.eval.value.Int(i);
+		} catch (NumberFormatException ex) {
+			return Undefined.UNDEFINED;
+		}
 	}
 
 	@Override

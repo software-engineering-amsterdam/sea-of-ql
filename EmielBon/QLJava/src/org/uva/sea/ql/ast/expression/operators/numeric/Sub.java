@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.expression.operators.numeric;
 
 import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
 import org.uva.sea.ql.ast.expression.operators.BinaryOperator;
 import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class Sub extends BinaryOperator {
 

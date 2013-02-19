@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.Location;
-import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public abstract class AbstractConditional extends AbstractIfThenElse {
 	private Expr condition;

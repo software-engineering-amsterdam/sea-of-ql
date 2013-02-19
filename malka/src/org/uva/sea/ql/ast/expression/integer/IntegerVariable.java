@@ -1,19 +1,19 @@
 package org.uva.sea.ql.ast.expression.integer;
 
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.variable.Variable;
+import org.uva.sea.ql.ast.expression.Variable;
+import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
-public class IntegerVariable implements IntegerExpression, Variable {
-	
-	private final Identifier id;
+public class IntegerVariable extends Variable implements IntegerExpression {
 	
 	public IntegerVariable(Identifier id) {
-		this.id = id;
+		super(id);
 	}
 
 	@Override
-	public Identifier getID() {
-		return id;
+	public void accept(Visitor visitor) throws VisitorException {
+		visitor.visit(this);
 	}
 
 }

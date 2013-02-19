@@ -21,7 +21,7 @@ class ComputedObserver implements Observer {
 
 	@Override
 	public void update( Observable observable, Object arg ) {
-		Value value = Evaluator.evaluate( this.question.getExpression(), this.environment );
+		Value value = ExpressionEvaluator.evaluate( this.question.getExpression(), this.environment );
 
 		this.environment.assign( question.getIdentifier(), value );
 		this.environment.notifyObservers( this.question.getIdentifier() );

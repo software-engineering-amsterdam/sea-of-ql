@@ -52,9 +52,7 @@ public class ComputedQuestion extends Question {
 	@Override
 	public void eval(Env environment) {
 		Value expressionValue = expression.eval(environment);
-		if (expressionValue != null) {
-			getAnswerComponent().setAnswerFieldValue(expressionValue);
-			environment.addValue(getId(), expressionValue);
-		}
+		getAnswerComponent().setAnswerFieldValue(expressionValue);
+		environment.addValue(getId(), expressionValue);
 	}
 }

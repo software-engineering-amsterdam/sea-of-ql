@@ -9,7 +9,6 @@ import ast.expression.unary.*;
 import ast.expression.value.Bool;
 import ast.expression.value.Int;
 import ast.expression.value.Str;
-import ast.type.Message;
 
 public class ExpressionChecker implements ast.expression.Visitor<Boolean> {
 

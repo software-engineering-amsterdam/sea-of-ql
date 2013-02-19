@@ -31,7 +31,7 @@ public class State {
 		return false;
 	}
 	
-	public void clearState() {
+	public void clear() {
 		typeEnv.clear();
 		valuEnv.clear();
 	}

@@ -3,7 +3,6 @@ package org.uva.sea.ql.visitor;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.uva.sea.ql.evaluator.Error;
 
 abstract public class Environment {
 	private final List<Error> errors;

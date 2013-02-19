@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-16 15:05:02
+// $ANTLR 3.4 C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-19 10:26:04
 
 package org.uva.sea.ql.parser.antlr;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.binary.Add;
 import org.uva.sea.ql.ast.expr.binary.And;
@@ -35,7 +36,6 @@ import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
 import org.uva.sea.ql.ast.expr.value.StringNode;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.Question;
@@ -828,9 +828,9 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "form"
-    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:1: form returns [Statement result] : 'form' Ident '{' ( formPart )+ '}' ;
-    public final Statement form() throws RecognitionException {
-        Statement result = null;
+    // C:\\Users\\Jeremy\\Documents\\GitHub\\sea-of-ql\\jeremyklamer\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:1: form returns [Form result] : 'form' Ident '{' ( formPart )+ '}' ;
+    public final Form form() throws RecognitionException {
+        Form result = null;
 
         int form_StartIndex = input.index();
 

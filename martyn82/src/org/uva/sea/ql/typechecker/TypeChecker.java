@@ -3,7 +3,7 @@ package org.uva.sea.ql.typechecker;
 import java.util.List;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.evaluator.Error;
+import org.uva.sea.ql.visitor.Error;
 
 public class TypeChecker {
 	private final TypeEnvironment environment;

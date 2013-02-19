@@ -12,7 +12,7 @@ module lang::ql::analysis::LabelMap
 
 import lang::ql::analysis::Messages;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import util::IDE;
 
 public LabelMapMessages labelMapper(QuestionText qt, IdentDefinition ident, 
