@@ -38,4 +38,8 @@ public class State {
 		observables.put(identifier, observable);
 	}
 
+	public void notify(Ident identifier) {
+		observables.get(identifier).notifyObservers();		
+	}
+
 }

@@ -3,7 +3,7 @@ package org.uva.sea.ql.rendering.controls;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
-import org.uva.sea.ql.evaluation.values.Value;
+import org.uva.sea.ql.rendering.ObservableQuestion;
 
 public abstract class Field extends Control {
 	
@@ -15,11 +15,14 @@ public abstract class Field extends Control {
 	}
 	
 	@Override
-	public abstract Value getValue();
-	
-	@Override
 	public JComponent getControl() {
 		return jTextField;
+	}
+	
+	@Override
+	public void addListener(ObservableQuestion observableQuestion) {
+		jTextField.addActionListener(observableQuestion);
+		jTextField.addFocusListener(observableQuestion);
 	}
 
 }

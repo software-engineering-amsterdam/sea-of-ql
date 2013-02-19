@@ -5,6 +5,7 @@ import javax.swing.JComponent;
 
 import org.uva.sea.ql.evaluation.values.Bool;
 import org.uva.sea.ql.evaluation.values.Value;
+import org.uva.sea.ql.rendering.ObservableQuestion;
 
 public class CheckBox extends Control {
 
@@ -22,6 +23,15 @@ public class CheckBox extends Control {
 	@Override
 	public JComponent getControl() {
 		return jCheckBox;
+	}
+
+	@Override
+	public void setValue(Value value) {
+	}
+
+	@Override
+	public void addListener(ObservableQuestion observableQuestion) {
+		jCheckBox.addActionListener(observableQuestion);		
 	}
 
 }

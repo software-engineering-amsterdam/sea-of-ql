@@ -62,6 +62,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	public Object visit(ComputedQuestion computedQuestion) {
 		addLabel(computedQuestion.getLabel());
 		Control control = createControl(computedQuestion);
+		control.getControl().setEnabled(false);
 		registerEventHandler(computedQuestion, control);
 		registerComputedQuestionDependencies(computedQuestion, state, control);
 		add(control);
@@ -103,7 +104,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	private void registerEventHandler(Question question, Control control) {
 		ObservableQuestion observableQuestion = new ObservableQuestion(question, state, control);
 		state.putObservable(question.getVariable(), observableQuestion);
-		control.getControl().addFocusListener(observableQuestion);
+		control.addListener(observableQuestion);
 	}
 	
 	private void registerComputedQuestionDependencies(ComputedQuestion computedQuestion, State state, Control control) {
@@ -128,7 +129,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 			return new CheckBox();			
 		}
 		else if (type instanceof IntType) {
-			state.putValue(identifier, new Int(-1));
+			state.putValue(identifier, new Int(0));
 			return new IntegerField();
 		}
 		state.putValue(identifier, new org.uva.sea.ql.evaluation.values.String(""));
