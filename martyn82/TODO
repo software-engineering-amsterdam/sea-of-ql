@@ -7,5 +7,4 @@ TODO
 
 - test for controls
 
-- ui: control <- inputcontrol | buttoncontrol : changeEvent | clickEvent
 - Environment (generic?) same interface, declare abstract type
