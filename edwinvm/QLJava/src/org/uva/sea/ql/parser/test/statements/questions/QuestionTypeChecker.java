@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.statements;
+package org.uva.sea.ql.parser.test.statements.questions;
 
 import static org.junit.Assert.assertTrue;
 
@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;
+import org.uva.sea.ql.parser.test.statements.StatementTypeChecker;
 
 public class QuestionTypeChecker extends StatementTypeChecker {
 	

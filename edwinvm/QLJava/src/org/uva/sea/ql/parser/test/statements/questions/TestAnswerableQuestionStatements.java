@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser.test.statements;
+package org.uva.sea.ql.parser.test.statements.questions;
 
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
