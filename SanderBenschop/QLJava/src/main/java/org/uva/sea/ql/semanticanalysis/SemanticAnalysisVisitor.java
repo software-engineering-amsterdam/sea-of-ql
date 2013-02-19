@@ -1,6 +1,6 @@
 package org.uva.sea.ql.semanticanalysis;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.NodeVisitor;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.statement.Statement;
@@ -32,7 +32,7 @@ import java.util.List;
  * Visitor that's responsible for semantical analysis. This includes type checking as well as a check if an identifier
  * is declared and it is only declared once.
  */
-public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisitor<Boolean> {
+public class SemanticAnalysisVisitor implements SemanticalAnalyser, NodeVisitor<Boolean> {
 
     private SymbolTable symbolTable;
     private List<SemanticQLError> semanticValidationErrors;

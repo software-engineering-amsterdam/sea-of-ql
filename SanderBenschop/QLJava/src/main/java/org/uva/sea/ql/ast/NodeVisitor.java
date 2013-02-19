@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.expression.unary.Negative;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Positive;
 
-public interface ASTNodeVisitor<T> {
+public interface NodeVisitor<T> {
 
     T visitForm(Form form);
 

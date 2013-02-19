@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.statement.Statement;
 
 import java.util.List;
 
-public class Form implements ASTNode {
+public class Form implements Node {
 
     private final String formName;
     private final List<Statement> statements;
@@ -23,7 +23,7 @@ public class Form implements ASTNode {
     }
 
     @Override
-    public <T> T accept(ASTNodeVisitor<T> visitor) {
+    public <T> T accept(NodeVisitor<T> visitor) {
         return visitor.visitForm(this);
     }
 }

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.NodeVisitor;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.Type;
@@ -30,7 +30,7 @@ public class Question extends Statement {
     }
 
     @Override
-    public <T> T accept(ASTNodeVisitor<T> visitor) {
+    public <T> T accept(NodeVisitor<T> visitor) {
         return visitor.visitQuestion(this);
     }
 }

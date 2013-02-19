@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression.primary;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.NodeVisitor;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
@@ -33,7 +33,7 @@ public final class Ident extends Expression {
     }
 
     @Override
-    public <T> T accept(ASTNodeVisitor<T> visitor) {
+    public <T> T accept(NodeVisitor<T> visitor) {
         return visitor.visitIdent(this);
     }
 

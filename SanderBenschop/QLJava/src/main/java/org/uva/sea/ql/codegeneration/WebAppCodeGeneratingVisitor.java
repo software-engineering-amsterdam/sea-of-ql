@@ -2,7 +2,7 @@ package org.uva.sea.ql.codegeneration;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.NodeVisitor;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.expression.binary.*;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisitor<WebappCodeWrapper> {
+public class WebAppCodeGeneratingVisitor implements CodeGenerator, NodeVisitor<WebappCodeWrapper> {
 
     private final IdentifierSequenceGenerator conditionalIdentifierSequenceGenerator;
     private final STGroupFile pageTemplateGroup;

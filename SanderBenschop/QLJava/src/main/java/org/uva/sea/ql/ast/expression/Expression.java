@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public abstract class Expression implements ASTNode {
+public abstract class Expression implements Node {
 
     private final SourceCodeInformation sourceCodeInformation;
 

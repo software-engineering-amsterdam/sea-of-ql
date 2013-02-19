@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.NodeVisitor;
 import org.uva.sea.ql.ast.expression.Expression;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class IfStatement extends Conditional {
     }
 
     @Override
-    public <T> T accept(ASTNodeVisitor<T> visitor) {
+    public <T> T accept(NodeVisitor<T> visitor) {
         return visitor.visitIfStatement(this);
     }
 }
