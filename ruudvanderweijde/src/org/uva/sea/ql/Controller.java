@@ -38,16 +38,18 @@ import org.uva.sea.ql.visitor.valueCheck.ExpressionValueVisitor;
 import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
 /**
- * Controller can will list available forms Can parse, validate and save forms
+ * Controller handles web requests
+ * doGet: show or List Forms
+ * doPost: handle submitted values, validate and store the form 
  */
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final IParse parser = new ANTLRParser();
-	private static List<Message> errors = new ArrayList<Message>();
 	private final String inputDirectory = "forms/";
 	private final String outputDirectory = "c:/tmp/forms/";
 	private final String templateDirectory = "templates/";;
+	private static List<Message> errors = new ArrayList<Message>();
 	private Map<String, TypeMapper> formTypeMapper = new HashMap<String, TypeMapper>();
 	private Map<String, ValueMapper> formValueMapper = new HashMap<String, ValueMapper>();
 
@@ -117,7 +119,7 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	protected boolean generateForm(File qlFile, PrintWriter output) {
+	private boolean generateForm(File qlFile, PrintWriter output) {
 		TypeMapper typeMapper = new TypeMapper();
 		ValueMapper valueMapper = new ValueMapper();
 
