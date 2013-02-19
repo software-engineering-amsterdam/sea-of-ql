@@ -17,10 +17,14 @@ public class StatementTypeChecker {
 	
 	private final IParser _parser;
 	private final SupportedTypes _supportedTypes;
+	private final ErrorMessages _errorMessages;
+	private final StatementChecker _statementChecker;
 	
 	public StatementTypeChecker() {
 		_parser = new ANTLRParserQuestions();
 		_supportedTypes = new SupportedTypes();
+		_errorMessages   = new ErrorMessages();
+		_statementChecker = new StatementChecker(_supportedTypes, _errorMessages);
 	}
 	
 	public void isAValidStatement(String input)  throws ParseError { assertTrue(checkStatement(input)); }
@@ -33,9 +37,8 @@ public class StatementTypeChecker {
 	
 	private Boolean checkStatement(String input) throws ParseError {
 		FormStatement statement = parseStatement(input);
-		ErrorMessages errorMessages = new ErrorMessages();
-		StatementChecker.check(statement, _supportedTypes, errorMessages);
-		return !errorMessages.hasErrors();
+		_statementChecker.check(statement);
+		return !_errorMessages.hasErrors();
 	}
 	
 	private FormStatement parseStatement(String input) throws ParseError { return (FormStatement) _parser.parse(input); }
