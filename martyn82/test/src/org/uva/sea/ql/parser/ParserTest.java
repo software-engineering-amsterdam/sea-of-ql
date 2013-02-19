@@ -1,9 +1,8 @@
 package org.uva.sea.ql.parser;
 
-import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.jacc.QLParser;
 
-abstract public class ParserTest {
+abstract class ParserTest {
 	private final Parser parser;
 
 	public ParserTest() {

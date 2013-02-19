@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.Env;
@@ -19,9 +20,6 @@ public class Question extends Statement {
 	protected final Type returnType; 
 	protected QuestionComponent uiComponent; 
 	
-	protected BaseComponent label; 
-	protected BaseComponent answerField; 
-	
 	public Question(Ident ident, String sentence , Type returnType) {
 		this.name = ident; 
 		this.sentence = sentence;
@@ -33,30 +31,29 @@ public class Question extends Statement {
 	}
 	
 	@Override
-	public List<BaseComponent> getUIComponents(Env env, Form form) { 
-		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
-	
+	public void getUIComponents(List<BaseComponent> components, Env env, Form form) { 	
 		uiComponent = new QuestionComponent(sentence, false, returnType.getAnswerComponent(env, form, name));
 		components.add(uiComponent);
-		
-		return components;
 	}
 	
 	@Override
-	public List<Message> checkType(Env env) {
-		ArrayList<Message> errors = new ArrayList<Message>();
-		
+	public void checkType(List<Message> errors, Env env) {
+		getErrorsMessages(errors, env);
+	}
+	
+	@Override
+	public void getErrorsMessages(List<Message> errors, Env env) {
 		if(env.containsType(name)) {
 			if(!(env.getType(name).getClass().equals(returnType.getClass()))) {
-				errors.add(new Error(name.getName() + " is already defined as type : " + getSimpleName(returnType)));
+				errors.add(new Error(name.getName() + " is already defined as type : " + getSimpleName(env.getType(name))));
 			}
 		}
-		return errors;
-	}
+	}	
 
 	@Override
-	public boolean eval(Env env) {
-		return env.containsValue(name);
+	public void eval(Env env) {
+		//TODO Slaat nergens op>? 
+		//return env.containsValue(name);
 	}
 
 	@Override
@@ -71,15 +68,21 @@ public class Question extends Statement {
 	public void setVisible(boolean visible) {
 		uiComponent.setVisible(visible);
 	}
+
 	
 	@Override
-	public String toString(int indentation) {
-		String returnString = getIndentation(indentation);
-		
-		returnString += getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(returnType);
-		returnString += newLine;
-		
-		return returnString;
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));
+		feedBack.append(name.getName() + " : " + sentence + " return type : " + getSimpleName(returnType)); 
+		feedBack.append(newLine);
+		ArrayList<Message> errors = new ArrayList<Message>();
+		getErrorsMessages(errors , env);
+		for(Message message : errors) {
+			feedBack.append(errorStartSign);
+			feedBack.append(message.getMessage());
+			feedBack.append(newLine);
+		}
+		return feedBack.toString();
 	}
-
+	
 }

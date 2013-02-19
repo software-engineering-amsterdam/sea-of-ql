@@ -1,20 +1,21 @@
 package org.uva.sea.ql.ui.swing;
 
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.NumberFieldControl;
-import org.uva.sea.ql.visitor.evaluator.value.IntegerValue;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.Value;
 
 public class JNumberFieldControl extends NumberFieldControl {
 	private final JSpinner control;
 
 	public JNumberFieldControl() {
-		this.control = new JSpinner();
+		this.control = new JSpinner( new SpinnerNumberModel() );
 	}
 
 	@Override
@@ -46,7 +47,7 @@ public class JNumberFieldControl extends NumberFieldControl {
 	public void addChangeListener( final ControlEventListener listener ) {
 		this.control.addChangeListener( new ChangeListener() {
 			@Override
-			public void stateChanged( ChangeEvent e ) {
+			public void stateChanged( ChangeEvent arg0 ) {
 				listener.itemChanged( new ControlEvent( JNumberFieldControl.this ) );
 			}
 		} );

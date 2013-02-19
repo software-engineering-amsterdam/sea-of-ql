@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ui.components;
 
-import java.awt.Component;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
@@ -24,7 +24,6 @@ public class QuestionComponent extends BaseComponent {
 		this.component = new JPanel(new MigLayout());
 		component.add(labelField.getComponent(), labelField.getArgs());
 		component.add(answerField.getComponent(), answerField.getArgs());
-		
 		if(computed){ 
 			answerField.setEnabled(false);
 		}
@@ -36,7 +35,7 @@ public class QuestionComponent extends BaseComponent {
 	}
 
 	@Override
-	public Component getComponent() {
+	public JComponent getComponent() {
 		return component;
 	}
 

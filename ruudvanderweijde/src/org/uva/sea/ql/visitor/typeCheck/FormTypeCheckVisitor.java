@@ -16,7 +16,7 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IFormVisitor;
 
 /*
- * This FormVisitor checks for:
+ * This FormTypeCheckVisitor checks for:
  * 	- duplicate question ids
  *  - validity of expressions
  *  	- only allow boolean expressions in if condition

@@ -19,8 +19,8 @@ import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.ast.stmt.question.ComputedQuestion;
 import org.uva.sea.ql.ast.stmt.question.NormalQuestion;
 import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.tests.IParse;
 
 public class TestParser {
 	private final IParse parser = new ANTLRParser();

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.value;
 
+
 public class BooleanValue extends Value {
 	private final Boolean value;
 	
@@ -9,6 +10,11 @@ public class BooleanValue extends Value {
 
 	public Boolean getValue() {
 		return value;
+	}
+
+	@Override
+	public boolean isCompatibleToBooleanType() {
+		return true;
 	}
 
 	@Override

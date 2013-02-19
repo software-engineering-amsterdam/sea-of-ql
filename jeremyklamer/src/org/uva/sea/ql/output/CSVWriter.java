@@ -15,7 +15,7 @@ public class CSVWriter {
 	public static void writeForm(String formName, Env env, File location) {
 		try
 		{
-			final String newLine = "\n";
+			final String newLine = System.getProperty("line.separator");
 			final String seperator = ",";
 		    FileWriter writer = new FileWriter(location + folderSeperator + formName + extension);
 	 

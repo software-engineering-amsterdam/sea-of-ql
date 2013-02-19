@@ -3,20 +3,20 @@ package org.uva.sea.ql;
 import java.util.List;
 
 import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.evaluator.Renderer;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.QLParser;
+import org.uva.sea.ql.typechecker.TypeChecker;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
-import org.uva.sea.ql.visitor.evaluator.Error;
-import org.uva.sea.ql.visitor.evaluator.Renderer;
-import org.uva.sea.ql.visitor.typechecker.TypeChecker;
+import org.uva.sea.ql.visitor.Error;
 
 public class QLInterpreter {
 	private final QLParser parser;
 	private final TypeChecker typeChecker;
 	private final ControlFactory factory;
 
-	private PanelControl result;
+	private PanelControl panel;
 
 	public QLInterpreter( ControlFactory factory ) {
 		this.parser = new QLParser();
@@ -32,13 +32,12 @@ public class QLInterpreter {
 			return false;
 		}
 
-		this.result = Renderer.render( root, this.factory );
-
+		this.panel = Renderer.render( root, this.factory );
 		return true;
 	}
 
-	public PanelControl getResult() {
-		return this.result;
+	public PanelControl getPanel() {
+		return this.panel;
 	}
 
 	public boolean hasErrors() {

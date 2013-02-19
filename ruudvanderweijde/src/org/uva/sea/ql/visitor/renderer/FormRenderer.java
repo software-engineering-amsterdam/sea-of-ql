@@ -1,7 +1,6 @@
 package org.uva.sea.ql.visitor.renderer;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
@@ -108,7 +107,6 @@ public class FormRenderer implements IFormVisitor {
 	}
 
 
-
 	private void openBlock(String id) {
 		ST qlOpenBlock = formTemplate.getInstanceOf("OpenBlock");
 		qlOpenBlock.add("id", id);
@@ -141,8 +139,7 @@ public class FormRenderer implements IFormVisitor {
 	}
 
 	private String getExpressionStringByExpression(Expr expr, String uniqueId) {
-		List<Ident> idents = new LinkedList<Ident>();
-		ExpressionRenderer exprRenderer = new ExpressionRenderer(idents);
+		ExpressionRenderer exprRenderer = new ExpressionRenderer();
 		String strCondition = expr.accept(exprRenderer);
 		for (Ident ident : exprRenderer.getIdents()) {
 			ST qlBindIdToFunction = formTemplate.getInstanceOf("BindIdToFunction");

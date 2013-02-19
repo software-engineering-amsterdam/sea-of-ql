@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Statements extends Statement {
 

@@ -33,6 +33,6 @@ public class NEq extends Binary {
 
 	@Override
 	public Set<Type> allowedArgumentTypes() {
-		return new HashSet<Type>(Arrays.asList(new Type[] {new IntType(), new StringType(), new BoolType()}));
+		return new HashSet<Type>(Arrays.asList(new IntType(), new StringType(), new BoolType()));
 	}
 }

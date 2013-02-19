@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast.statement;
 import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class Question extends Statement {
 

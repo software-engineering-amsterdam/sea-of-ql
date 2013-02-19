@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.literal.*;
@@ -16,6 +18,7 @@ import org.uva.sea.ql.typechecker.CheckExpression;
 import org.uva.sea.ql.typechecker.CheckStatement;
 import org.uva.sea.ql.typechecker.Message;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
+import org.uva.sea.ql.interpreter.*;
 
 public class TestExpressions {
 
@@ -149,6 +152,11 @@ public class TestExpressions {
 				"		sellingPrice: \"Price the house was sold for:\" integer(1+2)\n" +
 				"	}\n" +
 				"}"), new TypeEnvironment(), new ArrayList<Message>()));
+	}
+	
+	@Test
+	public void testEvaluations() throws Exception {
+		assertEquals(((Expression)parser.parse("1+2")).accept(new Eval(new ValueEnvironment())), new IntegerValue(4));
 	}
 	
 }

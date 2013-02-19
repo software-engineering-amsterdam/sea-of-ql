@@ -11,7 +11,7 @@ public abstract class BinaryBooleanOperation extends BooleanOperation implements
 	
 	public BinaryBooleanOperation(Expression left, Expression right) {
 		left_operand = left;
-		left_operand = right;
+		right_operand = right;
 	}
 
 	@Override

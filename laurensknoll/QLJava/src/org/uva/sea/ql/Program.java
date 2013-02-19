@@ -11,7 +11,10 @@ import javax.swing.WindowConstants;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
+import org.uva.sea.ql.save.Saver;
+import org.uva.sea.ql.save.Xml;
 import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.eval.Application;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {
@@ -44,10 +47,15 @@ public class Program {
 				System.out.println(error);
 			}
 		} else {
-			IForm<JFrame> swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
-			JFrame frame = questionForm.accept(swingVisitor);
+			IForm<Application> swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
+			Application application = questionForm.accept(swingVisitor);
 
-			// Show created form and define closebehaviour.
+			// Save application results to xml.
+			Saver saver = new Xml("result.xml");
+			application.addObserver(saver);
+
+			// Get created form and define close-behaviour.
+			JFrame frame = application.getGui();
 			frame.setSize(400, 600);
 			frame.setVisible(true);
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-17 21:39:23
+// $ANTLR 3.5 C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-19 02:23:09
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -494,8 +494,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ws;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -522,12 +522,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Comment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:9: ( '/*' ( . )* '*/' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:11: '/*' ( . )* '*/'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:9: ( '/*' ( . )* '*/' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:11: '/*' ( . )* '*/'
 			{
 			match("/*"); 
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:16: ( . )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:16: ( . )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -548,7 +548,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt1) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:16: .
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:16: .
 					{
 					matchAny(); 
 					}
@@ -578,12 +578,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LineComment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:13: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:15: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:13: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:15: '//' (~ ( '\\n' | '\\r' ) )* ( '\\r' )? '\\n'
 			{
 			match("//"); 
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:20: (~ ( '\\n' | '\\r' ) )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:20: (~ ( '\\n' | '\\r' ) )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -612,7 +612,7 @@ public class QLLexer extends Lexer {
 				}
 			}
 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:34: ( '\\r' )?
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:34: ( '\\r' )?
 			int alt3=2;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0=='\r') ) {
@@ -620,7 +620,7 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt3) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:126:34: '\\r'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:127:34: '\\r'
 					{
 					match('\r'); 
 					}
@@ -646,8 +646,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = INTEGER;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:9: ( 'int' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:11: 'int'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:9: ( 'int' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:11: 'int'
 			{
 			match("int"); 
 
@@ -667,8 +667,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = STRING;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:9: ( 'string' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:11: 'string'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:9: ( 'string' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:11: 'string'
 			{
 			match("string"); 
 
@@ -688,8 +688,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = BOOLEAN;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:9: ( 'boolean' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:11: 'boolean'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:9: ( 'boolean' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:11: 'boolean'
 			{
 			match("boolean"); 
 
@@ -709,8 +709,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = MONEY;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:7: ( 'money' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:9: 'money'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:132:7: ( 'money' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:132:9: 'money'
 			{
 			match("money"); 
 
@@ -730,7 +730,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = BoolLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:12: ( 'true' | 'false' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:12: ( 'true' | 'false' )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='t') ) {
@@ -748,14 +748,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:14: 'true'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:14: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:133:21: 'false'
+					// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:21: 'false'
 					{
 					match("false"); 
 
@@ -777,8 +777,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:136:7: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:136:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -788,7 +788,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:136:30: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -833,11 +833,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = StringLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:138:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:138:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
 			{
 			match('\"'); 
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:138:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -883,10 +883,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = MoneyLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:14: ( ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' ) )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:16: ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:140:14: ( ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' ) )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:140:16: ( '0' .. '9' )+ '\\.' ( '0' .. '9' ) ( '0' .. '9' )
 			{
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:16: ( '0' .. '9' )+
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:140:16: ( '0' .. '9' )+
 			int cnt7=0;
 			loop7:
 			while (true) {
@@ -952,10 +952,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = IntLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:141:12: ( ( '0' .. '9' )+ )
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:141:14: ( '0' .. '9' )+
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:12: ( ( '0' .. '9' )+ )
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:14: ( '0' .. '9' )+
 			{
-			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:141:14: ( '0' .. '9' )+
+			// C:\\Users\\SliverPente\\workspaceindigo\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:14: ( '0' .. '9' )+
 			int cnt8=0;
 			loop8:
 			while (true) {

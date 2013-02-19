@@ -6,7 +6,7 @@ import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public abstract class Type implements ASTNode, ReturnType { 
 	
-	abstract public Val createValOfType();
+//	abstract public Val createValOfType();
 	
 	abstract public String toString(); 
 	

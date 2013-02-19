@@ -1,10 +1,12 @@
 package visitor.evaluator;
 
+import java.util.Observable;
+
 import ast.Type;
 import ast.expression.Value;
 
 
-public class Bindable {
+public class Bindable extends Observable {
 
 	private Type type;
 	private Value value;

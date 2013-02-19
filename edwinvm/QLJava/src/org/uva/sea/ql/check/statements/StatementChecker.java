@@ -6,6 +6,8 @@ import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.conditions.IfThen;
+import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
@@ -29,9 +31,16 @@ public class StatementChecker implements Visitor {
 	}
 
 	@Override
-	public void visit(ConditionBlock statement) {
+	public void visit(IfThen statement) {
 		checkCondition(statement);
-		statement.getIfBody().accept(this);
+		statement.getBody().accept(this);
+	}
+	
+	@Override
+	public void visit(IfThenElse statement) {
+		checkCondition(statement);
+		statement.getBody().accept(this);
+		statement.getElseBody().accept(this);
 	}
 
 	@Override
@@ -46,7 +55,7 @@ public class StatementChecker implements Visitor {
 	}
 	
 	private void checkCondition(ConditionBlock statement) {
-		checkExpr(statement.getExpr());
+		checkExpr(statement.getCondition());
 	}
 
 	private void checkExpr(Expr expr) {
