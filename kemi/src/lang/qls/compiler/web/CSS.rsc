@@ -21,7 +21,7 @@ import lang::qls::util::StyleHelper;
 public void CSS(Stylesheet sheet, loc dest) {
   dest += getCSSStylesheetName();
   
-  writeFile(dest, CSS(sheet));
+  appendToFile(dest, CSS(sheet));
 }
 
 private str CSS(Stylesheet s) {
@@ -29,18 +29,7 @@ private str CSS(Stylesheet s) {
   TypeMap typeMap = getTypeMap(f);
 
   return
-    ".error {
-    '  float: none;
-    '  color: red;
-    '  padding-left: .5em;
-    '  vertical-align: top;
-    '}
-    '
-    'label:first-child {
-    '  display: block;
-    '}
-    '
-    '<for(q <- typeMap) {>/* Question <q.ident> */
+    "<for(q <- typeMap) {>/* Question <q.ident> */
     '<for(r <- getStyleRules(q.ident, f, s)) {><CSS(q.ident, r)>
     '<}>
     '<}>
