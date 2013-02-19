@@ -237,9 +237,9 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		throw new NotImplementedException();
 	}
 	
-	@Override
-	public AbstractVisibleControl visit(UndefinedType i, Ident ident) {
-		throw new NotImplementedException();
-	}
+//	@Override
+//	public AbstractVisibleControl visit(UndefinedType i, Ident ident) {
+//		throw new NotImplementedException();
+//	}
 
 }
