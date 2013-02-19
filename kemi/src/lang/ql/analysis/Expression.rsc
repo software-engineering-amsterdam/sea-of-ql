@@ -81,77 +81,78 @@ public set[Message] analyzeAssignmentExpression(SAS sas, Type \type,
     key.ident : {sas.definitions[key]} | 
     key <- sas.definitions
   ) + typesByOperator;
-  <t, messages> = inferExprType(types, expression);
+  <infType, messages> = inferExprType(types, expression);
   
-  if(t == i() && \type == m()) 
+  if(infType == i() && \type == m()) 
     return messages;
 
-  if(t == \type) 
+  if(infType == \type) 
     return messages;
     
-  return messages + {invalidAssignmentMessage(\type, t, expression@location)};
+  return 
+    messages + {invalidAssignmentMessage(\type, infType, expression@location)};
 }
 
 // The following block contains all Expr patterns that are available.
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: pos(Expr posValue)) =
-  analyzeUnary(types, e, posValue);
+  analyzeUnaryExpr(types, e, posValue);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: neg(Expr negValue)) =
-  analyzeUnary(types, e, negValue);
+  analyzeUnaryExpr(types, e, negValue);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: not(Expr notValue)) =
-  analyzeUnary(types, e, notValue);
+  analyzeUnaryExpr(types, e, notValue);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: lt(Expr left, Expr right)) =
-  analyzeRelational(types, e, left, right);
+  analyzeRelationalExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: leq(Expr left, Expr right)) =
-  analyzeRelational(types, e, left, right);
+  analyzeRelationalExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: gt(Expr left, Expr right)) =
-  analyzeRelational(types, e, left, right);
+  analyzeRelationalExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: geq(Expr left, Expr right)) =
-  analyzeRelational(types, e, left, right);
+  analyzeRelationalExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: eq(Expr left, Expr right)) =
-  analyzeRelational(types, e, left, right);
+  analyzeRelationalExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: neq(Expr left, Expr right)) =
-  analyzeRelational(types, e, left, right);
+  analyzeRelationalExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: and(Expr left, Expr right)) =
-  analyzeAndOr(types, e, left, right);
+  analyzeAndOrExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: or(Expr left, Expr right)) =
-  analyzeAndOr(types, e, left, right);
+  analyzeAndOrExpr(types, e, left, right);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: mul(Expr multiplicand, Expr multiplier)) =
-  analyzeBinaryCalculation(types, e, multiplicand, multiplier);
+  analyzeBinaryExpr(types, e, multiplicand, multiplier);
   
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: div(Expr numerator, Expr denominator)) =
-  analyzeBinaryCalculation(types, e, numerator, denominator);
+  analyzeBinaryExpr(types, e, numerator, denominator);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: add(Expr leftAddend, Expr rightAddend)) =
-  analyzeBinaryCalculation(types, e, leftAddend, rightAddend);
+  analyzeBinaryExpr(types, e, leftAddend, rightAddend);
 
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: sub(Expr minuend, Expr subtrahend)) =
-  analyzeBinaryCalculation(types, e, minuend, subtrahend);
+  analyzeBinaryExpr(types, e, minuend, subtrahend);
   
 private tuple[Type, set[Message]] inferExprType(Types types, 
     Expr e: ident(str name)) =
@@ -170,7 +171,7 @@ private default tuple[Type, set[Message]] inferExprType(Types types, Expr e) =
  * There are no special cases, other then the used value not being undeclared 
  * and being a member of the type table above.
  */
-private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent, 
+private tuple[Type, set[Message]] analyzeUnaryExpr(Types types, Expr parent, 
     Expr val) {
   <lhtype, lhmessages> = inferExprType(types, val);
   
@@ -192,7 +193,7 @@ private tuple[Type, set[Message]] analyzeUnary(Types types, Expr parent,
  * - An exception of the above rule is mingling integers and money. 
  *   The resulting tye will be money.
  */
-private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent, 
+private tuple[Type, set[Message]] analyzeRelationalExpr(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
   <lhtype, lhmessages> = inferExprType(types, lhs);
   <rhtype, rhmessages> = inferExprType(types, rhs);
@@ -221,7 +222,7 @@ private tuple[Type, set[Message]] analyzeRelational(Types types, Expr parent,
  * - Members are of allowed type of operator in question
  * - Left and right hand side are booleans
  */
-private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent, 
+private tuple[Type, set[Message]] analyzeAndOrExpr(Types types, Expr parent, 
     Expr lhs, Expr rhs) {
   <lhtype, lhmessages> = inferExprType(types, lhs);
   <rhtype, rhmessages> = inferExprType(types, rhs);
@@ -249,7 +250,7 @@ private tuple[Type, set[Message]] analyzeAndOr(Types types, Expr parent,
  * - Left and right hand side contain one or two moneys. 
  *   The result will be money.
  */
-private tuple[Type, set[Message]] analyzeBinaryCalculation(Types types, 
+private tuple[Type, set[Message]] analyzeBinaryExpr(Types types, 
     Expr parent, Expr lhs, Expr rhs) {
   <lhtype, lhmessages> = inferExprType(types, lhs);
   <rhtype, rhmessages> = inferExprType(types, rhs);
