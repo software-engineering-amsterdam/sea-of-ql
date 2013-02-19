@@ -20,14 +20,13 @@ public class StatementChecker implements Visitor {
 	private final SupportedTypes _supportedTypes;
 	private final ErrorMessages _errorMessages;
 	
-	private StatementChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
+	public StatementChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
 		_supportedTypes = supportedTypes;
 		_errorMessages = messages;
 	}
 	
-	public static void check(FormStatement statement, SupportedTypes supportedTypes, ErrorMessages errors) {
-		StatementChecker statementChecker = new StatementChecker(supportedTypes, errors);
-		statement.accept(statementChecker);
+	public void check(FormStatement statement) {
+		statement.accept(this);
 	}
 
 	@Override
