@@ -113,7 +113,7 @@ private node outline(Definition d: sectionDefinition(ident, rules)) =
 private node outline(Definition d: questionDefinition(ident)) =
   createNode(
     "QuestionDefinition",
-    "question <ident>",
+    "question <ident.name>",
     d@location,
     []
   );
@@ -121,7 +121,7 @@ private node outline(Definition d: questionDefinition(ident)) =
 private node outline(Definition d: questionDefinition(ident, rules)) = 
   createNode(
     "QuestionDefinition",
-    "question <ident>",
+    "question <ident.name>",
     d@location,
     []
   );

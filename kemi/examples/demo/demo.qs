@@ -50,4 +50,8 @@ stylesheet demo {
     question birthdate
     question bornRemark
   }
+  
+  default integer {
+    color #FF00FF
+  }
 }
