@@ -117,8 +117,9 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 			final Natural natural2, final String reference) {
 
 		try {
-			checked.assertTrue(natural.getNature() == natural2.getNature(),
-					natural + " does not match " + natural2 + " for "
+			checked.assertTrue(
+					natural.getNature().equals(natural2.getNature()), natural
+							+ " does not match " + natural2 + " for "
 							+ reference);
 
 		} catch (ValidationException e) {

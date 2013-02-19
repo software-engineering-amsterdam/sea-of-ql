@@ -16,10 +16,14 @@ public class Conditional implements Observer {
 	private final JPanel truePanel;
 	private final Environment environment;
 
-	public Conditional(AbstractExpr condition, JPanel truePanel, Environment environment) {
+	public Conditional(AbstractExpr condition, JPanel truePanel,
+			Environment environment) {
 		this.condition = condition;
 		this.truePanel = truePanel;
 		this.environment = environment;
+
+		// Initially the condition is evaluated as false.
+		this.truePanel.setVisible(false);
 	}
 
 	public void update() {

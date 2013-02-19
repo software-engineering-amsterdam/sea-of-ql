@@ -25,6 +25,10 @@ import org.uva.sea.ql.ast.value.IntegerValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.Model;
 
+/**
+ * Visitor representing the expression evaluator.
+ * 
+ */
 public class ExpressionEvaluator implements ExpressionVisitor {
 
 	private final Model model;
@@ -103,7 +107,9 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	}
 
 	/**
-	 * TODO
+	 * 
+	 * @param identifier
+	 * @return (maybe null if the expression referenced by identifier is not present)
 	 */
 	@Override
 	public Expression<?> visit(final Identifier identifier) {
@@ -111,7 +117,8 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 		if (computed != null) {
 			return (Expression<?>) computed.getExpression().accept(this);
 		} else {
-			return identifier;
+			throw new UnmodifiedException("The value for " + identifier
+					+ " not present");
 		}
 	}
 
@@ -180,4 +187,19 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 		return stringValue;
 	}
 
+	public static class UnmodifiedException extends RuntimeException {
+
+		private static final long serialVersionUID = -7226851035650176522L;
+		private final String message;
+
+		public UnmodifiedException(final String message) {
+			super(message);
+			this.message = message;
+		}
+
+		@Override
+		public String getMessage() {
+			return message;
+		}
+	}
 }

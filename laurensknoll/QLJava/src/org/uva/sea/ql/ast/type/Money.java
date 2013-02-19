@@ -9,4 +9,9 @@ public class Money extends Numeric {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof Money;
+	}
+
 }

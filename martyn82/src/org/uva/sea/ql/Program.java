@@ -2,8 +2,9 @@ package org.uva.sea.ql;
 
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
-import org.uva.sea.ql.visitor.evaluator.Error;
+import org.uva.sea.ql.visitor.Error;
 
 public class Program {
 	private final QLInterpreter interpreter;
@@ -28,12 +29,13 @@ public class Program {
 			return;
 		}
 
-		PanelControl formPanel = this.interpreter.getResult();
-		this.factory.createWindow( formPanel.getName(), formPanel ).show();
+		PanelControl formPanel = this.interpreter.getPanel();
+		WindowControl window = this.factory.createWindow( formPanel.getName(), formPanel );
+		window.show();
 	}
 
 	private String getProgramSource() {
-		return FileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+		return TextFileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
 	}
 
 	private void dumpErrors() {

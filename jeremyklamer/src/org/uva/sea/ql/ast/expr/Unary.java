@@ -1,12 +1,11 @@
 package org.uva.sea.ql.ast.expr;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.Env;
-import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.message.Error;
+import org.uva.sea.ql.message.Message;
 
 public abstract class Unary extends Expr{
 
@@ -17,12 +16,12 @@ public abstract class Unary extends Expr{
 	}
 	
 	@Override
-	public List<Message> checkType(Env env) {
-		ArrayList<Message> errors = new ArrayList<Message>();
+	public void checkType(List<Message> errors, Env env) {
 		Type type = expr.typeOf(env);
-		if(!(type.isCompatibleTo(type)))
+		if(!(type.isCompatibleTo(type))) {
 			errors.add(new Error(type.getClass().getSimpleName() + " is not compatible. In " + getSimpleName(this)));
-		return errors;			
+		}
+			
 	}
 	
 }

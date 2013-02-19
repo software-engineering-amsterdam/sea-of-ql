@@ -14,13 +14,10 @@ import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.checker.errors.Error;
-import org.uva.sea.ql.checker.errors.ExpressionTypeError;
-import org.uva.sea.ql.checker.errors.IdentifierExistsError;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorStatementChecker implements IVisitorStatement<Void> {
+public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 
 	private Environment environment;
 	private List<Error> errors;
@@ -38,26 +35,27 @@ public class VisitorStatementChecker implements IVisitorStatement<Void> {
 	}
 	
 	
-	private Void checkType(Expr expr, Type type){
+	private boolean checkType(Expr expr, Type type){
 		
 		if(!expr.typeOf(environment).isCompatibleTo(type)){
-			errors.add(new ExpressionTypeError(expr, type));
+			errors.add(new ErrorExpressionType(expr, type));
+			return false;
 		}
 		
-		return null;
+		return true;
 	}
 	
 	
-	private Void checkExpression(Expr expression, Type type){
-		expression.accept(new VisitorExprChecker(environment, errors));
-		checkType(expression, type);
-		return null;
+	private boolean checkExpression(Expr expression, Type type){
+		return 	expression.accept(new VisitorExprChecker(environment, errors)) 
+				&
+				checkType(expression, type);
 	}
 	
 
 	private boolean identifierExists(Ident ident){
-		if(environment.contains(ident)){
-			errors.add(new IdentifierExistsError(ident));
+		if(environment.containsValue(ident)){
+			errors.add(new ErrorIdentifierExists(ident));
 			return true;
 		}
 		
@@ -65,59 +63,60 @@ public class VisitorStatementChecker implements IVisitorStatement<Void> {
 	}
 
 	@Override
-	public Void visit(Form form) {
-		form.getBlock().accept(this);
-		return null;
+	public Boolean visit(Form form) {
+		return form.getBlock().accept(this);
 	}
 
 	@Override
-	public Void visit(Block block) {
+	public Boolean visit(Block block) {
 		
 		//create a new instance of the visitor checker which uses a clone 
 		//of the current environment. We do this because any identifiers
 		//declared within this block must stay within the scope of this block
 		VisitorStatementChecker blockVisitor = new VisitorStatementChecker(environment.branchEnvironment(), errors);
 		
+		boolean result = true;
+		
 		for(Statement stmt: block.getStatements()){
-			stmt.accept(blockVisitor);
+			result &= stmt.accept(blockVisitor);
 		}
 		
-		return null;
+		return result;
 	}
 	
 	@Override
-	public Void visit(IfThen branch) {
+	public Boolean visit(IfThen branch) {
 
 		Type type = new Bool();
-		checkExpression(branch.getIfCondition(), type);
-		branch.getIfBlock().accept(this);
 		
-		return null;
-	}
-	
-	
-	public Void visit(IfThenElse branch) {
-		Type type = new Bool();
-		checkExpression(branch.getIfCondition(), type);
-		branch.getIfBlock().accept(this);
-		branch.getElseBlock().accept(this);
-		
-		return null;
+		return 	checkExpression(branch.getIfCondition(), type) &
+				branch.getIfBlock().accept(this);
 	}
 	
 	@Override
-	public Void visit(QuestionAnswerable question) {
+	public Boolean visit(IfThenElse branch) {
+		Type type = new Bool();
+		
+		return 	checkExpression(branch.getIfCondition(), type) &
+				branch.getIfBlock().accept(this) &
+				branch.getElseBlock().accept(this);
+	}
+	
+	@Override
+	public Boolean visit(QuestionAnswerable question) {
 		
 		Ident ident = question.getIdentifier();
 		
-		if(!identifierExists(ident))
+		if(!identifierExists(ident)){
 			environment.putValue(ident, question.getValue() );
+			return true;
+		}
 		
-		return null;
+		return false;
 	}
 	
 	@Override
-	public Void visit(QuestionComputed question) {
+	public Boolean visit(QuestionComputed question) {
 		
 		Ident ident = question.getIdentifier();
 		Expr val = question.getValue();
@@ -128,12 +127,15 @@ public class VisitorStatementChecker implements IVisitorStatement<Void> {
 		//i.e. val:a+b has type numeric
 		Type typeOfIdent = question.getValue().typeOf(environment);
 		
-		checkExpression(val, typeOfIdent);
+		if(!checkExpression(val, typeOfIdent))
+			return false;
 		
-		if(!identifierExists(ident))
+		if(!identifierExists(ident)){
 			environment.putValue(ident, val);
+			return true;
+		}
 		
-		return null;
+		return false;
 	}
 	
 	

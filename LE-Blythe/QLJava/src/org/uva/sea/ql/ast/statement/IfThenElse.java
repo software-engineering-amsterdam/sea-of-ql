@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.interfaces.IVisitorStatement;
+import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 
 public class IfThenElse extends IfThen{
 	

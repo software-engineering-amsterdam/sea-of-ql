@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expr;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.type.Type;
@@ -20,22 +19,19 @@ public abstract class Binary extends Expr {
 	}
 	
 	@Override 
-	public List<Message> checkType(Env env) { // TODO check out double dispatch
-		ArrayList<Message> errors = new ArrayList<Message>();
-		
-		errors.addAll(left.checkType(env));  
-		errors.addAll(right.checkType(env)); 		
+	public void checkType(List<Message> errors, Env env) { 
+		left.checkType(errors, env);  
+		right.checkType(errors, env); 		
 			
 		Type leftType = left.typeOf(env);  
 		Type rightType = right.typeOf(env);  
+		
+		//TODO Arithmetic binary en boolbinary om the checken voor ints op and bijv. 
 		
 		if(!(leftType.isCompatibleTo(rightType))){
 			errors.add(new Error(getSimpleName(leftType) + " is not compatible with " + getSimpleName(rightType) + ". In :" + getSimpleName(this)));
 		}
 		
-		return errors;
-	}
-	
-	
+	}	
 	
 }

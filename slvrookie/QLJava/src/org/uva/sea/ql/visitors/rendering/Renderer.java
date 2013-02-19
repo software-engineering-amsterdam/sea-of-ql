@@ -111,9 +111,11 @@ public class Renderer implements IElementVisitor {
 	
 	private void addConditionalPanels(boolean condition, JPanel thenPanel, JPanel elsePanel) {
 		if (condition) {
+			thenPanel.setBorder(BorderFactory.createLoweredBevelBorder());
 			thenPanel.setVisible(condition);
 			panel.add(thenPanel, "wrap");
 		} else if (elsePanel != null) {
+			elsePanel.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 			elsePanel.setVisible(!condition);
 			panel.add(elsePanel, "wrap");
 		}

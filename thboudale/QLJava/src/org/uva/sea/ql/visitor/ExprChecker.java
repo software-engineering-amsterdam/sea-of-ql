@@ -28,7 +28,7 @@ public class ExprChecker implements ExprVisitor<Boolean> {
 	private final Map<Ident, Type> typeEnv;
 	private final List<String> errMsgs;
 	
-	private ExprChecker(Map<Ident, Type> typeEnv, List<String> errMsgs) {
+	public ExprChecker(Map<Ident, Type> typeEnv, List<String> errMsgs) {
 		this.typeEnv = typeEnv;
 		this.errMsgs = errMsgs;
 	}

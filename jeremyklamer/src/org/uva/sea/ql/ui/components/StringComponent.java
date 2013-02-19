@@ -4,14 +4,14 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.StringVal;
 import org.uva.sea.ql.interpreter.Value;
 
 public class StringComponent extends ActiveComponent{
-
+	
 	private final static int UI_COMPONENT_WIDTH = 150;
 	
 	public StringComponent(final Env env, final Form form, final Ident name) {

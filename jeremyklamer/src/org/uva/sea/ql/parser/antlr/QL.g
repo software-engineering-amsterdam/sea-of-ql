@@ -87,7 +87,7 @@ orExpr returns [Expr result]
     : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-form returns [Statement result] 
+form returns [Form result] 
       @init { List<Statement> formParts = new ArrayList<Statement>();}
     : 'form' Ident '{' (formPart {formParts.add($formPart.result);})+ '}' { $result = new Form(new Ident($Ident.text), formParts);}
     ;

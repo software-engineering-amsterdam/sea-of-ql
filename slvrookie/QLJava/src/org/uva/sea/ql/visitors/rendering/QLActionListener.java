@@ -12,7 +12,6 @@ import org.uva.sea.ql.ast.expr.value.BoolLiteral;
 import org.uva.sea.ql.ast.expr.value.IntLiteral;
 import org.uva.sea.ql.ast.expr.value.MoneyLiteral;
 import org.uva.sea.ql.ast.expr.value.StringLiteral;
-import org.uva.sea.ql.ast.expr.value.Value;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.MoneyType;
@@ -40,6 +39,10 @@ public class QLActionListener implements ITypeVisitor<Void> {
 		QLActionListener listener = new QLActionListener(name, state, component);
 		type.accept(listener);
 	}
+	
+	private double roundTwoDecimals(String input) {
+		return Math.round(Double.parseDouble(input) * 100.0) / 100.0;
+	}
 
 	@Override
 	public Void visit(BoolType node) {
@@ -47,7 +50,7 @@ public class QLActionListener implements ITypeVisitor<Void> {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Value value = new BoolLiteral(((JCheckBox) component).isSelected());
+				BoolLiteral value = new BoolLiteral(((JCheckBox) component).isSelected());
 				state.setValue(name, value);
 				gui1.setQuestionPanel();
 			}
@@ -62,7 +65,7 @@ public class QLActionListener implements ITypeVisitor<Void> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Value value = new IntLiteral(Integer.parseInt(((JTextField) component).getText()));
+					IntLiteral value = new IntLiteral(Integer.parseInt(((JTextField) component).getText()));
 					state.setValue(name, value);
 					gui1.setQuestionPanel();
 				} catch (Exception e1) {
@@ -72,7 +75,7 @@ public class QLActionListener implements ITypeVisitor<Void> {
 		});
 		return null;
 	}
-
+	
 	@Override
 	public Void visit(MoneyType node) {
 		((JTextField) component).addActionListener(new ActionListener() {
@@ -80,7 +83,7 @@ public class QLActionListener implements ITypeVisitor<Void> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Value value = new MoneyLiteral(Double.parseDouble(((JTextField) component).getText()));
+					MoneyLiteral value = new MoneyLiteral(roundTwoDecimals(((JTextField) component).getText()));
 					state.setValue(name, value);
 					gui1.setQuestionPanel();
 				} catch (Exception e1) {
@@ -98,7 +101,7 @@ public class QLActionListener implements ITypeVisitor<Void> {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Value value = new StringLiteral(((JTextField) component).getText());
+					StringLiteral value = new StringLiteral(((JTextField) component).getText());
 					state.setValue(name, value);
 					gui1.setQuestionPanel();
 				} catch (Exception e1) {

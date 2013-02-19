@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ui;
 
+import org.uva.sea.ql.ui.control.ButtonControl;
 import org.uva.sea.ql.ui.control.CheckBoxControl;
 import org.uva.sea.ql.ui.control.LabelControl;
 import org.uva.sea.ql.ui.control.MoneyFieldControl;
@@ -16,4 +17,5 @@ abstract public class ControlFactory {
 	abstract public PanelControl createPanel();
 	abstract public WindowControl createWindow( String title, PanelControl panel );
 	abstract public LabelControl createLabel( String text );
+	abstract public ButtonControl createButton( String text );
 }

@@ -18,7 +18,7 @@ private str EXT = "q";
 
 public void compileQL(Tree f, loc selection) {
 	
-	compileForm(implode(#Form,f));
+	compileForm(implode(#Form,f),selection);
 }
 
 public void main() {

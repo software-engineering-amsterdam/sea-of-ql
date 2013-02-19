@@ -26,7 +26,6 @@ import org.uva.sea.ql.ast.operators.Not;
 import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
-import org.uva.sea.ql.ast.operators.UnExpr;
 import org.uva.sea.ql.ast.statements.CompoundStatement;
 import org.uva.sea.ql.ast.statements.ConditionalStatement;
 import org.uva.sea.ql.ast.statements.LineStatement;
@@ -57,12 +56,6 @@ public class QLFormTypeCheck implements Visitor<Void> {
 			errorList.add("Line(" + id.getLine() + "," + id.getCharPositionInLine() + ") Field :"
 					+ id.getName() + " is not defined.");
 		}
-		return null;
-	}
-
-	@Override
-	public Void visit(final UnExpr expr) {
-		expr.getExprRightHand().accept(this);
 		return null;
 	}
 
@@ -126,11 +119,6 @@ public class QLFormTypeCheck implements Visitor<Void> {
 		if (conditionalStatement.getFalseCompound() != null) {
 			conditionalStatement.getFalseCompound().accept(this);
 		}
-		return null;
-	}
-
-	@Override
-	public Void visit(final Type typeDescription) {
 		return null;
 	}
 
@@ -226,7 +214,7 @@ public class QLFormTypeCheck implements Visitor<Void> {
 	public Void visit(final GT expr) {
 		if (lhsRhsCompatible(expr, ">")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList.add("Line(nan,nan) Expression: operator > on boolean operands.");
+				errorList.add(" Expression: operator > on boolean operands.");
 			}
 		}
 		return null;
@@ -236,7 +224,7 @@ public class QLFormTypeCheck implements Visitor<Void> {
 	public Void visit(final LT expr) {
 		if (lhsRhsCompatible(expr, "<")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList.add("Line(nan,nan) Expression: operator < on boolean operands.");
+				errorList.add("Expression: operator < on boolean operands.");
 			}
 		}
 		return null;
@@ -246,7 +234,7 @@ public class QLFormTypeCheck implements Visitor<Void> {
 	public Void visit(final LEq expr) {
 		if (lhsRhsCompatible(expr, "<=")) {
 			if (expr.typeOf(symbolMap).isCompatibleTo(expr.getExprLeftHand().typeOf(symbolMap))) {
-				errorList.add("Line(nan,nan) Expression: operator <= on boolean operands.");
+				errorList.add("Expression: operator <= on boolean operands.");
 			}
 		}
 		return null;
@@ -300,22 +288,18 @@ public class QLFormTypeCheck implements Visitor<Void> {
 		return null;
 	}
 
-	@Override
-	public Void visit(final Expr expr) {
-		return null;
-	}
-
-	@Override
-	public Void visit(final BinExpr expr) {
-		return null;
-	}
-
 	public List<String> getErrorList() {
 		return errorList;
 	}
 
 	@Override
 	public Void visit(MoneyLiteral expr) {
+		return null;
+	}
+
+	@Override
+	public Void visit(Type typeDescription) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

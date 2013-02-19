@@ -18,10 +18,10 @@ public class IntegerType extends Type {
 		return getClass().equals(obj.getClass()); 
 	}
 
-	@Override
-	public Val createValOfType() {
-		
-		return new IntegerVal();
-	}
+//	@Override
+//	public Val createValOfType() {
+//		
+//		return new IntegerVal();
+//	}
 
 }

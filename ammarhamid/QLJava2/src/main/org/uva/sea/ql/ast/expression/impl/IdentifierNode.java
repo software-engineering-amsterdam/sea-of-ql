@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.ErrorMessage;
-import org.uva.sea.ql.VariableState;
+import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
 

@@ -7,12 +7,14 @@ import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.NotDefinedType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.form.ScopedFormItem;
 
 public class Env {
 	
 	private final Env parent;
 	private final Map<Ident, Type> types;
 	private final Map<Ident, Value> values;
+	private final Map<ScopedFormItem, Env> childEnvironments;
 	
 	public Env() {
 		this(null);
@@ -22,10 +24,18 @@ public class Env {
 		this.parent = parent;
 		types = new HashMap<Ident, Type>();
 		values = new HashMap<Ident, Value>();
+		childEnvironments = new HashMap<ScopedFormItem, Env>();
 	}
 	
 	public Env getParent() {
 		return parent;
+	}
+	
+	public Env getChildScope(ScopedFormItem formItem) {
+		if (!childEnvironments.containsKey(formItem)) {
+			childEnvironments.put(formItem, new Env(this));
+		}
+		return childEnvironments.get(formItem);
 	}
 	
 	public Type typeOf(Ident ident) {
@@ -70,6 +80,7 @@ public class Env {
 	}
 	
 	public Value getValue(Ident ident) {
+		assert hasValue(ident);
 		if (hasValue(ident)) {
 			if (values.containsKey(ident))
 				return values.get(ident);
