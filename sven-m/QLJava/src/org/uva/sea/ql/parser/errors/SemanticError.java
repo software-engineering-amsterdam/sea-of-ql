@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser.errors;
 
-import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public abstract class SemanticError {
 	private final String message;
@@ -18,4 +18,5 @@ public abstract class SemanticError {
 	public Expr getExpression() {
 		return expression;
 	}
+	
 }
