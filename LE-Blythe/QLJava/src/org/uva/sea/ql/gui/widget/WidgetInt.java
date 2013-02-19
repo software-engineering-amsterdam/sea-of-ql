@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Primitive;
+import org.uva.sea.ql.ast.primitive.Undefined;
 
 public class WidgetInt extends Widget implements KeyListener{
 
@@ -25,6 +26,10 @@ public class WidgetInt extends Widget implements KeyListener{
 				|| (c == KeyEvent.VK_TAB)  ||  (Character.isDigit(c));
 	}
 
+	private boolean empty(){
+		return txtfield.getText().equals("");
+	}
+	
 	private int parseInt() {
 		String str = txtfield.getText();
 
@@ -53,11 +58,14 @@ public class WidgetInt extends Widget implements KeyListener{
 	@Override
 	public Component getComponent() {
 		return txtfield;
-	}
-
+	}	
+	
 	@Override
 	public Primitive getValue() {
-		return new Int(parseInt() );
+		if(!empty())
+			return new Int(parseInt() );
+		
+		return new Undefined();
 	}
 
 }

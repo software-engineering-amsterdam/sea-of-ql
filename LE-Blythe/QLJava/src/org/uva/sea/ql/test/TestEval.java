@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.eval.VisitorEvalExpr;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -21,7 +22,6 @@ import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Str;
-import org.uva.sea.ql.interpreter.VisitorEvalExpr;
 import org.uva.sea.ql.util.Environment;
 
 public class TestEval {

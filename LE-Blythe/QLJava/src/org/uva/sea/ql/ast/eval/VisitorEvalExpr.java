@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.ast.eval;
 
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;

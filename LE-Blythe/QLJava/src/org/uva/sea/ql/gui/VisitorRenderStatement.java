@@ -23,14 +23,13 @@ import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.ast.visitor.IVisitorType;
-import org.uva.sea.ql.gui.widget.ObserverComputed;
-import org.uva.sea.ql.gui.widget.ObserverConditionIf;
-import org.uva.sea.ql.gui.widget.ObserverConditionIfElse;
+import org.uva.sea.ql.gui.widget.WidgetObserverComputed;
+import org.uva.sea.ql.gui.widget.WidgetObserverConditionIf;
+import org.uva.sea.ql.gui.widget.WidgetObserverConditionIfElse;
 import org.uva.sea.ql.gui.widget.Widget;
 import org.uva.sea.ql.gui.widget.WidgetChangeHandler;
 import org.uva.sea.ql.gui.widget.WidgetComputed;
 import org.uva.sea.ql.gui.widget.WidgetObserver;
-import org.uva.sea.ql.interpreter.VisitorExpressionIdentifiers;
 import org.uva.sea.ql.util.Environment;
 
 public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
@@ -46,6 +45,12 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 		return new JPanel(new MigLayout("hidemode 2, fillx"));
 	}
 	
+	
+	private JButton submitButton(String formName){
+		JButton button = new JButton("Submit");
+		button.addActionListener(new FormSubmissionHandler(formName, environment));
+		return button;
+	}
 	
 	private void registerObservers(Expr expr, WidgetObserver observer){
 		
@@ -68,7 +73,7 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	public JComponent visit(Form form) {
 
 		JPanel panel = panel();
-		JButton button = new JButton("submit");
+		JButton button = submitButton(form.getName());
 		
 		panel.add(form.getBlock().accept(this), "wrap");	
 		panel.add(button);
@@ -99,8 +104,8 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 		
 		panel.add(ifBlock);
 		
-		ObserverConditionIf observer = 
-				new ObserverConditionIf(branch.getIfCondition(), ifBlock, environment); 
+		WidgetObserverConditionIf observer = 
+				new WidgetObserverConditionIf(branch.getIfCondition(), ifBlock, environment); 
 		
 		registerObservers(branch.getIfCondition(), observer);
 		
@@ -118,8 +123,8 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 		panel.add(ifBlock);
 		panel.add(elseBlock);
 		
-		ObserverConditionIfElse observer = 
-				new ObserverConditionIfElse(branch.getIfCondition(), ifBlock, elseBlock, environment); 
+		WidgetObserverConditionIfElse observer = 
+				new WidgetObserverConditionIfElse(branch.getIfCondition(), ifBlock, elseBlock, environment); 
 		
 		registerObservers(branch.getIfCondition(), observer);
 		
@@ -152,7 +157,7 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 		panel.add(new JLabel(question.getQuestion()));
 		panel.add(widget.getComponent());
 		
-		ObserverComputed observer = new ObserverComputed(question, widget, environment); 
+		WidgetObserverComputed observer = new WidgetObserverComputed(question, widget, environment); 
 		registerObservers(question.getValue(), observer);
 
 		return panel;

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,5 +119,14 @@ public class Environment {
 			observables.get(key).addObserver(observer);
 		}
 	}
+
 	
+	public Collection<Ident> getIdentifiers(){
+		return valueMap.keySet();
+	}
+	
+	
+	public Collection<Environment> getBranchedEnvironments(){
+		return branchedEnvironments;
+	}
 }
