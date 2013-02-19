@@ -20,8 +20,7 @@ import org.uva.sea.ql.parsing.Parser;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.semanticanalysis.SemanticAnalysisVisitor;
 import org.uva.sea.ql.semanticanalysis.SemanticalAnalyser;
-import org.uva.sea.ql.general.symboltable.SymbolTable;
-import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTableImpl;
 import org.uva.sea.ql.web.configuration.ServletConfiguration;
 
 import javax.servlet.DispatcherType;
@@ -37,7 +36,7 @@ public class Main {
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
-        SymbolTable symbolTable = new SymbolTableImpl();
+        SymbolTableImpl symbolTable = new SymbolTableImpl();
         WebappBooter bootstrapper = createQLBootStrapper(symbolTable);
         try {
             jCommander.parse(arguments);
@@ -54,14 +53,14 @@ public class Main {
         }
     }
 
-    private static WebappBooter createQLBootStrapper(SymbolTable symbolTable) {
+    private static WebappBooter createQLBootStrapper(SymbolTableImpl symbolTable) {
         Parser parser = new ANTLRParser(new SyntacticErrorReporterImpl());
         SemanticalAnalyser semanticalAnalyser = new SemanticAnalysisVisitor(symbolTable);
         CodeGenerator codeGenerator = new WebAppCodeGeneratingVisitor();
         return new WebappBooter(parser, semanticalAnalyser, codeGenerator);
     }
 
-    private static void startJettyServer(QLProgram qlProgram, int port, SymbolTable symbolTable) {
+    private static void startJettyServer(QLProgram qlProgram, int port, SymbolTableImpl symbolTable) {
         try {
             Server server = new Server(port);
 

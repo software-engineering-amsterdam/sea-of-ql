@@ -18,8 +18,7 @@ import org.uva.sea.ql.ast.expression.unary.Negative;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Positive;
 import org.uva.sea.ql.ast.expression.unary.UnaryOperation;
-import org.uva.sea.ql.general.symboltable.SymbolTable;
-import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTableImpl;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
@@ -29,15 +28,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Visitor that's responsible for semantical analysis. This includes type checking as well as a check if an identifier
+ * Visitor that's responsible for semantic analysis. This includes type checking as well as a check if an identifier
  * is declared and it is only declared once.
  */
 public class SemanticAnalysisVisitor implements SemanticalAnalyser, NodeVisitor<Boolean> {
 
-    private SymbolTable symbolTable;
+    private SymbolTableImpl symbolTable;
     private List<SemanticQLError> semanticValidationErrors;
 
-    public SemanticAnalysisVisitor(SymbolTable symbolTable) {
+    public SemanticAnalysisVisitor(SymbolTableImpl symbolTable) {
         this.symbolTable = symbolTable;
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }

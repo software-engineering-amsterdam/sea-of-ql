@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.expression.primary.Bool;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.IfStatement;
-import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTableImpl;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
 import java.util.Collections;

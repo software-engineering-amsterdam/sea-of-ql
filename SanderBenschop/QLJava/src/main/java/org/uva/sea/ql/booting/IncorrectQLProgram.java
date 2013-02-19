@@ -1,6 +1,6 @@
 package org.uva.sea.ql.booting;
 
-public class IncorrectQLProgram implements QLProgram {
+public final class IncorrectQLProgram implements QLProgram {
 
     @Override
     public boolean isCorrect() {

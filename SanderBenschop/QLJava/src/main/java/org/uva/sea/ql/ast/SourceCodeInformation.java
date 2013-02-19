@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-public final class SourceCodeInformation {
+public class SourceCodeInformation {
 
     private final int lineNumber;
     private final int columnPosition;

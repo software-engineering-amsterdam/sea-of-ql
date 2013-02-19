@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Computation;
-import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTableImpl;
 
 import static junit.framework.Assert.assertTrue;
 

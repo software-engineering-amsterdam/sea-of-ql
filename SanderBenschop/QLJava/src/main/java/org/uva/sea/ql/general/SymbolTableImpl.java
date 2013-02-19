@@ -1,4 +1,4 @@
-package org.uva.sea.ql.general.symboltable;
+package org.uva.sea.ql.general;
 
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SymbolTableImpl implements SymbolTable {
+public class SymbolTableImpl {
 
     private final Map<Ident, Type> identifierTypeMap;
 
@@ -14,22 +14,18 @@ public class SymbolTableImpl implements SymbolTable {
         this.identifierTypeMap = new HashMap<Ident, Type>();
     }
 
-    @Override
     public void addIdentifier(Ident identifier, Type type) {
         identifierTypeMap.put(identifier, type);
     }
 
-    @Override
     public Type getIdentifier(Ident identifier) {
         return identifierTypeMap.get(identifier);
     }
 
-    @Override
     public boolean containsIdentifier(Ident identifier) {
         return identifierTypeMap.containsKey(identifier);
     }
 
-    @Override
     public void clear() {
         identifierTypeMap.clear();
     }

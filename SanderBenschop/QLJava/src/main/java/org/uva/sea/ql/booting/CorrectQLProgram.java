@@ -1,6 +1,6 @@
 package org.uva.sea.ql.booting;
 
-public class CorrectQLProgram implements QLProgram {
+public final class CorrectQLProgram implements QLProgram {
 
     private final String code;
 

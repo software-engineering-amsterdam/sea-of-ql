@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.general.symboltable.SymbolTable;
+import org.uva.sea.ql.general.SymbolTableImpl;
 
 public final class Multiply extends BinaryOperation {
 
@@ -14,7 +14,7 @@ public final class Multiply extends BinaryOperation {
     }
 
     @Override
-    public Type getType(SymbolTable symbolTable) {
+    public Type getType(SymbolTableImpl symbolTable) {
         return new IntegerType();
     }
 

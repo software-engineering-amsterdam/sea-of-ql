@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.general.symboltable.SymbolTable;
+import org.uva.sea.ql.general.SymbolTableImpl;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 
 import static junit.framework.Assert.*;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 public class IdentifierTypeCheckingVisitorTest {
 
     @Mock
-    private SymbolTable mockedSymbolTable;
+    private SymbolTableImpl mockedSymbolTable;
     private SourceCodeInformation sourceCodeInformation;
     private SemanticAnalysisVisitor semanticAnalysisVisitor;
 

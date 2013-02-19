@@ -3,7 +3,7 @@ package org.uva.sea.ql.semanticanalysis;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTableImpl;
 import org.uva.sea.ql.parsing.ANTLRParser;
 import org.uva.sea.ql.parsing.Parser;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
