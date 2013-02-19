@@ -51,8 +51,7 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     public Boolean visitForm(Form form) {
         boolean correctForm = true;
         for (Statement formStatement : form.getStatements()) {
-            boolean correctStatement = formStatement.accept(this);
-            if (!correctStatement && correctForm) correctForm = false;
+            correctForm &= formStatement.accept(this);
         }
         return correctForm;
     }
@@ -60,12 +59,7 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     @Override
     public Boolean visitComputation(Computation computation) {
         Expression expression = computation.getExpression();
-
-        boolean identifierPreviouslyUndeclared = (!symbolTable.containsIdentifier(computation.getIdentifier()));
-        boolean expressionCorrect = expression.accept(this);
-
-        boolean computationCorrect = identifierPreviouslyUndeclared && expressionCorrect;
-
+        boolean computationCorrect = (!symbolTable.containsIdentifier(computation.getIdentifier())) && expression.accept(this);
         if (computationCorrect) {
             symbolTable.addIdentifier(computation.getIdentifier(), expression.getType(symbolTable));
         }
@@ -77,10 +71,8 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     public Boolean visitIfStatement(IfStatement ifStatement) {
         boolean correctStatementBody = true;
         for (Statement successBlockStatement : ifStatement.getSuccessBlock()) {
-            boolean correctStatement = successBlockStatement.accept(this);
-            if (!correctStatement && correctStatementBody) correctStatementBody = false;
+            correctStatementBody &= successBlockStatement.accept(this);
         }
-
         return typeCheckConditional(ifStatement) && correctStatementBody;
     }
 
@@ -88,13 +80,11 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     public Boolean visitIfElseStatement(IfElseStatement ifElseStatement) {
         boolean correctStatementBodies = true;
         for (Statement successBlockStatement : ifElseStatement.getSuccessBlock()) {
-            boolean correctStatement = successBlockStatement.accept(this);
-            if (!correctStatement && correctStatementBodies) correctStatementBodies = false;
+            correctStatementBodies &= successBlockStatement.accept(this);
         }
 
         for (Statement failureBlockStatement : ifElseStatement.getFailureBlock()) {
-            boolean correctStatement = failureBlockStatement.accept(this);
-            if (!correctStatement && correctStatementBodies) correctStatementBodies = false;
+            correctStatementBodies &= failureBlockStatement.accept(this);
         }
 
         return typeCheckConditional(ifElseStatement) && correctStatementBodies;
@@ -103,8 +93,7 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     private boolean typeCheckConditional(Conditional conditional) {
         Type expectedType = new BooleanType();
         Expression condition = conditional.getCondition();
-        boolean conditionValid = condition.accept(this);
-        if (!conditionValid) {
+        if (!condition.accept(this)) {
             return false;
         }
 
@@ -125,8 +114,8 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
             return true;
         } else {
             addErrorForIdentifierRedeclaration(ident);
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -244,14 +233,11 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
 
     private boolean equalityCheckBinaryOperation(BinaryOperation binaryOperation) {
         Expression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
-
-        boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
-        if (!(leftHandSideCorrect && rightHandSideCorrect)) {
+        if (!(leftHandSide.accept(this) && rightHandSide.accept(this))) {
             return false;
         }
 
         Type leftHandSideType = leftHandSide.getType(symbolTable), rightHandSideType = rightHandSide.getType(symbolTable);
-
         if (leftHandSideType.getClass() != rightHandSideType.getClass()) {
             addErrorForUnequalTypes(binaryOperation);
             return false;

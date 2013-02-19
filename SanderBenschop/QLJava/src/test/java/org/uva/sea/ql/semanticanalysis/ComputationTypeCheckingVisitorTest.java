@@ -10,6 +10,8 @@ import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.general.SymbolTable;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
 public class ComputationTypeCheckingVisitorTest {
@@ -33,6 +35,18 @@ public class ComputationTypeCheckingVisitorTest {
         boolean computationCorrect = semanticAnalysisVisitor.visitComputation(computation);
         assertTrue(semanticAnalysisVisitor.getErrors().isEmpty());
         assertTrue(computationCorrect);
+    }
+
+    @Test
+    public void shouldNotReduceProperly() {
+        Ident ident = new Ident("test", sourceCodeInformation);
+        Str str = new Str("\"Label\"", sourceCodeInformation);
+        Multiply multiply = new Multiply(new Int(1, sourceCodeInformation), new Ident("test2", sourceCodeInformation), sourceCodeInformation);
+        Computation computation = new Computation(ident, str, multiply);
+
+        boolean computationCorrect = semanticAnalysisVisitor.visitComputation(computation);
+        assertFalse(computationCorrect);
+        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
     }
 
     @Test
