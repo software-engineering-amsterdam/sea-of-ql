@@ -4,8 +4,8 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.StringVal;
 import org.uva.sea.ql.interpreter.Value;

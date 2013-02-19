@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.interpreter.BoolVal;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
@@ -23,56 +23,52 @@ public class If extends Statement{
 	}
 
 	@Override
-	public List<Message> checkType(Env env) {
-		ArrayList<Message> errors = new ArrayList<Message>();
-		errors.addAll(getErrorsMessages(env));
-		errors.addAll(condition.checkType(env));		
-		
+	public void checkType(List<Message> errors, Env env) {
+		getErrorsMessages(errors, env);
+		condition.checkType(errors, env);		
 		for(Statement statement : ifBody){
-			errors.addAll(statement.checkType(env));
+			statement.checkType(errors, env);
 		}
-		return errors;
 	}
 	
 
 	@Override
-	public List<Message> getErrorsMessages(Env env) {
-		ArrayList<Message> errors = new ArrayList<Message>();
+	public void getErrorsMessages(List<Message> errors, Env env) {
 		if(!(condition.typeOf(env).isCompatibleToBool())){
 			errors.add(new Error("Condition does not resolve to Bool"));			
 		}
-		errors.addAll(condition.checkType(env));
-		return errors; 
+		condition.checkType(errors, env);
 	}
 	
 	@Override
-	public List<BaseComponent> getUIComponents(Env env, Form form) {
-		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
-		
+	public void getUIComponents(List<BaseComponent> components, Env env, Form form) {
 		for(Statement statement : ifBody){
-			components.addAll(statement.getUIComponents(env, form));
+			statement.getUIComponents(components, env, form);
 		}
-		
-		return components;
 	}
 
 	@Override
-	public boolean eval(Env env) {
-		setVisible(((BoolVal)condition.eval(env)).getValue());
-		return evalIf(env);
+	public void eval(Env env) {
+		//setVisible(((BoolVal)condition.eval(env)).getValue());
+		//return evalIf(env);
+		evalIf(env);
 	}
 	
-	protected boolean evalIf(Env env){
-		if(condition.checkType(env).size() > 0){
-			return false;  
-		}
+	protected void evalIf(Env env){
 		
-		boolean retVal = true; 
+		//Moet hier geen checktype! 
+//		if(condition.checkType(env).size() > 0){
+//			//return false;  
+//		}
+		
+		//boolean retVal = true; 
+		
 		for(Statement statement : ifBody){
-			retVal = statement.eval(env) && retVal; 
+			//retVal = statement.eval(env) && retVal;
+			statement.eval(env);
 		}
 		
-		return retVal; 
+		//return retVal; 
 	}
 
 	@Override
@@ -92,11 +88,12 @@ public class If extends Statement{
 
 	@Override
 	public String genFormFeedBack(Env env, int indentation) {
-		StringBuilder feedBack = new StringBuilder();
-		feedBack.append(getIndentation(indentation));
+		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));
 		feedBack.append("If (" + getSimpleName(condition) + ")"); 
 		feedBack.append(newLine);
-		for(Message message : getErrorsMessages(env)) { 
+		ArrayList<Message> errors = new ArrayList<Message>();
+		getErrorsMessages(errors , env);
+		for(Message message : errors) { 
 			feedBack.append(errorStartSign);
 			feedBack.append(message.getMessage());
 			feedBack.append(newLine);

@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.interpreter.BoolVal;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;

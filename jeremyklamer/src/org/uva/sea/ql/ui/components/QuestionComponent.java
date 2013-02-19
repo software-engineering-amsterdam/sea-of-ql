@@ -24,7 +24,6 @@ public class QuestionComponent extends BaseComponent {
 		this.component = new JPanel(new MigLayout());
 		component.add(labelField.getComponent(), labelField.getArgs());
 		component.add(answerField.getComponent(), answerField.getArgs());
-		
 		if(computed){ 
 			answerField.setEnabled(false);
 		}

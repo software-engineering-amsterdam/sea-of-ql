@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
@@ -12,7 +13,7 @@ import org.uva.sea.ql.ui.components.BaseComponent;
 import org.uva.sea.ql.ui.components.QuestionComponent;
 
 
-public class ComputedQuestion extends Question{
+public class ComputedQuestion extends Question {
 	
 	private final Expr computation;
 	
@@ -26,36 +27,44 @@ public class ComputedQuestion extends Question{
 	}
 	
 	@Override
-	public List<Message> getErrorsMessages(Env env) {
-		ArrayList<Message> errors = new ArrayList<Message>();
-		errors.addAll(super.getErrorsMessages(env));
-		errors.addAll(computation.checkType(env));
-		return errors;
+	public void getErrorsMessages(List<Message> errors, Env env) {
+		super.getErrorsMessages(errors, env);
+		computation.checkType(errors, env);
 	}	
 	
 	@Override
-	public List<BaseComponent> getUIComponents(Env env, Form form) {
-		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
+	public void getUIComponents(List<BaseComponent> components, Env env, Form form) {
 		uiComponent = new QuestionComponent(sentence, true, returnType.getAnswerComponent(env, form, name));
+	//	env.registerObservable(this.name, uiComponent);
+	//	env.registerObservers(this.computation, new Observer() {
+//			
+//			@Override
+//			public void update(Observable o, Object arg) {
+//				
+//			}
+//		})
 		components.add(uiComponent);
-		return components;
 	}
 	
 	@Override
-	public boolean eval(Env env) {
-		if(!(computation.checkType(env).size() > 0)){
+	public void eval(Env env) {
+		//This is not good, what does eval do!? 
+		ArrayList<Message> errors = new ArrayList<Message>();
+		computation.checkType(errors, env);
+		if(!(errors.size() > 0)){
 			uiComponent.updateValue(computation.eval(env));
 		}	
-		return false;		
+		//return false;		
 	}
 	
 	@Override
 	public String genFormFeedBack(Env env, int indentation) {
-		StringBuilder feedBack = new StringBuilder();
-		feedBack.append(getIndentation(indentation));
+		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));
 		feedBack.append(name.getName() + " : " + sentence + " return type : " + getSimpleName(returnType) + "(" + getSimpleName(computation) + ")"); 
 		feedBack.append(newLine);
-		for(Message message : getErrorsMessages(env)) {
+		ArrayList<Message> errors = new ArrayList<Message>();
+		getErrorsMessages(errors , env);
+		for(Message message : errors) {
 			feedBack.append(errorStartSign);
 			feedBack.append(message.getMessage());
 			feedBack.append(newLine);
