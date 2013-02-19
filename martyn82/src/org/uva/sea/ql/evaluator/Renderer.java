@@ -50,9 +50,9 @@ class Renderer implements StatementVisitor<Void>, TypeVisitor<InputControl> {
 	protected static PanelControl createPart(
 		Statement statement, BindingEnvironment environment, ControlFactory factory
 	) {
-		Renderer mapper = new Renderer( factory, environment );
-		statement.accept( mapper );
-		return mapper.panel;
+		Renderer renderer = new Renderer( factory, environment );
+		statement.accept( renderer );
+		return renderer.panel;
 	}
 
 	public Map<String, Binding> getBoundValues() {
