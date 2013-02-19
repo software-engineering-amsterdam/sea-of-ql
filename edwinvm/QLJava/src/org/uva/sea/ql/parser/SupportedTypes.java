@@ -14,22 +14,22 @@ public class SupportedTypes {
 		_supportedTypes = new HashMap<Ident, Type>();
 	}
 	
+	public void add(Ident identifier, Type type) {
+		_supportedTypes.put(identifier, type);
+	}
+	
 	public Boolean contains(Ident identifier) {
 		for (Ident i: _supportedTypes.keySet()) {
-			if (((String)i.getValue()).equals(((String)identifier.getValue()))) {
+			if (identifier.equals(i)) {
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public void add(Ident identifier, Type type) {
-		_supportedTypes.put(identifier, type);
-	}
-	
 	public Type get(Ident identifier) {
 		for (Ident i: _supportedTypes.keySet()) {
-			if (((String)i.getValue()).equals(((String)identifier.getValue()))) {
+			if (identifier.equals(i)) {
 				return _supportedTypes.get(i);
 			}
 		}
