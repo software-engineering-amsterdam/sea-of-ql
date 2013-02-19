@@ -6,17 +6,18 @@ import IO;
 import lang::ql::compiler::GenerateHTMLForm;
 import lang::ql::compiler::GenerateJavaScript;
 
-anno str ConditionalStatement@ref;
-anno str ElseIf@ref;
-anno str FormBodyItem@ref;
+//anno str ConditionalStatement@ref;
+//anno str ElseIf@ref;
+//anno str FormBodyItem@ref;
 
-public void compileForm(f:form(ident,formBody)){
+public void compileForm(f:form(ident,formBody),loc target){
+	print(target.parent);
 	formRefrnced=setConditionalReference(formBody);
-	loc htmlFile=|project://SofConstr/<ident>.html|;
+	loc htmlFile=target.parent+"<ident>.html";
+	print(htmlFile);
 	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
-	loc jsFile=|project://SofConstr/<ident>.js|;
-	writeFile(jsFile,generateJavaScipt(formRefrnced));
-	print("done");	   
+	loc jsFile=target.parent+"<ident>.js";
+	writeFile(jsFile,generateJavaScipt(formRefrnced));	   
 }
 	
 //Sets a reference variable to conditional statements to refer to them

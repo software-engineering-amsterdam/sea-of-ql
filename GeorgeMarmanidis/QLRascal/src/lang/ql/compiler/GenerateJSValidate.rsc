@@ -1,3 +1,4 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::GenerateJSValidate
 
 import lang::ql::ast::AST;
@@ -5,16 +6,18 @@ import lang::ql::compiler::ExtractDependencies;
 
 public str generateJSValidateFunctions(list[FormBodyItem] bodyItems){
 	str code="";
-	str formValCode="function formValidate(){\n";
+	str formValCode="function formValidate(){\n\tvar isValid=true;";
 	
 	visit(bodyItems){
 		case q:simpleQuestion(str questionId,str label,Type questionType) : {
 			code+=generateVarValidate(questionId,questionType,label);
-			formValCode+="\t<questionId>Validate();\n";
+			formValCode+="\tisValid=<questionId>Validate();\n";
+			formValCode+="\tif(!isValid) {return false;}\n";
 			}
 		case q:computedQuestion(str questionId,str label,Type questionType,_) : {
 			code+=generateVarValidate(questionId,questionType,label);
-			formValCode+="\t<questionId>Validate();\n";
+			formValCode+="\tisValid=<questionId>Validate();\n";
+			formValCode+="\tif(!isValid) {return false;}\n";
 			}
 	}
 	
@@ -34,6 +37,7 @@ str generateVarValidate(str questionId,Type questionType,str questionLabel){
 		 '\tif(<generateTypeValidation(questionId,questionType)>){
 		 '\t\talert(\"Failed on <questionId>\");
 		 '\t\treturn(false);}
+		 '\t\telse {return true;}
 		 '}\n";
 }
 
@@ -78,11 +82,11 @@ str generateDateValidFun(){
 str generateMoneyValidFun(){
 	return "function validMoney(input){
 		if(input==\"\"){return true;}
-		return true;}\n\n";
+		return /^-{0,1}\\d+[,]?\\d{0,2}$/.test(inpt);}\n\n";
 }
 
 str generateFloatValidFun(){
 	return "function validFloat(input){
 		if(input==\"\"){return true;}
-		return true;}\n\n";
+		return /^-{0,1}\\d+[.]?\\d{0,2}$/.test(inpt);}\n\n";
 }

@@ -39,8 +39,8 @@ public str generateJavaScriptExpr(lt(Expr ltLeft, Expr ltRight),BDITS bodyItems)
 public str generateJavaScriptExpr(leq(Expr leqLeft, Expr leqRight),BDITS bodyItems)="<generateJavaScriptExpr(leqLeft,bodyItems)> \<= <generateJavaScriptExpr(leqRight,bodyItems)>";
 public str generateJavaScriptExpr(gt(Expr gtLeft, Expr gtRight),BDITS bodyItems)="<generateJavaScriptExpr(gtLeft,bodyItems)> \> <generateJavaScriptExpr(gtRight,bodyItems)>";
 public str generateJavaScriptExpr(geq(Expr getLeft, Expr getRight),BDITS bodyItems)="<generateJavaScriptExpr(getLeft,bodyItems)> \>= <generateJavaScriptExpr(getRight,bodyItems)>";
-public str generateJavaScriptExpr(eq(Expr eqLeft, Expr eqRight),BDITS bodyItems)="<generateJavaScriptExpr(eqLeft,bodyItems)> == <generateJavaScriptExpr(eqRight,bodyItems)>";
-public str generateJavaScriptExpr(neq(Expr neqLeft, Expr neqRight),BDITS bodyItems)="<generateJavaScriptExpr(neqLeft,bodyItems)> != <generateJavaScriptExpr(neqRight,bodyItems)>";
+public str generateJavaScriptExpr(eq(Expr eqLeft, Expr eqRight),BDITS bodyItems)="(<generateJavaScriptExpr(eqLeft,bodyItems)>) == (<generateJavaScriptExpr(eqRight,bodyItems)>)";
+public str generateJavaScriptExpr(neq(Expr neqLeft, Expr neqRight),BDITS bodyItems)="(<generateJavaScriptExpr(neqLeft,bodyItems)>) != (<generateJavaScriptExpr(neqRight,bodyItems)>)";
 
-public str generateJavaScriptExpr(and(Expr andLeft, Expr andRight),BDITS bodyItems)="<generateJavaScriptExpr(andLeft,bodyItems)> && <generateJavaScriptExpr(andRight,bodyItems)>";
-public str generateJavaScriptExpr(or(Expr orLeft, Expr orRight),BDITS bodyItems)="<generateJavaScriptExpr(orLeft,bodyItems)> || <generateJavaScriptExpr(orRight,bodyItems)>";
+public str generateJavaScriptExpr(and(Expr andLeft, Expr andRight),BDITS bodyItems)="(<generateJavaScriptExpr(andLeft,bodyItems)>) && (<generateJavaScriptExpr(andRight,bodyItems)>)";
+public str generateJavaScriptExpr(or(Expr orLeft, Expr orRight),BDITS bodyItems)="(<generateJavaScriptExpr(orLeft,bodyItems)>) || (<generateJavaScriptExpr(orRight,bodyItems)>)";
