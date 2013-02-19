@@ -54,7 +54,7 @@ private set[Message] buildAndReturnMessages(Stylesheet sheet, loc target) {
   return {};
 }
 
-private void build(start[Stylesheet] sheet, loc source) {
+void build(Stylesheet sheet, loc source) {
   messages = buildAndReturnMessages(sheet, getCompileTarget());
   
   errors = {m | m <- messages, error(_, _) := m};
@@ -64,11 +64,10 @@ private void build(start[Stylesheet] sheet, loc source) {
   } else {
     alert("The sheet is built in <getCompileTarget()>.");
   }
-  return;
 }
 
-private void format(start[Stylesheet] s, loc l) =
-  writeFile(l, prettyPrint(implode(s)));
+private void format(Stylesheet s, loc l) =
+  writeFile(l, prettyPrint(s));
 
 public void setupQLS() {
   registerLanguage(getQLSLangName(), getQLSLangExt(), Tree(str src, loc l) {
@@ -86,8 +85,12 @@ public void setupQLS() {
     
     popup(
       menu(getQLSLangName(),[
-        action(ACTION_BUILD, build),
-        action(ACTION_FORMAT, format)
+        action(ACTION_BUILD, (Tree tree, loc source) {
+          build(implode(tree), source);
+        }),
+        action(ACTION_FORMAT, (Tree tree, loc source) {
+          format(implode(tree), source);
+        })
       ])
     ),
     

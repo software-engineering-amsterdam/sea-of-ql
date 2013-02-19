@@ -27,10 +27,10 @@ import lang::ql::util::ParseHelper;
 private str ACTION_FORMAT = "Format (removes comments)";
 private str ACTION_BUILD = "Build form";
 
-private void format(start[Form] f, loc l) =
-  writeFile(l, prettyPrint(implode(f)));
+private void format(Form f, loc l) =
+  writeFile(l, prettyPrint(f));
   
-private void build(start[Form] form, loc source) {
+private void build(Form form, loc source) {
   messages = buildAndReturnMessages(form, getCompileTarget());
   
   errors = {m | m <- messages, error(_, _) := m};
@@ -42,9 +42,6 @@ private void build(start[Form] form, loc source) {
   }
   return;
 }
-  
-public set[Message] buildAndReturnMessages(start[Form] form, loc target) =
-  buildAndReturnMessages(implode(form), target);
   
 public set[Message] buildAndReturnMessages(Form form, loc target) {
   messages = semanticChecker(form);
@@ -75,8 +72,12 @@ public void setupQL() {
     
     popup(
       menu(getQLLangName(),[
-        action(ACTION_BUILD, build),
-        action(ACTION_FORMAT, format)
+        action(ACTION_BUILD, (Tree tree, loc source) {
+          build(implode(tree), source);
+        }),
+        action(ACTION_FORMAT, (Tree tree, loc source) {
+          format(implode(tree), source);
+        })
       ])
     ), 
     
