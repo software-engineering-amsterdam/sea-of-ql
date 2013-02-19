@@ -1,24 +1,26 @@
 form Something{
-arrValue1 : "intArr" integer["1","2"]
-arrValue2 : "arrValue2" boolean["true","false"]
-arrValue3B : "arrValue3B" boolean["true","false"]
-arrValue3 : "moneyArr" money["2.2","1.2","3.2","5.2"]
-arrValue4 : "strArr" string["ada","dodo","dudi","wfdf"]
-arrValue5 : "doubArr" double["10.2","1.22","0.1","1.2"]
-arrValue6 : "doubArr" double["10.2","1.22","0.1","1.2"]
+arrValue1 : "Int array" integer["1","2"]
+arrValue2 : "Bool array" boolean["true","false"]
+arrValue3B : "Bool array 2" boolean["true","false"]
+arrValue3 : "Money array" money["2.2","1.2","3.2","5.2"]
+arrValue4 : "String array" string["ada","dodo","dudi","wfdf"]
+arrValue5 : "Double array" double["10.2","1.22","0.1","1.2"]
+arrValue6 : "Double array 2" double["10.2","1.22","0.1","1.2"]
 
+hiddenComp : double(arrValue1 * arrValue3)
+visibleOfHidden : "Showing comp. of hiddenComp" double(hiddenComp)
 if(arrValue2 != arrValue3B){
-ungleich : "not equal" string("yeah")
+ungleich : "Bool array 1 & 2 unequal" string("yeah")
 }
 
 if(arrValue1>1){
-intArrYes: "intArrYes" integer
+intArrYes: "Int array > 1" integer
 }
 if(arrValue2){
-boolArrYes: "boolArrYes" integer
+boolArrYes: "Bool array true" integer
 }
 if(arrValue3>3.2){
-monArrYes: "monArrYes" integer
+monArrYes: "Money array > 3.2" integer
 }
 if(arrValue4 == "dodo"){
 strArrYes: "strArrYes" integer
