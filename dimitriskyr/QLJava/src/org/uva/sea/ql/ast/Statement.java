@@ -1,13 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.visitor.Visitorinterface;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
 public abstract class Statement implements ASTNode {
- 
-	@Override
-	public void accept(Visitorinterface visitor) {
-		visitor.visit(this);
-		
-	}
-
+	public abstract void accept(IStatementVisitor visitor); 
 }

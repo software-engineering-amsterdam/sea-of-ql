@@ -1,28 +1,23 @@
 package org.uva.sea.ql.ast.bool;
 
-import org.uva.sea.ql.ast.AcceptsBothOperands;
-import org.uva.sea.ql.ast.BinaryExpr;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.QLException;
 
-public class Eq extends BinaryExpr implements AcceptsBothOperands,
-		ReturnsBoolOperands {
-	public static final String str = "==";
+public class Eq extends BinaryBooleanOperator {
+    private static final String STR = "==";
 
-	public Eq(Expr left, Expr right) {
-		super(left, right);
-	}
+    public Eq(Expr left, Expr right) {
+        super(left, right);
+    }
 
-	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException {
-		visitor.visit(this);
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
-
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
 }

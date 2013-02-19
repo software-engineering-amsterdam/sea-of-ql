@@ -1,17 +1,37 @@
 package ast.expression.value;
 
-import ast.expression.ValueExpression;
+import java.util.Map;
 
-public class Str extends ValueExpression {
+import ast.Type;
+import ast.expression.Ident;
+import ast.expression.Value;
+import ast.expression.Visitor;
 
-	private final String name;
+public class Str extends Value {
 
-	public Str(String name) {
-		this.name = name;
+	private final String value;
+
+	public Str(String value) {
+		this.value = value;
 	}
 
-	public String getName() {
-		return name;
+	public String getValue() {
+		return value;
+	}
+	
+	@Override
+	public String toString(){
+		return this.value;
+	}
+	
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new ast.type.Str();
+	}
+
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

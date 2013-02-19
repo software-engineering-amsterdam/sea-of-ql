@@ -34,8 +34,3 @@ adding the following features:
 Note: don't be seduced by the provided example code and start copy-pasting grammar rules around. It is important to
       really understand the parser technology involved. ANTLR, Rats! and Jacc are well-documented on the web. Please
       use this information to fulfill the above requirements.
-
-TODO
-----
-- Add column and linenumber to TypeErrors
-- Interpreter visitor: evaluate to values instead of just types.

@@ -1,11 +1,16 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.visitor.Visitorinterface;
-
-public abstract class Type implements ASTNode {
+public abstract class Type {
+	public abstract boolean isCompatibleTo(Type t);
 	
-	@Override
-	public void accept(Visitorinterface visitor) {
-		visitor.visit(this);
-	}
+	public boolean isCompatibleToBoolean() {return false;}
+	public boolean isCompatibleToString() {return false;}
+	public boolean isCompatibleToNumeric() {return false;}
+	public boolean isCompatibleToInteger() {return false;}
+	public boolean isCompatibleToMoney() {return false;}
+	
+	public boolean isCompatibleToError() {return false;}
+
+
+
 }

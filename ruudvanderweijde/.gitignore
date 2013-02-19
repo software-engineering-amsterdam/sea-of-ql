@@ -4,3 +4,8 @@ bin/
 # Package Files #
 *.war
 *.ear
+
+# Class diagram #
+*.ucls
+/sonar-project.properties
+/build

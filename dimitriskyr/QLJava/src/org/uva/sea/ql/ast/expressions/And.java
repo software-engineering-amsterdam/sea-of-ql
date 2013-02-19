@@ -1,23 +1,26 @@
 package org.uva.sea.ql.ast.expressions;
 
+import java.util.Map;
+
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 
 
-public class And extends Expr{
-	private Expr lhs;
-	private Expr rhs;
+public class And extends BinaryExpression{
 	
 	public And(Expr lhs, Expr rhs) {
-		this.lhs = lhs;
-		this.rhs = rhs;
-	}
-	
-	public Expr getLhs() {
-		return lhs;
-	}
-	
-	public Expr getRhs() {
-		return rhs;
+		super(lhs,rhs);
 	}
 
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new BooleanType();
+	}
+	
+	@Override
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
+		return  visitor.visit(this);
+	}
 }

@@ -5,72 +5,83 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.visitor.IExpression;
+import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.IType;
 
-public class Statement implements org.uva.sea.ql.visitor.Statement<Boolean> {
+public class Statement implements IStatement<String> {
+
+	private final Environment environment;
+
+	public Statement(Environment env) {
+		this.environment = env;
+	}
 
 	@Override
-	public Boolean visit(Block block) {
-		System.out.println("Visiting BlockStatement");
+	public String visit(Block block) {
+		StringBuilder statements = new StringBuilder();
+		statements.append(this.environment.getIndent());
+		statements.append("{");
+		statements.append(System.getProperty("line.separator"));
 
-		// Visit items
+		Environment newBlockContext = new Environment(this.environment);
+		IStatement<String> statementVisitor = new Statement(newBlockContext);
+
 		for (AbstractStatement statement : block.getStatements()) {
-			statement.accept(this);
+			statements.append(statement.accept(statementVisitor));
+			statements.append(System.getProperty("line.separator"));
 		}
 
-		System.out.println("Ended visiting BlockStatement");
-		System.out.println();
+		statements.append(this.environment.getIndent());
+		statements.append("}");
 
-		return true;
+		return statements.toString();
 	}
 
 	@Override
-	public Boolean visit(ComputedQuestion computedQuestion) {
-		System.out.println("Visiting ComputedQuestion Statement");
+	public String visit(ComputedQuestion computedQuestion) {
+		String question = computedQuestion.getQuestion().accept(this);
 
-		// Visit items
-		computedQuestion.getQuestion().accept(this);
+		IExpression<String> expressionVisitor = new Expression();
+		String expr = computedQuestion.getComputation().accept(
+				expressionVisitor);
 
-		Expression expressionVisitor = new Expression();
-		computedQuestion.getComputeExpression().accept(expressionVisitor);
-
-		System.out.println("Ended visiting ComputedQuestion Statement");
-		System.out.println();
-
-		return true;
+		return String.format("%s %s", question, expr);
 	}
 
 	@Override
-	public Boolean visit(If ifStatement) {
-		System.out.println("Visiting If Statement");
+	public String visit(If ifStatement) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(System.getProperty("line.separator"));
 
-		// Visit items
-		Expression expressionVisitor = new Expression();
-		ifStatement.getCondition().accept(expressionVisitor);
+		sb.append(this.environment.getIndent());
 
-		ifStatement.getTruePath().accept(this);
+		sb.append("if (");
 
-		System.out.println("Ended visiting If Statement");
-		System.out.println();
+		IExpression<String> expressionVisitor = new Expression();
+		String condition = ifStatement.getCondition().accept(expressionVisitor);
+		sb.append(condition);
 
-		return true;
+		sb.append(")");
+
+		sb.append(System.getProperty("line.separator"));
+
+		String statement = ifStatement.getTruePath().accept(this);
+		sb.append(statement);
+
+		return sb.toString();
 	}
 
 	@Override
-	public Boolean visit(Question question) {
-		System.out.println("Visiting Question Statement");
+	public String visit(Question question) {
+		IExpression<String> expressionVisitor = new Expression();
+		String ident = question.getIdent().accept(expressionVisitor);
+		String descr = question.getQuestion().accept(expressionVisitor);
 
-		// Visit items
-		Expression expressionVisitor = new Expression();
-		question.getIdent().accept(expressionVisitor);
-		question.getQuestion().accept(expressionVisitor);
+		IType<String> typeVisitor = new Type();
+		String answerType = question.getType().accept(typeVisitor);
 
-		Type typeVisitor = new Type();
-		question.getType().accept(typeVisitor);
-
-		System.out.println("Ended visiting Question Statement");
-		System.out.println();
-
-		return true;
+		return String.format("%s%s: %s %s", this.environment.getIndent(),
+				ident, descr, answerType);
 	}
-
 }

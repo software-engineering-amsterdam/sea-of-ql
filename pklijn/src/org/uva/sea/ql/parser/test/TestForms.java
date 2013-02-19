@@ -2,43 +2,30 @@ package org.uva.sea.ql.parser.test;
 
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.form.Form;
 
-@RunWith(Parameterized.class)
 public class TestForms {
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-		List<Object[]> list = new ArrayList<Object[]>();
-		list.add(new Object[] {new ANTLRParser()});
-		return list;
-	}
-
 	
-	public TestForms(IParse parser) {
-		this.parser = parser;
+	public TestForms() {
+		this.parser = new ANTLRParser();
 	}
 	
 	@Test 
-	public void testQuestionForm() throws ParseError {
+	public void testFormParser() throws ParseError {
 		assertEquals(parser.parseForm("form testForm1 {\n" +
 				"  demoQuestion: \"Is this really a question?\" boolean\n" +
 				"}").getClass(),Form.class);
 		assertEquals(parser.parseForm("form testForm2 {\n" +
 				"hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
 				"hasBoughtHouse: \"Have you bought a house in 2012?\" string\n" +
-				"}").getFormItems().size(),2);
+				"}").getBody().size(),2);
 		assertEquals(parser.parseForm("form testForm3 {\n" +
 				"demoQuestion: \"Is this really a question?\" boolean\n" +
 				"if (demoQuestion) { // WOOOOOOOOW, is this a comment? Yes it is! \n" +
@@ -56,5 +43,99 @@ public class TestForms {
 				"}\n" +
 				"demoQuestion6: \"Is it true?\" boolean" +
 				"}").getClass(),Form.class);
+	}
+	
+	@Test
+	public void testFormIdents() throws ParseError {
+		// Basic form with boolean
+		assertTrue(parser.parseForm("" +
+				"form testForm1 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
+				"	}\n" +
+				"}").isFormValid());
+		// Basic form with GT expression over integer
+		assertTrue(parser.parseForm("" +
+				"form testForm3 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" int\n" +
+				"	if (hasSoldHouse > 10) {\n" +
+				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
+				"	}\n" +
+				"}").isFormValid());
+		// Form with computed questions
+		assertTrue(parser.parseForm("" +
+				"form testForm1 {\n" +
+				"	input1: \"Question irrelevant\" int\n" +
+				"	calc1: \"Question irrelevant\" int(10 - 4)\n" +
+				"	calc2: \"Question irrelevant\" int(10 - calc1 + input1)\n" +
+				"	calc3: \"Question irrelevant\" int(calc1 - calc2)\n" +
+				"	calc4: \"Question irrelevant\" int((calc3 + calc2) - (calc1 * 2))\n" +
+				"	bool1: \"Question irrelevant\" boolean\n" +
+				"	bool2: \"Question irrelevant\" boolean(bool1)\n" +
+				"	bool3: \"Question irrelevant\" boolean((10 - 4) < 7 && bool2)\n" +
+				"	str1: \"Question irrelevant\" string\n" +
+				"	str2: \"Question irrelevant\" string(str1)\n" +
+				"	str3: \"Question irrelevant\" string(str2)\n" +
+				"}").isFormValid());
+		// Form with use of variable from outside if
+		assertTrue(parser.parseForm("" +
+				"form testForm2 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		totalSoldHouseValue: \"Was house sold?\" boolean(hasSoldHouse)\n" +
+				"	}\n" +
+				"}").isFormValid());
+		// Form with use of variable from inside if outside of if
+		assertFalse(parser.parseForm("" +
+				"form testForm2 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		totalSoldHouseValue: \"Was house sold?\" int\n" +
+				"	}\n" +
+				"	if (totalSoldHouseValue > 100000) {\n" +
+				"		statement: \"High taxes rate\" boolean(true)\n" +
+				"	}\n" +
+				"}").isFormValid());
+		// Form with error if (integer)
+		assertFalse(parser.parseForm("" +
+				"form testForm2 {\n" +
+				"	hasSoldHouse: \"Have you sold a house in 2012?\" boolean\n" +
+				"	if (hasSoldHouse) {\n" +
+				"		totalSoldHouseValue: \"How much money did you get for all houses in total?\" int\n" +
+				"		if (totalSoldHouseValue) {\n" +
+				"			yuRich: \"Do you consider yourself rich?\" boolean\n" +
+				"		}\n" +
+				"	}\n" +
+				"}").isFormValid());
+		
+		// Demo of adding same ident with same types
+		assertTrue(parser.parseForm("" +
+				"form testform3 {\n" +
+				"	ident1: \"int question\" int\n" +
+				"	if (true) {\n" +
+				"		ident1: \"another int question\" int\n" +
+				"	}\n" +
+				"}").isFormValid());
+				
+		// Demo of adding same ident with other types
+		assertFalse(parser.parseForm("" +
+				"form testform3 {\n" +
+				"	ident1: \"int question\" int\n" +
+				"	if (true) {\n" +
+				"		ident1: \"bool question\" boolean\n" +
+				"	}\n" +
+				"}").isFormValid());
+		
+		assertTrue(parser.parseForm("" +
+				"form testForm {\n" +
+				"	q1: \"q1\" boolean\n" +
+				"	if (q1) {\n" +
+				"		q2: \"q2\" boolean\n" +
+				"		if (q2) {\n" +
+				"			q3: \"q3\" string\n" +
+				"		}\n" +
+				"	}\n" +
+				"}").isFormValid());
 	}
 }

@@ -1,22 +1,17 @@
 package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.*;
-import java.util.*;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
-public class Ifthen extends Statement {
-	private Expr expression;
-	private List<Statement> block;
+public class IfThen extends StatementElement {
 	
-	public Ifthen (Expr expression, List<Statement> block){
-		this.expression=expression;
-		this.block = block;
-	}
-	
-	public Expr getExpression() {
-		return expression;
-	}
-	
-	public List<Statement> getBlock() {
-		return block;
+	public IfThen(Expr expression, Block ifBlock) {
+		super(expression, ifBlock);
 	}
 
+	@Override
+	public void accept(IStatementVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	
 }

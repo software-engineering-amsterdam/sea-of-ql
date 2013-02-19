@@ -1,39 +1,35 @@
 package org.uva.sea.ql.ast.expr.primary;
 
-import java.util.Map;
+import org.uva.sea.ql.type.StringType;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.FormVisitor;
-
-
-public class StringLiteral extends Expr {
-
+public class StringLiteral extends Primary<String> {
 	private final String value;
 
 	public StringLiteral(String value) {
 		this.value = value;
 	}
 	
+	@Override
 	public String getValue() {
 		return value;
 	}
 	
 	@Override
-	public void accept(FormVisitor visitor) {		
+	public String toString() {
+		return "StringLiteral";
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(TypeMapper typeMapper) {
 		return new StringType();
 	}
 
 
 	@Override
-	public <T> T accept(ExpressionVisitor<T> visitor) {
+	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

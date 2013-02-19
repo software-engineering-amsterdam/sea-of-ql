@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.String;
 import org.uva.sea.ql.ast.type.AbstractType;
-import org.uva.sea.ql.visitor.Statement;
+import org.uva.sea.ql.visitor.IStatement;
 
 public class Question extends AbstractStatement {
 
@@ -11,8 +11,7 @@ public class Question extends AbstractStatement {
 	private final String question;
 	private final AbstractType type;
 
-	public Question(Ident ident, String question,
-			AbstractType type) {
+	public Question(Ident ident, String question, AbstractType type) {
 		this.ident = ident;
 		this.question = question;
 		this.type = type;
@@ -31,8 +30,8 @@ public class Question extends AbstractStatement {
 	}
 
 	@Override
-	public void accept(Statement<?> visitor) {
-		visitor.visit(this);
+	public <T> T accept(IStatement<T> visitor) {
+		return visitor.visit(this);
 	}
 
 }

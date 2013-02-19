@@ -10,7 +10,9 @@ import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.value.*;
 import org.uva.sea.ql.ast.expr.binary.*;
 import org.uva.sea.ql.ast.expr.unary.*;
+import org.uva.sea.ql.ast.formelements.*;
 }
+
 
 @lexer::header
 {
@@ -28,12 +30,10 @@ primary returns [Expr result]
    ;
   
 type returns [Type result]
-   : Type {
-     if ($Type.text.equals("string")) $result = new StringType();
-     else if ($Type.text.equals("int")) $result = new IntType();
-     else if ($Type.text.equals("money")) $result = new MoneyType();
-     else if ($Type.text.equals("boolean")) $result = new BoolType();
-   }
+   :INTEGER { $result = new IntType();} 
+   |BOOLEAN { $result = new BoolType();} 
+   |STRING  { $result = new StringType();}
+   |MONEY   {$result = new MoneyType();}
    ;
     
 unExpr returns [Expr result]
@@ -100,17 +100,22 @@ orExpr returns [Expr result]
     ;
 
 formElement returns [FormElement result]
-    : 'if' '(' x = orExpr ')' '{' body=formblock '}' { $result = new IfBody($x.result, $body.result); }
+    : 'if' '(' x = orExpr ')'  '{' thenbody=formblock '}' 'else' '{' elsebody = formblock '}' { $result = new IfThenElse($x.result, $thenbody.result, $elsebody.result); }
+    | 'if' '(' x = orExpr ')'  '{' thenbody=formblock '}'  { $result = new IfThen($x.result, $thenbody.result); }
     | Ident ':' StringLiteral type '(' orExpr ')' { $result = new CompQuestion(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result, $orExpr.result); }
     | Ident ':' StringLiteral type { $result = new Question(new Ident($Ident.text) ,new StringLiteral($StringLiteral.text), $type.result); }
     ;
-    
-formblock returns [List<FormElement> result]
-    :  { $result = new ArrayList<FormElement>() ; }(forme=formElement  { $result.add($forme.result) ; } )*  
+ 
+ formblock returns [Block result]
+ @init{
+          Block formblock = new Block();
+    }
+    : (formElement {formblock.addElement($formElement.result);})* {$result=formblock;}
     ;
+
     
 form returns [Form result]
-    : 'form' Ident '{' fb = formblock '}'  { $result = new Form(new Ident($Ident.text), $fb.result); }
+    : 'form' Ident '{' fb = formblock '}' EOF { $result = new Form(new Ident($Ident.text), $fb.result); }
     ;
     
 // Tokens
@@ -121,7 +126,10 @@ Comment : '/*' .* '*/' {$channel=HIDDEN;};
 
 LineComment : '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;};
 
-Type: 'string' | 'int' | 'money' | 'boolean';
+INTEGER : 'int';
+STRING  : 'string';
+BOOLEAN : 'boolean';
+MONEY : 'money';
 
 BoolLiteral: 'true'|'false';
 

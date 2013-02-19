@@ -1,12 +1,14 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import java.util.Map;
 
-public abstract class Expr implements ASTNode {
+import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.types.Type;
+
+public abstract class Expr implements ASTNode {	
+
+	public abstract <T> T accept(ExprVisitor<T> visitor);
 	
-	public void accept(ASTNodeVisitor visitor) {
-		visitor.visit(this);
-    }
+	public abstract Type typeOf(Map<String, Type> typeEnvironment);
 
 }

@@ -3,74 +3,117 @@ package org.uva.sea.ql.parser.test;
 import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.QLProgram;
-import org.uva.sea.ql.astnodevisitor.PrintVisitor;
-import org.uva.sea.ql.astnodevisitor.PrintVisitorResult;
-import org.uva.sea.ql.astnodevisitor.SemanticCheckVisitor;
+import org.uva.sea.ql.ast.statements.QLProgram;
+import org.uva.sea.ql.ast.visitor.QLFormPrint;
+import org.uva.sea.ql.ast.visitor.QLFormTypeCheck;
+import org.uva.sea.ql.ast.visitor.results.PrintResult;
 
 public class TestVisitor extends TestCase {
 	static final private IParse parser = new ANTLRParser();
 
 	String a0 = "form DoIt { fieldOne: \"hello world!\" money }";
-	String a1 = "form DoIt { fieldOne: \"hello world!\" boolean fieldOne1: \"hello world!\" boolean if ( fieldOne1 ) { two: \"is here\" boolean } }";
-	String a2 = "form DoIt { fieldOne: \"hello world!\" money( 10 + 20 ) }";
+	String a1 = "form DoIt { fieldOne: \"hello world!\" money( 10 + 20 ) }";
+	String a2 = "form DoIt { fieldOne: \"hw!\" boolean fieldOne1: \"hw2!\" boolean if ( fieldOne1 ) { two: \"is here\" boolean } }";
 	String a3 = "form DoIt { if ( 10 < 10 ) { fieldTwo : \"hello world!\" money( 10 + 20 ) }}";
 	String a4 = "form DoIt { if ( fieldOne == \"StringLit\" ) { fieldTwo : \"hello world!\" money( 10 + 20 ) }}";
 
 	@Test
-	public void testPrintVisitor() throws ParseError {
+	public void testQLFormPrintVisitor() throws ParseError {
 		String expected;
 		String actual;
-		PrintVisitor pvis = new PrintVisitor();
+		QLFormPrint print = new QLFormPrint();
 		QLProgram qlp;
 
 		qlp = parser.qlprogram(a0);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		expected = ((PrintResult) qlp.accept(print)).getPrintResult();
 		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		actual = ((PrintResult) qlp.accept(print)).getPrintResult();
 		assertEquals(expected, actual);
 
 		qlp = parser.qlprogram(a1);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		expected = ((PrintResult) qlp.accept(print)).getPrintResult();
 		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		actual = ((PrintResult) qlp.accept(print)).getPrintResult();
 		assertEquals(expected, actual);
 
 		qlp = parser.qlprogram(a2);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		expected = ((PrintResult) qlp.accept(print)).getPrintResult();
 		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		actual = ((PrintResult) qlp.accept(print)).getPrintResult();
 		assertEquals(expected, actual);
 
 		qlp = parser.qlprogram(a3);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		expected = ((PrintResult) qlp.accept(print)).getPrintResult();
 		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		actual = ((PrintResult) qlp.accept(print)).getPrintResult();
 		assertEquals(expected, actual);
 
 		qlp = parser.qlprogram(a4);
-		expected = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		expected = ((PrintResult) qlp.accept(print)).getPrintResult();
 		qlp = parser.qlprogram(expected);
-		actual = ((PrintVisitorResult) qlp.accept(pvis)).getPrintResult();
+		actual = ((PrintResult) qlp.accept(print)).getPrintResult();
 		assertEquals(expected, actual);
 	}
 
 	@Test
-	public void testSemanticVisitor() throws ParseError {
-		SemanticCheckVisitor svis = new SemanticCheckVisitor();
+	public void testQLFormTypeCheckVisitor() throws ParseError {
+		QLFormTypeCheck typeCheck = new QLFormTypeCheck();
 		QLProgram qlp;
 
-/*		qlp = parser.qlprogram(a0);
-		qlp.accept(svis);
-		assertEquals(svis.getErrorReport(), "");
+		String a33 = "form DoIt { field: \"doit\" money if ( field == 100.0  ) { fieldTwo : \"hello world!\" money( 20 < 20 ) }}";
+		qlp = parser.qlprogram(a33);
+		qlp.accept(typeCheck);
+		assertEquals(1, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
+		
+		String a34 = "form Do { f1: \"a\" money if ( f1 < 100.0 ) { f2 : \"a\" money( f1 + 20 * 1.0 + f2 + 20.0 + 20 * 20 * 20.0 * f1) }}";
+		qlp = parser.qlprogram(a34);
+		qlp.accept(typeCheck);
+		assertEquals(0, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
+		
+		String a35 = "form DoIt { field: \"doit\" money if ( ( field < 100 )  == true ) { fieldTwo : \"hello world!\" money( 20 + 20 ) }}";
+		qlp = parser.qlprogram(a35);
+		qlp.accept(typeCheck);
+		assertEquals(0, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
+		
+		String a36 = "form DoIt { field: \"doit\" money if ( field < 100 ) { fieldTwo : \"hello world!\" money( 100 / 20 ) }}";
+		qlp = parser.qlprogram(a36);
+		qlp.accept(typeCheck);
+		assertEquals(0, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
+		
+		String a37 = "form DoIt { field: \"doit\" boolean if ( field == true && ! false ) { fieldTwo : \"hello world!\" money( 30 + 20 ) }}";
+		qlp = parser.qlprogram(a37);
+		qlp.accept(typeCheck);
+		assertEquals(0, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
+		
+		String a38 = "form DoIt { field: \"doit\" boolean if ( 100 == 200 && 10 < 100 ) { fieldTwo : \"hello world!\" money( 30 + 20 )  fieldThree : \"third field\" money }}";
+		qlp = parser.qlprogram(a38);
+		qlp.accept(typeCheck);
+		assertEquals(0, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
+		
+		String a39 = "form DoIt { fieldOne: \"hello world!\" money fieldOne1: \"hello world!\" money if ( true ) { two: \"is here\" boolean } }";
+		qlp = parser.qlprogram(a39);
+		qlp.accept(typeCheck);
+		assertEquals(0, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
 
-		qlp = parser.qlprogram(a1);
-		qlp.accept(svis);
-		assertEquals(svis.getErrorReport(), "");
-*/
-		qlp = parser.qlprogram(a3);
-		qlp.accept(svis);
-		assertEquals(svis.getErrorReport(), "");
+		String a40 = "form DoIt { fieldOne: \"hello world!\" money fieldOne1: \"hello world!\" money if ( true == 10 ) { two: \"is here\" boolean } }";
+		qlp = parser.qlprogram(a40);
+		qlp.accept(typeCheck);
+		assertEquals(1, typeCheck.getErrorCount());
+		for (String errorSting : typeCheck.getErrorList())
+			System.out.println(errorSting);
 	}
-
 }

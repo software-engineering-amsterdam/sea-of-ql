@@ -1,4 +1,33 @@
-sc-ql-2012-2013-rascal
-======================
+QL-Rascal 29/01/2012
+========================
 
-Skeleton code for the Rascal variant of lab assignment Software Construction 2012-2013
+GENERAL USAGE NOTES
+======================
+ - Use QL-Rascal to write questionnaires in QL-Language and export them to JavaScript/Java.
+ - Supported variable types integer,string,boolean,money,date,float
+
+----------------------
+
+INSTALLATION
+======================
+ - You need Eclipse IDE and Rascal plugin installed to run QL Rascal
+ - More info on Rascal at http://www.rascal-mpl.org/
+
+----------------------
+
+CONTACT
+======================
+ - Author : Georgios Marmanidis
+ - Email  : geo.marmani@gmail.com
+
+----------------------
+
+TO DO
+======================
+Implement generator for JavaScript.
+Known Bugs:
+-----------
+  1. problems with single line comments?? 
+  2. appearance of the code
+  3. Boolean variables // maybe a check for TENV(variables type) and required type in compileExpressions
+  4. Generate ValidateFunctions

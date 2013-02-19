@@ -1,27 +1,32 @@
 package org.uva.sea.ql.ast.elements;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsBoolOperands;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
-import org.uva.sea.ql.visitor.ASTElement;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.TreeVisitor;
 
-public class Ident extends Expr implements ReturnsMathOperands, ReturnsBoolOperands, ASTElement {
+public class Ident extends Expr implements Evaluatable, TreeNode {
 
-	private final String name;
+    private final String name;
 
-	public Ident(String name) {
-		this.name = name;
-	}
+    public Ident(String id) {
+        this.name = id;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public final String getName() {
+        return this.name;
+    }
 
-	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException {
-		visitor.visit(this);
-	}
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
+
+    @Override
+    public void accept(TreeVisitor v) {
+        v.visit(this);
+    }
 
 }

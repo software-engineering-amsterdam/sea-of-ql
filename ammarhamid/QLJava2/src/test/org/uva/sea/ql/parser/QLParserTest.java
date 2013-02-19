@@ -5,33 +5,20 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.parser.exception.ParserException;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
-@RunWith(Parameterized.class)
 public class QLParserTest
 {
-    private IParser parser;
+    private final IParser parser;
 
-    @Parameters
-    public static List<Object[]> theParsers()
+    public QLParserTest()
     {
-        final List<Object[]> parsers = new ArrayList<>();
-        parsers.add(new Object[]{new ANTLRParser()});
-        return parsers;
-    }
-
-    public QLParserTest(IParser parser)
-    {
-        this.parser = parser;
+        this.parser = new ANTLRParser();
     }
 
     @After
@@ -46,16 +33,16 @@ public class QLParserTest
         final String validSrc = "" +
                 "form test " +
                 "{ " +
-                "	hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
-                "	hasSoldCar: \"Did you sell a car in 2010?\" integer " +
+                "	\"Did you sell a house in 2010?\" hasSoldHouse: boolean " +
+                "	\"Did you sell a car in 2010?\" hasSoldCar: integer " +
                 "	if (1+1==2) " +
                 "	{ " +
-                "		hasNothing: \"nothing?\" boolean " +
-                "		hasNothing2: \"nothing?\" boolean " +
+                "		\"nothing?\" hasNothing: boolean " +
+                "		\"really nothing?\" hasNothing2: boolean " +
                 "	}" +
                 "	else" +
                 "	{" +
-                "		hasNothing: \"nothing?\" boolean " +
+                "		\"nothing?\" hasNothing: boolean " +
                 "	}" +
                 "}";
 
@@ -65,16 +52,16 @@ public class QLParserTest
         final String expectedExpression = "(+ 1 (* 2 1))";
         Assert.assertEquals("Result should be the same", expectedExpression, actualExpression);
 
-        QLParser qlParser2 = this.parser.createQLParser("if(1+2) { hasSoldIt: \"Really?\" boolean }");
+        QLParser qlParser2 = this.parser.createQLParser("if(1+2) { \"Really?\" hasSoldIt:  boolean }");
         String actualIfBlock = qlParser2.ifStatement().tree.toStringTree();
         System.out.println(actualIfBlock);
-        final String expectedIfBlock = "(IF (EXPRESSION (+ 1 2) (STATEMENTS (ASSIGNMENT hasSoldIt boolean))))";
+        final String expectedIfBlock = "(IF (EXPRESSION (+ 1 2) (BLOCK (ASSIGNMENT Really? hasSoldIt boolean))))";
         Assert.assertEquals("Result should be the same", expectedIfBlock, actualIfBlock);
 
         QLParser qlParser3 = this.parser.createQLParser(validSrc);
         String actualForm = qlParser3.form().tree.toStringTree();
         System.out.println(actualForm);
-        final String expectedForm = "(FORM test (STATEMENTS (ASSIGNMENT hasSoldHouse boolean) (ASSIGNMENT hasSoldCar integer) (IF (EXPRESSION (== (+ 1 1) 2) (STATEMENTS (ASSIGNMENT hasNothing boolean) (ASSIGNMENT hasNothing2 boolean))) (EXPRESSION (STATEMENTS (ASSIGNMENT hasNothing boolean))))))";
+        final String expectedForm = "(FORM test (BLOCK (ASSIGNMENT Did you sell a house in 2010? hasSoldHouse boolean) (ASSIGNMENT Did you sell a car in 2010? hasSoldCar integer) (IF (EXPRESSION (== (+ 1 1) 2) (BLOCK (ASSIGNMENT nothing? hasNothing boolean) (ASSIGNMENT really nothing? hasNothing2 boolean))) (EXPRESSION (BLOCK (ASSIGNMENT nothing? hasNothing boolean))))))";
         Assert.assertEquals("Result should be the same", expectedForm, actualForm);
 
         final QLParser qlParser4 = this.parser.createQLParser(validSrc);
@@ -89,6 +76,28 @@ public class QLParserTest
         final QLTreeWalker qlTreeWalker1 = new QLTreeWalker(commonTreeNodeStream1);
         QLTreeWalker.expression_return expression = qlTreeWalker1.expression();
         System.out.println("walk = " + expression.node.evaluate());
+    }
+
+    @Ignore
+    public void ifStatementTest() throws RecognitionException
+    {
+        final String validSrc = "" +
+                "	if (1+1==2) " +
+                "	{ " +
+                "		hasNothing: \"nothing?\" boolean " +
+                "		hasNothing2: \"nothing?\" boolean " +
+                "	}" +
+                "	else" +
+                "	{" +
+                "		hasNothing: \"nothing?\" boolean " +
+                "	}";
+
+        final QLParser qlParser = this.parser.createQLParser(validSrc);
+        final CommonTree commonTree = (CommonTree) qlParser.ifStatement().getTree();
+        final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
+        final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
+        QLTreeWalker.ifStatement_return expression = qlTreeWalker.ifStatement();
+//        System.out.println("Test " +expression.node.evaluate());
     }
 
     @Test

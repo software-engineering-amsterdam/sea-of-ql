@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 /**
  * Class: Sub
@@ -12,11 +15,14 @@ public class Sub extends BinExpr {
 
 	/**
 	 * Constructor
-	 * @param result
-	 * @param rhs
+	 * @param l left
+	 * @param r right
 	 */
-	public Sub(Expr result, Expr rhs) {
-		super(result, rhs, "-");
+	public Sub(Expr l, Expr r) {
+		super(l, r);
 	}
-
+	@Override
+	public Type typeOf(SymbolTable st) {
+		return new IntType();
+	}
 }

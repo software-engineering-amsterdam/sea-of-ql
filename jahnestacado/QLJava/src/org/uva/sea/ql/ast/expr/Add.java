@@ -1,19 +1,29 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.NumericType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.checkers.ExpressionChecker;
 
 public class Add extends Binary {
 
-	public Add(Expr left, Expr right) {
-		super(left,right) ;
+	public Add(Expr leftExpr, Expr rightExpr) {
+		super(leftExpr,rightExpr) ;
 	}
 
 	@Override
-	public void accept(ASTNodeVisitor nodeVisitor) {
-		nodeVisitor.visit(this);
+	public boolean accept(ExpressionChecker nodeVisitor) {
+		return nodeVisitor.visit(this);
 		
 	}
+
+	@Override
+	public Type isOfType(Map<String, Type> typeEnv) {
+		return new NumericType();
+	}
+
+	
 
 	
 

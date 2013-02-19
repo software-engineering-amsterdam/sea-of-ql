@@ -1,43 +1,38 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Class: UnaryExpr
  * @author Danny
  *
  */
-public class UnaryExpr extends Expr {
-	
-	// The operator of the expr
-	protected final String op;
-	
+public abstract class UnaryExpr extends Expr {
 	// The expression
-	private final Expr expr;
+	private final Expr argument;
 	
 	/**
 	 * UnaryExpr
 	 * @param expr - the expr
 	 */
 	public UnaryExpr(Expr expr){
-		this(expr, null);
+		this.argument = expr;
 	}
 	
 	/**
-	 * Constructor
-	 * @param expr - the expr
-	 * @param op - the string of the operator or call other constructor
-	 */
-	public UnaryExpr(Expr expr, String op) {
-		this.op = op;
-		this.expr = expr;	
-	}
-	/**
-	 * getExpression
+	 * getArgument
 	 * @return expr 
 	 */
-	public Expr getExpression(){
-		return this.expr;
+	public Expr getArgument(){
+		return this.argument;
 	}
-
+	/**
+	 * accept()
+	 * @param visitor
+	 */
+	@Override
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
+	}
 }

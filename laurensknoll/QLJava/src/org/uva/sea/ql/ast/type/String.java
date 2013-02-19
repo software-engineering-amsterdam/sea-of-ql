@@ -1,16 +1,17 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.Type;
+import org.uva.sea.ql.visitor.IType;
 
 public class String extends AbstractType {
 
-	public java.lang.String getType() {
-		return "String";
+	@Override
+	public <T> T accept(IType<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public void accept(Type<?> visitor) {
-		visitor.visit(this);
+	public boolean equals(Object obj) {
+		return obj instanceof String;
 	}
 
 }

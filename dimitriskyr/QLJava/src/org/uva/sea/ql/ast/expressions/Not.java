@@ -1,17 +1,25 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.*;
+import java.util.Map;
 
-public class Not extends Expr {
-	private Expr value;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
+
+public class Not extends UnaryExpression {
 	
 	public Not(Expr value){
-		this.value=value;
+		super (value);
 	}
-	
-	public Expr getValue() {
-		return value;
+		
+	@Override
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
+		return  visitor.visit(this);
 	}
 
-	
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new BooleanType();
+	}
 }

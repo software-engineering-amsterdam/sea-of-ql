@@ -2,28 +2,28 @@ package org.uva.sea.ql.ast.elements;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.ASTElement;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.ASTElement;
+import org.uva.sea.ql.common.ElementVisitor;
+import org.uva.sea.ql.common.QLException;
 
 public class Block extends Expr implements ASTElement {
-	private List<Expr> content;
+	private List<BlockElement> content;
 
-	public Block(List<Expr> ex) {
+	public Block(List<BlockElement> ex) {
 		this.content = ex;
 	}
 
-	public List<Expr> getContent() {
-		return content;
+	public final List<BlockElement> getContent() {
+		return this.content;
 	}
 
-	public void addLine(Expr e) {
+	public final void addLine(BlockElement e) {
 		this.content.add(e);
 	}
 
 	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException{
+	public final void accept(ElementVisitor visitor) throws QLException{
 		visitor.visit(this);
 	}
 }

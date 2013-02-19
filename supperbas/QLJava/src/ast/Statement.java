@@ -1,13 +1,10 @@
 package ast;
 
-import ast.visitor.Visitor;
+import ast.statement.Visitor;
 
 public abstract class Statement implements ASTNode {
 
-	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
+	public abstract <T> T accept(Visitor<T> visitor);
 
 	@Override
 	public String toString() {

@@ -5,6 +5,8 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 
+import java.math.BigDecimal;
+
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
 import org.uva.sea.ql.ast.expr.atom.*;
@@ -28,7 +30,7 @@ identExpr returns [org.uva.sea.ql.ast.expr.atom.Ident result]
 primary returns [AbstractExpr result]
 	:	INT		{ $result = new org.uva.sea.ql.ast.expr.atom.Int(Integer.parseInt($INT.text)); }
 	|	BOOLEAN		{ $result = new org.uva.sea.ql.ast.expr.atom.Bool(Boolean.parseBoolean($BOOLEAN.text)); }
-	|	MONEY		{ $result = new org.uva.sea.ql.ast.expr.atom.Money(Float.parseFloat($MONEY.text)); }
+	|	MONEY		{ $result = new org.uva.sea.ql.ast.expr.atom.Money(new BigDecimal($MONEY.text)); }
 	|	x=identExpr	{ $result = $x.result; }
 	|	x=stringExpr	{ $result = $x.result; }
 	|	x=expr	{ $result = $x.result; }

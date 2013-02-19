@@ -1,22 +1,32 @@
 package org.uva.sea.ql.ast.expr.atom;
 
-import org.uva.sea.ql.visitor.Expression;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+
+import org.uva.sea.ql.visitor.IExpression;
 
 public class Money extends Numeric {
 
-	private final float value;
+	private final BigDecimal value;
 
-	public Money(float value) {
+	public Money(BigDecimal value) {
 		this.value = value;
 	}
 
-	public Float getValue() {
+	public BigDecimal getValue() {
 		return this.value;
 	}
 
 	@Override
-	public void accept(Expression<?> visitor) {
-		visitor.visit(this);
+	public <T> T accept(IExpression<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public java.lang.String toString() {
+		java.lang.String formattedValue = NumberFormat.getCurrencyInstance()
+				.format(this.getValue());
+		return java.lang.String.format("Money (%s)", formattedValue);
 	}
 
 }

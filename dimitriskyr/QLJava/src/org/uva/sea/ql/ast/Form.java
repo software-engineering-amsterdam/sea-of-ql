@@ -1,34 +1,28 @@
 package org.uva.sea.ql.ast;
-import java.util.List;
 
-import org.antlr.runtime.tree.CommonTree;
-import org.uva.sea.ql.ast.visitor.Visitorinterface;
+import org.uva.sea.ql.ast.statements.Block;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
-public class Form implements ASTNode { 
-	private Type name;
-	private List<Statement> block ;
+public class Form extends Statement { 
+	private Ident name;
+	private Block block ;
 	
-	public Form(Type name, List<Statement> block){
+	public Form(Ident name, Block block){
 		this.name=name;
 		this.block=block;
 	}
 	
-	public Type getName() {
+	public Ident getName() {
 		return name;
 	}
 	
-	public List<Statement> getBlock() {
+	public Block getBlock() {
 		return block;
 	}
- 
+	
 	@Override
-	public void accept(Visitorinterface visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
-		
 	}
-
-	public CommonTree getTree() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	}
+}

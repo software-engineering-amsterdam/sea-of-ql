@@ -1,23 +1,29 @@
 package org.uva.sea.ql.visitor.print;
 
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.visitor.IExpression;
+import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.IStatement;
 
-public class Form implements org.uva.sea.ql.visitor.Form<Boolean> {
+public class Form implements IForm<String> {
+
+	private final Environment environment;
+
+	public Form() {
+		this.environment = new Environment();
+	}
 
 	@Override
-	public Boolean visit(Question questionForm) {
-		System.out.println("Visiting QuestionForm");
+	public String visit(Question questionForm) {
+		IExpression<String> expressionVisitor = new Expression();
+		String ident = questionForm.getIdent().accept(expressionVisitor);
 
-		// Visit items of question form
-		Expression expressionVisitor = new Expression();
-		questionForm.getIdent().accept(expressionVisitor);
+		IStatement<String> statementVisitor = new Statement(this.environment);
+		String statements = questionForm.getStatements().accept(
+				statementVisitor);
 
-		Statement statementVisitor = new Statement();
-		questionForm.getStatements().accept(statementVisitor);
-
-		System.out.println("Ended visiting QuestionForm");
-
-		return true;
+		return String.format("Questionform %s%s%s", ident,
+				System.getProperty("line.separator"), statements);
 	}
 
 }

@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.form.Form;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -21,12 +21,14 @@ public class ANTLRParser implements IParse {
 	}
 	
 	@Override
-	public Form parseForm(String src) throws ParseError {
+	public Form parseForm(String src) throws ParseError, RuntimeException {
 		QLParser parser = createParser(src);
 		try {
 			return parser.form();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	

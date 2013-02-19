@@ -1,27 +1,24 @@
 package org.uva.sea.ql.ast.math;
 
-import org.uva.sea.ql.ast.AcceptsMathOperands;
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
-import org.uva.sea.ql.ast.UnaryExpr;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.QLException;
 
-public class Neg extends UnaryExpr implements AcceptsMathOperands,
-		ReturnsMathOperands {
-	public static final String str = "-";
+public class Neg extends UnaryMathOperator {
+    private static final String STR = "-";
 
-	public Neg(Expr ex) {
-		super(ex);
-	}
+    public Neg(Expr ex) {
+        super(ex);
+    }
 
-	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException {
-		visitor.visit(this);
-	}
+    @Override
+    public final String toString() {
+        return STR;
+    }
 
-	@Override
-	public String toString() {
-		return str;
-	}
+    @Override
+    public void accept(EvaluationVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
+
 }

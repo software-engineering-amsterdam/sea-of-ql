@@ -1,16 +1,17 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.visitor.Type;
+import org.uva.sea.ql.visitor.IType;
 
 public class Int extends Numeric {
 
-	public java.lang.String getType() {
-		return "Integer";
+	@Override
+	public <T> T accept(IType<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public void accept(Type<?> visitor) {
-		visitor.visit(this);
+	public boolean equals(Object obj) {
+		return obj instanceof Int;
 	}
 
 }

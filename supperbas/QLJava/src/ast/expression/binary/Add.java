@@ -1,17 +1,32 @@
 package ast.expression.binary;
 
-import ast.Expression;
-import ast.expression.BinaryExpression;
+import java.util.Map;
 
-public class Add extends BinaryExpression {
-	private final int level = 3;
+import ast.Expression;
+import ast.Type;
+import ast.expression.Binary;
+import ast.expression.Ident;
+import ast.expression.Visitor;
+
+public class Add extends Binary {
 
 	public Add(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 
-	public int getLevel() {
-		return level;
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new ast.type.Int();
+	}
+
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String typeStr() {
+		return "+";
 	}
 
 }

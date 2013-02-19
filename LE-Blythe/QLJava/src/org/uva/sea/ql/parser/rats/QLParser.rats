@@ -3,48 +3,39 @@ module org.uva.sea.ql.parser.rats.QLParser;
 header {
 import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.form.*;
-import org.uva.sea.ql.ast.propositional.*;
-import org.uva.sea.ql.ast.numeric.*;
-import org.uva.sea.ql.ast.comparative.*;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.operative.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 public Form RunParse = yyValue:Form;
 
-FormElement Form = 
-	"form" Spacing f:Ident Spacing LBracket b:Body RBracket { yyValue = new Form(f, b); };
+Statement Form = 
+	"form" Spacing f:Ident Spacing b:Block { yyValue = new Form(f, b); };
 	
-Expr Body =
-	l:BodyNode* { yyValue= new Body(l.list()); }
+Block Block =
+	LBracket l:Statement* RBracket { yyValue= new Block(l.list()); }
 	;
 
-Expr BodyNode =
-	yyValue:Branch
+Statement Statement =
+	yyValue:IfThen
 	/ yyValue:Question
 	;
 	
-Expr Branch =
-	"if" Spacing LParen c:Expr RParen LBracket b:Body RBracket e:Else { yyValue = new Branch(c,b,e); }
+IfThen IfThen =
+	"if" Spacing LParen c:Expr RParen b:Block "else" Spacing e:Block { yyValue = new IfThenElse(c,b,e); }
+	/ "if" Spacing LParen c:Expr RParen b:Block { yyValue = new IfThen(c,b); }
 	;		
 
-Expr Else =
-	"else" Spacing LBracket yyValue:Body RBracket
-	/ { yyValue=null; }
-	;
-
-Expr Question =
-	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new Question(q, new Ident(x), t); }
+Question Question =
+	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
+	/ q:Literal Spacing x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
 	; 
 	
-Expr Type =
-	yyValue:TypeIn 
-	/ yyValue:Expr
-	;
-	
-Expr TypeIn =
-	"boolean" Spacing { yyValue = new Bool(); }
-	/ "integer" Spacing { yyValue = new Int(); }
-	/ "string" Spacing { yyValue = new Str(); }
+Type Type =
+	"boolean" Spacing { yyValue = new org.uva.sea.ql.ast.types.Bool(); }
+	/ "integer" Spacing { yyValue = new org.uva.sea.ql.ast.types.Int(); }
+	/ "string" Spacing { yyValue = new org.uva.sea.ql.ast.types.Str(); }
 	;
 
 
@@ -111,9 +102,10 @@ Expr Unary =
 	
 
 Expr Primary = 
-	"true" Spacing { yyValue = new Bool(true); }
-	/ "false" Spacing { yyValue = new Bool(false); }
-	/ n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
+	s:Literal Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
+	/ "true" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(true); }
+	/ "false" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(false); }
+	/ n:Int Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Int(Integer.parseInt(n)); }
 	/ x:Ident Spacing { yyValue = new Ident(x); }
 	/ LParen yyValue:Expr RParen
 	;
@@ -126,12 +118,10 @@ String Ident
   = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
   ;
 
-
-
 String Literal 
 	= ["] [A-Za-z0-9_?!;:\t\f\n ]* ["]
 	;
-	
+		
 transient void LParen = '(' Spacing;
 transient void RParen = ')' Spacing;
 
@@ -139,7 +129,6 @@ transient void LBracket = '{' Spacing;
 transient void RBracket = '}' Spacing;
 
 transient void quotes = '\"' Spacing;
-
 
 transient void Spacing = (Space / Comment)*;
 transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;

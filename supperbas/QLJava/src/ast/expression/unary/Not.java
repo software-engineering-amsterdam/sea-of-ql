@@ -1,17 +1,32 @@
 package ast.expression.unary;
 
-import ast.Expression;
-import ast.expression.UnaryExpression;
+import java.util.Map;
 
-public class Not extends UnaryExpression {
-	private final int level = 6;
+import ast.Expression;
+import ast.Type;
+import ast.expression.Ident;
+import ast.expression.Visitor;
+import ast.expression.Unary;
+
+public class Not extends Unary {
 
 	public Not(Expression expr) {
 		super(expr);
 	}
+	
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new ast.type.Bool();
+	}
 
-	public int getLevel() {
-		return level;
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String typeStr() {
+		return "(!)";
 	}
 
 }

@@ -1,29 +1,28 @@
 package org.uva.sea.ql.ast.elements;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.ASTElement;
-import org.uva.sea.ql.visitor.ASTVisitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.ElementVisitor;
+import org.uva.sea.ql.common.QLException;
 
-public class IfStatement extends Expr implements ASTElement {
-	private Expr condition;
-	private Block content;
+public class IfStatement extends BlockElement {
+    private Expr condition;
+    private Block content;
 
-	public IfStatement(Expr condition, Block content) {
-		this.condition = condition;
-		this.content = content;
-	}
+    public IfStatement(Expr cond, Block block) {
+        this.condition = cond;
+        this.content = block;
+    }
 
-	public Expr getCondition() {
-		return condition;
-	}
+    public final Expr getCondition() {
+        return this.condition;
+    }
 
-	public Block getContent() {
-		return content;
-	}
+    public final Block getContent() {
+        return this.content;
+    }
 
-	@Override
-	public void accept(ASTVisitor visitor) throws VisitorException{
-		visitor.visit(this);
-	}
+    @Override
+    public final void accept(ElementVisitor visitor) throws QLException {
+        visitor.visit(this);
+    }
 }

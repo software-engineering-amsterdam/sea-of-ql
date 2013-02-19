@@ -7,7 +7,7 @@ public abstract class Binary extends Expr {
 	private final Expr leftExpr;
 	private final Expr rightExpr;
 
-	public Binary(Expr leftExpr, Expr rightExpr) {
+	protected Binary(Expr leftExpr, Expr rightExpr) {
 		this.leftExpr = leftExpr;
 		this.rightExpr = rightExpr;
 	}

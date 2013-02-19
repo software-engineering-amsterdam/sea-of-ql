@@ -1,16 +1,23 @@
 package org.uva.sea.ql.ast.expressions;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import java.util.Map;
 
-public class Eq extends BinaryTree {
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.Type;
+
+public class Eq extends Binary {
 
 	public Eq(Expr result, Expr rhs) {
 		super(result, rhs);
 	}
 	
-	public void accept(ASTNodeVisitor visitor) {
-		super.accept(visitor);
-		visitor.visit(this);
+	public <T> T accept(ExprVisitor<T> visitor) {
+		return visitor.visit(this);
     }
+	
+	@Override
+	public Type typeOf(Map<String, Type> typeEnvironment) {
+		return new BoolType();
+	}
 
 }

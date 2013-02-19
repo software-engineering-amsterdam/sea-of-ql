@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.Statement;
+import org.uva.sea.ql.ast.IASTNode;
+import org.uva.sea.ql.visitor.IStatement;
 
-public abstract class AbstractStatement implements ASTNode {
+public abstract class AbstractStatement implements IASTNode {
 
-	public abstract void accept(Statement<?> visitor);
+	public abstract <T> T accept(IStatement<T> visitor);
 
 }

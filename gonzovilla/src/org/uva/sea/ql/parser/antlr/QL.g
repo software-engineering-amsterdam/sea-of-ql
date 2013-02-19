@@ -1,10 +1,13 @@
 grammar QL;
-options {language = Java;}
+//options {backtrack=true; memoize=true;}
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.values.*;
 }
 
 @lexer::header
@@ -12,24 +15,38 @@ import org.uva.sea.ql.ast.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-program
-  : 'start' Ident '='
-    question* 
-    'end' Ident '.'
-  ;
+form returns [Form result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
+	; 
 
-question
-  : 'question' Ident ':' type ':=' expression '?'
-  ;
+formUnit returns [FormUnit result]
+	: question         { $result = $question.result; }
+  | computedQuestion { $result = $computedQuestion.result; }
+	| ifStatement      { $result = $ifStatement.result; }
+	;
 
-type
-  : 'Boolean'
-  | 'Integer'
-  | 'String'
-  ;
+question returns [Question result]
+	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
+	;
+	  
+computedQuestion returns [ComputedQuestion result]
+	: Ident ':' '[' orExpr ']' sentence '(' type ')' { $result = new ComputedQuestion($Ident.text, $sentence.text, $orExpr.result, $type.result); }
+	;
+ 
+ifStatement returns [IfStatement result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	;  
 
-expression
-  : (Ident | WS)+
+type returns [Type result]
+  : 'Boolean' {$result = new TypeBool();}
+  | 'Integer' {$result = new TypeInt();}
+  | 'String'  {$result = new TypeString();}
+  ;
+ 
+sentence
+  : '"' .* '"'
   ; 
 
 primary returns [Expr result]
@@ -57,7 +74,7 @@ mulExpr returns [Expr result]
     })*
     ;
     
-  
+
 addExpr returns [Expr result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
@@ -69,7 +86,7 @@ addExpr returns [Expr result]
       }
     })*
     ;
-  
+
 relExpr returns [Expr result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 

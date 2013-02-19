@@ -17,6 +17,8 @@ package org.uva.sea.ql.parser.antlr;
 primary returns [Expr result] 
     : Int   { $result = new Int(Integer.parseInt($Int.text)); }
     | Ident { $result = new Ident($Ident.text); }
+    | BOOL  { $result = new Bool(Boolean.parseBoolean($BOOL.text)); }
+    | String{ $result = new StringNode($String.text); }
     | '(' x=orExpr ')'{ $result = $x.result; }
     ;
     
@@ -85,7 +87,7 @@ orExpr returns [Expr result]
     : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-form returns [Type result] 
+form returns [Form result] 
       @init { List<Statement> formParts = new ArrayList<Statement>();}
     : 'form' Ident '{' (formPart {formParts.add($formPart.result);})+ '}' { $result = new Form(new Ident($Ident.text), formParts);}
     ;
@@ -98,24 +100,25 @@ formPart returns [Statement result]
     
 ifStatement returns[Statement result]
       @init { List<Statement> formParts = new ArrayList<Statement>();}
-    : 'if' '(' Ident ')' '{' (formPart {formParts.add($formPart.result);})+ '}' {$result = new If(new Ident($Ident.text), formParts);}
+    : 'if' '(' orExpr ')' '{' (formPart {formParts.add($formPart.result);})+ '}' {$result = new If($orExpr.result, formParts);}
     ;
     
 ifThenStatement returns [Statement result]
       @init { List<Statement> ifFormParts = new ArrayList<Statement>();
               List<Statement> elseFormParts = new ArrayList<Statement>();}
-    : 'if' '(' Ident ')' '{' (f1=formPart {ifFormParts.add($f1.result);})+ '}' 'else' '{' (f2=formPart {elseFormParts.add($f2.result);})+ '}'
-      {$result = new IfThenElse(new Ident($Ident.text), ifFormParts, elseFormParts);}  
+    : 'if' '(' orExpr ')' '{' (f1=formPart {ifFormParts.add($f1.result);})+ '}' 'else' '{' (f2=formPart {elseFormParts.add($f2.result);})+ '}'
+      {$result = new IfThenElse($orExpr.result, ifFormParts, elseFormParts);}  
     ;
   
 question returns [Question result] 
-    : Ident ':' String returnType {$result = new Question($String.text, $returnType.result);}
+    : Ident ':' String returnType '(' orExpr ')' {$result = new ComputedQuestion(new Ident($Ident.text), $String.text, $returnType.result, $orExpr.result);} 
+    | Ident ':' String returnType {$result = new Question(new Ident($Ident.text), $String.text, $returnType.result);}    
     ;
     
 returnType returns [Type result] 
-    : 'boolean' { $result = new BoolType(); }
-    | 'money(' orExpr ')' {$result = new Money($orExpr.result);} //Fill in actual numbers. 
-    | 'money' {$result = new Money();} 
+    : 'boolean' {$result = new BoolType(); }
+    | 'integer' {$result = new IntType();} 
+    | 'string' {$result = new StringType();}
     ;
     
 BOOL	

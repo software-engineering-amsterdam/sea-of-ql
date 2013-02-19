@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser.test;
 
-import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
 import java.util.List;

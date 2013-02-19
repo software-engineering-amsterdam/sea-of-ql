@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.statements;
 
-import java.util.ArrayList;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.visitor.StmtVisitor;
 
 public class ifStatement extends Statement {
 	private final Expr condition;
-	private final ArrayList<Statement> ifStms;
+	private final BlockOfStatements ifStms;
 	
-	public ifStatement(Expr condition, ArrayList<Statement> ifStms) {
+	public ifStatement(Expr condition, BlockOfStatements ifStms) {
 		this.condition = condition;
 		this.ifStms = ifStms;
 	}
@@ -16,7 +16,12 @@ public class ifStatement extends Statement {
 		return condition;
 	}
 	
-	public ArrayList<Statement> getIfStms() {
+	public BlockOfStatements getIfStms() {
 		return ifStms;
+	}
+	
+	@Override
+	public void accept(StmtVisitor visitor) {
+		visitor.visit(this);		
 	}
 }

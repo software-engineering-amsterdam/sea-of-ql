@@ -1,20 +1,32 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.ReturnsMathOperands;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
-public class Money extends Type implements ReturnsMathOperands {
-	private Expr expr;
+public class Money extends Type {
+    private Expr expr;
 
-	public Money() {
-	}
+    public Money() {
+    }
 
-	public Money(Expr e) {
-		this.expr = e;
-	}
+    public Money(Expr e) {
+        this.expr = e;
+    }
 
-	public Expr getExpr() {
-		return expr;
-	}
+    public final Expr getExpr() {
+        return this.expr;
+    }
+
+    @Override
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public final void accept(EvaluationVisitor visitor) throws QLException {
+       visitor.visit(this);
+    }
 
 }

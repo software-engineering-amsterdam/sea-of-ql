@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.types;
 
-public class StringType extends QLType {
+public class StringType extends Type {
 
 	@Override
-	public boolean isNumber() {
-		return false;
+	public boolean isString() {
+		return true;
 	}
 
 }

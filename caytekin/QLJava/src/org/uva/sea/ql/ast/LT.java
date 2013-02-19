@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast;
 
-public class LT extends LogOprtn {
+public class LT extends BinaryLogOptn {
 
 	public LT(Expr expr1, Expr expr2){
-		// Less than to be implemented
+		super (expr1, expr2);
 	}
 	
 }

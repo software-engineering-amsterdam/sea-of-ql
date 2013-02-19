@@ -1,8 +1,11 @@
 package org.uva.sea.ql.ast.expr.binary;
 
-import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.visitor.Context;
-import org.uva.sea.ql.visitor.Visitor;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class GT extends BinaryExpr {
 
@@ -11,8 +14,13 @@ public class GT extends BinaryExpr {
 	}
 
 	@Override
-	public void accept(Visitor visitor, Context context) {
-		visitor.visit(this, context);
+	public Type typeOf(Map<String, Type> typeEnv) {
+		return new BoolType();
+	}
+
+	@Override
+	public <T> T accept(IExprVisitor<T> ExprVisitor) {
+		return ExprVisitor.visit(this);
 	}
 
 }

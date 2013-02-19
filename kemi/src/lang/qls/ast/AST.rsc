@@ -1,30 +1,75 @@
+@license{
+  Copyright (c) 2013 
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+}
+@contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
+@contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
+
 module lang::qls::ast::AST
 
 data Stylesheet
-  = stylesheet(list[Statement] statements)
+  = stylesheet(str ident, list[Definition] definitions)
   ;
 
-data Statement
-  = classDefinition(str ident, list[ClassRule] questionIdent)
-  | typeStyleDefinition(str \type, list[StyleRule] styleRules)
-  | classStyleDefinition(str ident, list[StyleRule] styleRules)
-  | identStyleDefinition(str ident, list[StyleRule] styleRules)
+data Definition
+  = pageDefinition(str ident, list[LayoutRule] layoutRules)
+  | sectionDefinition(str ident, list[LayoutRule] layoutRules)
+  | questionDefinition(str ident)
+  | questionDefinition(str ident, list[StyleRule] styleRules)
+  | defaultDefinition(Type \type, list[StyleRule] styleRules)
   ;
 
-data ClassRule
-  = classRule(str ident)
+data LayoutRule
+  = layoutRule(Definition definition)
+  ;
+
+data Type
+  = booleanType(str name)
+  | integerType(str name)
+  | moneyType(str name)
+  | dateType(str name)
+  | stringType(str name)
   ;
 
 data StyleRule
-  = styleRule(str attr, StyleAttrValue \value)
+  = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
+  | intStyleRule(StyleAttr attr, int intValue)
+  | stringStyleRule(StyleAttr attr, str stringValue)
+  | colorStyleRule(StyleAttr attr, str colorValue)
   ;
 
-data StyleAttrValue
-  = styleAttrValue(str \value)
+data StyleAttr
+  = widget(str name)
+  | width(str name)
+  | fontsize(str name)
+  | labelFontsize(str name)
+  | font(str name)
+  | labelFont(str name)
+  | color(str name)
+  | labelColor(str name)
+  ;
+
+data WidgetStyleValue
+  = text(str name)
+  | number(str name)
+  | number(str name, real min, real max)
+  | number(str name, real min, real max, real step)
+  | datepicker(str name)
+  | slider(str name)
+  | slider(str name, real min, real max)
+  | slider(str name, real min, real max, real step)
+  | radio(str name)
+  | checkbox(str name)
+  | select(str name)
   ;
 
 anno loc Stylesheet@location;
-anno loc Statement@location;
-anno loc ClassRule@location;
+anno loc Definition@location;
+anno loc LayoutRule@location;
+anno loc Type@location;
 anno loc StyleRule@location;
-anno loc StyleAttrValue@location;
+anno loc StyleAttr@location;
+anno loc WidgetStyleValue@location;

@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.Form;
+import org.uva.sea.ql.ast.IASTNode;
+import org.uva.sea.ql.visitor.IForm;
 
-public abstract class AbstractForm implements ASTNode {
+public abstract class AbstractForm implements IASTNode {
 
-	public abstract void accept(Form<?> visitor);
+	public abstract <T> T accept(IForm<T> visitor);
 
 }
