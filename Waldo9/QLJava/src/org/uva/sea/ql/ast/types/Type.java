@@ -8,7 +8,6 @@ public abstract class Type implements ASTNode {
 	public abstract boolean isCompatibleTo(Type t);	
 	public boolean isCompatibleToInt() { return false; }
 	public boolean isCompatibleToString() { return false; }
-	public boolean isCompatibleToBool() { return false; }
-	
+	public boolean isCompatibleToBool() { return false; }	
 	
 }
