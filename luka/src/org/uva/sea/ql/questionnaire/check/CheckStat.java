@@ -77,7 +77,7 @@ public class CheckStat implements StatementVisitor {
 	@Override
 	public void visit(IfThenStat stat) {
 		checkCondition(stat);
-		if (stat.getBody() == null || stat.getBody().getStatements().isEmpty()) {
+		if (stat.getBody() == null || stat.getBody().isEmpty()) {
 			addError(stat, "Empty body in <if> not allowed!");
 		}
 		stat.getBody().accept(this);
