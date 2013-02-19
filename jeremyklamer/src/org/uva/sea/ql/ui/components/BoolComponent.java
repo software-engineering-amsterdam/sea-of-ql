@@ -12,7 +12,7 @@ import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 
 
-public class BoolComponent extends ActiveComponent{
+public class BoolComponent extends ActiveComponent {
 	
 	public BoolComponent(final Env env, final Form form, final Ident name) {
 		super("wrap", new JCheckBox());	
@@ -25,7 +25,6 @@ public class BoolComponent extends ActiveComponent{
 				form.eval(env);
 			}
 		});
-
 	}
 	
 	@Override

@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.expression.operators.logical;
 
 import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
 import org.uva.sea.ql.ast.expression.operators.BinaryOperator;
 import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.typechecker.ExpressionVisitor;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
 public class Or extends BinaryOperator {

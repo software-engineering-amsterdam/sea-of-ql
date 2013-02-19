@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.Env;
+import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
 import org.uva.sea.ql.ui.components.QuestionComponent;
 
@@ -23,20 +24,18 @@ public class ComputedQuestion extends Question{
 	public Expr getComputation() {
 		return computation;
 	}
-
+	
 	@Override
-	public String toString(int indentation){
-		String returnString = getIndentation(indentation);
-		
-		returnString += getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(getReturnType());
-		returnString += newLine;
-		return returnString; 
-	}
+	public List<Message> getErrorsMessages(Env env) {
+		ArrayList<Message> errors = new ArrayList<Message>();
+		errors.addAll(super.getErrorsMessages(env));
+		errors.addAll(computation.checkType(env));
+		return errors;
+	}	
 	
 	@Override
 	public List<BaseComponent> getUIComponents(Env env, Form form) {
 		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
-
 		uiComponent = new QuestionComponent(sentence, true, returnType.getAnswerComponent(env, form, name));
 		components.add(uiComponent);
 		return components;
@@ -48,5 +47,19 @@ public class ComputedQuestion extends Question{
 			uiComponent.updateValue(computation.eval(env));
 		}	
 		return false;		
+	}
+	
+	@Override
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder();
+		feedBack.append(getIndentation(indentation));
+		feedBack.append(name.getName() + " : " + sentence + " return type : " + getSimpleName(returnType) + "(" + getSimpleName(computation) + ")"); 
+		feedBack.append(newLine);
+		for(Message message : getErrorsMessages(env)) {
+			feedBack.append(errorStartSign);
+			feedBack.append(message.getMessage());
+			feedBack.append(newLine);
+		}
+		return feedBack.toString();
 	}
 }

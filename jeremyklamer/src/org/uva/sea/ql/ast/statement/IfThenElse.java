@@ -37,19 +37,6 @@ public class IfThenElse extends If{
 	}
 	
 	@Override
-	public String toString(int indentation) {
-		String returnString = super.toString(indentation); 
-		returnString += getIndentation(indentation);
-		returnString += "else";
-		returnString += newLine;
-		
-		for(Statement statement : elseBody){
-			returnString += statement.toString(indentation + 1);
-		}
-		return returnString; 
-	}
-	
-	@Override
 	public List<BaseComponent> getUIComponents(Env env, Form form) {
 		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
 		
@@ -90,4 +77,17 @@ public class IfThenElse extends If{
 		}
 	}
 	
+	
+	@Override
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder();
+		feedBack.append(super.genFormFeedBack(env, indentation));
+		feedBack.append(getIndentation(indentation));
+		feedBack.append("Else"); 
+		feedBack.append(newLine);
+		for(Statement statement : elseBody) {
+			feedBack.append(statement.genFormFeedBack(env, indentation + 1));
+		}
+		return feedBack.toString();
+	}
 }

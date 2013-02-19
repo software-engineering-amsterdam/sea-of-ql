@@ -25,28 +25,26 @@ public class If extends Statement{
 	@Override
 	public List<Message> checkType(Env env) {
 		ArrayList<Message> errors = new ArrayList<Message>();
-		if(!(condition.typeOf(env).isCompatibleToBool())){
-			errors.add(new Error("Condition does not resolve to Bool"));
-		}
-		
+		errors.addAll(getErrorsMessages(env));
 		errors.addAll(condition.checkType(env));		
+		
 		for(Statement statement : ifBody){
 			errors.addAll(statement.checkType(env));
 		}
 		return errors;
 	}
 	
-	@Override
-	public String toString(int indentation) {
-		String returnString = getIndentation(indentation);
-		returnString += getSimpleName(this) + ", Condition : " + getSimpleName(this.condition);
-		returnString += newLine;		
-		for(Statement statement : ifBody){
-			returnString += statement.toString(indentation + 1);
-		}
-		return returnString; 
-	}
 
+	@Override
+	public List<Message> getErrorsMessages(Env env) {
+		ArrayList<Message> errors = new ArrayList<Message>();
+		if(!(condition.typeOf(env).isCompatibleToBool())){
+			errors.add(new Error("Condition does not resolve to Bool"));			
+		}
+		errors.addAll(condition.checkType(env));
+		return errors; 
+	}
+	
 	@Override
 	public List<BaseComponent> getUIComponents(Env env, Form form) {
 		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
@@ -91,4 +89,21 @@ public class If extends Statement{
 		}
 	}
 	
+
+	@Override
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder();
+		feedBack.append(getIndentation(indentation));
+		feedBack.append("If (" + getSimpleName(condition) + ")"); 
+		feedBack.append(newLine);
+		for(Message message : getErrorsMessages(env)) { 
+			feedBack.append(errorStartSign);
+			feedBack.append(message.getMessage());
+			feedBack.append(newLine);
+		}
+		for(Statement statement : ifBody) {
+			feedBack.append(statement.genFormFeedBack(env, indentation + 1));
+		}
+		return feedBack.toString();
+	}
 }

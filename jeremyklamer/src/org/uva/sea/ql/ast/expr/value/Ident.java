@@ -18,7 +18,7 @@ public class Ident extends Expr {
 	public Ident(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

@@ -19,9 +19,6 @@ public class Question extends Statement {
 	protected final Type returnType; 
 	protected QuestionComponent uiComponent; 
 	
-	protected BaseComponent label; 
-	protected BaseComponent answerField; 
-	
 	public Question(Ident ident, String sentence , Type returnType) {
 		this.name = ident; 
 		this.sentence = sentence;
@@ -45,14 +42,20 @@ public class Question extends Statement {
 	@Override
 	public List<Message> checkType(Env env) {
 		ArrayList<Message> errors = new ArrayList<Message>();
-		
+		errors.addAll(getErrorsMessages(env));
+		return errors;
+	}
+	
+	@Override
+	public List<Message> getErrorsMessages(Env env) {
+		ArrayList<Message> errors = new ArrayList<Message>();
 		if(env.containsType(name)) {
 			if(!(env.getType(name).getClass().equals(returnType.getClass()))) {
-				errors.add(new Error(name.getName() + " is already defined as type : " + getSimpleName(returnType)));
+				errors.add(new Error(name.getName() + " is already defined as type : " + getSimpleName(env.getType(name))));
 			}
 		}
 		return errors;
-	}
+	}	
 
 	@Override
 	public boolean eval(Env env) {
@@ -71,15 +74,20 @@ public class Question extends Statement {
 	public void setVisible(boolean visible) {
 		uiComponent.setVisible(visible);
 	}
+
 	
 	@Override
-	public String toString(int indentation) {
-		String returnString = getIndentation(indentation);
-		
-		returnString += getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(returnType);
-		returnString += newLine;
-		
-		return returnString;
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder();
+		feedBack.append(getIndentation(indentation));
+		feedBack.append(name.getName() + " : " + sentence + " return type : " + getSimpleName(returnType)); 
+		feedBack.append(newLine);
+		for(Message message : getErrorsMessages(env)) {
+			feedBack.append(errorStartSign);
+			feedBack.append(message.getMessage());
+			feedBack.append(newLine);
+		}
+		return feedBack.toString();
 	}
-
+	
 }

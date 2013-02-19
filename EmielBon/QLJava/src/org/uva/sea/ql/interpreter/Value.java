@@ -8,7 +8,7 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
-	public Value not(Value arg) {
+	public Value not() {
 		throw new UnsupportedOperationException();
 	}
 	
@@ -70,33 +70,33 @@ public abstract class Value {
 	
 	// Logical double dispatch
 
-	protected Value andBool(Bool arg) {
+	protected Value andBool(BooleanValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	
-	protected Value notBool(Bool arg) {
+	protected Value notBool(BooleanValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	
-	protected Value orBool(Bool arg) {
+	protected Value orBool(BooleanValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	
 	// Numeric computation
 	
-	protected Value addInt(Int arg) {
+	protected Value addInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	
-	protected Value divInt(Int arg) {
+	protected Value divInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	
-	protected Value mulInt(Int arg) {
+	protected Value mulInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	
-	protected Value subInt(Int arg) {
+	protected Value subInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
 	}
 	

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ui.components;
 
-import java.awt.Component;
 
 import javax.swing.JComponent;
 
@@ -29,7 +28,7 @@ public abstract class ActiveComponent extends BaseComponent {
 	
 
 	@Override
-	public Component getComponent() {
+	public JComponent getComponent() {
 		return answerField;
 	}
 	
