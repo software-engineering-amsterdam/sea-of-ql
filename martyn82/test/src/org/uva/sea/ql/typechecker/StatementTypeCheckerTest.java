@@ -27,10 +27,6 @@ import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.typechecker.ExpressionTypeChecker;
-import org.uva.sea.ql.typechecker.StatementTypeChecker;
-import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.typechecker.TypeError;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {
@@ -64,8 +60,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		return true;
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testVarDeclaration() {
 		assertTrue( typeCheck( new VariableDeclaration( new IdentifierExpression( "z" ), BooleanType.BOOLEAN ) ) );
 		assertFalse( typeCheck( new AddExpression( new IntegerLiteral( 1 ), new IdentifierExpression( "z" ) ) ) );
@@ -110,8 +106,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		assertEquals( TypeError.TYPE_ERROR, this.environment.getErrors().get( 0 ).getCode() );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIfThen() {
 		assertTrue( typeCheck( new IfThen( new BooleanLiteral( true ), new Statements() ) ) );
 
@@ -143,8 +139,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		assertEquals( TypeError.TYPE_MISMATCH, this.environment.getErrors().get( 0 ).getCode() );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIfThenElse() {
 		assertTrue(
 			typeCheck(
@@ -191,8 +187,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testFormDeclaration() {
 		assertTrue( typeCheck( new FormDeclaration( "x", new Statements() ) ) );
 		assertTrue(
@@ -213,8 +209,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testQuestionVariable() {
 		assertTrue(
 			typeCheck(
@@ -229,8 +225,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testQuestionComputed() {
 		assertTrue(
 			typeCheck(
@@ -263,8 +259,8 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAssignment() {
 		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 99 ) ) ) );
 		assertTrue(

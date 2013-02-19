@@ -32,8 +32,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		super( new ValueEnvironment() );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAddExpression() {
 		assertEquals( 5, eval( new AddExpression( new IntegerLiteral( 2 ), new IntegerLiteral( 3 ) ) ) );
 		assertEquals(
@@ -48,8 +48,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		assertEquals( 1.2, eval( new AddExpression( new MoneyLiteral( 1d ), new MoneyLiteral( .2 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testSubtractExpression() {
 		assertEquals( 8, eval( new SubtractExpression( new IntegerLiteral( 10 ), new IntegerLiteral( 2 ) ) ) );
 		assertEquals( .2, eval( new SubtractExpression( new MoneyLiteral( .5 ), new MoneyLiteral( .3 ) ) ) );
@@ -63,38 +63,38 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMultiplyExpression() {
 		assertEquals( 16d, eval( new MultiplyExpression( new IntegerLiteral( 4 ), new MoneyLiteral( 4d ) ) ) );
 		assertEquals( 25, eval( new MultiplyExpression( new IntegerLiteral( 5 ), new IntegerLiteral( 5 ) ) ) );
 		assertEquals( .25, eval( new MultiplyExpression( new MoneyLiteral( .5 ), new MoneyLiteral( .5 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testDivideExpression() {
 		assertEquals( 3, eval( new DivideExpression( new IntegerLiteral( 9 ), new IntegerLiteral( 3 ) ) ) );
 		assertEquals( 1/3, eval( new DivideExpression( new IntegerLiteral( 1 ), new IntegerLiteral( 3 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAndExpression() {
 		assertEquals( true, eval( new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) );
 		assertEquals( false, eval( new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testOrExpression() {
 		assertEquals( true, eval( new OrExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) );
 		assertEquals( true, eval( new OrExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) );
 		assertEquals( false, eval( new OrExpression( new BooleanLiteral( false ), new BooleanLiteral( false ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testEqualExpression() {
 		assertEquals( true, eval( new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) );
 		assertEquals( true, eval( new EqualExpression( new StringLiteral( "hello" ), new StringLiteral( "hello" ) ) ) );
@@ -107,8 +107,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		assertEquals( false, eval( new EqualExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanOrEqualExpression() {
 		assertEquals(
 			true,
@@ -129,8 +129,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanExpression() {
 		assertEquals(
 			true,
@@ -151,8 +151,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanOrEqualExpression() {
 		assertEquals(
 			true,
@@ -173,8 +173,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanExpression() {
 		assertEquals(
 			true,
@@ -195,8 +195,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotExpression() {
 		assertEquals( true, eval( new NotExpression( new BooleanLiteral( false ) ) ) );
 		assertEquals( false, eval( new NotExpression( new BooleanLiteral( true ) ) ) );
@@ -208,15 +208,15 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNegativeExpression() {
 		assertEquals( -1, eval( new NegativeExpression( new IntegerLiteral( 1 ) ) ) );
 		assertEquals( 23, eval( new NegativeExpression( new IntegerLiteral( -23 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testPositiveExpression() {
 		// Unary plus exists for symmetry with unary minus; its operation is idempotent.
 		// See: http://msdn.microsoft.com/en-us/library/ewkkxkwb.aspx
@@ -224,8 +224,8 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		assertEquals( -23, eval( new PositiveExpression( new IntegerLiteral( -23 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotEqualExpression() {
 		assertEquals(
 			true,
@@ -233,38 +233,38 @@ public class ExpressionEvaluatorTest extends EvaluatorTest implements Expression
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIdentifierExpression() {
 		this.environment.assign( new IdentifierExpression( "x" ), new StringValue( "value of x" ) );
 		assertEquals( "value of x", eval( new IdentifierExpression( "x" ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testBooleanLiteral() {
 		assertEquals( true, eval( new BooleanLiteral( true ) ) );
 		assertEquals( false, eval( new BooleanLiteral( false ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIntegerLiteral() {
 		assertEquals( 0, eval( new IntegerLiteral( 0 ) ) );
 		assertEquals( 129173182, eval( new IntegerLiteral( 129173182 ) ) );
 		assertEquals( -12113, eval( new IntegerLiteral( -12113 ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMoneyLiteral() {
 		assertEquals( 0d, eval( new MoneyLiteral( 0 ) ) );
 		assertEquals( -.23211, eval( new MoneyLiteral( -.23211) ) );
 		assertEquals( 15.321e-05, eval( new MoneyLiteral( 15.321e-05 ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testStringLiteral() {
 		assertEquals( "", eval( new StringLiteral( "" ) ) );
 		assertEquals( "string", eval( new StringLiteral( "string" ) ) );

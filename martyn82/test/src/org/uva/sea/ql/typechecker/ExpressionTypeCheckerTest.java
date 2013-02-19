@@ -28,8 +28,6 @@ import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.typechecker.ExpressionTypeChecker;
-import org.uva.sea.ql.typechecker.TypeEnvironment;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements ExpressionTest {
@@ -48,15 +46,15 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		return expression.accept( this.expressionVisitor );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testBooleanLiteral() {
 		assertTrue( typeCheck( new BooleanLiteral( true ) ) );
 		assertTrue( typeCheck( new BooleanLiteral( false ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotExpression() {
 		assertTrue( typeCheck( new NotExpression( new BooleanLiteral( true ) ) ) );
 		assertTrue( typeCheck( new NotExpression( new BooleanLiteral( false ) ) ) );
@@ -69,8 +67,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new NotExpression( new IntegerLiteral( 1 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAndExpression() {
 		assertTrue( typeCheck( new AndExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) );
 		assertTrue( typeCheck( new AndExpression( new BooleanLiteral( false ), new BooleanLiteral( false ) ) ) );
@@ -79,8 +77,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new AndExpression( new IntegerLiteral( 1 ), new MoneyLiteral( 1d ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testOrExpression() {
 		assertTrue( typeCheck( new OrExpression( new BooleanLiteral( true ), new BooleanLiteral( false ) ) ) );
 		assertTrue( typeCheck( new OrExpression( new BooleanLiteral( true ), new BooleanLiteral( true ) ) ) );
@@ -88,8 +86,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new OrExpression( new IntegerLiteral( 12 ), new BooleanLiteral( false ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanExpression() {
 		assertTrue( typeCheck( new LesserThanExpression( new MoneyLiteral( .5 ), new MoneyLiteral( .1 ) ) ) );
 		assertTrue( typeCheck( new LesserThanExpression( new IntegerLiteral( 5 ), new MoneyLiteral( .1 ) ) ) );
@@ -97,8 +95,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new LesserThanExpression( new BooleanLiteral( false ), new MoneyLiteral( .1 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanOrEqualExpression() {
 		assertTrue( typeCheck( new LesserThanOrEqualExpression( new IntegerLiteral( 23 ), new MoneyLiteral( .10 ) ) ) );
 		assertTrue( typeCheck( new LesserThanOrEqualExpression( new MoneyLiteral( 23 ), new MoneyLiteral( .10 ) ) ) );
@@ -111,8 +109,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanOrEqualExpression() {
 		assertTrue(
 			typeCheck( new GreaterThanOrEqualExpression( new IntegerLiteral( 1 ), new IntegerLiteral( -211 ) ) )
@@ -120,8 +118,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertTrue( typeCheck( new GreaterThanOrEqualExpression( new IntegerLiteral( 12 ), new MoneyLiteral( .3 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testEqualExpression() {
 		assertTrue(
 			typeCheck(
@@ -133,8 +131,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new EqualExpression( new StringLiteral( "true" ), new BooleanLiteral( false ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIntegerLiteral() {
 		assertTrue( typeCheck( new IntegerLiteral( 12 ) ) );
 		assertTrue( typeCheck( new IntegerLiteral( 0 ) ) );
@@ -157,8 +155,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMoneyLiteral() {
 		assertTrue( typeCheck( new MoneyLiteral( .1 ) ) );
 		assertTrue( typeCheck( new MoneyLiteral( 13141.0 ) ) );
@@ -176,16 +174,16 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testStringLiteral() {
 		assertTrue( typeCheck( new StringLiteral( "" ) ) );
 		assertTrue( typeCheck( new StringLiteral( "yes" ) )  );
 		assertTrue( typeCheck( new StringLiteral( "this is a string" ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotEqualExpression() {
 		assertTrue(
 			typeCheck(
@@ -199,8 +197,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new NotEqualExpression( new StringLiteral( "" ), new BooleanLiteral( true ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAddExpression() {
 		assertTrue( typeCheck( new AddExpression( new IntegerLiteral( 1 ), new IntegerLiteral( 3 ) ) ) );
 		assertTrue( typeCheck( new AddExpression( new MoneyLiteral( .4 ), new IntegerLiteral( 5 ) ) ) );
@@ -210,8 +208,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new AddExpression( new IntegerLiteral( 1 ), new StringLiteral( "" ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testSubtractExpression() {
 		assertTrue( typeCheck( new SubtractExpression( new IntegerLiteral( 553 ), new IntegerLiteral( 0 ) ) ) );
 		assertTrue(
@@ -221,8 +219,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new SubtractExpression( new MoneyLiteral( .1 ), new BooleanLiteral( true ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMultiplyExpression() {
 		assertTrue( typeCheck( new MultiplyExpression( new IntegerLiteral( 4 ), new IntegerLiteral( 131 ) ) ) );
 		assertTrue( typeCheck( new MultiplyExpression( new MoneyLiteral( 131241.121 ), new MoneyLiteral( .3 ) ) ) );
@@ -231,8 +229,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new MultiplyExpression( new StringLiteral( "" ), new IntegerLiteral( -121 ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testDivideExpression() {
 		assertTrue( typeCheck( new DivideExpression( new IntegerLiteral( 12 ), new IntegerLiteral( 0 ) ) ) );
 		assertTrue( typeCheck( new DivideExpression( new IntegerLiteral( 41 ), new MoneyLiteral( .3 ) ) ) );
@@ -241,8 +239,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new DivideExpression( new IntegerLiteral( 332 ), new StringLiteral( "hoi" ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNegativeExpression() {
 		assertTrue( typeCheck( new NegativeExpression( new IntegerLiteral( 5 ) ) ) );
 		assertTrue( typeCheck( new NegativeExpression( new MoneyLiteral( 489 ) ) ) );
@@ -250,8 +248,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new NegativeExpression( new BooleanLiteral( true ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testPositiveExpression() {
 		assertTrue( typeCheck( new PositiveExpression( new IntegerLiteral( -553321 ) ) ) );
 		assertTrue( typeCheck( new PositiveExpression( new MoneyLiteral( .6653e+142 ) ) ) );
@@ -259,8 +257,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		assertFalse( typeCheck( new PositiveExpression( new StringLiteral( "2" ) ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanExpression() {
 		assertTrue( typeCheck( new GreaterThanExpression( new IntegerLiteral( 42 ), new IntegerLiteral( 3241 ) ) ) );
 		assertTrue( typeCheck( new GreaterThanExpression( new MoneyLiteral( 342 ), new IntegerLiteral( 1 ) ) ) );
@@ -277,8 +275,8 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIdentifierExpression() {
 		IdentifierExpression identBVar = new IdentifierExpression( "bVar" );
 		IdentifierExpression identIVar = new IdentifierExpression( "iVar" );
