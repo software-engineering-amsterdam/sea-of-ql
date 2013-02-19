@@ -1,0 +1,21 @@
+<project name="QLang" basedir=".">
+
+    <description>
+        Interpreter for the domain specific language: "QL" (Question language).
+    </description>
+
+    <property file="qlang.properties" />
+
+    <target name="clean" description="clean up">
+        <delete dir="${classTargetFolder}"/>
+        <delete dir="${qlTargetFolder}"/>
+    </target>
+
+    <target name="compile" description="Compile the code">
+        <mkdir dir="${classTargetFolder}"/>
+        <mkdir dir="${qlTargetFolder}"/>
+
+        <javac srcdir="${src}" destdir="${classTargetFolder}"/>
+    </target>
+
+</project>

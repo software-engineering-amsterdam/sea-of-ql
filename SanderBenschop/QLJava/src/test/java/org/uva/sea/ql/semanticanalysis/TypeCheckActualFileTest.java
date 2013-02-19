@@ -21,7 +21,7 @@ public class TypeCheckActualFileTest {
 
     @Before
     public void init() {
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTable());
+        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 
     @Test

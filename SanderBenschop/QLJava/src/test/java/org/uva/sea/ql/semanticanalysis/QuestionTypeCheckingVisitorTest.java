@@ -21,7 +21,7 @@ public class QuestionTypeCheckingVisitorTest {
     @Before
     public void init() throws IllegalAccessException {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTable());
+        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 
     @Test

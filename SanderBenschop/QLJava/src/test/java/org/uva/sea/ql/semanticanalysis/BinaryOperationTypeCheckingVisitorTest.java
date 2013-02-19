@@ -23,7 +23,7 @@ public class BinaryOperationTypeCheckingVisitorTest {
     @Before
     public void init() {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTable());
+        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 
     @Test

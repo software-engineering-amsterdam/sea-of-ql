@@ -21,12 +21,10 @@ import java.io.IOException;
 public class ServletConfiguration extends GuiceServletContextListener {
 
     private final QLProgram qlProgram;
-    private final SymbolTable symbolTable;
     private final ObjectMapper objectMapper;
 
-    public ServletConfiguration(QLProgram qlProgram, SymbolTable symbolTable) throws IOException {
+    public ServletConfiguration(QLProgram qlProgram) throws IOException {
         this.qlProgram = qlProgram;
-        this.symbolTable = symbolTable;
         this.objectMapper = createObjectMapper();
     }
 
@@ -49,7 +47,7 @@ public class ServletConfiguration extends GuiceServletContextListener {
             bind(ValidationController.class);
             bind(PersistenceController.class);
             bind(QLProgram.class).toInstance(qlProgram);
-            bind(SymbolTable.class).toInstance(symbolTable);
+            bind(SymbolTable.class).toInstance(qlProgram.getSymbolTable());
             bind(ObjectMapper.class).toInstance(objectMapper);
             serve("*").with(GuiceContainer.class);
         }

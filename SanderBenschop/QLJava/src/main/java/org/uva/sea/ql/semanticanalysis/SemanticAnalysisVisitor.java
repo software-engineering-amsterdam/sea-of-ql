@@ -36,19 +36,15 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     private final SymbolTable symbolTable;
     private final List<SemanticQLError> semanticValidationErrors;
 
-    protected SemanticAnalysisVisitor(SymbolTable symbolTable) {
-        this.symbolTable = symbolTable;
+    protected SemanticAnalysisVisitor() {
+        this.symbolTable = new SymbolTable();
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }
 
-    public static List<SemanticQLError> semanticallyValidateForm(Form form, SymbolTable symbolTable) {
-        SemanticAnalysisVisitor semanticAnalysisVisitor = new SemanticAnalysisVisitor(symbolTable);
+    public static SemanticAnalysisResults semanticallyValidateForm(Form form) {
+        SemanticAnalysisVisitor semanticAnalysisVisitor = new SemanticAnalysisVisitor();
         semanticAnalysisVisitor.visitForm(form);
-        return semanticAnalysisVisitor.getErrors();
-    }
-
-    public List<SemanticQLError> getErrors() {
-        return semanticValidationErrors;
+        return new SemanticAnalysisResults(semanticAnalysisVisitor.symbolTable, semanticAnalysisVisitor.semanticValidationErrors);
     }
 
     @Override
@@ -282,6 +278,10 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     @Override
     public Boolean visitStr(Str str) {
         return true;
+    }
+
+    protected List<SemanticQLError> getErrors() {
+        return semanticValidationErrors;
     }
 
     private void addErrorForUnsupportedType(SourceCodeInformation sourceCodeInformation, Type expectedType, Type actualType) {

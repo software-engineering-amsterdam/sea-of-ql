@@ -29,13 +29,12 @@ public class Main {
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
-        SymbolTable symbolTable = new SymbolTable();
-        WebappBooter bootstrapper = new WebappBooter(symbolTable);
+        WebappBooter bootstrapper = new WebappBooter();
         try {
             jCommander.parse(arguments);
             QLProgram qlProgram = bootstrapper.bootstrapQLProgram(commandLineParameters.getInputFile());
             if (qlProgram.isCorrect()) {
-                startJettyServer(qlProgram, commandLineParameters.getHostPort(), symbolTable);
+                startJettyServer(qlProgram, commandLineParameters.getHostPort());
             }
         } catch (ParameterException exception) {
             LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
@@ -46,7 +45,7 @@ public class Main {
         }
     }
 
-    private static void startJettyServer(QLProgram qlProgram, int port, SymbolTable symbolTable) {
+    private static void startJettyServer(QLProgram qlProgram, int port) {
         try {
             Server server = new Server(port);
 
@@ -57,7 +56,7 @@ public class Main {
             ServletContextHandler servletsHandler = new ServletContextHandler();
             servletsHandler.setContextPath(WEBAPP_BASE_PATH);
             servletsHandler.addFilter(GuiceFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-            servletsHandler.addEventListener(new ServletConfiguration(qlProgram, symbolTable));
+            servletsHandler.addEventListener(new ServletConfiguration(qlProgram));
             servletsHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
 
             HandlerList handlers = new HandlerList();

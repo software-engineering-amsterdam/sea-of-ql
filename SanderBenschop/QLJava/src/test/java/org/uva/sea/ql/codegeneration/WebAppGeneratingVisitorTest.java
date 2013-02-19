@@ -63,6 +63,6 @@ public class WebAppGeneratingVisitorTest {
         Form form = new Form("QLForm", statements);
         String code = webAppGeneratingVisitor.generateQLCode(form);
         String assertionCode = FileUtils.readFileToString(new File("src/test/resources/generatedQLCode.html"));
-        assertEquals(assertionCode.replaceAll(" ", ""), code.replaceAll(" ", ""));
+        assertEquals(assertionCode.replaceAll("\\s",""), code.replaceAll("\\s",""));
     }
 }

@@ -7,8 +7,8 @@ import org.uva.sea.ql.general.QLError;
 import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.parsing.FormParser;
 import org.uva.sea.ql.parsing.FormParsingResult;
+import org.uva.sea.ql.semanticanalysis.SemanticAnalysisResults;
 import org.uva.sea.ql.semanticanalysis.SemanticAnalysisVisitor;
-import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,12 +21,10 @@ public class WebappBooter {
 
     private final FormParser parser;
     private final CodeGenerator codeGenerator;
-    private final SymbolTable symbolTable;
 
-    public WebappBooter(SymbolTable symbolTable) {
+    public WebappBooter() {
         this.parser = new FormParser();
         this.codeGenerator = new WebAppCodeGeneratingVisitor();
-        this.symbolTable = symbolTable;
     }
 
     public QLProgram bootstrapQLProgram(File sourceCode) throws IOException {
@@ -41,19 +39,19 @@ public class WebappBooter {
     }
 
     private QLProgram performSemanticAnalysis(Form form) {
-        List<SemanticQLError> semanticQLErrors = SemanticAnalysisVisitor.semanticallyValidateForm(form, symbolTable);
-        if (semanticQLErrors.isEmpty()) {
-            return generateCode(form);
+        SemanticAnalysisResults semanticAnalysisResults = SemanticAnalysisVisitor.semanticallyValidateForm(form);
+        if (!semanticAnalysisResults.hasErrors()) {
+            return generateCode(form, semanticAnalysisResults.getSymbolTable());
         } else {
             LOGGER.severe("Semantic analysis of the QL source code failed with the following errors:");
-            logErrors(semanticQLErrors);
+            logErrors(semanticAnalysisResults.getErrors());
             return new IncorrectQLProgram();
         }
     }
 
-    private QLProgram generateCode(Form form) {
+    private QLProgram generateCode(Form form, SymbolTable symbolTable) {
         String code = codeGenerator.generateQLCode(form);
-        return new CorrectQLProgram(code);
+        return new CorrectQLProgram(code, symbolTable);
     }
 
     private void logErrors(List<? extends QLError> errors) {
