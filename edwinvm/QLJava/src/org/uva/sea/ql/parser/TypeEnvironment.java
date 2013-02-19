@@ -14,7 +14,9 @@ public class TypeEnvironment {
 	}
 	
 	public void add(Ident identifier, Type type) {
-		_typeEnvironment.put(identifier, type);
+		if (!contains(identifier)) {
+			_typeEnvironment.put(identifier, type);
+		}
 	}
 	
 	public Boolean contains(Ident identifier) {

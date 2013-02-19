@@ -75,9 +75,7 @@ public class StatementChecker implements Visitor {
 	}
 
 	private void storeQuestionVariable(Ident questionVariable, Type type) {
-		if (!_typeEnvironment.contains(questionVariable)) {
-			_typeEnvironment.add(questionVariable, type);
-		}
+		_typeEnvironment.add(questionVariable, type);
 	}
 	
 	private void addError(Ident ident) {
