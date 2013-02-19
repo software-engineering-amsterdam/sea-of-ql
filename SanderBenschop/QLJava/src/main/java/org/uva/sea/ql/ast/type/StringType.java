@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-public class StringType implements Type {
+public final class StringType implements Type {
 
     @Override
     public String getName() {

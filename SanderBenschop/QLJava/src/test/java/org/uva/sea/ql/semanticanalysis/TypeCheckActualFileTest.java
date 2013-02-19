@@ -3,6 +3,7 @@ package org.uva.sea.ql.semanticanalysis;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
 import org.uva.sea.ql.parsing.ANTLRParser;
 import org.uva.sea.ql.parsing.Parser;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
@@ -19,25 +20,25 @@ import static junit.framework.Assert.*;
 public class TypeCheckActualFileTest {
 
     private Parser parser;
-    private SemanticAnalysisVisitor typeChecker;
+    private SemanticAnalysisVisitor semanticAnalysisVisitor;
 
     @Before
     public void init() {
         parser = new ANTLRParser(new SyntacticErrorReporterImpl());
-        typeChecker = new SemanticAnalysisVisitor();
+        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTableImpl());
     }
 
     @Test
     public void testCorrectFile() throws FileNotFoundException, ParseException {
         Form form = readAndParseToForm("src/test/resources/correctQLProgram.qlang");
-        assertTrue(typeChecker.visitForm(form));
+        assertTrue(semanticAnalysisVisitor.visitForm(form));
     }
 
     @Test
     public void testTypeErrorFile() throws FileNotFoundException, ParseException {
         Form form = readAndParseToForm("src/test/resources/typeErrorQLProgram.qlang");
-        assertFalse(typeChecker.visitForm(form));
-        List<SemanticQLError> errors = typeChecker.getErrors();
+        assertFalse(semanticAnalysisVisitor.visitForm(form));
+        List<SemanticQLError> errors = semanticAnalysisVisitor.getErrors();
         assertEquals(1, errors.size());
         String errorMessage = errors.get(0).getErrorMessage();
         assertEquals("Error: variable on line '3' column position '12' of type Bool was expected to be of type Int.", errorMessage);

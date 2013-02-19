@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.statement.Statement;
 
 import java.util.List;
 
-public class Form implements Node {
+public final class Form implements Node {
 
     private final String formName;
     private final List<Statement> statements;

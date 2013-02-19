@@ -37,10 +37,6 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, NodeVisitor<
     private SymbolTable symbolTable;
     private List<SemanticQLError> semanticValidationErrors;
 
-    public SemanticAnalysisVisitor() {
-        this(new SymbolTableImpl());
-    }
-
     public SemanticAnalysisVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();

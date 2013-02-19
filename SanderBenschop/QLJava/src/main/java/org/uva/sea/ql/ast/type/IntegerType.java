@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-public class IntegerType implements Type {
+public final class IntegerType implements Type {
 
     @Override
     public String getName() {

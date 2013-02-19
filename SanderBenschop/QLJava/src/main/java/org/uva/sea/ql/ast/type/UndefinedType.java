@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-public class UndefinedType implements Type {
+public final class UndefinedType implements Type {
 
     @Override
     public String getName() {

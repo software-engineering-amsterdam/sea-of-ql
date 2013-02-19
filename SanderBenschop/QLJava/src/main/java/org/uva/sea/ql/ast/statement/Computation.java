@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Str;
 
-public class Computation extends Statement {
+public final class Computation extends Statement {
 
     private final Ident identifier;
     private final Str label;

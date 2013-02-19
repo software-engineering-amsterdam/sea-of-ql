@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-public class BooleanType implements Type {
+public final class BooleanType implements Type {
 
     @Override
     public String getName() {

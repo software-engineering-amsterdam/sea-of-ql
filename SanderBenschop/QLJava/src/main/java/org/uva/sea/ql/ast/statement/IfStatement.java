@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 
 import java.util.List;
 
-public class IfStatement extends Conditional {
+public final class IfStatement extends Conditional {
 
     public IfStatement(Expression condition, List<Statement> successBlock) {
         super(condition, successBlock);

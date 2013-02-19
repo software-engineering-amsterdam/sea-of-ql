@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public class Not extends UnaryOperation {
+public final class Not extends UnaryOperation {
 
     public Not(Expression expression, SourceCodeInformation sourceCodeInformation) {
         super(expression, sourceCodeInformation);
