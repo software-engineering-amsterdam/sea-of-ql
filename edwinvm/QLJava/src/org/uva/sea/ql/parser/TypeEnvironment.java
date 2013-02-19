@@ -6,22 +6,22 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 
-public class SupportedTypes {
-	private final Map<Ident, Type> _supportedTypes;
+public class TypeEnvironment {
+	private final Map<Ident, Type> _typeEnvironment;
 
-	public SupportedTypes() {
-		_supportedTypes = new HashMap<Ident, Type>();
+	public TypeEnvironment() {
+		_typeEnvironment = new HashMap<Ident, Type>();
 	}
 	
 	public void add(Ident identifier, Type type) {
-		_supportedTypes.put(identifier, type);
+		_typeEnvironment.put(identifier, type);
 	}
 	
 	public Boolean contains(Ident identifier) {
-		return _supportedTypes.containsKey(identifier);
+		return _typeEnvironment.containsKey(identifier);
 	}
 	
 	public Type get(Ident identifier) {
-		return _supportedTypes.get(identifier);
+		return _typeEnvironment.get(identifier);
 	}
 }

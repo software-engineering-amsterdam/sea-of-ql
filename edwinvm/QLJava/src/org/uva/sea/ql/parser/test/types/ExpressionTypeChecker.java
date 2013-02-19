@@ -10,18 +10,18 @@ import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserTypes;
 
 public class ExpressionTypeChecker {
 	
 	private final IParser _parser;
-	private final SupportedTypes _supportedTypes;
+	private final TypeEnvironment _typeEnvironment;
 	
 	public ExpressionTypeChecker() {
 		_parser = new ANTLRParserExpressions();
-		_supportedTypes = new SupportedTypes();
+		_typeEnvironment = new TypeEnvironment();
 	}
 	
 	public void isAValidExpression(String input)    throws ParseError {  assertTrue(checkExpression(input)); }
@@ -36,7 +36,7 @@ public class ExpressionTypeChecker {
 	
 	private Boolean checkExpression(String input)   throws ParseError {
 		Expr expression = parseExpression(input);
-		return TypeChecker.check(expression, _supportedTypes, new ErrorMessages());
+		return TypeChecker.check(expression, _typeEnvironment, new ErrorMessages());
 	}
 	
 	private Expr parseExpression(String input)      throws ParseError { return (Expr) _parser.parse(input); }
@@ -45,7 +45,7 @@ public class ExpressionTypeChecker {
 	
 	private Type getTypeForLiteralExpression(String input) throws ParseError {
 		LiteralExpr expression = (LiteralExpr) parseExpression(input);
-		return expression.typeOf(_supportedTypes);
+		return expression.typeOf(_typeEnvironment);
 	}
 	
 	private Boolean isIdentCompatibleWithType(String input) throws ParseError {

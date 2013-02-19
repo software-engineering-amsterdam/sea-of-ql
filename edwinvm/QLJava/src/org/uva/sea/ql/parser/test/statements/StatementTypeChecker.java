@@ -10,21 +10,21 @@ import org.uva.sea.ql.check.statements.StatementChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;
 
 public class StatementTypeChecker {
 	
 	private final IParser _parser;
-	private final SupportedTypes _supportedTypes;
+	private final TypeEnvironment _typeEnvironment;
 	private final ErrorMessages _errorMessages;
 	private final StatementChecker _statementChecker;
 	
 	public StatementTypeChecker() {
 		_parser = new ANTLRParserQuestions();
-		_supportedTypes = new SupportedTypes();
+		_typeEnvironment = new TypeEnvironment();
 		_errorMessages   = new ErrorMessages();
-		_statementChecker = new StatementChecker(_supportedTypes, _errorMessages);
+		_statementChecker = new StatementChecker(_typeEnvironment, _errorMessages);
 	}
 	
 	public void isAValidStatement(String input)  throws ParseError { assertTrue(checkStatement(input)); }
