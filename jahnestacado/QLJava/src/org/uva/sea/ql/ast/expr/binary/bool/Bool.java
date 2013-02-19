@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.binary.Binary;
 
 public abstract class Bool extends Binary{
 	
-	public Bool (Expr leftExpr,Expr rightExpr){
+	protected Bool (Expr leftExpr,Expr rightExpr){
 		super(leftExpr,rightExpr);
 	}
 

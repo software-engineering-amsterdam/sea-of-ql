@@ -61,11 +61,9 @@ public class SwingGenerator implements IElementVisitor{
 	
 	private List<JPanel> getConditionalBodyElements(Body qlElement){
 		List<JPanel> bodyPanels=new ArrayList<JPanel>();
-		SwingGenerator gen=new SwingGenerator(bodyPanels,runTimeValues,varUpdater);
-		gen.fillConditionalPanel(qlElement);
-		bodyPanels=gen.getQuestionPanelList();
-		this.runTimeValues=gen.getRunTimeValues();
-		this.varUpdater=gen.getVarUpdater();
+		SwingGenerator conditionalBodyGeneration=new SwingGenerator(bodyPanels,runTimeValues,varUpdater);
+		conditionalBodyGeneration.fillConditionalPanel(qlElement);
+		bodyPanels=conditionalBodyGeneration.getQuestionPanelList();
 		return bodyPanels;
 		
 	}
@@ -133,17 +131,12 @@ public class SwingGenerator implements IElementVisitor{
 	
 	private void addQuestion(Question qlElement,Map<String,Value> declaredVar){
 		QuestionPanel panel=new QuestionPanel(qlElement,declaredVar,varUpdater);
-		questionPanelList.add(panel.getPanel());
-		System.out.println(panel.getPanel().getName()+"  Add to list in Visitor");
-		
+		questionPanelList.add(panel.getPanel());		
 	}
 	
 	private void addComputedQuestion(ComputedQuestion qlElement,Map<String,Value> declaredVar){
 		ComputedQuestionPanel panel=new ComputedQuestionPanel(qlElement, declaredVar,varUpdater);
 		questionPanelList.add(panel.getPanel());
-		System.out.println(panel.getPanel().getName()+"  Add to list in Visitor");
-
-		
 	}
 	
 	
@@ -178,12 +171,6 @@ public class SwingGenerator implements IElementVisitor{
 		return questionPanelList;
 	}
 	
-	private Map<String,Value> getRunTimeValues(){
-		return runTimeValues;
-	}
 	
-	private VariableUpdater getVarUpdater(){
-		return varUpdater;
-	}
 	
 }

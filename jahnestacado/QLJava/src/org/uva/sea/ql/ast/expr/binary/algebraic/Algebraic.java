@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expr.binary.Binary;
 
 public abstract class Algebraic extends Binary {
 	
-	public Algebraic(Expr leftExpr,Expr rightExpr){
+	protected Algebraic(Expr leftExpr,Expr rightExpr){
 		super(leftExpr,rightExpr);
 	}
 

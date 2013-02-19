@@ -1,13 +1,11 @@
 package org.uva.sea.ql.ui.qlform;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
