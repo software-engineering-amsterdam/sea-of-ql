@@ -7,8 +7,6 @@ import template::CSS;
 import template::EvaluateExpression;
 import Prelude;
 
-// Gänsefüsschen
-
 /** Method to create the javascript code to generate the form
 * @param id the name of the questionaire
 * @param Body the Body of the questionaire

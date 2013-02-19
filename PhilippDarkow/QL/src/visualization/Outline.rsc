@@ -19,7 +19,10 @@ public node outline(program(id,Body)){
 		return id;
 	}
 	println("B is : <b>");
-	return b[0];	
+	node k = "form"(b);
+	println("KKKK : <k>");
+	//node all = "form";
+	return k;	
 }
 
 list[node] outlineBody(list[Body] body, list[node] outlineList){
@@ -69,6 +72,7 @@ Outline outline(question:computedQuestion(str id, str labelQuestion, Type tp,Exp
 
 node outline(question:computedQuestion(str id, str labelQuestion, Type tp,Expression exp ), list[node] outlineList){
 	println("In outline computed : <question>");
+	return question;
 }
 
 Outline outline(statement:ifStat(Expression exp, list[Body] body), Outline outlineList){
