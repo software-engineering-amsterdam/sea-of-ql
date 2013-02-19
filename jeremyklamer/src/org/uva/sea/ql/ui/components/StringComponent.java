@@ -11,7 +11,7 @@ import org.uva.sea.ql.interpreter.StringVal;
 import org.uva.sea.ql.interpreter.Value;
 
 public class StringComponent extends ActiveComponent{
-
+	
 	private final static int UI_COMPONENT_WIDTH = 150;
 	
 	public StringComponent(final Env env, final Form form, final Ident name) {

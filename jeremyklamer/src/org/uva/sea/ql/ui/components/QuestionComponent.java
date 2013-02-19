@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ui.components;
 
-import java.awt.Component;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
@@ -36,7 +36,7 @@ public class QuestionComponent extends BaseComponent {
 	}
 
 	@Override
-	public Component getComponent() {
+	public JComponent getComponent() {
 		return component;
 	}
 

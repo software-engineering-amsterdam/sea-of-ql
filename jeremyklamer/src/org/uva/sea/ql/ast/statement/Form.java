@@ -34,16 +34,10 @@ public class Form extends Statement{
 		
 		return errors;
 	}
-	
+
 	@Override
-	public String toString(int indentation) {
-		String returnString = getIndentation(indentation);
-		returnString += getSimpleName(this) + ", Ident : " + this.name.getName();
-		returnString += newLine;
-		for(Statement statement : body){
-			returnString += statement.toString(indentation + 1);
-		}
-		return returnString;
+	public List<Message> getErrorsMessages(Env env) {
+		return null;
 	}
 
 	@Override
@@ -76,9 +70,19 @@ public class Form extends Statement{
 		}
 	}
 
-	//Form never gets set to visbile or invisble, only other statements. 
+	//A Form never gets set to visbile or invisble, only other statements. 
 	@Override
 	public void setVisible(boolean visible) {
 	}
 	
+	@Override
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder();
+		feedBack.append(name.getName()); 
+		feedBack.append(newLine);
+		for(Statement statement : body) {
+			feedBack.append(statement.genFormFeedBack(env, indentation + 1));
+		}
+		return feedBack.toString();
+	}
 }

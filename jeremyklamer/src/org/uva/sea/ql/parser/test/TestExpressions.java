@@ -91,11 +91,10 @@ public class TestExpressions {
 	
 	@Test
 	public void testCalcs() throws ParseError {
-		assertEquals(new Integer(32) , ((IntVal)parser.parse("8 * 4").eval(null)).getValue());
-		assertEquals(new Integer(11) , ((IntVal)parser.parse("1 - 4 / 2 + 12").eval(null)).getValue());
-		assertEquals(new Integer(45) , ((IntVal)parser.parse("3 - 18 + 15 * 4").eval(null)).getValue());
-		assertEquals(new Integer(-30) , ((IntVal)parser.parse("(3 - 18) * 2").eval(null)).getValue());
-		assertEquals(new Integer(-30) , ((IntVal)parser.parse("(3 - 18) * 2").eval(null)).getValue());
+		assertEquals(Integer.valueOf(32) , ((IntVal)parser.parse("8 * 4").eval(null)).getValue());
+		assertEquals(Integer.valueOf(11) , ((IntVal)parser.parse("1 - 4 / 2 + 12").eval(null)).getValue());
+		assertEquals(Integer.valueOf(45) , ((IntVal)parser.parse("3 - 18 + 15 * 4").eval(null)).getValue());
+		assertEquals(Integer.valueOf(-30) , ((IntVal)parser.parse("(3 - 18) * 2").eval(null)).getValue());
 	}
 	
 	@Test

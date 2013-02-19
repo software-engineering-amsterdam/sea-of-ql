@@ -27,26 +27,26 @@ import org.uva.sea.ql.ui.components.BaseComponent;
 
 
 public class FormRenderer {
-	
-	private static Form currentForm; 
+
+	//private static Form currentForm; 
 	
 	public static void main(String[] args){
-		currentForm = getFormFromChooser();
-		renderForm();
+		Form currentForm = getFormFromChooser();
+		renderForm(currentForm);
 		
 	}
 	
-	public static void renderForm() {
+	public static void renderForm(Form currentForm) {
 		List<Message> errors = currentForm.checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>()));
 		if(errors.size() > 0){
-			showFormErrors(errors);
+			showFormErrors(currentForm);
 			return; 
 		}
-		showForm();
+		showForm(currentForm);
 	}
 	
 
-	private static void showForm() {
+	private static void showForm(final Form currentForm) {
 	
 		final Env environment = new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>());
 		JPanel panel = new JPanel(new MigLayout("hidemode 3"));
@@ -65,7 +65,7 @@ public class FormRenderer {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				saveFormToCSV(environment);
+				saveFormToCSV(environment, currentForm);
 			}
 		});
 		
@@ -76,7 +76,7 @@ public class FormRenderer {
 		frame.setVisible(true);				
 	}
 	
-	private static void saveFormToCSV(Env env) {
+	private static void saveFormToCSV(Env env, Form currentForm) {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) { 
@@ -88,22 +88,15 @@ public class FormRenderer {
 		}
 	}
 
-	private static void showFormErrors(List<Message> errors) {
+	private static void showFormErrors(Form currentForm) {
+		Env environment = new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>());
+		
 		JFrame errorsFrame = new JFrame();
-		JButton pickForm = new JButton();
-		pickForm.setText("Open new form");
-		pickForm.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				currentForm = getFormFromChooser();
-			}
-		});
+		errorsFrame.setLayout(new MigLayout());
+		
 		JTextArea errorText = new JTextArea();
-		for(Message error : errors) {
-			errorText.setText(errorText.getText() + error.getMessage());
-			errorText.setText(errorText.getText() + "\n");
-		}		
+		currentForm.initTypes(environment);	
+		errorText.setText(currentForm.genFormFeedBack(environment, 0));
 		errorsFrame.add(errorText);
 		errorsFrame.pack();
 		errorsFrame.setVisible(true);
@@ -117,12 +110,13 @@ public class FormRenderer {
 			try {
 				BufferedReader fileReader = new BufferedReader(new FileReader(fileLocation));
 				String currentLine;
-				String qlForm = "" ; 
+				StringBuilder qlForm = new StringBuilder();
 				while ((currentLine = fileReader.readLine()) != null) {
-					qlForm += currentLine;
+					qlForm.append(currentLine);
 				}
 				
-				Form form = new ANTLRParser().parseForm(qlForm);
+				Form form = new ANTLRParser().parseForm(qlForm.toString());
+				fileReader.close();
 				return form;
 			} 
 			catch (Exception e1) {

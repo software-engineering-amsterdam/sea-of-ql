@@ -20,7 +20,7 @@ public class NEq extends Binary {
 	public Value eval(Env env){
 		IntVal li = (IntVal)(left.eval(env));
 		IntVal ri = (IntVal)(right.eval(env));
-		return new BoolVal( li.getValue() != ri.getValue());
+		return new BoolVal(!(li.getValue().equals(ri.getValue())));
 	}
 
 	@Override
