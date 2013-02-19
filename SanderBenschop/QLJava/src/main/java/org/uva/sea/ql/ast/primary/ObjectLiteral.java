@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.primary;
 
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 
 public abstract class ObjectLiteral<T> extends QLExpression {
 

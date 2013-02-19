@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.primary;
 
-import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.StringType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.semanticanalysis.SymbolTable;
 
 public final class Str extends ObjectLiteral<String> {
 

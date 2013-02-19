@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.unary;
 
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
-import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.semanticanalysis.SymbolTable;
 
 public class Negative extends UnaryOperation {
 

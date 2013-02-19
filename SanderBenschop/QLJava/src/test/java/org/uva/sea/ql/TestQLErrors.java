@@ -2,15 +2,15 @@ package org.uva.sea.ql;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.ast.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.visitor.semanticanalysis.error.IdentifierRedeclarationError;
-import org.uva.sea.ql.visitor.semanticanalysis.error.SemanticQLError;
-import org.uva.sea.ql.visitor.semanticanalysis.error.UnequalTypesError;
-import org.uva.sea.ql.visitor.semanticanalysis.error.UnsupportedTypeError;
+import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
+import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
+import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
+import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
 import static org.junit.Assert.assertEquals;
 

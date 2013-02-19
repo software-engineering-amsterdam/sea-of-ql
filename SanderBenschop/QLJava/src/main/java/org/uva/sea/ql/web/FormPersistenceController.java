@@ -4,8 +4,8 @@ import com.google.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
-import org.uva.sea.ql.QLPropertiesUtil;
-import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.general.QLPropertiesUtil;
+import org.uva.sea.ql.semanticanalysis.SymbolTable;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidationResult;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
 
