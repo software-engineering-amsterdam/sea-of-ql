@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.evaluator.environment;
 
 import java.util.LinkedList;
 import java.util.List;

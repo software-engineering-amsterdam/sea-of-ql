@@ -6,7 +6,6 @@ import java.util.Observer;
 
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.Environment;
 
 public class BindingEnvironment extends Environment<Value> {
 	private final Map<IdentifierExpression, Binding> bindings;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,6 +31,8 @@ import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
+import org.uva.sea.ql.evaluator.typechecker.ExpressionTypeResolver;
 
 public class ExpressionTypeResolverTest implements ExpressionTest {
 	private final TypeEnvironment environment;

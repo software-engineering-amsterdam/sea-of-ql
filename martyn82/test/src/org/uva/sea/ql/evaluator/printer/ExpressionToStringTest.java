@@ -1,4 +1,4 @@
-package org.uva.sea.ql.printer;
+package org.uva.sea.ql.evaluator.printer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,6 +27,7 @@ import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
+import org.uva.sea.ql.evaluator.printer.ExpressionToString;
 
 public class ExpressionToStringTest implements ExpressionTest {
 	private final ExpressionToString printer;

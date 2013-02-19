@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluator.export;
+package org.uva.sea.ql.exporter;
 
 import java.util.Map;
 

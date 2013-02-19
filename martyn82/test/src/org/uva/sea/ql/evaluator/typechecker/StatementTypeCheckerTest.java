@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,6 +27,10 @@ import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
+import org.uva.sea.ql.evaluator.environment.TypeError;
+import org.uva.sea.ql.evaluator.typechecker.ExpressionTypeChecker;
+import org.uva.sea.ql.evaluator.typechecker.StatementTypeChecker;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {

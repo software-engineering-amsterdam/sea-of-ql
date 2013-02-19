@@ -7,18 +7,18 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.evaluator.FormBuilder;
-import org.uva.sea.ql.evaluator.export.Exporter;
-import org.uva.sea.ql.evaluator.export.XmlExporter;
+import org.uva.sea.ql.evaluator.environment.Error;
+import org.uva.sea.ql.evaluator.typechecker.TypeChecker;
+import org.uva.sea.ql.exporter.Exporter;
+import org.uva.sea.ql.exporter.XmlExporter;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.QLParser;
-import org.uva.sea.ql.typechecker.TypeChecker;
+import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
-import org.uva.sea.ql.visitor.Error;
 
-public class QLInterpreter implements ControlEventListener {
+public class QLInterpreter implements ButtonControlEventListener {
 	private final static String SUBMIT_BUTTON_TEXT = "Save";
 
 	private final QLParser parser;
@@ -75,7 +75,7 @@ public class QLInterpreter implements ControlEventListener {
 	}
 
 	@Override
-	public void itemChanged( ControlEvent event ) {
+	public void buttonClicked( ControlEvent event ) {
 		DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
 		String dateString = format.format( new Date() );
 

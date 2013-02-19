@@ -1,11 +1,10 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.environment;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.Environment;
 
 public class TypeEnvironment extends Environment<Type> {
 	private final Map<IdentifierExpression, Type> types;

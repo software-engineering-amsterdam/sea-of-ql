@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.evaluator.environment.Binding;
 import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
-import org.uva.sea.ql.ui.ControlEventListener;
+import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.ButtonControl;
 import org.uva.sea.ql.ui.control.PanelControl;
@@ -28,7 +28,7 @@ public class FormBuilder {
 		this.mapper.addControl( button );
 	}
 
-	public void addButton( String text, ControlEventListener clickListener ) {
+	public void addButton( String text, ButtonControlEventListener clickListener ) {
 		ButtonControl button = this.factory.createButton( text );
 		button.addClickListener( clickListener );
 		this.mapper.addControl( button );

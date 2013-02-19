@@ -26,8 +26,8 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.evaluator.environment.Binding;
 import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.InputControlEventListener;
 import org.uva.sea.ql.ui.control.Control;
 import org.uva.sea.ql.ui.control.InputControl;
 import org.uva.sea.ql.ui.control.PanelControl;
@@ -95,9 +95,9 @@ class Renderer implements StatementVisitor<Void>, TypeVisitor<InputControl> {
 
 	private void registerControlHandler( final QuestionDeclaration question, final InputControl control ) {
 		control.addChangeListener(
-			new ControlEventListener() {
+			new InputControlEventListener() {
 				@Override
-				public void itemChanged( ControlEvent event ) {
+				public void valueChanged( ControlEvent event ) {
 					environment.declare( question.getIdentifier(), control.getValue() );
 					environment.notifyObservers( question.getIdentifier() );
 				}
