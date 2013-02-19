@@ -1,8 +1,10 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
+import org.uva.sea.ql.evaluator.environment.TypeError;
 
 class TypeCheckerHelper {
 	private final static String ERROR_TYPE_MISMATCH = "Both sides of %s must be of type %s, found %s";

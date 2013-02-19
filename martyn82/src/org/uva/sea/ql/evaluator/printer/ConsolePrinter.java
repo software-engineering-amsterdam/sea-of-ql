@@ -1,4 +1,4 @@
-package org.uva.sea.ql.printer;
+package org.uva.sea.ql.evaluator.printer;
 
 public class ConsolePrinter extends Printer {
 	public ConsolePrinter() {

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.printer;
+package org.uva.sea.ql.evaluator.printer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,7 +27,7 @@ import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
-import org.uva.sea.ql.printer.ExpressionToString;
+import org.uva.sea.ql.evaluator.printer.ExpressionToString;
 
 public class ExpressionToStringTest implements ExpressionTest {
 	private final ExpressionToString printer;
@@ -41,8 +41,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		return expression.accept( this.printer );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAddExpression() {
 		Expression expression;
 
@@ -55,8 +55,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(43 + (0.56 + 4))", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testSubtractExpression() {
 		Expression expression = new SubtractExpression(
 			new IntegerLiteral( 7 ), new NegativeExpression( new IntegerLiteral( 54 ) )
@@ -64,8 +64,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(7 - (- 54))", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMultiplyExpression() {
 		Expression expression = new MultiplyExpression(
 			new IntegerLiteral( 55 ), new MoneyLiteral( .5 )
@@ -73,8 +73,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(55 * 0.50)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testDivideExpression() {
 		Expression expression = new DivideExpression(
 			new IntegerLiteral( 99 ), new MoneyLiteral( .121 )
@@ -82,8 +82,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(99 / 0.12)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNegativeExpression() {
 		Expression expression = new NegativeExpression(
 			new MoneyLiteral( 128.33 )
@@ -91,8 +91,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(- 128.33)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testPositiveExpression() {
 		Expression expression = new PositiveExpression(
 			new AddExpression(
@@ -102,8 +102,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(+ (611 + 0))", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAndExpression() {
 		Expression expression = new AndExpression(
 			new BooleanLiteral( true ), new BooleanLiteral( false )
@@ -111,8 +111,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(true && false)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testOrExpression() {
 		Expression expression = new OrExpression(
 			new BooleanLiteral( true ), new BooleanLiteral( false )
@@ -120,15 +120,15 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(true || false)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotExpression() {
 		Expression expression = new NotExpression( new BooleanLiteral( true ) );
 		assertEquals( "(! true)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testEqualExpression() {
 		Expression expression = new EqualExpression(
 			new IntegerLiteral( 4 ), new BooleanLiteral( false )
@@ -136,8 +136,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(4 == false)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotEqualExpression() {
 		Expression expression = new NotEqualExpression(
 			new BooleanLiteral( false ), new StringLiteral( "hello" )
@@ -145,8 +145,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(false != (hello))", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanExpression() {
 		Expression expression = new GreaterThanExpression(
 			new IntegerLiteral( 0 ), new IntegerLiteral( 12 )
@@ -154,8 +154,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(0 > 12)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanOrEqualExpression() {
 		Expression expression = new GreaterThanOrEqualExpression(
 			new IntegerLiteral( 33 ), new MoneyLiteral( 41211.01 )
@@ -163,8 +163,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(33 >= 41211.01)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanExpression() {
 		Expression expression = new LesserThanExpression(
 			new MoneyLiteral( .001 ), new IntegerLiteral( 9999999 )
@@ -172,8 +172,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(0.00 < 9999999)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanOrEqualExpression() {
 		Expression expression = new LesserThanOrEqualExpression(
 			new IntegerLiteral( 0 ), new MoneyLiteral( .0 )
@@ -181,29 +181,29 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "(0 <= 0.00)", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIdentifierExpression() {
 		Expression expression = new IdentifierExpression( "varX" );
 		assertEquals( "varX", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testBooleanLiteral() {
 		Expression expression = new BooleanLiteral( true );
 		assertEquals( "true", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIntegerLiteral() {
 		Expression expression = new IntegerLiteral( 12112 );
 		assertEquals( "12112", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMoneyLiteral() {
 		Expression expression = new MoneyLiteral( .544 );
 		assertEquals( "0.54", this.stringify( expression ) );
@@ -212,8 +212,8 @@ public class ExpressionToStringTest implements ExpressionTest {
 		assertEquals( "0.55", this.stringify( expression ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testStringLiteral() {
 		Expression expression = new StringLiteral( "hello world" );
 		assertEquals( "(hello world)", this.stringify( expression ) );

@@ -2,12 +2,12 @@ package org.uva.sea.ql.evaluator;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.evaluator.ExpressionEvaluator;
-import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
+import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 
 abstract public class EvaluatorTest {
-	protected final ValueEnvironment environment;
+	protected final BindingEnvironment environment;
 
-	public EvaluatorTest( ValueEnvironment environment ) {
+	public EvaluatorTest( BindingEnvironment environment ) {
 		this.environment = environment;
 	}
 

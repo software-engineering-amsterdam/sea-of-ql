@@ -6,17 +6,16 @@ import java.util.Observer;
 
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.Environment;
 
-public class ValueEnvironment extends Environment {
-	private final Map<IdentifierExpression, Bindable> bindings;
+public class BindingEnvironment extends Environment<Value> {
+	private final Map<IdentifierExpression, Binding> bindings;
 
-	public ValueEnvironment() {
+	public BindingEnvironment() {
 		super();
-
-		this.bindings = new HashMap<IdentifierExpression, Bindable>();
+		this.bindings = new HashMap<IdentifierExpression, Binding>();
 	}
 
+	@Override
 	public Value lookup( IdentifierExpression identifier ) {
 		if ( this.bindings.containsKey( identifier ) ) {
 			return this.bindings.get( identifier ).getValue();
@@ -25,16 +24,22 @@ public class ValueEnvironment extends Environment {
 		throw new RuntimeException( "Undefined variable: " + identifier.getName() );
 	}
 
-	public void assign( IdentifierExpression identifier, Value value ) {
-		if ( !this.bindings.containsKey( identifier ) ) {
-			this.bindings.put( identifier, new Bindable( value ) );
+	@Override
+	public void declare( IdentifierExpression identifier, Value value ) {
+		if ( !this.isDeclared( identifier ) ) {
+			this.bindings.put( identifier, new Binding( value ) );
 			return;
 		}
 
 		this.bindings.get( identifier ).setValue( value );
 	}
 
-	public Map<IdentifierExpression, Bindable> getBindings() {
+	@Override
+	public boolean isDeclared( IdentifierExpression identifier ) {
+		return this.bindings.containsKey( identifier );
+	}
+
+	public Map<IdentifierExpression, Binding> getBindings() {
 		return this.bindings;
 	}
 

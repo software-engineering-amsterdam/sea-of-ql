@@ -5,6 +5,6 @@ TODO
 
 - review typecheckerhelper
 
-- test for typeresolver
-- test for typeinitializer
 - test for controls
+
+- Environment (generic?) same interface, declare abstract type
