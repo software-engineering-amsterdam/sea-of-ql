@@ -75,9 +75,9 @@ public str prettyPrint(StyleRule r:
     colorStyleRule(StyleAttr attr, str \value)) =
   "<attr.name> <\value>";
 
-public default str prettyPrint(str ident) =
-  ident;
+public default str prettyPrint(Ident ident) =
+  ident.name;
 
-public str prettyPrint(str ident) =
-  "\\<ident>"
-    when ident in keywords;
+public str prettyPrint(Ident ident) =
+  "\\<ident.name>"
+    when ident.name in keywords;
