@@ -5,11 +5,17 @@ import ast.*;
 public class If extends Statement {
 
 	private final Expression condition;
-	private final Block block;
+	private final Block trueBlock;
+	private final Block falseBlock;
 
-	public If(Expression condition, Block block) {
+	public If(Expression condition, Block trueBlock){
+		this(condition, trueBlock, new Block());
+	}
+	
+	public If(Expression condition, Block trueBlock, Block falseBlock) {
 		this.condition = condition;
-		this.block = block;
+		this.trueBlock = trueBlock;
+		this.falseBlock = falseBlock;
 	}
 
 	@Override
@@ -21,8 +27,11 @@ public class If extends Statement {
 		return condition;
 	}
 
-	public Block getBlock() {
-		return block;
+	public Block getTrueBlock() {
+		return trueBlock;
 	}
-
+	
+	public Block getFalseBlock() {
+		return falseBlock;
+	}
 }

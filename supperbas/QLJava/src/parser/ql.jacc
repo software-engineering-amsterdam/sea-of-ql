@@ -7,7 +7,7 @@
 %token <ast.expression.value.Int> INT
 %token <ast.expression.value.Bool> BOOL
 %token <ast.expression.value.Str> STR
-%token <ast.expression.value.Ident> IDENT
+%token <ast.expression.Ident> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}'
 %token TRUE FALSE
@@ -29,13 +29,12 @@
 %type <ast.Form> form
 %type <ast.Statement> statement
 %type <ast.statement.Block> block ifcon
+%type <ast.statement.If> if
 %type <ast.type.Bool> tBool
 %type <ast.type.Ident> tIdent
 %type <ast.type.Int> tInt
 %type <ast.type.Str> tStr
 %type <ast.Type> dType
-%type <ast.statement.Else> elseexpr
-%type <ast.Statement> ifexpr
 %type <ast.statement.Var> dec
 %type <ast.statement.Assignment> assign
 
@@ -62,6 +61,7 @@ statement 		: question
 				| assign
 				| dec
 				| ifcon
+				| if
 				;
 
 question		: STR dec									{ $$ = new QuestionVar($1,$2); }
@@ -70,15 +70,14 @@ question		: STR dec									{ $$ = new QuestionVar($1,$2); }
 				
 dec				: IDENT ':' dType							{ $$ = new Var($1,$3); };
 assign 			: IDENT '=' expression						{ $$ = new Assignment($1,$3); };
-ifexpr			: IF '(' expression ')' '{' block '}'		{ $$ = new If($3,$6); };
 				
-elseexpr		: ELSE '{' block '}'						{ $$ = new Else($3); }
-				| ELSE ifcon								{ $$ = new Else($2); }
-				;
-				
-ifcon			: ifexpr elseexpr
-				| ifexpr
-				;
+if				: IF '(' expression ')' '{' block '}'		{ $$ = new If($3,$6); }
+                ;
+                
+ifcon			: IF '(' expression ')' '{' block '}' ELSE '{' block '}'	{ $$ = new If($3,$6,$10); }
+				| IF '(' expression ')' '{' block '}' ELSE if				{ $$ = new If($3,$6,new Block($9)); }
+				| IF '(' expression ')' '{' block '}' ELSE ifcon			{ $$ = new If($3,$6,new Block($9)); }
+                ;
 				
 
 expression	 	: '+' expression %prec UPLUS 				{ $$ = new Pos($2); }
