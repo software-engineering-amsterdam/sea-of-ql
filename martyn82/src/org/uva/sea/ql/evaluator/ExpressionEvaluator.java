@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
-import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
+import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.MoneyValue;
@@ -30,13 +30,13 @@ import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 class ExpressionEvaluator implements ExpressionVisitor<Value> {
-	private final ValueEnvironment environment;
+	private final BindingEnvironment environment;
 
-	private ExpressionEvaluator( ValueEnvironment environment ) {
+	private ExpressionEvaluator( BindingEnvironment environment ) {
 		this.environment = environment;
 	}
 
-	public static Value evaluate( Expression node, ValueEnvironment environment ) {
+	public static Value evaluate( Expression node, BindingEnvironment environment ) {
 		return node.accept( new ExpressionEvaluator( environment ) );
 	}
 

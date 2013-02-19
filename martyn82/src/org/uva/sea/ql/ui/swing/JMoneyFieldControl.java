@@ -9,7 +9,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
+import org.uva.sea.ql.ui.InputControlEventListener;
 import org.uva.sea.ql.ui.control.MoneyFieldControl;
 import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
@@ -54,12 +54,14 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 	}
 
 	@Override
-	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged( ChangeEvent arg0 ) {
-				listener.itemChanged( new ControlEvent( JMoneyFieldControl.this ) );
+	public void addChangeListener( final InputControlEventListener listener ) {
+		this.control.addChangeListener(
+			new ChangeListener() {
+				@Override
+				public void stateChanged( ChangeEvent arg0 ) {
+					listener.valueChanged( new ControlEvent( JMoneyFieldControl.this ) );
+				}
 			}
-		} );
+		);
 	}
 }

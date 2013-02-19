@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
@@ -32,6 +32,7 @@ import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 class ExpressionTypeResolver implements ExpressionVisitor<Type> {
@@ -100,7 +101,7 @@ class ExpressionTypeResolver implements ExpressionVisitor<Type> {
 	@Override
 	public Type visit( IdentifierExpression node ) {
 		if ( this.environment.isDeclared( node ) ) {
-			return this.environment.lookupType( node );
+			return this.environment.lookup( node );
 		}
 
 		return UndefinedType.UNDEFINED;

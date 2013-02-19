@@ -1,7 +1,6 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.environment;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.visitor.Error;
 
 public class TypeError extends Error {
 	public final static int TYPE_ERROR = 1000;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
@@ -24,6 +24,7 @@ import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.UnaryNumericExpression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {

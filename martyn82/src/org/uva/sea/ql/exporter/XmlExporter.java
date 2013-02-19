@@ -1,4 +1,4 @@
-package org.uva.sea.ql.evaluator.export;
+package org.uva.sea.ql.exporter;
 
 import java.io.File;
 import java.util.Map;
@@ -13,8 +13,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.uva.sea.ql.ast.expression.IdentifierExpression;
-import org.uva.sea.ql.evaluator.environment.Bindable;
+import org.uva.sea.ql.evaluator.environment.Binding;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -22,7 +21,7 @@ public class XmlExporter extends Exporter {
 	private Document document;
 	private Element root;
 
-	public XmlExporter( String formName, Map<IdentifierExpression, Bindable> bindings ) {
+	public XmlExporter( String formName, Map<String, Binding> bindings ) {
 		super( formName, bindings );
 	}
 
@@ -55,16 +54,16 @@ public class XmlExporter extends Exporter {
 	}
 
 	private void addQuestions( Element parent ) {
-		for ( IdentifierExpression identifier : this.getBindings().keySet() ) {
-			this.addQuestion( parent, identifier );
+		Map<String, Binding> bindings = this.getBindings();
+
+		for ( Map.Entry<String, Binding> each : bindings.entrySet() ) {
+			this.addQuestion( parent, each.getKey(), each.getValue() );
 		}
 	}
 
-	private void addQuestion( Element parent, IdentifierExpression identifier ) {
+	private void addQuestion( Element parent, String name, Binding binding ) {
 		Element question = this.document.createElement( "question" );
-		question.setAttribute( "id", identifier.getName() );
-
-		Bindable binding = this.getBindings().get( identifier );
+		question.setAttribute( "id", name );
 
 		question.setAttribute( "type", binding.getType().getName() );
 		question.setTextContent( binding.getValue().toString() );

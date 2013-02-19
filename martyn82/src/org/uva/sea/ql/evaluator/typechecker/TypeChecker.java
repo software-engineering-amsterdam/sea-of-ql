@@ -1,9 +1,10 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import java.util.List;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.visitor.Error;
+import org.uva.sea.ql.evaluator.environment.Error;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
 
 public class TypeChecker {
 	private final TypeEnvironment environment;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.typechecker;
+package org.uva.sea.ql.evaluator.typechecker;
 
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.Expression;
@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluator.environment.TypeEnvironment;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 class StatementTypeChecker implements StatementVisitor<Boolean> {
@@ -77,7 +78,7 @@ class StatementTypeChecker implements StatementVisitor<Boolean> {
 	@Override
 	public Boolean visit( VariableDeclaration node ) {
 		if ( this.environment.isDeclared( node.getIdentifier() ) ) {
-			Type identType = this.environment.lookupType( node.getIdentifier() );
+			Type identType = this.environment.lookup( node.getIdentifier() );
 			Type declaredType = node.getType();
 
 			if ( !identType.equals( declaredType ) ) {
