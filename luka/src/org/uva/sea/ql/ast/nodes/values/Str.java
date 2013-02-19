@@ -225,4 +225,9 @@ public class Str extends Value {
 		throw new InvalidParameterException();
 	}
 
+
+	@Override
+	protected Value nEquBool(Bool arg) {
+			return new Bool(true);
+	}
 }

@@ -90,6 +90,11 @@ public class Int extends Numeric {
 		return new Bool(arg.getValue().intValue() >= getValue());
 	}
 
+
+	@Override
+	protected Value nEquBool(Bool arg) {
+			return new Bool(true);
+	}
 	
 	
 }

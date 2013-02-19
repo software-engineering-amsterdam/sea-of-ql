@@ -88,7 +88,7 @@ Block elseBl = new Block();
 	;
 
 identArrayType returns [Type type, List list]
-	: identType LSquBr arr+=Str (',' arr+=Str)* RSquBr {$type = $identType.type; $list = $arr;}  //new Arr($arr,$identType.type); $type = new ArrType($identType.type);
+	: ^(identType arr+=Str+) {$type = $identType.type; $list = $arr;} 
 	| t=identType {$type = $t.type;} 
 	;	
 	

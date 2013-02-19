@@ -63,7 +63,7 @@ public class Bool extends Value {
 	}
 	
 	public Value nEqu(Value arg){
-		return arg.notBool(this);
+		return arg.nEquBool(this);//  arg.notBool(this);
 	}
 	
 	protected Value nEquBool(Bool arg){

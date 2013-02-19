@@ -92,4 +92,9 @@ public class Doub extends Numeric {
 	protected Value gEqInt(Numeric arg) {
 		return new Bool(arg.getValue().doubleValue() >= getValue());
 	}
+
+	@Override
+	protected Value nEquBool(Bool arg) {
+			return new Bool(true);
+	}
 }

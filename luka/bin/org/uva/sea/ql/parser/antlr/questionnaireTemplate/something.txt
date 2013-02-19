@@ -1,9 +1,16 @@
 form Something{
 arrValue1 : "intArr" integer["1","2"]
-arrValue2 : "boolArr" boolean["true","false"]
+arrValue2 : "arrValue2" boolean["true","false"]
+arrValue3B : "arrValue3B" boolean["true","false"]
 arrValue3 : "moneyArr" money["2.2","1.2","3.2","5.2"]
 arrValue4 : "strArr" string["ada","dodo","dudi","wfdf"]
 arrValue5 : "doubArr" double["10.2","1.22","0.1","1.2"]
+arrValue6 : "doubArr" double["10.2","1.22","0.1","1.2"]
+
+if(arrValue2 != arrValue3B){
+ungleich : "not equal" string("yeah")
+}
+
 if(arrValue1>1){
 intArrYes: "intArrYes" integer
 }
@@ -19,6 +26,15 @@ strArrYes: "strArrYes" integer
 if(arrValue5>1.1){
 doubArrYes: "doubArrYes" integer
 }
+if(arrValue5== arrValue6){
+doubArrYes2: "comparison bet. 2 doubArrays" double(arrValue5* arrValue6)
+}
+yourName: "whats your name?" string
+if((yourName == "Luka") || (arrValue4 == "dodo")){
+niceName: "yeah bravo!" string("nice name!")
+}else{
+niceName1: "hmmm!" string(yourName)
+}
 boolVal1 : "boolVal1" boolean
 computedBool1: "computedBool1" boolean(boolVal1)
 computedBoo2: "computedBool2" boolean(computedBool1)
@@ -27,9 +43,28 @@ doubleValue1 : "doubleValue1" double
 if(computedBoo3){
 computedBoo7: "computedBool3" boolean(computedBoo3)
 }
-
+vBool1 : "nested" boolean
+if(vBool1){
+vBool2 : "nested1" boolean
+if(vBool2){
+vBool3 : "nested2" boolean
+if(vBool3){
+vBool4 : "nested3" boolean
+if(vBool4){
+vBool5 : "nested4" boolean
+if(vBool5){
+vBool6 : "nested5" boolean
+if(vBool6){
+vBool7 : "nested6" boolean
+}else{
+vBool8 : "the eeend" string("you got it")
+}
+}
+}
+}
+}
+}
 intValue1 : "intValue1" integer
-
 computedBoo4: "computedBool3" boolean(intValue1 > doubleValue1)
 if(false && true){
 calculatedInt: "first question +2.2 int" integer(intValue1 + 2.2)

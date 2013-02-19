@@ -15,7 +15,7 @@ public class ParserProcessor {
 	public Expr checkExpression(String src) throws RecognitionException {
 		QLLexer lex = new QLLexer(new ANTLRStringStream(src));
 		CommonTokenStream tokens = new CommonTokenStream(lex);
-		QLParser parser = new QLParser(tokens);
+		QLParser parser = new QLParser(tokens);// new QLParser(tokens,49100,null); //
 
 		CommonTree tree = (CommonTree) parser.orExpr().getTree();
 		CommonTreeNodeStream nodes = new CommonTreeNodeStream(tree);

@@ -232,4 +232,10 @@ public class Arr extends Value {
 		return null;
 	}
 
+	@Override
+	protected Value nEquBool(Bool arg) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

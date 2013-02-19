@@ -47,7 +47,11 @@ public class UndefinedValue extends Value {
 	
 	@Override
 	public Value or(Value arg) {
-		return new Bool(arg.isDefined() && (Boolean) arg.getValue());
+//		if(arg.isDefined()){
+//			return new Bool((Boolean) arg.getValue());
+//		}
+//		return new Bool(false);
+		return arg;
 	}
 
 	@Override
@@ -68,6 +72,11 @@ public class UndefinedValue extends Value {
 	@Override
 	protected Value notBool(Bool arg) {
 		return new Bool((Boolean) arg.getValue());
+	}
+
+	@Override
+	protected Value nEquBool(Bool arg) {
+			return new Bool(true);
 	}
 
 	@Override
@@ -122,7 +131,7 @@ public class UndefinedValue extends Value {
 
 	@Override
 	protected Value orBool(Bool arg) {
-		return this;
+		return arg;
 	}
 
 	@Override

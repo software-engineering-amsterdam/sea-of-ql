@@ -66,7 +66,7 @@ constantAssignment
 	;
 
 identArrayType
-	: identType LSquBr Str (',' Str)* RSquBr
+	: identType LSquBr Str (',' Str)* RSquBr -> ^(identType (Str)*)
 	| identType;
 	
 identType  
@@ -159,7 +159,7 @@ Else	: 'else';
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*; 
 //Str: '"' .*  '"'; 
-Str 	:	'"' (~'"')* '"';
+Str 	: '"' (~'"')* '"';
 
 
 

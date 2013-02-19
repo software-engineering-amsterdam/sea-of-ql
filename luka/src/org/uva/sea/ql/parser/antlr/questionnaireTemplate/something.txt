@@ -1,10 +1,16 @@
 form Something{
 arrValue1 : "intArr" integer["1","2"]
-arrValue2 : "boolArr" boolean["true","false"]
+arrValue2 : "arrValue2" boolean["true","false"]
+arrValue3B : "arrValue3B" boolean["true","false"]
 arrValue3 : "moneyArr" money["2.2","1.2","3.2","5.2"]
 arrValue4 : "strArr" string["ada","dodo","dudi","wfdf"]
 arrValue5 : "doubArr" double["10.2","1.22","0.1","1.2"]
 arrValue6 : "doubArr" double["10.2","1.22","0.1","1.2"]
+
+if(arrValue2 != arrValue3B){
+ungleich : "not equal" string("yeah")
+}
+
 if(arrValue1>1){
 intArrYes: "intArrYes" integer
 }
@@ -26,6 +32,8 @@ doubArrYes2: "comparison bet. 2 doubArrays" double(arrValue5* arrValue6)
 yourName: "whats your name?" string
 if((yourName == "Luka") || (arrValue4 == "dodo")){
 niceName: "yeah bravo!" string("nice name!")
+}else{
+niceName1: "hmmm!" string(yourName)
 }
 boolVal1 : "boolVal1" boolean
 computedBool1: "computedBool1" boolean(boolVal1)

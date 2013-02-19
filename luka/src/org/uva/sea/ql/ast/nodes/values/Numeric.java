@@ -4,15 +4,16 @@ import java.security.InvalidParameterException;
 
 public abstract class Numeric extends Value {
 
-	protected  Number value;
+	protected Number value;
 
-	public Numeric() { 
+	public Numeric() {
 	}
 
 	@Override
 	public String toString() {
-		return this.value+"";
+		return this.value + "";
 	}
+
 	@Override
 	public boolean isDefined() {
 		return true;

@@ -35,6 +35,8 @@ public abstract class Value extends Expr {
 	protected abstract Value equBool(Bool arg);
 
 	protected abstract Value notBool(Bool arg);
+	
+	protected abstract Value nEquBool(Bool arg);
 
 	// INTEGER
 
