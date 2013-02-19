@@ -93,7 +93,6 @@ public void insertValueInDatabase(str formId,  list[Body] body){
 		visit(s){
 			case Question e : {
 				list[value] temp = getChildren(e);
-				println("temp : <temp>");
 				idAndType += [<toString(temp[0]),temp[2]>];
 			}
 		}
@@ -102,7 +101,7 @@ public void insertValueInDatabase(str formId,  list[Body] body){
 	validation = addServerSideValidation(formId, idAndType);
 	str result = "if(<for(k <- prefix(validation)) {> <k> && <}> <last(validation)>){
 				'	$query = \"INSERT INTO <formId> ( q_id, <for(i <- prefix(idAndType)) { > <i.id>, < }> <last(idAndType).id>)
-				'	VALUES(\'NULL\', <for(i <- prefix(idAndType)) { > \'\".$<i.id>.\"\', < }> <last(idAndType).id>)\";
+				'	VALUES(\'NULL\', <for(i <- prefix(idAndType)) { > \'\".$<i.id>.\"\', < }> \'\".$<last(idAndType).id>.\"\')\";
 				'	mysql_query( $query, $conn ); 
 				'}else{
 				'	echo \'Validation Error\';	
@@ -127,10 +126,10 @@ list[str] addServerSideValidation(str formId, list[tuple[str id,value typ]] idsA
 }
 
 void addBoolValidation(str formId, str varName){
-	str result = "if (is_null($_POST[\'<varName>\'])) {
-   				'	$<varName> = false;
+	str result = "if (isset($_POST[\'<varName>\'])) {
+   				'	$<varName> = true;
 				'	}else{
-				'	$<varName> = true;
+				'	$<varName> = false;
 				'}";
 	appendToPHPFile(formId,result);
 }

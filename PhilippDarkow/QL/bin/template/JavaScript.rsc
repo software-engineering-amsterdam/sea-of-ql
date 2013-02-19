@@ -127,7 +127,10 @@ public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp, Ty
 void addOnChangeForComputedFunction(str formId, str id, str methodName){
 	str result = "function <id>CheckNumeric(cb) {
 				'	<methodName>Calculation(<methodName>);
-				'	if(isNaN(cb.value)) { alert(\"is not number\"); }
+				'	if(isNaN(cb.value)) { 
+				'		alert(\"Trying to hack the questionaire please reload \");
+				'		<formId>Submit.setAttribute(\'hidden\', true);
+				'	}
 				'}";
 	appendToJavaScriptFile(formId, "\n <result>");
 }
