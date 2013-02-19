@@ -10,7 +10,7 @@ public abstract class Field extends Control {
 	protected final JTextField jTextField;
 	private static final int WIDTH = 15;
 	
-	public Field() {
+	protected Field() {
 		jTextField = new JTextField(WIDTH);
 	}
 	
