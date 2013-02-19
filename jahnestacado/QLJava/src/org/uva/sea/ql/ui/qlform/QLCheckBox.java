@@ -75,8 +75,6 @@ public class QLCheckBox implements ActionListener,Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("check");
-
 		runTimeValues=varUpdater.getUpdatedValues();
 		chBox.setSelected(getState());
 		setStatusText();

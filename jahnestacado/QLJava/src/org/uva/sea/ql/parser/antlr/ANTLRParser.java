@@ -2,6 +2,7 @@ package org.uva.sea.ql.parser.antlr;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
@@ -11,7 +12,6 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
-import org.antlr.runtime.RecognitionException;
 
 
 public class ANTLRParser implements IParse {

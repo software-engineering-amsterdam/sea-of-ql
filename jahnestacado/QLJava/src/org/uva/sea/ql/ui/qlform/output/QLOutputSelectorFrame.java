@@ -3,6 +3,7 @@ package org.uva.sea.ql.ui.qlform.output;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.output.generators.json.QLToJSON;
 import org.uva.sea.ql.output.generators.pdf.QLToPDF;
 import org.uva.sea.ql.ui.qlform.QLFrame;
@@ -22,14 +24,17 @@ public class QLOutputSelectorFrame implements ActionListener{
 	private final JFrame dialog;
 	private final String [] comboSelection = new String[]{"PDF","JSON"};
 	private final List<String> questionLabels;
-	private final List<String> questionValues;
+	private final List<String> questionVisibleValues;
 	private JComboBox comboBox;
+	private final Map<String,Value> allRunTimeValues;
+
 
 	
 	private QLOutputSelectorFrame(JFrame dialog,QLOutputState outputState){
 		this.dialog=dialog;
 		this.questionLabels=outputState.getQuestionLabels();
-		this.questionValues=outputState.getQuestionValues();
+		this.questionVisibleValues=outputState.getQuestionVisibleValues();
+		allRunTimeValues=outputState.getAllRunTimeValues();
 	}
 	
 	private void setSettings(){
@@ -87,11 +92,11 @@ public class QLOutputSelectorFrame implements ActionListener{
 		switch (comboBox.getSelectedIndex()) {
 		case 0:
 			
-			QLToPDF.generatePdf(title, questionLabels, questionValues);
+			QLToPDF.generatePdf(title, questionLabels, questionVisibleValues);
 			showConfirmationMessage(title+".pdf file successful created!");
 			break;
 		case 1:
-			QLToJSON.generateJson(dialog.getTitle(), questionLabels,questionValues);
+			QLToJSON.generateJson(dialog.getTitle(), allRunTimeValues);
 			showConfirmationMessage(title+".json file successful created!");
 			break;
 

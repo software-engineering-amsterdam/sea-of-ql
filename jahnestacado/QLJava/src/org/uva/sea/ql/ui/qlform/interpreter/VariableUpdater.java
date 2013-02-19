@@ -9,18 +9,11 @@ public class VariableUpdater extends Observable{
 
 	private  Map<String, Value> runTimeValues;
 
-	public VariableUpdater(String varName, Map<String, Value> runTimeValues,Value value) {
-		runTimeValues.put(varName, value);
+	public VariableUpdater(Map<String, Value> runTimeValues) {
 		this.runTimeValues = runTimeValues;
-		
-
 	}
 	
-	
-	public VariableUpdater() {
 
-
-	}
 	
 	public void updateValues(String varName, Map<String, Value> runTimeValues,Value value) {
 		runTimeValues.put(varName, value);

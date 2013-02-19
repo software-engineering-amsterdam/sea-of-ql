@@ -23,14 +23,6 @@ public class QuestionPanel {
 
 	
 	
-	public QuestionPanel(Question qlElement,Map<String,Value> runTimeValues){
-		type=qlElement.getType();
-		panel=QLRowPanel.getQLRowPanel();
-		label=QLLabel.getQLLabel(qlElement.getLabel().getValue(),QL_QUESTION_LABEL_ID);
-		inputComponent=setInputComponent(qlElement.getId().getName(),type,runTimeValues);
-		addComponents();
-	}
-	
 	public QuestionPanel(Question qlElement,Map<String,Value> runTimeValues, VariableUpdater varUpdater){
 		this.varUpdater=varUpdater;
 		type=qlElement.getType();
@@ -64,8 +56,6 @@ public class QuestionPanel {
 		} 
 		return null;
 	}
-
-	
 
 
 	

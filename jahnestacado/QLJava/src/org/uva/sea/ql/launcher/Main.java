@@ -2,6 +2,7 @@ package org.uva.sea.ql.launcher;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class Main {
 	public static void main(String[] args) {
 		Form parsedForm = QLInputReader.getParsedForm();
 		if (ElementChecker.checkQL(parsedForm)) {
-			VariableUpdater varUpdater=new VariableUpdater();
+			VariableUpdater varUpdater=new VariableUpdater(new LinkedHashMap<String,Value>());
             List<JPanel> questionList = new ArrayList<JPanel>();
 			Map<String, Value> declaredVar = new HashMap<String, Value>();
 			JFrame frame = QLFrame.createQLFrame();

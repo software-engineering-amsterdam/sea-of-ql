@@ -32,15 +32,14 @@ import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
 
 public class SwingGenerator implements IElementVisitor{
 	private final List<JPanel> questionPanelList;
-	private  Map<String,Value> runTimeValues;
-	private  VariableUpdater varUpdater;
+	private final VariableUpdater varUpdater;
+	private Map<String,Value> runTimeValues;
 	
 
 	public SwingGenerator(List<JPanel> questionPanelList,Map<String,Value> runTimeValues,VariableUpdater varUpdater){
 		this.questionPanelList=questionPanelList;
 		this.runTimeValues=runTimeValues;
 		this.varUpdater=varUpdater;
-		
 	}
 	
 	
@@ -48,7 +47,7 @@ public class SwingGenerator implements IElementVisitor{
 		String formName=form.getId().getName();
 		frame.setTitle(formName);
 		form.accept(this);
-		new Renderer(questionPanelList, frame).addQuestionsToPanel();
+		new Renderer(questionPanelList, frame,varUpdater).addQuestionsToPanel();
 
 	}
 

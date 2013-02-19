@@ -32,7 +32,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class ExprEvaluator implements IExprVisitor<Value> {
-	private final Map<String, Type> emptyMap=new HashMap<String, Type>();
+	private final static Map<String, Type> nullVarEnv=new HashMap<String, Type>();
 	private final Map<String,Value> runTimeValues;
 	
 	
@@ -53,7 +53,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Add node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() + ((DecimalLit)right).getValue());
 		}
@@ -64,7 +64,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Div node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() / ((DecimalLit)right).getValue());
 		}
@@ -75,7 +75,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Sub node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() - ((DecimalLit)right).getValue());
 		}
@@ -86,7 +86,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Mul node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new DecimalLit(((DecimalLit)left).getValue() * ((DecimalLit)right).getValue());
 		}
@@ -121,7 +121,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Eq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new BoolLit(((DecimalLit)left).getValue() == ((DecimalLit)right).getValue());
 		}
@@ -132,7 +132,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(GEq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new BoolLit(((DecimalLit)left).getValue() >= ((DecimalLit)right).getValue());
 		}
@@ -143,7 +143,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(GT node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new BoolLit(((DecimalLit)left).getValue() > ((DecimalLit)right).getValue());
 		}
@@ -159,7 +159,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(LEq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new BoolLit(((DecimalLit)left).getValue() <= ((DecimalLit)right).getValue());
 		}
@@ -170,7 +170,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(LT node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new BoolLit(((DecimalLit)left).getValue() < ((DecimalLit)right).getValue());
 		}
@@ -183,7 +183,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(NEq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new BoolLit(((DecimalLit)left).getValue() != ((DecimalLit)right).getValue());
 		}
@@ -194,7 +194,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	@Override
 	public Value visit(Neg node) {
 		Value operand=node.getLeftExpr().accept(this);
-		boolean isMoneyCompatible=operand.getExprType(emptyMap).isCompatibleToMoneyType();
+		boolean isMoneyCompatible=operand.getExprType(nullVarEnv).isCompatibleToMoneyType();
 		if(isMoneyCompatible){
 			return new DecimalLit(- ((DecimalLit)operand).getValue());
 		}

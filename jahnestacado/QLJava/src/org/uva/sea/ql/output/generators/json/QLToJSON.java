@@ -3,24 +3,33 @@ package org.uva.sea.ql.output.generators.json;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.uva.sea.ql.ast.expr.values.BoolLit;
+import org.uva.sea.ql.ast.expr.values.DecimalLit;
+import org.uva.sea.ql.ast.expr.values.IntegerLit;
+import org.uva.sea.ql.ast.expr.values.StringLit;
+import org.uva.sea.ql.ast.expr.values.Value;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ui.qlform.QLNumField;
 
 public class QLToJSON {
 
-	private final List<String> questionLabels;
-	private final List<String> questionValues;
+	private final Map<String,Value> allRunTimeValues;
+	private final static Map<String, Type> nullVarEnv=new HashMap<String, Type>();
+
 	private final JSONObject qlForm = new JSONObject();
 
-	private QLToJSON(List<String> questionLabels, List<String> questionValues) {
-		this.questionLabels = questionLabels;
-		this.questionValues = questionValues;
+	private QLToJSON(Map<String,Value> allRunTimeValues) {
+		this.allRunTimeValues=allRunTimeValues;
 	}
 
-	public static void generateJson(String frameName,List<String> questionLabels, List<String> questionValues) {
-		QLToJSON generator = new QLToJSON(questionLabels, questionValues);
+	public static void generateJson(String frameName,Map<String,Value> allRunTimeValues) {
+		QLToJSON generator = new QLToJSON(allRunTimeValues);
 		generator.createForm(frameName);
 		generator.writeToFile(frameName);
 
@@ -56,18 +65,37 @@ public class QLToJSON {
 
 	@SuppressWarnings("unchecked")
 	private JSONObject getContentList() {
-		int contentsSize = questionLabels.size() - 1;
 		JSONArray contentList = new JSONArray();
-		for (int i = 0; i <= contentsSize; i++) {
+		Iterator<String> iterator = allRunTimeValues.keySet().iterator();
+
+		while (iterator.hasNext()) {
 			JSONObject question = new JSONObject();
-			question.put("question", questionLabels.get(i));
-			question.put("answer", questionValues.get(i));
+			String key = iterator.next().toString();
+			question.put("ident", key);
+			question.put("answer", valueToString(allRunTimeValues.get(key)));
 			contentList.add(question);
+
 		}
 		JSONObject questionsList = new JSONObject();
 		questionsList.put("questions", contentList);
-
 		return questionsList;
+	}
+	
+	private String valueToString(Value value){
+		Type type=value.getExprType(nullVarEnv);
+		if(type.isCompatibleToIntType()){
+			return String.valueOf(((IntegerLit) value).getValue());
+		}
+		else if(type.isCompatibleToMoneyType()){
+			float result=((DecimalLit) value).getValue();
+			float roundedValue=QLNumField.roundTo2Decimals(result);
+			return String.valueOf(roundedValue);
+		}
+		else if(type.isCompatibleToBoolType()){
+			return String.valueOf(((BoolLit) value).getValue());
+		}
+		return (((StringLit) value).getValue());
+		
 	}
 
 }

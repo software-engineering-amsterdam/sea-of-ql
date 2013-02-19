@@ -21,47 +21,50 @@ import org.uva.sea.ql.ui.qlform.QLNumField;
 import org.uva.sea.ql.ui.qlform.QLSpinner;
 import org.uva.sea.ql.ui.qlform.QLTextField;
 import org.uva.sea.ql.ui.qlform.QuestionPanel;
+import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
 public class OutputData {
 	private final List<JPanel> questionPanelList;
 	private final QLOutputState outputState;
 	private final JFrame frame;
-	
 
 
-
-	public OutputData(List<JPanel> questionPanelList, JFrame frame) {
+	public OutputData(List<JPanel> questionPanelList, JFrame frame,VariableUpdater varUpdater) {
 		this.questionPanelList = questionPanelList;
 		this.frame = frame;
-		outputState = new QLOutputState();
+		outputState = new QLOutputState(varUpdater);
 
 	}
 
 	public QLOutputState getOutputData() {
-		traverseFormSubComponents();
+		traverseFormsSubComponents();
 		return outputState;
 	}
+	
+	/**
+	 * Gathers the question label text and their respective answer
+	 */
 
 	private void gatherDataFromSubComponents(Component[] components) {
 		for (int i = 0; i < components.length; i++) {
 			String id = components[i].getName();
 			if (hasWarnings(id)) {
-				getWarning(components[i]);
+				setWarning(components[i]);
 			} else if (isQuestionsLabel(id)) {
-				getJLabelValue(components[i]);
+				setJLabelValue(components[i]);
 			} else if (isSpinner(id)) {
-				getJSpinnerValue(components[i]);
+				setJSpinnerValue(components[i]);
 			} else if (isTxtField(id)) {
-				getJTextFieldValue(components[i]);
+				setJTextFieldValue(components[i]);
 			} else if (isCheckBox(id)) {
-				getJCheckBoxValue(components[i]);
+				setJCheckBoxValue(components[i]);
 			}
 
 		}
 
 	}
 	
-	private void traverseFormSubComponents() {
+	private void traverseFormsSubComponents() {
 		for (JPanel questionPanel : questionPanelList) {
 
 			String id = questionPanel.getName();
@@ -79,7 +82,7 @@ public class OutputData {
 		}
 	}
 	
-	private void getWarning(Component component) {
+	private void setWarning(Component component) {
 		JLabel label = (JLabel) component;
 		String text = label.getText();
 		if (text.isEmpty())
@@ -89,25 +92,25 @@ public class OutputData {
 
 	}
 
-	private void getJLabelValue(Component component) {
+	private void setJLabelValue(Component component) {
 		JLabel label = (JLabel) component;
 		String text = label.getText();
 		outputState.addLabelText(text);
 	}
 
-	private void getJSpinnerValue(Component component) {
+	private void setJSpinnerValue(Component component) {
 		JSpinner spinner = (JSpinner) component;
 		String value = spinner.getValue().toString();
 		outputState.addValue(value);
 	}
 
-	private void getJTextFieldValue(Component component) {
+	private void setJTextFieldValue(Component component) {
 		JTextField txtField = (JTextField) component;
 		String value = txtField.getText();
 		outputState.addValue(value);
 	}
 
-	private void getJCheckBoxValue(Component component) {
+	private void setJCheckBoxValue(Component component) {
 		JCheckBox chBox = (JCheckBox) component;
 		Boolean state = chBox.isSelected();
 		outputState.addValue(state.toString());

@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 import org.uva.sea.ql.ui.qlform.output.OutputData;
 import org.uva.sea.ql.ui.qlform.output.QLOutputSelectorFrame;
 import org.uva.sea.ql.ui.qlform.output.QLOutputState;
@@ -19,11 +20,13 @@ public class QLGenButton implements ActionListener {
 	private final JButton button = new JButton("Submit");
 	private final List<JPanel> questionPanelList;
 	private final JFrame frame;
-	public static final String genButtonId="GEN_BUTTON";
+	private final VariableUpdater varUpdater;
+	public static final String genButtonId = "GEN_BUTTON";
 	
 
-	private QLGenButton(List<JPanel> questionPanelList,JFrame frame) {
+	private QLGenButton(List<JPanel> questionPanelList,JFrame frame,VariableUpdater varUpdater) {
 		this.questionPanelList = questionPanelList;
+		this.varUpdater=varUpdater;
 		this.frame=frame;
 		setSettings();
 	}
@@ -36,8 +39,8 @@ public class QLGenButton implements ActionListener {
 		
 	}
 
-	public static JButton responsiveButton(List<JPanel> questionPanelList,JFrame frame) {
-		QLGenButton genButton = new QLGenButton(questionPanelList,frame);
+	public static JButton responsiveButton(List<JPanel> questionPanelList,JFrame frame,VariableUpdater varUpdater) {
+		QLGenButton genButton = new QLGenButton(questionPanelList,frame,varUpdater);
 		return genButton.getButton();
 	}
 
@@ -47,7 +50,7 @@ public class QLGenButton implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		QLOutputState outputState=new OutputData(questionPanelList,frame).getOutputData();
+		QLOutputState outputState=new OutputData(questionPanelList,frame,varUpdater).getOutputData();
 		if(!outputState.hasError()){
 			showSelectorDialog(outputState);
 		}

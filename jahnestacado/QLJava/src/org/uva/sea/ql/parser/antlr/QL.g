@@ -14,8 +14,6 @@ import org.uva.sea.ql.ast.form.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.expr.values.*;
 
-
-
 }
 
 @parser::members {

@@ -2,13 +2,19 @@ package org.uva.sea.ql.ui.qlform.output;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.expr.values.Value;
+import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 
 public class QLOutputState {
 	private final List<String> questionLabels;
 	private final List<String> questionValues;
 	private boolean hasError = false;
+	private  VariableUpdater varUpdater;
 
-	public QLOutputState() {
+	public QLOutputState(VariableUpdater varUpdater) {
+		this.varUpdater=varUpdater;
 		questionLabels = new ArrayList<String>();
 		questionValues = new ArrayList<String>();
 	}
@@ -25,7 +31,7 @@ public class QLOutputState {
 		return questionLabels;
 	}
 
-	public List<String> getQuestionValues() {
+	public List<String> getQuestionVisibleValues() {
 		return questionValues;
 	}
 
@@ -35,5 +41,9 @@ public class QLOutputState {
 
 	public boolean hasError() {
 		return hasError;
+	}
+	
+	public Map<String,Value> getAllRunTimeValues(){
+		return varUpdater.getUpdatedValues();
 	}
 }

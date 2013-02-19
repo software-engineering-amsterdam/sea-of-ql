@@ -35,17 +35,17 @@ import org.uva.sea.ql.visitor.checkers.error.QLErrorMSg;
 
 
 public class ExpressionChecker implements IExprVisitor<Boolean> {
-	private final Map<String, Type> declaredVar;
+	private final Map<String, Type> declaredVars;
 	private final List<QLErrorMSg> errorReport;
 	
 
-	private ExpressionChecker(Map<String, Type> declaredVar, List<QLErrorMSg> errorReport) {
-		this.declaredVar = declaredVar;
+	private ExpressionChecker(Map<String, Type> declaredVars, List<QLErrorMSg> errorReport) {
+		this.declaredVars = declaredVars;
 		this.errorReport = errorReport;
 	}
 
-	public static boolean check(Expr expr, Map<String, Type> declaredVar,List<QLErrorMSg> errorReport) {
-		ExpressionChecker check = new ExpressionChecker(declaredVar, errorReport);
+	public static boolean check(Expr expr, Map<String, Type> declaredVars,List<QLErrorMSg> errorReport) {
+		ExpressionChecker check = new ExpressionChecker(declaredVars, errorReport);
 		return expr.accept(check);
 	}
 	
@@ -263,8 +263,8 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkVarNames(Binary node) {
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
-		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVars);
 		if (isUndefined(leftExprType, node.getLeftExpr())
 				|| isUndefined(rightExprType, node.getRightExpr())) {
 			return false;
@@ -274,7 +274,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	}
 	
 	private boolean checkVarName(Unary node) {
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
 		if (isUndefined(leftExprType, node.getLeftExpr())) {
 			return false;
 		}
@@ -284,8 +284,8 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkAlgebraicExpr(Binary node,String symbol){
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
-		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVars);
 		Type declaredType=getQuestionsType();
 		if (!(leftExprType.isCompatibleToType(rightExprType) && rightExprType.isCompatibleToType(declaredType))) {
 		addError(new QLErrorMSg("Invalid type for '"+symbol+"'. Both operands must be of the same Numeric type("+declaredType.getClass().getSimpleName()+")"));
@@ -297,8 +297,8 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkLogicalExpr(Binary node,String symbol){
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
-		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVars);
 		if (!(leftExprType.isCompatibleToBoolType() && rightExprType.isCompatibleToBoolType())) {
 			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Both operands must be of the Boolean type"));
 			return false;
@@ -309,7 +309,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean isNumericOperand(Unary node,String symbol){
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
 		Type declaredType=getQuestionsType();
         if (!leftExprType.isCompatibleToType(declaredType)) {
 			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Right operand must be of the Numeric type("+declaredType.getClass().getSimpleName()+")"));
@@ -321,7 +321,7 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean isBoolOperand(Unary node,String symbol){
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
         if (!leftExprType.isCompatibleToBoolType()) {
 			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Right operand must be of the Boolean type"));
 			return false;
@@ -332,8 +332,8 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 	
 	
 	private boolean checkComparisonExpr(Binary node,String symbol){
-		Type leftExprType = node.getLeftExpr().getExprType(declaredVar);
-		Type rightExprType = node.getRightExpr().getExprType(declaredVar);
+		Type leftExprType = node.getLeftExpr().getExprType(declaredVars);
+		Type rightExprType = node.getRightExpr().getExprType(declaredVars);
 		if (!(leftExprType.isCompatibleToType(rightExprType))) {
 			errorReport.add(new QLErrorMSg("Invalid type for '"+symbol+"'. Both operands must be of the same type"));
 			return false;
@@ -342,9 +342,12 @@ public class ExpressionChecker implements IExprVisitor<Boolean> {
 		
 	}
 	
-	//** Returns the Type of last declared Variable 
+	/** Returns the Type of last declared Variable which is the current type of the current processed question
+	 *  This way we can check if the type of a numeric expr is the right one
+	 */
+	
 	private Type getQuestionsType() {
-		Collection<Type> typeList = declaredVar.values();
+		Collection<Type> typeList = declaredVars.values();
 		int lastIndex = typeList.size() - 1;
 		Type declaredType = (Type) typeList.toArray()[lastIndex];
 		return declaredType;
