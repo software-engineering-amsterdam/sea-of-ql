@@ -27,9 +27,9 @@ public loc buildForm(Form form, loc destFolder) {
   for(e <- listEntries(getStaticSourceLoc()))
     writeFile(destFolder + e, readFile(getStaticSourceLoc() + e));
   
-  HTML(form, destFolder);
-  JS(form, destFolder);
-  PHP(form, destFolder);
+  html(form, destFolder);
+  js(form, destFolder);
+  php(form, destFolder);
   
   return destFolder;
 }

@@ -24,8 +24,8 @@ import lang::ql::ide::Outline;
 import lang::ql::\syntax::QL;
 import lang::ql::util::ParseHelper;
 
-private str ACTION_FORMAT = "Format (removes comments)";
-private str ACTION_BUILD = "Build form";
+private str actionBuild = "Build form";
+private str actionFormat = "Format (removes comments)";
 
 private void format(Form f, loc l) =
   writeFile(l, prettyPrint(f));
@@ -72,10 +72,10 @@ public void setupQL() {
     
     popup(
       menu(getQLLangName(),[
-        action(ACTION_BUILD, (Tree tree, loc source) {
+        action(actionBuild, (Tree tree, loc source) {
           build(implode(tree), source);
         }),
-        action(ACTION_FORMAT, (Tree tree, loc source) {
+        action(actionFormat, (Tree tree, loc source) {
           format(implode(tree), source);
         })
       ])

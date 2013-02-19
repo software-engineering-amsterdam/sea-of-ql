@@ -28,11 +28,11 @@ private Expr parenizer(Expr e) =
 private Expr parenizeExpr(Expr parent, Expr kid) =
   parens(parent, kid, parenizeExpr(kid), parenizer);
 
-private DoNotNest PRIOS = 
+private DoNotNest prios = 
   doNotNest(grammar({}, #lang::ql::\syntax::QL::Form.definitions));
 
 private &T parens(node parent, node kid, &T x,  &T(&T x) parenizer) = 
-  parens(PRIOS, parent, kid, x, parenizer);
+  parens(prios, parent, kid, x, parenizer);
   
 public Expr parenizeExpr(p:pos(val)) = 
   pos(parenizeExpr(p, val));

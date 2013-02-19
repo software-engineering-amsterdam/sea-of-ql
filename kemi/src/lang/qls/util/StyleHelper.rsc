@@ -22,7 +22,7 @@ import List;
 import Map;
 import String;
 
-private str FORM_EXT = ".q";
+private str formExt = ".q";
 
 public TypeMap getTypeMap(Form f) =
   semanticAnalysisState(f).definitions;
@@ -36,7 +36,7 @@ public default Form getAccompanyingForm(Stylesheet s) =
   form(identDefinition(""), []);
 
 public loc getAccompanyingFormLocation(Stylesheet s) =
-  s@location.parent + "<s.ident.name><FORM_EXT>";
+  s@location.parent + "<s.ident.name><formExt>";
 
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   TypeMap typeMap = getTypeMap(f);

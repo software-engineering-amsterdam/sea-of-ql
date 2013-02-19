@@ -18,7 +18,7 @@ import lang::ql::compiler::web::PHPExpressionPrinter;
 
 private str title = "";
 
-public void PHP(Form f, loc dest) {
+public void php(Form f, loc dest) {
   dest += getPHPName();
   title = f.formName.ident;
   writeFile(dest, createPHP(f));

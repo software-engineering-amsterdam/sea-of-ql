@@ -25,8 +25,8 @@ import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::Prompt;
 
-private str ACTION_FORMAT = "Format (removes comments)";
-private str ACTION_BUILD = "Build stylesheet and accompanying form";
+private str actionBuild = "Build stylesheet and accompanying form";
+private str actionFormat = "Format (removes comments)";
 
 private set[Message] buildAndReturnMessages(start[Stylesheet] sheet, loc target) =
   buildAndReturnMessages(implode(sheet), target);
@@ -85,10 +85,10 @@ public void setupQLS() {
     
     popup(
       menu(getQLSLangName(),[
-        action(ACTION_BUILD, (Tree tree, loc source) {
+        action(actionBuild, (Tree tree, loc source) {
           build(implode(tree), source);
         }),
-        action(ACTION_FORMAT, (Tree tree, loc source) {
+        action(actionFormat, (Tree tree, loc source) {
           format(implode(tree), source);
         })
       ])

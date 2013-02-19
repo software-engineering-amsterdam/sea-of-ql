@@ -22,8 +22,8 @@ public loc buildSheet(Stylesheet sheet, loc destFolder) {
   if(!exists(destFolder))
     mkDirectory(destFolder);
   
-  CSS(sheet, destFolder);
-  JS(sheet, destFolder);
+  css(sheet, destFolder);
+  js(sheet, destFolder);
   
   return destFolder;
 }

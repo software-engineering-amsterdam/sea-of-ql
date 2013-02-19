@@ -17,12 +17,12 @@ import lang::ql::\ast::AST;
 import lang::ql::compiler::web::JSExpressionPrinter;
 import lang::ql::util::FormHelper;
 
-public void JS(Form f, loc dest) {
+public void js(Form f, loc dest) {
   writeFile(dest + getStylingJSName(), "function styling() { }");
   
   dest += getCheckingJSName();
   
-  writeFile(dest, JS(f));
+  writeFile(dest, js(f));
 }
 
 private str showElement(str name) =
@@ -49,7 +49,7 @@ private set[str] getConditionalVariableMembers(Statement cond) =
       [x.condition | x <- cond.elseIfs]
   };
 
-private str JS(Form f) =
+private str js(Form f) =
   "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {

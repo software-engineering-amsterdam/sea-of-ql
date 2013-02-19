@@ -1,12 +1,12 @@
 module Configuration
 
-private loc PROJECT_NAME = |project://QL-R-kemi/|;
+private loc projectName = |project://QL-R-kemi/|;
 
 public loc getStaticSourceLoc() = 
-  PROJECT_NAME + "static/";
+  projectName + "static/";
 
 public loc getCompileTarget() = 
-  PROJECT_NAME + "output/";
+  projectName + "output/";
 
 public str getQLLangName() = 
   "QL-R";

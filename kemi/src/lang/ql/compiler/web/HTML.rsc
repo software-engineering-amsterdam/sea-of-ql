@@ -15,7 +15,7 @@ import IO;
 import lang::ql::\ast::AST; 
 import util::StringHelper;
 
-public void HTML(Form f, loc dest) {
+public void html(Form f, loc dest) {
   dest += getHTMLName();
   
   str title = "";

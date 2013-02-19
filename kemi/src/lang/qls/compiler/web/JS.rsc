@@ -20,10 +20,10 @@ import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 import util::StringHelper;
 
-public void JS(Stylesheet sheet, loc dest) =
-  writeFile(dest + getStylingJSName(), JS(sheet));
+public void js(Stylesheet sheet, loc dest) =
+  writeFile(dest + getStylingJSName(), js(sheet));
 
-public str JS(Stylesheet s) =
+public str js(Stylesheet s) =
   "function styling() {
   '  <layoutJS(s)>
   '

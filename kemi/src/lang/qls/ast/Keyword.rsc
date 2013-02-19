@@ -22,12 +22,6 @@ import lang::qls::\syntax::Keyword;
 import lang::qls::\syntax::QLS;
 import lang::rascal::grammar::definition::Keywords;
 
-import IO;
-
-public void main() {
-  iprintln(#Stylesheet.definitions);
-}
-
 public set[str] keywords = {
   x |
   /prod(_, literal, _) <- getKeywords(grammar({}, #Stylesheet.definitions)), 

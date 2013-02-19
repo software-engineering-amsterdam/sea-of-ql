@@ -18,19 +18,19 @@ import lang::ql::util::FormHelper;
 import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 
-public void CSS(Stylesheet sheet, loc dest) {
+public void css(Stylesheet sheet, loc dest) {
   dest += getCSSStylesheetName();
   
-  appendToFile(dest, CSS(sheet));
+  appendToFile(dest, css(sheet));
 }
 
-private str CSS(Stylesheet s) {
+private str css(Stylesheet s) {
   Form f = getAccompanyingForm(s);
   TypeMap typeMap = getTypeMap(f);
 
   return
     "<for(q <- typeMap) {>/* Question <q.ident> */
-    '<for(r <- getStyleRules(q.ident, f, s)) {><CSS(q.ident, r)>
+    '<for(r <- getStyleRules(q.ident, f, s)) {><css(q.ident, r)>
     '<}>
     '<}>
     ";
@@ -39,56 +39,56 @@ private str CSS(Stylesheet s) {
 private str blockIdent(str ident) =
   "<ident><getBlockSuffix()>";
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     intStyleRule(StyleAttr attr, int \value)) =
   "#<ident> { width: <\value>px; }"
     when attr is width;
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     intStyleRule(StyleAttr attr, int \value)) =
   "#<blockIdent(ident)> *:not(:first-child) { font-size: <\value>px; }"
     when attr is fontsize;
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     intStyleRule(StyleAttr attr, int \value)) =
   "#<blockIdent(ident)> label:first-child { font-size: <\value>px; }"
     when attr is labelFontsize;
 
 // Other intStyleRules are not implemented in CSS
-private default str CSS(str ident, StyleRule r: 
+private default str css(str ident, StyleRule r: 
     intStyleRule(StyleAttr attr, int \value)) =
   "";
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     stringStyleRule(StyleAttr attr, str \value)) =
   "#<blockIdent(ident)> *:not(:first-child) { font-family: <\value>; }"
     when attr is font;
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     stringStyleRule(StyleAttr attr, str \value)) =
   "#<blockIdent(ident)> label:first-child { font-family: <\value>; }"
     when attr is labelFont;
 
 // Other stringStyleRules are not implemented in CSS
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     stringStyleRule(StyleAttr attr, str \value)) =
   "";
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     colorStyleRule(StyleAttr attr, str \value)) =
   "#<blockIdent(ident)> *:not(:first-child) { color: <\value>; }"
     when attr is color;
 
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     colorStyleRule(StyleAttr attr, str \value)) =
   "#<blockIdent(ident)> label:first-child { color: <\value>; }"
     when attr is labelColor;
 
 // Other colorStyleRules are not implemented in CSS
-private str CSS(str ident, StyleRule r: 
+private str css(str ident, StyleRule r: 
     colorStyleRule(StyleAttr attr, str \value)) =
   "";
 
 // Other types of StyleRules are unimplemented in CSS
-private str CSS(str ident, StyleRule r) =
+private str css(str ident, StyleRule r) =
   "";
