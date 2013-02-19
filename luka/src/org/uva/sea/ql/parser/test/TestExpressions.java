@@ -374,19 +374,21 @@ public class TestExpressions {
 		assertEquals(parser.checkExpression("1223").getClass(), Int.class);
 		assertEquals(parser.checkExpression("234234234").getClass(), Int.class);
 	}
-	
+
 	@Test
 	public void testDouble() throws RecognitionException {
 		assertEquals(parser.checkExpression("0.1").getClass(), Doub.class);
 		assertEquals(parser.checkExpression("10.2").getClass(), Doub.class);
 		assertEquals(parser.checkExpression("13.2").getClass(), Doub.class);
 	}
-	
+
 	@Test
 	public void testString() throws RecognitionException {
 		assertEquals(parser.checkExpression("\"luka\"").getClass(), Str.class);
-		assertEquals(parser.checkExpression("\"luka halloo\"").getClass(), Str.class);
-		assertEquals(parser.checkExpression("\"luka yes yor\"").getClass(), Str.class);
+		assertEquals(parser.checkExpression("\"luka halloo\"").getClass(),
+				Str.class);
+		assertEquals(parser.checkExpression("\"luka yes yor\"").getClass(),
+				Str.class);
 	}
 
 }

@@ -23,4 +23,8 @@ public class NEq extends BinaryExpr{
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public String toString() {
+		return "NEq lhs("+this.lhs.toString()+")"+ " |Êrhs("+this.rhs.toString()+")";
+	}
 }

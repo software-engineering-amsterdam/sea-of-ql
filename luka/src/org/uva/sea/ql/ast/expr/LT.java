@@ -24,4 +24,8 @@ public class LT extends BinaryExpr{
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public String toString() {
+		return "LT lhs("+this.lhs.toString()+")"+ " |Êrhs("+this.rhs.toString()+")";
+	}
 }

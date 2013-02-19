@@ -12,8 +12,9 @@ import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.questionnaire.State;
 
 public class BoolControl extends AbstractVisibleControl {
-	private ButtonGroup radioButtonGroup;
-	private JRadioButton trueButton, falseButton;
+	
+	private final ButtonGroup radioButtonGroup;
+	private final JRadioButton trueButton, falseButton;
 
 	public BoolControl(State state, Ident ident) {
 		super(state, ident);
@@ -28,6 +29,11 @@ public class BoolControl extends AbstractVisibleControl {
 	}
 
 	@Override
+	public String toString() {
+		return "BoolControl Ident(" + this.ident.toString() + ")";
+	}
+
+	@Override
 	public void setIsChangeable(boolean changeable) {
 		this.trueButton.setEnabled(changeable);
 		this.falseButton.setEnabled(changeable);
@@ -37,7 +43,7 @@ public class BoolControl extends AbstractVisibleControl {
 	public void setValue(Value value) {
 
 		if (value.isDefined() && value.typeOf(null).isCompatibleToBool()) {
-			if(!isChangeable){
+			if (!isChangeable) {
 				trueButton.setSelected((Boolean) value.getValue());
 				falseButton.setSelected(!(Boolean) value.getValue());
 			}
@@ -49,9 +55,7 @@ public class BoolControl extends AbstractVisibleControl {
 	}
 
 	@Override
-	public void initEventListener() { //final Ident ident, final State state
-//		this.state = state;
-//		this.ident = ident;
+	public void initEventListener() {
 		this.trueButton.addActionListener(new ActionListener() {
 
 			@Override

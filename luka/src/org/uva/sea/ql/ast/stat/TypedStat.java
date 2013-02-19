@@ -4,7 +4,8 @@ import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
-public abstract class TypedStat implements Stat { // extends Observable
+public abstract class TypedStat implements Stat {
+
 	protected final Ident ident;
 	protected final String label;
 	protected final Type type;
@@ -31,4 +32,9 @@ public abstract class TypedStat implements Stat { // extends Observable
 	public void accept(StatementVisitor visitor) {
 	}
 
+	@Override
+	public String toString() {
+		return "TypedStat Ident(" + this.ident.toString() + ") Type("
+				+ this.type.toString() + ") Label(" + this.label + ")";
+	}
 }

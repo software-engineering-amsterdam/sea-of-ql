@@ -31,5 +31,10 @@ public class IntType extends NumericType {
 	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
 		return visitor.visit(this,ident);
 	}
+	
+	@Override
+	public String toString() {
+		return "IntType";
+	}
 
 }

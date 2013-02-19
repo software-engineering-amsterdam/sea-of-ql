@@ -47,8 +47,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
-	private JPanel panel;
-	private State state;
+	private final JPanel panel;
+	private final State state;
 
 	private SwingRenderer(State state) {
 		this.state = state;
@@ -63,7 +63,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	private void initVisibleComponents() {
 
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		this.panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 
 	private JPanel getPanel() {
@@ -145,7 +145,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	@Override
 	public void visit(IfThenStat stat) {
 		initVisibleComponents();
-		JPanel tru = renderStatement(stat.getBody(), state);
+		JPanel tru = renderStatement(stat.getBody(), this.state);
 		tru.setBackground(Color.green);
 		registerConditionDeps(stat, tru, null);
 		Value trueState = stat.getCondition().accept(
@@ -159,14 +159,13 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	@Override
 	public void visit(IfThenElseStat stat) {
 		initVisibleComponents();
-		JPanel tru = renderStatement(stat.getBody(), state);
-		JPanel fls = renderStatement(stat.getElseBody(), state);
+		JPanel tru = renderStatement(stat.getBody(), this.state);
+		JPanel fls = renderStatement(stat.getElseBody(), this.state);
 		tru.setBackground(Color.green);
 		fls.setBackground(Color.red);
 		registerConditionDeps(stat, tru, fls);
 		Value trueState = stat.getCondition().accept(
 				new Evaluator(this.state.getEnv()));
-		System.err.println("trueState: " + trueState.toString());
 		boolean isTruVisible = trueState.isDefined()
 				&& (Boolean) trueState.getValue();
 		boolean isFalseVisible = trueState.isDefined()
@@ -192,8 +191,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 
 	@Override
 	public void visit(HiddenComputetStat stat) {
-		AbstractControl ctl = new HiddenControl(state, stat.getIdent());// typeToWidget(stat,
-																		// false);
+		AbstractControl ctl = new HiddenControl(this.state, stat.getIdent());
 		registerComputedDeps(stat, ctl);
 		registerPropagator(stat, ctl);
 		initValue(stat, ctl);

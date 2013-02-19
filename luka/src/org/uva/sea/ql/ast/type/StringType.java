@@ -13,7 +13,12 @@ public class StringType extends Type {
 		throw new UnsupportedOperationException();
 	}
 
-	// Double dispatch
+
+	@Override
+	public String toString() {
+		return "StringType";
+	}
+	
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToStr();

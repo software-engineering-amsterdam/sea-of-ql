@@ -11,9 +11,10 @@ import org.uva.sea.ql.questionnaire.State;
 import org.uva.sea.ql.questionnaire.check.Evaluator;
 
 public class ConditionObserver extends StatementObserver {
-	private State state;
-	private JPanel tru, fls;
-	private Expr cond;
+	
+	private final State state;
+	private final JPanel tru, fls;
+	private final Expr cond;
 
 	public ConditionObserver(Expr condition, State state, JPanel tru, JPanel fls) {
 		super(state, condition);
@@ -32,12 +33,12 @@ public class ConditionObserver extends StatementObserver {
 			if (fls != null) {
 				fls.setVisible(!visible);
 			}
-		}else{
+		} else {
 			tru.setVisible(false);
 			if (fls != null) {
 				fls.setVisible(false);
 			}
-			
+
 		}
 
 	}

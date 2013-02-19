@@ -8,8 +8,8 @@ import org.uva.sea.ql.questionnaire.State;
 
 public abstract class AbstractControl extends Observable {
 
-	protected State state;
-	protected Ident ident;
+	protected final State state;
+	protected final Ident ident;
 
 	public AbstractControl(State state, Ident ident) {
 		this.state = state;

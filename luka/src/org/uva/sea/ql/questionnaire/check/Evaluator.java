@@ -38,8 +38,8 @@ public class Evaluator implements Visitor<Value> {
 
 	@Override
 	public Value visit(Ident var) {
-		if (env.containsKey(var)) {
-			return env.get(var);
+		if (this.env.containsKey(var)) {
+			return this.env.get(var);
 		}
 		return new UndefinedValue();
 	}

@@ -15,6 +15,11 @@ public class Money extends Numeric {
 		DecimalFormat f = new DecimalFormat("#.##");
 		this.value = Double.valueOf(f.format(val));
 	}
+	
+	@Override
+	public String toString() {
+		return "Money value ("+this.value+")";
+	}
 
 	@Override
 	public Double getValue() {

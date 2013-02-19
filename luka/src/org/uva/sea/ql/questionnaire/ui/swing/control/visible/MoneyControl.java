@@ -10,13 +10,19 @@ import org.uva.sea.ql.ast.nodes.values.Money;
 import org.uva.sea.ql.questionnaire.State;
 
 public class MoneyControl extends KeyControl {
-	private JLabel moneyLabel;
 
-	public MoneyControl(State state,Ident ident) {
+	private final JLabel moneyLabel;
+
+	public MoneyControl(State state, Ident ident) {
 		super(state, ident);
 		this.moneyLabel = new JLabel("Û");
 		this.controlPanel.add(moneyLabel);
 		initEventListener();
+	}
+
+	@Override
+	public String toString() {
+		return "MoneyControl Ident(" + this.ident.toString() + ")";
 	}
 
 	@Override

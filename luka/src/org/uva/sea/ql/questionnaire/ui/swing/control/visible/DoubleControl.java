@@ -10,9 +10,14 @@ import org.uva.sea.ql.questionnaire.State;
 
 public class DoubleControl extends KeyControl {
 
-	public DoubleControl(State state,Ident ident) {
+	public DoubleControl(State state, Ident ident) {
 		super(state, ident);
 		initEventListener();
+	}
+
+	@Override
+	public String toString() {
+		return "DoubleControl Ident(" + this.ident.toString() + ")";
 	}
 
 	@Override

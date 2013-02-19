@@ -31,9 +31,10 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 import org.uva.sea.ql.questionnaire.State;
 
 public abstract class StatementObserver implements Observer, Visitor<Expr> {
-	protected List<Ident> dependencies;
-	protected State state;
-	protected Expr expr;
+	
+	protected final List<Ident> dependencies;
+	protected final State state;
+	protected final Expr expr;
 
 	public StatementObserver(State state, Expr expr) {
 		this.state = state;

@@ -23,4 +23,9 @@ public class Mul extends BinaryExpr {
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
+	@Override
+	public String toString() {
+		return "MUL lhs("+this.lhs.toString()+")"+ " |Êrhs("+this.rhs.toString()+")";
+	}
 }

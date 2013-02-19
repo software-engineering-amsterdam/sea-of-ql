@@ -7,10 +7,16 @@ import org.uva.sea.ql.ast.visitor.TypeVisitor;
 import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleControl;
 
 public class NumericType extends Type {
+
 	@Override
-	public Value getNumberOfType(Number number){
+	public Value getNumberOfType(Number number) {
 		throw new UnsupportedOperationException();
 	}
+	@Override
+	public String toString() {
+		return "NumericType";
+	}
+
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToNumeric();
@@ -43,8 +49,7 @@ public class NumericType extends Type {
 
 	@Override
 	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
-		return visitor.visit(this,ident);
+		return visitor.visit(this, ident);
 	}
 
-	
 }

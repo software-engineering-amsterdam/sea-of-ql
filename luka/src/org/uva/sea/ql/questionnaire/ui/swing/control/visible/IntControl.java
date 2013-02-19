@@ -17,6 +17,11 @@ public class IntControl extends KeyControl {
 	}
 
 	@Override
+	public String toString() {
+		return "IntControl Ident(" + this.ident.toString() + ")";
+	}
+
+	@Override
 	protected void handleKeyPressed(String input) {
 		try {
 			Int value = new Int(Integer.valueOf(input));

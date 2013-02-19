@@ -2,8 +2,12 @@ package org.uva.sea.ql.ast.nodes.values;
 
 import org.uva.sea.ql.ast.expr.Expr;
 
-public abstract class Value extends Expr{
+public abstract class Value extends Expr {
 
+	@Override
+	public String toString() {
+		return "Abstract value ";
+	}
 
 	public abstract Object getValue();
 
@@ -20,7 +24,7 @@ public abstract class Value extends Expr{
 
 	public abstract Value nEqu(Value arg);
 
-	public abstract Value not(); // Value val
+	public abstract Value not();
 
 	// BOOLEAN INTERNAL
 

@@ -29,7 +29,7 @@ public class ComputedObserver extends StatementObserver {
 				value = this.stat.getType().getNumberOfType(
 						(Number) value.getValue());
 			}
-			control.setValue(value);
+			this.control.setValue(value);
 		}
 	}
 }

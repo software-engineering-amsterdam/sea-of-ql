@@ -16,6 +16,10 @@ public class AnswerableStat extends TypedStat {
 		visitor.visit(this);
 	}
 
-	
+	@Override
+	public String toString() {
+		return "AnswerableStat Ident(" + this.ident.getName() + ") Type("
+				+ this.type.toString() + ") Label(" + this.getLabel() + ")";
+	}
 
 }

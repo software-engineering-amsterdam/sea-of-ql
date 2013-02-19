@@ -34,14 +34,7 @@ import java.util.HashMap;
 }
 
 @parser::members{
-	public Map<Ident,Type> typeEnv = new HashMap<Ident,Type>();
-	private void mapIdentToType(String identName,Type type){
-		typeEnv.put(new Ident(identName),type);
-	}
 	
-	public Map<Ident,Type> getTypeEnf(){
-		return typeEnv;
-	}
 }
 
 @lexer::header
@@ -64,13 +57,13 @@ blockItem
 	
 
 questionAssignment 
-	: Ident  Assignment_Indicator  Str identType (atom)? {mapIdentToType($Ident.text,$identType.t);}  ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  Str)  ^(ASSIGNMENT_EXPRESSION atom)?)
+	: Ident  Assignment_Indicator  Str identType (atom)?   ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  Str)  ^(ASSIGNMENT_EXPRESSION atom)?)
 	 
 	 ;
-
-
+//{mapIdentToType($Ident.text,$identType.t);}
+//{mapIdentToType($Ident.text,$identType.t);}
 constantAssignment
-	: Ident  Assignment_Indicator identType atom {mapIdentToType($Ident.text,$identType.t);} -> ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
+	: Ident  Assignment_Indicator identType atom  -> ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
 	;
 	
 //

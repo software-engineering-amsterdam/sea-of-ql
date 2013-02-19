@@ -6,9 +6,14 @@ import org.uva.sea.ql.questionnaire.State;
 
 public class TextControl extends KeyControl {
 
-	public TextControl(State state,Ident ident) {
+	public TextControl(State state, Ident ident) {
 		super(state, ident);
 		initEventListener();
+	}
+
+	@Override
+	public String toString() {
+		return "TextControl Ident(" + this.ident.toString() + ")";
 	}
 
 	@Override

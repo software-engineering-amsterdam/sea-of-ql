@@ -1,5 +1,6 @@
 package org.uva.sea.ql.questionnaire.check;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,15 +11,15 @@ import org.uva.sea.ql.ast.type.Type;
 
 public class QuestionnaireValidator {
 
-	public QuestionnaireValidator() {
-
-	}
-
 	public static boolean validateQuestionnaire(String questionnaireName,
-			Block qBlock, Map<Ident, Type> typeEnv, List<ErrorMessage> errorList) {
+			Block qBlock, List<ErrorMessage> errorList) {
+		Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
+
 		System.out.println("Checking Questionnaire: " + questionnaireName);
+
 		CheckStat.checkStatBlock(qBlock, typeEnv, errorList);
-		if(errorList.isEmpty()){
+
+		if (errorList.isEmpty()) {
 			System.out.println("No errors occured!");
 			return true;
 		}
@@ -27,7 +28,7 @@ public class QuestionnaireValidator {
 	}
 
 	private static void printErrorList(List<ErrorMessage> errorList) {
-		System.err.println( "-----Errors occured-----");
+		System.err.println("-----Errors occured-----");
 		for (ErrorMessage error : errorList) {
 			System.err.println(error.getErrorMeesage());
 		}

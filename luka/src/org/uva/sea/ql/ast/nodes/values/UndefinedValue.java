@@ -17,12 +17,11 @@ public class UndefinedValue extends Value {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		throw new RuntimeException("Can not visit Type UndefinedValue");
-//		return visitor.visit(this);
 	}
 
 	@Override
 	public String toString() {
-		return "Undefined!";
+		return "UndefinedValue";
 	}
 
 	@Override

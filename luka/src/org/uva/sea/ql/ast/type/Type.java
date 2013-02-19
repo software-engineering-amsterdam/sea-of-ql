@@ -7,6 +7,10 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleCont
 
 public abstract class Type {
 
+	@Override
+	public String toString() {
+		return "abstract Type";
+	}
 	public abstract Value getNumberOfType(Number number);
 
 	public abstract AbstractVisibleControl accept(TypeVisitor visitor,

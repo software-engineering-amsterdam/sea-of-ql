@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.visitor.StatementVisitor;
 public class CheckStat implements StatementVisitor {
 
 	private final Map<Ident, Type> typeEnv;
-	private List<ErrorMessage> errorList;
+	private final List<ErrorMessage> errorList;
 
 	private CheckStat(Map<Ident, Type> typeEnv, List<ErrorMessage> errorList) {
 		this.typeEnv = typeEnv;
@@ -35,6 +35,16 @@ public class CheckStat implements StatementVisitor {
 		block.accept(statChecker);
 	}
 
+	private void mapIdentToType(TypedStat stat) {
+		if (this.typeEnv.containsKey(stat.getIdent())) {
+			addError(stat, "Already declared:" + stat.getIdent().toString()
+					+ " , please do not declare same Ident more then once!");
+			return;
+		}
+		this.typeEnv.put(stat.getIdent(), stat.getType());
+
+	}
+
 	@Override
 	public void visit(Block stat) {
 		for (Stat s : stat.getStatements()) {
@@ -44,20 +54,23 @@ public class CheckStat implements StatementVisitor {
 
 	@Override
 	public void visit(VisibleComputetStat stat) {
-		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
+		mapIdentToType(stat);
+		checkStatType(stat, stat.getExpr().typeOf(this.typeEnv));
 		checkExpr(stat.getExpr());
 	}
 
 	@Override
 	public void visit(HiddenComputetStat stat) {
-		checkStatType(stat, stat.getExpr().typeOf(typeEnv));
+		mapIdentToType(stat);
+		checkStatType(stat, stat.getExpr().typeOf(this.typeEnv));
 		checkExpr(stat.getExpr());
 	}
 
 	@Override
 	public void visit(AnswerableStat stat) {
+		mapIdentToType(stat);
 		checkLabel(stat);
-		checkStatType(stat, stat.getIdent().typeOf(typeEnv));// getType());
+		checkStatType(stat, stat.getIdent().typeOf(this.typeEnv));// getType());
 	}
 
 	@Override
@@ -92,7 +105,7 @@ public class CheckStat implements StatementVisitor {
 			addError(stat, "Something wrong with conditional statement !");
 		}
 		if (stat.getCondition() == null
-				|| stat.getCondition().typeOf(typeEnv).getClass() != BoolType.class) {
+				|| stat.getCondition().typeOf(this.typeEnv).getClass() != BoolType.class) {
 			addError(stat,
 					"Conditional statemant  must be of type <boolean> but is :"
 							+ stat.getCondition().typeOf(typeEnv).toString());
@@ -100,14 +113,16 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	private boolean checkExpr(Expr expr) {
-		return CheckExpr.check(expr, typeEnv, errorList);
+		return CheckExpr.check(expr, this.typeEnv, this.errorList);
 	}
 
 	private void checkStatType(TypedStat stat, Type typeOf) {
-		if (!stat.getIdent().typeOf(typeEnv).isCompatibleTo(typeOf)) {
-			addError(stat, "Given type:" + typeOf.toString()
-					+ " and computed type:" + stat.getIdent().typeOf(typeEnv)
-					+ "do not match");
+		if (!stat.getIdent().typeOf(this.typeEnv).isCompatibleTo(typeOf)) {
+			addError(stat,
+					"Type:" + typeOf.toString() + " not compatible with type:"
+							+ stat.getIdent().typeOf(this.typeEnv)
+							+ ", please also check the order of declaration");
+			return;
 		}
 	}
 

@@ -9,9 +9,15 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleCont
 public class UndefinedType extends Type {
 
 	@Override
+	public String toString() {
+		return "UndefinedType";
+	}
+
+	@Override
 	public Value getNumberOfType(Number number) {
 		throw new UnsupportedOperationException();
 	}
+
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return false;
@@ -24,6 +30,6 @@ public class UndefinedType extends Type {
 
 	@Override
 	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
-		return visitor.visit(this,ident);
+		return visitor.visit(this, ident);
 	}
 }

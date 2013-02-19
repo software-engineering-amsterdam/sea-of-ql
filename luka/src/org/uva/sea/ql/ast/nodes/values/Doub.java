@@ -15,6 +15,11 @@ public class Doub extends Numeric {
 	}
 
 	@Override
+	public String toString() {
+		return "Double value(" + this.value + ")";
+	}
+
+	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new DoubleType();
 	}

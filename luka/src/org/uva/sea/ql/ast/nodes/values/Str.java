@@ -17,6 +17,11 @@ public class Str extends Value {
 	}
 
 	@Override
+	public String toString() {
+		return "String value (" + this.value + ")";
+	}
+
+	@Override
 	public boolean isDefined() {
 		return value != null;
 	}
@@ -34,11 +39,6 @@ public class Str extends Value {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
-	}
-
-	@Override
-	public String toString() {
-		return "Str(" + this.value + ")";
 	}
 
 	@Override

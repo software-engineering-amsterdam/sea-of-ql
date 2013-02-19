@@ -23,5 +23,10 @@ public class Not extends UnaryExpr{
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public String toString() {
+		return "NOT ("+this.expr.toString()+")";
+	}
+	
 	
 }

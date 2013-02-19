@@ -14,13 +14,19 @@ import org.uva.sea.ql.questionnaire.State;
 
 public abstract class KeyControl extends AbstractVisibleControl {
 
-	private JTextField control;
+	private final JTextField control;
+
 	public KeyControl(State state, Ident ident) {
 		super(state, ident);
 		control = new JTextField();
 		control.setPreferredSize(new Dimension(200, 30));
 		this.controlPanel.add(control);
 		initEventListener();
+	}
+
+	@Override
+	public String toString() {
+		return "abstract KeyControl Ident(" + this.ident.toString() + ")";
 	}
 
 	@Override
@@ -31,20 +37,20 @@ public abstract class KeyControl extends AbstractVisibleControl {
 	@Override
 	public void setValue(Value value) {
 		setChanged();
-		state.putValue(this.ident, value);
-		state.notify(ident);
-		if(value.isDefined()){
+		this.state.putValue(this.ident, value);
+		this.state.notify(this.ident);
+		if (value.isDefined()) {
 			control.setText(value.getValue().toString());
 		}
-		
+
 	}
 
 	protected abstract void handleKeyPressed(String input);
 
 	@Override
-	public void initEventListener() { 
+	public void initEventListener() {
 
-		control.addFocusListener(new FocusListener() {
+		this.control.addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusLost(FocusEvent arg0) {
@@ -57,7 +63,7 @@ public abstract class KeyControl extends AbstractVisibleControl {
 
 			}
 		});
-		control.addKeyListener(new KeyListener() {
+		this.control.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -71,7 +77,7 @@ public abstract class KeyControl extends AbstractVisibleControl {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				
+
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 					handleKeyPressed(control.getText());
 				}

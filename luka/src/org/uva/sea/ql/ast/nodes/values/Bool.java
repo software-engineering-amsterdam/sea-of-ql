@@ -18,6 +18,11 @@ public class Bool extends Value {
 	}
 	
 	@Override
+	public String toString() {
+		return "Boolean value("+this.value+")";
+	}
+	
+	@Override
 	public boolean isDefined() {
 		return true;
 	}
@@ -84,10 +89,6 @@ public class Bool extends Value {
 		return new Bool(!arg.getValue());
 	}
 
-	@Override
-	public String toString() {
-		return "Bool("+this.value+")";
-	}
 	
 	@Override
 	public Value add(Value arg) {

@@ -23,6 +23,9 @@ public class Or extends BinaryExpr{
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+	@Override
+	public String toString() {
+		return "OR lhs("+this.lhs.toString()+")"+ " |Êrhs("+this.rhs.toString()+")";
+	}
 	
 }

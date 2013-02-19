@@ -21,4 +21,9 @@ public class Neg extends UnaryExpr{
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
+	@Override
+	public String toString() {
+		return "Neg expr("+this.expr.toString()+")";
+	}
 }

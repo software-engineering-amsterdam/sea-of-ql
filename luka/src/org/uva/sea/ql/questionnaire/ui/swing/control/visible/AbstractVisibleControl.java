@@ -11,21 +11,18 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 
 public abstract class AbstractVisibleControl extends AbstractControl {
 
-	protected boolean isChangeable;
-	protected JPanel controlPanel;
-
+	protected  boolean isChangeable;
+	protected final JPanel controlPanel;
 
 	public AbstractVisibleControl(State state, Ident ident) {
 		super(state, ident);
 		this.controlPanel = new JPanel(new FlowLayout());
-		controlPanel.setPreferredSize(new Dimension(350,40));
+		this.controlPanel.setPreferredSize(new Dimension(350, 40));
 	}
 
 	public abstract void setIsChangeable(boolean changeable);
 
-
-
-	protected abstract void initEventListener(); 
+	protected abstract void initEventListener();
 
 	public JPanel getControlElement() {
 		return this.controlPanel;

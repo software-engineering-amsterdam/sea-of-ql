@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expr.Expr;
 
 public abstract class ConditionalStat implements Stat{
 
-	protected Expr condition;
-	protected Block trueBlock;
+	protected final Expr condition;
+	protected final Block trueBlock;
 	
 	public ConditionalStat(Expr condition, Block block){
 		this.condition = condition;
@@ -17,6 +17,11 @@ public abstract class ConditionalStat implements Stat{
 	
 	public Expr getCondition(){
 		return this.condition;
+	}
+	
+	@Override
+	public String toString() {
+		return "ConditionalStat condition:" + this.condition.toString();
 	}
 	
 }

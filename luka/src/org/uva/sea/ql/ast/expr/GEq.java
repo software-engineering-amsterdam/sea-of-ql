@@ -24,4 +24,9 @@ public class GEq extends BinaryExpr{
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public String toString() {
+		return "GEq lhs("+this.lhs.toString()+")"+ " |Êrhs("+this.rhs.toString()+")";
+	}
+	
 }

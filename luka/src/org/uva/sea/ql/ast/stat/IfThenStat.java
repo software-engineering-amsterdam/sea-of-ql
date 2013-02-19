@@ -14,4 +14,8 @@ public class IfThenStat extends ConditionalStat {
 		visitor.visit(this);
 	}
 
+	@Override
+	public String toString() {
+		return "IfThenStat Expr(" + this.condition.toString() + ")";
+	}
 }

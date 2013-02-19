@@ -3,13 +3,15 @@ boolVal1 : "boolVal1" boolean
 computedBool1: "computedBool1" boolean(boolVal1)
 computedBoo2: "computedBool2" boolean(computedBool1)
 computedBoo3: "computedBool3" boolean(computedBoo2)
-if(computedBoo3){
-boolCombo : "yeses!" string("righty right")
-}
-intValue1 : "intValue1" integer
 doubleValue1 : "doubleValue1" double
+if(computedBoo3){
+computedBoo7: "computedBool3" boolean(computedBoo3)
+}
+
+intValue1 : "intValue1" integer
+
 computedBoo4: "computedBool3" boolean(intValue1 > doubleValue1)
-if(false){
+if(false && true){
 calculatedInt: "first question +2.2 int" integer(intValue1 + 2.2)
 calculatedDouble: "first question +2.2 double" double(intValue1 + 2.2)
 calculatedMoney: "first question +2.2 money" money(intValue1 + 2.2)

@@ -16,6 +16,10 @@ public class Int extends Numeric {
 	}
 	
 	@Override
+	public String toString() {
+		return "Integer value ("+this.value+")";
+	}
+	@Override
 	public Integer getValue() {
 		return this.value.intValue();
 	}

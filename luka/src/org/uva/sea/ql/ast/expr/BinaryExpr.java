@@ -23,7 +23,7 @@ public abstract class BinaryExpr extends Expr {
 	
 	@Override
 	public String toString() {
-		return this.getClass().toString(); 
+		return "abstract BinaryExpr";
 	}
 	
 	

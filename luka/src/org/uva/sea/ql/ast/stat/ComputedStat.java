@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Type;
 
 public abstract class ComputedStat extends TypedStat {
 
-	private Expr expression;
+	private final Expr expression;
 
 	public ComputedStat(Ident ident, String label, Type type,
 			Expr computableExpr) {
@@ -18,4 +18,9 @@ public abstract class ComputedStat extends TypedStat {
 		return this.expression;
 	}
 
+	@Override
+	public String toString() {
+		return "ComputedStat Ident(" + this.ident.getName() + ") Type("
+				+ this.type.toString() + ") Label(" + this.getLabel() + ")";
+	}
 }

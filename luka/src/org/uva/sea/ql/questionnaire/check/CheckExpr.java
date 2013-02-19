@@ -31,8 +31,8 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class CheckExpr implements Visitor<Boolean> {
 
-	private Map<Ident, Type> typeEnv;
-	private List<ErrorMessage> messages;
+	private final Map<Ident, Type> typeEnv;
+	private final List<ErrorMessage> messages;
 
 	private CheckExpr(Map<Ident, Type> tenv, List<ErrorMessage> messages) {
 		this.typeEnv = tenv;
@@ -92,8 +92,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {
@@ -113,8 +113,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToBool() && typeRhs.isCompatibleToBool())) {
 			addError(ast, "invalid type for AND (&&)");
@@ -132,8 +132,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {
@@ -152,12 +152,14 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
-		if (!((typeLhs.isCompatibleToBool() && typeRhs.isCompatibleToBool() || (typeLhs
-				.isCompatibleToNumeric() && typeRhs.isCompatibleToNumeric())  || (typeLhs
-						.isCompatibleToStr() && typeRhs.isCompatibleToStr())))) {
+		if (!((typeLhs.isCompatibleToBool()
+				&& typeRhs.isCompatibleToBool()
+				|| (typeLhs.isCompatibleToNumeric() && typeRhs
+						.isCompatibleToNumeric()) || (typeLhs
+				.isCompatibleToStr() && typeRhs.isCompatibleToStr())))) {
 			addError(ast, "invalid type for EQUALS (==)");
 			return false;
 		}
@@ -193,8 +195,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {
@@ -213,8 +215,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {
@@ -233,8 +235,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {
@@ -253,8 +255,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {
@@ -278,12 +280,14 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
-		if (!((typeLhs.isCompatibleToBool() && typeRhs.isCompatibleToBool() || (typeLhs
-				.isCompatibleToNumeric() && typeRhs.isCompatibleToNumeric())|| (typeLhs
-						.isCompatibleToStr() && typeRhs.isCompatibleToStr())))) {
+		if (!((typeLhs.isCompatibleToBool()
+				&& typeRhs.isCompatibleToBool()
+				|| (typeLhs.isCompatibleToNumeric() && typeRhs
+						.isCompatibleToNumeric()) || (typeLhs
+				.isCompatibleToStr() && typeRhs.isCompatibleToStr())))) {
 			addError(ast, "invalid type for NOT EQUALS (!=)");
 			return false;
 		}
@@ -296,8 +300,8 @@ public class CheckExpr implements Visitor<Boolean> {
 		if (!checkChild) {
 			return false;
 		}
-		Type astType = ast.typeOf(typeEnv);
-		Type childType = ast.getExpr().typeOf(typeEnv);
+		Type astType = ast.typeOf(this.typeEnv);
+		Type childType = ast.getExpr().typeOf(this.typeEnv);
 		boolean isCompatible = childType.isCompatibleTo(astType);
 
 		if (!isCompatible) {
@@ -316,8 +320,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToBool() && typeRhs.isCompatibleToBool())) {
 			addError(ast, "invalid type for OR (||)");
@@ -345,8 +349,8 @@ public class CheckExpr implements Visitor<Boolean> {
 			return false;
 		}
 
-		Type typeLhs = ast.getLhs().typeOf(typeEnv);
-		Type typeRhs = ast.getRhs().typeOf(typeEnv);
+		Type typeLhs = ast.getLhs().typeOf(this.typeEnv);
+		Type typeRhs = ast.getRhs().typeOf(this.typeEnv);
 
 		if (!(typeLhs.isCompatibleToNumeric() && typeRhs
 				.isCompatibleToNumeric())) {

@@ -6,8 +6,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.ast.visitor.Visitor;
 
-public class Ident extends Expr  {
-
+public class Ident extends Expr {
 
 	private String name;
 
@@ -30,7 +29,7 @@ public class Ident extends Expr  {
 
 	@Override
 	public String toString() {
-		return this.name;
+		return "Ident(" + this.name + ")";
 	}
 
 	public String getName() {

@@ -7,7 +7,7 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 
 public class HiddenControl extends AbstractControl {
 
-	public HiddenControl(State state,Ident ident) {
+	public HiddenControl(State state, Ident ident) {
 		super(state, ident);
 
 	}
@@ -15,8 +15,8 @@ public class HiddenControl extends AbstractControl {
 	@Override
 	public void setValue(Value value) {
 		setChanged();
-		state.putValue(this.ident, value);
-		state.notify(ident);
+		this.state.putValue(this.ident, value);
+		this.state.notify(ident);
 	}
 
 }
