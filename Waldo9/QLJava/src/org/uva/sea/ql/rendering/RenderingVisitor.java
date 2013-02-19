@@ -18,23 +18,17 @@ import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.statements.StatementVisitor;
-import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.evaluation.values.Bool;
-import org.uva.sea.ql.evaluation.values.Int;
-import org.uva.sea.ql.rendering.controls.CheckBox;
 import org.uva.sea.ql.rendering.controls.Control;
-import org.uva.sea.ql.rendering.controls.IntegerField;
-import org.uva.sea.ql.rendering.controls.TextField;
 
-public class RenderingVisitor implements StatementVisitor<Object> {
+public class RenderingVisitor implements StatementVisitor<Void> {
 	
 	private final JPanel panel;
 	private final State state;
+	private final static String COLUMN_SIZE = "350";
 	
 	public RenderingVisitor(State state) {
-		panel = new JPanel(new MigLayout("", "350", ""));
+		panel = new JPanel(new MigLayout("", COLUMN_SIZE, ""));
 		this.state = state;
 	}	
 
@@ -48,20 +42,27 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	public JPanel getPanel() {
 		return panel;
 	}
+	
+	public State getState() {
+		return state;
+	}
 
 	@Override
-	public Object visit(Question question) {
+	public Void visit(Question question) {
 		addLabel(question.getLabel());
 		Control control = createControl(question);
+		initializeValues(question);
 		registerEventHandler(question, control);
 		add(control);
 		return null;
 	}	
 
 	@Override
-	public Object visit(ComputedQuestion computedQuestion) {
+	public Void visit(ComputedQuestion computedQuestion) {
 		addLabel(computedQuestion.getLabel());
 		Control control = createControl(computedQuestion);
+		initializeValues(computedQuestion);
+		control.getControl().setEnabled(false);
 		registerEventHandler(computedQuestion, control);
 		registerComputedQuestionDependencies(computedQuestion, state, control);
 		add(control);
@@ -69,14 +70,14 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	}	
 
 	@Override
-	public Object visit(Block block) {
+	public Void visit(Block block) {
 		for (Statement statement : block.getStatements())
 			statement.accept(this);
 		return null;
 	}
 
 	@Override
-	public Object visit(IfThenElse ifThenElse) {
+	public Void visit(IfThenElse ifThenElse) {
 		JPanel conditionTrue = render(ifThenElse.getBody(), state);
 		JPanel conditionFalse = render(ifThenElse.getElseBody(), state);
 		conditionTrue.setVisible(false);
@@ -103,7 +104,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	private void registerEventHandler(Question question, Control control) {
 		ObservableQuestion observableQuestion = new ObservableQuestion(question, state, control);
 		state.putObservable(question.getVariable(), observableQuestion);
-		control.getControl().addFocusListener(observableQuestion);
+		control.addListener(observableQuestion);
 	}
 	
 	private void registerComputedQuestionDependencies(ComputedQuestion computedQuestion, State state, Control control) {
@@ -112,7 +113,9 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	}	
 	
 	private void addLabel(StringLiteral label) {
-		panel.add(new JLabel(label.getValue()));
+		String text = label.getValue();
+		text = text.replaceAll("\"", "");
+		panel.add(new JLabel(text));
 	}
 	
 	private void addObserver(Observer observer) {
@@ -122,17 +125,15 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	
 	private Control createControl(Question question) {
 		Type type = question.getType();
+		ControlFactoryTypeVisitor controlFactoryTypeVisitor = new ControlFactoryTypeVisitor();		
+		return type.accept(controlFactoryTypeVisitor);
+	}
+	
+	private void initializeValues(Question question) {
+		Type type = question.getType();
 		Ident identifier = question.getVariable();
-		if (type instanceof BoolType) {
-			state.putValue(identifier, new Bool(false));
-			return new CheckBox();			
-		}
-		else if (type instanceof IntType) {
-			state.putValue(identifier, new Int(-1));
-			return new IntegerField();
-		}
-		state.putValue(identifier, new org.uva.sea.ql.evaluation.values.String(""));
-		return new TextField();
+		InitializationTypeVisitor initializationTypeVisitor = new InitializationTypeVisitor(state, identifier);
+		type.accept(initializationTypeVisitor);
 	}
 
 }

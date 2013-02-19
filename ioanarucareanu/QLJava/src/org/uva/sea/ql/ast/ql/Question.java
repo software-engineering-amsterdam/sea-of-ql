@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.semanticchecker.ReturnType;
 
 
 public class Question extends Statement {
@@ -32,8 +33,8 @@ public class Question extends Statement {
 	}
 	
 	@Override
-	public void accept(StatementVisitor visitor) {
-		visitor.visit(this);
+	public ReturnType accept(StatementVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override

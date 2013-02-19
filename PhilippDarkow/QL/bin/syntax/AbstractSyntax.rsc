@@ -15,7 +15,7 @@ public data Body =
 // Data of a Question   
 public data Question = 
 	   easyQuestion(str id, str labelQuestion, Type tp)
-	 | computedQuestion(str id, str labelQuestion, Type tp,Expression exp )  //
+	 | computedQuestion(str id, str labelQuestion, Type tp,Expression exp ) 
 	 ;
 
 // Data of a Expression Rule   

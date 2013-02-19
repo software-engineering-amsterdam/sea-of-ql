@@ -12,7 +12,7 @@ module lang::ql::analysis::TypeMap
 
 import lang::ql::analysis::Messages;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import util::IDE;
 
 public TypeMapMessages typeMapper(IdentDefinition ident, Type \type, 

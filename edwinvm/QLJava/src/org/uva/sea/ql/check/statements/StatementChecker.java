@@ -13,21 +13,20 @@ import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 
 public class StatementChecker implements Visitor {
 	
-	private final SupportedTypes _supportedTypes;
+	private final TypeEnvironment _typeEnvironment;
 	private final ErrorMessages _errorMessages;
 	
-	private StatementChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
-		_supportedTypes = supportedTypes;
+	public StatementChecker(TypeEnvironment typeEnvironment, ErrorMessages messages) {
+		_typeEnvironment = typeEnvironment;
 		_errorMessages = messages;
 	}
 	
-	public static void check(FormStatement statement, SupportedTypes supportedTypes, ErrorMessages errors) {
-		StatementChecker statementChecker = new StatementChecker(supportedTypes, errors);
-		statement.accept(statementChecker);
+	public void check(FormStatement statement) {
+		statement.accept(this);
 	}
 
 	@Override
@@ -50,7 +49,7 @@ public class StatementChecker implements Visitor {
 
 	@Override
 	public void visit(ComputedQuestion statement) {
-		checkName(statement, statement.getExpression().typeOf(_supportedTypes));
+		checkName(statement, statement.getExpression().typeOf(_typeEnvironment));
 		checkExpr(statement.getExpression());
 	}
 	
@@ -60,7 +59,7 @@ public class StatementChecker implements Visitor {
 
 	private void checkExpr(Expr expr) {
 		// Run expression through TypeChecker
-		TypeChecker.check(expr, _supportedTypes, _errorMessages);
+		TypeChecker.check(expr, _typeEnvironment, _errorMessages);
 	}
 	
 	private void checkName(Question statement, Type type) {
@@ -70,15 +69,13 @@ public class StatementChecker implements Visitor {
 	
 	private void checkQuestionCompatibility(Ident questionVariable, Type type) {
 		storeQuestionVariable(questionVariable, type);
-		if (!type.isCompatibleTo(questionVariable.typeOf(_supportedTypes))) {
+		if (!type.isCompatibleTo(questionVariable.typeOf(_typeEnvironment))) {
 			addError(questionVariable);
 		}
 	}
 
 	private void storeQuestionVariable(Ident questionVariable, Type type) {
-		if (!_supportedTypes.contains(questionVariable)) {
-			_supportedTypes.add(questionVariable, type);
-		}
+		_typeEnvironment.add(questionVariable, type);
 	}
 	
 	private void addError(Ident ident) {

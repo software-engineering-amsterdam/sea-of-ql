@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
-public interface Expression {
+import org.uva.sea.ql.ast.ASTNode;
+
+public interface Expression extends ASTNode {
 	
 }

@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 
 public class Not extends UnaryExpr {
 	public Not(Expr expr) {
@@ -12,7 +12,7 @@ public class Not extends UnaryExpr {
 	}
 	
 	@Override
-	public Type typeOf(SupportedTypes supportedTypes) {
+	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Bool();
 	}
 	

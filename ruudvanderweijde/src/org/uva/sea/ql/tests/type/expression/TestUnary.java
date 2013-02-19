@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.ANTLRParser;
+import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.tests.IParse;
 import org.uva.sea.ql.visitor.typeCheck.ExpressionTypeVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.errors;
 
-import org.uva.sea.ql.ast.expression.Binary;
-import org.uva.sea.ql.ast.expression.Unary;
+import org.uva.sea.ql.ast.expressions.Binary;
+import org.uva.sea.ql.ast.expressions.Unary;
 
 public class OperatorTypeMismatchError extends SemanticError {
 	private final static String U_FORMAT =

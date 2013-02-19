@@ -17,7 +17,7 @@ import lang::ql::analysis::LabelMap;
 import lang::ql::analysis::Messages;
 import lang::ql::analysis::State;
 import lang::ql::analysis::TypeMap;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import util::IDE;
 import util::LocationHelper;

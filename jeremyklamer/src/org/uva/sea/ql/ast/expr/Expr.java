@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.ASTNode;
@@ -18,6 +19,13 @@ public abstract class Expr implements ASTNode {
 	
 	public abstract Type typeOf(Env env);
 	
-	public abstract List<Message> checkType(Env env);
+	public void checkType(List<Message> errors, Env env) {
+	}
+	
+	public List<Message> getTypeErrors(Env env) {
+		ArrayList<Message> errors = new ArrayList<Message>();
+		checkType(errors, env);
+		return errors; 
+	}
 	
 }

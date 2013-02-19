@@ -5,7 +5,7 @@ public class IntegerVal extends Val {
 	private int value;
 	
 	public IntegerVal() {
-		
+		value = 0;
 	}
 	
 	public IntegerVal(int value) {
@@ -20,49 +20,79 @@ public class IntegerVal extends Val {
 		this.value = value;
 	}
 	
-	public IntegerVal add(IntegerVal value) {
-		return new IntegerVal(getValue() + value.getValue());
+	public Val add(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new IntegerVal(getValue() + ((IntegerVal)value).getValue());
 	}
 
-	public IntegerVal substract(IntegerVal value) {
-		return new IntegerVal(getValue() - value.getValue());
+	public Val substract(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new IntegerVal(getValue() - ((IntegerVal)value).getValue());
 	}
 
-	public IntegerVal multiplyBy(IntegerVal value) {
-		return new IntegerVal(getValue() * value.getValue());
+	public Val multiplyBy(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new IntegerVal(getValue() * ((IntegerVal)value).getValue());
 	}
 
-	public IntegerVal divideBy(IntegerVal value) {
-		return new IntegerVal(getValue() / value.getValue());
+	public Val divideBy(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new IntegerVal(getValue() / ((IntegerVal)value).getValue());
 	}
 	
-	public BooleanVal lessThan(IntegerVal value) {
-		return new BooleanVal(getValue() < value.getValue());
+	public Val lessThan(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal(getValue() < ((IntegerVal)value).getValue());
 	}
 	
-	public BooleanVal greaterThan(IntegerVal value) {
-		return new BooleanVal(getValue() > value.getValue());
+	public Val greaterThan(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal(getValue() > ((IntegerVal)value).getValue());
 	}
 	
-	public BooleanVal equalTo(IntegerVal value) {
-		return new BooleanVal(getValue() == value.getValue());
+	public Val equalTo(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal(getValue() == ((IntegerVal)value).getValue());
 	}
 	
-	public BooleanVal notEqualTo(IntegerVal value) {
+	public Val notEqualTo(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
 		return equalTo(value).not();
 	}
 	
-	public BooleanVal lessOrEqualTo(IntegerVal value) {
-		return new BooleanVal(lessThan(value).or(equalTo(value)));
+	public Val lessOrEqualTo(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal((BooleanVal)lessThan(value).or(equalTo(value)));
 	}
 	
-	public BooleanVal greaterOrEqualTo(IntegerVal value) {
-		return new BooleanVal(greaterThan(value).or(equalTo(value)));
+	public Val greaterOrEqualTo(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal((BooleanVal)greaterThan(value).or(equalTo(value)));
 	}
 
 	@Override
 	public String toString() {
-		return "IntegerVal [value=" + value + "]";
+		return String.valueOf(value);
 	}
 
 

@@ -24,6 +24,7 @@ import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
+import org.uva.sea.ql.ast.expressions.Unary;
 import org.uva.sea.ql.ast.types.Type;
 
 
@@ -139,8 +140,8 @@ public class ExprTypeCheckingVisitor implements ExprVisitor<Boolean> {
 		return checkBinaryExpr(sub, "-", Compatibility.Int);
 	}
 	
-	private boolean checkUnaryExpr(Binary expr, String symbol, Compatibility compatibility) {
-		Type type = expr.getLhs().typeOf(typeEnvironment);
+	private boolean checkUnaryExpr(Unary expr, String symbol, Compatibility compatibility) {
+		Type type = expr.getContainedExpression().typeOf(typeEnvironment);
 		if (compatibility == Compatibility.Int) {
 			if (!type.isCompatibleToInt()) {
 				addTypeError(symbol);

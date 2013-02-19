@@ -12,7 +12,6 @@ import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -27,9 +26,9 @@ import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.EvaluationVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.ReturnFinder;
+import org.uva.sea.ql.common.ReturnTypes;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
-import org.uva.sea.ql.interpretation.exception.InvalidInputException;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
@@ -136,7 +135,8 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
     public void visit(Ident i) throws QLException {
         final QuestionPanel questionPanel = this.registry
                 .getQuestionPanelByIdent(i);
-        final ReturnFinder finder = new ReturnFinder(this.registry.getQuestionsAst());
+        final ReturnFinder finder = new ReturnFinder(
+                this.registry.getQuestionsAst());
         questionPanel.getQuestion().getType().accept(finder);
         final ReturnTypes result = finder.getResult();
         if (result.equals(ReturnTypes.MATH)) {
@@ -148,18 +148,21 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
             }
         }
     }
-    private void tryToReplaceEmptyInput() throws EmptyInputException{
+
+    private void tryToReplaceEmptyInput() throws EmptyInputException {
         if (this.replaceEmtyWithZero) {
             this.ret = 0;
         } else {
             throw new EmptyInputException();
         }
     }
-    private void tryToParseInput(QuestionPanel questionPanel) throws EvaluationException{
+
+    private void tryToParseInput(QuestionPanel questionPanel)
+            throws EvaluationException {
         try {
             questionPanel.setValid(true);
-            this.ret = Float.parseFloat(questionPanel.getStringValue()
-                    .replace(',', '.'));
+            this.ret = Float.parseFloat(questionPanel.getStringValue().replace(
+                    ',', '.'));
         } catch (NumberFormatException ex) {
             questionPanel.setValid(false);
         }

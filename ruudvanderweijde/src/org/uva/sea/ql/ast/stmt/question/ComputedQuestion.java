@@ -6,7 +6,6 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class ComputedQuestion extends Question {
-
 	private final Expr expression;
 	
 	public ComputedQuestion(Ident id, String label, Type tp, Expr expression) {

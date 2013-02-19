@@ -36,7 +36,7 @@ public class Statement implements IStatement<JPanel> {
 	public JPanel visit(Block block) {
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 
-		Environment innerEnvironment = new Environment(this.environment);
+		Environment innerEnvironment = this.environment.getChildEnvironment();
 		IStatement<JPanel> statementVisitor = new Statement(innerEnvironment);
 		for (AbstractStatement statement : block.getStatements()) {
 			JPanel inner = statement.accept(statementVisitor);
@@ -60,9 +60,6 @@ public class Statement implements IStatement<JPanel> {
 		Computed observer = new Computed(computation, ident, this.environment);
 		this.observeDependencies(computation, observer);
 
-		// Set initial value.
-		observer.update();
-
 		return panel;
 	}
 
@@ -76,9 +73,6 @@ public class Statement implements IStatement<JPanel> {
 		Conditional observer = new Conditional(condition, truePanel,
 				this.environment);
 		this.observeDependencies(condition, observer);
-
-		// Set initial value.
-		observer.update();
 
 		return truePanel;
 	}

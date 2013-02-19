@@ -1,5 +1,7 @@
 package ast.expression;
 
+import java.util.ArrayList;
+
 import ast.Expression;
 
 public abstract class Value<T> extends Expression {
@@ -16,5 +18,11 @@ public abstract class Value<T> extends Expression {
 	
 	public String typeStr(){ return null; }
 	public abstract T getValue();
+	
+
+	
+	public ArrayList<Ident> getIdents(){
+		return new ArrayList<Ident>();
+	}
 
 }

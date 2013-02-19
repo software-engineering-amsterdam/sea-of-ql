@@ -73,19 +73,19 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 		ifTrue += i;
 	}
 	str check = "function <checkBoxId> {
-	if(<exp>)
-	{
-		<formId>.removeChild(<formId>Submit);
-		<ifTrue>
-		<formId>.appendChild(<formId>Submit);
-	}else {
-		if(<children[0]>Paragraph.parentNode != null)
-		{
-		<for(c <- children){>
-		<formId>.removeChild(<c>Paragraph);
-		<}>
-		}
-	}
-	}";
+	' if(<exp>)
+	' {
+		' <formId>.removeChild(<formId>Submit);
+		' <ifTrue>
+		' <formId>.appendChild(<formId>Submit);
+	' }else {
+		' if(<children[0]>Paragraph.parentNode != null)
+		' {
+		' <for(c <- children){>
+		' <formId>.removeChild(<c>Paragraph);
+		' <}>
+		' }
+	' }
+	'}";
 	appendToJavaScriptFile(formId, "\n <check>");
 }

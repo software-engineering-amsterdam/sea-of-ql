@@ -1,5 +1,7 @@
 package ast.expression;
 
+import java.util.ArrayList;
+
 import ast.Expression;
 
 
@@ -13,6 +15,12 @@ public abstract class Unary extends Expression {
 
 	public Expression getExpression() {
 		return expression;
+	}
+	
+	public ArrayList<Ident> getIdents(){
+		ArrayList<Ident> tmp = new ArrayList<Ident>();
+		tmp.addAll(expression.getIdents());
+		return tmp;		
 	}
 
 }

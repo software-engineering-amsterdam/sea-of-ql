@@ -1,6 +1,7 @@
 package org.uva.sea.ql.parser.typechecking;
 
 import org.uva.sea.ql.ast.visitor.FormVisitor;
+import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.FormElement;
@@ -9,15 +10,19 @@ import org.uva.sea.ql.ast.form.ElseIfStatement;
 import org.uva.sea.ql.ast.form.ElseStatement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.Computed;
+import org.uva.sea.ql.parser.errors.VariableRedefinitionError;
 
 public class FormTypeChecker implements FormVisitor<Boolean> {
 	
 	private Environment environment;
 	private ExpressionTypeChecker exprTypeChecker;
+	private ExpressionTypeEvaluator exprTypeEval;
 	
 	public FormTypeChecker(Environment environment) {
 		this.environment = environment;
 		this.exprTypeChecker = new ExpressionTypeChecker(environment);
+		this.exprTypeEval = new ExpressionTypeEvaluator(
+				environment.getTypeEnvironment());
 	}
 
 	@Override
@@ -45,7 +50,9 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 			typeCorrect &= elseIf.accept(this);
 		}
 		
-		typeCorrect &= ast.getElse().accept(this);
+		if (ast.getElse() != null) {
+			typeCorrect &= ast.getElse().accept(this);
+		}
 		
 		return typeCorrect;
 	}
@@ -67,12 +74,37 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Question ast) {
-		return environment.getType(ast.getName()) != null;
+		boolean typeCorrect = environment.getType(ast.getIdent()) == null;
+		Ident ident = ast.getIdent();
+		
+		if (typeCorrect) {
+			environment.setType(ident, ast.getType());
+		} else {
+			environment.reportError(
+					new VariableRedefinitionError(ident.getName(), ident));
+		}
+		
+		return typeCorrect;
 	}
 
 	@Override
 	public Boolean visit(Computed ast) {
-		return environment.getType(ast.getName()) == ast.getType();
+		boolean typeCorrect = ast.getExpression().accept(exprTypeChecker);
+		Ident ident = ast.getIdent();
+		
+		typeCorrect &=
+				ast.getExpression().accept(exprTypeEval).equals(ast.getType());
+		
+		
+		if (environment.getType(ident) == null) {
+			environment.setType(ident, ast.getType());
+		} else {
+			typeCorrect = false;
+			environment.reportError(
+					new VariableRedefinitionError(ident.getName(), ident));
+		}
+		
+		return typeCorrect;
 	}
 
 }

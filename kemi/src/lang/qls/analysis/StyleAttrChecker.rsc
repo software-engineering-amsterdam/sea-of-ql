@@ -12,9 +12,9 @@ module lang::qls::analysis::StyleAttrChecker
 
 import IO;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::qls::analysis::Messages;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
 import util::IDE;
 
@@ -43,22 +43,22 @@ public set[Message] unallowedAttrErrors(Stylesheet s) =
 
 private set[Message] unallowedDefaultAttrErrors(Stylesheet s) =
   {
-    typeWithInvalidAttr(r.attr.name, d.\type.name, r@location) | 
-    d <- getDefaultDefinitions(s), 
-    r <- d.styleRules, 
-    !isAllowedAttr(d.\type, r.attr)
+    typeWithInvalidAttr(sr.attr.name, dd.\type.name, sr@location) | 
+    dd <- getDefaultDefinitions(s), 
+    sr <- dd.styleRules, 
+    !isAllowedAttr(dd.\type, sr.attr)
   };
 
 private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
   TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
   return 
     {
-      typeWithInvalidAttr(r.attr.name, \type.name, r@location) | 
-      d <- getQuestionDefinitions(s), 
-      d.styleRules?,
-      identDefinition(d.ident) in typeMap,
-      \type := typeMap[identDefinition(d.ident)],
-      r <- d.styleRules,
-      !isAllowedAttr(\type, r.attr)
+      typeWithInvalidAttr(sr.attr.name, \type.name, sr@location) | 
+      qd <- getQuestionDefinitions(s), 
+      qd.styleRules?,
+      identDefinition(qd.ident.name) in typeMap,
+      \type := typeMap[identDefinition(qd.ident.name)],
+      sr <- qd.styleRules,
+      !isAllowedAttr(\type, sr.attr)
     };
 }

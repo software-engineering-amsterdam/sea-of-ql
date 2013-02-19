@@ -10,7 +10,7 @@
 
 module lang::ql::tests::forms::PrettyPrinter
 
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::util::ParseHelper;
 import lang::ql::util::FormGenerator;

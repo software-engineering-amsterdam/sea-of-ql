@@ -1,20 +1,19 @@
 package org.uva.sea.ql.ast.expression.bool;
 
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.variable.Variable;
+import org.uva.sea.ql.ast.expression.Variable;
+import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
-public class BooleanVariable extends BooleanExpression
-implements Variable {
-	
-	private final Identifier id;
-	
+public class BooleanVariable extends Variable implements BooleanExpression {
+
 	public BooleanVariable(Identifier id) {
-		this.id = id;
+		super(id);
 	}
 
 	@Override
-	public Identifier getID() {
-		return id;
+	public void accept(Visitor visitor) throws VisitorException {
+		visitor.visit(this);
 	}
-
+	
 }

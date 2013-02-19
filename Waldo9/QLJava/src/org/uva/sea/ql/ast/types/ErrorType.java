@@ -8,4 +8,9 @@ public class ErrorType extends Type {
 		return false;
 	}
 
+	@Override
+	public <T> T accept(TypeVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
 }
