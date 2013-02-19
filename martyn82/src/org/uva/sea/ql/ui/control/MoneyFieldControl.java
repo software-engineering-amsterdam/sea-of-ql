@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ui.control;
 
-import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
+import org.uva.sea.ql.value.MoneyValue;
 
 abstract public class MoneyFieldControl extends Control {
 	@Override

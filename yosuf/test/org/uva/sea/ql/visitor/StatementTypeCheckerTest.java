@@ -20,25 +20,18 @@ import org.uva.sea.ql.ast.value.StringValue;
 
 public class StatementTypeCheckerTest {
 
-	private ExpressionTypeChecker expressionChecker;
 	private StatementTypeChecker statementChecker;
 	private Computed computed;
 	private CompoundStatement compound;
 
 	@Before
 	public void setUp() {
-		expressionChecker = new ExpressionTypeChecker();
-		statementChecker = new StatementTypeChecker(expressionChecker);
+		statementChecker = new StatementTypeChecker();
 
 		computed = new Computed(new IntegerType(), new Identifier("1"),
 				new IntegerValue(5));
 
 		compound = new CompoundStatement(computed);
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void testConstructor() {
-		new StatementTypeChecker(null);
 	}
 
 	@Test

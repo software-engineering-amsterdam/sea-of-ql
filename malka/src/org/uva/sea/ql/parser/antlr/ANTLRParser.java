@@ -1,11 +1,11 @@
 package org.uva.sea.ql.parser.antlr;
 
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 import java.util.List;

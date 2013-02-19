@@ -35,7 +35,6 @@ layout Standard
   
 lexical Comment 
  	= @category="Comment" "/*" CommentChar* "*/"
-  	| @category="Comment" "//" CommentChar* [\n]
   	;
 
 lexical CommentChar

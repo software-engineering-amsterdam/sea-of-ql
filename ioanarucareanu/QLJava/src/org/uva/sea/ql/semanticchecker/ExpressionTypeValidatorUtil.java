@@ -11,7 +11,16 @@ public class ExpressionTypeValidatorUtil {
 		
 	}
 	
-	public static boolean checkConditionalExpr(Expr cond, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+	public static boolean checkExprIsOfType(Expr expr, Type type, SemanticVisitor visitor, final ValidationReport errors) {
+		Type exprType = (Type) expr.accept(visitor);
+		if (!exprType.equals(type)) {
+			errors.addError("The type of the expression " + expr + " must be " + type);
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean checkConditionalExpr(Expr cond, SemanticVisitor visitor, final ValidationReport errors) {
 		Type exprType = (Type) cond.accept(visitor);
 		if (!exprType.equals(ReturnTypeHolder.getBoolType())) {
 			errors.addError("The type of the expression " + cond + " in a conditional structure must be boolean");
@@ -20,17 +29,17 @@ public class ExpressionTypeValidatorUtil {
 		return true;
 	}
 	
-	public static boolean checkBinaryExprMembersAreInt(Binary binary, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+	public static boolean checkBinaryExprMembersAreInt(Binary binary, SemanticVisitor visitor, final ValidationReport errors) {
 
 		return checkBinaryExprMembersShareGivenType(new IntegerType(), binary, visitor, errors);
 	}
 
-	public static boolean checkBinaryExprMembersAreBoolean(Binary binary, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+	public static boolean checkBinaryExprMembersAreBoolean(Binary binary, SemanticVisitor visitor, final ValidationReport errors) {
 
 		return checkBinaryExprMembersShareGivenType(ReturnTypeHolder.getBoolType(), binary, visitor, errors);
 	}
 
-	public static boolean checkBinaryExprMembersShareSameType(Binary binary, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+	public static boolean checkBinaryExprMembersShareSameType(Binary binary, SemanticVisitor visitor, final ValidationReport errors) {
 
 		Type leftExprType = (Type) binary.getLeftExpr().accept(visitor);
 		Type rightExprType = (Type) binary.getRightExpr().accept(visitor);
@@ -41,23 +50,23 @@ public class ExpressionTypeValidatorUtil {
 		return true;
 	}
 
-	public static boolean checkBinaryExprMembersShareSameNumericType(Binary binary, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+	public static boolean checkBinaryExprMembersShareSameNumericType(Binary binary, SemanticVisitor visitor, final ValidationReport errors) {
 
 		Type leftExprType = (Type) binary.getLeftExpr().accept(visitor);
 		Type rightExprType = (Type) binary.getRightExpr().accept(visitor);
-		if (!leftExprType.equals(rightExprType) || !(leftExprType.equals(ReturnTypeHolder.getDecType()) || !(leftExprType.equals(ReturnTypeHolder.getIntType())))) {
+		if (!leftExprType.equals(rightExprType) ||  !(leftExprType.equals(ReturnTypeHolder.getIntType()))) {
 			errors.addError("Both members of the expression " + binary + " must share the same numeric type.");
 			return false;
 		}
 		return true;
 	}
 
-	public static boolean checkBinaryExprMembersShareGivenType(Type type, Binary binary, ExpressionSemanticVisitor visitor, final ValidationReport errors) {
+	public static boolean checkBinaryExprMembersShareGivenType(Type type, Binary binary, SemanticVisitor visitor, final ValidationReport errors) {
 
 		Type leftExprType = (Type) binary.getLeftExpr().accept(visitor);
 		Type rightExprType = (Type) binary.getRightExpr().accept(visitor);
 		if (!leftExprType.equals(type) || !rightExprType.equals(type)) {
-			errors.addError("Both members of the expression " + binary + " must be of type " + type.getHumanReadableType());
+			errors.addError("Both members of the expression " + binary + " must be of type " + type.toString() + ". Instead, left is " + leftExprType + " and right is " + rightExprType);
 			return false;
 		}
 		return true;

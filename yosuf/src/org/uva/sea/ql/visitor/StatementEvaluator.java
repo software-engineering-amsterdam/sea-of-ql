@@ -11,6 +11,12 @@ import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.lead.Model;
 
+/**
+ * Class representing the visitor to evaluate form and statements. Moreover, it evaluates the
+ * expressions expressed in the statements and the form.
+ * 
+ * It is recommented to start the evaluation by a form to handle the correct flow of visiting.
+ */
 public class StatementEvaluator implements StatementVisitor<Block> {
 
 	private final Model model;
@@ -28,9 +34,8 @@ public class StatementEvaluator implements StatementVisitor<Block> {
 
 	@Override
 	public Block visit(final Form form) {
-		form.getIdentifier().accept(expressionEvaluator);
 		form.getBody().accept(this);
-		return null;
+		return form;
 	}
 
 	@Override
@@ -38,12 +43,12 @@ public class StatementEvaluator implements StatementVisitor<Block> {
 		for (Block statement : compoundStatement.getStatements()) {
 			statement.accept(this);
 		}
+
 		return compoundStatement;
 	}
 
 	@Override
 	public Block visit(final IfStatement ifStatement) {
-		ifStatement.getExpression().accept(expressionEvaluator);
 		ifStatement.getIfCompound().accept(this);
 
 		return ifStatement;
@@ -51,7 +56,7 @@ public class StatementEvaluator implements StatementVisitor<Block> {
 
 	@Override
 	public Block visit(final IfElseStatement ifElseStatement) {
-		ifElseStatement.getExpression().accept(expressionEvaluator);
+
 		ifElseStatement.getIfCompound().accept(this);
 		ifElseStatement.getElseCompound().accept(this);
 

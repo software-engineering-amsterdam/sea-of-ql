@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Feb 12 20:45:18 CET 2013
+// Output created by jacc on Mon Feb 18 17:01:20 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -3112,13 +3112,13 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr10() { // question : STR vardeclaration
-        { yyrv = new QuestionVariable( ((StringLiteral)yysv[yysp-2]), ((VarDeclaration)yysv[yysp-1]) ); }
+        { yyrv = new VariableQuestion( ((StringLiteral)yysv[yysp-2]), ((VariableDeclaration)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return 7;
     }
 
     private int yyr11() { // question : STR assignment
-        { yyrv = new QuestionComputed( ((StringLiteral)yysv[yysp-2]), ((Assignment)yysv[yysp-1]) ); }
+        { yyrv = new ComputedQuestion( ((StringLiteral)yysv[yysp-2]), ((Assignment)yysv[yysp-1]) ); }
         yysv[yysp-=2] = yyrv;
         return 7;
     }
@@ -3194,7 +3194,7 @@ class JACCParser implements QLTokens {
     }
 
     private int yyr20() { // vardeclaration : IDENT ':' datatype
-        { yyrv = new VarDeclaration( ((IdentifierExpression)yysv[yysp-3]), ((Type)yysv[yysp-1]) ); }
+        { yyrv = new VariableDeclaration( ((IdentifierExpression)yysv[yysp-3]), ((Type)yysv[yysp-1]) ); }
         yysv[yysp-=3] = yyrv;
         return 17;
     }

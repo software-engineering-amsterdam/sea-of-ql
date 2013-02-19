@@ -1,16 +1,21 @@
 package ast.statement;
 
 import ast.*;
-import ast.visitor.Visitor;
 
 public class If extends Statement {
 
 	private final Expression condition;
-	private final Statement consequent;
+	private final Block trueBlock;
+	private final Block falseBlock;
 
-	public If(Expression condition, Statement consequent) {
+	public If(Expression condition, Block trueBlock){
+		this(condition, trueBlock, new Block());
+	}
+	
+	public If(Expression condition, Block trueBlock, Block falseBlock) {
 		this.condition = condition;
-		this.consequent = consequent;
+		this.trueBlock = trueBlock;
+		this.falseBlock = falseBlock;
 	}
 
 	@Override
@@ -22,8 +27,11 @@ public class If extends Statement {
 		return condition;
 	}
 
-	public Statement getConsequent() {
-		return consequent;
+	public Block getTrueBlock() {
+		return trueBlock;
 	}
-
+	
+	public Block getFalseBlock() {
+		return falseBlock;
+	}
 }

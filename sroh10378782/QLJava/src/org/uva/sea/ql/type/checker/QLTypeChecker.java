@@ -1,14 +1,11 @@
 package org.uva.sea.ql.type.checker;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.nodes.IBinaryNode;
-import org.uva.sea.ql.ast.nodes.IMultiNode;
-import org.uva.sea.ql.ast.nodes.IUnaryNode;
-import org.uva.sea.ql.ast.statements.Block;
-import org.uva.sea.ql.ast.statements.Condition;
-import org.uva.sea.ql.ast.statements.ConditionalStatement;
-import org.uva.sea.ql.ast.statements.Form;
-import org.uva.sea.ql.ast.types.Ident;
+import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.nodes.statements.Block;
+import org.uva.sea.ql.ast.nodes.statements.Condition;
+// import org.uva.sea.ql.ast.nodes.statements.ConditionalStatement;
+import org.uva.sea.ql.ast.nodes.statements.Form;
+import org.uva.sea.ql.ast.nodes.types.Ident;
 import org.uva.sea.ql.type.ITypeCheck;
 import org.uva.sea.ql.type.TypeCheckError;
 
@@ -78,12 +75,13 @@ public class QLTypeChecker implements ITypeCheck{
 	
 	private Expr checkExpressionNode(Expr x){
 		Expr retVal = x;
-		if(x.isBinaryNode()) { checkBinaryNode(x); }
-		if(x.isMultiNode())  { checkMultiNode(x);  }
-		if(x.isUnaryNode())  { checkUnaryNode(x);  }
+		// if(x.isBinaryNode()) { checkBinaryNode(x); }
+		// if(x.isMultiNode())  { checkMultiNode(x);  }
+		// if(x.isUnaryNode())  { checkUnaryNode(x);  }
 		return retVal;
 	}
 	
+	/*
 	private Expr checkBinaryNode(Expr x){
 		Expr retVal = x;
 		IBinaryNode ib = (IBinaryNode)x;
@@ -114,10 +112,6 @@ public class QLTypeChecker implements ITypeCheck{
 		return retVal;
 	}
 	
-	
-	
-	
-	
 	private void validateBinaryNode(Expr x){
 		addBinaryNodeActualExpression(x);
 	}
@@ -125,20 +119,20 @@ public class QLTypeChecker implements ITypeCheck{
 	private void addBinaryNodeActualExpression(Expr x){
 		if(x.getClass() == Form.class){
 			System.out.println("VAL Form Found ");
-			IBinaryNode bn = (IBinaryNode)x;
-			Block block = (Block)bn.getRhs();
-			blocks.add(block);
+			// IBinaryNode bn = (IBinaryNode)x;
+			// Block block = (Block)bn.getRhs();
+			// blocks.add(block);
 			System.out.println("VAL Form Added ");
 		}
 		if(x.getClass() == ConditionalStatement.class){
 			System.out.println("VAL ConditionalStatement Found ");
-			IBinaryNode conSt = (IBinaryNode)x;
-			conditions.add((Condition)conSt.getLhs());
-			blocks.add((Block)conSt.getRhs());
+			// IBinaryNode conSt = (IBinaryNode)x;
+			// conditions.add((Condition)conSt.getLhs());
+			// blocks.add((Block)conSt.getRhs());
 			System.out.println("VAL Condition and Block Added ");
 		}
 	}
-	
+	*/
 	private void validateConditions(){
 		for(int i = 0;i<conditions.size();i++){
 			validateConditionStatement(conditions.get(i));
@@ -146,6 +140,7 @@ public class QLTypeChecker implements ITypeCheck{
 	}
 	
 	private void validateConditionStatement(Expr con){
+		/**
 		if(con.isUnaryNode()){
 			IUnaryNode un = (IUnaryNode)con;
 			if(un.hasExpr()){
@@ -174,7 +169,9 @@ public class QLTypeChecker implements ITypeCheck{
 					errors.add("Condition needs to be a Ident");
 				}
 			}
+			
 		}
+		**/
 	}
 }
 

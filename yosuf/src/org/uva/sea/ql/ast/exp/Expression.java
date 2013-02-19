@@ -12,10 +12,6 @@ import org.uva.sea.ql.visitor.ExpressionVisitor;
  */
 public abstract class Expression<T> implements ASTNode, Natural {
 
-	public enum Nature {
-		NUMERIC, BOOLEAN, TEXTUAL
-	}
-
 	protected Expression() {
 		super();
 	}

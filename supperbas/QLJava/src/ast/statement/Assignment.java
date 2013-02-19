@@ -1,8 +1,7 @@
 package ast.statement;
 
 import ast.*;
-import ast.expression.value.Ident;
-import ast.visitor.Visitor;
+import ast.expression.Ident;
 
 public class Assignment extends Statement {
 	

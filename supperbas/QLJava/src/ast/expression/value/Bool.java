@@ -3,8 +3,9 @@ package ast.expression.value;
 import java.util.Map;
 
 import ast.Type;
+import ast.expression.Ident;
 import ast.expression.Value;
-import ast.visitor.Visitor;
+import ast.expression.Visitor;
 
 
 public class Bool extends Value {
@@ -14,7 +15,7 @@ public class Bool extends Value {
 		this.value = value;
 	}
 
-	public <T> boolean getValue() {
+	public Boolean getValue() {
 		return value;
 	}
 	
@@ -24,7 +25,7 @@ public class Bool extends Value {
 	}
 	
 	@Override
-	public Type typeOf(Map<ast.type.Ident, Type> typeEnv) {
+	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new ast.type.Bool();
 	}
 

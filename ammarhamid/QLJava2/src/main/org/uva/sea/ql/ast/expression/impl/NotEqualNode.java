@@ -20,10 +20,9 @@ public class NotEqualNode extends BinaryNode
         return value1.notEqual(value2);
     }
 
-//    @Override
-//    public String toTreeString(final String indent)
-//    {
-//        return '\n' + indent + "!=" + lhs.toTreeString(indent + "  ")
-//                + rhs.toTreeString(indent + "  ");
-//    }
+    @Override
+    protected String getOperator()
+    {
+        return "!=";
+    }
 }

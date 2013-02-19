@@ -1,5 +1,7 @@
 package ast.expression;
 
+import java.util.ArrayList;
+
 import ast.Expression;
 
 
@@ -19,6 +21,13 @@ public abstract class Binary extends Expression {
 
 	public Expression getLhs() {
 		return lhs;
+	}
+	
+	public ArrayList<Ident> getIdents(){
+		ArrayList<Ident> tmp = new ArrayList<Ident>();
+		tmp.addAll(lhs.getIdents());
+		tmp.addAll(rhs.getIdents());
+		return tmp;		
 	}
 
 }

@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class MoneyLiteral extends Expr {
 	private final BigDecimal value;
@@ -33,6 +34,12 @@ public class MoneyLiteral extends Expr {
 	@Override
 	public Result eval(Map<String, Result> symbolMap) {
 		return new MoneyResult(value);
+	}
+
+	@Override
+	public <T> T accept(Visitor<T> visitor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -5,7 +5,6 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-
 public class Bool extends Primary<Boolean> {
 	private final boolean value;
 
@@ -13,6 +12,7 @@ public class Bool extends Primary<Boolean> {
 		this.value = value;
 	}
 	
+	@Override
 	public Boolean getValue() {
 		return value;
 	}
@@ -27,10 +27,8 @@ public class Bool extends Primary<Boolean> {
 		return new BooleanType();
 	}
 
-
 	@Override
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

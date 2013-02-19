@@ -1,31 +1,41 @@
 package org.uva.sea.ql.ui.swing;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.text.DecimalFormat;
 
-import javax.swing.JTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.MoneyFieldControl;
-import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.MoneyValue;
+import org.uva.sea.ql.value.Value;
 
 public class JMoneyFieldControl extends MoneyFieldControl {
-	private final JTextField control;
+	private final JSpinner control;
 
 	public JMoneyFieldControl() {
-		this.control = new JTextField();
+		SpinnerModel model = new SpinnerNumberModel( new Double( 0.00 ), null, null, new Double( .01 ) );
+		this.control = new JSpinner( model );
+
+		JSpinner.NumberEditor editor = (JSpinner.NumberEditor) this.control.getEditor();
+		DecimalFormat format = editor.getFormat();
+
+		format.setMinimumFractionDigits( 2 );
+		format.setMaximumFractionDigits( 2 );
 	}
 
 	@Override
-	public JTextField getInnerControl() {
+	public JSpinner getInnerControl() {
 		return this.control;
 	}
 
 	@Override
 	public void setValue( Value value ) {
-		this.control.setText( value.toString() );
+		this.control.setValue( value.getValue() );
 	}
 
 	@Override
@@ -40,19 +50,16 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 
 	@Override
 	public MoneyValue getValue() {
-		return new MoneyValue( Double.parseDouble( this.control.getText() ) );
+		return new MoneyValue( Double.parseDouble( this.control.getValue().toString() ) );
 	}
 
 	@Override
 	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addFocusListener( new FocusListener() {
+		this.control.addChangeListener( new ChangeListener() {
 			@Override
-			public void focusLost( FocusEvent focusEvent ) {
+			public void stateChanged( ChangeEvent arg0 ) {
 				listener.itemChanged( new ControlEvent( JMoneyFieldControl.this ) );
 			}
-
-			@Override
-			public void focusGained( FocusEvent focusEvent ) {}
 		} );
 	}
 }

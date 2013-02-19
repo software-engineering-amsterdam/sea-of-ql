@@ -57,4 +57,24 @@ public class Bool extends AbstractValue {
 		return new Bool(value.getValue() != this.getValue());
 	}
 
+	@Override
+	public int hashCode() {
+		return this.value ? 1231 : 1237;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Bool)) {
+			return false;
+		}
+
+		Bool value = (Bool) obj;
+		return this.value == value.getValue();
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return this.value ? "True" : "False";
+	}
+
 }

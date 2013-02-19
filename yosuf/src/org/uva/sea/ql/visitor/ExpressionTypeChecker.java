@@ -4,6 +4,7 @@ import static julius.validation.Assertions.checked;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import julius.validation.ValidationException;
 
@@ -11,16 +12,18 @@ import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
+import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
-import org.uva.sea.ql.ast.exp.Expression.Nature;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.exp.Multiply;
+import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.Negative;
 import org.uva.sea.ql.ast.exp.Not;
 import org.uva.sea.ql.ast.exp.NotEquals;
+import org.uva.sea.ql.ast.exp.Numeric;
 import org.uva.sea.ql.ast.exp.Or;
 import org.uva.sea.ql.ast.exp.Positive;
 import org.uva.sea.ql.ast.exp.SmallerOrEquals;
@@ -39,8 +42,11 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	private final List<TypeCheckException> typeErrors;
 
-	public ExpressionTypeChecker() {
+	private final Map<Natural, Natural> environment;
+
+	public ExpressionTypeChecker(final Map<Natural, Natural> environment) {
 		typeErrors = new ArrayList<TypeCheckException>();
+		this.environment = environment;
 	}
 
 	public List<TypeCheckException> getTypeErrors() {
@@ -113,7 +119,11 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	@Override
 	public Natural visit(final Identifier identifier) {
-		return identifier;
+		if (environment.get(identifier) == null) {
+			return identifier;
+		} else {
+			return environment.get(identifier);
+		}
 	}
 
 	@Override
@@ -190,17 +200,17 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	}
 
 	private void assertNumeric(final Natural natural) {
-		assertNature(natural, Nature.NUMERIC);
+		assertNature(natural, new Numeric());
 	}
 
 	private void assertBoolean(final Natural natural) {
-		assertNature(natural, Nature.BOOLEAN);
+		assertNature(natural, new Bools());
 	}
 
 	private void assertNature(final Natural natural, final Nature nature) {
 		try {
-			checked.assertTrue(nature == natural.getNature(), "A " + nature
-					+ " is incompatible with " + natural);
+			checked.assertTrue(nature.equals(natural.getNature()), "A "
+					+ nature + " is incompatible with " + natural);
 		} catch (ValidationException e) {
 			typeErrors.add(new TypeCheckException("A " + nature
 					+ " is incompatible with " + natural, e));

@@ -33,16 +33,16 @@ public class QLParserTest
         final String validSrc = "" +
                 "form test " +
                 "{ " +
-                "	hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
-                "	hasSoldCar: \"Did you sell a car in 2010?\" integer " +
+                "	\"Did you sell a house in 2010?\" hasSoldHouse: boolean " +
+                "	\"Did you sell a car in 2010?\" hasSoldCar: integer " +
                 "	if (1+1==2) " +
                 "	{ " +
-                "		hasNothing: \"nothing?\" boolean " +
-                "		hasNothing2: \"nothing?\" boolean " +
+                "		\"nothing?\" hasNothing: boolean " +
+                "		\"really nothing?\" hasNothing2: boolean " +
                 "	}" +
                 "	else" +
                 "	{" +
-                "		hasNothing: \"nothing?\" boolean " +
+                "		\"nothing?\" hasNothing: boolean " +
                 "	}" +
                 "}";
 
@@ -52,16 +52,16 @@ public class QLParserTest
         final String expectedExpression = "(+ 1 (* 2 1))";
         Assert.assertEquals("Result should be the same", expectedExpression, actualExpression);
 
-        QLParser qlParser2 = this.parser.createQLParser("if(1+2) { hasSoldIt: \"Really?\" boolean }");
+        QLParser qlParser2 = this.parser.createQLParser("if(1+2) { \"Really?\" hasSoldIt:  boolean }");
         String actualIfBlock = qlParser2.ifStatement().tree.toStringTree();
         System.out.println(actualIfBlock);
-        final String expectedIfBlock = "(IF (EXPRESSION (+ 1 2) (BLOCK (ASSIGNMENT hasSoldIt boolean))))";
+        final String expectedIfBlock = "(IF (EXPRESSION (+ 1 2) (BLOCK (ASSIGNMENT Really? hasSoldIt boolean))))";
         Assert.assertEquals("Result should be the same", expectedIfBlock, actualIfBlock);
 
         QLParser qlParser3 = this.parser.createQLParser(validSrc);
         String actualForm = qlParser3.form().tree.toStringTree();
         System.out.println(actualForm);
-        final String expectedForm = "(FORM test (BLOCK (ASSIGNMENT hasSoldHouse boolean) (ASSIGNMENT hasSoldCar integer) (IF (EXPRESSION (== (+ 1 1) 2) (BLOCK (ASSIGNMENT hasNothing boolean) (ASSIGNMENT hasNothing2 boolean))) (EXPRESSION (BLOCK (ASSIGNMENT hasNothing boolean))))))";
+        final String expectedForm = "(FORM test (BLOCK (ASSIGNMENT Did you sell a house in 2010? hasSoldHouse boolean) (ASSIGNMENT Did you sell a car in 2010? hasSoldCar integer) (IF (EXPRESSION (== (+ 1 1) 2) (BLOCK (ASSIGNMENT nothing? hasNothing boolean) (ASSIGNMENT really nothing? hasNothing2 boolean))) (EXPRESSION (BLOCK (ASSIGNMENT nothing? hasNothing boolean))))))";
         Assert.assertEquals("Result should be the same", expectedForm, actualForm);
 
         final QLParser qlParser4 = this.parser.createQLParser(validSrc);

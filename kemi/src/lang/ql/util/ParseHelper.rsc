@@ -17,7 +17,7 @@ import lang::ql::syntax::Comment;
 import lang::ql::syntax::Int;
 import lang::ql::syntax::Keyword;
 import lang::ql::syntax::Layout;
-import lang::ql::syntax::QL;
+import lang::ql::syntax::Money;
 import lang::ql::syntax::QL;
 import lang::ql::syntax::String;
 import lang::ql::syntax::Type;

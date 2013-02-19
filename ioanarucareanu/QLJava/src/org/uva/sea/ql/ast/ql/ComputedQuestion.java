@@ -2,15 +2,15 @@ package org.uva.sea.ql.ast.ql;
 
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.expr.value.StringValue;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.semanticchecker.QLItemSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public class ComputedQuestion extends Question {
 
 	private final Expr expr;
 	
-	public ComputedQuestion(Ident id, StringValue label, Type type, Expr expr) {
+	public ComputedQuestion(Ident id, String label, Type type, Expr expr) {
 		super(id, label, type);
 		this.expr = expr;
 	}
@@ -20,9 +20,14 @@ public class ComputedQuestion extends Question {
 	}
 
 	@Override
-	public void accept(QLItem visitableElement, QLItemSemanticVisitor visitor) {
-		// TODO Auto-generated method stub
-		super.accept(visitableElement, visitor);
+	public ReturnType accept(StatementVisitor visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public boolean isDependent() {
+		
+		return true;
 	}
 	
 	

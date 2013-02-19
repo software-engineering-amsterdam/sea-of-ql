@@ -12,4 +12,5 @@ public class QlValueError extends Value {
 	public String getMessage() {
 		return message;
 	}
+	
 }

@@ -9,9 +9,9 @@ module lang::ql::syntax::QL
 start syntax Expr
   = ident: Ident name
   | \int: Int integer
-  | boolean: Boolean boolean
+  | boolCon: Boolean boolean
   > money: Money money
-  | string: String string
+  | strCon: String string
   | date: Date date
   | decimal: Decimal decimalnumber
   | bracket "(" Expr arg ")"
@@ -48,7 +48,7 @@ start syntax DataType
   ;  
         
 start syntax Form
-  = form: "form" Ident identification "{" Element* formElement "}" // A form can contain several elements
+  = form: "form" Ident identification "{" Element* formElement "}" 
   ;
 
 start syntax Element
@@ -62,14 +62,10 @@ start syntax Question
   ;
    
 start syntax Condition
-  = singleIfCondition: "if" Expr evaluation "{" Element+ questions "}"// An iF condition should contain at least one or several elements  
-  | ifElseIfCondition: "if" Expr evaluation "{" Element+ questions "}" ElseIf* elseif "else" "{" Element+ questions "}" // An if else if else condition may contain severeal Elseifs  
+  = singleIfCondition: "if" Expr evaluation "{" Element+ questions "}"
+  | ifElseCondition: "if" Expr evaluation "{" Element+ questions "}" "else" "{" Element+ questions "}"   
   ;
-      
-start syntax ElseIf
-  = elseifCondition: "else if" Expr evaluation "{" Element+ questions "}" // An ElseIF condition should contain at least one or several elements 
-  ; 
-  
+        
 syntax WhitespaceOrComment 
   = whitespace: Whitespace
   | comment: Comment
@@ -132,6 +128,7 @@ keyword Keywords
   | "decimal"
   | "form"
   | "money"
+  | "label"
   ; 
     
  

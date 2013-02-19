@@ -6,6 +6,22 @@ options
   memoize=true; 
 }
 
+@rulecatch {
+   catch(RecognitionException re) {
+      addError(re.getMessage());
+      recover(input,re);
+   }
+   catch(NullPointerException npe) {
+      addError(npe.getMessage());
+   }
+   catch(NumberFormatException nfe) {
+      addError(nfe.getMessage());
+   }
+   catch(Exception e) {
+      addError(e.getMessage());
+   }
+}
+
 @parser::header
 {
   package org.uva.sea.ql.parser;
@@ -40,6 +56,9 @@ options
     private void addError(String message) {
         Message error = new Error(message);
         errors.add(error);
+    }
+    public boolean hasErrors() {
+        return !this.errors.isEmpty();
     }
     public List<Message> getErrors() {
         return this.errors;

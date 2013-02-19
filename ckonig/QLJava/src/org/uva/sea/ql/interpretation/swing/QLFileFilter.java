@@ -12,7 +12,6 @@ public class QLFileFilter extends FileFilter {
 
 	@Override
 	public final String getDescription() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

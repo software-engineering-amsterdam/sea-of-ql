@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.SymbolTable;
 
 public class BoolLiteral extends Literal<Boolean> {
 	
@@ -22,13 +22,12 @@ public class BoolLiteral extends Literal<Boolean> {
 	public BoolLiteral(String v){
 		this(Boolean.parseBoolean(v));
 	}
-	@Override
-	public Type typeOf(SymbolTable st) {
-		// TODO Auto-generated method stub
-		return new BoolType();
-	}
 	public Boolean getValue(){
 		return this.value;
+	}
+	@Override
+	public Type typeOf(SymbolTable st) {
+		return new BoolType();
 	}
 
 }

@@ -13,9 +13,8 @@ module lang::ql::compiler::web::JSExpressionPrinter
 import String;
 import lang::ql::ast::AST;
 
-// Until we work how to reconstruct priorities (doNotNest stuff)
-// we should include parenthesis just in case. 
-
+// Note: Because this is generated code, we add parentheses anyway. 
+// It is not worthwile to minimize those as we do in the normal prettyprinter.
 public str jsPrint(pos(Expr posValue)) = 
   "(+<jsPrint(posValue)>)";
 

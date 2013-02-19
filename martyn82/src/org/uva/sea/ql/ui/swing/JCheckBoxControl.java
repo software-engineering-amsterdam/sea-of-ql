@@ -8,8 +8,8 @@ import javax.swing.JCheckBox;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.CheckBoxControl;
-import org.uva.sea.ql.visitor.evaluator.value.BooleanValue;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.BooleanValue;
+import org.uva.sea.ql.value.Value;
 
 public class JCheckBoxControl extends CheckBoxControl {
 	private final JCheckBox control;
@@ -25,7 +25,9 @@ public class JCheckBoxControl extends CheckBoxControl {
 
 	@Override
 	public void setValue( Value value ) {
-		this.control.setSelected( (Boolean) value.getValue() );
+		if ( value.isDefined() ) {
+			this.control.setSelected( ( (BooleanValue) value ).getValue() );
+		}
 	}
 
 	@Override

@@ -26,54 +26,100 @@ private node createNode(str name, str label, loc location,
     list[node] children) =
   setAnnotations(makeNode(name, children), ("label": label, "loc": location));
 
-
 private list[node] outliner(list[Statement] statements, loc rootloc) {
-  qs = [
-    createNode("Question", "<text.text> : <\type.name>", q@location, []) |
-    /Question q: question(text, \type, _) <- statements
-  ];
-    
-  cqs = [
-    createNode("QQuestion", "<text.text> : <\type.name> (<prettyPrint(cf)>)", q@location, []) | 
-    /Question q: question(text, \type, _, cf) <- statements
-  ];
+  qs = createNodeList(statements, "Question");
+  cqs = createNodeList(statements, "CQuestion");
   
-  ifs = [
-    createNode("if", "if (<prettyPrint(ifPart.condition)>)", i@location, []) | 
-    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements, 
-    elseIfs == [], 
-    elsePart == []
-  ];
-  
-  ifelse = [
-    createNode("ifelse", "if else (<prettyPrint(ifPart.condition)>)", i@location, []) | 
-    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements, 
-    elseIfs == [],
-    elsePart != []
-  ];
-  
-  ifelseif = [
-    createNode("ifelseif", "if <prettyPrint(ifPart.condition)> elseif", i@location, []) | 
-    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements,
-    elseIfs != [], 
-    elsePart == []
-  ];
-  
-  ifelseifelse = [
-    createNode("ifelseifelse", "if <prettyPrint(ifPart.condition)> elseifelse", i@location, []) | 
-    /Statement i:ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart) <- statements,
-    elseIfs != [], 
-    elsePart != []
-  ];
+  ifs = createNodeList(statements, "if");
+  ifelse = createNodeList(statements, "ifelse");
+  ifelseif = createNodeList(statements, "ifelseif");
+  ifelseifelse = createNodeList(statements, "ifelseifelse");
   
   list[node] conds = 
     [createNode("if", "if statements (<size(ifs)>)", rootloc, ifs)] +
-    [createNode("ifelse", "if-else statements (<size(ifelse)>)", rootloc, ifelse)] + 
-    [createNode("ifelseif", "if-else-if statements (<size(ifelseif)>)", rootloc, ifelseif)] + 
-    [createNode("ifelseifelse", "if-else-if-else statements (<size(ifelseifelse)>)", rootloc, ifelseifelse)]; 
+    [createNode("ifelse", "if-else statements (<size(ifelse)>)", 
+      rootloc, ifelse
+    )] + 
+    [createNode("ifelseif", "if-else-if statements (<size(ifelseif)>)", 
+      rootloc, ifelseif
+    )] + 
+    [createNode("ifelseifelse", 
+      "if-else-if-else statements (<size(ifelseifelse)>)", 
+      rootloc, ifelseifelse
+    )]; 
   
   return 
     [createNode("Questions", "Questions (<size(qs)>)", rootloc, qs)] +
-    [createNode("Calculated Questions", "Calculated Questions (<size(cqs)>)", rootloc, cqs)] + 
-    [createNode("Conditionals", "Conditionals (<size(ifs + ifelse + ifelseif + ifelseifelse)>)", rootloc, conds)];
+    [createNode("Calculated Questions", "Calculated Questions (<size(cqs)>)", 
+      rootloc, cqs
+    )] + 
+    [createNode("Conditionals", 
+      "Conditionals (<size(ifs + ifelse + ifelseif + ifelseifelse)>)", 
+      rootloc, conds
+    )];
 }
+
+private list[node] createNodeList(list[Statement] statements, str listType) = 
+  [
+    createNode(listType, "<text.text> : <\type.name>", q@location, []) |
+    /Question q: question(text, \type, _) <- statements
+  ] 
+    when listType == "Question"; 
+
+private list[node] createNodeList(list[Statement] statements, str listType) = 
+  [
+    createNode(listType, "<text.text> : <\type.name> (<prettyPrint(cf)>)", 
+      q@location, []
+    ) | 
+    /Question q: question(text, \type, _, cf) <- statements
+  ]
+    when listType == "CQuestion"; 
+    
+private list[node] createNodeList(list[Statement] statements, str listType) =  
+  [
+    createNode(listType, "if (<prettyPrint(ifPart.condition)>)", i@location, []) | 
+    /Statement i: ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+      list[ElsePart] elsePart
+    ) <- statements, 
+    elseIfs == [], 
+    elsePart == []
+  ]
+    when listType == "if";
+
+private list[node] createNodeList(list[Statement] statements, str listType) =  
+  [
+    createNode(listType, "if else (<prettyPrint(ifPart.condition)>)", i@location, []) | 
+    /Statement i: ifCondition(
+      Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart
+    ) <- statements, 
+    elseIfs == [],
+    elsePart != []
+  ]
+    when listType == "ifelse";
+
+private list[node] createNodeList(list[Statement] statements, str listType) =  
+  [
+    createNode(listType, "if <prettyPrint(ifPart.condition)> elseif", i@location, []) | 
+    /Statement i: ifCondition(Conditional ifPart, 
+      list[Conditional] elseIfs, list[ElsePart] elsePart
+    ) <- statements,
+    elseIfs != [], 
+    elsePart == []
+  ]
+    when listType == "ifelseif";
+
+private list[node] createNodeList(list[Statement] statements, str listType) =  
+  [
+    createNode(listType,
+      "if <prettyPrint(ifPart.condition)> elseifelse", i@location, []
+    ) | 
+    /Statement i: ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+      list[ElsePart] elsePart
+    ) <- statements,
+    elseIfs != [], 
+    elsePart != []
+  ]
+    when listType == "ifelseifelse";
+
+private default list[node] createNodeList(list[Statement] stmts, str listType) =
+  [];

@@ -1,12 +1,22 @@
 package org.uva.sea.ql.ast.expr;
 
 
+import org.uva.sea.ql.ast.ExpressionVisitor;
+import org.uva.sea.ql.semanticchecker.ReturnType;
+
+
 public class And extends Binary {
 
 	private static final String EXPR_OPERATOR = "&&";
 
 	public And(Expr leftExpr, Expr rightExpr) {
 		super(leftExpr,rightExpr);
+	}
+	
+	@Override
+	public ReturnType accept(ExpressionVisitor visitor) {
+		
+		return visitor.visit(this);
 	}
 
 	@Override

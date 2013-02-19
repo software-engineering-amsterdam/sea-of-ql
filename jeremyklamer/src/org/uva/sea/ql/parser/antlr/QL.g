@@ -87,7 +87,7 @@ orExpr returns [Expr result]
     : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 
-form returns [Statement result] 
+form returns [Form result] 
       @init { List<Statement> formParts = new ArrayList<Statement>();}
     : 'form' Ident '{' (formPart {formParts.add($formPart.result);})+ '}' { $result = new Form(new Ident($Ident.text), formParts);}
     ;
@@ -115,9 +115,9 @@ question returns [Question result]
     | Ident ':' String returnType {$result = new Question(new Ident($Ident.text), $String.text, $returnType.result);}    
     ;
     
-returnType returns [Type result] //TODO String ,boolen met or expressie, orexpr hoort bij de question. 
+returnType returns [Type result] 
     : 'boolean' {$result = new BoolType(); }
-    | 'money' {$result = new Money();} 
+    | 'integer' {$result = new IntType();} 
     | 'string' {$result = new StringType();}
     ;
     

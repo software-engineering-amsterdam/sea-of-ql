@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.IntegerValue;
-import org.uva.sea.ql.visitor.NaturalVisitor;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class NotEquals extends Binary<BooleanValue, IntegerValue> {
 
@@ -24,7 +24,7 @@ public class NotEquals extends Binary<BooleanValue, IntegerValue> {
 
 	@Override
 	public Nature getNature() {
-		return Nature.BOOLEAN;
+		return new Bools();
 	}
 
 }

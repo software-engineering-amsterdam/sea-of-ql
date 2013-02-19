@@ -8,8 +8,8 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.TextFieldControl;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
-import org.uva.sea.ql.visitor.evaluator.value.StringValue;
+import org.uva.sea.ql.value.StringValue;
+import org.uva.sea.ql.value.Value;
 
 public class JTextFieldControl extends TextFieldControl {
 	private final JTextField control;

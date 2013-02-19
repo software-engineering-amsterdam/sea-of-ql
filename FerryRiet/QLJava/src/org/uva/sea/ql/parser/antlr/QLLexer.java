@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-12 14:01:37
+// $ANTLR 3.5 /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 11:08:42
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -517,8 +517,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:136:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:135:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:135:7: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -545,11 +545,11 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = StringLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:15: ( '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:17: '\"' (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )* '\"'
 			{
 			match('\"'); 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:140:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:139:21: (~ ( '\\n' | '\\r' | '\\f' | '\"' ) )*
 			loop1:
 			while (true) {
 				int alt1=2;
@@ -596,8 +596,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COLON;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:8: ( ':' )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:10: ':'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:8: ( ':' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:141:10: ':'
 			{
 			match(':'); 
 			}
@@ -616,8 +616,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = LBRACE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:143:8: ( '{' )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:143:10: '{'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:8: ( '{' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:142:10: '{'
 			{
 			match('{'); 
 			}
@@ -636,8 +636,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = RBRACE;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:8: ( '}' )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:144:10: '}'
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:143:8: ( '}' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:143:10: '}'
 			{
 			match('}'); 
 			}
@@ -656,7 +656,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:5: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:5: ( '/*' ( . )* '*/' | '//' (~ '\\n' )* )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='/') ) {
@@ -690,11 +690,11 @@ public class QLLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:7: '/*' ( . )* '*/'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:7: '/*' ( . )* '*/'
 					{
 					match("/*"); 
 
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:12: ( . )*
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:12: ( . )*
 					loop2:
 					while (true) {
 						int alt2=2;
@@ -715,7 +715,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt2) {
 						case 1 :
-							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:148:12: .
+							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:146:12: .
 							{
 							matchAny(); 
 							}
@@ -732,11 +732,11 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:149:7: '//' (~ '\\n' )*
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:147:7: '//' (~ '\\n' )*
 					{
 					match("//"); 
 
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:149:12: (~ '\\n' )*
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:147:12: (~ '\\n' )*
 					loop3:
 					while (true) {
 						int alt3=2;
@@ -784,7 +784,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = BooleanLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:5: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:5: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
 			int alt5=4;
 			switch ( input.LA(1) ) {
 			case 't':
@@ -814,28 +814,28 @@ public class QLLexer extends Lexer {
 			}
 			switch (alt5) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:7: 'true'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:7: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:15: 'false'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:15: 'false'
 					{
 					match("false"); 
 
 					}
 					break;
 				case 3 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:25: 'TRUE'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:25: 'TRUE'
 					{
 					match("TRUE"); 
 
 					}
 					break;
 				case 4 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:153:34: 'FALSE'
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:151:34: 'FALSE'
 					{
 					match("FALSE"); 
 
@@ -857,8 +857,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -868,7 +868,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:154:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop6:
 			while (true) {
 				int alt6=2;
@@ -913,10 +913,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = IntegerLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:15: ( ( '0' .. '9' )+ )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:17: ( '0' .. '9' )+
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:15: ( ( '0' .. '9' )+ )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:17: ( '0' .. '9' )+
 			{
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:17: ( '0' .. '9' )+
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:156:17: ( '0' .. '9' )+
 			int cnt7=0;
 			loop7:
 			while (true) {
@@ -965,10 +965,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = MoneyLiteral;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:160:13: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? )
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:160:15: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )?
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:13: ( ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ ) )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:15: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )
 			{
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:160:15: ( '0' .. '9' )+
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:15: ( '0' .. '9' )+
 			int cnt8=0;
 			loop8:
 			while (true) {
@@ -1001,52 +1001,42 @@ public class QLLexer extends Lexer {
 				cnt8++;
 			}
 
-			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:160:27: ( '.' ( '0' .. '9' )+ )?
-			int alt10=2;
-			int LA10_0 = input.LA(1);
-			if ( (LA10_0=='.') ) {
-				alt10=1;
-			}
-			switch (alt10) {
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:27: ( '.' ( '0' .. '9' )+ )
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:28: '.' ( '0' .. '9' )+
+			{
+			match('.'); 
+			// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:158:32: ( '0' .. '9' )+
+			int cnt9=0;
+			loop9:
+			while (true) {
+				int alt9=2;
+				int LA9_0 = input.LA(1);
+				if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
+					alt9=1;
+				}
+
+				switch (alt9) {
 				case 1 :
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:160:28: '.' ( '0' .. '9' )+
+					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
 					{
-					match('.'); 
-					// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:160:32: ( '0' .. '9' )+
-					int cnt9=0;
-					loop9:
-					while (true) {
-						int alt9=2;
-						int LA9_0 = input.LA(1);
-						if ( ((LA9_0 >= '0' && LA9_0 <= '9')) ) {
-							alt9=1;
-						}
-
-						switch (alt9) {
-						case 1 :
-							// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:
-							{
-							if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
-								input.consume();
-							}
-							else {
-								MismatchedSetException mse = new MismatchedSetException(null,input);
-								recover(mse);
-								throw mse;
-							}
-							}
-							break;
-
-						default :
-							if ( cnt9 >= 1 ) break loop9;
-							EarlyExitException eee = new EarlyExitException(9, input);
-							throw eee;
-						}
-						cnt9++;
+					if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
+						input.consume();
 					}
-
+					else {
+						MismatchedSetException mse = new MismatchedSetException(null,input);
+						recover(mse);
+						throw mse;
+					}
 					}
 					break;
+
+				default :
+					if ( cnt9 >= 1 ) break loop9;
+					EarlyExitException eee = new EarlyExitException(9, input);
+					throw eee;
+				}
+				cnt9++;
+			}
 
 			}
 
@@ -1064,9 +1054,9 @@ public class QLLexer extends Lexer {
 	@Override
 	public void mTokens() throws RecognitionException {
 		// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | WS | StringLiteral | COLON | LBRACE | RBRACE | COMMENT | BooleanLiteral | Ident | IntegerLiteral | MoneyLiteral )
-		int alt11=32;
-		alt11 = dfa11.predict(input);
-		switch (alt11) {
+		int alt10=32;
+		alt10 = dfa10.predict(input);
+		switch (alt10) {
 			case 1 :
 				// /Users/Ferry/sea-of-ql/FerryRiet/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__14
 				{
@@ -1296,36 +1286,36 @@ public class QLLexer extends Lexer {
 	}
 
 
-	protected DFA11 dfa11 = new DFA11(this);
-	static final String DFA11_eotS =
+	protected DFA10 dfa10 = new DFA10(this);
+	static final String DFA10_eotS =
 		"\1\uffff\1\36\6\uffff\1\40\1\42\1\uffff\1\44\6\33\6\uffff\3\33\1\uffff"+
 		"\1\60\10\uffff\4\33\1\66\6\33\2\uffff\4\33\1\uffff\7\33\1\110\1\111\4"+
 		"\33\2\116\2\33\2\uffff\1\116\1\33\1\122\1\33\1\uffff\1\116\2\33\1\uffff"+
 		"\1\126\1\127\1\130\3\uffff";
-	static final String DFA11_eofS =
+	static final String DFA10_eofS =
 		"\131\uffff";
-	static final String DFA11_minS =
+	static final String DFA10_minS =
 		"\1\11\1\75\6\uffff\1\52\1\75\1\uffff\1\75\1\157\1\154\1\141\1\146\1\157"+
 		"\1\164\6\uffff\1\162\1\122\1\101\1\uffff\1\56\10\uffff\1\157\1\163\1\162"+
 		"\1\154\1\60\1\164\1\156\1\162\1\165\1\125\1\114\2\uffff\1\154\1\145\1"+
 		"\155\1\163\1\uffff\2\145\1\151\1\145\1\105\1\123\1\145\2\60\1\145\1\147"+
 		"\1\171\1\156\2\60\1\105\1\141\2\uffff\1\60\1\145\1\60\1\147\1\uffff\1"+
 		"\60\1\156\1\162\1\uffff\3\60\3\uffff";
-	static final String DFA11_maxS =
+	static final String DFA10_maxS =
 		"\1\175\1\75\6\uffff\1\57\1\75\1\uffff\1\75\1\157\1\154\1\157\1\156\1\157"+
 		"\1\164\6\uffff\1\162\1\122\1\101\1\uffff\1\71\10\uffff\1\157\1\163\1\162"+
 		"\1\154\1\172\1\164\1\156\1\162\1\165\1\125\1\114\2\uffff\1\154\1\145\1"+
 		"\155\1\163\1\uffff\2\145\1\151\1\145\1\105\1\123\1\145\2\172\1\145\1\147"+
 		"\1\171\1\156\2\172\1\105\1\141\2\uffff\1\172\1\145\1\172\1\147\1\uffff"+
 		"\1\172\1\156\1\162\1\uffff\3\172\3\uffff";
-	static final String DFA11_acceptS =
+	static final String DFA10_acceptS =
 		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\2\uffff\1\14\7\uffff\1\26\1\27\1\30"+
 		"\1\31\1\32\1\33\3\uffff\1\36\1\uffff\1\2\1\1\1\34\1\11\1\13\1\12\1\16"+
 		"\1\15\13\uffff\1\37\1\40\4\uffff\1\22\21\uffff\1\20\1\21\4\uffff\1\35"+
 		"\3\uffff\1\24\3\uffff\1\25\1\17\1\23";
-	static final String DFA11_specialS =
+	static final String DFA10_specialS =
 		"\131\uffff}>";
-	static final String[] DFA11_transitionS = {
+	static final String[] DFA10_transitionS = {
 			"\2\23\2\uffff\1\23\22\uffff\1\23\1\1\1\24\3\uffff\1\2\1\uffff\1\3\1\4"+
 			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\34\1\25\1\uffff\1\11\1\12\1\13\2"+
 			"\uffff\5\33\1\32\15\33\1\31\6\33\6\uffff\1\33\1\14\2\33\1\15\1\16\2\33"+
@@ -1420,34 +1410,34 @@ public class QLLexer extends Lexer {
 			""
 	};
 
-	static final short[] DFA11_eot = DFA.unpackEncodedString(DFA11_eotS);
-	static final short[] DFA11_eof = DFA.unpackEncodedString(DFA11_eofS);
-	static final char[] DFA11_min = DFA.unpackEncodedStringToUnsignedChars(DFA11_minS);
-	static final char[] DFA11_max = DFA.unpackEncodedStringToUnsignedChars(DFA11_maxS);
-	static final short[] DFA11_accept = DFA.unpackEncodedString(DFA11_acceptS);
-	static final short[] DFA11_special = DFA.unpackEncodedString(DFA11_specialS);
-	static final short[][] DFA11_transition;
+	static final short[] DFA10_eot = DFA.unpackEncodedString(DFA10_eotS);
+	static final short[] DFA10_eof = DFA.unpackEncodedString(DFA10_eofS);
+	static final char[] DFA10_min = DFA.unpackEncodedStringToUnsignedChars(DFA10_minS);
+	static final char[] DFA10_max = DFA.unpackEncodedStringToUnsignedChars(DFA10_maxS);
+	static final short[] DFA10_accept = DFA.unpackEncodedString(DFA10_acceptS);
+	static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
+	static final short[][] DFA10_transition;
 
 	static {
-		int numStates = DFA11_transitionS.length;
-		DFA11_transition = new short[numStates][];
+		int numStates = DFA10_transitionS.length;
+		DFA10_transition = new short[numStates][];
 		for (int i=0; i<numStates; i++) {
-			DFA11_transition[i] = DFA.unpackEncodedString(DFA11_transitionS[i]);
+			DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
 		}
 	}
 
-	protected class DFA11 extends DFA {
+	protected class DFA10 extends DFA {
 
-		public DFA11(BaseRecognizer recognizer) {
+		public DFA10(BaseRecognizer recognizer) {
 			this.recognizer = recognizer;
-			this.decisionNumber = 11;
-			this.eot = DFA11_eot;
-			this.eof = DFA11_eof;
-			this.min = DFA11_min;
-			this.max = DFA11_max;
-			this.accept = DFA11_accept;
-			this.special = DFA11_special;
-			this.transition = DFA11_transition;
+			this.decisionNumber = 10;
+			this.eot = DFA10_eot;
+			this.eof = DFA10_eof;
+			this.min = DFA10_min;
+			this.max = DFA10_max;
+			this.accept = DFA10_accept;
+			this.special = DFA10_special;
+			this.transition = DFA10_transition;
 		}
 		@Override
 		public String getDescription() {

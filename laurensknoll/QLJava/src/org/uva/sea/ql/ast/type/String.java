@@ -9,4 +9,9 @@ public class String extends AbstractType {
 		return visitor.visit(this);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof String;
+	}
+
 }

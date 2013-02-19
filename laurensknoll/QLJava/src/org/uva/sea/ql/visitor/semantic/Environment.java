@@ -1,6 +1,7 @@
 package org.uva.sea.ql.visitor.semantic;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.type.AbstractType;
@@ -8,14 +9,14 @@ import org.uva.sea.ql.ast.type.AbstractType;
 public class Environment {
 
 	private final Environment parent;
-	private HashMap<Ident, AbstractType> bindings;
+	private Map<Ident, AbstractType> bindings;
 
 	public Environment() {
 		this(null);
 	}
 
-	public Environment(Environment env) {
-		this.parent = env;
+	public Environment(Environment environment) {
+		this.parent = environment;
 		this.bindings = new HashMap<Ident, AbstractType>();
 	}
 

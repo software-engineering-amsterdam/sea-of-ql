@@ -12,15 +12,15 @@ public class TestParser {
 		this.parser = p;
 	}
 
-	public Expr parse(String src) throws ParseError {
-		return parser.parseExpression(src);
+	public final Expr parse(String src) throws ParseError {
+		return this.parser.parseExpression(src);
 	}
 
-	public Form parseFile() throws ParseError {
-		return parser.parseDefaultFile();
+	public final Form parseFile() throws ParseError {
+		return this.parser.parseDefaultFile();
 	}
 
-	public Form parseFull(String src) throws ParseError {
-		return parser.parseForm(src);
+	public final Form parseFull(String src) throws ParseError {
+		return this.parser.parseForm(src);
 	}
 }

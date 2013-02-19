@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.swing.JLabel"/>
-<fullyQualifiedTypeName name="com.sun.org.apache.xalan.internal.xsltc.compiler.util.BooleanType"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
@@ -50,14 +48,16 @@
 <fullyQualifiedTypeName name="javax.swing.border.AbstractBorder"/>
 <fullyQualifiedTypeName name="java.math.BigDecimal"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="java.lang.UnsupportedOperationException"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.MoneyResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.Result"/>
 <fullyQualifiedTypeName name="java.lang.ArithmeticException"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.literals.IntegerResult"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.operatorresults.BooleanResult"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="java.awt.event.FocusListener"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.visitor.Visitor"/>
+<fullyQualifiedTypeName name="java.lang.UnsupportedOperationException"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.visitor.StatementVisitor"/>
 </qualifiedTypeNameHistroy>
