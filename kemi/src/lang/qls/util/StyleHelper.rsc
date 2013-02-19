@@ -67,7 +67,7 @@ private list[Definition] getDefinitions(str qid, list[Definition] definitions) {
       defs = getDefinitions(qid, toDefinitionList(d.layoutRules));
       if(size(defs) > 0)
         return d + defs;
-    } else if(d is questionDefinition && d.ident == qid) {
+    } else if(d is questionDefinition && d.ident.name == qid) {
       return [d];
     }
   }
