@@ -44,6 +44,7 @@ public class UndefinedValue extends Value {
 		return this;
 	}
 
+	
 	@Override
 	public Value or(Value arg) {
 		return new Bool(arg.isDefined() && (Boolean) arg.getValue());

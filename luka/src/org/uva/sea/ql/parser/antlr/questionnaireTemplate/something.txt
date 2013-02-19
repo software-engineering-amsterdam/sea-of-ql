@@ -35,9 +35,28 @@ doubleValue1 : "doubleValue1" double
 if(computedBoo3){
 computedBoo7: "computedBool3" boolean(computedBoo3)
 }
-
+vBool1 : "nested" boolean
+if(vBool1){
+vBool2 : "nested1" boolean
+if(vBool2){
+vBool3 : "nested2" boolean
+if(vBool3){
+vBool4 : "nested3" boolean
+if(vBool4){
+vBool5 : "nested4" boolean
+if(vBool5){
+vBool6 : "nested5" boolean
+if(vBool6){
+vBool7 : "nested6" boolean
+}else{
+vBool8 : "the eeend" string("you got it")
+}
+}
+}
+}
+}
+}
 intValue1 : "intValue1" integer
-
 computedBoo4: "computedBool3" boolean(intValue1 > doubleValue1)
 if(false && true){
 calculatedInt: "first question +2.2 int" integer(intValue1 + 2.2)
