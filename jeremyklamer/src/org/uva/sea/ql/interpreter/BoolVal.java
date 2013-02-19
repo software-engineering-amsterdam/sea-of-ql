@@ -8,7 +8,7 @@ public class BoolVal extends Value{
 		this.bool = bool;
 	}
 	
-	//TODO ask How to not use getters here? 
+	//TODO In the OO document it said not to use get and set, ask how to not use getters here? 
 	public boolean getValue() {
 		return bool;
 	}

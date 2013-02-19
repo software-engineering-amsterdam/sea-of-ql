@@ -16,8 +16,8 @@ import javax.swing.JTextArea;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.message.Message;
@@ -27,13 +27,10 @@ import org.uva.sea.ql.ui.components.BaseComponent;
 
 
 public class FormRenderer {
-
-	//private static Form currentForm; 
 	
 	public static void main(String[] args){
 		Form currentForm = getFormFromChooser();
 		renderForm(currentForm);
-		
 	}
 	
 	public static void renderForm(Form currentForm) {
@@ -44,10 +41,8 @@ public class FormRenderer {
 		}
 		showForm(currentForm);
 	}
-	
 
 	private static void showForm(final Form currentForm) {
-	
 		final Env environment = new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>());
 		JPanel panel = new JPanel(new MigLayout("hidemode 3"));
 		
@@ -90,13 +85,13 @@ public class FormRenderer {
 
 	private static void showFormErrors(Form currentForm) {
 		Env environment = new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>());
-		
 		JFrame errorsFrame = new JFrame();
 		errorsFrame.setLayout(new MigLayout());
 		
 		JTextArea errorText = new JTextArea();
 		currentForm.initTypes(environment);	
 		errorText.setText(currentForm.genFormFeedBack(environment, 0));
+		
 		errorsFrame.add(errorText);
 		errorsFrame.pack();
 		errorsFrame.setVisible(true);
@@ -114,15 +109,13 @@ public class FormRenderer {
 				while ((currentLine = fileReader.readLine()) != null) {
 					qlForm.append(currentLine);
 				}
-				
-				Form form = new ANTLRParser().parseForm(qlForm.toString());
-				fileReader.close();
+				fileReader.close();				
+				Form form = new ANTLRParser().parseForm(qlForm.toString());				
 				return form;
 			} 
 			catch (Exception e1) {
 				e1.printStackTrace();
 			}
-
 		}
 		else {
 			new ErrorScreen("No form file selected.");

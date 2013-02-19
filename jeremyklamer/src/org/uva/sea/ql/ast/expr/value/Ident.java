@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expr.value;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.Expr;
@@ -40,12 +39,10 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public List<Message> checkType(Env env) {
-		List<Message> errors = new ArrayList<Message>(); 
+	public void checkType(List<Message> errors, Env env) {
 		if(!(env.containsType(this))){
 			errors.add(new Error("Identity for : " + name + " has not been initialized."));
 		}			
-		return errors; 
 	}
 	
 	@Override

@@ -38,15 +38,18 @@ import org.uva.sea.ql.visitor.valueCheck.ExpressionValueVisitor;
 import org.uva.sea.ql.visitor.valueCheck.ValueMapper;
 
 /**
- * Controller can will list available forms Can parse, validate and save forms
+ * Controller handles web requests
+ * doGet: show or List Forms
+ * doPost: handle submitted values, validate and store the form 
  */
 
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final IParse parser = new ANTLRParser();
-	private static List<Message> errors = new ArrayList<Message>();
 	private final String inputDirectory = "forms/";
+	private final String outputDirectory = "c:/tmp/forms/";
 	private final String templateDirectory = "templates/";;
+	private static List<Message> errors = new ArrayList<Message>();
 	private Map<String, TypeMapper> formTypeMapper = new HashMap<String, TypeMapper>();
 	private Map<String, ValueMapper> formValueMapper = new HashMap<String, ValueMapper>();
 
@@ -64,8 +67,6 @@ public class Controller extends HttpServlet {
 
 			if (!qlFiles.isEmpty()) {
 				if (isFormRequested) {
-					printFormLinksAsList(out, qlFiles);
-				} else {
 					File qlFile = new File(getServletContext().getRealPath(
 							inputDirectory + "/" + formRequest + ".ql"));
 					if (qlFile.exists()) {
@@ -73,6 +74,8 @@ public class Controller extends HttpServlet {
 					} else {
 						addError("Unable to find form: " + formRequest);
 					}
+				} else {
+					printListOfForms(out, qlFiles);
 				}
 			} else {
 				addError("No QL files found. Please check the .ql files in the directory: " + inputDirectory);
@@ -105,7 +108,7 @@ public class Controller extends HttpServlet {
 			}
 
 			if (errors.isEmpty()) {
-				String randomFileName = getRandomFileName(new File(getServletContext().getRealPath(inputDirectory)), formRequest);
+				String randomFileName = getRandomFileName(new File(outputDirectory), formRequest);
 				writeFormValuesToFile(postValues, randomFileName);
 			}
 			
@@ -116,7 +119,7 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	protected boolean generateForm(File qlFile, PrintWriter output) {
+	private boolean generateForm(File qlFile, PrintWriter output) {
 		TypeMapper typeMapper = new TypeMapper();
 		ValueMapper valueMapper = new ValueMapper();
 
@@ -157,10 +160,51 @@ public class Controller extends HttpServlet {
 		return true;
 	}
 
+	private boolean validateInput(String formName, Map<String, String> postValues) {
+		TypeMapper typeMapper;
+		ValueMapper valueMapper;
+		if (formTypeMapper.containsKey(formName) && formValueMapper.containsKey(formName)) {
+			typeMapper = formTypeMapper.get(formName);
+			valueMapper = formValueMapper.get(formName);
+		} else {
+			addError("Error: Failed to read typeMapper or valueMapper from memory for form '"
+					+ formName + "'. Please reload the form.");
+			return false;
+		}
+
+		for (String key : postValues.keySet()) {
+			Ident id = new Ident(key);
+			String inputToCheck = postValues.get(key).trim();
+			boolean isValidInput = typeMapper.hasTypeKey(id);
+			if (isValidInput) {
+				if (!inputToCheck.isEmpty()) {
+					try {
+						Value value = parser.parseExpression(inputToCheck).accept(
+								new ExpressionValueVisitor(valueMapper, errors));
+						Type questionType = typeMapper.getType(id);
+						if (!questionType.isCompatibleTo(value)) {
+							addError("Invalid value for '" + key + "'. Please correct the field.");
+						}
+					} catch (ParseError e) {
+						addError("Unable to parse expression '" + key + "'. Please correct the field.");
+					}
+				}
+			} else {
+				addError("Internal Error: Key '" + key + "' not found.");
+			}
+		}
+		if (hasErrors()) {
+			return false;
+		}
+		return true;
+	}
+	
 	private Map<String, String> getFormattedPostValues(Map<String, String[]> parameterMap) {
 		Map<String, String> postValues = new HashMap<String, String>();
 		for (String key : parameterMap.keySet()) {
-			postValues.put(key, parameterMap.get(key)[0]);
+			if (!key.equals("form")) {
+				postValues.put(key, parameterMap.get(key)[0]);
+			}
 		}
 		return postValues;
 	}
@@ -189,37 +233,6 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	private boolean validateInput(String formName, Map<String, String> postValues) {
-		TypeMapper typeMapper;
-		ValueMapper valueMapper;
-		if (formTypeMapper.containsKey(formName) && formValueMapper.containsKey(formName)) {
-			typeMapper = formTypeMapper.get(formName);
-			valueMapper = formValueMapper.get(formName);
-		} else {
-			addError("Error: Failed to get typeMapper or valueMapper for form '"
-					+ formName + "'. Please reload the form.");
-			return false;
-		}
-
-		for (String key : postValues.keySet()) {
-			Ident id = new Ident(key);
-			if (typeMapper.hasTypeKey(id)) {
-				try {
-					Value value = parser.parseExpression(postValues.get(key)).accept(
-							new ExpressionValueVisitor(valueMapper, errors));
-					Type questionType = typeMapper.getType(id);
-					if (!questionType.isCompatibleTo(value)) {
-						addError("Invalid value for '" + key + "'. Please correct the field.");
-					}
-				} catch (ParseError e) {
-					addError("Parse error: '" + e.getMessage() + "'");
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
 	private static void printErrorsAsText(PrintWriter output) throws IOException {
 		output.println("<PRE>");
 		output.println("Errors found! Please correct the following " + errors.size() + " errors.");
@@ -235,7 +248,7 @@ public class Controller extends HttpServlet {
 
 	private static void printJSONOutput(PrintWriter output) throws IOException {
 		StringBuilder json = new StringBuilder();
-
+		
 		json.append("{\"Errors\":[");
 		if (!errors.isEmpty()) {
 			json.append("\"");
@@ -251,7 +264,7 @@ public class Controller extends HttpServlet {
 		errors.clear();
 	}
 
-	private void printFormLinksAsList(PrintWriter output, List<File> qlFiles) {
+	private void printListOfForms(PrintWriter output, List<File> qlFiles) {
 		for (File qlFile : qlFiles) {
 			String name = qlFile.getName().replaceAll(".ql$", "");
 			output.append("<pre>");
@@ -265,7 +278,7 @@ public class Controller extends HttpServlet {
 		try {
 			String formValues = "";
 			for (Map.Entry<String, String> entry : formValuesMap.entrySet()) {
-				formValues += entry.getKey() + ";" + entry.getValue();
+				formValues += entry.getKey() + ";" + entry.getValue() + "\r\n";
 			}
 			FileWriter file = new FileWriter(fileName);
 			BufferedWriter out = new BufferedWriter(file);

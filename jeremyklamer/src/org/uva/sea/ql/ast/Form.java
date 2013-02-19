@@ -1,19 +1,21 @@
-package org.uva.sea.ql.ast.statement;
+package org.uva.sea.ql.ast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expr.value.Ident;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
 import org.uva.sea.ql.ui.components.LabelComponent;
 
 
-public class Form extends Statement{
+public class Form {
 	
 	private final List<Statement> body; 
-	private final Ident name; 
+	private final Ident name;
+	protected String newLine = System.getProperty("line.separator");
 	
 	public Form(Ident name, List<Statement> body) {
 		this.name = name;
@@ -24,58 +26,46 @@ public class Form extends Statement{
 		return name.getName();
 	}
 	
-	@Override
+	
 	public List<Message> checkType(Env env) {
 		ArrayList<Message> errors = new ArrayList<Message>();
 		initTypes(env);
+		
 		for(Statement statement : body){
-			errors.addAll(statement.checkType(env));
+			statement.checkType(errors, env);
 		}
 		
 		return errors;
 	}
 
-	@Override
-	public List<Message> getErrorsMessages(Env env) {
-		return null;
-	}
-
-	@Override
 	public List<BaseComponent> getUIComponents(Env env, Form form) {
 		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
-		
 		components.add(new LabelComponent(this.name.getName(), "wrap"));
 		
 		for(Statement statement : this.body){
-			components.addAll(statement.getUIComponents(env, form));
+			statement.getUIComponents(components, env, form);
 		}
 		
 		return components;
 	}
 
-	@Override
-	public boolean eval(Env env) {
-		boolean retVal = true;
+	public void eval(Env env) {
+		//boolean retVal = true;
 		
 		for(Statement statement : body){
-			retVal = statement.eval(env) && retVal; 
+			//retVal = statement.eval(env) && retVal; 
+			statement.eval(env);
 		}
-		return retVal;
+		//return retVal;
 	}
 
-	@Override
+	
 	public void initTypes(Env env) {
 		for(Statement statement : body){
 			statement.initTypes(env);
 		}
 	}
-
-	//A Form never gets set to visbile or invisble, only other statements. 
-	@Override
-	public void setVisible(boolean visible) {
-	}
 	
-	@Override
 	public String genFormFeedBack(Env env, int indentation) {
 		StringBuilder feedBack = new StringBuilder();
 		feedBack.append(name.getName()); 

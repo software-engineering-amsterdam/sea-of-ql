@@ -100,45 +100,45 @@ public class TestExpressions {
 	@Test
 	public void testUnaryTypes() throws ParseError {
 		Env testEnv = new Env(new HashMap<Ident, Type>(),null);
-		assertEquals(0 , parser.parse("3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("-3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("+3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("true").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("!true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("!3").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("+true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("-true").checkType(testEnv).size());
+		assertEquals(0 , parser.parse("3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("-3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("+3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("true").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("!true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("!3").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("+true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("-true").getTypeErrors(testEnv).size());
 	}
 	
 	@Test
 	public void testBinaryTypes() throws ParseError {
 		Env testEnv = new Env(new HashMap<Ident, Type>(),null);
-		assertEquals(0 , parser.parse("3 + 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 * 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 / 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 - 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 <= 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 < 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 == 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 > 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 >= 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("3 != 3").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("true && true").checkType(testEnv).size());
-		assertEquals(0 , parser.parse("true || true").checkType(testEnv).size());
+		assertEquals(0 , parser.parse("3 + 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 * 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 / 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 - 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 <= 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 < 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 == 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 > 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 >= 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("3 != 3").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("true && true").getTypeErrors(testEnv).size());
+		assertEquals(0 , parser.parse("true || true").getTypeErrors(testEnv).size());
 		
-		assertEquals(1 , parser.parse("3 + true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 * true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 / true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 - true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 <= true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 < true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 == true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 > true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 >= true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 != true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 && true").checkType(testEnv).size());
-		assertEquals(1 , parser.parse("3 || true").checkType(testEnv).size());
-		assertEquals(2 , parser.parse("3 + true * 8 - true + 3").checkType(testEnv).size());
+		assertEquals(1 , parser.parse("3 + true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 * true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 / true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 - true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 <= true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 < true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 == true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 > true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 >= true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 != true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 && true").getTypeErrors(testEnv).size());
+		assertEquals(1 , parser.parse("3 || true").getTypeErrors(testEnv).size());
+		assertEquals(2 , parser.parse("3 + true * 8 - true + 3").getTypeErrors(testEnv).size());
 	}
 	
 }
