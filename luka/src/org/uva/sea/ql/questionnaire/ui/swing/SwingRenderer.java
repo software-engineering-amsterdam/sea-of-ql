@@ -56,7 +56,8 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		this.state = state;
 		panel = new JPanel();
 	}
-	//renders statement based on given statement and ident type
+
+	// renders statement based on given statement and ident type
 	public static JPanel renderStatement(Stat statement, State state) {
 		SwingRenderer renderer = new SwingRenderer(state);
 		statement.accept(renderer);
@@ -201,7 +202,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	@Override
 	public void visit(SelectableStat stat) {
 		AbstractVisibleControl ctl = new ArrControl(this.state,
-				stat.getIdent(),stat.getArr());
+				stat.getIdent(), stat.getArr());
 		initVisibleComponents();
 		addLabel(stat.getLabel());
 		registerHandler(stat, ctl);

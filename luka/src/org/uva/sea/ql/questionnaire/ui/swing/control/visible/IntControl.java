@@ -11,6 +11,7 @@ import org.uva.sea.ql.questionnaire.State;
 
 public class IntControl extends KeyControl {
 
+	//control with text field and the possibility to enter double values
 	public IntControl(State state, Ident ident) {
 		super(state, ident);
 		initEventListener();

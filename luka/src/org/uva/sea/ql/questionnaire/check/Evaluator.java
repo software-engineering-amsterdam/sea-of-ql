@@ -31,7 +31,8 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 public class Evaluator implements Visitor<Value> {
 
 	private final Map<Ident, Value> env;
-	//evaluates if expression is true or not 
+
+	// evaluates if expression is true or not
 	public Evaluator(Map<Ident, Value> env) {
 		this.env = Collections.unmodifiableMap(env);
 	}
