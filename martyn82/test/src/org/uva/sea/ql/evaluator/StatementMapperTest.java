@@ -28,16 +28,17 @@ import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
-public class RendererTest extends EvaluatorTest implements StatementTest {
+public class StatementMapperTest extends EvaluatorTest implements StatementTest {
 	private final ControlFactory factory;
 
-	public RendererTest() {
+	public StatementMapperTest() {
 		super( new ValueEnvironment() );
+
 		this.factory = new SwingControlFactory();
 	}
 
 	private void eval( Statement statement ) {
-		Renderer.render( statement, this.environment, this.factory );
+		StatementMapper.createPart( statement, this.environment, this.factory );
 	}
 
 	@Test

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.evaluator;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Observer;
@@ -37,30 +38,29 @@ import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
-public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
+class StatementMapper implements StatementVisitor<Void>, TypeVisitor<Control> {
 	private final static String SUBMIT_TEXT = "Save";
 
+	private final ValueEnvironment environment;
 	private final ControlFactory factory;
 	private final PanelControl panel;
-	private final ValueEnvironment environment;
 
-	public static PanelControl render( Statement statement, ControlFactory factory ) {
-		return render( statement, new ValueEnvironment(), factory );
-	}
-
-	protected static PanelControl render( Statement statement, ValueEnvironment environment, ControlFactory factory ) {
-		Renderer renderer = new Renderer( environment, factory );
-		statement.accept( renderer );
-		return renderer.getPanel();
-	}
-
-	private Renderer( ValueEnvironment environment, ControlFactory factory ) {
-		this.environment = environment;
+	public StatementMapper( ControlFactory factory, ValueEnvironment environment ) {
 		this.factory = factory;
+		this.environment = environment;
 		this.panel = this.factory.createPanel();
 	}
 
-	private PanelControl getPanel() {
+	protected static PanelControl createPart(
+		Statement statement, ValueEnvironment environment, ControlFactory factory
+	) {
+		StatementMapper mapper = new StatementMapper( factory, environment );
+		statement.accept( mapper );
+		return mapper.panel;
+	}
+
+	public PanelControl getPanel() {
+		this.addSubmitButton();
 		return this.panel;
 	}
 
@@ -79,7 +79,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 			new ControlEventListener() {
 				@Override
 				public void itemChanged( ControlEvent event ) {
-					String dateString = DateFormat.getDateTimeInstance().format( new Date() ).replace( ':', '_' );
+					DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
+					String dateString = format.format( new Date() );
 
 					Exporter exporter = new XmlExporter( panel.getName(), environment.getBindings() );
 					exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
@@ -121,7 +122,7 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		this.registerDependencies( observer, expression );
 	}
 
-	private void registerComputedObservers( final ComputedQuestion question, final Control control ) {
+	private void registerComputedObservers( ComputedQuestion question, Control control ) {
 		Observer observer = new ComputedObserver( control, this.environment, question );
 		this.registerDependencies( observer, question.getExpression() );
 	}
@@ -136,11 +137,31 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 	}
 
 	@Override
+	public Control visit( BooleanType node ) {
+		return this.factory.createCheckBox();
+	}
+
+	@Override
+	public Control visit( IntegerType node ) {
+		return this.factory.createNumberBox();
+	}
+
+	@Override
+	public Control visit( StringType node ) {
+		return this.factory.createTextBox();
+	}
+
+	@Override
+	public Control visit( MoneyType node ) {
+		return this.factory.createMoneyBox();
+	}
+
+	@Override
 	public Void visit( IfThen node ) {
 		Value conditionValue = ExpressionEvaluator.evaluate( node.getCondition(), this.environment );
 		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
-		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
+		PanelControl truePanel = createPart( node.getBody(), this.environment, this.factory );
 		PanelControl falsePanel = this.factory.createPanel();
 
 		truePanel.setVisible( condition );
@@ -159,8 +180,8 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		Value conditionValue = ExpressionEvaluator.evaluate( node.getCondition(), this.environment );
 		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
-		PanelControl truePanel = render( node.getBody(), this.environment, this.factory );
-		PanelControl falsePanel = render( node.getElse(), this.environment, this.factory );
+		PanelControl truePanel = createPart( node.getBody(), this.environment, this.factory );
+		PanelControl falsePanel = createPart( node.getElse(), this.environment, this.factory );
 
 		truePanel.setVisible( condition );
 		falsePanel.setVisible( !condition );
@@ -191,11 +212,10 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 
 	@Override
 	public Void visit( FormDeclaration node ) {
-		PanelControl formPanel = render( node.getBody(), this.environment, this.factory );
-		this.addControl( formPanel );
+		PanelControl formPanel = createPart( node.getBody(), this.environment, this.factory );
 
+		this.addControl( formPanel );
 		this.panel.setName( node.getLabel() );
-		this.addSubmitButton();
 
 		return null;
 	}
@@ -244,25 +264,5 @@ public class Renderer implements StatementVisitor<Void>, TypeVisitor<Control> {
 		}
 
 		return null;
-	}
-
-	@Override
-	public Control visit( BooleanType node ) {
-		return this.factory.createCheckBox();
-	}
-
-	@Override
-	public Control visit( IntegerType node ) {
-		return this.factory.createNumberBox();
-	}
-
-	@Override
-	public Control visit( StringType node ) {
-		return this.factory.createTextBox();
-	}
-
-	@Override
-	public Control visit( MoneyType node ) {
-		return this.factory.createMoneyBox();
 	}
 }

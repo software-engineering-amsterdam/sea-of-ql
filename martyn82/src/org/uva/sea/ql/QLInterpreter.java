@@ -3,7 +3,7 @@ package org.uva.sea.ql;
 import java.util.List;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.evaluator.Renderer;
+import org.uva.sea.ql.evaluator.FormCreator;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.QLParser;
 import org.uva.sea.ql.typechecker.TypeChecker;
@@ -14,14 +14,14 @@ import org.uva.sea.ql.visitor.Error;
 public class QLInterpreter {
 	private final QLParser parser;
 	private final TypeChecker typeChecker;
-	private final ControlFactory factory;
+	private final FormCreator formCreator;
 
 	private PanelControl panel;
 
 	public QLInterpreter( ControlFactory factory ) {
 		this.parser = new QLParser();
 		this.typeChecker = new TypeChecker();
-		this.factory = factory;
+		this.formCreator = new FormCreator( factory );
 	}
 
 	public boolean evaluate( String source ) {
@@ -32,7 +32,8 @@ public class QLInterpreter {
 			return false;
 		}
 
-		this.panel = Renderer.render( root, this.factory );
+		this.panel = this.formCreator.create( root );
+
 		return true;
 	}
 
