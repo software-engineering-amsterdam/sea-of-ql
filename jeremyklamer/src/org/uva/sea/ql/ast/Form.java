@@ -43,22 +43,11 @@ public class Form {
 		components.add(new LabelComponent(this.name.getName(), "wrap"));
 		
 		for(Statement statement : this.body){
-			statement.getUIComponents(components, env, form);
+			components.addAll(statement.getUIComponents(env, form));
 		}
 		
 		return components;
 	}
-
-	public void eval(Env env) {
-		//boolean retVal = true;
-		
-		for(Statement statement : body){
-			//retVal = statement.eval(env) && retVal; 
-			statement.eval(env);
-		}
-		//return retVal;
-	}
-
 	
 	public void initTypes(Env env) {
 		for(Statement statement : body){

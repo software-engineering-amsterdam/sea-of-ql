@@ -16,11 +16,9 @@ public abstract class Statement implements ASTNode{
 	
 	public abstract void checkType(List<Message> errors, Env env);
 	public abstract void getErrorsMessages(List<Message> errors, Env env);
-	public abstract void getUIComponents(List<BaseComponent> components, Env env, Form form);
-	//Wat is de functie van eval? 
-	public abstract void eval(Env env);
+	public abstract List<BaseComponent> getUIComponents(Env env, Form form);
+
 	public abstract void initTypes(Env env);
-	public abstract void setVisible(boolean visible);
 	public abstract String genFormFeedBack(Env env, int indentation);
 	
 	protected String getIndentation(int indentation){

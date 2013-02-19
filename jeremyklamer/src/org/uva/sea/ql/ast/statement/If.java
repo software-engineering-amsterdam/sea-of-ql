@@ -9,12 +9,13 @@ import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Error;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
+import org.uva.sea.ql.ui.observing.ConditionObserver;
 
 
 public class If extends Statement{
 	
 	protected final Expr condition; 
-	private final List<Statement> ifBody; 
+	protected final List<Statement> ifBody; 
 	
 	
 	public If(Expr condition, List<Statement> ifBody){
@@ -41,34 +42,14 @@ public class If extends Statement{
 	}
 	
 	@Override
-	public void getUIComponents(List<BaseComponent> components, Env env, Form form) {
-		for(Statement statement : ifBody){
-			statement.getUIComponents(components, env, form);
-		}
-	}
+	public List<BaseComponent> getUIComponents(Env env, Form form) {
+		List<BaseComponent> components = new ArrayList<BaseComponent>();
 
-	@Override
-	public void eval(Env env) {
-		//setVisible(((BoolVal)condition.eval(env)).getValue());
-		//return evalIf(env);
-		evalIf(env);
-	}
-	
-	protected void evalIf(Env env){
-		
-		//Moet hier geen checktype! 
-//		if(condition.checkType(env).size() > 0){
-//			//return false;  
-//		}
-		
-		//boolean retVal = true; 
-		
 		for(Statement statement : ifBody){
-			//retVal = statement.eval(env) && retVal;
-			statement.eval(env);
+			components.addAll(statement.getUIComponents(env, form));
 		}
-		
-		//return retVal; 
+		env.registerObserver(new ConditionObserver(condition, new ArrayList<BaseComponent>(), components, env));
+		return components;
 	}
 
 	@Override
@@ -77,15 +58,7 @@ public class If extends Statement{
 			statement.initTypes(env);
 		}
 	}
-
-	@Override
-	public void setVisible(boolean visible) {
-		for(Statement statement : ifBody){
-			statement.setVisible(visible);
-		}
-	}
 	
-
 	@Override
 	public String genFormFeedBack(Env env, int indentation) {
 		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));
