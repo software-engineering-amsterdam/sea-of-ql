@@ -16,9 +16,7 @@ import Prelude;
 public void createPostValuePHP(str formId, str varName){
 	str result = "$<varName> = $_POST[\'<varName>\'];";
 	appendToPHPFile(formId, result);	
-	//if(isset($<varName>)){	
-	//echo \'{ \"message\": \"\' . $_POST[\'<varName>\'] . \'\" }\';
-	//};
+	
 }
 
 /** Method to generate the database and the table
@@ -36,14 +34,15 @@ public void generateDatabaseCode(str formId){
 */
 void createDataBaseCode(str formId){
 	str result = "$dbhost = \'localhost\';
-				' $dbuser = \'root\';
-				' $dbpass = \'\';
-				' $conn = mysql_connect($dbhost, $dbuser, $dbpass);
-				' if(! $conn ) { die(\'Could not connect: \' . mysql_error()); }
-				' echo \'Connected successfully\';
-				' $sqlDatabase = \'CREATE Database <formId>\'; $retval = mysql_query( $sqlDatabase, $conn );
-				' if(! $retval ) { die(\'Could not create database: \' . mysql_error()); }
-				' echo \"Database <formId> created successfully\";";
+				'	$dbuser = \'root\';
+				'	$dbpass = \'\';
+				'	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+				'	if(! $conn ) { die(\'Could not connect: \' . mysql_error()); }
+				'	echo \'Connected successfully\';
+				'	$sqlDatabase = \'CREATE Database <formId>\'; 
+				'	$retval = mysql_query( $sqlDatabase, $conn );
+				'	if(! $retval ) { echo \'Database <formId> exist already \'; }
+				'	echo \"Database <formId> created successfully\";";
 	appendToPHPFile(formId, result);
 }
 
@@ -57,7 +56,7 @@ void createTableCode(str formId){
        	'	\'primary key ( q_id ))\';
 		' mysql_select_db(\'<formId>\');
 		' $retval = mysql_query( $sqlTable, $conn );
-		' if(! $retval ) { die(\'Could not create table: \' . mysql_error()); }
+		' if(! $retval ) { echo \"Table <formId> exist already \";  }
 		' echo \"Table <formId> created successfully\";  ";
 	appendToPHPFile(formId, result);
 }
@@ -88,20 +87,51 @@ public void createColumnInTable(str formId, str id, Type tp){
 * @param body
 * @author Philipp
 */
-public void insertValueInDatabase(str formId,  list[Body] body){   //  list[str] ids, i need to get the id of all questions
-	list[str] ids = [];
+public void insertValueInDatabase(str formId,  list[Body] body){  
+	list[tuple[str id,value typ]] idAndType = [];
 	for(s <- body){
 		visit(s){
 			case Question e : {
 				list[value] temp = getChildren(e);
-				ids += toString(temp[0]);
+				println("temp : <temp>");
+				idAndType += [<toString(temp[0]),temp[2]>];
 			}
 		}
 	}
-	println("ids : <ids>");  // last comma is a problem in the insert script
-	str result = "$query = \"INSERT INTO <formId> ( q_id, <for(i <- ids) { > <i>, < }>)
-				'	VALUES(\'NULL\', <for(i <- ids) { > \'\".$<i>.\"\', < }>)\";
-				'	mysql_query( $query, $conn ); ";
+	println("idsAndType : <idAndType>");
+	validation = addServerSideValidation(formId, idAndType);
+	str result = "if(<for(k <- validation) {> <k> <}>){
+				'	$query = \"INSERT INTO <formId> ( q_id, <for(i <- idAndType) { > <i.id>, < }>)
+				'	VALUES(\'NULL\', <for(i <- idAndType) { > \'\".$<i.id>.\"\', < }>)\";
+				'	mysql_query( $query, $conn ); 
+				'}else{
+				'	echo \'Validation Error\';	
+				'}";
+	appendToPHPFile(formId,result);
+}
+
+list[str] addServerSideValidation(str formId, list[tuple[str id,value typ]] idsAndType){
+	println("in add validation");
+	list[str] result = [];
+	for(i <- idsAndType){
+		if(i.typ == boolean()){
+			addBoolValidation(formId, i.id);
+			result += "is_bool($<i.id>) &&";  // boolean is saved as tiny int in mysql
+		}else if(i.typ == string()){
+			result += "is_string($<i.id>) &&";
+		}else{
+			result += "is_numeric($<i.id>) &&";
+		}
+	}
+	return result;
+}
+
+void addBoolValidation(str formId, str varName){
+	str result = "if (is_null($_POST[\'<varName>\'])) {
+   				'	$<varName> = false;
+				'	}else{
+				'	$<varName> = true;
+				'}";
 	appendToPHPFile(formId,result);
 }
 

@@ -46,7 +46,6 @@ private str specifyAttributesCheckbox(str id){
 	return "<id>.setAttribute(\'type\',\"checkbox\");
 			'	<id>.setAttribute(\'id\',<id>);
 			'	<id>.setAttribute(\'name\',\'<id>\');
-			'	<id>.setAttribute(\'value\',<id>); 
 			'	<id>.setAttribute(\'onclick\',\"<id>DoTheCheck(this)\"); ";
 }
 
@@ -205,6 +204,10 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 		}
 		return result;
 	}
+}
+
+str generateStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)){
+	println("in generate if else");
 }
 
 /** Method to get the names of childrens from an expression
