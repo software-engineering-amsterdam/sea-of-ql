@@ -1,13 +1,20 @@
 function processUserResponse(url, inputObj) {
 	var jqueryInput = $(inputObj);
-	var value = jqueryInput.is(':checked'); 
-	var ident = jqueryInput.parent().find('input:hidden').val();
+	var value;
+	if (jqueryInput.is(':checkbox')) {
+		value = jqueryInput.is(':checked');
+	} 
+	if (jqueryInput.is(':text')) {
+		value = jqueryInput.val();
+	} 
+	var ident = jqueryInput.parent().find('.identHolder').attr("name");
 	$.ajax({
 		type: "POST",
 		url: url,
 		data: { answer: value, identName: ident }
-	}).done(function( msg ) {
-		$('#extraQuestions').html(msg);
+	}).done(function(msg) {
+//		var form = $("form");
+//        form.append(msg);
+		$("#content").html(msg);
 	});
-
 }
