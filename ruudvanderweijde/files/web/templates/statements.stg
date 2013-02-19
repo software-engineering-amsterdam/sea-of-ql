@@ -27,8 +27,14 @@ CloseBlock(id) ::= <<
 >>
 Computation(id, condition, uuid) ::= <<
   function function_$uuid$ () {
-    \$('#$id$').val($condition$);
+    try {
+      \$('#$id$').val($condition$);
+    } catch (e) {
+    }
   }
+  try {
+    \$('document').ready(function_$uuid$);
+  } catch(e) {}
 >>
 Condition(id, condition) ::= <<
   function function_$id$ () {
@@ -40,6 +46,9 @@ Condition(id, condition) ::= <<
       \$('#else_$id$').show();
     }
   }
+  try {
+    \$('document').ready(function_$id$);
+  } catch(e) {}
 >>
 BindIdToFunction(id, function) ::= <<
   function_$function$();

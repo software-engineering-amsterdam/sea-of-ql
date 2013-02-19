@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
 	private final String inputDirectory = "forms/";
 	private final String outputDirectory = "c:/tmp/forms/";
 	private final String templateDirectory = "templates/";;
-	private static List<Message> errors = new ArrayList<Message>();
+	private List<Message> errors = new ArrayList<Message>();
 	private Map<String, TypeMapper> formTypeMapper = new HashMap<String, TypeMapper>();
 	private Map<String, ValueMapper> formValueMapper = new HashMap<String, ValueMapper>();
 
@@ -233,7 +233,7 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-	private static void printErrorsAsText(PrintWriter output) throws IOException {
+	private void printErrorsAsText(PrintWriter output) throws IOException {
 		output.println("<PRE>");
 		output.println("Errors found! Please correct the following " + errors.size() + " errors.");
 		output.println("---------------------------------------------------------------------");
@@ -246,7 +246,7 @@ public class Controller extends HttpServlet {
 		errors.clear();
 	}
 
-	private static void printJSONOutput(PrintWriter output) throws IOException {
+	private void printJSONOutput(PrintWriter output) throws IOException {
 		StringBuilder json = new StringBuilder();
 		
 		json.append("{\"Errors\":[");
@@ -274,7 +274,7 @@ public class Controller extends HttpServlet {
 
 	}
 
-	private static void writeFormValuesToFile(Map<String, String> formValuesMap, String fileName) {
+	private  void writeFormValuesToFile(Map<String, String> formValuesMap, String fileName) {
 		try {
 			String formValues = "";
 			for (Map.Entry<String, String> entry : formValuesMap.entrySet()) {
@@ -298,7 +298,7 @@ public class Controller extends HttpServlet {
 		return randomFileName;
 	}
 	
-	private static void addError(String message) {
+	private  void addError(String message) {
 		errors.add(new Error(message));
 	}
 	

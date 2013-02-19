@@ -42,6 +42,6 @@ function success (data) {
 	  alert(errorString);
 	} else {
 	  alert("Your form has been saved. Thank you.\r\nThe form will be reset.");
-	  $('form')[0].reset();
+	  window.location = window.location;
     }
 }
