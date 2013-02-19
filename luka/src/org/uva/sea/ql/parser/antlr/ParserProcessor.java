@@ -11,6 +11,7 @@ import org.uva.sea.ql.questionnaire.Questionnaire;
 
 public class ParserProcessor {
 
+	//for testing
 	public Expr checkExpression(String src) throws RecognitionException {
 		QLLexer lex = new QLLexer(new ANTLRStringStream(src));
 		CommonTokenStream tokens = new CommonTokenStream(lex);
@@ -22,7 +23,7 @@ public class ParserProcessor {
 		return walker.expression();
 
 	}
-
+	//to parse questionnaire, test parameter indicates whether to use file or string as input
 	public Questionnaire parse(String src, boolean test) {
 		Questionnaire questionnaire = null;
 		QLLexer lex;

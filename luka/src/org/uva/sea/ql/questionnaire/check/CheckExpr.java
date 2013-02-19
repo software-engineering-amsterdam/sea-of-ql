@@ -39,6 +39,7 @@ public class CheckExpr implements Visitor<Boolean> {
 		this.messages = messages;
 	}
 
+	//check if expression is valid, if not, put error message to error list
 	public static Boolean check(Expr expr, Map<Ident, Type> typeEnv,
 			List<ErrorMessage> errs) {
 		CheckExpr check = new CheckExpr(typeEnv, errs);

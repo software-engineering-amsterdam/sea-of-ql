@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class VisibleComputetStat extends ComputedStat {
-
+	//base class for visible statements
 	public VisibleComputetStat(Ident ident, String label, Expr computableExpr,
 			Type type) {
 		super(ident, label, type, computableExpr);

@@ -9,7 +9,7 @@ public abstract class TypedStat implements Stat {
 	protected final Ident ident;
 	protected final String label;
 	protected final Type type;
-
+	//statement which has a type
 	public TypedStat(Ident ident, String label, Type type) {
 		this.ident = ident;
 		this.label = label;

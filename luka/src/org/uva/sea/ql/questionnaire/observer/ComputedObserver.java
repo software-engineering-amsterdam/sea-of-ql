@@ -14,6 +14,7 @@ public class ComputedObserver extends StatementObserver {
 	private final State state;
 	private final ComputedStat stat;
 
+	//observer which has computed statement and type specific control
 	public ComputedObserver(AbstractControl ctl, State state, ComputedStat stat) {
 		super(state, stat.getExpr());
 		this.control = ctl;

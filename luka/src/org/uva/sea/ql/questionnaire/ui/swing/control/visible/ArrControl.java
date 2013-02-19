@@ -14,6 +14,7 @@ public class ArrControl extends AbstractVisibleControl {
 	private JComboBox comboBox;
 	private final Arr arr;
 
+	//control which contains combo box to chose one of the possible answers
 	public ArrControl(State state, Ident ident, Arr arr) {
 		super(state, ident);
 		this.arr = arr;

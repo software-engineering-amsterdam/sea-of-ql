@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class HiddenComputetStat extends ComputedStat {
-
+	//statement is invisible computed
 	public HiddenComputetStat(Ident ident, Expr computableExpr, Type type) {
 		super(ident, "", type, computableExpr);
 	}

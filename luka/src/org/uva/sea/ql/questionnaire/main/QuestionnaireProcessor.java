@@ -15,6 +15,7 @@ public class QuestionnaireProcessor {
 	private final String qlLocation = "/Users/luc0/Desktop/Software_Creation/git/sea-of-ql/luka/src/org/uva/sea/ql/parser/antlr/questionnaireTemplate/something.txt";
 	private final String fileLocation = "/Users/luc0/Desktop/test.xml";
 
+	//main class which handles constructing checking and contruction of gui
 	public static void main(String[] arg) {
 		QuestionnaireProcessor processor = new QuestionnaireProcessor();
 		processor.process();

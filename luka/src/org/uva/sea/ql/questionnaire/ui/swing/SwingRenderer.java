@@ -56,7 +56,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		this.state = state;
 		panel = new JPanel();
 	}
-
+	//renders statement based on given statement and ident type
 	public static JPanel renderStatement(Stat statement, State state) {
 		SwingRenderer renderer = new SwingRenderer(state);
 		statement.accept(renderer);
@@ -64,7 +64,6 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	}
 
 	private void initVisibleComponents() {
-
 		this.panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 	}
 

@@ -26,6 +26,7 @@ public class SaveButtonActionListener implements ActionListener {
 	private final State state;
 	private final String fileLocation;
 
+	//saves current state of UI to xml file to given file location
 	public SaveButtonActionListener(State state, String fileLocation) {
 		this.state = state;
 		this.fileLocation = fileLocation;

@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.type.Type;
 
 public abstract class ComputedStat extends TypedStat {
 
+	///expression to compute the value of statement
 	private final Expr expression;
 
 	public ComputedStat(Ident ident, String label, Type type,

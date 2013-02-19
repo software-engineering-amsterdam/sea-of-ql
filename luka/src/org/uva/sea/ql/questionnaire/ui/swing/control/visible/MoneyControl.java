@@ -13,6 +13,7 @@ public class MoneyControl extends KeyControl {
 
 	private final JLabel moneyLabel;
 
+	// control with text field and the possibility to enter double with 2 decimals values
 	public MoneyControl(State state, Ident ident) {
 		super(state, ident);
 		this.moneyLabel = new JLabel("Û");

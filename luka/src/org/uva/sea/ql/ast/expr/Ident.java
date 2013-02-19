@@ -29,7 +29,7 @@ public class Ident extends Expr {
 
 	@Override
 	public String toString() {
-		return "Ident(" + this.name + ")";
+		return this.name;
 	}
 
 	public String getName() {

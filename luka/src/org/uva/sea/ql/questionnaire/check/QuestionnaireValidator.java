@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.type.Type;
 
 public class QuestionnaireValidator {
 
+	//checks whether questionnaire is has valid statements or not, if not, prints error messages
 	public static boolean validateQuestionnaire(String questionnaireName,
 			Block qBlock, List<ErrorMessage> errorList) {
 		Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();

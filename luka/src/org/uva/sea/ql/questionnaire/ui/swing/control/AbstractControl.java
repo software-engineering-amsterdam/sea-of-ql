@@ -11,6 +11,7 @@ public abstract class AbstractControl extends Observable {
 	protected final State state;
 	protected final Ident ident;
 
+	//base class for UI controls
 	public AbstractControl(State state, Ident ident) {
 		this.state = state;
 		this.ident = ident;

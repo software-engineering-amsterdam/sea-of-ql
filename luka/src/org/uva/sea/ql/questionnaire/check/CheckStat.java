@@ -29,7 +29,7 @@ public class CheckStat implements StatementVisitor {
 		this.typeEnv = typeEnv;
 		this.errorList = errorList;
 	}
-
+	//check if given block is valid, loops through all statements in this block and if error occurs, add error to error list
 	public static void checkStatBlock(Block block, Map<Ident, Type> typeEnv,
 			List<ErrorMessage> errorList) {
 		CheckStat statChecker = new CheckStat(typeEnv, errorList);

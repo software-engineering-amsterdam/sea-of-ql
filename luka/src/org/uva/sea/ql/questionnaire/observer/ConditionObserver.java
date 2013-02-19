@@ -16,6 +16,7 @@ public class ConditionObserver extends StatementObserver {
 	private final JPanel tru, fls;
 	private final Expr cond;
 
+	//observer which has computed statement of if/ ifElse condition and shows wether or not the condition is true
 	public ConditionObserver(Expr condition, State state, JPanel tru, JPanel fls) {
 		super(state, condition);
 		this.cond = condition;

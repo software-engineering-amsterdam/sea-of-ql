@@ -6,6 +6,7 @@ import org.uva.sea.ql.questionnaire.State;
 
 public class TextControl extends KeyControl {
 
+	//control with text field and the possibility to enter string values
 	public TextControl(State state, Ident ident) {
 		super(state, ident);
 		initEventListener();

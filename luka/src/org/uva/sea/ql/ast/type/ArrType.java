@@ -11,7 +11,7 @@ public class ArrType extends Type {
 	public ArrType(Type type) {
 		this.type = type;
 	}
-	
+
 	@Override
 	public Value getValueForString(String s) {
 		throw new UnsupportedOperationException();
@@ -24,7 +24,6 @@ public class ArrType extends Type {
 
 	@Override
 	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

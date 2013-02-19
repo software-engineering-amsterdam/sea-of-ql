@@ -36,6 +36,7 @@ public abstract class StatementObserver implements Observer, Visitor<Expr> {
 	protected final State state;
 	protected final Expr expr;
 
+	//base class for observer
 	public StatementObserver(State state, Expr expr) {
 		this.state = state;
 		this.expr = expr;

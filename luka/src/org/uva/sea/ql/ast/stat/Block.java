@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class Block implements Stat {
 
+	//all statements in this block
 	private final List<Stat> statements;
 
 	public Block() {

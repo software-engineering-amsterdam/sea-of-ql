@@ -16,6 +16,7 @@ public abstract class KeyControl extends AbstractVisibleControl {
 
 	private final JTextField control;
 
+	//base class for controls with text field
 	public KeyControl(State state, Ident ident) {
 		super(state, ident);
 		control = new JTextField();

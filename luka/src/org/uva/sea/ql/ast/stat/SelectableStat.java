@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class SelectableStat extends TypedStat {
-
+	
 	private final Arr arr;
-
+	//statement with multiple answer possibilities
 	public SelectableStat(Ident ident, String label, Type type, Arr arr) {
 		super(ident, label, type);
 		this.arr = arr;

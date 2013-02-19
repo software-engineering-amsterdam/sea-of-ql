@@ -23,6 +23,10 @@ doubArrYes: "doubArrYes" integer
 if(arrValue5== arrValue6){
 doubArrYes2: "comparison bet. 2 doubArrays" double(arrValue5* arrValue6)
 }
+yourName: "whats your name?" string
+if((yourName == "Luka") || (arrValue4 == "dodo")){
+niceName: "yeah bravo!" string("nice name!")
+}
 boolVal1 : "boolVal1" boolean
 computedBool1: "computedBool1" boolean(boolVal1)
 computedBoo2: "computedBool2" boolean(computedBool1)

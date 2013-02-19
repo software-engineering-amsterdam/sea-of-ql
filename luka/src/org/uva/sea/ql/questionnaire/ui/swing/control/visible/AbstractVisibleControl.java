@@ -14,6 +14,7 @@ public abstract class AbstractVisibleControl extends AbstractControl {
 	protected  boolean isChangeable;
 	protected final JPanel controlPanel;
 
+	//base class for visible controls
 	public AbstractVisibleControl(State state, Ident ident) {
 		super(state, ident);
 		this.controlPanel = new JPanel(new FlowLayout());

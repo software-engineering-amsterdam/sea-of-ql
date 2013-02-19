@@ -16,6 +16,7 @@ public class BoolControl extends AbstractVisibleControl {
 	private final ButtonGroup radioButtonGroup;
 	private final JRadioButton trueButton, falseButton;
 
+	//control containing radio buttons for true or false
 	public BoolControl(State state, Ident ident) {
 		super(state, ident);
 		this.trueButton = new JRadioButton("yes");

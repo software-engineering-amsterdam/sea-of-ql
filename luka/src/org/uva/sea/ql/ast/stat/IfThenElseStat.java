@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.visitor.StatementVisitor;
 
 public class IfThenElseStat extends ConditionalStat {
-	
+	//else block for ifThenElse statement
 	private final Block elseBlock;
 
 	public IfThenElseStat(Expr condition, Block ifBlock, Block elseBlock) {
