@@ -56,8 +56,8 @@ private set[Message] unallowedQuestionAttrErrors(Stylesheet s) {
       typeWithInvalidAttr(r.attr.name, \type.name, r@location) | 
       d <- getQuestionDefinitions(s), 
       d.styleRules?,
-      identDefinition(d.ident) in typeMap,
-      \type := typeMap[identDefinition(d.ident)],
+      identDefinition(d.ident.name) in typeMap,
+      \type := typeMap[identDefinition(d.ident.name)],
       r <- d.styleRules,
       !isAllowedAttr(\type, r.attr)
     };

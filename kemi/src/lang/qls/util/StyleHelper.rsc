@@ -36,7 +36,7 @@ public default Form getAccompanyingForm(Stylesheet s) =
   form(identDefinition(""), []);
 
 public loc getAccompanyingFormLocation(Stylesheet s) =
-  s@location.parent + "<s.ident><FORM_EXT>";
+  s@location.parent + "<s.ident.name><FORM_EXT>";
 
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   TypeMap typeMap = getTypeMap(f);

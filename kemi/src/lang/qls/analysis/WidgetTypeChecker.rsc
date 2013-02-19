@@ -56,8 +56,8 @@ private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
       typeWithInvalidWidget(widget.name, \type.name, r@location) |
       d <- getQuestionDefinitions(s),
       d.styleRules?,
-      identDefinition(d.ident) in typeMap,
-      \type := typeMap[identDefinition(d.ident)],
+      identDefinition(d.ident.name) in typeMap,
+      \type := typeMap[identDefinition(d.ident.name)],
       r:widgetStyleRule(_, widget) <- d.styleRules,
       !isAllowedWidget(\type, widget.name)
     };
@@ -92,8 +92,8 @@ private set[Message] unallowedQuestionIntegerRangeErrors(Stylesheet s) {
       invalidRangeType(\type.name, r@location) |
       d <- getQuestionDefinitions(s),
       d.styleRules?,
-      identDefinition(d.ident) in typeMap,
-      \type := typeMap[identDefinition(d.ident)],
+      identDefinition(d.ident.name) in typeMap,
+      \type := typeMap[identDefinition(d.ident.name)],
       \type.name == INTEGER_IDENT_NAME,
       r:widgetStyleRule(_, widget) <- d.styleRules,
       widget.min?,

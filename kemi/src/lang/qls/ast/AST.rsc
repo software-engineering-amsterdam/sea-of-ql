@@ -11,19 +11,23 @@
 module lang::qls::\ast::AST
 
 data Stylesheet
-  = stylesheet(str ident, list[Definition] definitions)
+  = stylesheet(Ident ident, list[Definition] definitions)
   ;
 
 data Definition
-  = pageDefinition(str ident, list[LayoutRule] layoutRules)
-  | sectionDefinition(str ident, list[LayoutRule] layoutRules)
-  | questionDefinition(str ident)
-  | questionDefinition(str ident, list[StyleRule] styleRules)
+  = pageDefinition(str name, list[LayoutRule] layoutRules)
+  | sectionDefinition(str name, list[LayoutRule] layoutRules)
+  | questionDefinition(Ident ident)
+  | questionDefinition(Ident ident, list[StyleRule] styleRules)
   | defaultDefinition(Type \type, list[StyleRule] styleRules)
   ;
 
 data LayoutRule
   = layoutRule(Definition definition)
+  ;
+
+data Ident
+  = ident(str name)
   ;
 
 data Type

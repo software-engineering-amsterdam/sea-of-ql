@@ -38,20 +38,20 @@ private default set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
   {};
 
 private set[Message] filenameDoesNotMatchErrors(Stylesheet s) =
-  {stylesheetDoesNotMatchFilename(s.ident, s@location)}
-    when s.ident != basename(s@location);
+  {stylesheetDoesNotMatchFilename(s.ident.name, s@location)}
+    when s.ident.name != basename(s@location);
 
 private default set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
   {};
 
 private set[Message] accompanyingFormNotFoundErrors(Stylesheet s) =
-  {accompanyingFormNotFound(s.ident, s@location)}
+  {accompanyingFormNotFound(s.ident.name, s@location)}
     when !isFile(getAccompanyingFormLocation(s));
 
 private set[Message] alreadyUsedQuestionErrors(Stylesheet s) {
   set[Message] errors = {};
   list[Definition] questionDefinitions = getQuestionDefinitions(s);
-  map[str, loc] idents = ();
+  map[Ident, loc] idents = ();
   
   for(d <- questionDefinitions) {
     if(d.ident in idents) {
@@ -72,13 +72,13 @@ private set[Message] undefinedQuestionErrors(Stylesheet s) {
   list[Definition] qdefs = getQuestionDefinitions(s);
   
   return {questionUndefinedInForm(q@location) | q <- qdefs, 
-    identDefinition(q.ident) notin typeMap};
+    identDefinition(q.ident.name) notin typeMap};
 }
 
 private set[Message] unusedQuestionWarnings(Stylesheet s) {
   TypeMap typeMap = domainX(
     getTypeMap(getAccompanyingForm(s)),
-    {identDefinition(d.ident) | d <- getQuestionDefinitions(s)}
+    {identDefinition(d.ident.name) | d <- getQuestionDefinitions(s)}
   );
   
   // Show warning at the end of the Stylesheet
@@ -101,10 +101,10 @@ private set[Message] doublePageNameWarnings(Stylesheet s) {
   map[str, loc] pages = ();
   
   for(d <- pageDefinitions) {
-    if(d.ident in pages) {
-      warnings += pageAlreadyDefined(pages[d.ident], d@location);
+    if(d.name in pages) {
+      warnings += pageAlreadyDefined(pages[d.name], d@location);
     } 
-    pages[d.ident] = d@location;
+    pages[d.name] = d@location;
   }
   
   return warnings;
@@ -116,10 +116,10 @@ private set[Message] doubleSectionNameWarnings(Stylesheet s) {
   map[str, loc] sections = ();
   
   for(d <- sectionDefinitions) {
-    if(d.ident in sections) {
-      warnings += sectionAlreadyDefined(sections[d.ident], d@location);
+    if(d.name in sections) {
+      warnings += sectionAlreadyDefined(sections[d.name], d@location);
     } 
-    sections[d.ident] = d@location;
+    sections[d.name] = d@location;
   }
   
   return warnings;

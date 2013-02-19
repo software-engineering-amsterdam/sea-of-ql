@@ -46,7 +46,9 @@ private str blockIdent(Definition d) =
     when d is questionDefinition;
 
 private str layoutJS(Stylesheet s) =
-  "<for(d <- s.definitions) {><layoutJS(d, getUniqueID(s))><}>";
+  "<for(Definition d <- s.definitions, defaultDefinition(_, _) !:= d) {>
+  '<layoutJS(d, getUniqueID(s))>
+  '<}>";
 
 private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) =
   "$(\"\<div /\>\")
