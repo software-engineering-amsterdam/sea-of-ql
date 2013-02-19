@@ -1,25 +1,25 @@
-package org.uva.sea.ql.ast.binary;
+package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public class Multiply extends BinaryOperation {
+public class LessThan extends BinaryOperation {
 
-    public Multiply(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceCodeInformation) {
+    public LessThan(Expression leftHandSide, Expression rightHandSide, SourceCodeInformation sourceCodeInformation) {
         super(leftHandSide, rightHandSide, sourceCodeInformation);
     }
 
     @Override
     public Type getType(SymbolTable symbolTable) {
-        return new IntegerType();
+        return new BooleanType();
     }
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitMultiply(this);
+        return visitor.visitLessThan(this);
     }
 }

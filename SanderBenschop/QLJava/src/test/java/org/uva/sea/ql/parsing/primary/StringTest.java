@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parsing.primary;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 

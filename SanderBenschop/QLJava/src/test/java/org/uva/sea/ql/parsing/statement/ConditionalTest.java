@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parsing.statement;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
@@ -46,7 +46,7 @@ public class ConditionalTest extends TestParser {
 
     private void assertOuterConditional(String parseText) throws ParseException {
         IfElseStatement outerConditional = (IfElseStatement) parseStatement(parseText);
-        List<QLStatement> outerSuccessBlock = outerConditional.getSuccessBlock(), outerFailureBlock = outerConditional.getFailureBlock();
+        List<Statement> outerSuccessBlock = outerConditional.getSuccessBlock(), outerFailureBlock = outerConditional.getFailureBlock();
         assertEquals(1, outerSuccessBlock.size());
         assertEquals(1, outerFailureBlock.size());
 
@@ -59,7 +59,7 @@ public class ConditionalTest extends TestParser {
     }
 
     private void assertInnerConditional(IfElseStatement innerConditional) {
-        List<QLStatement> innerSuccessBlock = innerConditional.getSuccessBlock(), innerFailureBlock = innerConditional.getFailureBlock();
+        List<Statement> innerSuccessBlock = innerConditional.getSuccessBlock(), innerFailureBlock = innerConditional.getFailureBlock();
         assertEquals(1, innerSuccessBlock.size());
         assertEquals(1, innerFailureBlock.size());
 

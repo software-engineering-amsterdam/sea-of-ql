@@ -4,12 +4,12 @@ import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.binary.*;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.primary.Bool;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Int;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
@@ -18,10 +18,10 @@ import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.ast.unary.Negative;
-import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.ast.unary.Positive;
-import org.uva.sea.ql.ast.unary.UnaryOperation;
+import org.uva.sea.ql.ast.expression.unary.Negative;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Positive;
+import org.uva.sea.ql.ast.expression.unary.UnaryOperation;
 import org.uva.sea.ql.codegeneration.codewrapper.*;
 import org.uva.sea.ql.codegeneration.sequencegenerator.ConditionalIdentifierSequenceGenerator;
 import org.uva.sea.ql.codegeneration.sequencegenerator.IdentifierSequenceGenerator;
@@ -59,7 +59,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitForm(Form form) {
         CompositeStatementWebappCodeWrapper compositeWrapper = new CompositeStatementWebappCodeWrapper();
-        for (QLStatement statement : form.getStatements()) {
+        for (Statement statement : form.getStatements()) {
             WebappCodeWrapper statementWrapper = statement.accept(this);
             compositeWrapper.addStatementWebappCodeWrapper(statementWrapper);
         }
@@ -113,7 +113,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ifStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, "ifStatementParentController", expressionJSCodeWrapper));
         ifStatementHtmlTemplate.add("identifier", identifier);
 
-        for (QLStatement successStatement : ifStatement.getSuccessBlock()) {
+        for (Statement successStatement : ifStatement.getSuccessBlock()) {
             WebappCodeWrapper statementWrapper = successStatement.accept(this);
             ifStatementHtmlTemplate.add("successBodyContent", statementWrapper.getHTMLCode());
             ifStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
@@ -135,13 +135,13 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ifElseStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, "ifElseStatementParentController", expressionJSCodeWrapper));
         ifElseStatementHtmlTemplate.add("identifier", identifier);
 
-        for (QLStatement successStatement : ifElseStatement.getSuccessBlock()) {
+        for (Statement successStatement : ifElseStatement.getSuccessBlock()) {
             WebappCodeWrapper statementWrapper = successStatement.accept(this);
             ifElseStatementHtmlTemplate.add("successBodyContent", statementWrapper.getHTMLCode());
             ifElseStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());
         }
 
-        for (QLStatement failureStatement : ifElseStatement.getFailureBlock()) {
+        for (Statement failureStatement : ifElseStatement.getFailureBlock()) {
             WebappCodeWrapper statementWrapper = failureStatement.accept(this);
             ifElseStatementHtmlTemplate.add("failureBodyContent", statementWrapper.getHTMLCode());
             ifElseStatementWrapper.appendJavascriptCode(statementWrapper.getJavascriptCode());

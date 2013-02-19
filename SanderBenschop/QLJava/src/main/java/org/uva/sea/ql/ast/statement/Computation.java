@@ -1,18 +1,17 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Str;
 
-public class Computation extends QLStatement {
+public class Computation extends Statement {
 
     private final Ident identifier;
     private final Str label;
-    private final QLExpression expression;
+    private final Expression expression;
 
-    public Computation(Ident identifier, Str label, QLExpression expression) {
+    public Computation(Ident identifier, Str label, Expression expression) {
         this.identifier = identifier;
         this.label = label;
         this.expression = expression;
@@ -26,7 +25,7 @@ public class Computation extends QLStatement {
         return label;
     }
 
-    public QLExpression getExpression() {
+    public Expression getExpression() {
         return expression;
     }
 

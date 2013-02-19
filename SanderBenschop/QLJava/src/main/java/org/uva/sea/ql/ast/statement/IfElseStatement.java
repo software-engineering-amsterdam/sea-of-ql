@@ -1,22 +1,21 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.expression.Expression;
 
 import java.util.Collections;
 import java.util.List;
 
 public class IfElseStatement extends Conditional {
 
-    private final List<QLStatement> failureBlock;
+    private final List<Statement> failureBlock;
 
-    public IfElseStatement(QLExpression condition, List<QLStatement> successBlock, List<QLStatement> failureBlock) {
+    public IfElseStatement(Expression condition, List<Statement> successBlock, List<Statement> failureBlock) {
         super(condition, successBlock);
         this.failureBlock = Collections.unmodifiableList(failureBlock);
     }
 
-    public List<QLStatement> getFailureBlock() {
+    public List<Statement> getFailureBlock() {
         return failureBlock;
     }
 

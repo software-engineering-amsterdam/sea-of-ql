@@ -1,9 +1,9 @@
 package org.uva.sea.ql.parsing.binary;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.binary.GreaterThan;
-import org.uva.sea.ql.ast.binary.LessThan;
-import org.uva.sea.ql.ast.binary.LessThanOrEqualTo;
+import org.uva.sea.ql.ast.expression.binary.GreaterThan;
+import org.uva.sea.ql.ast.expression.binary.LessThan;
+import org.uva.sea.ql.ast.expression.binary.LessThanOrEqualTo;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 

@@ -1,16 +1,16 @@
-package org.uva.sea.ql.ast.unary;
+package org.uva.sea.ql.ast.expression.unary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public class Positive extends UnaryOperation {
+public class Negative extends UnaryOperation {
 
-    public Positive(QLExpression expression, SourceCodeInformation sourceInfo) {
-        super(expression, sourceInfo);
+    public Negative(Expression expression, SourceCodeInformation sourceCodeInformation) {
+        super(expression, sourceCodeInformation);
     }
 
     @Override
@@ -20,6 +20,6 @@ public class Positive extends UnaryOperation {
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitPositive(this);
+        return visitor.visitNegative(this);
     }
 }

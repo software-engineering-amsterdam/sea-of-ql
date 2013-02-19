@@ -1,15 +1,15 @@
-package org.uva.sea.ql.ast.binary;
+package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public class Divide extends BinaryOperation {
+public class Multiply extends BinaryOperation {
 
-    public Divide(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceCodeInformation) {
+    public Multiply(Expression leftHandSide, Expression rightHandSide, SourceCodeInformation sourceCodeInformation) {
         super(leftHandSide, rightHandSide, sourceCodeInformation);
     }
 
@@ -20,6 +20,6 @@ public class Divide extends BinaryOperation {
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitDivide(this);
+        return visitor.visitMultiply(this);
     }
 }

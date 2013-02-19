@@ -2,9 +2,9 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.expression.primary.Bool;
+import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
@@ -28,7 +28,7 @@ public class ConditionalTypeCheckingVisitorTest {
     @Test
     public void shouldReduceProperly() {
         Bool expression = new Bool(true, sourceCodeInformation);
-        List<QLStatement> emptyStatementList = Collections.emptyList();
+        List<Statement> emptyStatementList = Collections.emptyList();
         IfStatement conditional = new IfStatement(expression, emptyStatementList);
 
         boolean ifStatementCorrect = semanticAnalysisVisitor.visitIfStatement(conditional);
@@ -39,7 +39,7 @@ public class ConditionalTypeCheckingVisitorTest {
     @Test
     public void shouldDetectTypeError() {
         Int expression = new Int(0, sourceCodeInformation);
-        List<QLStatement> emptyStatementList = Collections.emptyList();
+        List<Statement> emptyStatementList = Collections.emptyList();
         IfStatement conditional = new IfStatement(expression, emptyStatementList);
 
         boolean ifStatementCorrect = semanticAnalysisVisitor.visitIfStatement(conditional);

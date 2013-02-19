@@ -1,6 +1,6 @@
 package org.uva.sea.ql.web.inputvalidation;
 
-import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 import org.uva.sea.ql.web.IdentifierValuePair;

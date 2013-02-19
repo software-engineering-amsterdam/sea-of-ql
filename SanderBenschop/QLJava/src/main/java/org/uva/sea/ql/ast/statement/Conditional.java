@@ -1,26 +1,25 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.expression.Expression;
 
 import java.util.Collections;
 import java.util.List;
 
-public abstract class Conditional extends QLStatement {
+public abstract class Conditional extends Statement {
 
-    private final QLExpression condition;
-    private final List<QLStatement> successBlock;
+    private final Expression condition;
+    private final List<Statement> successBlock;
 
-    public Conditional(QLExpression condition, List<QLStatement> successBlock) {
+    public Conditional(Expression condition, List<Statement> successBlock) {
         this.condition = condition;
         this.successBlock = Collections.unmodifiableList(successBlock);
     }
 
-    public QLExpression getCondition() {
+    public Expression getCondition() {
         return condition;
     }
 
-    public List<QLStatement> getSuccessBlock() {
+    public List<Statement> getSuccessBlock() {
         return successBlock;
     }
 }

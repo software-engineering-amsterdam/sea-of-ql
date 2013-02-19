@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parsing.unary;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.unary.Positive;
+import org.uva.sea.ql.ast.expression.unary.Positive;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 

@@ -1,12 +1,11 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.Type;
 
-public class Question extends QLStatement {
+public class Question extends Statement {
 
     private final Ident identifier;
     private final Str label;

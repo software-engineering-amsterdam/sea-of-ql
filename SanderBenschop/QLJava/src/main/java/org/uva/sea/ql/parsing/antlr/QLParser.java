@@ -4,22 +4,22 @@ package org.uva.sea.ql.parsing.antlr;
 
 import org.antlr.runtime.*;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.binary.*;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.primary.Bool;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Int;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.unary.Negative;
-import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.ast.unary.Positive;
+import org.uva.sea.ql.ast.expression.unary.Negative;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Positive;
 import org.uva.sea.ql.parsing.error.SyntacticQLError;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporter;
 
@@ -131,7 +131,7 @@ public class QLParser extends Parser {
         int form_StartIndex = input.index();
 
         Token Ident1 = null;
-        List<QLStatement> statementList2 = null;
+        List<Statement> statementList2 = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 1)) {
@@ -174,13 +174,13 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "block"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:57:1: block returns [List<QLStatement> result] : '{' statementList '}' ;
-    public final List<QLStatement> block() throws RecognitionException {
-        List<QLStatement> result = null;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:57:1: block returns [List<Statement> result] : '{' statementList '}' ;
+    public final List<Statement> block() throws RecognitionException {
+        List<Statement> result = null;
 
         int block_StartIndex = input.index();
 
-        List<QLStatement> statementList3 = null;
+        List<Statement> statementList3 = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 2)) {
@@ -219,16 +219,16 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "statementList"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:64:1: statementList returns [List<QLStatement> result] : (stmnt= statement )* ;
-    public final List<QLStatement> statementList() throws RecognitionException {
-        List<QLStatement> result = null;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:64:1: statementList returns [List<Statement> result] : (stmnt= statement )* ;
+    public final List<Statement> statementList() throws RecognitionException {
+        List<Statement> result = null;
 
         int statementList_StartIndex = input.index();
 
-        QLStatement stmnt = null;
+        Statement stmnt = null;
 
 
-        result = new ArrayList<QLStatement>();
+        result = new ArrayList<Statement>();
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 3)) {
@@ -284,9 +284,9 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "statement"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:72:1: statement returns [QLStatement result] : ( question | computation | conditional );
-    public final QLStatement statement() throws RecognitionException {
-        QLStatement result = null;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:72:1: statement returns [Statement result] : ( question | computation | conditional );
+    public final Statement statement() throws RecognitionException {
+        Statement result = null;
 
         int statement_StartIndex = input.index();
 
@@ -575,7 +575,7 @@ public class QLParser extends Parser {
 
         Token Ident10 = null;
         Token Str11 = null;
-        QLExpression orExpr12 = null;
+        Expression orExpr12 = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 7)) {
@@ -602,7 +602,7 @@ public class QLParser extends Parser {
                 if (state.backtracking == 0) {
                     Ident ident = new Ident((Ident10 != null ? Ident10.getText() : null), createSourceCodeInformation(Ident10));
                     Str label = new Str(removeOuterQuotes((Str11 != null ? Str11.getText() : null)), createSourceCodeInformation(Str11));
-                    QLExpression expression = orExpr12;
+                    Expression expression = orExpr12;
                     result = new Computation(ident, label, expression);
                 }
             }
@@ -629,9 +629,9 @@ public class QLParser extends Parser {
 
         int conditional_StartIndex = input.index();
 
-        QLExpression condition = null;
-        List<QLStatement> success = null;
-        List<QLStatement> failure = null;
+        Expression condition = null;
+        List<Statement> success = null;
+        List<Statement> failure = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 8)) {
@@ -722,8 +722,8 @@ public class QLParser extends Parser {
 
     // $ANTLR start "primary"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:111:1: primary returns [QLExpression result] : ( Int | Bool | Str | Ident | '(' x= orExpr ')' );
-    public final QLExpression primary() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression primary() throws RecognitionException {
+        Expression result = null;
 
         int primary_StartIndex = input.index();
 
@@ -731,7 +731,7 @@ public class QLParser extends Parser {
         Token Bool14 = null;
         Token Str15 = null;
         Token Ident16 = null;
-        QLExpression x = null;
+        Expression x = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 9)) {
@@ -846,13 +846,13 @@ public class QLParser extends Parser {
 
     // $ANTLR start "unExpr"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:119:1: unExpr returns [QLExpression result] : (op= '+' x= unExpr |op= '-' x= unExpr |op= '!' x= unExpr |x= primary );
-    public final QLExpression unExpr() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression unExpr() throws RecognitionException {
+        Expression result = null;
 
         int unExpr_StartIndex = input.index();
 
         Token op = null;
-        QLExpression x = null;
+        Expression x = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 10)) {
@@ -965,14 +965,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "mulExpr"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:126:1: mulExpr returns [QLExpression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
-    public final QLExpression mulExpr() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression mulExpr() throws RecognitionException {
+        Expression result = null;
 
         int mulExpr_StartIndex = input.index();
 
         Token op = null;
-        QLExpression lhs = null;
-        QLExpression rhs = null;
+        Expression lhs = null;
+        Expression rhs = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 11)) {
@@ -1055,14 +1055,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "addExpr"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:140:1: addExpr returns [QLExpression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-    public final QLExpression addExpr() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression addExpr() throws RecognitionException {
+        Expression result = null;
 
         int addExpr_StartIndex = input.index();
 
         Token op = null;
-        QLExpression lhs = null;
-        QLExpression rhs = null;
+        Expression lhs = null;
+        Expression rhs = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 12)) {
@@ -1145,14 +1145,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "relExpr"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:153:1: relExpr returns [QLExpression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-    public final QLExpression relExpr() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression relExpr() throws RecognitionException {
+        Expression result = null;
 
         int relExpr_StartIndex = input.index();
 
         Token op = null;
-        QLExpression lhs = null;
-        QLExpression rhs = null;
+        Expression lhs = null;
+        Expression rhs = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 13)) {
@@ -1247,14 +1247,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "andExpr"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:178:1: andExpr returns [QLExpression result] : lhs= relExpr (op= '&&' rhs= relExpr )* ;
-    public final QLExpression andExpr() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression andExpr() throws RecognitionException {
+        Expression result = null;
 
         int andExpr_StartIndex = input.index();
 
         Token op = null;
-        QLExpression lhs = null;
-        QLExpression rhs = null;
+        Expression lhs = null;
+        Expression rhs = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 14)) {
@@ -1320,14 +1320,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "orExpr"
     // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:183:1: orExpr returns [QLExpression result] : lhs= andExpr (op= '||' rhs= andExpr )* ;
-    public final QLExpression orExpr() throws RecognitionException {
-        QLExpression result = null;
+    public final Expression orExpr() throws RecognitionException {
+        Expression result = null;
 
         int orExpr_StartIndex = input.index();
 
         Token op = null;
-        QLExpression lhs = null;
-        QLExpression rhs = null;
+        Expression lhs = null;
+        Expression rhs = null;
 
         try {
             if (state.backtracking > 0 && alreadyParsedRule(input, 15)) {

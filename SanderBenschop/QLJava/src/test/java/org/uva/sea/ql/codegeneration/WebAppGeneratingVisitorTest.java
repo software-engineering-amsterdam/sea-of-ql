@@ -4,19 +4,16 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.binary.Multiply;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.expression.binary.Multiply;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Int;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.ast.statement.Computation;
-import org.uva.sea.ql.ast.statement.IfElseStatement;
-import org.uva.sea.ql.ast.statement.IfStatement;
-import org.uva.sea.ql.ast.statement.Question;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,20 +36,20 @@ public class WebAppGeneratingVisitorTest {
 
     @Test
     public void testWebAppPageGeneration() throws IOException {
-        List<QLStatement> statements = new ArrayList<QLStatement>();
+        List<Statement> statements = new ArrayList<Statement>();
 
         Question openQuestion = new Question(new Ident("age", sourceCodeInformation), new Str("How old are you?", sourceCodeInformation), new IntegerType());
         Question closedQuestion = new Question(new Ident("male", sourceCodeInformation), new Str("Are you male?", sourceCodeInformation), new BooleanType());
         Multiply twoTimesAge = new Multiply(new Int(2, sourceCodeInformation), new Ident("age", sourceCodeInformation), sourceCodeInformation);
         Computation computation = new Computation(new Ident("twoTimesAge", sourceCodeInformation), new Str("Two times age:", sourceCodeInformation), twoTimesAge);
 
-        List<QLStatement> maleQuestions = new ArrayList<QLStatement>();
+        List<Statement> maleQuestions = new ArrayList<Statement>();
         maleQuestions.add(new Question(new Ident("likeBeer", sourceCodeInformation), new Str("Do you like beer?", sourceCodeInformation), new BooleanType()));
         IfStatement ifStatement = new IfStatement(new Ident("male", sourceCodeInformation), maleQuestions);
 
-        List<QLStatement> liveInNetherlands = new ArrayList<QLStatement>();
+        List<Statement> liveInNetherlands = new ArrayList<Statement>();
         liveInNetherlands.add(new Question(new Ident("howLongNetherlands", sourceCodeInformation), new Str("How many years have you lived in the Netherlands?", sourceCodeInformation), new IntegerType()));
-        List<QLStatement> noLiveInNetherlands = new ArrayList<QLStatement>();
+        List<Statement> noLiveInNetherlands = new ArrayList<Statement>();
         noLiveInNetherlands.add(new Question(new Ident("whereLive", sourceCodeInformation), new Str("Where do you live?", sourceCodeInformation), new StringType()));
         IfElseStatement ifElseStatement = new IfElseStatement(new Ident("male", sourceCodeInformation), liveInNetherlands, noLiveInNetherlands);
 

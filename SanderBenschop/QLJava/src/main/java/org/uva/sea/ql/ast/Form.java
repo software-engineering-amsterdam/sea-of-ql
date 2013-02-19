@@ -1,13 +1,15 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.statement.Statement;
+
 import java.util.List;
 
 public class Form implements ASTNode {
 
     private final String formName;
-    private final List<QLStatement> statements;
+    private final List<Statement> statements;
 
-    public Form(String formName, List<QLStatement> statements) {
+    public Form(String formName, List<Statement> statements) {
         this.formName = formName;
         this.statements = statements;
     }
@@ -16,7 +18,7 @@ public class Form implements ASTNode {
         return formName;
     }
 
-    public List<QLStatement> getStatements() {
+    public List<Statement> getStatements() {
         return statements;
     }
 

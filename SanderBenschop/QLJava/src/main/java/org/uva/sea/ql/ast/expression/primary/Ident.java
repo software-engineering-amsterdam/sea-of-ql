@@ -1,13 +1,13 @@
-package org.uva.sea.ql.ast.primary;
+package org.uva.sea.ql.ast.expression.primary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public final class Ident extends QLExpression {
+public final class Ident extends Expression {
 
     private final String name;
 

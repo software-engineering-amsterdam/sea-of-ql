@@ -5,10 +5,10 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parsing.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.primary.*;
+import org.uva.sea.ql.ast.expression.primary.*;
 import org.uva.sea.ql.ast.type.*;
-import org.uva.sea.ql.ast.unary.*;
-import org.uva.sea.ql.ast.binary.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.expression.binary.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.sourcecodeinformation.*;
 import org.uva.sea.ql.parsing.error.*;

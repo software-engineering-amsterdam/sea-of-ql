@@ -1,17 +1,17 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.binary.*;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.primary.Bool;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Int;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.ast.unary.Negative;
-import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.ast.unary.Positive;
+import org.uva.sea.ql.ast.expression.unary.Negative;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Positive;
 
 public interface ASTNodeVisitor<T> {
 

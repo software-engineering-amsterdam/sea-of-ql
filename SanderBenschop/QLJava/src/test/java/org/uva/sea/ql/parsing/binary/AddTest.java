@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parsing.binary;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.binary.Add;
+import org.uva.sea.ql.ast.expression.binary.Add;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 

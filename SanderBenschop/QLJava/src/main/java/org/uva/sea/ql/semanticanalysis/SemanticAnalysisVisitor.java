@@ -2,22 +2,22 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.binary.*;
-import org.uva.sea.ql.ast.primary.Bool;
-import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.primary.Str;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.primary.Bool;
+import org.uva.sea.ql.ast.expression.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Int;
+import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.unary.Negative;
-import org.uva.sea.ql.ast.unary.Not;
-import org.uva.sea.ql.ast.unary.Positive;
-import org.uva.sea.ql.ast.unary.UnaryOperation;
+import org.uva.sea.ql.ast.expression.unary.Negative;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Positive;
+import org.uva.sea.ql.ast.expression.unary.UnaryOperation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
@@ -62,7 +62,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     @Override
     public Boolean visitForm(Form form) {
         boolean correctForm = true;
-        for (QLStatement formStatement : form.getStatements()) {
+        for (Statement formStatement : form.getStatements()) {
             boolean correctStatement = formStatement.accept(this);
             if (!correctStatement && correctForm) correctForm = false;
         }
@@ -71,7 +71,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
 
     @Override
     public Boolean visitComputation(Computation computation) {
-        QLExpression expression = computation.getExpression();
+        Expression expression = computation.getExpression();
 
         boolean identifierPreviouslyUndeclared = (!symbolTable.containsIdentifier(computation.getIdentifier()));
         boolean expressionCorrect = expression.accept(this);
@@ -88,7 +88,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     @Override
     public Boolean visitIfStatement(IfStatement ifStatement) {
         boolean correctStatementBody = true;
-        for (QLStatement successBlockStatement : ifStatement.getSuccessBlock()) {
+        for (Statement successBlockStatement : ifStatement.getSuccessBlock()) {
             boolean correctStatement = successBlockStatement.accept(this);
             if (!correctStatement && correctStatementBody) correctStatementBody = false;
         }
@@ -99,12 +99,12 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     @Override
     public Boolean visitIfElseStatement(IfElseStatement ifElseStatement) {
         boolean correctStatementBodies = true;
-        for (QLStatement successBlockStatement : ifElseStatement.getSuccessBlock()) {
+        for (Statement successBlockStatement : ifElseStatement.getSuccessBlock()) {
             boolean correctStatement = successBlockStatement.accept(this);
             if (!correctStatement && correctStatementBodies) correctStatementBodies = false;
         }
 
-        for (QLStatement failureBlockStatement : ifElseStatement.getFailureBlock()) {
+        for (Statement failureBlockStatement : ifElseStatement.getFailureBlock()) {
             boolean correctStatement = failureBlockStatement.accept(this);
             if (!correctStatement && correctStatementBodies) correctStatementBodies = false;
         }
@@ -114,7 +114,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
 
     private boolean typeCheckConditional(Conditional conditional) {
         Type expectedType = new BooleanType();
-        QLExpression condition = conditional.getCondition();
+        Expression condition = conditional.getCondition();
         boolean conditionValid = condition.accept(this);
         if (!conditionValid) {
             return false;
@@ -232,7 +232,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     }
 
     private boolean typeCheckBinaryOperation(BinaryOperation binaryOperation, Type expectedType) {
-        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
+        Expression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
         if (!(leftHandSideCorrect && rightHandSideCorrect)) {
@@ -255,7 +255,7 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
     }
 
     private boolean equalityCheckBinaryOperation(BinaryOperation binaryOperation) {
-        QLExpression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
+        Expression leftHandSide = binaryOperation.getLeftHandSide(), rightHandSide = binaryOperation.getRightHandSide();
 
         boolean leftHandSideCorrect = leftHandSide.accept(this), rightHandSideCorrect = rightHandSide.accept(this);
         if (!(leftHandSideCorrect && rightHandSideCorrect)) {

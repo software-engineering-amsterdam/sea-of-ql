@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parsing.statement;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.QLStatement;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
@@ -16,7 +16,7 @@ public class QuestionTest extends TestParser {
 
     @Test
     public void shouldEvaluateToQuestionClass() throws ParseException {
-        QLStatement question = parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
+        Statement question = parseStatement("overEighteen : \"Are you 18 years or older?\" boolean");
         assertEquals(Question.class, question.getClass());
         assertEquals(BooleanType.class, ((Question) question).getDatatype().getClass());
     }

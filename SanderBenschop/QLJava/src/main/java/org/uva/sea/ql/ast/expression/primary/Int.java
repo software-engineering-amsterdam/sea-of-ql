@@ -1,16 +1,23 @@
-package org.uva.sea.ql.ast.binary;
+package org.uva.sea.ql.ast.expression.primary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public class Add extends BinaryOperation {
+public final class Int extends Expression {
 
-    public Add(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceCodeInformation) {
-        super(leftHandSide, rightHandSide, sourceCodeInformation);
+    private final int value;
+
+    public Int(int value, SourceCodeInformation sourceCodeInformation) {
+        super(sourceCodeInformation);
+        this.value = value;
+    }
+
+    public Integer getValue() {
+        return value;
     }
 
     @Override
@@ -20,6 +27,6 @@ public class Add extends BinaryOperation {
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitAdd(this);
+        return visitor.visitInt(this);
     }
 }

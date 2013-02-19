@@ -3,9 +3,9 @@ package org.uva.sea.ql.parsing;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.QLStatement;
-import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.parsing.exception.ParseException;
@@ -23,16 +23,16 @@ public abstract class TestParser {
         return parser.parse(source);
     }
 
-    protected QLStatement parseStatement(String source) throws ParseException {
+    protected Statement parseStatement(String source) throws ParseException {
         String template = "form FormName { %s }";
         Form form = parseForm(String.format(template, source));
         return form.getStatements().get(0);
     }
 
-    protected QLExpression parseExpression(String source) throws ParseException {
+    protected Expression parseExpression(String source) throws ParseException {
         Conditional statement = wrapInConditionalAndParse(source);
-        Assert.assertTrue("Attempted to parse non-expression to an expression.", statement.getCondition() instanceof QLExpression);
-        return (QLExpression) statement.getCondition();
+        Assert.assertTrue("Attempted to parse non-expression to an expression.", statement.getCondition() instanceof Expression);
+        return (Expression) statement.getCondition();
     }
 
     protected Ident parseIdent(String source) throws ParseException {
@@ -42,7 +42,7 @@ public abstract class TestParser {
 
     }
 
-    protected QLExpression parsePrimary(String source) throws ParseException {
+    protected Expression parsePrimary(String source) throws ParseException {
         String template = "if(%s){}";
         Conditional statement = (Conditional) parseStatement(String.format(template, source));
         return statement.getCondition();

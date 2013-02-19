@@ -1,6 +1,6 @@
 package org.uva.sea.ql.general.symboltable;
 
-import org.uva.sea.ql.ast.primary.Ident;
+import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
 
 import java.util.HashMap;

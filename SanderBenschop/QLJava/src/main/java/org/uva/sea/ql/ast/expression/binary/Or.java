@@ -1,23 +1,16 @@
-package org.uva.sea.ql.ast.primary;
+package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public final class Bool extends QLExpression {
+public class Or extends BinaryOperation {
 
-    private final boolean value;
-
-    public Bool(boolean value, SourceCodeInformation sourceCodeInformation) {
-        super(sourceCodeInformation);
-        this.value = value;
-    }
-
-    public Boolean getValue() {
-        return value;
+    public Or(Expression leftHandSide, Expression rightHandSide, SourceCodeInformation sourceCodeInformation) {
+        super(leftHandSide, rightHandSide, sourceCodeInformation);
     }
 
     @Override
@@ -27,6 +20,6 @@ public final class Bool extends QLExpression {
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitBool(this);
+        return visitor.visitOr(this);
     }
 }

@@ -1,15 +1,15 @@
-package org.uva.sea.ql.ast.binary;
+package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.ASTNodeVisitor;
-import org.uva.sea.ql.ast.QLExpression;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
-public class EqualTo extends BinaryOperation {
+public class GreaterThan extends BinaryOperation {
 
-    public EqualTo(QLExpression leftHandSide, QLExpression rightHandSide, SourceCodeInformation sourceCodeInformation) {
+    public GreaterThan(Expression leftHandSide, Expression rightHandSide, SourceCodeInformation sourceCodeInformation) {
         super(leftHandSide, rightHandSide, sourceCodeInformation);
     }
 
@@ -20,6 +20,6 @@ public class EqualTo extends BinaryOperation {
 
     @Override
     public <T> T accept(ASTNodeVisitor<T> visitor) {
-        return visitor.visitEqualTo(this);
+        return visitor.visitGreaterThan(this);
     }
 }
