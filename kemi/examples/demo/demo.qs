@@ -61,4 +61,5 @@ stylesheet demo {
   default integer {
     color #FF00FF
   }
+  
 }
