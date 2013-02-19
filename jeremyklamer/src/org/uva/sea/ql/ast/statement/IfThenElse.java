@@ -47,7 +47,6 @@ public class IfThenElse extends If{
 			elseComponents.addAll(statement.getUIComponents(env, form));
 		}
 		env.registerObserver(new ConditionObserver(condition, elseComponents, ifComponents, env));
-		
 		components.addAll(ifComponents);
 		components.addAll(elseComponents);
 		

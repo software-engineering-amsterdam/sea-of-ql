@@ -1,51 +1,26 @@
 package org.uva.sea.ql.ui.components;
 
 
-import java.awt.event.FocusListener;
-
-import javax.swing.JComponent;
+import java.awt.event.ActionListener;
 
 import org.uva.sea.ql.interpreter.Value;
 
 public abstract class ActiveComponent extends BaseComponent {
 
 	protected final String args; 
-	protected final JComponent answerField; 
 	
-	public ActiveComponent(String args, JComponent answerField) {
+	public ActiveComponent(String args) {
 		this.args = args;
-		this.answerField = answerField;
 	}
 	
 	public abstract void updateValue(Value newValue);
 	public abstract Value getValue();
-	
-	public void addFocusListener(FocusListener listener) {
-		answerField.addFocusListener(listener);
-	}
-
-
-	public void setEnabled(boolean enabled) {
-		answerField.setEnabled(enabled);
-	}
-		
+	public abstract void addActionListener(ActionListener listener);
+	public abstract void setEnabled(boolean enabled);
+			
 	@Override
 	public String getArgs() {
 		return args;
 	}
 
-	@Override
-	public JComponent getComponent() {
-		return answerField;
-	}
-	
-	@Override 
-	public void setVisible(boolean visible) {
-		answerField.setVisible(visible);
-	}
-	
-	public void addActionListener() { 
-		
-	}
-	
 }

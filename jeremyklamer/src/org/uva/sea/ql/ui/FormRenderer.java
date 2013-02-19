@@ -18,7 +18,7 @@ import net.miginfocom.swing.MigLayout;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Message;
-import org.uva.sea.ql.output.CSVWriter;
+import org.uva.sea.ql.output.CSVCreator;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.ui.components.BaseComponent;
 
@@ -46,7 +46,7 @@ public class FormRenderer {
 		JFrame frame = new JFrame();		
 		frame.add(panel);
 		frame.setLocationRelativeTo(null);
-		
+		currentForm.initTypes(environment);	
 		for(BaseComponent comp : currentForm.getUIComponents(environment, currentForm)){
 			panel.add(comp.getComponent(), comp.getArgs());
 		}
@@ -62,8 +62,7 @@ public class FormRenderer {
 		});
 		
 		panel.add(pickSaveLocation);
-		frame.pack();
-		currentForm.initTypes(environment);	
+		frame.setExtendedState(frame.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 		frame.setVisible(true);				
 	}
 	
@@ -72,7 +71,7 @@ public class FormRenderer {
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) { 
 			File saveLocation = chooser.getSelectedFile();
-			CSVWriter.writeForm(currentForm.getName(), env, saveLocation);
+			CSVCreator.writeForm(currentForm.getName(), env, saveLocation);
 		}
 		else {
 			new ErrorScreen("No directory selected, file not saved.");
