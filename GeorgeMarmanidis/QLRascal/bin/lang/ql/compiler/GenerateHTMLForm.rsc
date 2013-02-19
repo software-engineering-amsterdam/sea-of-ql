@@ -13,8 +13,9 @@ public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
 	   '\<script type=\"text/javascript\" src=\"<ident>.js\"\>\</script\>
 	   '\</head\>
 	   '\<body onload=\"onLoad()\"\>
-	   '\<form name=\"<ident>\" method=\"POST\" \>
+	   '\<form name=\"<ident>\" method=\"POST\" onsubmit=\"return formValidate()\"\>
 	   ' <generateHTMLFormBody(bodyItems,"stats0")>
+	   ' \<input type=\"submit\"\>
 	   '\</form\>
 	   '\</body\>
 	   '\</html\>";
