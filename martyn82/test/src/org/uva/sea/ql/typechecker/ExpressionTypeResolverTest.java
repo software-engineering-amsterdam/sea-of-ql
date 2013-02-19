@@ -5,10 +5,17 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.uva.sea.ql.ExpressionTest;
 import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.DivideExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.MultiplyExpression;
 import org.uva.sea.ql.ast.expression.binary.arithmetic.SubtractExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.EqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.GreaterThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.LesserThanOrEqualExpression;
+import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
 import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
@@ -21,6 +28,7 @@ import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 
@@ -35,8 +43,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		return ExpressionTypeResolver.typeOf( expression, this.environment );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAddExpression() {
 		assertEquals(
 			IntegerType.INTEGER,
@@ -49,8 +57,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testSubtractExpression() {
 		assertEquals(
 			IntegerType.INTEGER,
@@ -63,8 +71,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMultiplyExpression() {
 		assertEquals(
 			IntegerType.INTEGER,
@@ -82,8 +90,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testDivideExpression() {
 		assertEquals(
 			IntegerType.INTEGER,
@@ -96,8 +104,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNegativeExpression() {
 		assertEquals(
 			IntegerType.INTEGER,
@@ -110,8 +118,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testPositiveExpression() {
 		assertEquals(
 			IntegerType.INTEGER,
@@ -124,8 +132,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAndExpression() {
 		assertEquals(
 			BooleanType.BOOLEAN,
@@ -133,8 +141,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testOrExpression() {
 		assertEquals(
 			BooleanType.BOOLEAN,
@@ -142,8 +150,8 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotExpression() {
 		assertEquals(
 			BooleanType.BOOLEAN,
@@ -151,70 +159,138 @@ public class ExpressionTypeResolverTest implements ExpressionTest {
 		);
 	}
 
+	@Test
 	@Override
 	public void testEqualExpression() {
-		// TODO Auto-generated method stub
-
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new EqualExpression( new BooleanLiteral( true ), new StringLiteral( "foo" ) ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testNotEqualExpression() {
-		// TODO Auto-generated method stub
-
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new NotEqualExpression( new BooleanLiteral( true ), new StringLiteral( "bar" ) ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testGreaterThanExpression() {
-		// TODO Auto-generated method stub
-
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new GreaterThanExpression( new IntegerLiteral( 12 ), new BooleanLiteral( false ) ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testGreaterThanOrEqualExpression() {
-		// TODO Auto-generated method stub
-
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new GreaterThanOrEqualExpression( new IntegerLiteral( 111 ), new MoneyLiteral( .2 ) ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testLesserThanExpression() {
-		// TODO Auto-generated method stub
-
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new LesserThanExpression( new BooleanLiteral( true ), new StringLiteral( "foo bar" ) ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testLesserThanOrEqualExpression() {
-		// TODO Auto-generated method stub
-
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new LesserThanOrEqualExpression( new IntegerLiteral( 112 ), new IntegerLiteral( -21 ) ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testIdentifierExpression() {
-		// TODO Auto-generated method stub
+		assertEquals(
+			UndefinedType.UNDEFINED,
+			this.resolve( new IdentifierExpression( "foo" ) )
+		);
 
+		this.environment.declare( new IdentifierExpression( "bar" ), StringType.STRING );
+		assertEquals(
+			StringType.STRING,
+			this.resolve( new IdentifierExpression( "bar" ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testBooleanLiteral() {
-		// TODO Auto-generated method stub
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new BooleanLiteral( false ) )
+		);
 
+		assertEquals(
+			BooleanType.BOOLEAN,
+			this.resolve( new BooleanLiteral( true ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testIntegerLiteral() {
-		// TODO Auto-generated method stub
+		assertEquals(
+			IntegerType.INTEGER,
+			this.resolve( new IntegerLiteral( 0 ) )
+		);
 
+		assertEquals(
+			IntegerType.INTEGER,
+			this.resolve( new IntegerLiteral( 1821 ) )
+		);
+
+		assertEquals(
+			IntegerType.INTEGER,
+			this.resolve( new IntegerLiteral( -992 ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testMoneyLiteral() {
-		// TODO Auto-generated method stub
+		assertEquals(
+			MoneyType.MONEY,
+			this.resolve( new MoneyLiteral( .0 ) )
+		);
 
+		assertEquals(
+			MoneyType.MONEY,
+			this.resolve( new MoneyLiteral( 18.21 ) )
+		);
+
+		assertEquals(
+			MoneyType.MONEY,
+			this.resolve( new MoneyLiteral( -99.2 ) )
+		);
 	}
 
+	@Test
 	@Override
 	public void testStringLiteral() {
-		// TODO Auto-generated method stub
+		assertEquals(
+			StringType.STRING,
+			this.resolve( new StringLiteral( "" ) )
+		);
 
+		assertEquals(
+			StringType.STRING,
+			this.resolve( new StringLiteral( "foo bar" ) )
+		);
 	}
-
 }
