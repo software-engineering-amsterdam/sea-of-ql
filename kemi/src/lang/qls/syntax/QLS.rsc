@@ -129,7 +129,7 @@ lexical ColorStyleAttr
 
 syntax Ident
   = @category="Variable" IdentLexical \ Keywords
-  | @category="Variable" ("\\" IdentLexical) \ Keywords
+  | @category="Variable" ("\\" IdentLexical)
   ;
 
 lexical IdentLexical
