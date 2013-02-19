@@ -28,10 +28,10 @@ import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
-public class StatementMapperTest extends EvaluatorTest implements StatementTest {
+public class RendererTest extends EvaluatorTest implements StatementTest {
 	private final ControlFactory factory;
 
-	public StatementMapperTest() {
+	public RendererTest() {
 		super( new BindingEnvironment() );
 
 		this.factory = new SwingControlFactory();
