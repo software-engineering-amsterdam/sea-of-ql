@@ -35,12 +35,6 @@ public str JS(Stylesheet s) =
   '}
   '";
 
-private str pageName(Definition d: pageDefinition(ident, _)) =
-  "$(\"\<h1/\>\").text(\"<trimQuotes(ident)>\")";
-
-private str sectionName(Definition d: sectionDefinition(ident, _)) =
-  "$(\"\<legend/\>\").text(\"<trimQuotes(ident)>\")";
-
 private str blockIdent(Definition d) =
   "<d.ident.name><getBlockSuffix()>"
     when d is questionDefinition;
@@ -50,49 +44,26 @@ private str layoutJS(Stylesheet s) =
   '<layoutJS(d, getUniqueID(s))>
   '<}>";
 
-private str layoutJS(Definition d: pageDefinition(_, rules), str parentID) =
-  "$(\"\<div /\>\")
-  '  .attr({
-  '    id: \"<getUniqueID(d)>\",
-  '    class: \"page\"
-  '  })
-  '  .append(<pageName(d)>)
-  '  .appendTo($(\"#<parentID>\"));
+private str layoutJS(Definition d: pageDefinition(ident, rules), str parentID) =
+  "addPage(\"<getUniqueID(d)>\", \"<trimQuotes(ident)>\", \"<parentID>\");
   '
   '<for(def <- getChildSectionsQuestions(d)) {>
   '<layoutJS(def, getUniqueID(d))>
-  '<}>";
+  '<}>
+  '";
 
-private str layoutJS(Definition d: sectionDefinition(_, rules), str parentID) =
-  "$(\"\<fieldset /\>\")
-  '  .attr({
-  '    id: \"<getUniqueID(d)>\",
-  '    class: \"section\"
-  '  })
-  '  .append(<sectionName(d)>)
-  '  .appendTo($(\"#<parentID>\"));
+private str layoutJS(Definition d: sectionDefinition(ident, rules),
+    str parentID) =
+  "addSection(\"<getUniqueID(d)>\", \"<trimQuotes(ident)>\", \"<parentID>\");
   '
   '<for(def <- getChildSectionsQuestions(d)) {>
   '<layoutJS(def, getUniqueID(d))>
-  '<}>";
+  '<}>
+  '";
 
 private str layoutJS(Definition d, str parentID) =
-  "$(\"#<blockIdent(d)>\")
-  '  .appendTo($(\"#<parentID>\"));
-  '
-  '"
+  "addQuestion(\"<blockIdent(d)>\", \"<parentID>\");"
     when d is questionDefinition;
-    
-private str layoutJS(Definition d, str parentID) =
-  "/*
-  'Why is the defaultDefinition not matched?
-  'Definition d: 
-  '<d>
-  '
-  'str parentID: 
-  '<parentID>
-  '*/"
-    when d is defaultDefinition;
     
 private str styleJS(Stylesheet s) {
   Form f = getAccompanyingForm(s);
@@ -110,18 +81,7 @@ private str styleJS(Stylesheet s) {
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, text(name))) =
-  "$(\"#<ident>\")
-  '  .replaceWith(
-  '    $(\"\<input /\>\")
-  '      .attr({
-  '        id: \"<ident>\",
-  '        name: \"<ident>\",
-  '        type: \"text\",
-  '        disabled: $(\"#<ident>\").is(\":disabled\")
-  '      })
-  '  );
-  '
-  '";
+  "addText(\"<ident>\");";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, number(name))) =
@@ -136,26 +96,7 @@ private str styleJS(str ident, StyleRule r:
   numberJS(ident, min, max, step);
 
 private str numberJS(str ident, num min, num max, num step) =
-  "$(\"#<ident>\")
-  '  .replaceWith(
-  '    $(\"\<input /\>\")
-  '      .attr({
-  '        id: \"<ident>\",
-  '        name: \"<ident>\",
-  '        type: \"number\",
-  '        <if(min >= 0) {> min: <min>, <}>
-  '        <if(max >= 0) {> max: <max>, <}>
-  '        <if(step >= 0) {>
-  '        step: <step>,
-  '        <} else {>
-  '        step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
-  '          \"0.01\" : \"1\",
-  '        <}>
-  '        disabled: $(\"#<ident>\").is(\":disabled\")
-  '      })
-  '  );
-  '
-  '";
+  "addNumber(\"<ident>\", <min>, <max>, <step>);";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, datepicker(name))) =
@@ -175,112 +116,15 @@ private str styleJS(str ident, StyleRule r:
   sliderJS(ident, min, max, step);
 
 private str sliderJS(str ident, num min, num max, num step) =
-  "$(\"#<ident>\")
-  '  .replaceWith(
-  '    $(\"\<span /\>\")
-  '      .append(
-  '        $(\"\<input /\>\")
-  '          .attr({
-  '            id: \"<ident>\",
-  '            name: \"<ident>\",
-  '            type: \"range\",
-  '            value: \"0\",
-  '            min: <min>,
-  '            max: <max>,
-  '            <if(step < 0) {>
-  '            step: $(\"#<ident>\").attr(\"type\") === \"money\" ?
-  '              \"0.01\" : \"1\",
-  '            <} else {>
-  '            step: <step>,
-  '            <}>
-  '            disabled: $(\"#<ident>\").is(\":disabled\")
-  '          })
-  '          .change(function() {
-  '            $(\"#<ident>Display\").text($(this).val());
-  '          })
-  '      )
-  '      .append(
-  '        $(\"\<span /\>\")
-  '          .attr({
-  '            id: \"<ident>Display\"
-  '          })
-  '          .text(0)
-  '      )
-  '  );
-  '
-  '";
+  "addSlider(\"<ident>\", <min>, <max>, <step>);";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, radio(name))) =
-  "$(\"#<ident>\")
-  '  .replaceWith(
-  '    $(\"\<span /\>\")
-  '      .append(
-  '        $(\"\<input /\>\")
-  '          .attr({
-  '            id: \"<ident>\",
-  '            name: \"<ident>\",
-  '            value: \"true\",
-  '            type: \"radio\",
-  '            disabled: $(\"#<ident>\").is(\":disabled\")
-  '          })
-  '      )
-  '      .append(
-  '        $(\"\<label /\>\")
-  '          .attr({
-  '            for: \"<ident>\"
-  '          })
-  '          .text(\"<getLabelTextTrue()>\")
-  '      )
-  '      .append(
-  '        $(\"\<input /\>\")
-  '          .attr({
-  '            id: \"<ident>False\",
-  '            name: \"<ident>\",
-  '            value: \"false\",
-  '            type: \"radio\",
-  '            disabled: $(\"#<ident>\").is(\":disabled\")
-  '          })
-  '      )
-  '      .append(
-  '        $(\"\<label /\>\")
-  '          .attr({
-  '            for: \"<ident>False\"
-  '          })
-  '          .text(\"<getLabelTextFalse()>\")
-  '      )
-  '  );
-  '
-  '";
+  "addRadio(\"<ident>\");";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, checkbox(name))) =
-  "$(\"#<ident>\")
-  '  .replaceWith(
-  '    $(\"\<span /\>\")
-  '      .append(
-  '        $(\"\<input /\>\")
-  '          .attr({
-  '            id: \"<ident>\",
-  '            name: \"<ident>\",
-  '            value: \"true\",
-  '            type: \"checkbox\",
-  '            disabled: $(\"#<ident>\").is(\":disabled\")
-  '          })
-  '      )
-  '      .append(
-  '        $(\"\<label /\>\")
-  '          .attr({
-  '            for: \"<ident>\"
-  '          })
-  '          .text(\"<getLabelTextTrue()>\")
-  '      )
-  '  );
-  '
-  '$(\"#<ident>\")
-  '  .rules(\"remove\");
-  '
-  '";
+  "addCheckbox(\"<ident>\");";
 
 private str styleJS(str ident, StyleRule r: 
     widgetStyleRule(attr, select(name))) =

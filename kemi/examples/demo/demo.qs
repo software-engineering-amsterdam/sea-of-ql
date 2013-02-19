@@ -54,7 +54,9 @@ stylesheet demo {
   }
   
   page "Date information" {
-    question birthdate
+    question birthdate {
+      widget text
+    }
     question bornRemark
   }
   

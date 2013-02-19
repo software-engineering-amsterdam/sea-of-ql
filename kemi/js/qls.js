@@ -97,6 +97,194 @@ jQuery.validator.addMethod("moneyValidator", function(value, element, params) {
 	}, jQuery.format("The money field can only contain up to 2 decimals.")
 );
 
+function addPage(ident, name, parentIdent) {
+  $("<div />")
+    .attr({
+      id: ident,
+      class: "page"
+    })
+    .append(
+      $("<h1 />").text(name)
+    )
+    .appendTo($("#" + parentIdent));
+}
+
+function addSection(ident, name, parentIdent) {
+  $("<fieldset />")
+    .attr({
+      id: ident,
+      class: "section"
+    })
+    .append(
+      $("<legend />").text(name)
+    )
+    .appendTo($("#" + parentIdent));
+}
+
+function addQuestion(ident, parentIdent) {
+  $("#" + ident)
+    .appendTo($("#" + parentIdent));
+}
+
+function addText(ident) {
+  $("#" + ident)
+    .replaceWith(
+      $("<input />")
+        .attr({
+          id: ident,
+          name: ident,
+          type: "text",
+          disabled: $("#" + ident).is(":disabled")
+        })
+    );
+}
+
+function addNumber(ident, min, max, step) {
+  $("#" + ident)
+    .replaceWith(
+      $("<input />")
+        .attr({
+          id: ident,
+          name: ident,
+          type: "number",
+          min: function() {
+            if(min < 0) {
+              return undefined;
+            } else {
+              return min;
+            }
+          },
+          max: function() {
+            if(max < 0) {
+              return undefined;
+            } else {
+              return max;
+            }
+          },
+          step: function() {
+            if(step < 0) {
+              if($("#" + ident).attr("type") === "money") {
+                return 0.01;
+              } else {
+                return 1;
+              }
+            } else {
+              return step;
+            }
+          },
+          disabled: $("#" + ident).is(":disabled")
+        })
+    );
+}
+
+function addSlider(ident, min, max, step) {
+  $("#" + ident)
+    .replaceWith(
+      $("<span />")
+        .append(
+          $("<input />")
+            .attr({
+              id: ident,
+              name: ident,
+              type: "range",
+              value: "0",
+              min: min,
+              max: max,
+              step: function() {
+                if(step < 0) {
+                  if($("#" + ident).attr("type") === "money") {
+                    return 0.01;
+                  } else {
+                    return 1;
+                  }
+                } else {
+                  return step;
+                }
+              },
+              disabled: $("#" + ident).is(":disabled")
+            })
+            .change(function() {
+              $("#" + ident + "Display").text($(this).val());
+            })
+        )
+        .append(
+          $("<span />")
+            .attr({
+              id: ident + "Display"
+            })
+            .text(0)
+        )
+    );
+}
+
+function addRadio(ident) {
+  $("#" + ident)
+    .replaceWith(
+      $("<span />")
+        .append(
+          $("<input />")
+            .attr({
+              id: ident,
+              name: ident,
+              value: "true",
+              type: "radio",
+              disabled: $("#" + ident).is(":disabled")
+            })
+        )
+        .append(
+          $("<label />")
+            .attr({
+              for: ident
+            })
+            .text("Yes")
+        )
+        .append(
+          $("<input />")
+            .attr({
+              id: ident + "False",
+              name: ident,
+              value: "false",
+              type: "radio",
+              disabled: $("#" + ident).is(":disabled")
+            })
+        )
+        .append(
+          $("<label />")
+            .attr({
+              for: ident + "False"
+            })
+            .text("No")
+        )
+    );
+}
+
+function addCheckbox(ident) {
+  $("#" + ident)
+    .replaceWith(
+      $("<span />")
+        .append(
+          $("<input />")
+            .attr({
+              id: ident,
+              name: ident,
+              value: "true",
+              type: "checkbox",
+              disabled: $("#" + ident).is(":disabled")
+            })
+        )
+        .append(
+          $("<label />")
+            .attr({
+              for: ident
+            })
+            .text("Yes")
+        )
+    );
+  
+  $("#" + ident)
+    .rules("remove");
+}
+
 
 function button(text) {
   return $("<button />")
