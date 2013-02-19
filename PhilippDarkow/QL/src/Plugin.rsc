@@ -17,20 +17,11 @@ import ParseTree;
 import template::StringTemplate;
 import visualization::Outline;
 
-private str LANG = "QL";
-private str EXT = "q";
-
 private str QL_NAME = "QL";
 private str QL_EXT = "ql";
 
-//  Define the connection with the QL parser
-Tree parser(str x, loc l) {
-    return parse(#Program, x, l);
-}
-
 //  Define connection with the QL checkers
 public Program checkQLProgram(Program x) {
-	println("in check program");
 	p = implodeProgram(#Program, x);
 	env = checkProgram(p);
 	errors = { error(v, l) | <loc l, PicoId v> <- env.errors };
@@ -41,34 +32,17 @@ public Program checkQLProgram(Program x) {
 	return x[@messages = warnings];
 }
 
-//  Define the connection with the QL evaluator
-//public void evalPicoProgram(Program x, loc selection) {
-//	m = implode(#PROGRAM, x); 
-//	text(evalProgram(m));
-//}
-
 //  Define connection with CFG visualization
-//public void visualizeQLProgram(Program x, loc selection) {
-//	m = implode(#Program, x); 
-//	CFG = cflowProgram(m);
-//	render(visCFG(CFG.graph));
-//}
+public void visualizeQLProgram(Tree x, loc selection) {
+	m = implodeProgram(x); 
+	CFG = cflowProgram(m);
+	render(visCFG(CFG.graph));
+}
 	
-//  Define all contributions to the QL IDE
-public set[Contribution] QL_CONTRIBS = {
-	popup(
-		menu("QL",[
-		    //action("Evaluate Pico program", evalPicoProgram),
-    		//action("Show Control flow graph", visualizeQLProgram)
-	    ])
-  	)
-};
-
 //  Register the QL tools
 public void registerQL() {
 	println("in main");
   registerLanguage(QL_NAME, QL_EXT, Tree(str src, loc l) {
-     println("In register");
      return parseProgram(src, l);
   });
 
@@ -80,17 +54,18 @@ public void registerQL() {
 		),
 
 		menu(menu("QL",[
-		    action("Generate JavaScript", generateQL)
+		    action("Generate QL Program", generateQL),
+		    action("Visualize Programm", visualizeQLProgram)
 	    ])
   	),
-
 	annotator(Tree (Tree t) {
-			println("TREE IS : <t>");
-			return t[@messages = semanticCheck(implodeProgram(t))];
+			
+			return t[@messages = checkingQL(implodeProgram(t))];
   		})
   	}); 
 }
 
 public void generateQL(Tree x, loc selection) {
 	println("tree : <x>");
+	generateQLForm(implodeProgram(x));
 }

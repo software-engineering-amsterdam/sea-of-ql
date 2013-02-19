@@ -21,7 +21,8 @@ import template::PHP;
 */
 str generateQuestionLabel(str formId, str id, str label){
 	appendToJavaScriptFile(formId, "var <id>Label = document.createElement(\'label\');");  //global variable
-	return "<id>Label.htmlFor = <id>; <id>Label.innerHTML = <label>; ";
+	return "<id>Label.htmlFor = <id>; 
+			'	<id>Label.innerHTML = <label>; ";
 }
 
 /** Method to generate the JavaScript code for the end part of a question
@@ -31,7 +32,9 @@ str generateQuestionLabel(str formId, str id, str label){
 */
 str createEndingLabel(str formId, str id){
 	appendToJavaScriptFile(formId, "var <id>EndLabel = document.createElement(\'label\');"); //global variable
-	return "<id>EndLabel.htmlFor = <id>; <id>EndLabel.innerHTML = \"Yes\"; <id>EndLabel.class = \"<id>EndClass\"; ";
+	return "<id>EndLabel.htmlFor = <id>; 
+			'	<id>EndLabel.innerHTML = \"Yes\";
+			'	<id>EndLabel.class = \"<id>EndClass\"; ";
 }
 
 /** Method to set the attributes of a checkBox in java script
@@ -40,8 +43,11 @@ str createEndingLabel(str formId, str id){
 * @author Philipp
 */
 private str specifyAttributesCheckbox(str id){
-	return "<id>.setAttribute(\'type\',\"checkbox\"); <id>.setAttribute(\'id\',<id>); <id>.setAttribute(\'name\',\'<id>\');
-		<id>.setAttribute(\'value\',<id>); <id>.setAttribute(\'onclick\',\"<id>DoTheCheck(this)\"); ";
+	return "<id>.setAttribute(\'type\',\"checkbox\");
+			'	<id>.setAttribute(\'id\',<id>);
+			'	<id>.setAttribute(\'name\',\'<id>\');
+			'	<id>.setAttribute(\'value\',<id>); 
+			'	<id>.setAttribute(\'onclick\',\"<id>DoTheCheck(this)\"); ";
 }
 
 /** Method to set the attributes of a numeric textfield in java script
@@ -50,8 +56,10 @@ private str specifyAttributesCheckbox(str id){
 * @author Philipp
 */
 str specifyAttributesNumeric(str id){
-	return "<id>.setAttribute(\'type\',\"number\"); <id>.setAttribute(\'id\',<id>); <id>.setAttribute(\'name\',\'<id>\');
-		<id>.setAttribute(\'onchange\',\"<id>CheckNumeric(this)\"); ";
+	return "<id>.setAttribute(\'type\',\"number\");
+			'	<id>.setAttribute(\'id\',<id>); 
+			'	<id>.setAttribute(\'name\',\'<id>\');
+			'	<id>.setAttribute(\'onchange\',\"<id>CheckNumeric(this)\"); ";
 }
 
 /** Method to set the attributes of a textfield that is the result of a calculation in java script
@@ -60,8 +68,11 @@ str specifyAttributesNumeric(str id){
 * @author Philipp
 */
 str specifyAttributesCalculation(str id){
-	return "<id>.setAttribute(\'type\',\"text\"); <id>.setAttribute(\'id\',<id>);<id>.setAttribute(\'name\',\'<id>\');
-		<id>.setAttribute(\'readOnly\',\'readonly\'); <id>.setAttribute(\'onchange\',\"<id>Calculation(this)\"); ";
+	return "<id>.setAttribute(\'type\',\"text\");
+			'	<id>.setAttribute(\'id\',<id>);
+			'	<id>.setAttribute(\'name\',\'<id>\');
+			'	<id>.setAttribute(\'readOnly\',\'readonly\');
+			'	<id>.setAttribute(\'onchange\',\"<id>Calculation(this)\"); ";
 }
 
 /** Method to set the attributes of a textfield in javascript
@@ -70,7 +81,9 @@ str specifyAttributesCalculation(str id){
 * @author Philipp
 */
 str specifyAttributesTextField(str id){
-	return "<id>.setAttribute(\'type\',\"text\"); <id>.setAttribute(\'id\',<id>); <id>.setAttribute(\'name\',\'<id>\'); ";
+	return "<id>.setAttribute(\'type\',\"text\");
+			'	<id>.setAttribute(\'id\',<id>);
+			'	<id>.setAttribute(\'name\',\'<id>\'); ";
 }
 
 /** Method to generate a paragraph for a boolean question has as endlabel Yes or No
@@ -81,11 +94,10 @@ str specifyAttributesTextField(str id){
 str generateParagraph(str id, str att, str lab, str endlab, str formId){
 	appendToJavaScriptFile(formId, "var <id>Paragraph = document.createElement(\'p\');");  //global variable
 	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
-	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
-	<id>Paragraph.appendChild(<id>Label);
-	<id>Paragraph.appendChild(<id>);
-	<id>Paragraph.appendChild(<id>EndLabel);
-	";
+			'	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
+			'	<id>Paragraph.appendChild(<id>Label);
+			'	<id>Paragraph.appendChild(<id>);
+			'	<id>Paragraph.appendChild(<id>EndLabel); ";
 	return p;
 }
 
@@ -97,17 +109,15 @@ str generateParagraph(str id, str att, str lab, str endlab, str formId){
 str generateParagraph(str id, str label, str formId){
 	appendToJavaScriptFile(formId, "var <id>Paragraph = document.createElement(\'p\');");  //global variable
 	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
-	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
-	<id>Paragraph.appendChild(<id>Label);
-	<id>Paragraph.appendChild(<id>);
-	";
+			'	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
+			'	<id>Paragraph.appendChild(<id>Label);
+			'	<id>Paragraph.appendChild(<id>); ";
 	return p;
 }
 
 /** Method to generate Question 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
-	println("in easy");
 	createColumnInTable(formId, id, tp);
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");  //global variable
 	createPostValuePHP(formId, id);
@@ -118,17 +128,30 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 		str paragraph = generateParagraph(id, label, attributes, endLabelCheckbox, formId);
 		cssEndLabels(formId, id);
 		javaScriptAddCheckFunction(formId, "<id>DoTheCheck(cb)", tp);
-		return "<attributes> <label> <endLabelCheckbox> <paragraph> <formId>.appendChild(<id>Paragraph); ";
+		return "<attributes>
+				'<label>
+				'<endLabelCheckbox>
+				'<paragraph>
+				'<formId>.appendChild(<id>Paragraph); 
+				'";
 	}else if(tp == money() || tp == integer()){  
 		str attributes = specifyAttributesNumeric(id);
 		str paragraph = generateParagraph(id, label, formId);
 		cssEndLabels(formId, id);
 		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
-		return "<attributes> <label> <paragraph> <formId>.appendChild(<id>Paragraph); ";
+		return "<attributes>
+				'<label>
+				'<paragraph>
+				'<formId>.appendChild(<id>Paragraph);
+				'";
 	}else if(tp == string()){
 		str attributes = specifyAttributesTextField(id);
 		str paragraph = generateParagraph(id, label, formId);
-		return "<attributes> <label> <paragraph> <formId>.appendChild(<id>Paragraph); ";
+		return "<attributes>
+				'<label>
+				'<paragraph>
+				'<formId>.appendChild(<id>Paragraph);
+				'";
 	}
 	
 }
@@ -148,7 +171,10 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 		str paragraph = generateParagraph(id, label, formId);		
 		javaScriptAddEvaluateQuestion(formId, id, exp, tp);
 		str attributes = specifyAttributesCalculation(id);
-		return "<attributes> <label> <paragraph> <formId>.appendChild(<id>Paragraph); ";
+		return "<attributes>
+				'<label>
+				'<paragraph>
+				'<formId>.appendChild(<id>Paragraph); ";
 	}else{
 		println("ERROR TYPE IS NOT MONEY NOR INTEGER");
 	}	
@@ -218,25 +244,25 @@ public str generateBody(str id, Body body){
 	}
 }
 
+
+// !!! return STRING and then write that STring to file 
 public void generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");
 		createQLOnHarddisk(id);
 		generateDatabaseCode(id);
 		str result = "\<!DOCTYPE html\>
-		\<html\>
-		\<head\>
-		\<script src=\"<id>.js\"\> \</script\>
-		\<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js\"\>\</script\>
-		\<script src=\"http://malsup.github.com/jquery.form.js\"\>\</script\> 
-		\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
-		\</head\>
-		\<body\>
-		\<script\>
-			createForm();
-		\</script\>
-		\</body\>
-		\</html\>";	
+		'\<html\>
+		'	\<head\>
+		'	\<script src=\"<id>.js\"\> \</script\>
+		'	\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
+		'	\</head\>
+		'	\<body\>
+		'	\<script\>
+			'	createForm();
+		'	\</script\>
+		'	\</body\>
+		'\</html\>";	
 		javaScriptCreateForm(id, Body);
 		appendToHTMLFile(id, result);
 		cssDiv(id);

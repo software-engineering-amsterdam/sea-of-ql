@@ -1,10 +1,11 @@
 form Box1 {
-boughtHouse: "Did you bought a house" boolean
-SoldtHouse: "Did you bought a house" integer
-oughtHouse: "Question moneyf" integer
-if(SoldtHouse - oughtHouse){
-ghtHouse: "Did you bought a house" money
-ldtHouse: "Did you bought a house" money
-tHouse: "Question money" money
-}
+/* This is a comment */
+hasSoldHouse: "Did you sell a house in 2010?" boolean
+hasBoughtHouse: "Did you by a house in 2010?" boolean
+hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" string
+if (hasSoldHouse) {
+sellingPrice: "Price the house was sold for:" integer
+privateDebt: "Private debts for the sold house:" integer
+valueResidue: "Value residue:" integer(sellingPrice - privateDebt)
+	}
 }

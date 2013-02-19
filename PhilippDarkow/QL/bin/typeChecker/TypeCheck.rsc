@@ -110,4 +110,4 @@ public QLTENV checkProgram(Program P){
                                                                                  
 public list[tuple[loc l, str msg]] checkProgram(str txt) = checkProgram(load(txt)).errors;
 
-public set[Message] semanticCheck(Program p) = getErrors(checkProgram(p));
+public set[Message] checkingQL(Program p) = getErrors(checkProgram(p));
