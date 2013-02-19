@@ -8,3 +8,9 @@ TODO
 - test for typeresolver
 - test for typeinitializer
 - test for controls
+
+- renderer:124 - no finals
+- renderer:82 - SimpleDateFormat
+- renderer -> builder
+- ui: control <- inputcontrol | buttoncontrol : changeEvent | clickEvent
+- Environment (generic?) same interface, declare abstract type
