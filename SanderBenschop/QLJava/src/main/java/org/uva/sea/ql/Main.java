@@ -13,14 +13,7 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.uva.sea.ql.booting.WebappBooter;
 import org.uva.sea.ql.booting.QLProgram;
-import org.uva.sea.ql.codegeneration.CodeGenerator;
-import org.uva.sea.ql.codegeneration.WebAppCodeGeneratingVisitor;
 import org.uva.sea.ql.general.SymbolTable;
-import org.uva.sea.ql.parsing.ANTLRParser;
-import org.uva.sea.ql.parsing.Parser;
-import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
-import org.uva.sea.ql.semanticanalysis.SemanticAnalysisVisitor;
-import org.uva.sea.ql.semanticanalysis.SemanticalAnalyser;
 import org.uva.sea.ql.web.configuration.ServletConfiguration;
 
 import javax.servlet.DispatcherType;
@@ -37,7 +30,7 @@ public class Main {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
         SymbolTable symbolTable = new SymbolTable();
-        WebappBooter bootstrapper = createQLBootStrapper(symbolTable);
+        WebappBooter bootstrapper = new WebappBooter(symbolTable);
         try {
             jCommander.parse(arguments);
             QLProgram qlProgram = bootstrapper.bootstrapQLProgram(commandLineParameters.getInputFile());
@@ -51,13 +44,6 @@ public class Main {
             LOGGER.severe("Exception occured during the startup of the code: ");
             throw new RuntimeException(e);
         }
-    }
-
-    private static WebappBooter createQLBootStrapper(SymbolTable symbolTable) {
-        Parser parser = new ANTLRParser(new SyntacticErrorReporterImpl());
-        SemanticalAnalyser semanticalAnalyser = new SemanticAnalysisVisitor(symbolTable);
-        CodeGenerator codeGenerator = new WebAppCodeGeneratingVisitor();
-        return new WebappBooter(parser, semanticalAnalyser, codeGenerator);
     }
 
     private static void startJettyServer(QLProgram qlProgram, int port, SymbolTable symbolTable) {

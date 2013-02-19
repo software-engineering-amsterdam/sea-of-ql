@@ -4,9 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.general.SymbolTable;
-import org.uva.sea.ql.parsing.ANTLRParser;
-import org.uva.sea.ql.parsing.Parser;
-import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
+import org.uva.sea.ql.parsing.FormParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 
@@ -19,12 +17,10 @@ import static junit.framework.Assert.*;
 
 public class TypeCheckActualFileTest {
 
-    private Parser parser;
     private SemanticAnalysisVisitor semanticAnalysisVisitor;
 
     @Before
     public void init() {
-        parser = new ANTLRParser(new SyntacticErrorReporterImpl());
         semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTable());
     }
 
@@ -49,6 +45,6 @@ public class TypeCheckActualFileTest {
         Scanner scanner = new Scanner(sourceFile);
         String qlSourcecode = scanner.useDelimiter("\\Z").next();
         scanner.close();
-        return parser.parse(qlSourcecode);
+        return new FormParser().parse(qlSourcecode).getForm();
     }
 }

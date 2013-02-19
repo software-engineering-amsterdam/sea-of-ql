@@ -6,7 +6,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
 import org.uva.sea.ql.general.QLPropertiesUtil;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidationResult;
-import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
+import org.uva.sea.ql.web.inputvalidation.QuestionValidator;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -19,14 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Path("/submit")
-public class FormPersistenceController {
+public class PersistenceController {
 
     private static final String SERIALIZATION_DESTINATION_FILE_SUFFIX = "/serialized.txt";
-
     private static final String CSV_HEADER_ROW = "identifierName,value";
 
     @Inject
-    private QLInputValidator inputValidator;
+    private QuestionValidator inputValidator;
     @Inject
     private ObjectMapper objectMapper;
 

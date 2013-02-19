@@ -9,46 +9,29 @@ import org.uva.sea.ql.parsing.antlr.QLLexer;
 import org.uva.sea.ql.parsing.antlr.QLParser;
 import org.uva.sea.ql.parsing.error.SyntacticQLError;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporter;
+import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class ANTLRParser implements Parser {
+public class FormParser {
 
-    private final SyntacticErrorReporter syntacticErrorReporter;
-
-    public ANTLRParser(SyntacticErrorReporter syntacticErrorReporter) {
-        this.syntacticErrorReporter = syntacticErrorReporter;
-    }
-
-    @Override
-    public Form parse(File file) throws IOException {
+    public FormParsingResult parse(File file) throws IOException {
         return parse(FileUtils.readFileToString(file));
     }
 
-    @Override
-    public Form parse(String src) {
-        syntacticErrorReporter.clearErrors();
+    public FormParsingResult parse(String src) {
+        SyntacticErrorReporter syntacticErrorReporter = new SyntacticErrorReporterImpl();
         try {
             ANTLRStringStream stream = new ANTLRStringStream(src);
             CommonTokenStream tokens = new CommonTokenStream();
             tokens.setTokenSource(new QLLexer(stream));
             QLParser parser = new QLParser(tokens);
             parser.setErrorReporter(syntacticErrorReporter);
-            return parser.form();
+            return new FormParsingResult(parser.form(), syntacticErrorReporter.getErrors());
         } catch (RecognitionException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    @Override
-    public boolean hasErrors() {
-        return syntacticErrorReporter.hasErrors();
-    }
-
-    @Override
-    public List<SyntacticQLError> getErrors() {
-        return syntacticErrorReporter.getErrors();
     }
 }

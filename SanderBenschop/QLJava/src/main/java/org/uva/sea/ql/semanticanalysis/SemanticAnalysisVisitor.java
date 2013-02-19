@@ -31,23 +31,20 @@ import java.util.List;
  * Visitor that's responsible for semantic analysis. This includes type checking as well as a check if an identifier
  * is declared and it is only declared once.
  */
-public class SemanticAnalysisVisitor implements SemanticalAnalyser, NodeVisitor<Boolean> {
+public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
 
-    private SymbolTable symbolTable;
-    private List<SemanticQLError> semanticValidationErrors;
+    private final SymbolTable symbolTable;
+    private final List<SemanticQLError> semanticValidationErrors;
 
-    public SemanticAnalysisVisitor(SymbolTable symbolTable) {
+    protected SemanticAnalysisVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }
 
-    @Override
-    public List<SemanticQLError> semanticallyValidateForm(Form form) {
-        symbolTable.clear();
-        semanticValidationErrors.clear();
-
-        visitForm(form);
-        return semanticValidationErrors;
+    public static List<SemanticQLError> semanticallyValidateForm(Form form, SymbolTable symbolTable) {
+        SemanticAnalysisVisitor semanticAnalysisVisitor = new SemanticAnalysisVisitor(symbolTable);
+        semanticAnalysisVisitor.visitForm(form);
+        return semanticAnalysisVisitor.getErrors();
     }
 
     public List<SemanticQLError> getErrors() {

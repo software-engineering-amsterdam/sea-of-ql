@@ -11,6 +11,4 @@ public interface SyntacticErrorReporter {
     boolean hasErrors();
 
     List<SyntacticQLError> getErrors();
-
-    void clearErrors();
 }

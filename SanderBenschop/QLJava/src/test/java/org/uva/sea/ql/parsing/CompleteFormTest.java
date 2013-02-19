@@ -26,7 +26,7 @@ public class CompleteFormTest extends TestParser {
                 "}\n" +
                 "}\n";
 
-        Form form = parseForm(source);
+        Form form = new FormParser().parse(source).getForm();
         List<Statement> statements = form.getStatements();
         assertEquals(Question.class, statements.get(0).getClass());
         assertEquals(Question.class, statements.get(1).getClass());

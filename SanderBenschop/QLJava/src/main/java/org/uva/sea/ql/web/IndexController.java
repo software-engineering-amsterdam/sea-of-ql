@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import java.io.IOException;
 
 @Path("/")
-public class WebappIndexController {
+public class IndexController {
 
     @Inject
     private QLProgram qlProgram;

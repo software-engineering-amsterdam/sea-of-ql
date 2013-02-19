@@ -2,9 +2,12 @@ package org.uva.sea.ql.booting;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.codegeneration.CodeGenerator;
+import org.uva.sea.ql.codegeneration.WebAppCodeGeneratingVisitor;
 import org.uva.sea.ql.general.QLError;
-import org.uva.sea.ql.parsing.Parser;
-import org.uva.sea.ql.semanticanalysis.SemanticalAnalyser;
+import org.uva.sea.ql.general.SymbolTable;
+import org.uva.sea.ql.parsing.FormParser;
+import org.uva.sea.ql.parsing.FormParsingResult;
+import org.uva.sea.ql.semanticanalysis.SemanticAnalysisVisitor;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 
 import java.io.File;
@@ -12,33 +15,33 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public final class WebappBooter {
+public class WebappBooter {
 
     private static final Logger LOGGER = Logger.getLogger(WebappBooter.class.getName());
 
-    private final Parser parser;
-    private final SemanticalAnalyser semanticalAnalyser;
+    private final FormParser parser;
     private final CodeGenerator codeGenerator;
+    private final SymbolTable symbolTable;
 
-    public WebappBooter(Parser parser, SemanticalAnalyser semanticalAnalyser, CodeGenerator codeGenerator) {
-        this.parser = parser;
-        this.semanticalAnalyser = semanticalAnalyser;
-        this.codeGenerator = codeGenerator;
+    public WebappBooter(SymbolTable symbolTable) {
+        this.parser = new FormParser();
+        this.codeGenerator = new WebAppCodeGeneratingVisitor();
+        this.symbolTable = symbolTable;
     }
 
     public QLProgram bootstrapQLProgram(File sourceCode) throws IOException {
-        Form form = parser.parse(sourceCode);
-        if (!parser.hasErrors()) {
-            return performSemanticAnalysis(form);
+        FormParsingResult formParsingResult = parser.parse(sourceCode);
+        if (!formParsingResult.hasErrors()) {
+            return performSemanticAnalysis(formParsingResult.getForm());
         } else {
             LOGGER.severe("Syntactic analysis of the QL source code failed with the following errors:");
-            logErrors(parser.getErrors());
+            logErrors(formParsingResult.getErrors());
             return new IncorrectQLProgram();
         }
     }
 
     private QLProgram performSemanticAnalysis(Form form) {
-        List<SemanticQLError> semanticQLErrors = semanticalAnalyser.semanticallyValidateForm(form);
+        List<SemanticQLError> semanticQLErrors = SemanticAnalysisVisitor.semanticallyValidateForm(form, symbolTable);
         if (semanticQLErrors.isEmpty()) {
             return generateCode(form);
         } else {

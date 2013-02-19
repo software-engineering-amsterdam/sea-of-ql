@@ -2,6 +2,10 @@ package org.uva.sea.ql.web;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Wrapper for identifier names and values which are automagically converted from JSON.
+ * Apparently the library cannot work with constructor parameters, so I had to create (seemingly unused) setter methods.
+ */
 @XmlRootElement
 public class IdentifierValuePair {
 
@@ -12,6 +16,7 @@ public class IdentifierValuePair {
         return identifierName;
     }
 
+    @SuppressWarnings("unused")
     public void setIdentifierName(String identifierName) {
         this.identifierName = identifierName;
     }
@@ -20,6 +25,7 @@ public class IdentifierValuePair {
         return value;
     }
 
+    @SuppressWarnings("unused")
     public void setValue(String value) {
         this.value = value;
     }

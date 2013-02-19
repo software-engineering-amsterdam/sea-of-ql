@@ -7,12 +7,11 @@ import org.uva.sea.ql.web.IdentifierValuePair;
 
 import javax.inject.Inject;
 
-public class QuestionValidator implements QLInputValidator {
+public class QuestionValidator {
 
     @Inject
     private SymbolTable symbolTable;
 
-    @Override
     public QLInputValidationResult validateInputForType(IdentifierValuePair identifierValuePair, Type expectedType) {
         Ident identifier = new Ident(identifierValuePair.getIdentifierName());
         if (identifier != null && identifierIsOfType(identifier, expectedType) && expectedType.canTakeValue(identifierValuePair.getValue())) {
@@ -22,7 +21,6 @@ public class QuestionValidator implements QLInputValidator {
         }
     }
 
-    @Override
     public QLInputValidationResult validateInput(IdentifierValuePair[] identifierValuePairs) {
         CompoundValidationResult compoundValidationResult = new CompoundValidationResult();
         for (IdentifierValuePair identifierValuePair : identifierValuePairs) {
@@ -32,7 +30,6 @@ public class QuestionValidator implements QLInputValidator {
         return compoundValidationResult;
     }
 
-    @Override
     public QLInputValidationResult validateInput(IdentifierValuePair identifierValuePair) {
         Ident identifier = new Ident(identifierValuePair.getIdentifierName());
         Type type = getTypeForIdentifierName(identifier);

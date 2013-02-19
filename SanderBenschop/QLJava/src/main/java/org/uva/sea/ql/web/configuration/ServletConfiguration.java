@@ -12,11 +12,9 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.uva.sea.ql.booting.QLProgram;
 import org.uva.sea.ql.general.SymbolTable;
-import org.uva.sea.ql.web.FormPersistenceController;
+import org.uva.sea.ql.web.PersistenceController;
+import org.uva.sea.ql.web.IndexController;
 import org.uva.sea.ql.web.ValidationController;
-import org.uva.sea.ql.web.WebappIndexController;
-import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
-import org.uva.sea.ql.web.inputvalidation.QuestionValidator;
 
 import java.io.IOException;
 
@@ -47,13 +45,12 @@ public class ServletConfiguration extends GuiceServletContextListener {
 
         @Override
         protected void configureServlets() {
-            bind(WebappIndexController.class);
+            bind(IndexController.class);
             bind(ValidationController.class);
-            bind(FormPersistenceController.class);
+            bind(PersistenceController.class);
             bind(QLProgram.class).toInstance(qlProgram);
             bind(SymbolTable.class).toInstance(symbolTable);
             bind(ObjectMapper.class).toInstance(objectMapper);
-            bind(QLInputValidator.class).to(QuestionValidator.class);
             serve("*").with(GuiceContainer.class);
         }
     }

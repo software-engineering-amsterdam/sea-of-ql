@@ -4,7 +4,7 @@ import com.beust.jcommander.Parameter;
 
 import java.io.File;
 
-public class QLCommandLineParameters {
+public final class QLCommandLineParameters {
 
     @Parameter(names = {"-source", "-src", "-s"}, description = "The QL source file", required = true)
     private File inputFile;
