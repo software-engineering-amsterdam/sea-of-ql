@@ -18,8 +18,8 @@ import lang::ql::compiler::web::JSExpressionPrinter;
 import lang::ql::util::FormHelper;
 
 public void JS(Form f, loc dest) {
-  for(js <- listEntries(getJSSourceLoc()))
-    writeFile(dest + js, readFile(getJSSourceLoc() + js));
+  for(js <- listEntries(getStaticSourceLoc()))
+    writeFile(dest + js, readFile(getStaticSourceLoc() + js));
 
   writeFile(dest + getStylingJSName(), "function styling() { }");
   

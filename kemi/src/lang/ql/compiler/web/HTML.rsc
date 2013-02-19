@@ -42,7 +42,7 @@ private str createPage(str title, list[Question] questions) =
   '    \<title\><title>\</title\>
   '    \<script type=\"text/javascript\" src=\"jquery.min.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"jquery.validate.js\"\>\</script\>
-  '    \<script type=\"text/javascript\" src=\"qls.js\"\>\</script\>
+  '    \<script type=\"text/javascript\" src=\"static.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"checking.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"styling.js\"\>\</script\>
   '    \<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /\>

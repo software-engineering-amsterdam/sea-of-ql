@@ -2,8 +2,8 @@ module Configuration
 
 private loc PROJECT_NAME = |project://QL-R-kemi/|;
 
-public loc getJSSourceLoc() = 
-  PROJECT_NAME + "js/";
+public loc getStaticSourceLoc() = 
+  PROJECT_NAME + "static/";
 
 public loc getCompileTarget() = 
   PROJECT_NAME + "output/";
