@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.stmnt;
 
-import org.uva.sea.ql.ast.QLProgram;
+import org.uva.sea.ql.ast.QLComponent;
 
-public abstract class Statement extends QLProgram {
+public abstract class Statement extends QLComponent {
 
 }

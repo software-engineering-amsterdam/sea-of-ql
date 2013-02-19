@@ -3,6 +3,7 @@ package org.uva.sea.ql.renderer.control;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 
+import org.uva.sea.ql.renderer.ObservableQuestion;
 import org.uva.sea.ql.values.Str;
 import org.uva.sea.ql.values.Value;
 
@@ -24,6 +25,11 @@ public class TextField extends Control {
 	@Override
 	public JComponent getWidget() {
 		return new JTextField(TEXTFIELD_SIZE);
+	}
+
+	@Override
+	public void addListener(ObservableQuestion obsQuestion) {
+		widget.addActionListener(obsQuestion);	
 	}
 
 }

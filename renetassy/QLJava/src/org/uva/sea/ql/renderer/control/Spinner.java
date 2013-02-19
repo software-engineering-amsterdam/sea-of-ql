@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JComponent;
 import javax.swing.JSpinner;
+
+import org.uva.sea.ql.renderer.ObservableQuestion;
 import org.uva.sea.ql.values.Int;
 import org.uva.sea.ql.values.Value;
 
@@ -29,6 +31,11 @@ public class Spinner extends Control {
 	@Override
 	public JComponent getWidget() {
 		return widget;
+	}
+
+	@Override
+	public void addListener(ObservableQuestion obsQuestion) {
+		widget.addFocusListener(obsQuestion);	
 	}
 
 }

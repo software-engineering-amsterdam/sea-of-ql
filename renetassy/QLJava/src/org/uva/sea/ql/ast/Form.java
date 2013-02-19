@@ -4,7 +4,7 @@ import org.uva.sea.ql.IStatementVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stmnt.Body;
 
-public class Form extends QLProgram {
+public class Form extends QLComponent {
 	
 	private Ident id;
 	private Body body;

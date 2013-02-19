@@ -3,18 +3,17 @@ package org.uva.sea.ql.renderer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Observable;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.IStatementVisitor;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.QLComponent;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmnt.Body;
 import org.uva.sea.ql.ast.stmnt.ComputedQuestion;
@@ -40,12 +39,14 @@ public class Renderer implements IStatementVisitor<Void> {
 	
 	private final State state;
 	
-	public static JComponent render(Form form, State state) {
+	public static JPanel render(QLComponent statement, State state) {
 		
 		Renderer r = new Renderer(state);
 		
-		form.accept(r);
-		
+		if (statement != null) {
+			statement.accept(r);
+		}
+			
 		return r.getPanel();
 	}
 	
@@ -59,8 +60,6 @@ public class Renderer implements IStatementVisitor<Void> {
 		return panel;
 	}
 	
-	
-
 	@Override
 	public Void visit(Question question) {
 		
@@ -68,14 +67,26 @@ public class Renderer implements IStatementVisitor<Void> {
 		
 		Control ctrl = createControl(question);
 		
-		//registerHandler(state,ctrl);
+		registerHandler(ctrl,question);
 		
 		JLabel label = new JLabel(question.getLabel().getValue());
 		panel.add(label);
 		panel.add(ctrl.getWidget(),"wrap");
-				
+		
+		System.out.println("question");
+		
 		return null;
 		
+	}
+	
+	private void registerHandler(Control ctrl, Question question) {
+		
+		ObservableQuestion obs = new ObservableQuestion(state, ctrl, question);
+		state.putObservable(question.getID().getName(), obs);
+		
+		ctrl.addListener(obs);
+		
+		System.out.println("registerhandler");
 	}
 
 	@Override
@@ -97,9 +108,29 @@ public class Renderer implements IStatementVisitor<Void> {
 
 	@Override
 	public Void visit(IfStatement ifStatement) {
-		// TODO Auto-generated method stub
+			
+		Expr expr = ifStatement.getExpr();
+		JPanel ifBody = render(ifStatement.getBody(),state);
+		
+		ifBody.setVisible(false);
+		
+		registerCondition(expr, ifBody);
+		
+		panel.add(ifBody);
+		
+		System.out.println("if");
 		
 		return null;
+	}
+	
+	private void registerCondition(Expr expr, JPanel statementBody) {
+		
+		ConditionObserver condObserver = new ConditionObserver(statementBody, expr, state);
+		
+		for (Entry<String, Observable> observable : state.getObservables().entrySet())
+			state.addObserver(observable.getKey(), condObserver);
+		
+		System.out.println("registercondition");
 	}
 
 	@Override
@@ -110,6 +141,8 @@ public class Renderer implements IStatementVisitor<Void> {
 		for (Statement statement : statements) {
 			statement.accept(this);
 		}
+		
+		System.out.println("body");
 		
 		return null;
 		

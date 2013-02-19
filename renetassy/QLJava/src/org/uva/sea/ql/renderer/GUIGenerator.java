@@ -15,15 +15,13 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.test.ParseError;
 
-public class Generator {
+public class GUIGenerator {
 	
 	private Form ast;
 	
 	private ANTLRParser parser = new ANTLRParser();
 	private Map<String,Type> typeEnvironment;
 	private List<QLError> errors;
-	
-	private State state;
 	
 	private JFrame frame;
 
@@ -32,14 +30,15 @@ public class Generator {
 	
 	/**
 	 * @param args
+	 * @throws ParseError 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseError {
 		
-		new Generator();
+		new GUIGenerator();
 
 	}
 	
-	public Generator() {
+	public GUIGenerator() throws ParseError {
 		
 		frame = new JFrame();
 		
@@ -50,26 +49,27 @@ public class Generator {
 		errors = new ArrayList<QLError>();
 		typeEnvironment = new HashMap<String, Type> ();
 		
-		try {
-			
-			ast = parser.parseForm("form arxigos { question1 : \"inta fasi?\" int" +
-					" question2 : \"ti fasi?\" bool " +
-					" question3 : \" afadf \" string" +
-					" question4 : \"ise kala\" int ((5+5)/2) }");
-			
-			StatementChecker.check(ast, typeEnvironment, errors);
-			
-			state = new State();
-			
-			frame.getContentPane().add(Renderer.render(ast,state));
-			
-		} catch (ParseError e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//frame.pack();
-		frame.setVisible(true);
+		State state = new State();
+		Renderer renderer = new Renderer(state);
 		
+		
+		ast = parser.parseForm("form arxigos { question1 : \"inta fasi?\" int" +
+				" question2 : \"ti fasi?\" bool " +
+				" if (question2) { " +
+					" 	question5 : \"ante geia\" int " +
+					"	question6 : \"youhou \" bool  " +
+				"	 }" +
+				" }");
+			
+		boolean typeChecking = StatementChecker.check(ast, typeEnvironment, errors);
+			
+		if (typeChecking) { 
+			ast.accept(renderer);
+			
+			frame.setContentPane(renderer.getPanel());
+			
+			//frame.pack();
+			frame.setVisible(true);
+		}		
 	}
-
 }
