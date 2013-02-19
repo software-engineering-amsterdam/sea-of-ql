@@ -12,8 +12,8 @@ module util::StringHelper
 
 import String;
 
-public str trimQuotes(str string) =
+public str unquote(str string) =
   substring(string, 1, size(string) - 1)
     when string[0] == "\"" && string[size(string) - 1] == "\"";
 
-public default str trimQuotes(str string) = string;
+public default str unquote(str string) = string;

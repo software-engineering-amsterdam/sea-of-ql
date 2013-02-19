@@ -45,7 +45,7 @@ private str layoutJS(Stylesheet s) =
   '<}>";
 
 private str layoutJS(Definition d: pageDefinition(ident, rules), str parentID) =
-  "addPage(\"<getUniqueID(d)>\", \"<trimQuotes(ident)>\", \"<parentID>\");
+  "addPage(\"<getUniqueID(d)>\", \"<unquote(ident)>\", \"<parentID>\");
   '
   '<for(def <- getChildSectionsQuestions(d)) {>
   '<layoutJS(def, getUniqueID(d))>
@@ -54,7 +54,7 @@ private str layoutJS(Definition d: pageDefinition(ident, rules), str parentID) =
 
 private str layoutJS(Definition d: sectionDefinition(ident, rules),
     str parentID) =
-  "addSection(\"<getUniqueID(d)>\", \"<trimQuotes(ident)>\", \"<parentID>\");
+  "addSection(\"<getUniqueID(d)>\", \"<unquote(ident)>\", \"<parentID>\");
   '
   '<for(def <- getChildSectionsQuestions(d)) {>
   '<layoutJS(def, getUniqueID(d))>
@@ -135,9 +135,9 @@ private str getUniqueID(Stylesheet s) =
   s.ident.name;
 
 private str getUniqueID(Definition d: pageDefinition(ident, _)) =
-  "page_<split(" ", trimQuotes(ident))[0]>_" +
+  "page_<split(" ", unquote(ident))[0]>_" +
   "<d@location.begin.line>_<d@location.begin.column>";
 
 private str getUniqueID(Definition d: sectionDefinition(ident, _)) =
-  "section_<split(" ", trimQuotes(ident))[0]>_" +
+  "section_<split(" ", unquote(ident))[0]>_" +
   "<d@location.begin.line>_<d@location.begin.column>";
