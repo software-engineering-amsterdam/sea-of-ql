@@ -27,6 +27,8 @@ public class CheckBox extends Control {
 
 	@Override
 	public void setValue(Value value) {
+		if (value instanceof Bool)
+			jCheckBox.setSelected(((Bool)value).getValue());	
 	}
 
 	@Override
