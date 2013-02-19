@@ -13,6 +13,7 @@ import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.uva.sea.ql.bootstrapper.QLBootstrapper;
 import org.uva.sea.ql.bootstrapper.QLBootstrapperImpl;
+import org.uva.sea.ql.bootstrapper.QLProgram;
 import org.uva.sea.ql.parser.ANTLRParser;
 import org.uva.sea.ql.parser.Parser;
 import org.uva.sea.ql.parser.error.reporting.SyntacticErrorReporterImpl;
@@ -41,8 +42,9 @@ public class Main {
         QLBootstrapper bootstrapper = createQLBootStrapper(symbolTable);
         try {
             jCommander.parse(arguments);
-            if (bootstrapper.checkAndBuildQLFile(commandLineParameters.getInputFile())) {
-                startJettyServer(commandLineParameters.getHostPort(), symbolTable);
+            QLProgram qlProgram = bootstrapper.bootstrapQLProgram(commandLineParameters.getInputFile());
+            if (qlProgram.isCorrect()) {
+                startJettyServer(qlProgram, commandLineParameters.getHostPort(), symbolTable);
             }
         } catch (ParameterException exception) {
             LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
@@ -60,7 +62,7 @@ public class Main {
         return new QLBootstrapperImpl(parser, semanticalAnalyser, codeGenerator);
     }
 
-    private static void startJettyServer(int port, SymbolTable symbolTable) {
+    private static void startJettyServer(QLProgram qlProgram, int port, SymbolTable symbolTable) {
         try {
             Server server = new Server(port);
 
@@ -71,7 +73,7 @@ public class Main {
             ServletContextHandler servletsHandler = new ServletContextHandler();
             servletsHandler.setContextPath(WEBAPP_BASE_PATH);
             servletsHandler.addFilter(GuiceFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-            servletsHandler.addEventListener(new ServletConfiguration(symbolTable));
+            servletsHandler.addEventListener(new ServletConfiguration(qlProgram, symbolTable));
             servletsHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
 
             HandlerList handlers = new HandlerList();

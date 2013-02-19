@@ -1,5 +1,9 @@
 package org.uva.sea.ql.ast;
 
+/**
+ * Null implementation of SourceCodeInformation interface, used for situations in which no source code is present
+ * such as for user input.
+ */
 public class NullSourceCodeInformation implements SourceCodeInformation {
 
     private static final String MESSAGE = "No source code information is present.";

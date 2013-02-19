@@ -1,8 +1,5 @@
 package org.uva.sea.ql.bootstrapper;
 
-import org.apache.commons.io.FileUtils;
-import org.uva.sea.ql.Main;
-import org.uva.sea.ql.QLPropertiesUtil;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.error.QLError;
 import org.uva.sea.ql.parser.Parser;
@@ -17,8 +14,6 @@ import java.util.logging.Logger;
 
 public final class QLBootstrapperImpl implements QLBootstrapper {
 
-    private static final String DESTINATION_FILE_NAME_TEMPLATE = "%s/index.html";
-
     private static final Logger LOGGER = Logger.getLogger(QLBootstrapperImpl.class.getName());
 
     private final Parser parser;
@@ -32,44 +27,31 @@ public final class QLBootstrapperImpl implements QLBootstrapper {
     }
 
     @Override
-    public boolean checkAndBuildQLFile(File file) throws IOException {
-        Form form = parser.parse(file);
+    public QLProgram bootstrapQLProgram(File sourceCode) throws IOException {
+        Form form = parser.parse(sourceCode);
         if (!parser.hasErrors()) {
             return performSemanticAnalysis(form);
         } else {
             LOGGER.severe("Syntactic analysis of the QL source code failed with the following errors:");
             logErrors(parser.getErrors());
-            return false;
+            return new IncorrectQLProgram();
         }
     }
 
-    private boolean performSemanticAnalysis(Form form) {
+    private QLProgram performSemanticAnalysis(Form form) {
         List<SemanticQLError> semanticQLErrors = semanticalAnalyser.semanticallyValidateForm(form);
         if (semanticQLErrors.isEmpty()) {
             return generateCode(form);
         } else {
             LOGGER.severe("Semantic analysis of the QL source code failed with the following errors:");
             logErrors(semanticQLErrors);
-            return false;
+            return new IncorrectQLProgram();
         }
     }
 
-    private boolean generateCode(Form form) {
+    private QLProgram generateCode(Form form) {
         String code = codeGenerator.generateQLCode(form);
-        try {
-            File file = createDestinationFile();
-            FileUtils.writeStringToFile(file, code);
-            return true;
-        } catch (IOException ex) {
-            LOGGER.severe("Writing generated code to file.");
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private File createDestinationFile() throws IOException {
-        String qlTargetFolder = QLPropertiesUtil.getProperty("qlTargetFolder");
-        String targetFolder = qlTargetFolder != null ? qlTargetFolder : ".";
-        return new File(String.format(DESTINATION_FILE_NAME_TEMPLATE, targetFolder));
+        return new CorrectQLProgram(code);
     }
 
     private void logErrors(List<? extends QLError> errors) {

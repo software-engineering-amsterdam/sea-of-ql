@@ -5,5 +5,5 @@ import java.io.IOException;
 
 public interface QLBootstrapper {
 
-    boolean checkAndBuildQLFile(File file) throws IOException;
+    QLProgram bootstrapQLProgram(File sourceCode) throws IOException;
 }

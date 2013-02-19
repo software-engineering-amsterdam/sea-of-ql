@@ -10,19 +10,21 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
+import org.uva.sea.ql.bootstrapper.QLProgram;
 import org.uva.sea.ql.visitor.semanticanalysis.SymbolTable;
-import org.uva.sea.ql.web.FormPersistenceController;
-import org.uva.sea.ql.web.GeneratedCodeController;
-import org.uva.sea.ql.web.ValidationController;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidator;
 import org.uva.sea.ql.web.inputvalidation.QuestionValidator;
 
+import java.io.IOException;
+
 public class ServletConfiguration extends GuiceServletContextListener {
 
-    private SymbolTable symbolTable;
-    private ObjectMapper objectMapper;
+    private final QLProgram qlProgram;
+    private final SymbolTable symbolTable;
+    private final ObjectMapper objectMapper;
 
-    public ServletConfiguration(SymbolTable symbolTable) {
+    public ServletConfiguration(QLProgram qlProgram, SymbolTable symbolTable) throws IOException {
+        this.qlProgram = qlProgram;
         this.symbolTable = symbolTable;
         this.objectMapper = createObjectMapper();
     }
@@ -42,9 +44,10 @@ public class ServletConfiguration extends GuiceServletContextListener {
 
         @Override
         protected void configureServlets() {
-            bind(GeneratedCodeController.class);
+            bind(WebappIndexController.class);
             bind(ValidationController.class);
             bind(FormPersistenceController.class);
+            bind(QLProgram.class).toInstance(qlProgram);
             bind(SymbolTable.class).toInstance(symbolTable);
             bind(ObjectMapper.class).toInstance(objectMapper);
             bind(QLInputValidator.class).to(QuestionValidator.class);
