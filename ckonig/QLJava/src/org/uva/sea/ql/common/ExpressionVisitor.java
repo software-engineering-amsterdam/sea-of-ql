@@ -17,13 +17,9 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.IntType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
 
 
-public interface EvaluationVisitor {
+public interface ExpressionVisitor {
     void visit(Add add) throws QLException;
 
     void visit(Mul mul) throws QLException;
@@ -57,13 +53,4 @@ public interface EvaluationVisitor {
     void visit(Ident ident) throws QLException;
     
     void visit(IntLiteral i) throws QLException;
-
-    void visit(BooleanType booleanType);
-
-    void visit(IntType intType);
-
-    void visit(Money money);
-
-    void visit(StrType strType);
-
 }

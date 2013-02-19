@@ -36,20 +36,21 @@ blockContent returns [Block result]
 : (blockLine {if($blockLine.result != null) {$result.addLine($blockLine.result);}} )* 
 ;
 	
-blockLine returns [BlockElement result]
+blockLine returns [AbstractBlockElement result]
 :  question {$result = $question.result;}
 | ifStatement {$result = $ifStatement.result;}
 ;
 
 question returns [Question result]
-: Ident Assign String type {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result);}
+	: Ident Assign String type {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result);}
+	| Ident Assign String type '(' e=orExpr ')' {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result, $e.result);}
 ;
 
 ifStatement returns [IfStatement result]
 : 'if' LEFTBR orExpr RIGHTBR LEFTCBR blockContent RIGHTCBR {$result = new IfStatement($orExpr.result, $blockContent.result);}
 ;
 
-type returns [Type result]
+type returns [AbstractType result]
 	:  boolType { $result = $boolType.result;}
 	|  money   { $result = $money.result;} 
 	|  intType { $result = $intType.result;}
@@ -57,15 +58,15 @@ type returns [Type result]
 ;
 intType returns [IntType result]
 	:	'integer' { $result = new IntType(); }
-	| 	'integer' LEFTBR addExpr RIGHTBR {$result = new IntType( $addExpr.result);}
 ;
 money	returns [Money result]
 	: 	'money' { $result = new Money(); }
-	|	 'money' LEFTBR addExpr RIGHTBR {$result = new Money( $addExpr.result);}
 ;
 boolType returns [BooleanType result]
 	:	'boolean'{$result = new BooleanType(); }
-	|	'boolean' LEFTBR addExpr RIGHTBR {$result = new BooleanType($addExpr.result); }
+;
+strType returns [StrType result]
+	: 	'string'{$result = new StrType(); }
 ;
 	
 
@@ -73,7 +74,6 @@ primary returns [Expr result]
   : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | String { $result = new StringLiteral($String.text); }
-  | type {$result = $type.result; }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -141,9 +141,6 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-    
-
-strType :	'string';
 
     
 // Tokens

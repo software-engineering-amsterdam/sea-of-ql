@@ -1,7 +1,7 @@
 package org.uva.sea.ql.interpretation;
 
 import org.uva.sea.ql.ast.elements.Block;
-import org.uva.sea.ql.ast.elements.BlockElement;
+import org.uva.sea.ql.ast.elements.AbstractBlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
@@ -25,7 +25,7 @@ public final class VisitorDocumentBuilder implements ElementVisitor {
 
     @Override
     public final void visit(Block block) throws QLException {
-        for (BlockElement e : block.getContent()) {
+        for (AbstractBlockElement e : block.getContent()) {
             e.accept(this);
         }
     }

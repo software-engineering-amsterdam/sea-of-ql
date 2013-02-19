@@ -6,15 +6,16 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.interpretation.TypeVisitor;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
-public class UserInputTypeVisitor implements TypeVisitor {
+public class UserInputReader implements TypeVisitor {
     private final QuestionPanel questionPanel;
     private Object ret;
 
-    public UserInputTypeVisitor(QuestionPanel qp) {
+    public UserInputReader(QuestionPanel qp) {
         this.questionPanel = qp;
     }
 
@@ -38,8 +39,14 @@ public class UserInputTypeVisitor implements TypeVisitor {
         this.ret = ((JTextField) this.questionPanel.getInput()).getText();
     }
 
-    public final Object getResult() {
+    public final Object getUserInput() {
         return this.ret;
+    }
+
+    @Override
+    public void visit(NullType n) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

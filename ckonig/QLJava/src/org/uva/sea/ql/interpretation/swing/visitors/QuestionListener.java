@@ -11,17 +11,19 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.interpretation.TypeVisitor;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
-public class QuestionListenerTypeVisitor implements TypeVisitor{
+public class QuestionListener implements TypeVisitor{
     private QuestionPanel questionPanel;
     private SwingRegistry registry;
-    public QuestionListenerTypeVisitor(QuestionPanel q, SwingRegistry reg){
+    public QuestionListener(QuestionPanel q, SwingRegistry reg){
         this.questionPanel = q;
         this.registry = reg;
+        questionPanel.getQuestion().getType().accept(this);
     }
     @Override
     public final void visit(BooleanType b) {
@@ -81,5 +83,10 @@ public class QuestionListenerTypeVisitor implements TypeVisitor{
                 registry.evaluateFunctions();
             }
         });
+    }
+    @Override
+    public void visit(NullType n) {
+        // TODO Auto-generated method stub
+        
     }
 }

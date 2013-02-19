@@ -19,14 +19,10 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.IntType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.ast.types.AbstractMathType;
+import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.common.ReturnTypes;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
@@ -34,7 +30,7 @@ import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class MathEvaluationVisitor implements EvaluationVisitor {
+public class MathEvaluationVisitor implements ExpressionVisitor {
     private boolean replaceEmtyWithZero;
     private SwingRegistry registry;
     private float ret;
@@ -138,8 +134,8 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
         final ReturnFinder finder = new ReturnFinder(
                 this.registry.getQuestionsAst());
         questionPanel.getQuestion().getType().accept(finder);
-        final ReturnTypes result = finder.getResult();
-        if (result.equals(ReturnTypes.MATH)) {
+        final Class<?> result = finder.getResult();
+        if (result.equals(AbstractMathType.class)) {
             final String val = questionPanel.getStringValue();
             if (val.trim().equals("")) {
                 this.tryToReplaceEmptyInput();
@@ -170,25 +166,5 @@ public class MathEvaluationVisitor implements EvaluationVisitor {
 
     public final void visit(IntLiteral i) {
         this.ret = i.getValue();
-    }
-
-    @Override
-    public final void visit(BooleanType booleanType) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public final void visit(IntType intType) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public final void visit(Money money) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public final void visit(StrType strType) {
-        throw new NotImplementedException();
     }
 }

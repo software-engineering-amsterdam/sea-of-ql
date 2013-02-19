@@ -24,19 +24,16 @@ import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.IntType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.ast.types.AbstractMathType;
+import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.common.ReturnTypes;
 import org.uva.sea.ql.interpretation.swing.SwingRegistry;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class BoolEvaluationVisitor implements EvaluationVisitor {
+public class BoolEvaluationVisitor implements ExpressionVisitor {
 
     private SwingRegistry registry;
     private boolean ret;
@@ -85,10 +82,10 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
     @Override
     public final void visit(Eq eq) throws QLException {
         if (checkReturn(eq, this.registry.getQuestionsAst(),
-                ReturnTypes.BOOLEAN)) {
+                BooleanType.class)) {
             this.ret = this.eval(eq.getLeft()) == this.eval(eq.getRight());
         }
-        if (checkReturn(eq, this.registry.getQuestionsAst(), ReturnTypes.MATH)) {
+        if (checkReturn(eq, this.registry.getQuestionsAst(), AbstractMathType.class)) {
             this.ret = this.math.eval(eq.getLeft()) == this.math.eval(eq
                     .getRight());
         }
@@ -97,10 +94,10 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
     @Override
     public final void visit(NEq neq) throws QLException {
         if (checkReturn(neq, this.registry.getQuestionsAst(),
-                ReturnTypes.BOOLEAN)) {
+                BooleanType.class)) {
             this.ret = this.eval(neq.getLeft()) != this.eval(neq.getRight());
         }
-        if (checkReturn(neq, this.registry.getQuestionsAst(), ReturnTypes.MATH)) {
+        if (checkReturn(neq, this.registry.getQuestionsAst(), AbstractMathType.class)) {
             this.ret = this.math.eval(neq.getLeft()) != this.math.eval(neq
                     .getRight());
         }
@@ -148,8 +145,8 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
         final QuestionPanel q = this.registry.getQuestionPanelByIdent(ident);
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestionsAst());
         ident.accept(f);
-        final ReturnTypes r = f.getResult();
-        if (r.equals(ReturnTypes.BOOLEAN)) {
+        final Class<?> r = f.getResult();
+        if (r.equals(BooleanType.class)) {
             this.ret = q.getBoolValue();
         }
     }
@@ -159,34 +156,14 @@ public class BoolEvaluationVisitor implements EvaluationVisitor {
         throw new NotImplementedException();
     }
 
-    @Override
-    public final void visit(BooleanType booleanType) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public final void visit(IntType intType) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public final void visit(Money money) {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public final void visit(StrType strType) {
-        throw new NotImplementedException();
-    }
-
     private static boolean checkReturn(BinaryExpr ex, List<Question> questions,
-            ReturnTypes type) throws QLException {
+            Class<?> type) throws QLException {
         return checkReturn(ex.getLeft(), questions, type)
                 && checkReturn(ex.getRight(), questions, type);
     }
 
     private static boolean checkReturn(Expr ex, List<Question> questions,
-            ReturnTypes type) throws QLException {
+            Class<?> type) throws QLException {
         final ReturnFinder r = new ReturnFinder(questions);
         ((Evaluatable) ex).accept(r);
         return r.getResult().equals(type);

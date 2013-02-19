@@ -1,7 +1,7 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
-import org.uva.sea.ql.interpretation.swing.visitors.ListenerTypeVisitor;
+import org.uva.sea.ql.interpretation.swing.visitors.ListenerFactory;
 
 
 public class AutoValueSetter {
@@ -14,7 +14,7 @@ public class AutoValueSetter {
     }
 
     public final void createListeners() {
-        final ListenerTypeVisitor v = new ListenerTypeVisitor(this.questionPanel, this.registry);
+        final ListenerFactory v = new ListenerFactory(this.questionPanel, this.registry);
         this.questionPanel.getQuestion().getType().accept(v);
     }
     
