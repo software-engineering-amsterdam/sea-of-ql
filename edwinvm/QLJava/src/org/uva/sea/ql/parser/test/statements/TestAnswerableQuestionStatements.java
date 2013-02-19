@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.test.statements;
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
-public class TestAnswerableQuestionStatements extends StatementTypeChecker {
+public class TestAnswerableQuestionStatements extends QuestionTypeChecker {
 	@Test
 	public void testQuestions() throws ParseError {
 		isAValidStatement("\"Did you sell a house in 2010?\" hasSoldHouse: boolean");

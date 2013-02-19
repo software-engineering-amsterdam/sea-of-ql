@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.test.statements;
 import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
-public class TestComputedQuestionStatements extends StatementTypeChecker {
+public class TestComputedQuestionStatements extends QuestionTypeChecker {
 	@Test
 	public void testComputedQuestions() throws ParseError {
 		// First we need AnswerableQuestions to store the identifiers used in the ComputedQuestions
