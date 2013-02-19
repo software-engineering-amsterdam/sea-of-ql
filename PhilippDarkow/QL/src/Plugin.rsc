@@ -35,6 +35,7 @@ public Program checkQLProgram(Program x) {
 //  Define connection with CFG visualization
 public void visualizeQLProgram(Tree x, loc selection) {
 	m = implodeProgram(x); 
+	println("call to viz");
 	CFG = cflowProgram(m);
 	render(visCFG(CFG.graph));
 }

@@ -23,7 +23,7 @@ public void javaScriptCreateForm(str id, list[Body] Body){
 	 		'	<id>.setAttribute(\'action\',\"<id>.php\"); 
 	 		'	<id>.setAttribute(\'name\',\'<id>\'); 
 	 		'	<id>.setAttribute(\'id\',<id>);
-	 		'	<for (s <- Body) { > <generateBody(id,s)> < } > <createSubmitButton(id)>
+	 		'	<for (s <- Body) { > <generateBody(id,s, Body)> < } > <createSubmitButton(id)>
 	 		'	<id>.appendChild(<id>Submit);
 	 		'	<id>Div.appendChild(<id>);
 	 		'	document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);

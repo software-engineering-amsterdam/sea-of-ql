@@ -19,7 +19,7 @@ Type findExpressionType(Expression exp, QLTENV env){
 		s = toString(t[0]);
 		return t[0];
 	}else s = toString(getChildren(exp)[0]);
-	for(b <- env.question){
+	for(b <- env.question){		//matching
 		if(b.id == s) return b.tp;
 	}
 }

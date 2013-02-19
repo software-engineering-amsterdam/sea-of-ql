@@ -75,9 +75,9 @@ start syntax Expression
    = id: Id name
    | \int: Int
    | bracket "(" Expression arg ")"
-   | pos: "+" Expr
-   | neg: "-" Expr
-   | not: "!" Expr
+   | pos: "+" Expression
+   | neg: "-" Expression
+   | not: "!" Expression
    > left (
       add: Expression "+" Expression
     | sub: Expression "-" Expression

@@ -181,43 +181,74 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 
 /**
 */
-str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
+str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart), list[Body] complete){
 	println("EXP is : <exp>");
 	str evaluate = evaluateExp(exp, money());	
 	str checkBoxId = toString(getChildren(exp)[0]);
 	list[str] children = [];
 	list[str] thenPartString = [];
 	for(s <- thenPart){
-		thenPartString += generateBody(formId, s);
-		visit (s) {
+		thenPartString += generateBody(formId, s, complete);
+		visit (s) {			// visiting s to get the childrens id of the then part
 			case Question q : { children += q.id; }
 		}		
 	}
 	if(size(getChildren(exp)) <= 1){   // for boolean
 		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
-		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");";
+		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");
+				'";
 	}else{
 		list[str] ids = getChildrenIds(exp);
 		str result = "";
 		for(k <- ids){
 			javaScriptAddCheckStatementFunction(formId, "<k>ValueCheck(cb)", thenPartString, evaluate,children);
-			result += "<k>.setAttribute(\'onchange\',\"<k>ValueCheck(this)\");";
+			result += "<k>.setAttribute(\'onchange\',\"<k>ValueCheck(this)\");
+						'";
 		}
 		return result;
 	}
 }
 
-str generateStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)){
-	println("in generate if else");
-		
+str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), list[Body] body){
+	println("in generate if else <exp>");
+	if(size(getChildren(exp)) > 1){
+		println("More than one child");
+	}
+	list[Type] tp = getExpressionTypeGenerate(exp, body);
+	str check = evaluateExp(exp, tp[0]);		// hardcoded need to change that !!!!!!!!!!!!!!
+	println("CHECK IS : <check>");
+    if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    else{
+    	//env0 = checkExp(exp, tp[0], env);  
+    	//env1 = checkBodyJustStatements(thenpart, env0);
+    	//env2 = checkBodyJustStatements(elsepart, env1);
+    	return env2;
+	}	
 }
 
-str generateStatements(Statement statement){
-	visit(statement){
-		case ifStat i : {
-			println();
-		}
+list[Type] getExpressionTypeGenerate(Expression exp,list[Body] body){
+	println("Body is <body>");
+	list[Type] types = [];
+	for(b <- body){
+		visit(b){
+			case Question q : {				
+				if(toString(getChildren(q)[0]) == id){	//matching
+					println("WE HAVE A MATCH");
+					types += getTypeFromQuestion(q);
+				}
+			}
+		}		
 	}
+	println("TYPESSS : <types>");
+	return types;
+}
+
+Type getTypeFromQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
+	return tp;
+}
+
+str getTypeFromQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
+	return tp;
 }
 
 /** Method to get the names of childrens from an expression
@@ -241,11 +272,11 @@ list[str] getChildrenIds(Expression exp){
 * @return str a code snipped with javascript code
 * @author Philipp
 */
-public str generateBody(str id, Body body){
+public str generateBody(str id, Body body, list[Body] complete){
 	if(getName(body) == "statement"){
 		visit(body){
 			case Statement s : {
-				return "<generateStatement(id, s)> ";
+				return "<generateStatement(id, s, complete)> ";
 			}
 		}
 	}
