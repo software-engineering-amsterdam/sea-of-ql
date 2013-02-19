@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.nodes.values.Int;
 import org.uva.sea.ql.ast.nodes.values.Str;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.ComputedStat;
-import org.uva.sea.ql.ast.stat.HiddenComputetStat;
+import org.uva.sea.ql.ast.stat.HiddenComputedStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.Stat;
@@ -113,13 +113,13 @@ public class TestExpressions {
 		assertNotNull(questionnaire.getBlock());
 		assertEquals(4, questionnaire.getBlock().getStatements().size());
 		List<Stat> statements = questionnaire.getBlock().getStatements();
-		assertEquals(MoneyType.class, ((HiddenComputetStat) statements.get(0))
+		assertEquals(MoneyType.class, ((HiddenComputedStat) statements.get(0))
 				.getType().getClass());
-		assertEquals(StringType.class, ((HiddenComputetStat) statements.get(1))
+		assertEquals(StringType.class, ((HiddenComputedStat) statements.get(1))
 				.getType().getClass());
-		assertEquals(DoubleType.class, ((HiddenComputetStat) statements.get(2))
+		assertEquals(DoubleType.class, ((HiddenComputedStat) statements.get(2))
 				.getType().getClass());
-		assertEquals(IntType.class, ((HiddenComputetStat) statements.get(3))
+		assertEquals(IntType.class, ((HiddenComputedStat) statements.get(3))
 				.getType().getClass());
 	}
 

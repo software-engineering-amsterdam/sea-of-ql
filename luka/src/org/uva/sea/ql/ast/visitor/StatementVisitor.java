@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.visitor;
 
 import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
-import org.uva.sea.ql.ast.stat.HiddenComputetStat;
+import org.uva.sea.ql.ast.stat.HiddenComputedStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.SelectableStat;
@@ -20,7 +20,7 @@ public interface StatementVisitor {
 
 	void visit(VisibleComputetStat stat);
 
-	void visit(HiddenComputetStat stat);
+	void visit(HiddenComputedStat stat);
 
 	void visit(SelectableStat selectableStat);
 }

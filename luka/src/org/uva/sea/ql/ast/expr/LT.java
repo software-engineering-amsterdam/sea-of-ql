@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.visitor.Visitor;
 
 public class LT extends BinaryExpr{
 
-	//less then
+	//less than
 	public LT(Expr lhs, Expr rhs){
 		super(lhs,rhs);
 	}

@@ -289,6 +289,7 @@ public class CheckExpr implements Visitor<Boolean> {
 				|| (typeLhs.isCompatibleToNumeric() && typeRhs
 						.isCompatibleToNumeric()) || (typeLhs
 				.isCompatibleToStr() && typeRhs.isCompatibleToStr())))) {
+			
 			addError(ast, "invalid type for NOT EQUALS (!=)");
 			return false;
 		}

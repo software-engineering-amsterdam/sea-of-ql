@@ -16,7 +16,7 @@ public class QuestionnaireProcessor {
 	private final String fileLocation = "/Users/luc0/Desktop/test.xml";
 
 	//main class which handles constructing checking and contruction of gui
-	public static void main(String[] arg) {
+	public static void main(String[] args) {
 		QuestionnaireProcessor processor = new QuestionnaireProcessor();
 		processor.process();
 	}

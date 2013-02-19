@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
 import org.uva.sea.ql.ast.stat.ComputedStat;
 import org.uva.sea.ql.ast.stat.ConditionalStat;
-import org.uva.sea.ql.ast.stat.HiddenComputetStat;
+import org.uva.sea.ql.ast.stat.HiddenComputedStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.SelectableStat;
@@ -168,10 +168,8 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		registerConditionDeps(stat, tru, fls);
 		Value trueState = stat.getCondition().accept(
 				new Evaluator(this.state.getEnv()));
-		boolean isTruVisible = trueState.isDefined()
-				&& (Boolean) trueState.getValue();
-		boolean isFalseVisible = trueState.isDefined()
-				&& !(Boolean) trueState.getValue();
+		boolean isTruVisible = trueState.isDefined() && (Boolean) trueState.getValue();
+		boolean isFalseVisible = trueState.isDefined() && !(Boolean) trueState.getValue();
 		tru.setVisible(isTruVisible);
 		fls.setVisible(isFalseVisible);
 		addPanel(tru);
@@ -192,7 +190,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 	}
 
 	@Override
-	public void visit(HiddenComputetStat stat) {
+	public void visit(HiddenComputedStat stat) {
 		AbstractControl ctl = new HiddenControl(this.state, stat.getIdent());
 		registerComputedDeps(stat, ctl);
 		registerPropagator(stat, ctl);

@@ -762,7 +762,7 @@ public class QLTreeWalker extends TreeParser {
 
 			match(input, Token.UP, null); 
 
-			stat = new HiddenComputetStat(new Ident((Ident9!=null?Ident9.getText():null)),expression10,identType11);
+			stat = new HiddenComputedStat(new Ident((Ident9!=null?Ident9.getText():null)),expression10,identType11);
 			}
 
 		}

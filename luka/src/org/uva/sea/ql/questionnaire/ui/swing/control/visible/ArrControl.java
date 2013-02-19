@@ -18,7 +18,6 @@ public class ArrControl extends AbstractVisibleControl {
 	public ArrControl(State state, Ident ident, Arr arr) {
 		super(state, ident);
 		this.arr = arr;
-
 		this.comboBox = new JComboBox(this.arr.getValues().toArray());
 		this.comboBox.setSelectedIndex(0);
 		this.controlPanel.add(comboBox);

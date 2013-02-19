@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.stat.AnswerableStat;
 import org.uva.sea.ql.ast.stat.Block;
 import org.uva.sea.ql.ast.stat.ConditionalStat;
-import org.uva.sea.ql.ast.stat.HiddenComputetStat;
+import org.uva.sea.ql.ast.stat.HiddenComputedStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
 import org.uva.sea.ql.ast.stat.SelectableStat;
@@ -61,7 +61,7 @@ public class CheckStat implements StatementVisitor {
 	}
 
 	@Override
-	public void visit(HiddenComputetStat stat) {
+	public void visit(HiddenComputedStat stat) {
 		mapIdentToType(stat);
 		checkStatType(stat, stat.getExpr().typeOf(this.typeEnv));
 		checkExpr(stat.getExpr());

@@ -15,6 +15,7 @@ public abstract class Type {
 	public abstract Value getNumberOfType(Number number);
 
 	public abstract Value getValueForString(String s);
+
 	public abstract AbstractVisibleControl accept(TypeVisitor visitor,
 			Ident ident);
 

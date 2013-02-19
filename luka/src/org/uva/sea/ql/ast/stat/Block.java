@@ -36,4 +36,8 @@ public class Block implements Stat {
 		return "Block child statements: "+this.statements.size();
 	}
 
+	public boolean isEmpty() {
+		return statements.isEmpty();
+	}
+
 }
