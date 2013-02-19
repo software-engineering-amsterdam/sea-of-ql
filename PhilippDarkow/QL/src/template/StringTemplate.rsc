@@ -182,6 +182,7 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 /**
 */
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart)){
+	println("EXP is : <exp>");
 	str evaluate = evaluateExp(exp, money());	
 	str checkBoxId = toString(getChildren(exp)[0]);
 	list[str] children = [];
@@ -208,6 +209,15 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 
 str generateStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)){
 	println("in generate if else");
+		
+}
+
+str generateStatements(Statement statement){
+	visit(statement){
+		case ifStat i : {
+			println();
+		}
+	}
 }
 
 /** Method to get the names of childrens from an expression

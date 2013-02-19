@@ -100,9 +100,9 @@ public void insertValueInDatabase(str formId,  list[Body] body){
 	}
 	println("idsAndType : <idAndType>");
 	validation = addServerSideValidation(formId, idAndType);
-	str result = "if(<for(k <- validation) {> <k> <}>){
-				'	$query = \"INSERT INTO <formId> ( q_id, <for(i <- idAndType) { > <i.id>, < }>)
-				'	VALUES(\'NULL\', <for(i <- idAndType) { > \'\".$<i.id>.\"\', < }>)\";
+	str result = "if(<for(k <- prefix(validation)) {> <k> && <}> <last(validation)>){
+				'	$query = \"INSERT INTO <formId> ( q_id, <for(i <- prefix(idAndType)) { > <i.id>, < }> <last(idAndType).id>)
+				'	VALUES(\'NULL\', <for(i <- prefix(idAndType)) { > \'\".$<i.id>.\"\', < }> <last(idAndType).id>)\";
 				'	mysql_query( $query, $conn ); 
 				'}else{
 				'	echo \'Validation Error\';	
@@ -116,11 +116,11 @@ list[str] addServerSideValidation(str formId, list[tuple[str id,value typ]] idsA
 	for(i <- idsAndType){
 		if(i.typ == boolean()){
 			addBoolValidation(formId, i.id);
-			result += "is_bool($<i.id>) &&";  // boolean is saved as tiny int in mysql
+			result += "is_bool($<i.id>)"; 
 		}else if(i.typ == string()){
-			result += "is_string($<i.id>) &&";
+			result += "is_string($<i.id>)";
 		}else{
-			result += "is_numeric($<i.id>) &&";
+			result += "is_numeric($<i.id>)";
 		}
 	}
 	return result;
