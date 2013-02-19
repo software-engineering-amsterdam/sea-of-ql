@@ -11,6 +11,7 @@ public class Ident extends LiteralExpr {
 	public Ident(String name) {
 		super(name);
 	}
+	
 	@Override
 	public Type typeOf(SupportedTypes supportedTypes) {
 		if (supportedTypes.contains(this)) {
@@ -23,4 +24,5 @@ public class Ident extends LiteralExpr {
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
 	}
+	
 }
