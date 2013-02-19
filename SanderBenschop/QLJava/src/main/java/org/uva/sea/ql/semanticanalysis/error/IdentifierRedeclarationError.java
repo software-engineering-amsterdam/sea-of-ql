@@ -1,6 +1,6 @@
 package org.uva.sea.ql.semanticanalysis.error;
 
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 
 public class IdentifierRedeclarationError extends SemanticQLError {
 

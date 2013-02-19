@@ -7,8 +7,7 @@ import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Question;
 
 import static junit.framework.Assert.assertTrue;
@@ -20,7 +19,7 @@ public class QuestionTypeCheckingVisitorTest {
 
     @Before
     public void init() throws IllegalAccessException {
-        sourceCodeInformation = new SourceCodeInformationImpl(0, 0);
+        sourceCodeInformation = new SourceCodeInformation(0, 0);
         semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 

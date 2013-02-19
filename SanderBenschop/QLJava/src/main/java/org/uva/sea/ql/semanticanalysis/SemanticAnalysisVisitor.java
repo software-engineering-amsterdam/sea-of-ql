@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.unary.Negative;
 import org.uva.sea.ql.ast.unary.Not;

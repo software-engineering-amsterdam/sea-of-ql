@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.binary;
 
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 
 public abstract class BinaryOperation extends QLExpression {
 

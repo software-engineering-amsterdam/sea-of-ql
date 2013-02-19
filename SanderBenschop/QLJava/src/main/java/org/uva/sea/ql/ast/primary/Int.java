@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.symboltable.SymbolTable;
 
 public final class Int extends QLExpression {

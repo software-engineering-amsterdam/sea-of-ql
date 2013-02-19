@@ -15,8 +15,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.unary.Negative;
 import org.uva.sea.ql.ast.unary.Not;
@@ -110,7 +109,7 @@ public class QLParser extends Parser {
     }
 
     private SourceCodeInformation createSourceCodeInformation(Token token) {
-        return new SourceCodeInformationImpl(token.getLine(), token.getCharPositionInLine());
+        return new SourceCodeInformation(token.getLine(), token.getCharPositionInLine());
     }
 
     @Override

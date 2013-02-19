@@ -2,8 +2,7 @@ package org.uva.sea.ql.parsing.primary;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.primary.Ident;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 
@@ -26,7 +25,7 @@ public class IdentTest extends TestParser {
 
     @Test
     public void shouldHaveHashCodeAndEquals() {
-        SourceCodeInformation sourceInfo = new SourceCodeInformationImpl(0, 0);
+        SourceCodeInformation sourceInfo = new SourceCodeInformation(0, 0);
         Ident ident1 = new Ident("a", sourceInfo), ident2 = new Ident("a", sourceInfo);
         assertTrue(ident1.equals(ident2));
         assertEquals(ident1.hashCode(), ident2.hashCode());
@@ -34,7 +33,7 @@ public class IdentTest extends TestParser {
 
     @Test
     public void shouldNotHaveSameHasCodeAndNotEquals() {
-        SourceCodeInformation sourceInfo = new SourceCodeInformationImpl(0, 0);
+        SourceCodeInformation sourceInfo = new SourceCodeInformation(0, 0);
         Ident ident1 = new Ident("a", sourceInfo), ident2 = new Ident("b", sourceInfo);
         assertFalse(ident1.equals(ident2));
         assertFalse(ident1.hashCode() == ident2.hashCode());

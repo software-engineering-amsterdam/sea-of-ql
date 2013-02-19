@@ -12,8 +12,7 @@ import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
@@ -35,7 +34,7 @@ public class WebAppGeneratingVisitorTest {
     @Before
     public void init() {
         this.webAppGeneratingVisitor = new WebAppCodeGeneratingVisitor();
-        this.sourceCodeInformation = new SourceCodeInformationImpl(0, 0);
+        this.sourceCodeInformation = new SourceCodeInformation(0, 0);
     }
 
     @Test

@@ -5,8 +5,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Int;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
@@ -22,7 +21,7 @@ public class ConditionalTypeCheckingVisitorTest {
 
     @Before
     public void init() {
-        sourceCodeInformation = new SourceCodeInformationImpl(0, 0);
+        sourceCodeInformation = new SourceCodeInformation(0, 0);
         semanticAnalysisVisitor = new SemanticAnalysisVisitor();
     }
 

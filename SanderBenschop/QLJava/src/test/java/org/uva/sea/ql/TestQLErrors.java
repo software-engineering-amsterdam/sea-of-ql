@@ -5,8 +5,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
@@ -20,7 +19,7 @@ public class TestQLErrors {
 
     @Before
     public void init() {
-        this.sourceCodeInformation = new SourceCodeInformationImpl(42, 2);
+        this.sourceCodeInformation = new SourceCodeInformation(42, 2);
     }
 
     @Test
