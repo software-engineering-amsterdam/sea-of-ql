@@ -33,9 +33,9 @@
                 }
             }).new("conditional0");    var likeBeerQuestionController = ql.BooleanTypeQuestionController.new("likeBeer");
             likeBeerQuestionController.bind();
-            ql.questionControllerList.push(likeBeerQuestionController);    var conditional1ConditionalController = ql.IfStatementController.extend({
+            ql.questionControllerList.push(likeBeerQuestionController);    var conditional1ConditionalController = ql.IfElseStatementController.extend({
                 initialize : function(identifier) {
-                    ql.IfStatementController.initialize.call(this, identifier);
+                    ql.IfElseStatementController.initialize.call(this, identifier);
                     ql.messageBus.subscribeToVariable("male", this);
                 },
 

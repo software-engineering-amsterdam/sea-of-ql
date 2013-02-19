@@ -110,7 +110,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ST ifStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifStatementHtml");
         WebappCodeWrapper expressionJSCodeWrapper = ifStatement.getCondition().accept(this);
 
-        ifStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, expressionJSCodeWrapper));
+        ifStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, "ifStatementParentController", expressionJSCodeWrapper));
         ifStatementHtmlTemplate.add("identifier", identifier);
 
         for (QLStatement successStatement : ifStatement.getSuccessBlock()) {
@@ -132,7 +132,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         ST ifElseStatementHtmlTemplate = formTemplateGroup.getInstanceOf("ifElseStatementHtml");
         WebappCodeWrapper expressionJSCodeWrapper = ifElseStatement.getCondition().accept(this);
 
-        ifElseStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, expressionJSCodeWrapper));
+        ifElseStatementWrapper.appendJavascriptCode(renderConditionalJSTemplate(identifier, "ifElseStatementParentController", expressionJSCodeWrapper));
         ifElseStatementHtmlTemplate.add("identifier", identifier);
 
         for (QLStatement successStatement : ifElseStatement.getSuccessBlock()) {
@@ -152,10 +152,10 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         return ifElseStatementWrapper;
     }
 
-    private String renderConditionalJSTemplate(String identifier, WebappCodeWrapper expressionJSCodeWrapper) {
+    private String renderConditionalJSTemplate(String identifier, String parentControllerTemplateName, WebappCodeWrapper expressionJSCodeWrapper) {
         ST conditionalJSTemplate = formTemplateGroup.getInstanceOf("conditionalJS");
         conditionalJSTemplate.add("identifier", identifier);
-        conditionalJSTemplate.add("parentController", formTemplateGroup.getInstanceOf("ifStatementParentController").render());
+        conditionalJSTemplate.add("parentController", formTemplateGroup.getInstanceOf(parentControllerTemplateName).render());
         conditionalJSTemplate.add("initializationBlock", getExpressionInitializationBlock(expressionJSCodeWrapper.getJavascriptCode()));
         conditionalJSTemplate.add("expression", expressionJSCodeWrapper.getJavascriptCode());
 
