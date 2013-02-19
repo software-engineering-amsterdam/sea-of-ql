@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expression;
 import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 
 public abstract class Expression implements Node {
 
@@ -17,5 +17,5 @@ public abstract class Expression implements Node {
         return sourceCodeInformation;
     }
 
-    public abstract Type getType(SymbolTableImpl symbolTable);
+    public abstract Type getType(SymbolTable symbolTable);
 }

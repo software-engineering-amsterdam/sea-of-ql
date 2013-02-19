@@ -2,7 +2,7 @@ package org.uva.sea.ql.web.inputvalidation;
 
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.web.IdentifierValuePair;
 
 import javax.inject.Inject;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 public class QuestionValidator implements QLInputValidator {
 
     @Inject
-    private SymbolTableImpl symbolTable;
+    private SymbolTable symbolTable;
 
     @Override
     public QLInputValidationResult validateInputForType(IdentifierValuePair identifierValuePair, Type expectedType) {

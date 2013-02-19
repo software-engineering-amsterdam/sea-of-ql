@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.expression.unary.Negative;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Positive;
 import org.uva.sea.ql.ast.expression.unary.UnaryOperation;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
@@ -33,10 +33,10 @@ import java.util.List;
  */
 public class SemanticAnalysisVisitor implements SemanticalAnalyser, NodeVisitor<Boolean> {
 
-    private SymbolTableImpl symbolTable;
+    private SymbolTable symbolTable;
     private List<SemanticQLError> semanticValidationErrors;
 
-    public SemanticAnalysisVisitor(SymbolTableImpl symbolTable) {
+    public SemanticAnalysisVisitor(SymbolTable symbolTable) {
         this.symbolTable = symbolTable;
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }

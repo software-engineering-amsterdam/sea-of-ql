@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 
 public final class EqualTo extends BinaryOperation {
 
@@ -14,7 +14,7 @@ public final class EqualTo extends BinaryOperation {
     }
 
     @Override
-    public Type getType(SymbolTableImpl symbolTable) {
+    public Type getType(SymbolTable symbolTable) {
         return new BooleanType();
     }
 

@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
 import static junit.framework.Assert.*;
@@ -20,7 +20,7 @@ public class UnaryOperationTypeCheckingVisitorTest {
     @Before
     public void init() {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTableImpl());
+        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTable());
     }
 
     @Test

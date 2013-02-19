@@ -6,11 +6,11 @@ import org.uva.sea.ql.ast.type.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SymbolTableImpl {
+public class SymbolTable {
 
     private final Map<Ident, Type> identifierTypeMap;
 
-    public SymbolTableImpl() {
+    public SymbolTable() {
         this.identifierTypeMap = new HashMap<Ident, Type>();
     }
 

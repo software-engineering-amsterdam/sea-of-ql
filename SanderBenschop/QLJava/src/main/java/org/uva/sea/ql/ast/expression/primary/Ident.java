@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 
 public final class Ident extends Expression {
 
@@ -25,7 +25,7 @@ public final class Ident extends Expression {
     }
 
     @Override
-    public Type getType(SymbolTableImpl symbolTable) {
+    public Type getType(SymbolTable symbolTable) {
         if (symbolTable.containsIdentifier(this)) {
             return symbolTable.getIdentifier(this);
         }

@@ -9,7 +9,7 @@ import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.general.SymbolTableImpl;
+import org.uva.sea.ql.general.SymbolTable;
 
 import static junit.framework.Assert.assertTrue;
 
@@ -21,7 +21,7 @@ public class QuestionTypeCheckingVisitorTest {
     @Before
     public void init() throws IllegalAccessException {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTableImpl());
+        semanticAnalysisVisitor = new SemanticAnalysisVisitor(new SymbolTable());
     }
 
     @Test
