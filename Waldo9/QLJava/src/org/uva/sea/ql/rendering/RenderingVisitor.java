@@ -32,9 +32,10 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	
 	private final JPanel panel;
 	private final State state;
+	private final static String COLUMN_SIZE = "350";
 	
 	public RenderingVisitor(State state) {
-		panel = new JPanel(new MigLayout("", "350", ""));
+		panel = new JPanel(new MigLayout("", COLUMN_SIZE, ""));
 		this.state = state;
 	}	
 
@@ -113,7 +114,9 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	}	
 	
 	private void addLabel(StringLiteral label) {
-		panel.add(new JLabel(label.getValue()));
+		String text = label.getValue();
+		text = text.replaceAll("\"", "");
+		panel.add(new JLabel(text));
 	}
 	
 	private void addObserver(Observer observer) {
