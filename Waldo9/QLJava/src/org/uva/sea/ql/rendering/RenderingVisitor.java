@@ -18,15 +18,8 @@ import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.statements.StatementVisitor;
-import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.evaluation.values.Bool;
-import org.uva.sea.ql.evaluation.values.Int;
-import org.uva.sea.ql.rendering.controls.CheckBox;
 import org.uva.sea.ql.rendering.controls.Control;
-import org.uva.sea.ql.rendering.controls.IntegerField;
-import org.uva.sea.ql.rendering.controls.TextField;
 
 public class RenderingVisitor implements StatementVisitor<Object> {
 	
@@ -54,6 +47,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	public Object visit(Question question) {
 		addLabel(question.getLabel());
 		Control control = createControl(question);
+		initializeValues(question);
 		registerEventHandler(question, control);
 		add(control);
 		return null;
@@ -63,6 +57,7 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	public Object visit(ComputedQuestion computedQuestion) {
 		addLabel(computedQuestion.getLabel());
 		Control control = createControl(computedQuestion);
+		initializeValues(computedQuestion);
 		control.getControl().setEnabled(false);
 		registerEventHandler(computedQuestion, control);
 		registerComputedQuestionDependencies(computedQuestion, state, control);
@@ -126,17 +121,15 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	
 	private Control createControl(Question question) {
 		Type type = question.getType();
+		ControlFactoryTypeVisitor controlFactoryTypeVisitor = new ControlFactoryTypeVisitor();		
+		return type.accept(controlFactoryTypeVisitor);
+	}
+	
+	private void initializeValues(Question question) {
+		Type type = question.getType();
 		Ident identifier = question.getVariable();
-		if (type instanceof BoolType) {
-			state.putValue(identifier, new Bool(false));
-			return new CheckBox();			
-		}
-		else if (type instanceof IntType) {
-			state.putValue(identifier, new Int(0));
-			return new IntegerField();
-		}
-		state.putValue(identifier, new org.uva.sea.ql.evaluation.values.String(""));
-		return new TextField();
+		InitializationTypeVisitor initializationTypeVisitor = new InitializationTypeVisitor(state, identifier);
+		type.accept(initializationTypeVisitor);
 	}
 
 }
