@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.QLExpression;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
 
 public class Negative extends UnaryOperation {
 

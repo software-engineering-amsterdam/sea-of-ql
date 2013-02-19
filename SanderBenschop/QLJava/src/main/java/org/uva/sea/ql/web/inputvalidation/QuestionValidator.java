@@ -2,7 +2,7 @@ package org.uva.sea.ql.web.inputvalidation;
 
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
 import org.uva.sea.ql.web.IdentifierValuePair;
 
 import javax.inject.Inject;

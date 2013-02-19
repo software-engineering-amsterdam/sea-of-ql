@@ -21,8 +21,8 @@ import org.uva.sea.ql.parsing.Parser;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.semanticanalysis.SemanticAnalysisVisitor;
 import org.uva.sea.ql.semanticanalysis.SemanticalAnalyser;
-import org.uva.sea.ql.semanticanalysis.SymbolTable;
-import org.uva.sea.ql.semanticanalysis.SymbolTableImpl;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
+import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
 import org.uva.sea.ql.web.configuration.ServletConfiguration;
 
 import javax.servlet.DispatcherType;

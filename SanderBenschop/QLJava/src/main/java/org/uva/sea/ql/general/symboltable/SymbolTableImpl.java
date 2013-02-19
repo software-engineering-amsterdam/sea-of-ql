@@ -1,4 +1,4 @@
-package org.uva.sea.ql.semanticanalysis;
+package org.uva.sea.ql.general.symboltable;
 
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;

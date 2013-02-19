@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.primary.typeClasses.Type;
 import org.uva.sea.ql.ast.primary.typeClasses.UndefinedType;
 import org.uva.sea.ql.ast.sourcecodeinformation.NullSourceCodeInformation;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
 
 public final class Ident extends QLExpression {
 

@@ -18,6 +18,8 @@ import org.uva.sea.ql.ast.unary.Negative;
 import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
+import org.uva.sea.ql.general.symboltable.SymbolTableImpl;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
@@ -51,11 +53,6 @@ public class SemanticAnalysisVisitor implements SemanticalAnalyser, ASTNodeVisit
 
         visitForm(form);
         return semanticValidationErrors;
-    }
-
-    @Override
-    public SymbolTable getSymbolTable() {
-        return symbolTable;
     }
 
     public List<SemanticQLError> getErrors() {

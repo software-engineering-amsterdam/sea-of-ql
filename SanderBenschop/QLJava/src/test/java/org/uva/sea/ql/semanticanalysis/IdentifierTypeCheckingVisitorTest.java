@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 
 import static junit.framework.Assert.*;

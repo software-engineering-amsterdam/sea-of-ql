@@ -11,7 +11,7 @@ import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.uva.sea.ql.bootstrapping.QLProgram;
-import org.uva.sea.ql.semanticanalysis.SymbolTable;
+import org.uva.sea.ql.general.symboltable.SymbolTable;
 import org.uva.sea.ql.web.FormPersistenceController;
 import org.uva.sea.ql.web.ValidationController;
 import org.uva.sea.ql.web.WebappIndexController;
