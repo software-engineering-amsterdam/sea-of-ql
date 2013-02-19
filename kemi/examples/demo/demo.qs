@@ -26,7 +26,7 @@ stylesheet demo {
   }
   
   page "Information" {
-    section "To young" {
+    section "Too young" {
       question theAgeToYoung
     }
     section "Income" {

@@ -40,8 +40,8 @@ private str CSS(Stylesheet s) {
     '  display: block;
     '}
     '
-    '<for(k <- typeMap) {>/* Question <k.ident> */
-    '<for(r <- getStyleRules(k.ident, f, s)) {><CSS(k.ident, r)>
+    '<for(q <- typeMap) {>/* Question <q.ident> */
+    '<for(r <- getStyleRules(q.ident, f, s)) {><CSS(q.ident, r)>
     '<}>
     '<}>
     ";

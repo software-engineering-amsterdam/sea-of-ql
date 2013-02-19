@@ -42,7 +42,7 @@ private str sectionName(Definition d: sectionDefinition(ident, _)) =
   "$(\"\<legend/\>\").text(\"<trimQuotes(ident)>\")";
 
 private str blockIdent(Definition d) =
-  "<d.ident><getBlockSuffix()>"
+  "<d.ident.name><getBlockSuffix()>"
     when d is questionDefinition;
 
 private str layoutJS(Stylesheet s) =
@@ -288,7 +288,7 @@ private str styleJS(str ident, StyleRule r:
   "";
 
 private str getUniqueID(Stylesheet s) =
-  s.ident;
+  s.ident.name;
 
 private str getUniqueID(Definition d: pageDefinition(ident, _)) =
   "page_<split(" ", trimQuotes(ident))[0]>_" +

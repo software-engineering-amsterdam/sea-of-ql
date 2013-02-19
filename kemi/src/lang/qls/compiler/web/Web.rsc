@@ -17,7 +17,7 @@ import lang::qls::compiler::web::CSS;
 import lang::qls::compiler::web::JS;
 
 public loc buildSheet(Stylesheet sheet, loc destFolder) {
-  destFolder += "<sheet.ident>/";
+  destFolder += "<sheet.ident.name>/";
   
   if(!exists(destFolder))
     mkDirectory(destFolder);
