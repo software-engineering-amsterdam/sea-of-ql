@@ -1,6 +1,6 @@
 form calculatedField { 
   "What is your age?"
-    integer anumber
+    integer number
   "Your age times three equals:"
-    integer anumberx3 = anumber * 3
+    integer numberx3 = number * 3
 }
