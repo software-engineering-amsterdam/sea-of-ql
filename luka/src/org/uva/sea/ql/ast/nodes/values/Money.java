@@ -18,7 +18,7 @@ public class Money extends Numeric {
 	
 	@Override
 	public String toString() {
-		return "Money value ("+this.value+")";
+		return this.value+"";
 	}
 
 	@Override

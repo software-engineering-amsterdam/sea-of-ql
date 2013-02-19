@@ -5,6 +5,7 @@ import org.uva.sea.ql.ast.stat.Block;
 import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
+import org.uva.sea.ql.ast.stat.SelectableStat;
 import org.uva.sea.ql.ast.stat.VisibleComputetStat;
 
 public interface StatementVisitor {
@@ -20,4 +21,6 @@ public interface StatementVisitor {
 	void visit(VisibleComputetStat stat);
 
 	void visit(HiddenComputetStat stat);
+
+	void visit(SelectableStat selectableStat);
 }

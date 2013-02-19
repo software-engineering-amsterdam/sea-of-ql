@@ -10,7 +10,6 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleCont
 
 public class IntType extends NumericType {
 
-	
 	@Override
 	public Value getNumberOfType(Number number) {
 		DecimalFormat f = new DecimalFormat("#");
@@ -23,18 +22,18 @@ public class IntType extends NumericType {
 	}
 
 	@Override
-	public Value getDefaultValue() {
-		return new Int(0);
+	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
+		return visitor.visit(this, ident);
 	}
 
 	@Override
-	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
-		return visitor.visit(this,ident);
+	public String toString() {
+		return "IntType";
 	}
 	
 	@Override
-	public String toString() {
-		return "IntType";
+	public Value getValueForString(String s) {
+		return new Int(Integer.valueOf(s));
 	}
 
 }

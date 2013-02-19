@@ -16,7 +16,7 @@ public class Doub extends Numeric {
 
 	@Override
 	public String toString() {
-		return "Double value(" + this.value + ")";
+		return this.value+"";
 	}
 
 	@Override

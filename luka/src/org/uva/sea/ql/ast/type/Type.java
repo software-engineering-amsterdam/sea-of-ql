@@ -11,12 +11,12 @@ public abstract class Type {
 	public String toString() {
 		return "abstract Type";
 	}
+
 	public abstract Value getNumberOfType(Number number);
 
+	public abstract Value getValueForString(String s);
 	public abstract AbstractVisibleControl accept(TypeVisitor visitor,
 			Ident ident);
-
-	public abstract Value getDefaultValue();
 
 	public abstract boolean isCompatibleTo(Type t);
 

@@ -22,11 +22,9 @@ import org.antlr.runtime.debug.DebugEventListener;
 
 
 @members{
- 
 	 public QLTreeWalker(CommonTreeNodeStream nodes) { 
 	 super(nodes,new RecognizerSharedState()); 
-	  } 
-	 
+	  }  
 }
 
 
@@ -51,11 +49,25 @@ blockItem returns [Stat stat]
 	
 
 questionDeclaration returns [Stat stat]
-	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  Str) 
-	{stat = new AnswerableStat(new Ident($Ident.text),$Str.text,$identType.type);}
+	: ^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identArrayType) ^(QUESTION_LABEL  Str) 
+	{
+	if($identArrayType.list != null && !$identArrayType.list.isEmpty()){
+	List<Value> values = new ArrayList<Value>();
+	values.add(new UndefinedValue());
+	for(Object o : $identArrayType.list){
+	String st = (String)((CommonTree) o).getText().replaceAll("^\"|\"$", "");
+		values.add($identArrayType.type.getValueForString(st));
+	}
+	Arr a = new Arr(values,$identArrayType.type);
+	stat = new SelectableStat(new Ident($Ident.text),$Str.text,$identArrayType.type,a);
+		
+	}else{
+	stat = new AnswerableStat(new Ident($Ident.text),$Str.text,$identArrayType.type);
+	}
+	}
 	//Computed question:
 	  (^(ASSIGNMENT_EXPRESSION expression) 
-	  {stat = new VisibleComputetStat(new Ident($Ident.text),$Str.text,$expression.result,$identType.type);} )?) 
+	  {stat = new VisibleComputetStat(new Ident($Ident.text),$Str.text,$expression.result,$identArrayType.type);} )?) 
 		
 	 ;
 
@@ -74,7 +86,11 @@ Block elseBl = new Block();
 	: ^(IF_STATEMENT  ^(IF_CONDITION expression ) ^(IF_BLOCK_TRUE ^(BLOCK (ifBlockItems=blockItem {ifBl. addStatement($ifBlockItems.stat);})*)) {$stat = new IfThenStat($expression.result,ifBl);}
 	(^(IF_BLOCK_FALSE ^(BLOCK (elseBlockItems=blockItem {elseBl.addStatement($elseBlockItems.stat);})*)) {$stat = new IfThenElseStat($expression.result,ifBl,elseBl);} )?) 
 	;
-	
+
+identArrayType returns [Type type, List list]
+	: identType LSquBr arr+=Str (',' arr+=Str)* RSquBr {$type = $identType.type; $list = $arr;}  //new Arr($arr,$identType.type); $type = new ArrType($identType.type);
+	| t=identType {$type = $t.type;} 
+	;	
 	
 identType returns [Type type]
 	:  BooleanType {$type = new BoolType();} 

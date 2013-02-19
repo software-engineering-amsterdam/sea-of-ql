@@ -1,4 +1,28 @@
 form Something{
+arrValue1 : "intArr" integer["1","2"]
+arrValue2 : "boolArr" boolean["true","false"]
+arrValue3 : "moneyArr" money["2.2","1.2","3.2","5.2"]
+arrValue4 : "strArr" string["ada","dodo","dudi","wfdf"]
+arrValue5 : "doubArr" double["10.2","1.22","0.1","1.2"]
+arrValue6 : "doubArr" double["10.2","1.22","0.1","1.2"]
+if(arrValue1>1){
+intArrYes: "intArrYes" integer
+}
+if(arrValue2){
+boolArrYes: "boolArrYes" integer
+}
+if(arrValue3>3.2){
+monArrYes: "monArrYes" integer
+}
+if(arrValue4 == "dodo"){
+strArrYes: "strArrYes" integer
+}
+if(arrValue5>1.1){
+doubArrYes: "doubArrYes" integer
+}
+if(arrValue5== arrValue6){
+doubArrYes2: "comparison bet. 2 doubArrays" double(arrValue5* arrValue6)
+}
 boolVal1 : "boolVal1" boolean
 computedBool1: "computedBool1" boolean(boolVal1)
 computedBoo2: "computedBool2" boolean(computedBool1)

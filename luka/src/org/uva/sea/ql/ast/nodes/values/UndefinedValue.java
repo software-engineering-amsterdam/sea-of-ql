@@ -21,7 +21,7 @@ public class UndefinedValue extends Value {
 
 	@Override
 	public String toString() {
-		return "UndefinedValue";
+		return "";
 	}
 
 	@Override

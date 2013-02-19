@@ -10,7 +10,7 @@ public class UndefinedType extends Type {
 
 	@Override
 	public String toString() {
-		return "UndefinedType";
+		return "";
 	}
 
 	@Override
@@ -24,12 +24,12 @@ public class UndefinedType extends Type {
 	}
 
 	@Override
-	public Value getDefaultValue() {
-		return new UndefinedValue();
+	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
+		return visitor.visit(this, ident);
 	}
 
 	@Override
-	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
-		return visitor.visit(this, ident);
+	public Value getValueForString(String s) {
+		return new UndefinedValue();
 	}
 }

@@ -11,7 +11,7 @@ public abstract class Numeric extends Value {
 
 	@Override
 	public String toString() {
-		return "Numeric value ("+this.value+")";
+		return this.value+"";
 	}
 	@Override
 	public boolean isDefined() {

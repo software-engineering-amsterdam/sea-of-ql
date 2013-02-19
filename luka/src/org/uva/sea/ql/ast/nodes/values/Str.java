@@ -13,12 +13,12 @@ public class Str extends Value {
 	private final String value;
 
 	public Str(String val) {
-		this.value = val;
+		this.value = val.replaceAll("^\"|\"$", "");;
 	}
 
 	@Override
 	public String toString() {
-		return "String value (" + this.value + ")";
+		return this.value+"";
 	}
 
 	@Override

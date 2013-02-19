@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.nodes.values.Int;
 import org.uva.sea.ql.ast.nodes.values.Value;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
 import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleControl;
@@ -9,9 +8,15 @@ import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleCont
 public class NumericType extends Type {
 
 	@Override
+	public Value getValueForString(String s) {
+		throw new UnsupportedOperationException();
+		//return new UndefinedValue();
+	}
+	@Override
 	public Value getNumberOfType(Number number) {
 		throw new UnsupportedOperationException();
 	}
+
 	@Override
 	public String toString() {
 		return "NumericType";
@@ -40,11 +45,6 @@ public class NumericType extends Type {
 	@Override
 	public boolean isCompatibleToDoule() {
 		return true;
-	}
-
-	@Override
-	public Value getDefaultValue() {
-		return new Int(0);
 	}
 
 	@Override

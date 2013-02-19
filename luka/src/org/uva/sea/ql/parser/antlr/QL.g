@@ -57,22 +57,24 @@ blockItem
 	
 
 questionAssignment 
-	: Ident  Assignment_Indicator  Str identType (atom)?   ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identType) ^(QUESTION_LABEL  Str)  ^(ASSIGNMENT_EXPRESSION atom)?)
+	: Ident  Assignment_Indicator  Str identArrayType (atom)?   ->^(ASSIGNMENT ^(IDENT Ident) ^(ASSIGNMENT_TYPE identArrayType) ^(QUESTION_LABEL  Str)  ^(ASSIGNMENT_EXPRESSION atom)?)
 	 
 	 ;
-//{mapIdentToType($Ident.text,$identType.t);}
-//{mapIdentToType($Ident.text,$identType.t);}
+
 constantAssignment
 	: Ident  Assignment_Indicator identType atom  -> ^(ASSIGNMENT ^(IDENT Ident ) ^(ASSIGNMENT_TYPE identType) ^(ASSIGNMENT_EXPRESSION  atom))
 	;
+
+identArrayType
+	: identType LSquBr Str (',' Str)* RSquBr
+	| identType;
 	
-//
-identType  returns [Type t]	
-	: BooleanType {$t = new BoolType();}  -> BooleanType  
-	| MoneyType  {$t = new MoneyType();} -> MoneyType  
-	| IntegerType {$t = new IntType();}  -> IntegerType 
-	| StringType {$t = new StringType();}  -> StringType
-	| DoubleType {$t = new DoubleType();}  -> DoubleType
+identType  
+	:  BooleanType   -> BooleanType 
+	| MoneyType   -> MoneyType  
+	| IntegerType   -> IntegerType 
+	| StringType   -> StringType 
+	| DoubleType  -> DoubleType 
 	;	
 
 
@@ -156,8 +158,8 @@ Else	: 'else';
 
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*; 
-Str: '"' .*  '"'; 
-
+//Str: '"' .*  '"'; 
+Str 	:	'"' (~'"')* '"';
 
 
 
@@ -167,7 +169,8 @@ Doub	: Int '.' Int;
 Lbr	:	'{'; 
 Rbr	:	'}'; 
 
-
+LSquBr	:	'[';
+RSquBr	:	']';
 Assignment_Indicator :	':';
 
 RoundLbr : '(';

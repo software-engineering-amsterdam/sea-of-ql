@@ -19,7 +19,7 @@ public class Bool extends Value {
 	
 	@Override
 	public String toString() {
-		return "Boolean value("+this.value+")";
+		return this.value+"";
 	}
 	
 	@Override

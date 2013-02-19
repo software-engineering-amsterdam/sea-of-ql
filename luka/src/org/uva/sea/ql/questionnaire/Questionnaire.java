@@ -27,12 +27,4 @@ public class Questionnaire extends ASTNode {
 		return this.questionnaireName;
 	}
 
-	// public Map<Ident, Type> getTypeEnv() {
-	// return typeEnv;
-	// }
-
-	// public void setTypeEnv(Map<Ident, Type> typeEnv) {
-	// this.typeEnv = typeEnv;
-	// }
-
 }

@@ -17,7 +17,7 @@ public class Int extends Numeric {
 	
 	@Override
 	public String toString() {
-		return "Integer value ("+this.value+")";
+		return this.value+"";
 	}
 	@Override
 	public Integer getValue() {

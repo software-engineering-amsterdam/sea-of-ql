@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.stat.ConditionalStat;
 import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
+import org.uva.sea.ql.ast.stat.SelectableStat;
 import org.uva.sea.ql.ast.stat.Stat;
 import org.uva.sea.ql.ast.stat.TypedStat;
 import org.uva.sea.ql.ast.stat.VisibleComputetStat;
@@ -38,7 +39,7 @@ public class CheckStat implements StatementVisitor {
 	private void mapIdentToType(TypedStat stat) {
 		if (this.typeEnv.containsKey(stat.getIdent())) {
 			addError(stat, "Already declared:" + stat.getIdent().toString()
-					+ " , please do not declare same Ident more then once!");
+					+ " , please do not declare same Ident more than once!");
 			return;
 		}
 		this.typeEnv.put(stat.getIdent(), stat.getType());
@@ -70,7 +71,7 @@ public class CheckStat implements StatementVisitor {
 	public void visit(AnswerableStat stat) {
 		mapIdentToType(stat);
 		checkLabel(stat);
-		checkStatType(stat, stat.getIdent().typeOf(this.typeEnv));// getType());
+		checkStatType(stat, stat.getIdent().typeOf(this.typeEnv));
 	}
 
 	@Override
@@ -112,10 +113,6 @@ public class CheckStat implements StatementVisitor {
 		}
 	}
 
-	private boolean checkExpr(Expr expr) {
-		return CheckExpr.check(expr, this.typeEnv, this.errorList);
-	}
-
 	private void checkStatType(TypedStat stat, Type typeOf) {
 		if (!stat.getIdent().typeOf(this.typeEnv).isCompatibleTo(typeOf)) {
 			addError(stat,
@@ -126,7 +123,19 @@ public class CheckStat implements StatementVisitor {
 		}
 	}
 
-	private void checkLabel(AnswerableStat stat) {
+	@Override
+	public void visit(SelectableStat stat) {
+		mapIdentToType(stat);
+		checkLabel(stat);
+		checkStatType(stat, stat.getIdent().typeOf(this.typeEnv));
+
+	}
+
+	private boolean checkExpr(Expr expr) {
+		return CheckExpr.check(expr, this.typeEnv, this.errorList);
+	}
+
+	private void checkLabel(TypedStat stat) {
 		if (stat.getLabel() == null || stat.getLabel().isEmpty()) {
 			addError(stat, "Empty label for user question");
 		}

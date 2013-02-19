@@ -27,13 +27,12 @@ public class MoneyType extends NumericType {
 	}
 
 	@Override
-	public Value getDefaultValue() {
-		return new Money(0);
-	}
-
-	@Override
 	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
-		return visitor.visit(this,ident);
+		return visitor.visit(this, ident);
+	}
+	@Override
+	public Value getValueForString(String s) {
+		return new Money(Double.valueOf(s));
 	}
 
 }

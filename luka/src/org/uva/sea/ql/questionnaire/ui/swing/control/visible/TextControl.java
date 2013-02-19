@@ -21,5 +21,4 @@ public class TextControl extends KeyControl {
 		Str value = new Str(input);
 		setValue(value);
 	}
-
 }

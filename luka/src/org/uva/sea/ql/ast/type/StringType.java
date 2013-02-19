@@ -13,12 +13,11 @@ public class StringType extends Type {
 		throw new UnsupportedOperationException();
 	}
 
-
 	@Override
 	public String toString() {
 		return "StringType";
 	}
-	
+
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToStr();
@@ -30,12 +29,12 @@ public class StringType extends Type {
 	}
 
 	@Override
-	public Value getDefaultValue() {
-		return new Str("");
-	}
-
-	@Override
 	public AbstractVisibleControl accept(TypeVisitor visitor, Ident ident) {
 		return visitor.visit(this, ident);
+	}
+	
+	@Override
+	public Value getValueForString(String s) {
+		return new Str(s);
 	}
 }

@@ -19,6 +19,7 @@ import org.uva.sea.ql.ast.stat.ConditionalStat;
 import org.uva.sea.ql.ast.stat.HiddenComputetStat;
 import org.uva.sea.ql.ast.stat.IfThenElseStat;
 import org.uva.sea.ql.ast.stat.IfThenStat;
+import org.uva.sea.ql.ast.stat.SelectableStat;
 import org.uva.sea.ql.ast.stat.Stat;
 import org.uva.sea.ql.ast.stat.TypedStat;
 import org.uva.sea.ql.ast.stat.VisibleComputetStat;
@@ -37,6 +38,7 @@ import org.uva.sea.ql.questionnaire.observer.ConditionObserver;
 import org.uva.sea.ql.questionnaire.ui.swing.control.AbstractControl;
 import org.uva.sea.ql.questionnaire.ui.swing.control.hidden.HiddenControl;
 import org.uva.sea.ql.questionnaire.ui.swing.control.visible.AbstractVisibleControl;
+import org.uva.sea.ql.questionnaire.ui.swing.control.visible.ArrControl;
 import org.uva.sea.ql.questionnaire.ui.swing.control.visible.BoolControl;
 import org.uva.sea.ql.questionnaire.ui.swing.control.visible.DoubleControl;
 import org.uva.sea.ql.questionnaire.ui.swing.control.visible.IntControl;
@@ -95,7 +97,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		observer.evaluateDependencies();
 	}
 
-	private void registerPropagator(ComputedStat stat, AbstractControl control) {
+	private void registerPropagator(TypedStat stat, AbstractControl control) {
 		this.state.putObservable(stat.getIdent(), control);
 	}
 
@@ -107,7 +109,7 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		}
 	}
 
-	private void registerHandler(final AnswerableStat stat,
+	private void registerHandler(final TypedStat stat,
 			final AbstractVisibleControl control) {
 		// control.initEventListener(stat.getIdent(), state);
 		this.state.putObservable(stat.getIdent(), control);
@@ -195,6 +197,16 @@ public class SwingRenderer implements StatementVisitor, TypeVisitor {
 		registerComputedDeps(stat, ctl);
 		registerPropagator(stat, ctl);
 		initValue(stat, ctl);
+	}
+
+	@Override
+	public void visit(SelectableStat stat) {
+		AbstractVisibleControl ctl = new ArrControl(this.state,
+				stat.getIdent(),stat.getArr());
+		initVisibleComponents();
+		addLabel(stat.getLabel());
+		registerHandler(stat, ctl);
+		add(ctl);
 	}
 
 	@Override
