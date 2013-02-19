@@ -1,9 +1,9 @@
 package org.uva.sea.ql.parsing.primary;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
-import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 

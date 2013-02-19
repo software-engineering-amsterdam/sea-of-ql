@@ -1,11 +1,11 @@
 package org.uva.sea.ql.codegeneration.codewrapper;
 
-public class SimpleStatementWebappCodeWrapper implements StatementWebappCodeWrapper {
+public class StatementWebappCodeWrapperImpl implements StatementWebappCodeWrapper {
 
     private final String javascriptCode;
     private final String htmlCode;
 
-    public SimpleStatementWebappCodeWrapper(String javascriptCode, String htmlCode) {
+    public StatementWebappCodeWrapperImpl(String javascriptCode, String htmlCode) {
         this.javascriptCode = javascriptCode;
         this.htmlCode = htmlCode;
     }

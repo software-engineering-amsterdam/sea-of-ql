@@ -1,7 +1,7 @@
 package org.uva.sea.ql.semanticanalysis.error;
 
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 
 public class UnsupportedTypeError extends SemanticQLError {
 

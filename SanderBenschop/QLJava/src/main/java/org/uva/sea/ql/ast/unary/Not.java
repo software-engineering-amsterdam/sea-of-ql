@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.unary;
 
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.semanticanalysis.SymbolTable;
 
 public class Not extends UnaryOperation {

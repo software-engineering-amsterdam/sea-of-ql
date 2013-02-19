@@ -8,7 +8,7 @@ public class UndefinedType implements Type {
     }
 
     @Override
-    public boolean canBeAssignedFrom(String value) {
+    public boolean canTakeValue(String value) {
         return false;
     }
 

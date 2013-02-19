@@ -1,9 +1,9 @@
 package org.uva.sea.ql.bootstrapping;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.codegeneration.CodeGenerator;
 import org.uva.sea.ql.general.QLError;
 import org.uva.sea.ql.parsing.Parser;
-import org.uva.sea.ql.codegeneration.CodeGenerator;
 import org.uva.sea.ql.semanticanalysis.SemanticalAnalyser;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 

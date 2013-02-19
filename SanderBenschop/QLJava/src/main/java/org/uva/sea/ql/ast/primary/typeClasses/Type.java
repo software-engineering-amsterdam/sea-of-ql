@@ -4,7 +4,7 @@ public interface Type {
 
     String getObjectLiteralSimpleClassName();
 
-    boolean canBeAssignedFrom(String value);
+    boolean canTakeValue(String value);
 
     boolean isCompatibleTo(Type type);
 

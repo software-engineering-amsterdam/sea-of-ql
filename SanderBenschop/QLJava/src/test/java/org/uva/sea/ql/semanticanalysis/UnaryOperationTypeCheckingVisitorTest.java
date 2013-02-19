@@ -2,11 +2,11 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 

@@ -5,11 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.primary.typeClasses.BooleanType;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 

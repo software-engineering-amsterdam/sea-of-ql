@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.binary;
 
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.QLExpression;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
 import org.uva.sea.ql.ast.primary.typeClasses.Type;
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
 import org.uva.sea.ql.semanticanalysis.SymbolTable;
 
 public class Subtract extends BinaryOperation {

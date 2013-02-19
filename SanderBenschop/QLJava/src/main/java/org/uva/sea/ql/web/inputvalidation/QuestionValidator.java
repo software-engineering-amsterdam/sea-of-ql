@@ -15,7 +15,7 @@ public class QuestionValidator implements QLInputValidator {
     @Override
     public QLInputValidationResult validateInputForType(IdentifierValuePair identifierValuePair, Type expectedType) {
         Ident identifier = new Ident(identifierValuePair.getIdentifierName());
-        if (identifier != null && identifierIsOfType(identifier, expectedType) && expectedType.canBeAssignedFrom(identifierValuePair.getValue())) {
+        if (identifier != null && identifierIsOfType(identifier, expectedType) && expectedType.canTakeValue(identifierValuePair.getValue())) {
             return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
         } else {
             return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getObjectLiteralSimpleClassName()));
@@ -36,7 +36,7 @@ public class QuestionValidator implements QLInputValidator {
     public QLInputValidationResult validateInput(IdentifierValuePair identifierValuePair) {
         Ident identifier = new Ident(identifierValuePair.getIdentifierName());
         Type type = getTypeForIdentifierName(identifier);
-        if (type != null && type.canBeAssignedFrom(identifierValuePair.getValue())) {
+        if (type != null && type.canTakeValue(identifierValuePair.getValue())) {
             return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
         } else {
             return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.NAMED_ERROR_MESSAGE_TEMPLATE, identifier.getName()));

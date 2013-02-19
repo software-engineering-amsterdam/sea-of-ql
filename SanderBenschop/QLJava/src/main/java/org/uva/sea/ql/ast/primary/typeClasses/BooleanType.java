@@ -10,7 +10,7 @@ public class BooleanType implements Type {
     }
 
     @Override
-    public boolean canBeAssignedFrom(String value) {
+    public boolean canTakeValue(String value) {
         return value.equals("true") || value.equals("false");
     }
 

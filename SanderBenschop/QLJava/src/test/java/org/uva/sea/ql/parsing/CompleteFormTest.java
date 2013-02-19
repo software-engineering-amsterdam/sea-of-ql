@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.Conditional;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.parsing.exception.ParseException;
 
 import java.util.List;

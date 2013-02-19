@@ -10,7 +10,7 @@ public class IntegerType implements Type {
     }
 
     @Override
-    public boolean canBeAssignedFrom(String value) {
+    public boolean canTakeValue(String value) {
         try {
             Integer.parseInt(value);
             return true;

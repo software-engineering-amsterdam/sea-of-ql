@@ -2,13 +2,13 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
-import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.binary.EqualTo;
 import org.uva.sea.ql.ast.primary.Ident;
 import org.uva.sea.ql.ast.primary.Int;
 import org.uva.sea.ql.ast.primary.Str;
 import org.uva.sea.ql.ast.primary.typeClasses.IntegerType;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformation;
+import org.uva.sea.ql.ast.sourcecodeinformation.SourceCodeInformationImpl;
 import org.uva.sea.ql.ast.statement.Question;
 
 import static junit.framework.Assert.assertTrue;

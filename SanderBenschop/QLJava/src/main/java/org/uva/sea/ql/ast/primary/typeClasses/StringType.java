@@ -10,7 +10,7 @@ public class StringType implements Type {
     }
 
     @Override
-    public boolean canBeAssignedFrom(String value) {
+    public boolean canTakeValue(String value) {
         return value != null;
     }
 

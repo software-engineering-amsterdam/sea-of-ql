@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.binary.*;
 import org.uva.sea.ql.ast.primary.Bool;
 import org.uva.sea.ql.ast.primary.Ident;

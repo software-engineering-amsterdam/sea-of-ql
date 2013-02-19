@@ -2,6 +2,7 @@ package org.uva.sea.ql.codegeneration;
 
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroupFile;
+import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.QLStatement;
 import org.uva.sea.ql.ast.binary.*;
@@ -21,7 +22,6 @@ import org.uva.sea.ql.ast.unary.Negative;
 import org.uva.sea.ql.ast.unary.Not;
 import org.uva.sea.ql.ast.unary.Positive;
 import org.uva.sea.ql.ast.unary.UnaryOperation;
-import org.uva.sea.ql.ast.ASTNodeVisitor;
 import org.uva.sea.ql.codegeneration.codewrapper.*;
 import org.uva.sea.ql.codegeneration.sequencegenerator.ConditionalIdentifierSequenceGenerator;
 import org.uva.sea.ql.codegeneration.sequencegenerator.IdentifierSequenceGenerator;
@@ -78,7 +78,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         computationHtmlTemplate.add("id", computation.getIdentifier().getName());
         computationHtmlTemplate.add("labelText", computation.getLabel().getValue());
 
-        return new SimpleStatementWebappCodeWrapper(computationJSTemplate.render(), computationHtmlTemplate.render());
+        return new StatementWebappCodeWrapperImpl(computationJSTemplate.render(), computationHtmlTemplate.render());
     }
 
     private List<String> getExpressionInitializationBlock(String expression) {
@@ -173,7 +173,7 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
         questionHtmlTemplate.add("id", question.getIdentifier().getName());
         questionHtmlTemplate.add("labelText", question.getLabel().getValue());
 
-        return new SimpleStatementWebappCodeWrapper(questionJSTemplate.render(), questionHtmlTemplate.render());
+        return new StatementWebappCodeWrapperImpl(questionJSTemplate.render(), questionHtmlTemplate.render());
     }
 
     private ST getQuestionHtmlTemplate(Type type) {
@@ -191,19 +191,19 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitPositive(Positive positive) {
         String javascriptCode = getUnaryOperationST(positive, "positive").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitNegative(Negative negative) {
         String javascriptCode = getUnaryOperationST(negative, "negative").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitNot(Not not) {
         String javascriptCode = getUnaryOperationST(not, "not").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     private ST getUnaryOperationST(UnaryOperation unaryOperation, String templateName) {
@@ -215,73 +215,73 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     @Override
     public WebappCodeWrapper visitMultiply(Multiply multiply) {
         String javascriptCode = getBinaryOperationST(multiply, "multiply").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitDivide(Divide divide) {
         String javascriptCode = getBinaryOperationST(divide, "divide").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitSubtract(Subtract subtract) {
         String javascriptCode = getBinaryOperationST(subtract, "subtract").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitAdd(Add add) {
         String javascriptCode = getBinaryOperationST(add, "add").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitAnd(And and) {
         String javascriptCode = getBinaryOperationST(and, "and").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitOr(Or or) {
         String javascriptCode = getBinaryOperationST(or, "or").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitEqualTo(EqualTo equalTo) {
         String javascriptCode = getBinaryOperationST(equalTo, "equalTo").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitNotEqualTo(NotEqualTo notEqualTo) {
         String javascriptCode = getBinaryOperationST(notEqualTo, "notEqualTo").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitGreaterThan(GreaterThan greaterThan) {
         String javascriptCode = getBinaryOperationST(greaterThan, "greaterThan").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitGreaterThanOrEqualTo(GreaterThanOrEqualTo greaterThanOrEqualTo) {
         String javascriptCode = getBinaryOperationST(greaterThanOrEqualTo, "greaterThanOrEqualTo").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitLessThan(LessThan lessThan) {
         String javascriptCode = getBinaryOperationST(lessThan, "lessThan").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     @Override
     public WebappCodeWrapper visitLessThanOrEqualTo(LessThanOrEqualTo lessThanOrEqualTo) {
         String javascriptCode = getBinaryOperationST(lessThanOrEqualTo, "lessThanOrEqualTo").render();
-        return new SimpleExpressionWebappCodeWrapper(javascriptCode);
+        return new ExpressionWebappCodeWrapper(javascriptCode);
     }
 
     private ST getBinaryOperationST(BinaryOperation binaryOperation, String templateName) {
@@ -296,24 +296,24 @@ public class WebAppCodeGeneratingVisitor implements CodeGenerator, ASTNodeVisito
     public WebappCodeWrapper visitIdent(Ident ident) {
         ST identTemplate = formTemplateGroup.getInstanceOf("ident");
         identTemplate.add("name", ident.getName());
-        return new SimpleExpressionWebappCodeWrapper(identTemplate.render());
+        return new ExpressionWebappCodeWrapper(identTemplate.render());
     }
 
     @Override
     public WebappCodeWrapper visitBool(Bool boolLiteral) {
         Boolean value = boolLiteral.getValue();
-        return new SimpleExpressionWebappCodeWrapper(value.toString());
+        return new ExpressionWebappCodeWrapper(value.toString());
     }
 
     @Override
     public WebappCodeWrapper visitInt(Int intLiteral) {
         Integer value = intLiteral.getValue();
-        return new SimpleExpressionWebappCodeWrapper(value.toString());
+        return new ExpressionWebappCodeWrapper(value.toString());
     }
 
     @Override
     public WebappCodeWrapper visitStr(Str str) {
         String value = str.getValue();
-        return new SimpleExpressionWebappCodeWrapper(value);
+        return new ExpressionWebappCodeWrapper(value);
     }
 }
