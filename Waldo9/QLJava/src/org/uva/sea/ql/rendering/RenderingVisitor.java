@@ -42,6 +42,10 @@ public class RenderingVisitor implements StatementVisitor<Object> {
 	public JPanel getPanel() {
 		return panel;
 	}
+	
+	public State getState() {
+		return state;
+	}
 
 	@Override
 	public Object visit(Question question) {
