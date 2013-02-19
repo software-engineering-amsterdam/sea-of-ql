@@ -1,12 +1,16 @@
 package org.uva.sea.ql.gui;
 
-import java.awt.Button;
-import java.awt.Component;
-import java.awt.GridLayout;
-import java.awt.Label;
-import java.awt.Panel;
-import java.awt.ScrollPane;
 import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
@@ -29,7 +33,7 @@ import org.uva.sea.ql.gui.widget.WidgetObserver;
 import org.uva.sea.ql.interpreter.VisitorExpressionIdentifiers;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorRenderStatement implements IVisitorStatement<Component> {
+public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 
 	private Environment environment;
 	
@@ -38,28 +42,8 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	}
 	
 	
-	private GridLayout vertical(int rows){
-		return new GridLayout(rows, 1);
-	}
-	
-	
-	private GridLayout horizontal(int columns){
-		return new GridLayout(1, columns);
-	}
-	
-	
-	private Panel verticalPanel(int rows){
-		Panel panel = new Panel();
-		//panel.setLayout(vertical(rows));
-
-		return panel;
-	}
-	
-	
-	private Panel horizontalPanel(int columns){
-		Panel panel = new Panel();
-		//panel.setLayout(horizontal(columns));
-		return panel;
+	private JPanel panel(){
+		return new JPanel(new MigLayout("hidemode 2, fillx"));
 	}
 	
 	
@@ -81,40 +65,37 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	}
 
 	@Override
-	public Component visit(Form form) {
+	public JComponent visit(Form form) {
+
+		JPanel panel = panel();
+		JButton button = new JButton("submit");
 		
-		ScrollPane pane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
-	
-		Panel panel = new Panel();
-		Button button = new Button("submit");
-		
-		panel.add(form.getBlock().accept(this));
+		panel.add(form.getBlock().accept(this), "wrap");	
 		panel.add(button);
-				
-		pane.add(panel);
-		return pane;
+		
+		return new JScrollPane(panel);
 	}
 	
 	@Override
-	public Component visit(Block block) {
+	public JComponent visit(Block block) {
 		Environment subEnvironment = environment.branchEnvironment();
 		
 		VisitorRenderStatement renderer = new VisitorRenderStatement(subEnvironment);
 		
-		Panel panel = verticalPanel(block.getStatements().size());
+		JPanel panel = panel();
 		
 		for(Statement s: block.getStatements())
-			panel.add(s.accept(renderer));
+			panel.add(s.accept(renderer), "wrap");
 
 		return panel;
 	}
 
 	@Override
-	public Component visit(IfThen branch) {
+	public JComponent visit(IfThen branch) {
 		
-		Panel panel = verticalPanel(1);
+		JPanel panel = panel();
 		
-		Component ifBlock = branch.getIfBlock().accept(this);
+		JComponent ifBlock = branch.getIfBlock().accept(this);
 		
 		panel.add(ifBlock);
 		
@@ -127,12 +108,12 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	}
 
 	@Override
-	public Component visit(IfThenElse branch) {
+	public JComponent visit(IfThenElse branch) {
 		
-		Panel panel = verticalPanel(2);
+		JPanel panel = panel();
 		
-		Component ifBlock = branch.getIfBlock().accept(this);
-		Component elseBlock = branch.getElseBlock().accept(this);
+		JComponent ifBlock = branch.getIfBlock().accept(this);
+		JComponent elseBlock = branch.getElseBlock().accept(this);
 		
 		panel.add(ifBlock);
 		panel.add(elseBlock);
@@ -146,29 +127,29 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	}
 	
 	@Override
-	public Component visit(QuestionAnswerable question) {
-		Panel panel = horizontalPanel(2);
+	public JComponent visit(QuestionAnswerable question) {
+		JPanel panel = panel();
 		
 		IVisitorType<Widget> visitor = new VisitorRenderType(); 
 		Widget widget = question.typeOf(environment).accept(visitor);
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
-		panel.add(new Label(question.getQuestion()));
-		panel.add(widget.getComponent());
+		panel.add(new JLabel(question.getQuestion()));
+		panel.add(widget.getComponent(), "width 100");
 		
 		return panel;
 	}
 	
 	@Override
-	public Component visit(QuestionComputed question) {
-		Panel panel = horizontalPanel(2);
+	public JComponent visit(QuestionComputed question) {
+		JPanel panel = panel();
 		
 		WidgetComputed widget = new WidgetComputed();
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
-		panel.add(new Label(question.getQuestion()));
+		panel.add(new JLabel(question.getQuestion()));
 		panel.add(widget.getComponent());
 		
 		ObserverComputed observer = new ObserverComputed(question, widget, environment); 
@@ -178,14 +159,17 @@ public class VisitorRenderStatement implements IVisitorStatement<Component> {
 	}
 	
 	
-	public static void Render(Form form){
-		VisitorRenderStatement renderer = new VisitorRenderStatement(new Environment());
-		Component cmp = renderer.visit(form);
-		
-		CloseableFrame frame = new CloseableFrame(form.getName(), 500, 500);
-		
-		frame.add(cmp);	
-		
+	public static void Render(final Form form, final int width, final int height){
+		final VisitorRenderStatement renderer = new VisitorRenderStatement(new Environment());
+		final JComponent cmp = renderer.visit(form);
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+            	JFrame frame = new CloseableFrame(form.getName(), width, height); 
+                frame.getContentPane().add(cmp);
+            }
+         });
 	}
 
 }
