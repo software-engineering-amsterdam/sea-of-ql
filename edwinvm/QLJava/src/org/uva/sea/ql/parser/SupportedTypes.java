@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.types.Error;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 
 public class SupportedTypes {
@@ -14,7 +15,12 @@ public class SupportedTypes {
 	}
 	
 	public Boolean contains(Ident identifier) {
-		return _supportedTypes.containsKey(identifier);
+		for (Ident i: _supportedTypes.keySet()) {
+			if (((String)i.getValue()).equals(((String)identifier.getValue()))) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void add(Ident identifier, Type type) {
@@ -22,6 +28,11 @@ public class SupportedTypes {
 	}
 	
 	public Type get(Ident identifier) {
-		return _supportedTypes.get(identifier);
+		for (Ident i: _supportedTypes.keySet()) {
+			if (((String)i.getValue()).equals(((String)identifier.getValue()))) {
+				return _supportedTypes.get(i);
+			}
+		}
+		return new Error();
 	}
 }
