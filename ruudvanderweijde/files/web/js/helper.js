@@ -22,11 +22,15 @@ function getValueOf(id) {
 }
 
 function customSubmit() {
-  data = $(':input:visible', 'form').serialize();
-  $.post(window.location, data, success, 'json')
-  	.fail(function() { alert("Invalid data returned."); });
-  // prevent normal submit method
-  return false;
+	var disabled = $(':input:disabled', 'form').removeAttr('disabled');
+	data = $(':input:visible', 'form').serialize();
+	disabled.attr('disabled','disabled');
+	
+	$.post(window.location, data, success, 'json')
+		.fail(function() { alert("Invalid data returned."); });
+	
+	// prevent normal submit method
+	return false;
 }
 
 function success (data) {
@@ -37,7 +41,7 @@ function success (data) {
 	  }
 	  alert(errorString);
 	} else {
-	  alert("Your form has been submitted. Thank you.");
+	  alert("Your form has been saved. Thank you.\r\nThe form will be reset.");
 	  $('form')[0].reset();
     }
 }
