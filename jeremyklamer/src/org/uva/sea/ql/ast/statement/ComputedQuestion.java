@@ -43,7 +43,7 @@ public class ComputedQuestion extends Question {
 		QuestionObservable observable = new QuestionObservable(this, env, uiComponent);
 		env.registerObservable(name, observable);
 		
-		uiComponent.getAnswerField().addFocusListener(observable);
+		uiComponent.getAnswerField().addActionListener(observable);
 		env.registerObserver(new ComputedObserver(this, uiComponent.getAnswerField(), env));
 				
 		components.add(uiComponent);

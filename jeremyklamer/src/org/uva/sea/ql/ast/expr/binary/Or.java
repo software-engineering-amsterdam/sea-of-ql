@@ -26,4 +26,8 @@ public class Or extends Binary {
 		return new BoolType();
 	}
 
+	@Override
+	public Type getAllowedType() {
+		return new BoolType();
+	}
 }

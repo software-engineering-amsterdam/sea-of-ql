@@ -21,7 +21,9 @@ public class ConditionObserver implements Observer {
 		this.condition = condition;
 		this.env = env;
 		this.conditionFalse = conditionFalse;
-		this.conditionTrue = conditionTrue;		
+		this.conditionTrue = conditionTrue;
+		//Call update to show initial state. 
+		update(null, null);
 	}
 	
 	@Override

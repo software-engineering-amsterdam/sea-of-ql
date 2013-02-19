@@ -27,4 +27,9 @@ public class And extends Binary {
 		return new BoolType();
 	}
 	
+	@Override
+	public Type getAllowedType() {
+		return new BoolType();
+	}
+	
 }

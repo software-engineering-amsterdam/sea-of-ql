@@ -1,14 +1,14 @@
 package org.uva.sea.ql.ui.observing;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.ui.components.QuestionComponent;
 
-public class QuestionObservable extends Observable implements FocusListener {
+public class QuestionObservable extends Observable implements ActionListener {
 
 	private final Question question;
 	private final Env env;
@@ -21,15 +21,11 @@ public class QuestionObservable extends Observable implements FocusListener {
 	}
 
 	@Override
-	public void focusGained(FocusEvent arg0) {	
-	}
-
-	@Override
-	public void focusLost(FocusEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		//TODO remove double dots
 		env.putValue(question.getName(), component.getValue());
 		setChanged();
-		notifyObservers();		
+		notifyObservers();			
 	}	
 	
 }

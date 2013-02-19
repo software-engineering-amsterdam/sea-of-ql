@@ -40,7 +40,7 @@ public class Question extends Statement {
 		QuestionComponent uiComponent = new QuestionComponent(sentence, false, returnType.getAnswerComponent());
 		QuestionObservable observable = new QuestionObservable(this, env, uiComponent);
 		env.registerObservable(name, observable);
-		uiComponent.getAnswerField().addFocusListener(observable);
+		uiComponent.getAnswerField().addActionListener(observable);
 		components.add(uiComponent);
 		return components;
 	}
