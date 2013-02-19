@@ -65,7 +65,7 @@ public set[Message] analyzeExpression(SAS sas, Expr expression) {
     key.ident : {sas.definitions[key]} | 
     key <- sas.definitions
   ) + typesByOperator;
-  <t, messages> = inferExprType(types, expression);
+  <_, messages> = inferExprType(types, expression);
   return messages;
 }
 
@@ -173,15 +173,15 @@ private default tuple[Type, set[Message]] inferExprType(Types types, Expr e) =
  */
 private tuple[Type, set[Message]] analyzeUnaryExpr(Types types, Expr parent, 
     Expr val) {
-  <lhtype, lhmessages> = inferExprType(types, val);
+  <infType, messages> = inferExprType(types, val);
   
-  if(lhtype == undef())
-    return <err(), lhmessages>;
+  if(infType == undef())
+    return <err(), messages>;
 
-  if(lhtype notin types[getName(parent)])
-    return <err(), lhmessages + {invalidTypeMessage(parent@location)}>;
+  if(infType notin types[getName(parent)])
+    return <err(), messages + {invalidTypeMessage(parent@location)}>;
   
-  return <lhtype, lhmessages>;
+  return <infType, messages>;
 }
 
 /*
@@ -193,8 +193,8 @@ private tuple[Type, set[Message]] analyzeUnaryExpr(Types types, Expr parent,
  * - An exception of the above rule is mingling integers and money. 
  *   The resulting tye will be money.
  */
-private tuple[Type, set[Message]] analyzeRelationalExpr(Types types, Expr parent, 
-    Expr lhs, Expr rhs) {
+private tuple[Type, set[Message]] analyzeRelationalExpr(Types types,
+    Expr parent, Expr lhs, Expr rhs) {
   <lhtype, lhmessages> = inferExprType(types, lhs);
   <rhtype, rhmessages> = inferExprType(types, rhs);
   
@@ -247,8 +247,7 @@ private tuple[Type, set[Message]] analyzeAndOrExpr(Types types, Expr parent,
  * - Left and right are both strings: result will be a string as well
  * - Members are of allowed type of operator in question 
  * - Left and right hand side are integers: result will be an integer
- * - Left and right hand side contain one or two moneys. 
- *   The result will be money.
+ * - Left and right hand side contain one or two moneys: result will be money.
  */
 private tuple[Type, set[Message]] analyzeBinaryExpr(Types types, 
     Expr parent, Expr lhs, Expr rhs) {
