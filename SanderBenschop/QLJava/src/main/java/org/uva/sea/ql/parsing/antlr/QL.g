@@ -5,21 +5,21 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parsing.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.primary.*;
-import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.sourcecodeinformation.*;
 import org.uva.sea.ql.parsing.error.*;
 import org.uva.sea.ql.parsing.error.reporting.*;
 }
 
 @parser::members 
 {
-  private SyntacticErrorReporter syntacticErrorReporter = null;
+  private SyntacticErrorReporterImpl syntacticErrorReporter = null;
   
-  public void setErrorReporter(SyntacticErrorReporter syntacticErrorReporter) {
+  public void setErrorReporter(SyntacticErrorReporterImpl syntacticErrorReporter) {
     this.syntacticErrorReporter = syntacticErrorReporter;
   }
 
@@ -28,7 +28,7 @@ import org.uva.sea.ql.parsing.error.reporting.*;
   }
   
   private SourceCodeInformation createSourceCodeInformation(Token token) {
-    return new SourceCodeInformationImpl(token.getLine(), token.getCharPositionInLine());
+    return new SourceCodeInformation(token.getLine(), token.getCharPositionInLine());
   }
 
   @Override
@@ -54,22 +54,22 @@ form returns [Form result]
 	  }
   ;
     
-block returns [List<QLStatement> result]
+block returns [List<Statement> result]
   : '{' statementList '}'
 	  {
 	    $result = $statementList.result;
 	  }
   ;
     
-statementList returns [List<QLStatement> result]
+statementList returns [List<Statement> result]
   @init
   {
-    $result = new ArrayList<QLStatement>();
+    $result = new ArrayList<Statement>();
   }
   : (stmnt=statement { result.add(stmnt); })*
   ;
 
-statement returns [QLStatement result]
+statement returns [Statement result]
   : question { $result = $question.result; }
   | computation { $result = $computation.result; }
   | conditional { $result = $conditional.result; }
@@ -96,7 +96,7 @@ computation returns [Computation result]
     {
       Ident ident = new Ident($Ident.text, createSourceCodeInformation($Ident));
       Str label = new Str(removeOuterQuotes($Str.text), createSourceCodeInformation($Str));
-      QLExpression expression = $orExpr.result;
+      Expression expression = $orExpr.result;
       $result = new Computation(ident, label, expression);
     }
   ;
@@ -108,7 +108,7 @@ conditional returns [Conditional result]
     )
   ;
 
-primary returns [QLExpression result]
+primary returns [Expression result]
   : Int   { $result = new Int(Integer.parseInt($Int.text), createSourceCodeInformation($Int)); }
   | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text), createSourceCodeInformation($Bool)); }
   | Str   { $result = new Str(removeOuterQuotes($Str.text), createSourceCodeInformation($Str)); }
@@ -116,14 +116,14 @@ primary returns [QLExpression result]
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
 
-unExpr returns [QLExpression result]
+unExpr returns [Expression result]
     :  op='+' x=unExpr { $result = new Positive($x.result, createSourceCodeInformation($op)); }
     |  op='-' x=unExpr { $result = new Negative($x.result, createSourceCodeInformation($op)); }
     |  op='!' x=unExpr { $result = new Not($x.result, createSourceCodeInformation($op)); }
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [QLExpression result]
+mulExpr returns [Expression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
 	    { 
         SourceCodeInformation sourceCodeInformation = createSourceCodeInformation($op);
@@ -137,7 +137,7 @@ mulExpr returns [QLExpression result]
     ;
     
   
-addExpr returns [QLExpression result]
+addExpr returns [Expression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
 	    { 
 	      SourceCodeInformation sourceCodeInformation = createSourceCodeInformation($op);
@@ -150,7 +150,7 @@ addExpr returns [QLExpression result]
 	    })*
     ;
   
-relExpr returns [QLExpression result]
+relExpr returns [Expression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
 	    { 
 	      SourceCodeInformation sourceCodeInformation = createSourceCodeInformation($op);
@@ -175,12 +175,12 @@ relExpr returns [QLExpression result]
 	    })*
     ;
     
-andExpr returns [QLExpression result]
+andExpr returns [Expression result]
     :   lhs=relExpr { $result=$lhs.result; } ( op='&&' rhs=relExpr { $result = new And($result, rhs, createSourceCodeInformation($op)); } )*
     ;
     
 
-orExpr returns [QLExpression result]
+orExpr returns [Expression result]
     :   lhs=andExpr { $result = $lhs.result; } ( op='||' rhs=andExpr { $result = new Or($result, rhs, createSourceCodeInformation($op)); } )*
     ;
     

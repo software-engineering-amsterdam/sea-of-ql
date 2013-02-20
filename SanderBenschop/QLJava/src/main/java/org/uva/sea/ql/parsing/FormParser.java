@@ -6,7 +6,7 @@ import org.antlr.runtime.RecognitionException;
 import org.apache.commons.io.FileUtils;
 import org.uva.sea.ql.parsing.antlr.QLLexer;
 import org.uva.sea.ql.parsing.antlr.QLParser;
-import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporterImpl;
+import org.uva.sea.ql.parsing.error.SyntacticErrorReporterImpl;
 
 import java.io.File;
 import java.io.IOException;

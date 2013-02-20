@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g 2013-02-19 10:30:40
+// $ANTLR 3.5 /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g 2013-02-20 21:34:49
 
 package org.uva.sea.ql.parsing.antlr;
 
@@ -19,8 +19,8 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.parsing.error.SyntacticErrorReporterImpl;
 import org.uva.sea.ql.parsing.error.SyntacticQLError;
-import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,9 +97,9 @@ public class QLParser extends Parser {
     }
 
 
-    private SyntacticErrorReporter syntacticErrorReporter = null;
+    private SyntacticErrorReporterImpl syntacticErrorReporter = null;
 
-    public void setErrorReporter(SyntacticErrorReporter syntacticErrorReporter) {
+    public void setErrorReporter(SyntacticErrorReporterImpl syntacticErrorReporter) {
         this.syntacticErrorReporter = syntacticErrorReporter;
     }
 
@@ -720,7 +720,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "primary"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:111:1: primary returns [QLExpression result] : ( Int | Bool | Str | Ident | '(' x= orExpr ')' );
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:111:1: primary returns [Expression result] : ( Int | Bool | Str | Ident | '(' x= orExpr ')' );
     public final Expression primary() throws RecognitionException {
         Expression result = null;
 
@@ -844,7 +844,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "unExpr"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:119:1: unExpr returns [QLExpression result] : (op= '+' x= unExpr |op= '-' x= unExpr |op= '!' x= unExpr |x= primary );
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:119:1: unExpr returns [Expression result] : (op= '+' x= unExpr |op= '-' x= unExpr |op= '!' x= unExpr |x= primary );
     public final Expression unExpr() throws RecognitionException {
         Expression result = null;
 
@@ -963,7 +963,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "mulExpr"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:126:1: mulExpr returns [QLExpression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:126:1: mulExpr returns [Expression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
     public final Expression mulExpr() throws RecognitionException {
         Expression result = null;
 
@@ -1053,7 +1053,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "addExpr"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:140:1: addExpr returns [QLExpression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:140:1: addExpr returns [Expression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
     public final Expression addExpr() throws RecognitionException {
         Expression result = null;
 
@@ -1143,7 +1143,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "relExpr"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:153:1: relExpr returns [QLExpression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:153:1: relExpr returns [Expression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
     public final Expression relExpr() throws RecognitionException {
         Expression result = null;
 
@@ -1245,7 +1245,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "andExpr"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:178:1: andExpr returns [QLExpression result] : lhs= relExpr (op= '&&' rhs= relExpr )* ;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:178:1: andExpr returns [Expression result] : lhs= relExpr (op= '&&' rhs= relExpr )* ;
     public final Expression andExpr() throws RecognitionException {
         Expression result = null;
 
@@ -1318,7 +1318,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "orExpr"
-    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:183:1: orExpr returns [QLExpression result] : lhs= andExpr (op= '||' rhs= andExpr )* ;
+    // /home/sander/Documents/workspace/freshSeaOfQL/SanderBenschop/QLJava/src/main/java/org/uva/sea/ql/parsing/antlr/QL.g:183:1: orExpr returns [Expression result] : lhs= andExpr (op= '||' rhs= andExpr )* ;
     public final Expression orExpr() throws RecognitionException {
         Expression result = null;
 
