@@ -1,11 +1,11 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
+//Maybe split it
 module lang::ql::compiler::GenerateHTMLForm
 
 import lang::ql::ast::AST;
 import lang::ql::compiler::ExtractDependencies;
 
 public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
-	dep=getDependenciesMap(bodyItems);		   
 	
 	return
 	   "\<html\>
@@ -13,8 +13,9 @@ public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
 	   '\<script type=\"text/javascript\" src=\"<ident>.js\"\>\</script\>
 	   '\</head\>
 	   '\<body onload=\"onLoad()\"\>
-	   '\<form name=\"<ident>\" method=\"POST\" \>
+	   '\<form name=\"<ident>\" method=\"POST\" onsubmit=\"return formValidate()\"\>
 	   ' <generateHTMLFormBody(bodyItems,"stats0")>
+	   ' \<input type=\"submit\"\>
 	   '\</form\>
 	   '\</body\>
 	   '\</html\>";

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.form.Type;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.form.types.Type;
 import org.uva.sea.ql.parser.errors.SemanticError;
 
 public class Environment {

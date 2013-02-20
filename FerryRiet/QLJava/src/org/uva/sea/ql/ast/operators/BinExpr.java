@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.types.ErrorType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.Visitor;
 
 public abstract class BinExpr extends Expr {
 	private final Expr exprLeftHand;
@@ -43,11 +42,6 @@ public abstract class BinExpr extends Expr {
 
 	public final Expr getExprRightHand() {
 		return exprRightHand;
-	}
-
-	@Override
-	public <T> T accept(Visitor<T> visitor) {
-		return visitor.visit(this);
 	}
 
 	public Type getExprLeftHandType(Map<String, Statement> symbolMap) {

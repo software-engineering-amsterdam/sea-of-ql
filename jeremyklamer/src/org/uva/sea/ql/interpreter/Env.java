@@ -1,6 +1,10 @@
 package org.uva.sea.ql.interpreter;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Observable;
+import java.util.Observer;
 
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
@@ -9,10 +13,18 @@ public class Env {
 
 	private final Map<Ident, Type> typeEnv;
 	private final Map<Ident, Value> valueEnv;
+	private final Map<Ident, Observable> observableEnv;
 
-	public Env(Map<Ident, Type> typeEnv, Map<Ident, Value> valueEnv){
+	public Env() {
+		this.typeEnv = new HashMap<Ident, Type>();
+		this.valueEnv = new HashMap<Ident, Value>();
+		this.observableEnv = new HashMap<Ident, Observable>();
+	}
+	
+	public Env(Map<Ident, Type> typeEnv, Map<Ident, Value> valueEnv, Map<Ident, Observable> observableEnv){
 		this.typeEnv = typeEnv;
 		this.valueEnv = valueEnv;
+		this.observableEnv = observableEnv;
 	}
 
 	public Map<Ident, Type> getTypeEnv() {
@@ -44,10 +56,29 @@ public class Env {
 	
 	public void putValue(Ident name, Value value){
 		valueEnv.put(name, value);
+		//observables.get(name).notifyObservers();
 	}
 	
 	public Value getValue(Ident name){
 		return valueEnv.get(name);
+	}
+	
+	public void registerObservable(Ident name, Observable observable) {
+		observableEnv.put(name, observable);
+	}
+	
+	private void registerObserver(Ident name, Observer observer) {
+		observableEnv.get(name).addObserver(observer);
+	}
+	
+	public void registerObserver(Observer observer) {
+		for(Entry<Ident,Observable> observable: observableEnv.entrySet()) {
+			registerObserver(observable.getKey(), observer);
+		}
+	}
+	
+	public void notify(Ident name) {
+		observableEnv.get(name).notifyObservers();
 	}
 	
 }

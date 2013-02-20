@@ -28,11 +28,11 @@ public class BooleanType extends Type {
 		return getClass().equals(obj.getClass()); 
 	}
 
-	@Override
-	public Val createValOfType() {
-		// TODO Auto-generated method stub
-		return new BooleanVal();
-	}
+//	@Override
+//	public Val createValOfType() {
+//		// TODO Auto-generated method stub
+//		return new BooleanVal();
+//	}
 
 
 }

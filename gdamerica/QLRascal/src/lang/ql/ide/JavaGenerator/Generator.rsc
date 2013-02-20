@@ -10,6 +10,39 @@ import lang::ql::ast::AST;
 import lang::ql::ide::JavaGenerator::Environment;
 
 /**
+* Hulp list to construct java layout files
+*/
+list[str] jLayout = [
+"/**
+* Generated Java class
+* @author:
+* @version:
+* @since version:
+*/\n\n",
+"/**
+* Generated Java code
+* This is the imports section
+* Here imports should be defined
+*/\n\n",
+"/**
+* Generated Java code
+* This is the global variables section
+* Here globals variables should be defined
+*/\n\n",
+"/**
+* Generated Java code
+* This is the Java constructor section
+* Here constructor(s) should be defined
+*/\n\n",
+"/**
+* Generated Java code
+* Generated Java Methods section
+* Here constructor(s) should be defined
+*/\n\n",
+"\n}"
+];
+
+/**
 * Generator function that will construct a coherent Java class from a Form
 */ 
 public list[str] genJavaFile(form(str id, list[Element] fElems)){
@@ -17,14 +50,18 @@ public list[str] genJavaFile(form(str id, list[Element] fElems)){
 	str jClass = getJavaClass(id);
 	str jMethod = getJavaMethod(id);
 	str jCons = getJavaConstructor(id); 
-	str close = "\n}";
 	output = getJavaFile(fElems, tempJava);
- 	return jClass 
+ 	return 	jLayout[1]
+ 			+ jLayout[0]
+ 			+ jClass 
+ 			+ jLayout[2] 
+ 			+ jLayout[3] 
  		    + jCons 
+ 		    + jLayout[4]
  			+ jMethod 
  			+ output.javaStr 
- 			+ close 
- 			+ close;
+ 			+ jLayout[5]
+ 			+ jLayout[5];
 } 
 
  

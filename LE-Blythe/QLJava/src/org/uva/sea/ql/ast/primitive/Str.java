@@ -47,11 +47,11 @@ public class Str extends Primitive {
 	// ----------- Str Comparative -------------------------
 	@Override
 	protected Primitive eqStr(Str arg) {
-		throw new UnsupportedOperationException();
+		return new Bool(this.getValue().equals(arg.getValue()));
 	}
 
 	@Override
 	protected Primitive nEqStr(Str arg) {
-		throw new UnsupportedOperationException();
+		return new Bool(!this.getValue().equals(arg.getValue()));
 	}
 }

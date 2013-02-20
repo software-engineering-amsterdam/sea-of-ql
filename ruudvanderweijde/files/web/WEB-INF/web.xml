@@ -5,12 +5,12 @@
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
  
    <servlet>
-      <servlet-name>QLServer</servlet-name>
+      <servlet-name>QL</servlet-name>
       <servlet-class>org.uva.sea.ql.Controller</servlet-class>
    </servlet>
  
    <servlet-mapping>
-      <servlet-name>QLServer</servlet-name>
+      <servlet-name>QL</servlet-name>
       <url-pattern>/Controller</url-pattern>
    </servlet-mapping>
 </web-app>

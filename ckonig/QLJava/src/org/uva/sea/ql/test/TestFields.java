@@ -8,8 +8,6 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.literals.StringLiteral;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestFields extends TestExpressions {
@@ -80,32 +78,5 @@ public class TestFields extends TestExpressions {
         final Expr e = parser.parse("/* this is a comment /*");
         assertEquals(null, e);
     }
-
-    @Test
-    public final void testBoolean() throws ParseError {
-        final Expr e = parser.parse("boolean");
-        assertNotNull(e);
-        assertEquals(BooleanType.class, e.getClass());
-    }
-
-    @Test
-    public final void testMoney() throws ParseError {
-        final Expr e = parser.parse("money");
-        assertNotNull(e);
-        assertEquals(Money.class, e.getClass());
-    }
-
-    @Test
-    public final void testMoneyWithValue() throws ParseError {
-        final Expr e = parser.parse("money(50)");
-        assertNotNull(e);
-        assertEquals(Money.class, e.getClass());
-    }
-
-    @Test
-    public final void testMoneyWithAdd() throws ParseError {
-        final Expr e = parser.parse("money(50 + 50)");
-        assertNotNull(e);
-        assertEquals(Money.class, e.getClass());
-    }
+   
 }

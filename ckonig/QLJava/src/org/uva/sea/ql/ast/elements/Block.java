@@ -8,17 +8,17 @@ import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 
 public class Block extends Expr implements ASTElement {
-	private List<BlockElement> content;
+	private List<AbstractBlockElement> content;
 
-	public Block(List<BlockElement> ex) {
+	public Block(List<AbstractBlockElement> ex) {
 		this.content = ex;
 	}
 
-	public final List<BlockElement> getContent() {
+	public final List<AbstractBlockElement> getContent() {
 		return this.content;
 	}
 
-	public final void addLine(BlockElement e) {
+	public final void addLine(AbstractBlockElement e) {
 		this.content.add(e);
 	}
 

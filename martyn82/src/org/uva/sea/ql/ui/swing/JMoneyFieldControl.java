@@ -3,28 +3,29 @@ package org.uva.sea.ql.ui.swing;
 import java.text.DecimalFormat;
 
 import javax.swing.JSpinner;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
+import org.uva.sea.ql.ui.InputControlEventListener;
 import org.uva.sea.ql.ui.control.MoneyFieldControl;
-import org.uva.sea.ql.visitor.evaluator.value.MoneyValue;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
+import org.uva.sea.ql.value.MoneyValue;
+import org.uva.sea.ql.value.Value;
 
 public class JMoneyFieldControl extends MoneyFieldControl {
 	private final JSpinner control;
 
 	public JMoneyFieldControl() {
-		SpinnerNumberModel model = new SpinnerNumberModel();
-		model.setStepSize( 1 );
-
+		SpinnerModel model = new SpinnerNumberModel( new Double( 0.00 ), null, null, new Double( .01 ) );
 		this.control = new JSpinner( model );
 
 		JSpinner.NumberEditor editor = (JSpinner.NumberEditor) this.control.getEditor();
-		DecimalFormat formatter = editor.getFormat();
-		formatter.setMinimumFractionDigits( 2 );
+		DecimalFormat format = editor.getFormat();
+
+		format.setMinimumFractionDigits( 2 );
+		format.setMaximumFractionDigits( 2 );
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 
 	@Override
 	public void setValue( Value value ) {
-		this.control.setValue( Double.parseDouble( value.toString() ) );
+		this.control.setValue( value.getValue() );
 	}
 
 	@Override
@@ -53,12 +54,14 @@ public class JMoneyFieldControl extends MoneyFieldControl {
 	}
 
 	@Override
-	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged( ChangeEvent arg0 ) {
-				listener.itemChanged( new ControlEvent( JMoneyFieldControl.this ) );
+	public void addChangeListener( final InputControlEventListener listener ) {
+		this.control.addChangeListener(
+			new ChangeListener() {
+				@Override
+				public void stateChanged( ChangeEvent arg0 ) {
+					listener.valueChanged( new ControlEvent( JMoneyFieldControl.this ) );
+				}
 			}
-		} );
+		);
 	}
 }

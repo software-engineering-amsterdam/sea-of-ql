@@ -20,7 +20,7 @@ public class QLForm extends JFrame implements Observer {
 	private Map<String, Result> qlSymbols;
 	private JPanel contentPanel;
 	private CompoundPane cPane;
-	QLFormCreator qlFormCreator = new QLFormCreator();
+	private QLFormCreator qlFormCreator = new QLFormCreator();
 
 	public QLForm(QLProgram qlprogram) {
 

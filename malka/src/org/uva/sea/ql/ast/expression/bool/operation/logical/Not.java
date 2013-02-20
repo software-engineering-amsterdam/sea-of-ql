@@ -1,22 +1,19 @@
 package org.uva.sea.ql.ast.expression.bool.operation.logical;
 
-import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.bool.BooleanExpression;
-import org.uva.sea.ql.ast.expression.bool.operation.BooleanOperation;
-import org.uva.sea.ql.ast.expression.operation.UnaryOperation;
+import org.uva.sea.ql.ast.expression.bool.operation.UnaryBooleanOperation;
+import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
-public class Not extends BooleanOperation implements
-UnaryOperation{
-
-	protected BooleanExpression operand;
+public class Not extends UnaryBooleanOperation {
 	
 	public Not(BooleanExpression operand) {
-		this.operand = operand;
+		super(operand);
 	}
-	
+
 	@Override
-	public Expression getOperand() {
-		return operand;
+	public void accept(Visitor visitor) throws VisitorException {
+		visitor.visit(this);
 	}
 
 }

@@ -28,10 +28,9 @@ IfThen IfThen =
 	;		
 
 Question Question =
-	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
-	/ q:Literal Spacing x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
+	q:LiteralString Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
+	/ q:LiteralString Spacing  x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
 	; 
-
 	
 Type Type =
 	"boolean" Spacing { yyValue = new org.uva.sea.ql.ast.types.Bool(); }
@@ -103,7 +102,7 @@ Expr Unary =
 	
 
 Expr Primary = 
-	s:Literal Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
+	s:LiteralString Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
 	/ "true" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(true); }
 	/ "false" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(false); }
 	/ n:Int Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Int(Integer.parseInt(n)); }
@@ -119,10 +118,14 @@ String Ident
   = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
   ;
 
-String Literal 
-	= ["] [A-Za-z0-9_?!;:\t\f\n ]* ["]
+String LiteralString =
+	"\"" yyValue:Literal "\"" 
 	;
 	
+String Literal
+	= [A-Za-z0-9_?!;:\t\f\n ]*
+	;
+			
 transient void LParen = '(' Spacing;
 transient void RParen = ')' Spacing;
 
@@ -130,7 +133,6 @@ transient void LBracket = '{' Spacing;
 transient void RBracket = '}' Spacing;
 
 transient void quotes = '\"' Spacing;
-
 
 transient void Spacing = (Space / Comment)*;
 transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;

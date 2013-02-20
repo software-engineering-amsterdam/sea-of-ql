@@ -41,8 +41,7 @@ public class QLActionListener implements ITypeVisitor<Void> {
 	}
 	
 	private double roundTwoDecimals(String input) {
-		double finalValue = Math.round(  Double.parseDouble(input) * 100.0 ) / 100.0;
-		return finalValue;
+		return Math.round(Double.parseDouble(input) * 100.0) / 100.0;
 	}
 
 	@Override

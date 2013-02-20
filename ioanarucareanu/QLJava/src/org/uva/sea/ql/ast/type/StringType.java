@@ -11,10 +11,10 @@ public class StringType extends Type {
 		return "text";
 	}
 
-	@Override
-	public Val createValOfType() {
-		// TODO Auto-generated method stub
-		return new StringVal();
-	}
+//	@Override
+//	public Val createValOfType() {
+//		// TODO Auto-generated method stub
+//		return new StringVal();
+//	}
 
 }

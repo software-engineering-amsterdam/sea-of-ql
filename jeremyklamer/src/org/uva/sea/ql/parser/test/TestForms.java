@@ -3,17 +3,14 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.expr.value.Ident;
-import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.interpreter.Env;
-import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 
@@ -35,17 +32,6 @@ public class TestForms {
 	
 	@Test
 	public void testBasicForms() throws ParseError {
-		
-		System.out.println(parser.parseForm(
-				"form Box1HouseOwning {" +
-					"hasSoldHouse: \"For how much did you sell your house?\" boolean " +
-					"if (hasSoldHouse > 10000) {" +
-						"hasSoldHouse: \"Price the house was sold for:\" integer " +
-						"} " +
-					"else { sellingPrice: \"lastquestion:\" integer " +
-						"} " +
-				"}").toString(0));
-		
 		assertEquals(Form.class,parser.parseForm("form basicForm1 { question1 : \"Is everything ok? \" boolean }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"How much does a burge cost? \" integer }").getClass());
 		assertEquals(Form.class,parser.parseForm("form basicForm2 { question1 : \"Total integer spent: \" integer( 5 * 18) }").getClass());
@@ -128,7 +114,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 	}
 	
 	@Test
@@ -146,9 +132,9 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"How much would you sell your house for :\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
-		assertEquals(1, parser.parseForm(
+		assertEquals(2, parser.parseForm(
 				"form Box1HouseOwning {" +
 					"hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
 					"if (hasSoldHouse > 0) {" +
@@ -156,7 +142,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 				
 		assertEquals(0, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -166,9 +152,9 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
-		assertEquals(2, parser.parseForm(
+		assertEquals(3, parser.parseForm(
 				"form Box1HouseOwning {" +
 					"hasSoldHouse: \"For how much did you sell your house?\" boolean " +
 					"if (hasSoldHouse > 10000) {" +
@@ -176,9 +162,9 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
-		assertEquals(2, parser.parseForm(
+		assertEquals(3, parser.parseForm(
 				"form Box1HouseOwning {" +
 					"hasSoldHouse: \"For how much did you sell your house?\" integer(5+10) " +
 					"hasSoldHouse2: \"Price the house was sold for:\" boolean " +
@@ -187,7 +173,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
 	}
 	

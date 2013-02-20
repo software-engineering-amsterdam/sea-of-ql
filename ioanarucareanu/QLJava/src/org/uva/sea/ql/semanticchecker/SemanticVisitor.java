@@ -69,34 +69,39 @@ public class SemanticVisitor implements StatementVisitor, ExpressionVisitor {
 		return true;
 	}
 
-	public void visit(QLForm form) {
+	public ReturnType visit(QLForm form) {
 		visitBlockOfQLItems(form.getBlockOfItems());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(Question question) {
+	public ReturnType visit(Question question) {
 		tryAddSymbol(question.getId(), question.getType());
 		tryAddLabel(question.getLabel());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(ComputedQuestion question) {
+	public ReturnType visit(ComputedQuestion question) {
 		tryAddSymbol(question.getId(), question.getType());
 		tryAddLabel(question.getLabel());
 		ExpressionTypeValidatorUtil.checkExprIsOfType(question.getExpr(), question.getType(), this, validationReport);
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(ConditionalQuestion question) {
+	public ReturnType visit(ConditionalQuestion question) {
 		ExpressionTypeValidatorUtil.checkConditionalExpr(question.getCondition(), this, validationReport);
 		visitBlockOfQLItems(question.getStatements());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(ConditionalElseQuestion question) {
+	public ReturnType visit(ConditionalElseQuestion question) {
 		ExpressionTypeValidatorUtil.checkConditionalExpr(question.getCondition(), this, validationReport);
 		visitBlockOfQLItems(question.getStatements());
 		visitBlockOfQLItems(question.getElseStatements());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override

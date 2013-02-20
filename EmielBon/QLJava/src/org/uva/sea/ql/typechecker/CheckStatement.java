@@ -1,12 +1,9 @@
 package org.uva.sea.ql.typechecker;
 
 import java.util.List;
-
-import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.*;
 
 public class CheckStatement implements StatementVisitor<Boolean> {
 
@@ -27,12 +24,15 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 		return CheckExpression.check(expr, typeEnv, messages);
 	}
 	
+	public Type typeOf(Expression expr) {
+		return expr.typeOf(typeEnv);
+	}
+	
 	public Boolean visit(ComputedQuestion stat) {
 		
 		Identifier id     = stat.getIdentifier();
 		Type declaredType = stat.getType();
 		Expression expr   = stat.getExpression();
-		Type exprType     = expr.typeOf(typeEnv);
 				
 		if (typeEnv.isDeclared(id)) {
 			return false;
@@ -42,7 +42,7 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 			return false;
 		}
 
-		if (!exprType.isCompatibleWith(declaredType)) {
+		if (!typeOf(expr).isCompatibleWith(declaredType)) {
 			return false;
 		}
 		
@@ -65,13 +65,12 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 	public Boolean visit(IfBlock stat) {
 		
 		Expression condition = stat.getCondition();
-		Type conditionType = condition.typeOf(typeEnv);
 		
 		if (!checkExpression(condition)) {
 			return false;
 		}
 		
-		if (!conditionType.isCompatibleWithBool()) {
+		if (!typeOf(condition).isCompatibleWithBool()) {
 			return false;
 		}
 		
@@ -83,10 +82,13 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 	}
 	
 	public Boolean visit(Statements stat) {
+		
 		boolean correct = true;
+		
 		for(Statement s : stat.getStatements()) {
 			correct = correct && s.accept(this);
 		}
+		
 		return correct;
 	}
 	

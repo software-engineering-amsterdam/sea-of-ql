@@ -13,4 +13,9 @@ public class IntType extends Type {
 		return true;
 	}
 
+	@Override
+	public <T> T accept(TypeVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
 }

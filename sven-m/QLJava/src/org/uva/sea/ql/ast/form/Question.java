@@ -1,22 +1,23 @@
 package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.Location;
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.form.types.Type;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class Question extends FormElement {
-	private final Ident name;
+	private final Ident ident;
 	private final String label;
 	private final Type type;
 
-	public Question(Ident name, String label, Type type) {
-		this.name = name;
+	public Question(Ident ident, String label, Type type) {
+		this.ident = ident;
 		this.label = label;
 		this.type = type;
 	}
 	
-	public Ident getName() {
-		return name;
+	public Ident getIdent() {
+		return ident;
 	}
 	
 	public String getLabel() {
@@ -33,7 +34,7 @@ public class Question extends FormElement {
 	
 	@Override
 	public Location getLocation() {
-		return new Location(name.getLocation(), type.getLocation());
+		return new Location(ident.getLocation(), type.getLocation());
 	}
 	
 }

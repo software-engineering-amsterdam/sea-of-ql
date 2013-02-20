@@ -2,8 +2,10 @@ package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.Type;
 import org.uva.sea.ql.ast.expression.string.StringPrimitive;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.VisitorException;
 
 public class FormText extends FormField {
 
@@ -14,4 +16,12 @@ public class FormText extends FormField {
 		this.calculation = calculation;
 	}
 	
+	@Override
+	public void accept(Visitor visitor) throws VisitorException {
+		visitor.visit(this);
+	}
+	
+	public Expression getCalculation() {
+		return calculation;
+	}
 }

@@ -38,7 +38,7 @@ public final class Startup extends Application {
 		StatementEvaluator statementEvaluator = new StatementEvaluator(model,
 				expressionEvaluator);
 
-		form.accept(statementEvaluator);
+		statementEvaluator.visit(form);
 	}
 
 	/**

@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -23,95 +22,98 @@ import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.Money;
+import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.StrType;
+import org.uva.sea.ql.interpretation.TypeVisitor;
 
-public class ReturnFinder implements EvaluationVisitor {
+public class ReturnFinder implements ExpressionVisitor, TypeVisitor {
 
-    private ReturnTypes ret;
+    private Class<?> ret;
     private List<Question> questions;
 
     public ReturnFinder(List<Question> q) {
         this.questions = q;
     }
 
-    public final ReturnTypes getResult() {
+    public final Class<?> getResult() {
         return this.ret;
     }
 
     @Override
     public final void visit(Add add) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(Mul mul) throws QLException {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(Div div) throws QLException {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(Sub sub) throws QLException {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(And and) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(Or or) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(Eq eq) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(NEq neq) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(GT gt) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(GEq geq) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(LT lt) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(LEq leq) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(Not not) throws QLException {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(Pos pos) throws QLException {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(Neg neg) throws QLException {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
@@ -119,9 +121,7 @@ public class ReturnFinder implements EvaluationVisitor {
         boolean found = false;
         for (Question question : this.questions) {
             if (question.getIdentName().equals(ident.getName())) {
-                final ReturnFinder f = new ReturnFinder(this.questions);
-                question.getType().accept(f);
-              this.ret = f.getResult();
+                question.getType().accept(this);
                 found = true;
             }
         }
@@ -132,27 +132,31 @@ public class ReturnFinder implements EvaluationVisitor {
 
     @Override
     public final void visit(IntLiteral i) throws QLException {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(BooleanType b) {
-      this.ret = ReturnTypes.BOOLEAN;
+        this.ret = BooleanType.class;
     }
 
     @Override
     public final void visit(Money m) {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
     @Override
     public final void visit(StrType s) {
-      this.ret = ReturnTypes.OTHER;
+        this.ret = StrType.class;
     }
 
     @Override
     public final void visit(IntType i) {
-      this.ret = ReturnTypes.MATH;
+        this.ret = AbstractMathType.class;
     }
 
+    @Override
+    public void visit(NullType n) {
+        this.ret = NullType.class;
+    }
 }

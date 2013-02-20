@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.FormElement;
 import org.uva.sea.ql.ast.form.Form;
@@ -30,7 +30,7 @@ public class FormParser implements IParse {
 		
 		try {
 			return parser.form();
-		} catch (RecognitionException e) {
+		} catch (RecognitionException | RuntimeException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}
@@ -40,7 +40,7 @@ public class FormParser implements IParse {
 		
 		try {
 			return parser.topLevelBody();
-		} catch (RecognitionException e) {
+		} catch (RecognitionException | RuntimeException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}
@@ -50,7 +50,7 @@ public class FormParser implements IParse {
 		
 		try {
 			return parser.topLevelFormElement();
-		} catch (RecognitionException e) {
+		} catch (RecognitionException | RuntimeException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}
@@ -60,7 +60,7 @@ public class FormParser implements IParse {
 		
 		try {
 			return parser.topLevelExpression();
-		} catch (RecognitionException e) {
+		} catch (RecognitionException | RuntimeException e) {
 			throw new ParseError(e.getMessage());
 		}
 	}

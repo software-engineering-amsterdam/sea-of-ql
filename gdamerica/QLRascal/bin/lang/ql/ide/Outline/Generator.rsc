@@ -26,7 +26,7 @@ public node genOutline(form(str id, list[Element] fElems)){
  }
  
 private OENV getOutline(list[Element] fElems, OENV nds){
-	top-down visit(fElems){
+	visit(fElems){
 		case qstn:computableQuestion(_,_,_,_) 
 			: nds = getOutline(qstn, nds);
 		case qstn:singleQuestion(_,_,_) 
@@ -53,8 +53,8 @@ private OENV getOutline(condition(Condition cond), OENV nds)
 	= getOutline(cond, nds);
 	 	
 private OENV getOutline(cond:singleIfCondition(Expr ifEval, list[Element] ifQstns), OENV nds) {
-	nds0 = getOutline(ifQstns, nds);
-	nds1 = addCond(nds0, "If", ifEval, cond@location);
+	nds0 = addCond(nds, "If", ifEval, cond@location);
+	nds1 = getOutline(ifQstns, nds0);
 	return nds1;
 }
 

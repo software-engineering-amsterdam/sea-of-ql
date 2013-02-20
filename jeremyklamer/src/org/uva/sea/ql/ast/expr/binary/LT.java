@@ -4,6 +4,7 @@ package org.uva.sea.ql.ast.expr.binary;
 import org.uva.sea.ql.ast.expr.Binary;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.IntType;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.BoolVal;
 import org.uva.sea.ql.interpreter.Env;
@@ -26,6 +27,11 @@ public class LT extends Binary{
 	@Override
 	public Type typeOf(Env env) {
 		return new BoolType();
+	}
+	
+	@Override
+	public Type getAllowedType() {
+		return new IntType();
 	}
 	
 }

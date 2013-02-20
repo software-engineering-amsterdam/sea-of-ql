@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class IfBlock extends Statement {
 
