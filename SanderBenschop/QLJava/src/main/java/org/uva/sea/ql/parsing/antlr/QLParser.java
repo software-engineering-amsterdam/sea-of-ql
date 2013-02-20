@@ -19,7 +19,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.parsing.error.SyntacticErrorReporterImpl;
+import org.uva.sea.ql.parsing.error.SyntacticErrorReporter;
 import org.uva.sea.ql.parsing.error.SyntacticQLError;
 
 import java.util.ArrayList;
@@ -97,9 +97,9 @@ public class QLParser extends Parser {
     }
 
 
-    private SyntacticErrorReporterImpl syntacticErrorReporter = null;
+    private SyntacticErrorReporter syntacticErrorReporter = null;
 
-    public void setErrorReporter(SyntacticErrorReporterImpl syntacticErrorReporter) {
+    public void setErrorReporter(SyntacticErrorReporter syntacticErrorReporter) {
         this.syntacticErrorReporter = syntacticErrorReporter;
     }
 

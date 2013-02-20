@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SyntacticErrorReporterImpl {
+public class SyntacticErrorReporter {
 
     private final List<SyntacticQLError> syntacticQLErrors;
 
-    public SyntacticErrorReporterImpl() {
+    public SyntacticErrorReporter() {
         syntacticQLErrors = new ArrayList<SyntacticQLError>();
     }
 

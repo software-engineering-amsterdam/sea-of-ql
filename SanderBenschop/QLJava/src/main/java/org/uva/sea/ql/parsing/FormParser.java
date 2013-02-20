@@ -6,7 +6,7 @@ import org.antlr.runtime.RecognitionException;
 import org.apache.commons.io.FileUtils;
 import org.uva.sea.ql.parsing.antlr.QLLexer;
 import org.uva.sea.ql.parsing.antlr.QLParser;
-import org.uva.sea.ql.parsing.error.SyntacticErrorReporterImpl;
+import org.uva.sea.ql.parsing.error.SyntacticErrorReporter;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class FormParser {
     }
 
     public FormParsingResult parse(String src) {
-        SyntacticErrorReporterImpl syntacticErrorReporter = new SyntacticErrorReporterImpl();
+        SyntacticErrorReporter syntacticErrorReporter = new SyntacticErrorReporter();
         try {
             ANTLRStringStream stream = new ANTLRStringStream(src);
             CommonTokenStream tokens = new CommonTokenStream();
