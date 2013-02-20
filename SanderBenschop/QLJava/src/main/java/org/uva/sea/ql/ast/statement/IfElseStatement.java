@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expression.Expression;
 import java.util.Collections;
 import java.util.List;
 
-public final class IfElseStatement extends Conditional {
+public class IfElseStatement extends Conditional {
 
     private final List<Statement> failureBlock;
 

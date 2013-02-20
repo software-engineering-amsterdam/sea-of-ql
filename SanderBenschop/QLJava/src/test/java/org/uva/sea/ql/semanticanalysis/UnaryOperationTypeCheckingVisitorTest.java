@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
 import static junit.framework.Assert.*;
@@ -15,12 +14,12 @@ import static junit.framework.Assert.*;
 public class UnaryOperationTypeCheckingVisitorTest {
 
     private SourceCodeInformation sourceCodeInformation;
-    private SemanticAnalysisVisitor semanticAnalysisVisitor;
+    private SemanticAnalyser semanticAnalyser;
 
     @Before
     public void init() {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
+        semanticAnalyser = new SemanticAnalyser();
     }
 
     @Test
@@ -28,8 +27,8 @@ public class UnaryOperationTypeCheckingVisitorTest {
         Bool expression = new Bool(true, sourceCodeInformation);
         Not unaryOperation = new Not(expression, sourceCodeInformation);
 
-        boolean notCorrect = semanticAnalysisVisitor.visitNot(unaryOperation);
-        assertEquals(0, semanticAnalysisVisitor.getErrors().size());
+        boolean notCorrect = semanticAnalyser.visitNot(unaryOperation);
+        assertEquals(0, semanticAnalyser.getErrors().size());
         assertTrue(notCorrect);
     }
 
@@ -38,9 +37,9 @@ public class UnaryOperationTypeCheckingVisitorTest {
         Ident unknownIdent = new Ident("identifier", sourceCodeInformation);
         Not unaryOperation = new Not(unknownIdent, sourceCodeInformation);
 
-        boolean notCorrect = semanticAnalysisVisitor.visitNot(unaryOperation);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        boolean notCorrect = semanticAnalyser.visitNot(unaryOperation);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnsupportedTypeError);
         assertFalse(notCorrect);
     }
 
@@ -49,9 +48,9 @@ public class UnaryOperationTypeCheckingVisitorTest {
         Int expression = new Int(0, sourceCodeInformation);
         Not unaryOperation = new Not(expression, sourceCodeInformation);
 
-        boolean notCorrect = semanticAnalysisVisitor.visitNot(unaryOperation);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        boolean notCorrect = semanticAnalyser.visitNot(unaryOperation);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnsupportedTypeError);
         assertFalse(notCorrect);
     }
 
@@ -61,9 +60,9 @@ public class UnaryOperationTypeCheckingVisitorTest {
         Not unaryOperation = new Not(expression, sourceCodeInformation);
         Not unaryOperation2 = new Not(unaryOperation, sourceCodeInformation);
 
-        boolean notCorrect = semanticAnalysisVisitor.visitNot(unaryOperation2);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        boolean notCorrect = semanticAnalyser.visitNot(unaryOperation2);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnsupportedTypeError);
         assertFalse(notCorrect);
     }
 }

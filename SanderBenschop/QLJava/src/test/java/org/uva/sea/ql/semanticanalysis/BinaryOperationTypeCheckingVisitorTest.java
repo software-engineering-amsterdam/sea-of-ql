@@ -9,7 +9,6 @@ import org.uva.sea.ql.ast.expression.primary.Bool;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
@@ -18,12 +17,12 @@ import static junit.framework.Assert.*;
 public class BinaryOperationTypeCheckingVisitorTest {
 
     private SourceCodeInformation sourceCodeInformation;
-    private SemanticAnalysisVisitor semanticAnalysisVisitor;
+    private SemanticAnalyser semanticAnalyser;
 
     @Before
     public void init() {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
+        semanticAnalyser = new SemanticAnalyser();
     }
 
     @Test
@@ -34,8 +33,8 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Multiply multiply = new Multiply(leftHandSide, rightHandSide, sourceCodeInformation);
         Divide divide = new Divide(leftHandSide2, multiply, sourceCodeInformation);
 
-        boolean divideCorrect = semanticAnalysisVisitor.visitDivide(divide);
-        assertEquals(0, semanticAnalysisVisitor.getErrors().size());
+        boolean divideCorrect = semanticAnalyser.visitDivide(divide);
+        assertEquals(0, semanticAnalyser.getErrors().size());
         assertTrue(divideCorrect);
     }
 
@@ -45,9 +44,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Bool rightHandSide = new Bool(false, sourceCodeInformation);
         Multiply multiply = new Multiply(leftHandSide, rightHandSide, sourceCodeInformation);
 
-        boolean multiplyCorrect = semanticAnalysisVisitor.visitMultiply(multiply);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        boolean multiplyCorrect = semanticAnalyser.visitMultiply(multiply);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnsupportedTypeError);
         assertFalse(multiplyCorrect);
     }
 
@@ -59,9 +58,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Multiply multiply = new Multiply(leftHandSide, rightHandSide, sourceCodeInformation);
         Divide divide = new Divide(leftHandSide2, multiply, sourceCodeInformation);
 
-        boolean divideCorrect = semanticAnalysisVisitor.visitDivide(divide);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnsupportedTypeError);
+        boolean divideCorrect = semanticAnalyser.visitDivide(divide);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnsupportedTypeError);
         assertFalse(divideCorrect);
     }
 
@@ -71,9 +70,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Bool rightHandSide = new Bool(false, sourceCodeInformation);
         EqualTo equalTo = new EqualTo(leftHandSide, rightHandSide, sourceCodeInformation);
 
-        boolean equalToCorrect = semanticAnalysisVisitor.visitEqualTo(equalTo);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnequalTypesError);
+        boolean equalToCorrect = semanticAnalyser.visitEqualTo(equalTo);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnequalTypesError);
         assertFalse(equalToCorrect);
     }
 
@@ -83,9 +82,9 @@ public class BinaryOperationTypeCheckingVisitorTest {
         Str rightHandSide = new Str("", sourceCodeInformation);
         EqualTo equalTo = new EqualTo(leftHandSide, rightHandSide, sourceCodeInformation);
 
-        boolean equalToValid = semanticAnalysisVisitor.visitEqualTo(equalTo);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof UnequalTypesError);
+        boolean equalToValid = semanticAnalyser.visitEqualTo(equalTo);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof UnequalTypesError);
         assertFalse(equalToValid);
     }
 }

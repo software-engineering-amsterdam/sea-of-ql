@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.Type;
 
-public final class Question extends Statement {
+public class Question extends Statement {
 
     private final Ident identifier;
     private final Str label;

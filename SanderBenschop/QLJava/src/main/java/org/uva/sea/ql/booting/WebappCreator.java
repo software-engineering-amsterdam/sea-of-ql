@@ -1,33 +1,32 @@
 package org.uva.sea.ql.booting;
 
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.codegeneration.CodeGenerator;
-import org.uva.sea.ql.codegeneration.WebAppCodeGeneratingVisitor;
+import org.uva.sea.ql.codegeneration.WebAppCodeGenerator;
 import org.uva.sea.ql.general.QLError;
 import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.parsing.FormParser;
 import org.uva.sea.ql.parsing.FormParsingResult;
+import org.uva.sea.ql.semanticanalysis.SemanticAnalyser;
 import org.uva.sea.ql.semanticanalysis.SemanticAnalysisResults;
-import org.uva.sea.ql.semanticanalysis.SemanticAnalysisVisitor;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class WebappBooter {
+public class WebAppCreator {
 
-    private static final Logger LOGGER = Logger.getLogger(WebappBooter.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(WebAppCreator.class.getName());
 
     private final FormParser parser;
-    private final CodeGenerator codeGenerator;
+    private final WebAppCodeGenerator codeGenerator;
 
-    public WebappBooter() {
+    public WebAppCreator() {
         this.parser = new FormParser();
-        this.codeGenerator = new WebAppCodeGeneratingVisitor();
+        this.codeGenerator = new WebAppCodeGenerator();
     }
 
-    public QLProgram bootstrapQLProgram(File sourceCode) throws IOException {
+    public QLProgram createQLProgram(File sourceCode) throws IOException {
         FormParsingResult formParsingResult = parser.parse(sourceCode);
         if (!formParsingResult.hasErrors()) {
             return performSemanticAnalysis(formParsingResult.getForm());
@@ -39,7 +38,7 @@ public class WebappBooter {
     }
 
     private QLProgram performSemanticAnalysis(Form form) {
-        SemanticAnalysisResults semanticAnalysisResults = SemanticAnalysisVisitor.semanticallyValidateForm(form);
+        SemanticAnalysisResults semanticAnalysisResults = SemanticAnalyser.semanticallyValidateForm(form);
         if (!semanticAnalysisResults.hasErrors()) {
             return generateCode(form, semanticAnalysisResults.getSymbolTable());
         } else {
@@ -50,7 +49,7 @@ public class WebappBooter {
     }
 
     private QLProgram generateCode(Form form, SymbolTable symbolTable) {
-        String code = codeGenerator.generateQLCode(form);
+        String code = codeGenerator.generateCode(form);
         return new CorrectQLProgram(code, symbolTable);
     }
 

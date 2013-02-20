@@ -1,0 +1,30 @@
+openQuestion(id, labelText) ::= <<
+    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$"/><br>
+>>
+
+closedQuestion(id, labelText) ::= <<
+    <label for="$id$">$labelText$</label><input type="checkbox" id="$id$" name="$id$"/><br>
+>>
+
+computation(id, labelText) ::= <<
+    <label for="$id$">$labelText$</label><input type="text" id="$id$" name="$id$" readonly="readonly"/><br>
+>>
+
+ifStatement(identifier, successBodyContent) ::= <<
+    <div id="$identifier$">
+        <div class="successBody hidden">
+            $successBodyContent$
+        </div>
+    </div>
+>>
+
+ifElseStatement(identifier, successBodyContent, failureBodyContent) ::= <<
+    <div id="$identifier$">
+        <div class="successBody hidden">
+            $successBodyContent$
+        </div>
+        <div class="failureBody hidden">
+            $failureBodyContent$
+        </div>
+    </div>
+>>

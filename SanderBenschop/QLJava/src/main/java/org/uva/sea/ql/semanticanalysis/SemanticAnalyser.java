@@ -27,24 +27,20 @@ import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Visitor that's responsible for semantic analysis. This includes type checking as well as a check if an identifier
- * is declared and it is only declared once.
- */
-public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
+public class SemanticAnalyser implements NodeVisitor<Boolean> {
 
     private final SymbolTable symbolTable;
     private final List<SemanticQLError> semanticValidationErrors;
 
-    protected SemanticAnalysisVisitor() {
+    protected SemanticAnalyser() {
         this.symbolTable = new SymbolTable();
         this.semanticValidationErrors = new ArrayList<SemanticQLError>();
     }
 
     public static SemanticAnalysisResults semanticallyValidateForm(Form form) {
-        SemanticAnalysisVisitor semanticAnalysisVisitor = new SemanticAnalysisVisitor();
-        semanticAnalysisVisitor.visitForm(form);
-        return new SemanticAnalysisResults(semanticAnalysisVisitor.symbolTable, semanticAnalysisVisitor.semanticValidationErrors);
+        SemanticAnalyser semanticAnalyser = new SemanticAnalyser();
+        semanticAnalyser.visitForm(form);
+        return new SemanticAnalysisResults(semanticAnalyser.symbolTable, semanticAnalyser.semanticValidationErrors);
     }
 
     @Override
@@ -262,7 +258,7 @@ public class SemanticAnalysisVisitor implements NodeVisitor<Boolean> {
     }
 
     @Override
-    public Boolean visitStr(Str str) {
+    public Boolean visitStr(Str strLiteral) {
         return true;
     }
 

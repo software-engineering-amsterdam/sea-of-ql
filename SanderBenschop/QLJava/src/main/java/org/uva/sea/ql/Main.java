@@ -11,9 +11,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.uva.sea.ql.booting.WebappBooter;
+import org.uva.sea.ql.booting.WebAppCreator;
 import org.uva.sea.ql.booting.QLProgram;
-import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.web.configuration.ServletConfiguration;
 
 import javax.servlet.DispatcherType;
@@ -29,10 +28,10 @@ public class Main {
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
-        WebappBooter bootstrapper = new WebappBooter();
+        WebAppCreator bootstrapper = new WebAppCreator();
         try {
             jCommander.parse(arguments);
-            QLProgram qlProgram = bootstrapper.bootstrapQLProgram(commandLineParameters.getInputFile());
+            QLProgram qlProgram = bootstrapper.createQLProgram(commandLineParameters.getInputFile());
             if (qlProgram.isCorrect()) {
                 startJettyServer(qlProgram, commandLineParameters.getHostPort());
             }

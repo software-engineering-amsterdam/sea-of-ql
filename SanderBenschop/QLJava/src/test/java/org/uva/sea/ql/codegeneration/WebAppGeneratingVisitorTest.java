@@ -3,7 +3,9 @@ package org.uva.sea.ql.codegeneration;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.expression.binary.Multiply;
@@ -21,16 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 public class WebAppGeneratingVisitorTest {
 
-    private WebAppCodeGeneratingVisitor webAppGeneratingVisitor;
+    private WebAppCodeGenerator webAppCodeGenerator;
 
     private SourceCodeInformation sourceCodeInformation;
 
     @Before
     public void init() {
-        this.webAppGeneratingVisitor = new WebAppCodeGeneratingVisitor();
+        this.webAppCodeGenerator = new WebAppCodeGenerator();
         this.sourceCodeInformation = new SourceCodeInformation(0, 0);
     }
 
@@ -45,24 +48,21 @@ public class WebAppGeneratingVisitorTest {
 
         List<Statement> maleQuestions = new ArrayList<Statement>();
         maleQuestions.add(new Question(new Ident("likeBeer", sourceCodeInformation), new Str("Do you like beer?", sourceCodeInformation), new BooleanType()));
-        IfStatement ifStatement = new IfStatement(new Ident("male", sourceCodeInformation), maleQuestions);
 
         List<Statement> liveInNetherlands = new ArrayList<Statement>();
         liveInNetherlands.add(new Question(new Ident("howLongNetherlands", sourceCodeInformation), new Str("How many years have you lived in the Netherlands?", sourceCodeInformation), new IntegerType()));
         List<Statement> noLiveInNetherlands = new ArrayList<Statement>();
         noLiveInNetherlands.add(new Question(new Ident("whereLive", sourceCodeInformation), new Str("Where do you live?", sourceCodeInformation), new StringType()));
-        IfElseStatement ifElseStatement = new IfElseStatement(new Ident("male", sourceCodeInformation), liveInNetherlands, noLiveInNetherlands);
-
 
         statements.add(openQuestion);
         statements.add(closedQuestion);
         statements.add(computation);
-        statements.add(ifStatement);
-        statements.add(ifElseStatement);
 
         Form form = new Form("QLForm", statements);
-        String code = webAppGeneratingVisitor.generateQLCode(form);
+        String code = webAppCodeGenerator.generateCode(form);
         String assertionCode = FileUtils.readFileToString(new File("src/test/resources/generatedQLCode.html"));
         assertEquals(assertionCode.replaceAll("\\s",""), code.replaceAll("\\s",""));
     }
+
+
 }

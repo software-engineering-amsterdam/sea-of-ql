@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.SymbolTable;
 
-public final class Add extends BinaryOperation {
+public class Add extends BinaryOperation {
 
     public Add(Expression leftHandSide, Expression rightHandSide, SourceCodeInformation sourceCodeInformation) {
         super(leftHandSide, rightHandSide, sourceCodeInformation);

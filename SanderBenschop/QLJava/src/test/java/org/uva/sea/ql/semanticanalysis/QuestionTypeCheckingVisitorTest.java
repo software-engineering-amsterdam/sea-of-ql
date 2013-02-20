@@ -9,19 +9,18 @@ import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.general.SymbolTable;
 
 import static junit.framework.Assert.assertTrue;
 
 public class QuestionTypeCheckingVisitorTest {
 
     private SourceCodeInformation sourceCodeInformation;
-    private SemanticAnalysisVisitor semanticAnalysisVisitor;
+    private SemanticAnalyser semanticAnalyser;
 
     @Before
     public void init() throws IllegalAccessException {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
+        semanticAnalyser = new SemanticAnalyser();
     }
 
     @Test
@@ -34,10 +33,10 @@ public class QuestionTypeCheckingVisitorTest {
         Int otherNumber = new Int(20, sourceCodeInformation);
         EqualTo twentyYearsOld = new EqualTo(ident2, otherNumber, sourceCodeInformation);
 
-        boolean questionCorrect = semanticAnalysisVisitor.visitQuestion(question);
-        boolean equalToCorrect = semanticAnalysisVisitor.visitEqualTo(twentyYearsOld);
+        boolean questionCorrect = semanticAnalyser.visitQuestion(question);
+        boolean equalToCorrect = semanticAnalyser.visitEqualTo(twentyYearsOld);
 
-        assertTrue(semanticAnalysisVisitor.getErrors().isEmpty());
+        assertTrue(semanticAnalyser.getErrors().isEmpty());
         assertTrue(questionCorrect);
         assertTrue(equalToCorrect);
     }

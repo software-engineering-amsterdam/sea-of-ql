@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.SymbolTable;
 
-public final class Positive extends UnaryOperation {
+public class Positive extends UnaryOperation {
 
     public Positive(Expression expression, SourceCodeInformation sourceInfo) {
         super(expression, sourceInfo);

@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.SymbolTable;
 
-public final class Multiply extends BinaryOperation {
+public class Multiply extends BinaryOperation {
 
     public Multiply(Expression leftHandSide, Expression rightHandSide, SourceCodeInformation sourceCodeInformation) {
         super(leftHandSide, rightHandSide, sourceCodeInformation);

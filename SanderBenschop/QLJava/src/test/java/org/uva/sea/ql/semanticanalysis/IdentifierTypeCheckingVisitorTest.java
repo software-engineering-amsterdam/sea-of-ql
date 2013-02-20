@@ -1,32 +1,24 @@
 package org.uva.sea.ql.semanticanalysis;
 
-import org.apache.commons.lang.reflect.FieldUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.general.SymbolTable;
-import org.uva.sea.ql.parsing.TestParser;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 
 import static junit.framework.Assert.*;
-import static org.mockito.Mockito.when;
 
 public class IdentifierTypeCheckingVisitorTest {
 
     private SourceCodeInformation sourceCodeInformation;
-    private SemanticAnalysisVisitor semanticAnalysisVisitor;
+    private SemanticAnalyser semanticAnalyser;
 
     @Before
     public void init() throws IllegalAccessException {
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
+        semanticAnalyser = new SemanticAnalyser();
         sourceCodeInformation = new SourceCodeInformation(0, 0);
     }
 
@@ -34,8 +26,8 @@ public class IdentifierTypeCheckingVisitorTest {
     public void shouldNotReturnIdentifierRedeclarationError() {
         Ident ident = new Ident("age", sourceCodeInformation);
 
-        boolean identCorrect = semanticAnalysisVisitor.visitIdent(ident);
-        assertTrue(semanticAnalysisVisitor.getErrors().isEmpty());
+        boolean identCorrect = semanticAnalyser.visitIdent(ident);
+        assertTrue(semanticAnalyser.getErrors().isEmpty());
         assertTrue(identCorrect);
     }
 
@@ -46,11 +38,11 @@ public class IdentifierTypeCheckingVisitorTest {
         Str label = new Str("", sourceCodeInformation);
         Question question = new Question(ident, label, new BooleanType());
 
-        semanticAnalysisVisitor.visitQuestion(question);
-        boolean questionCorrect = semanticAnalysisVisitor.visitQuestion(question);
+        semanticAnalyser.visitQuestion(question);
+        boolean questionCorrect = semanticAnalyser.visitQuestion(question);
 
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
-        assertTrue(semanticAnalysisVisitor.getErrors().get(0) instanceof IdentifierRedeclarationError);
+        assertEquals(1, semanticAnalyser.getErrors().size());
+        assertTrue(semanticAnalyser.getErrors().get(0) instanceof IdentifierRedeclarationError);
         assertFalse(questionCorrect);
     }
 }

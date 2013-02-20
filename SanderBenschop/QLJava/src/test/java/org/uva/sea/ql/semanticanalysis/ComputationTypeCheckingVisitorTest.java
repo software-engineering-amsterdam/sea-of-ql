@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
 import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Computation;
-import org.uva.sea.ql.general.SymbolTable;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
@@ -17,12 +16,12 @@ import static junit.framework.Assert.assertTrue;
 public class ComputationTypeCheckingVisitorTest {
 
     private SourceCodeInformation sourceCodeInformation;
-    private SemanticAnalysisVisitor semanticAnalysisVisitor;
+    private SemanticAnalyser semanticAnalyser;
 
     @Before
     public void init() {
         sourceCodeInformation = new SourceCodeInformation(0, 0);
-        semanticAnalysisVisitor = new SemanticAnalysisVisitor();
+        semanticAnalyser = new SemanticAnalyser();
     }
 
     @Test
@@ -32,8 +31,8 @@ public class ComputationTypeCheckingVisitorTest {
         Int number = new Int(0, sourceCodeInformation);
         Computation computation = new Computation(ident, str, number);
 
-        boolean computationCorrect = semanticAnalysisVisitor.visitComputation(computation);
-        assertTrue(semanticAnalysisVisitor.getErrors().isEmpty());
+        boolean computationCorrect = semanticAnalyser.visitComputation(computation);
+        assertTrue(semanticAnalyser.getErrors().isEmpty());
         assertTrue(computationCorrect);
     }
 
@@ -44,9 +43,9 @@ public class ComputationTypeCheckingVisitorTest {
         Multiply multiply = new Multiply(new Int(1, sourceCodeInformation), new Ident("test2", sourceCodeInformation), sourceCodeInformation);
         Computation computation = new Computation(ident, str, multiply);
 
-        boolean computationCorrect = semanticAnalysisVisitor.visitComputation(computation);
+        boolean computationCorrect = semanticAnalyser.visitComputation(computation);
         assertFalse(computationCorrect);
-        assertEquals(1, semanticAnalysisVisitor.getErrors().size());
+        assertEquals(1, semanticAnalyser.getErrors().size());
     }
 
     @Test
@@ -61,10 +60,10 @@ public class ComputationTypeCheckingVisitorTest {
         Computation computation = new Computation(ident, str, multiply);
         Multiply multiply2 = new Multiply(ident, rightHandSide2, sourceCodeInformation);
 
-        boolean computationCorrect = semanticAnalysisVisitor.visitComputation(computation);
-        boolean multiplyCorrect = semanticAnalysisVisitor.visitMultiply(multiply2);
+        boolean computationCorrect = semanticAnalyser.visitComputation(computation);
+        boolean multiplyCorrect = semanticAnalyser.visitMultiply(multiply2);
 
-        assertTrue(semanticAnalysisVisitor.getErrors().isEmpty());
+        assertTrue(semanticAnalyser.getErrors().isEmpty());
         assertTrue(computationCorrect);
         assertTrue(multiplyCorrect);
     }
