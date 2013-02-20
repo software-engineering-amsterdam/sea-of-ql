@@ -3,8 +3,8 @@ package org.uva.sea.ql.web;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
+import org.uva.sea.ql.web.inputvalidation.InputValidator;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidationResult;
-import org.uva.sea.ql.web.inputvalidation.QuestionValidator;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -21,7 +21,7 @@ public class ValidationController {
     private final StringType stringType;
 
     @Inject
-    private QuestionValidator inputValidator;
+    private InputValidator inputValidator;
 
     public ValidationController() {
         this.integerType = new IntegerType();

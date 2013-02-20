@@ -11,8 +11,8 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
-import org.uva.sea.ql.booting.WebAppCreator;
-import org.uva.sea.ql.booting.QLProgram;
+import org.uva.sea.ql.startup.WebApp;
+import org.uva.sea.ql.startup.WebAppCreator;
 import org.uva.sea.ql.web.configuration.ServletConfiguration;
 
 import javax.servlet.DispatcherType;
@@ -28,12 +28,12 @@ public class Main {
     public static void main(String[] arguments) {
         QLCommandLineParameters commandLineParameters = new QLCommandLineParameters();
         JCommander jCommander = new JCommander(commandLineParameters);
-        WebAppCreator bootstrapper = new WebAppCreator();
+        WebAppCreator webAppCreator = new WebAppCreator();
         try {
             jCommander.parse(arguments);
-            QLProgram qlProgram = bootstrapper.createQLProgram(commandLineParameters.getInputFile());
-            if (qlProgram.isCorrect()) {
-                startJettyServer(qlProgram, commandLineParameters.getHostPort());
+            WebApp webApp = webAppCreator.createQLProgram(commandLineParameters.getInputFile());
+            if (webApp.isCorrect()) {
+                startJettyServer(webApp, commandLineParameters.getHostPort());
             }
         } catch (ParameterException exception) {
             LOGGER.severe("Error starting up QL, use this interpreter with the following command line options and make sure the file is present:");
@@ -44,7 +44,7 @@ public class Main {
         }
     }
 
-    private static void startJettyServer(QLProgram qlProgram, int port) {
+    private static void startJettyServer(WebApp webApp, int port) {
         try {
             Server server = new Server(port);
 
@@ -55,7 +55,7 @@ public class Main {
             ServletContextHandler servletsHandler = new ServletContextHandler();
             servletsHandler.setContextPath(WEBAPP_BASE_PATH);
             servletsHandler.addFilter(GuiceFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
-            servletsHandler.addEventListener(new ServletConfiguration(qlProgram));
+            servletsHandler.addEventListener(new ServletConfiguration(webApp));
             servletsHandler.addServlet(new ServletHolder(new ServletContainer(new PackagesResourceConfig("org.uva.sea.ql.web"))), "/");
 
             HandlerList handlers = new HandlerList();

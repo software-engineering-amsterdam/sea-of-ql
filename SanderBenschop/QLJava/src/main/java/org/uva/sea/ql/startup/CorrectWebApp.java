@@ -1,13 +1,13 @@
-package org.uva.sea.ql.booting;
+package org.uva.sea.ql.startup;
 
 import org.uva.sea.ql.general.SymbolTable;
 
-public class CorrectQLProgram implements QLProgram {
+public class CorrectWebApp implements WebApp {
 
     private final String code;
     private final SymbolTable symbolTable;
 
-    public CorrectQLProgram(String code, SymbolTable symbolTable) {
+    public CorrectWebApp(String code, SymbolTable symbolTable) {
         this.code = code;
         this.symbolTable = symbolTable;
     }

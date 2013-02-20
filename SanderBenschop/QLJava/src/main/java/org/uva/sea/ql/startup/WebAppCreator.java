@@ -1,4 +1,4 @@
-package org.uva.sea.ql.booting;
+package org.uva.sea.ql.startup;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.codegeneration.WebAppCodeGenerator;
@@ -26,31 +26,31 @@ public class WebAppCreator {
         this.codeGenerator = new WebAppCodeGenerator();
     }
 
-    public QLProgram createQLProgram(File sourceCode) throws IOException {
+    public WebApp createQLProgram(File sourceCode) throws IOException {
         FormParsingResult formParsingResult = parser.parse(sourceCode);
         if (!formParsingResult.hasErrors()) {
             return performSemanticAnalysis(formParsingResult.getForm());
         } else {
             LOGGER.severe("Syntactic analysis of the QL source code failed with the following errors:");
             logErrors(formParsingResult.getErrors());
-            return new IncorrectQLProgram();
+            return new IncorrectWebApp();
         }
     }
 
-    private QLProgram performSemanticAnalysis(Form form) {
+    private WebApp performSemanticAnalysis(Form form) {
         SemanticAnalysisResults semanticAnalysisResults = SemanticAnalyser.semanticallyValidateForm(form);
         if (!semanticAnalysisResults.hasErrors()) {
             return generateCode(form, semanticAnalysisResults.getSymbolTable());
         } else {
             LOGGER.severe("Semantic analysis of the QL source code failed with the following errors:");
             logErrors(semanticAnalysisResults.getErrors());
-            return new IncorrectQLProgram();
+            return new IncorrectWebApp();
         }
     }
 
-    private QLProgram generateCode(Form form, SymbolTable symbolTable) {
+    private WebApp generateCode(Form form, SymbolTable symbolTable) {
         String code = codeGenerator.generateCode(form);
-        return new CorrectQLProgram(code, symbolTable);
+        return new CorrectWebApp(code, symbolTable);
     }
 
     private void logErrors(List<? extends QLError> errors) {

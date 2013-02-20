@@ -22,7 +22,7 @@ public class FormParser {
     }
 
     public FormParsingResult parse(String src) {
-        SyntacticErrorReporter syntacticErrorReporter = new SyntacticErrorReporterImpl();
+        SyntacticErrorReporterImpl syntacticErrorReporter = new SyntacticErrorReporterImpl();
         try {
             ANTLRStringStream stream = new ANTLRStringStream(src);
             CommonTokenStream tokens = new CommonTokenStream();

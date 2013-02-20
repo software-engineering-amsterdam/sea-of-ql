@@ -1,6 +1,6 @@
 package org.uva.sea.ql.web;
 
-import org.uva.sea.ql.booting.QLProgram;
+import org.uva.sea.ql.startup.WebApp;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -11,10 +11,10 @@ import java.io.IOException;
 public class IndexController {
 
     @Inject
-    private QLProgram qlProgram;
+    private WebApp webApp;
 
     @GET
     public String getCode() throws IOException {
-        return qlProgram.getGeneratedQLCode();
+        return webApp.getGeneratedQLCode();
     }
 }

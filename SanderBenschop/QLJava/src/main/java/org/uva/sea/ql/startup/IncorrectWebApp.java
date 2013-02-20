@@ -1,8 +1,8 @@
-package org.uva.sea.ql.booting;
+package org.uva.sea.ql.startup;
 
 import org.uva.sea.ql.general.SymbolTable;
 
-public class IncorrectQLProgram implements QLProgram {
+public class IncorrectWebApp implements WebApp {
 
     @Override
     public boolean isCorrect() {

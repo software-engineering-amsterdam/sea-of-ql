@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jettison.json.JSONException;
-import org.uva.sea.ql.general.QLPropertiesUtil;
+import org.uva.sea.ql.general.PropertiesUtil;
+import org.uva.sea.ql.web.inputvalidation.InputValidator;
 import org.uva.sea.ql.web.inputvalidation.QLInputValidationResult;
-import org.uva.sea.ql.web.inputvalidation.QuestionValidator;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -25,7 +25,7 @@ public class PersistenceController {
     private static final String CSV_HEADER_ROW = "identifierName,value";
 
     @Inject
-    private QuestionValidator inputValidator;
+    private InputValidator inputValidator;
     @Inject
     private ObjectMapper objectMapper;
 
@@ -46,7 +46,7 @@ public class PersistenceController {
     }
 
     private void persistIdentifierValuePairs(IdentifierValuePair[] identifierValuePairs) throws IOException {
-        File outputFile = new File(QLPropertiesUtil.getProperty("qlTargetFolder") + SERIALIZATION_DESTINATION_FILE_SUFFIX);
+        File outputFile = new File(PropertiesUtil.getProperty("qlTargetFolder") + SERIALIZATION_DESTINATION_FILE_SUFFIX);
 
         List<String> csvRows = new ArrayList<String>();
         csvRows.add(CSV_HEADER_ROW);

@@ -10,7 +10,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
-import org.uva.sea.ql.booting.QLProgram;
+import org.uva.sea.ql.startup.WebApp;
 import org.uva.sea.ql.general.SymbolTable;
 import org.uva.sea.ql.web.PersistenceController;
 import org.uva.sea.ql.web.IndexController;
@@ -20,11 +20,11 @@ import java.io.IOException;
 
 public class ServletConfiguration extends GuiceServletContextListener {
 
-    private final QLProgram qlProgram;
+    private final WebApp webApp;
     private final ObjectMapper objectMapper;
 
-    public ServletConfiguration(QLProgram qlProgram) throws IOException {
-        this.qlProgram = qlProgram;
+    public ServletConfiguration(WebApp webApp) throws IOException {
+        this.webApp = webApp;
         this.objectMapper = createObjectMapper();
     }
 
@@ -46,8 +46,8 @@ public class ServletConfiguration extends GuiceServletContextListener {
             bind(IndexController.class);
             bind(ValidationController.class);
             bind(PersistenceController.class);
-            bind(QLProgram.class).toInstance(qlProgram);
-            bind(SymbolTable.class).toInstance(qlProgram.getSymbolTable());
+            bind(WebApp.class).toInstance(webApp);
+            bind(SymbolTable.class).toInstance(webApp.getSymbolTable());
             bind(ObjectMapper.class).toInstance(objectMapper);
             serve("*").with(GuiceContainer.class);
         }
