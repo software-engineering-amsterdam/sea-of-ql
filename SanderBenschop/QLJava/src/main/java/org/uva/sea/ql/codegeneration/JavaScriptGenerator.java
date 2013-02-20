@@ -61,7 +61,8 @@ public class JavaScriptGenerator implements NodeVisitor<String> {
     @Override
     public String visitIfElseStatement(IfElseStatement ifElseStatement) {
         StringBuilder ifStatementCodeBuilder = new StringBuilder();
-        String expressionCode = ifElseStatement.getCondition().accept(this), identifier = ConditionalIdentifierGenerator.generateIdentifier(ifElseStatement);;
+        String expressionCode = ifElseStatement.getCondition().accept(this), identifier = ConditionalIdentifierGenerator.generateIdentifier(ifElseStatement);
+        ;
         ifStatementCodeBuilder.append(renderConditionalJSTemplate(identifier, "ifElseStatementParentController", expressionCode));
         ifStatementCodeBuilder.append(generateJSCodeForStatementList(ifElseStatement.getSuccessBlock()));
         ifStatementCodeBuilder.append(generateJSCodeForStatementList(ifElseStatement.getFailureBlock()));

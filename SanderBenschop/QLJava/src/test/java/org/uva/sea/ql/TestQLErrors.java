@@ -2,10 +2,10 @@ package org.uva.sea.ql;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 import org.uva.sea.ql.semanticanalysis.error.SemanticQLError;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;

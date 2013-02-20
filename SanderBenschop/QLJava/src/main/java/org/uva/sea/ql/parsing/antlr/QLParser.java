@@ -4,22 +4,21 @@ package org.uva.sea.ql.parsing.antlr;
 
 import org.antlr.runtime.*;
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.expression.binary.*;
 import org.uva.sea.ql.ast.expression.primary.Bool;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
+import org.uva.sea.ql.ast.expression.unary.Negative;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Positive;
+import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.SourceCodeInformation;
-import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.expression.unary.Negative;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Positive;
 import org.uva.sea.ql.parsing.error.SyntacticQLError;
 import org.uva.sea.ql.parsing.error.reporting.SyntacticErrorReporter;
 

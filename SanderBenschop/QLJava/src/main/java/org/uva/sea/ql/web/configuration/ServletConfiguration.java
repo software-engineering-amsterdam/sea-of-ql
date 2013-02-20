@@ -10,10 +10,10 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.annotate.JsonMethod;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.module.SimpleModule;
-import org.uva.sea.ql.startup.WebApp;
 import org.uva.sea.ql.general.SymbolTable;
-import org.uva.sea.ql.web.PersistenceController;
+import org.uva.sea.ql.startup.WebApp;
 import org.uva.sea.ql.web.IndexController;
+import org.uva.sea.ql.web.PersistenceController;
 import org.uva.sea.ql.web.ValidationController;
 
 import java.io.IOException;

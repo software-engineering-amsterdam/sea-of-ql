@@ -5,13 +5,13 @@ import org.uva.sea.ql.ast.expression.primary.Bool;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
+import org.uva.sea.ql.ast.expression.unary.Negative;
+import org.uva.sea.ql.ast.expression.unary.Not;
+import org.uva.sea.ql.ast.expression.unary.Positive;
 import org.uva.sea.ql.ast.statement.Computation;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.ast.statement.Question;
-import org.uva.sea.ql.ast.expression.unary.Negative;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Positive;
 
 public interface NodeVisitor<T> {
 

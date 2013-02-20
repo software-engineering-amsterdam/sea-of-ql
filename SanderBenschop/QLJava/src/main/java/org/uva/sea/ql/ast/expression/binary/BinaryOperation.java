@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression.binary;
 
-import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.expression.Expression;
 
 public abstract class BinaryOperation extends Expression {
 

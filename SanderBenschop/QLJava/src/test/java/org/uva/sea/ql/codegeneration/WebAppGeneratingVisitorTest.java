@@ -3,19 +3,18 @@ package org.uva.sea.ql.codegeneration;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.binary.Multiply;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
+import org.uva.sea.ql.ast.statement.Computation;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.ast.SourceCodeInformation;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class WebAppGeneratingVisitorTest {
 
@@ -61,7 +59,7 @@ public class WebAppGeneratingVisitorTest {
         Form form = new Form("QLForm", statements);
         String code = webAppCodeGenerator.generateCode(form);
         String assertionCode = FileUtils.readFileToString(new File("src/test/resources/generatedQLCode.html"));
-        assertEquals(assertionCode.replaceAll("\\s",""), code.replaceAll("\\s",""));
+        assertEquals(assertionCode.replaceAll("\\s", ""), code.replaceAll("\\s", ""));
     }
 
 

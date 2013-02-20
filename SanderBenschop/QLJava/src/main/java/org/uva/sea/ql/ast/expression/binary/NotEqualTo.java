@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.expression.binary;
 
 import org.uva.sea.ql.ast.NodeVisitor;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.general.SymbolTable;
 
 public class NotEqualTo extends BinaryOperation {

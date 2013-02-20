@@ -16,7 +16,7 @@ public class WebAppCodeGenerator {
         this.javaScriptGenerator = new JavaScriptGenerator();
     }
 
-    public String generateCode(Form form){
+    public String generateCode(Form form) {
         ST pageTemplate = mainTemplateGroup.getInstanceOf("page"), formTemplate = mainTemplateGroup.getInstanceOf("form");
 
         formTemplate.add("statements", htmlGenerator.visitForm(form));

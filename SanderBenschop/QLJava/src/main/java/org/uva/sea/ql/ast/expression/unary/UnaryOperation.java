@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression.unary;
 
-import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.SourceCodeInformation;
+import org.uva.sea.ql.ast.expression.Expression;
 
 public abstract class UnaryOperation extends Expression {
 

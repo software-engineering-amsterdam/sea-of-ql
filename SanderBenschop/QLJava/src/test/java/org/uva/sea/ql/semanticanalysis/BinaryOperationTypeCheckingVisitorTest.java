@@ -2,13 +2,13 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.binary.Divide;
 import org.uva.sea.ql.ast.expression.binary.EqualTo;
 import org.uva.sea.ql.ast.expression.binary.Multiply;
 import org.uva.sea.ql.ast.expression.primary.Bool;
 import org.uva.sea.ql.ast.expression.primary.Int;
 import org.uva.sea.ql.ast.expression.primary.Str;
-import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.semanticanalysis.error.UnequalTypesError;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 

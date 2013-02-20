@@ -4,7 +4,7 @@
         Interpreter for the domain specific language: "QL" (Question language).
     </description>
 
-    <property file="qlang.properties" />
+    <property file="qlang.properties"/>
 
     <target name="clean" description="clean up">
         <delete dir="${classTargetFolder}"/>

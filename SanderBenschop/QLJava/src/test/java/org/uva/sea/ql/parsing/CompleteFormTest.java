@@ -3,7 +3,6 @@ package org.uva.sea.ql.parsing;
 import org.junit.Test;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parsing.exception.ParseException;
 
 import java.util.List;

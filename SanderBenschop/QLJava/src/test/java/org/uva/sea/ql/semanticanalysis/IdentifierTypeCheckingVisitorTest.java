@@ -2,11 +2,11 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.primary.Ident;
 import org.uva.sea.ql.ast.expression.primary.Str;
-import org.uva.sea.ql.ast.type.BooleanType;
-import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.semanticanalysis.error.IdentifierRedeclarationError;
 
 import static junit.framework.Assert.*;

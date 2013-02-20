@@ -2,11 +2,11 @@ package org.uva.sea.ql.semanticanalysis;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.expression.primary.Bool;
 import org.uva.sea.ql.ast.expression.primary.Int;
-import org.uva.sea.ql.ast.SourceCodeInformation;
 import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.semanticanalysis.error.UnsupportedTypeError;
 
 import java.util.Collections;

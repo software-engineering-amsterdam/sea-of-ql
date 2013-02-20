@@ -3,20 +3,20 @@ ql.variableMap = {};
 ql.questionControllerList = [];
 
 ql.messageBus = Base.extend({
-    initialize : function() {
+    initialize:function () {
         this.variableListeners = {};
     },
 
-    subscribeToVariable : function(variable, listener) {
+    subscribeToVariable:function (variable, listener) {
         if (!this.variableListeners[variable]) {
             this.variableListeners[variable] = [];
         }
         this.variableListeners[variable].push(listener);
     },
 
-    signalVariableChanged : function(variable) {
+    signalVariableChanged:function (variable) {
         if (this.variableListeners[variable]) {
-            jQuery.each(this.variableListeners[variable], function(index, value) {
+            jQuery.each(this.variableListeners[variable], function (index, value) {
                 value.triggerEvaluation();
             });
         }
@@ -24,34 +24,34 @@ ql.messageBus = Base.extend({
 }).new();
 
 ql.ajaxUtil = {
-    doPost : function(urlPostfix, data, successCallback) {
+    doPost:function (urlPostfix, data, successCallback) {
         $.ajax({
-            type: "POST",
-            url: $(location).attr('href') + urlPostfix,
-            data: JSON.stringify(data),
-            success: successCallback,
-            error : function(jqXHR) {
+            type:"POST",
+            url:$(location).attr('href') + urlPostfix,
+            data:JSON.stringify(data),
+            success:successCallback,
+            error:function (jqXHR) {
                 alert(jqXHR.responseText);
             },
-            contentType: 'application/json'
+            contentType:'application/json'
         });
     }
 }
 
 ql.QuestionController = Base.extend({
-    initialize : function(questionName) {
+    initialize:function (questionName) {
         this.questionName = questionName;
         this.view = $("#" + this.questionName);
     },
 
-    getName : function() {
+    getName:function () {
         return this.questionName;
     },
 
-    bind : function() {
+    bind:function () {
         var that = this;
-        this.view.on("change", function() {
-            that.validateInput(function() {
+        this.view.on("change", function () {
+            that.validateInput(function () {
                 var value = that.getParsedValue();
                 ql.variableMap[that.questionName] = value;
                 ql.messageBus.signalVariableChanged(that.questionName);
@@ -59,61 +59,61 @@ ql.QuestionController = Base.extend({
         });
     },
 
-    validateInput : function(successCallback) {
-        var urlPostfix = "validate/" + this.getValidationSuffix() + "/", data = {identifierName : this.questionName, value : this.getValue()};
+    validateInput:function (successCallback) {
+        var urlPostfix = "validate/" + this.getValidationSuffix() + "/", data = {identifierName:this.questionName, value:this.getValue()};
         ql.ajaxUtil.doPost(urlPostfix, data, successCallback);
     }
 });
 
 ql.IntegerTypeQuestionController = ql.QuestionController.extend({
-    getParsedValue : function() {
+    getParsedValue:function () {
         return parseInt(this.getValue());
     },
 
-    getValidationSuffix : function() {
+    getValidationSuffix:function () {
         return "integer";
     },
 
-    getValue : function() {
+    getValue:function () {
         return this.view.val();
     }
 });
 
 ql.BooleanTypeQuestionController = ql.QuestionController.extend({
-    getParsedValue : function() {
+    getParsedValue:function () {
         return this.getValue();
     },
 
-    getValidationSuffix : function() {
+    getValidationSuffix:function () {
         return "boolean";
     },
 
-    getValue : function() {
+    getValue:function () {
         return this.view.is(":checked");
     }
 });
 
 ql.StringTypeQuestionController = ql.QuestionController.extend({
-    getParsedValue : function() {
+    getParsedValue:function () {
         return this.getValue();
     },
 
-    getValidationSuffix : function() {
+    getValidationSuffix:function () {
         return "string";
     },
 
-    getValue : function() {
+    getValue:function () {
         return this.view.val();
     }
 });
 
 ql.ComputationController = Base.extend({
-    initialize: function(computationName) {
+    initialize:function (computationName) {
         this.computationName = computationName;
         this.view = $("#" + this.computationName);
     },
 
-    triggerEvaluation : function() {
+    triggerEvaluation:function () {
         var expressionOutcome = this.evaluateExpression();
         this.view.val(expressionOutcome);
         if (expressionOutcome !== "") {
@@ -124,17 +124,17 @@ ql.ComputationController = Base.extend({
 });
 
 ql.ConditionalController = Base.extend({
-    initialize : function(conditionalName) {
+    initialize:function (conditionalName) {
         this.conditionalName = conditionalName;
         this.view = $("#" + this.conditionalName);
     },
 
-    triggerEvaluation : function() {
+    triggerEvaluation:function () {
         var booleanOutcome = this.evaluateExpression();
         this.toggle(booleanOutcome);
     },
 
-    toggle : function(booleanValue) {
+    toggle:function (booleanValue) {
         if (booleanValue) {
             this.onConditionalTrue();
         } else {
@@ -142,41 +142,41 @@ ql.ConditionalController = Base.extend({
         }
     },
 
-    resetElementBlock : function(elementBlock) {
+    resetElementBlock:function (elementBlock) {
         elementBlock.find("input:text").val("");
         elementBlock.find("input:checkbox").removeAttr('checked');
     }
 });
 
 ql.IfStatementController = ql.ConditionalController.extend({
-    initialize : function(conditionalName) {
+    initialize:function (conditionalName) {
         ql.ConditionalController.initialize.call(this, conditionalName);
         this.successBody = this.view.find(".successBody");
     },
 
-    onConditionalTrue : function() {
+    onConditionalTrue:function () {
         this.successBody.removeClass("hidden");
     },
 
-    onConditionalFalse : function() {
+    onConditionalFalse:function () {
         this.successBody.addClass("hidden");
         this.resetElementBlock(this.successBody);
     }
 });
 
 ql.IfElseStatementController = ql.ConditionalController.extend({
-    initialize : function(conditionalName) {
+    initialize:function (conditionalName) {
         ql.ConditionalController.initialize.call(this, conditionalName);
         this.successBody = this.view.find(".successBody"), this.failureBody = this.view.find(".failureBody");
     },
 
-    onConditionalTrue : function() {
+    onConditionalTrue:function () {
         this.successBody.removeClass("hidden");
         this.failureBody.addClass("hidden");
         this.resetElementBlock(this.failureBody);
     },
 
-    onConditionalFalse : function() {
+    onConditionalFalse:function () {
         this.successBody.addClass("hidden");
         this.failureBody.removeClass("hidden");
         this.resetElementBlock(this.successBody);
