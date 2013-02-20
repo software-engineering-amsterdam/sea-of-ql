@@ -15,9 +15,9 @@ public class InputValidator {
     public QLInputValidationResult validateInputForType(IdentifierValuePair identifierValuePair, Type expectedType) {
         Ident identifier = new Ident(identifierValuePair.getIdentifierName());
         if (identifier != null && identifierIsOfType(identifier, expectedType) && expectedType.canTakeValue(identifierValuePair.getValue())) {
-            return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
+            return new SingleValidationResult(true, QLInputValidationResult.OK_MESSAGE);
         } else {
-            return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getName()));
+            return new SingleValidationResult(false, String.format(QLInputValidationResult.TYPED_ERROR_MESSAGE_TEMPLATE, expectedType.getName()));
         }
     }
 
@@ -34,9 +34,9 @@ public class InputValidator {
         Ident identifier = new Ident(identifierValuePair.getIdentifierName());
         Type type = getTypeForIdentifierName(identifier);
         if (type != null && type.canTakeValue(identifierValuePair.getValue())) {
-            return new QLInputValidationResultImpl(true, QLInputValidationResult.OK_MESSAGE);
+            return new SingleValidationResult(true, QLInputValidationResult.OK_MESSAGE);
         } else {
-            return new QLInputValidationResultImpl(false, String.format(QLInputValidationResult.NAMED_ERROR_MESSAGE_TEMPLATE, identifier.getName()));
+            return new SingleValidationResult(false, String.format(QLInputValidationResult.NAMED_ERROR_MESSAGE_TEMPLATE, identifier.getName()));
         }
     }
 
