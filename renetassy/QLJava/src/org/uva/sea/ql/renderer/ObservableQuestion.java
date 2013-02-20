@@ -29,7 +29,10 @@ public class ObservableQuestion extends Observable implements ActionListener, Fo
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		// TODO Auto-generated method stub
+		
+		state.putValue(question.getID().getName(), ctrl.getValue());
+		setChanged();
+		notifyObservers();
 		
 	}
 

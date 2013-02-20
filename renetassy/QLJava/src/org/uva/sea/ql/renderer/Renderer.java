@@ -100,10 +100,26 @@ public class Renderer implements IStatementVisitor<Void> {
 		
 		Expr expr = computedQuestion.getExpr();
 		
+		ctrl.getWidget().setEnabled(false);
+		
+		registerHandler(ctrl,computedQuestion);
+		
+		registerComputationObserver(state,ctrl,computedQuestion);
+		
 		panel.add(label);
 		panel.add(ctrl.getWidget(),"wrap");
 
 		return null;
+	}
+	
+	private void registerComputationObserver(State state, Control ctrl, ComputedQuestion computedQuestion) {
+		
+		ComputationObserver computationObs = new ComputationObserver(computedQuestion, ctrl, state);
+		
+		for (Entry<String, Observable> observable : state.getObservables().entrySet()) {
+			state.addObserver(observable.getKey(), computationObs);
+		}
+			
 	}
 
 	@Override
@@ -114,7 +130,7 @@ public class Renderer implements IStatementVisitor<Void> {
 		
 		ifBody.setVisible(false);
 		
-		registerCondition(expr, ifBody);
+		registerConditionObserver(expr, ifBody);
 		
 		panel.add(ifBody);
 		
@@ -123,12 +139,14 @@ public class Renderer implements IStatementVisitor<Void> {
 		return null;
 	}
 	
-	private void registerCondition(Expr expr, JPanel statementBody) {
+	private void registerConditionObserver(Expr expr, JPanel statementBody) {
 		
 		ConditionObserver condObserver = new ConditionObserver(statementBody, expr, state);
 		
-		for (Entry<String, Observable> observable : state.getObservables().entrySet())
+		for (Entry<String, Observable> observable : state.getObservables().entrySet()) {
 			state.addObserver(observable.getKey(), condObserver);
+		}
+			
 		
 		System.out.println("registercondition");
 	}

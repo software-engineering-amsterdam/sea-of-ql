@@ -32,4 +32,14 @@ public class TextField extends Control {
 		widget.addActionListener(obsQuestion);	
 	}
 
+	@Override
+	public void setValue(Value v) {
+		
+		if (v instanceof Str) {
+			widget.setText((String)(v.getValue()));
+		}
+			
+		
+	}
+
 }

@@ -16,7 +16,6 @@ public class Spinner extends Control {
 	
 	private final JSpinner widget;
 	
-	
 	public Spinner() {
 		
 		widget = new JSpinner();
@@ -35,7 +34,18 @@ public class Spinner extends Control {
 
 	@Override
 	public void addListener(ObservableQuestion obsQuestion) {
-		widget.addFocusListener(obsQuestion);	
+		
+		JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) widget.getEditor();
+		editor.getTextField().addFocusListener(obsQuestion);	
+	}
+
+	@Override
+	public void setValue(Value v) {
+		
+		if (v instanceof Int) {
+			widget.setValue((Integer)(v.getValue()));
+		}
+		
 	}
 
 }

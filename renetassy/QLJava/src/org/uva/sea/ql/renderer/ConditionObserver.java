@@ -28,8 +28,6 @@ public class ConditionObserver implements Observer {
 		
 		statementBody.setVisible(v);
 		
-		//state.notify(this);
-		
 		System.out.println("update");
 		
 	}

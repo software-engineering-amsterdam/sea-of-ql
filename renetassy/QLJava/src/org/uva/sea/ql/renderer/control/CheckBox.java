@@ -35,4 +35,12 @@ public class CheckBox extends Control {
 		widget.addActionListener(obsQuestion);
 	}
 
+	@Override
+	public void setValue(Value v) {
+		if(v instanceof Bool) {
+			widget.setSelected((Boolean)(v.getValue()));
+		}
+		
+	}
+
 }

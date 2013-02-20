@@ -55,9 +55,11 @@ public class GUIGenerator {
 		
 		ast = parser.parseForm("form arxigos { question1 : \"inta fasi?\" int" +
 				" question2 : \"ti fasi?\" bool " +
+				" akyri: \" akyri erotisi \" int " +
 				" if (question2) { " +
 					" 	question5 : \"ante geia\" int " +
-					"	question6 : \"youhou \" bool  " +
+					"	question6 : \"youhou \" bool " +
+					"	question7 : \"gia na doume\" int (question1+question5) " +
 				"	 }" +
 				" }");
 			
