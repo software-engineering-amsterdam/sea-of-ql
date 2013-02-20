@@ -6,24 +6,26 @@ import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class VariableQuestion extends QuestionDeclaration {
-	private final VariableDeclaration varDeclaration;
+	private final VariableDeclaration variableDeclaration;
 
 	public VariableQuestion( StringLiteral label, VariableDeclaration varDeclaration ) {
 		super( label );
-		this.varDeclaration = varDeclaration;
+		assert ( varDeclaration != null );
+
+		this.variableDeclaration = varDeclaration;
 	}
 
-	public VariableDeclaration getVarDeclaration() {
-		return this.varDeclaration;
+	public VariableDeclaration getVariableDeclaration() {
+		return this.variableDeclaration;
 	}
 
 	public Type getType() {
-		return this.varDeclaration.getType();
+		return this.variableDeclaration.getType();
 	}
 
 	@Override
 	public IdentifierExpression getIdentifier() {
-		return this.varDeclaration.getIdentifier();
+		return this.variableDeclaration.getIdentifier();
 	}
 
 	@Override

@@ -27,6 +27,11 @@ public class SwingWindow extends WindowControl {
 	}
 
 	@Override
+	public void pack() {
+		this.frame.pack();
+	}
+
+	@Override
 	public void show() {
 		this.frame.setVisible( true );
 	}

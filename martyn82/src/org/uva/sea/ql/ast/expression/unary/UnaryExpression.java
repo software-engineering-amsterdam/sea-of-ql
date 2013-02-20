@@ -6,6 +6,8 @@ abstract public class UnaryExpression extends Expression {
 	private final Expression expression;
 
 	protected UnaryExpression( Expression expression ) {
+		assert ( expression != null );
+
 		this.expression = expression;
 	}
 

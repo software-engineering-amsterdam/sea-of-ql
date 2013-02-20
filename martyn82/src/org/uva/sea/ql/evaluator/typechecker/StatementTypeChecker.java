@@ -135,7 +135,7 @@ class StatementTypeChecker implements StatementVisitor<Boolean> {
 			return false;
 		}
 
-		return node.getVarDeclaration().accept( this );
+		return node.getVariableDeclaration().accept( this );
 	}
 
 	@Override

@@ -7,6 +7,8 @@ abstract public class BinaryExpression extends Expression {
 	private final Expression rhs;
 
 	protected BinaryExpression( Expression lhs, Expression rhs ) {
+		assert ( lhs != null ) && ( rhs != null );
+
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

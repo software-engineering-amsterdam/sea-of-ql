@@ -210,7 +210,7 @@ class Renderer implements StatementVisitor<Void>, TypeVisitor<InputControl> {
 
 	@Override
 	public Void visit( VariableQuestion node ) {
-		node.getVarDeclaration().accept( this );
+		node.getVariableDeclaration().accept( this );
 
 		Type type = node.getType();
 		Value value = TypeEvaluator.initType( type );

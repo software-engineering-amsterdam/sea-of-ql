@@ -66,7 +66,7 @@ class StatementToString implements StatementVisitor<String> {
 	@Override
 	public String visit( VariableQuestion node ) {
 		String label = node.getLabel().accept( this.expressionVisitor );
-		String body = node.getVarDeclaration().accept( this );
+		String body = node.getVariableDeclaration().accept( this );
 		return String.format( TPL_QUESTION, label, body );
 	}
 
