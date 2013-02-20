@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.statement.impl;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class BlockNode implements Statement
+public class BlockNode
 {
     private final Collection<Statement> statements;
 
@@ -24,12 +23,6 @@ public class BlockNode implements Statement
     public Collection<Statement> getStatements()
     {
         return Collections.unmodifiableCollection(statements);
-    }
-
-    @Override
-    public void accept(StatementVisitor statementVisitor)
-    {
-        statementVisitor.visit(this);
     }
 
 }
