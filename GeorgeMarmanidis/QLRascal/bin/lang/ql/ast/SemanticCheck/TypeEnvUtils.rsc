@@ -4,7 +4,7 @@ module lang::ql::ast::semanticcheck::TypeEnvUtils
 import lang::ql::ast::AST;
 import util::IDE;
 import IO;
-//Stores info about declared variables, semantic errors and warnings.
+//Stores info about declared variables, semantic errors and warnings. 
  
 alias TENV = tuple[ rel[str variableName,str variableLabel, Type variableType,bool isComputed,loc queLocation] symbols, list[tuple[loc l, str msg]] errors,list[tuple[loc l, str msg]] warnings];
 

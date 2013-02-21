@@ -6,15 +6,9 @@ import IO;
 import lang::ql::compiler::GenerateHTMLForm;
 import lang::ql::compiler::GenerateJavaScript;
 
-//anno str ConditionalStatement@ref;
-//anno str ElseIf@ref;
-//anno str FormBodyItem@ref;
-
 public void compileForm(f:form(ident,formBody),loc target){
-	print(target.parent);
 	formRefrnced=setConditionalReference(formBody);
 	loc htmlFile=target.parent+"<ident>.html";
-	print(htmlFile);
 	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
 	loc jsFile=target.parent+"<ident>.js";
 	writeFile(jsFile,generateJavaScipt(formRefrnced));	   

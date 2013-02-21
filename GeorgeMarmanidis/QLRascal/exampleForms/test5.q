@@ -7,7 +7,7 @@ form foodinwork {
 	/*dawdwadawdwA*/
 
 	if (male) {
-	 y: "Age in days" integer (365*age)
+	 ageindays: "Age in days" integer (365*age)
 	}
 	
 	if(name!="George"){

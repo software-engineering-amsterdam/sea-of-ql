@@ -6,7 +6,7 @@ import lang::ql::ast::AST;
 import lang::ql::compiler::ExtractDependencies;
 import List;
 import String;
-
+//10. mabe can change to simple implementation
 public str generateJSTriggerFunctions(map[str var,list[str] dependVars] dependenciesMap){
 	str code="";
 	

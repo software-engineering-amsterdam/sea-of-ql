@@ -1,6 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::GenerateJSUpdate
-//need to change the indside dependencies..create a function witch returns the dependIfs
 
 import lang::ql::ast::AST;
 import lang::ql::compiler::CompileExpressions;
@@ -11,7 +10,7 @@ import String;
 public str generateJSUpdateFunctions(list[FormBodyItem] bodyItems){
 	return generateCompQuestionsUpdate(bodyItems) + generateCondStatUpdate(bodyItems);
 }
-
+//11. Can change to simpler implementation
 str generateCompQuestionsUpdate(list[FormBodyItem] bodyItems){
 	str code="";
 	visit(bodyItems){
@@ -20,7 +19,7 @@ str generateCompQuestionsUpdate(list[FormBodyItem] bodyItems){
 	
 	return code;
 }
-
+//12. Can change to simple implementation
 str generateCondStatUpdate(list[FormBodyItem] bodyItems){
 	str code="";
 	
@@ -35,7 +34,7 @@ str generateCondStatUpdate(list[FormBodyItem] bodyItems){
 
 str generateCompQuestionsUpdate(computedQuestion(str questionId,_,_, Expr questionComputation),list[FormBodyItem] bodyItems){
 	str code="";
-	
+	//13. Formulate it to a function
 	list[str] dependencies=getVariableDependecies(questionComputation);
 	
 	str dependsSet="";
@@ -132,7 +131,7 @@ str generateCondStatUpdate(q:ifElseIfCond(Expr ifCondition,_,list[ElseIf] elseif
 		dependsCloseBrackets+="\t}\n";
 		}
 	}
-
+	
 	code+="function Cond<q@ref>Update(){
 	'<dependsSet>
 	'\t <generateObjAssignbyId("obj1","ifStats<q@ref>")>
@@ -187,5 +186,3 @@ str generateObjAssignbyId(str objName,str objId)="<objName>=document.getElementB
 str generateGetElementbyIdValue(str varId,Type varType)=
 	varType==boolean()?"document.getElementById(\"<varId>\").checked":"document.getElementById(\"<varId>\").value";
 	
-
-

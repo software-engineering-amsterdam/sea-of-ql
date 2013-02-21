@@ -1,12 +1,12 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::CompileExpressions
-//change the name
+
 import lang::ql::ast::AST;
 import lang::ql::compiler::ExtractDependencies;
 import IO;
 
 alias BDITS=list[FormBodyItem];
-
+//1. change switch, make functions
 public str generateJavaScriptExpr(ident(str name),BDITS bodyItems){
 	str code="";
 	switch(getVariableType(name,bodyItems)){
@@ -20,11 +20,11 @@ public str generateJavaScriptExpr(ident(str name),BDITS bodyItems){
 	return code;
 }
 public str generateJavaScriptExpr(\int(int ivalue),BDITS bodyItems)="parseInt(\"<ivalue>\")";
-public str generateJavaScriptExpr(/string(str strValue),BDITS bodyItems)="<strValue>";
-public str generateJavaScriptExpr(/boolean(str bValue),BDITS bodyItems)="<bValue>";
-public str generateJavaScriptExpr(/date(str dValue),BDITS bodyItems)="<dValue>"; //I think parseDate?
-public str generateJavaScriptExpr(/money (str monValue),BDITS bodyItems)="\"<monValue> Euro\"";
-public str generateJavaScriptExpr(/float (real fValue),BDITS bodyItems)="parseFloat(\"<fValue>\")";
+public str generateJavaScriptExpr(string(str strValue),BDITS bodyItems)="<strValue>";
+public str generateJavaScriptExpr(boolean(str bValue),BDITS bodyItems)="<bValue>";
+public str generateJavaScriptExpr(date(str dValue),BDITS bodyItems)="<dValue>"; //I think parseDate?
+public str generateJavaScriptExpr(money (str monValue),BDITS bodyItems)="\"<monValue> Euro\"";
+public str generateJavaScriptExpr(float (real fValue),BDITS bodyItems)="parseFloat(\"<fValue>\")";
 
 public str generateJavaScriptExpr(add(Expr addLeft, Expr addRight),BDITS bodyItems)="<generateJavaScriptExpr(addLeft,bodyItems)>  + <generateJavaScriptExpr(addRight,bodyItems)>";
 public str generateJavaScriptExpr(mul(Expr multLeft, Expr multright),BDITS bodyItems)="<generateJavaScriptExpr(multLeft,bodyItems)> * <generateJavaScriptExpr(multright,bodyItems)>";
