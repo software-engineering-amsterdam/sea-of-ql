@@ -54,25 +54,19 @@ public class StatementWidgetVisitor implements StatementVisitor
     public void visit(final IfNode ifNode)
     {
         final List<ConditionObserver.BranchComponent> branchComponents = new ArrayList<>();
-        final List<IfNode.Branch> branches = ifNode.getBranches();
-        for(final IfNode.Branch branch : branches)
+        for(final IfNode.Branch branch : ifNode.getBranches())
         {
-            JPanel jPanel = new JPanel();
             final BlockNode blockNode = branch.getBlock();
             final List<Component> components = new ArrayList<>();
-            final Collection<Statement> statements = blockNode.getStatements();
-            for(final Statement statement : statements)
+            for(final Statement statement : blockNode.getStatements())
             {
-                jPanel = render(this.frame, jPanel, statement, this.variableState);
+                final JPanel jPanel = render(this.frame, new JPanel(), statement, this.variableState);
 
                 final Component question = jPanel.getComponent(0);
                 final Component type = jPanel.getComponent(1);
 
                 components.add(question);
                 components.add(type);
-
-                question.setVisible(false);
-                type.setVisible(false);
 
                 addQuestionPanel(question);
                 addTypePanel(type);
