@@ -39,6 +39,12 @@ public class Renderer implements IStatementVisitor<Void> {
 	
 	private final State state;
 	
+	public Renderer(State state) {
+		this.state = state;
+		this.panel = new JPanel(new MigLayout());
+		this.env = new HashMap<String, Value>();
+	}
+	
 	public static JPanel render(QLComponent statement, State state) {
 		
 		Renderer r = new Renderer(state);
@@ -48,12 +54,6 @@ public class Renderer implements IStatementVisitor<Void> {
 		}
 			
 		return r.getPanel();
-	}
-	
-	public Renderer(State state) {
-		this.state = state;
-		this.panel = new JPanel(new MigLayout());
-		this.env = new HashMap<String, Value>();
 	}
 	
 	public JPanel getPanel() {
@@ -97,8 +97,6 @@ public class Renderer implements IStatementVisitor<Void> {
 		JLabel label = new JLabel(computedQuestion.getLabel().getValue());
 		//JTextField answer = new JTextField(TEXTFIELD_SIZE);
 		//answer.setEditable(false);
-		
-		Expr expr = computedQuestion.getExpr();
 		
 		ctrl.getWidget().setEnabled(false);
 		

@@ -23,7 +23,6 @@ public class ObservableQuestion extends Observable implements ActionListener, Fo
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -33,7 +32,6 @@ public class ObservableQuestion extends Observable implements ActionListener, Fo
 		state.putValue(question.getID().getName(), ctrl.getValue());
 		setChanged();
 		notifyObservers();
-		
 	}
 
 	@Override

@@ -22,6 +22,9 @@ public class GUIGenerator {
 	private ANTLRParser parser = new ANTLRParser();
 	private Map<String,Type> typeEnvironment;
 	private List<QLError> errors;
+	private Renderer renderer;
+	private State state;
+	private StatementChecker checker;
 	
 	private JFrame frame;
 
@@ -40,17 +43,13 @@ public class GUIGenerator {
 	
 	public GUIGenerator() throws ParseError {
 		
-		frame = new JFrame();
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(new Dimension(FRAME_WIDTH,FRAME_HEIGHT));
-		frame.setVisible(true);
-		
 		errors = new ArrayList<QLError>();
+		
 		typeEnvironment = new HashMap<String, Type> ();
 		
-		State state = new State();
-		Renderer renderer = new Renderer(state);
+		state = new State();
+		
+		renderer = new Renderer(state);
 		
 		
 		ast = parser.parseForm("form arxigos { question1 : \"inta fasi?\" int" +
@@ -62,16 +61,41 @@ public class GUIGenerator {
 					"	question7 : \"gia na doume\" int (question1+question5) " +
 				"	 }" +
 				" }");
-			
+		
+		checker = new StatementChecker(typeEnvironment, errors);
+		
 		boolean typeChecking = StatementChecker.check(ast, typeEnvironment, errors);
+		
+		errors = checker.getErrors();
 			
-		if (typeChecking) { 
+		if (typeChecking) {
+			
+			frame = new JFrame();
+			
 			ast.accept(renderer);
 			
 			frame.setContentPane(renderer.getPanel());
 			
-			//frame.pack();
-			frame.setVisible(true);
-		}		
+			configureFrame(frame);
+		
+		}
+		else {
+			printErrors();
+		}
+	}
+	
+	public void printErrors() {
+		
+		for (QLError error : errors) {
+			System.out.println(error.getMessage());
+		}
+	}
+	
+	public void configureFrame(JFrame frame) {
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(new Dimension(FRAME_WIDTH,FRAME_HEIGHT));
+		frame.setVisible(true);
+		//frame.pack();
 	}
 }
