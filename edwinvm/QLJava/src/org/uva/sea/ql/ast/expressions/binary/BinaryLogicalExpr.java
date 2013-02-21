@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 
 public abstract class BinaryLogicalExpr extends BinaryExpr {
 	protected BinaryLogicalExpr(Expr lhs, Expr rhs) {
@@ -12,7 +12,7 @@ public abstract class BinaryLogicalExpr extends BinaryExpr {
 	}
 	
 	@Override
-	public Type typeOf(SupportedTypes supportedTypes) {
+	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new Bool();
 	}
 }

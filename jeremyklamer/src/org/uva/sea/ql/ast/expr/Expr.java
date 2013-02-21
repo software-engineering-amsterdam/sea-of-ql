@@ -20,7 +20,6 @@ public abstract class Expr implements ASTNode {
 	public abstract Type typeOf(Env env);
 	
 	public void checkType(List<Message> errors, Env env) {
-		
 	}
 	
 	public List<Message> getTypeErrors(Env env) {

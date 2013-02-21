@@ -10,7 +10,7 @@
 
 module lang::qls::tests::stylesheets::PrettyPrinter
 
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::compiler::PrettyPrinter;
 import lang::qls::util::ParseHelper;
 

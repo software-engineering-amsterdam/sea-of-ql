@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class Not extends Binary {
+public class Not extends Unary {
 
 	public Not(Expr x) {
 		super(x);

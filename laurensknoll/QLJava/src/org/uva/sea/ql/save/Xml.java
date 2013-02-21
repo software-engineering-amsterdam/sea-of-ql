@@ -6,7 +6,7 @@ import java.util.Observable;
 import org.uva.sea.ql.visitor.eval.Application;
 import org.uva.sea.ql.visitor.eval.FormData;
 
-public class Xml extends Saver {
+public class Xml extends SaveBehaviour {
 
 	private final String path;
 

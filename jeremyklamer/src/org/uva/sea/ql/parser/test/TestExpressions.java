@@ -3,7 +3,6 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.uva.sea.ql.ast.expr.binary.LT;
 import org.uva.sea.ql.ast.expr.binary.Mul;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.expr.value.Int;
-import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -99,7 +97,7 @@ public class TestExpressions {
 	
 	@Test
 	public void testUnaryTypes() throws ParseError {
-		Env testEnv = new Env(new HashMap<Ident, Type>(),null);
+		Env testEnv = new Env();
 		assertEquals(0 , parser.parse("3").getTypeErrors(testEnv).size());
 		assertEquals(0 , parser.parse("-3").getTypeErrors(testEnv).size());
 		assertEquals(0 , parser.parse("+3").getTypeErrors(testEnv).size());
@@ -112,7 +110,7 @@ public class TestExpressions {
 	
 	@Test
 	public void testBinaryTypes() throws ParseError {
-		Env testEnv = new Env(new HashMap<Ident, Type>(),null);
+		Env testEnv = new Env();
 		assertEquals(0 , parser.parse("3 + 3").getTypeErrors(testEnv).size());
 		assertEquals(0 , parser.parse("3 * 3").getTypeErrors(testEnv).size());
 		assertEquals(0 , parser.parse("3 / 3").getTypeErrors(testEnv).size());

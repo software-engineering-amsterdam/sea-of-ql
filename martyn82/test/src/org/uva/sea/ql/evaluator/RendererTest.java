@@ -24,8 +24,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.evaluator.Renderer;
-import org.uva.sea.ql.evaluator.environment.ValueEnvironment;
+import org.uva.sea.ql.evaluator.environment.BindingEnvironment;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
@@ -33,16 +32,17 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 	private final ControlFactory factory;
 
 	public RendererTest() {
-		super( new ValueEnvironment() );
+		super( new BindingEnvironment() );
+
 		this.factory = new SwingControlFactory();
 	}
 
 	private void eval( Statement statement ) {
-		Renderer.render( statement, this.environment, this.factory );
+		Renderer.createPart( statement, this.environment, this.factory );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIfThen() {
 		/*
 		 * if ( true ) {
@@ -63,8 +63,8 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 		assertEquals( 1, eval( new IdentifierExpression( "x" ) ) ); // x is assigned to be 1
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIfThenElse() {
 		/*
 		 * if ( false ) {
@@ -140,14 +140,14 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 		assertEquals( 10, eval( new IdentifierExpression( "x" ) ) ); // x is assigned to be 10
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testFormDeclaration() {
 		eval( new FormDeclaration( "form1", new Statements() ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testVarDeclaration() {
 		eval( new VariableDeclaration( new IdentifierExpression( "x" ), BooleanType.BOOLEAN ) );
 		assertEquals( false, eval( new IdentifierExpression( "x" ) ) );
@@ -162,15 +162,15 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 		assertEquals( 0d, eval( new IdentifierExpression( "u" ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAssignment() {
 		eval( new Assignment( new IdentifierExpression( "x" ), new StringLiteral( "hello world!" ) ) );
 		assertEquals( "hello world!", eval( new IdentifierExpression( "x" ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testQuestionVariable() {
 		eval(
 			new VariableQuestion(
@@ -188,8 +188,8 @@ public class RendererTest extends EvaluatorTest implements StatementTest {
 		assertEquals( 0, eval( new IdentifierExpression( "x" ) ) );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testQuestionComputed() {
 		eval(
 			new ComputedQuestion(

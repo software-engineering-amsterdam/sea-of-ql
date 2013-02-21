@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.statement.impl;
 
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.value.Value;
@@ -18,7 +17,7 @@ public class IfNode implements Statement
         this.branches = new ArrayList<>();
     }
 
-    public void addBranch(final ExprNode exprNode, final Node block)
+    public void addBranch(final ExprNode exprNode, final BlockNode block)
     {
         this.branches.add(new Branch(exprNode, block));
     }
@@ -37,9 +36,9 @@ public class IfNode implements Statement
     public class Branch
     {
         private final ExprNode exprNode;
-        private final Node block;
+        private final BlockNode block;
 
-        private Branch(final ExprNode exprNode, final Node block)
+        private Branch(final ExprNode exprNode, final BlockNode block)
         {
             this.exprNode = exprNode;
             this.block = block;
@@ -55,7 +54,7 @@ public class IfNode implements Statement
             return exprNode;
         }
 
-        public Node getBlock()
+        public BlockNode getBlock()
         {
             return block;
         }

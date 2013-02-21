@@ -6,15 +6,13 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.uva.sea.ql.StatementTest;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
-import org.uva.sea.ql.ast.statement.ComputedQuestion;
-import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
-import org.uva.sea.ql.parser.Parser;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.ast.statement.VariableQuestion;
 
 public class StatementParserTest extends ParserTest implements StatementTest {
 	private final Parser parser;
@@ -56,8 +54,8 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 		assertEquals( VariableDeclaration.class, ( (VariableQuestion) root ).getVarDeclaration().getClass() );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIfThen() {
 		// literal conditions
 		assertNode( IfThen.class, "if ( true ) { }" );
@@ -99,8 +97,8 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 		assertNode( IfThen.class, "if ( true ) { if ( false ) { } }" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIfThenElse() {
 		// nested if
 		assertNode( IfThenElse.class, "if ( true ) { } else if ( true ) { if ( false ) { } }" );
@@ -123,24 +121,24 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 		);
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testFormDeclaration() {
 		assertNode( FormDeclaration.class, "form ThisForm {\t\"What?\" answer : boolean}" );
 		assertNode( FormDeclaration.class, "form frm { if ( false ) {} }" );
 		assertNode( FormDeclaration.class, "form f { if ( ident ) { } else if ( true ) { } else { } }" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAssignment() {
 		assertNode( Assignment.class, "var = true" );
 		assertNode( Assignment.class, "var = 1 + 45" );
 		assertNode( Assignment.class, "var = 102 * 45 + .5e+3" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testVarDeclaration() {
 		assertVarDeclaration( "var: boolean" );
 		assertVarDeclaration( "x : integer" );
@@ -148,14 +146,14 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 		assertVarDeclaration( "str: string" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testQuestionVariable() {
 		assertNode( VariableQuestion.class, "\"What?\" answer: boolean" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testQuestionComputed() {
 		assertNode( ComputedQuestion.class, "\"This is the question?\" answer = (a && !b)" );
 		assertNode( ComputedQuestion.class, "\"\" answer = 1 + answer2" );

@@ -11,7 +11,7 @@
 module lang::ql::compiler::web::JSExpressionPrinter
 
 import String;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 
 // Note: Because this is generated code, we add parentheses anyway. 
 // It is not worthwile to minimize those as we do in the normal prettyprinter.

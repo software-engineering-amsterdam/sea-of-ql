@@ -11,6 +11,8 @@ import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
 import org.uva.sea.ql.ui.components.QuestionComponent;
+import org.uva.sea.ql.ui.observing.ComputedObserver;
+import org.uva.sea.ql.ui.observing.QuestionObservable;
 
 
 public class ComputedQuestion extends Question {
@@ -33,30 +35,21 @@ public class ComputedQuestion extends Question {
 	}	
 	
 	@Override
-	public void getUIComponents(List<BaseComponent> components, Env env, Form form) {
-		uiComponent = new QuestionComponent(sentence, true, returnType.getAnswerComponent(env, form, name));
-	//	env.registerObservable(this.name, uiComponent);
-	//	env.registerObservers(this.computation, new Observer() {
-//			
-//			@Override
-//			public void update(Observable o, Object arg) {
-//				
-//			}
-//		})
+	public List<BaseComponent> getUIComponents(Env env, Form form) {
+		List<BaseComponent> components = new ArrayList<BaseComponent>();
+		
+		QuestionComponent uiComponent = new QuestionComponent(sentence, true, returnType.getAnswerComponent());
+
+		QuestionObservable observable = new QuestionObservable(this, env, uiComponent);
+		env.registerObservable(name, observable);
+		
+		uiComponent.getAnswerField().addActionListener(observable);
+		env.registerObserver(new ComputedObserver(this, uiComponent.getAnswerField(), env));
+				
 		components.add(uiComponent);
+		return components; 
 	}
-	
-	@Override
-	public void eval(Env env) {
-		//This is not good, what does eval do!? 
-		ArrayList<Message> errors = new ArrayList<Message>();
-		computation.checkType(errors, env);
-		if(!(errors.size() > 0)){
-			uiComponent.updateValue(computation.eval(env));
-		}	
-		//return false;		
-	}
-	
+
 	@Override
 	public String genFormFeedBack(Env env, int indentation) {
 		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));

@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::Type
+module lang::ql::\syntax::Type
 
 lexical Type
   = @category="Type" booleanType: "boolean"

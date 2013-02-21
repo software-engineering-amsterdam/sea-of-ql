@@ -3,7 +3,6 @@ package org.uva.sea.ql.parser.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
@@ -11,9 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.interpreter.Env;
-import org.uva.sea.ql.interpreter.Value;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 
@@ -117,7 +114,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 	}
 	
 	@Test
@@ -135,7 +132,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"How much would you sell your house for :\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
 		assertEquals(2, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -145,7 +142,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 				
 		assertEquals(0, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -155,7 +152,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
 		assertEquals(3, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -165,7 +162,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
 		assertEquals(3, parser.parseForm(
 				"form Box1HouseOwning {" +
@@ -176,7 +173,7 @@ public class TestForms {
 						"} " +
 					"else { sellingPrice: \"lastquestion:\" integer " +
 						"} " +
-				"}").checkType(new Env(new HashMap<Ident,org.uva.sea.ql.ast.type.Type>(), new HashMap<Ident,Value>())).size());
+				"}").checkType(new Env()).size());
 		
 	}
 	

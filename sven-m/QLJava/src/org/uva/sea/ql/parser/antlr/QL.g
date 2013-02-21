@@ -14,11 +14,10 @@ import org.uva.sea.ql.ast.form.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-@rulecatch {
-  catch (RecognitionException re) {
-    reportError(re);
-    recover(input,re);
-    throw re;
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    throw new RuntimeException(e);
   }
 }
 
@@ -32,7 +31,6 @@ form returns [Form result]
 topLevelBody returns [Body result]
   : body EOF { $result = $body.result; }
   ;
-
   
 body returns [Body result]
   @init { List<FormElement> tempList = new ArrayList<>(); }

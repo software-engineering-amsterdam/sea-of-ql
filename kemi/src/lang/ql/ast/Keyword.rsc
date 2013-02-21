@@ -8,18 +8,20 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::ast::Keyword
+module lang::ql::\ast::Keyword
 
 import Grammar;
-import lang::ql::syntax::Comment;
-import lang::ql::syntax::Int;
-import lang::ql::syntax::Keyword;
-import lang::ql::syntax::Layout;
-import lang::ql::syntax::Money;
-import lang::ql::syntax::QL;
-import lang::ql::syntax::String;
-import lang::ql::syntax::Type;
-import util::ParseTreeHelper;
+import lang::ql::\syntax::Boolean;
+import lang::ql::\syntax::Comment;
+import lang::ql::\syntax::Date;
+import lang::ql::\syntax::Int;
+import lang::ql::\syntax::Keyword;
+import lang::ql::\syntax::Layout;
+import lang::ql::\syntax::Money;
+import lang::ql::\syntax::QL;
+import lang::ql::\syntax::String;
+import lang::ql::\syntax::Type;
+import lang::rascal::grammar::definition::Keywords;
 
 public set[str] keywords = {
   x |

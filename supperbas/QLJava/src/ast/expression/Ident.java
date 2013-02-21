@@ -1,5 +1,6 @@
 package ast.expression;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 
@@ -44,6 +45,13 @@ public class Ident extends Expression {
 	@Override
 	public String typeStr() {
 		return null;
+	}
+	
+	@Override
+	public ArrayList<Ident> getIdents(){
+		ArrayList<Ident> tmp = new ArrayList<Ident>();
+		tmp.add(this);
+		return tmp;		
 	}
 
 }

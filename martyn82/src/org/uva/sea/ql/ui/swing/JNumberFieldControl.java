@@ -6,7 +6,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
+import org.uva.sea.ql.ui.InputControlEventListener;
 import org.uva.sea.ql.ui.control.NumberFieldControl;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
@@ -44,12 +44,14 @@ public class JNumberFieldControl extends NumberFieldControl {
 	}
 
 	@Override
-	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addChangeListener( new ChangeListener() {
-			@Override
-			public void stateChanged( ChangeEvent arg0 ) {
-				listener.itemChanged( new ControlEvent( JNumberFieldControl.this ) );
+	public void addChangeListener( final InputControlEventListener listener ) {
+		this.control.addChangeListener(
+			new ChangeListener() {
+				@Override
+				public void stateChanged( ChangeEvent arg0 ) {
+					listener.valueChanged( new ControlEvent( JNumberFieldControl.this ) );
+				}
 			}
-		} );
+		);
 	}
 }

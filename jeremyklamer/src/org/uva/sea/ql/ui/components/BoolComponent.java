@@ -1,35 +1,51 @@
 package org.uva.sea.ql.ui.components;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.interpreter.BoolVal;
-import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.interpreter.Value;
 
 
 public class BoolComponent extends ActiveComponent {
 	
-	public BoolComponent(final Env env, final Form form, final Ident name) {
-		super("wrap", new JCheckBox());	
-		((JCheckBox)answerField).addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				BoolVal value = new BoolVal(((JCheckBox)answerField).isSelected());
-				env.putValue(name, value);
-				form.eval(env);
-			}
-		});
+	private final JCheckBox answerField;
+	
+	public BoolComponent() {
+		super("wrap");
+		this.answerField = new JCheckBox();
 	}
 	
 	@Override
 	public void updateValue(Value newValue) {
-		((JCheckBox)answerField).setSelected(((BoolVal)newValue).getValue());
+		answerField.setSelected(((BoolVal)newValue).getValue());
 	}
 
+	@Override
+	public Value getValue() {
+		return new BoolVal(answerField.isSelected());
+	}
+
+	@Override
+	public void addActionListener(ActionListener listener) {
+		answerField.addActionListener(listener);
+	}
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		answerField.setEnabled(enabled);
+	}
+
+	@Override
+	public JComponent getComponent() {
+		return answerField;
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		answerField.setVisible(visible);
+	}
+	
 }

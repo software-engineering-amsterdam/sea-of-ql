@@ -4,28 +4,29 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 
-import org.uva.sea.ql.ast.expression.Add;
-import org.uva.sea.ql.ast.expression.And;
-import org.uva.sea.ql.ast.expression.Div;
-import org.uva.sea.ql.ast.expression.Eq;
-import org.uva.sea.ql.ast.expression.GEq;
-import org.uva.sea.ql.ast.expression.GT;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.Int;
-import org.uva.sea.ql.ast.expression.LEq;
-import org.uva.sea.ql.ast.expression.LT;
-import org.uva.sea.ql.ast.expression.Mul;
-import org.uva.sea.ql.ast.expression.NEq;
-import org.uva.sea.ql.ast.expression.Neg;
-import org.uva.sea.ql.ast.expression.Not;
-import org.uva.sea.ql.ast.expression.Or;
-import org.uva.sea.ql.ast.expression.Pos;
-import org.uva.sea.ql.ast.expression.Str;
-import org.uva.sea.ql.ast.expression.Sub;
-import org.uva.sea.ql.ast.form.BoolType;
-import org.uva.sea.ql.ast.form.IntType;
-import org.uva.sea.ql.ast.form.StrType;
-import org.uva.sea.ql.ast.form.Type;
+import org.uva.sea.ql.ast.expressions.Add;
+import org.uva.sea.ql.ast.expressions.And;
+import org.uva.sea.ql.ast.expressions.Bool;
+import org.uva.sea.ql.ast.expressions.Div;
+import org.uva.sea.ql.ast.expressions.Eq;
+import org.uva.sea.ql.ast.expressions.GEq;
+import org.uva.sea.ql.ast.expressions.GT;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.expressions.Int;
+import org.uva.sea.ql.ast.expressions.LEq;
+import org.uva.sea.ql.ast.expressions.LT;
+import org.uva.sea.ql.ast.expressions.Mul;
+import org.uva.sea.ql.ast.expressions.NEq;
+import org.uva.sea.ql.ast.expressions.Neg;
+import org.uva.sea.ql.ast.expressions.Not;
+import org.uva.sea.ql.ast.expressions.Or;
+import org.uva.sea.ql.ast.expressions.Pos;
+import org.uva.sea.ql.ast.expressions.Str;
+import org.uva.sea.ql.ast.expressions.Sub;
+import org.uva.sea.ql.ast.form.types.BoolType;
+import org.uva.sea.ql.ast.form.types.IntType;
+import org.uva.sea.ql.ast.form.types.StrType;
+import org.uva.sea.ql.ast.form.types.Type;
 
 
 public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
@@ -123,6 +124,11 @@ public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 	@Override
 	public Type visit(Str ast) {
 		return new StrType(null);
+	}
+	
+	@Override
+	public Type visit(Bool ast) {
+		return new BoolType(null);
 	}
 	
 }
