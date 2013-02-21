@@ -1,16 +1,18 @@
 package org.uva.sea.ql.ui.qlform.interpreter;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Observable;
 
-import org.uva.sea.ql.ast.expr.values.Value;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
+
 
 public class VariableUpdater extends Observable{
 
-	private  Map<String, Value> runTimeValues;
+	private  Map<String,Value> runTimeValues;
 
-	public VariableUpdater(Map<String, Value> runTimeValues) {
-		this.runTimeValues = runTimeValues;
+	public VariableUpdater(LinkedHashMap<String,Value> linkedHashMap) {
+		this.runTimeValues = linkedHashMap;
 	}
 	
 
@@ -29,7 +31,7 @@ public class VariableUpdater extends Observable{
 	
 	
 
-	public Map<String, Value> getUpdatedValues() {
+	public Map<String,Value> getUpdatedValues() {
 		return runTimeValues;
 	}
 	

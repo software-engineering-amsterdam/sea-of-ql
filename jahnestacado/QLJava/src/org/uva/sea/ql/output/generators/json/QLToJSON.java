@@ -3,25 +3,16 @@ package org.uva.sea.ql.output.generators.json;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.DecimalLit;
-import org.uva.sea.ql.ast.expr.values.IntegerLit;
-import org.uva.sea.ql.ast.expr.values.StringLit;
-import org.uva.sea.ql.ast.expr.values.Value;
-import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ui.qlform.QLNumField;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLToJSON {
 
 	private final Map<String,Value> allRunTimeValues;
-	private final static Map<String, Type> nullVarEnv=new HashMap<String, Type>();
-
 	private final JSONObject qlForm = new JSONObject();
 
 	private QLToJSON(Map<String,Value> allRunTimeValues) {
@@ -72,7 +63,7 @@ public class QLToJSON {
 			JSONObject question = new JSONObject();
 			String key = iterator.next().toString();
 			question.put("ident", key);
-			question.put("answer", valueToString(allRunTimeValues.get(key)));
+			question.put("answer",allRunTimeValues.get(key).getValue().toString());
 			contentList.add(question);
 
 		}
@@ -81,21 +72,6 @@ public class QLToJSON {
 		return questionsList;
 	}
 	
-	private String valueToString(Value value){
-		Type type=value.getExprType(nullVarEnv);
-		if(type.isCompatibleToIntType()){
-			return String.valueOf(((IntegerLit) value).getValue());
-		}
-		else if(type.isCompatibleToMoneyType()){
-			float result=((DecimalLit) value).getValue();
-			float roundedValue=QLNumField.roundTo2Decimals(result);
-			return String.valueOf(roundedValue);
-		}
-		else if(type.isCompatibleToBoolType()){
-			return String.valueOf(((BoolLit) value).getValue());
-		}
-		return (((StringLit) value).getValue());
-		
-	}
+
 
 }

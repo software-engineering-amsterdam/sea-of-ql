@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLOutputState {
 	private final List<String> questionLabels;

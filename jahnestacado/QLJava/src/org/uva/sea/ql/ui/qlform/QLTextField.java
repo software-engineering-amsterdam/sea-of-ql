@@ -9,9 +9,9 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
-import org.uva.sea.ql.ast.expr.values.StringLit;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.StrValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLTextField implements ActionListener, Observer{
 	private final String varName;
@@ -30,7 +30,7 @@ public class QLTextField implements ActionListener, Observer{
 		setSettings();
 		this.varName=varName;
 		this.runTimeValues=runTimeValues;
-		value=((StringLit) runTimeValues.get(varName)).getValue();
+		value=((StrValue) runTimeValues.get(varName)).getValue();
 		this.varUpdater=varUpdater;
 		this.varUpdater.addObserver(this);
 		
@@ -54,7 +54,7 @@ public class QLTextField implements ActionListener, Observer{
 		String input=txtField.getText();
 		if(!QLInputVerifier.isStringChar(input)) return;
 		
-		 varUpdater.updateValues(varName, runTimeValues, new StringLit(input));
+		 varUpdater.updateValues(varName, runTimeValues, new StrValue(input));
 		
 
 	}
@@ -67,7 +67,7 @@ public class QLTextField implements ActionListener, Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		value=((StringLit) varUpdater.getUpdatedValues().get(varName)).getValue();
+		value=((StrValue) varUpdater.getUpdatedValues().get(varName)).getValue();
 		txtField.setText(value);		
 	}
 	

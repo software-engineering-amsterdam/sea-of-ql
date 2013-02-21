@@ -8,11 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.DecimalLit;
-import org.uva.sea.ql.ast.expr.values.IntegerLit;
-import org.uva.sea.ql.ast.expr.values.StringLit;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.BodyElement;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
@@ -29,6 +24,11 @@ import org.uva.sea.ql.ui.qlform.QuestionPanel;
 import org.uva.sea.ql.ui.qlform.renderer.Renderer;
 import org.uva.sea.ql.visitor.IElementVisitor;
 import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
+import org.uva.sea.ql.visitor.evaluator.values.BoolValue;
+import org.uva.sea.ql.visitor.evaluator.values.DecValue;
+import org.uva.sea.ql.visitor.evaluator.values.IntValue;
+import org.uva.sea.ql.visitor.evaluator.values.StrValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class SwingGenerator implements IElementVisitor{
 	private final List<JPanel> questionPanelList;
@@ -154,13 +154,13 @@ public class SwingGenerator implements IElementVisitor{
 		Type type = qlElement.getType();
 
 		if (type.isCompatibleToBoolType()) {
-			return new BoolLit(false);
+			return new BoolValue(false);
 		} else if (type.isCompatibleToIntType()) {
-			return new IntegerLit(0);
+			return new IntValue(0);
 		} else if (type.isCompatibleToMoneyType()) {
-			return new DecimalLit(0.0f);
+			return new DecValue(0.0f);
 		} else {
-			return new StringLit("");
+			return new StrValue("");
 		}
 
 	}

@@ -11,10 +11,10 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 import org.uva.sea.ql.visitor.evaluator.ExprEvaluator;
+import org.uva.sea.ql.visitor.evaluator.values.BoolValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public abstract class QLConditionalBody implements Observer{
 
@@ -62,7 +62,7 @@ public abstract class QLConditionalBody implements Observer{
 	}
 	
 	private void setVisibility(Map<String,Value> runTimeValues){
-		boolean isVisible=((BoolLit) ExprEvaluator.eval(condition, runTimeValues)).getValue();
+		boolean isVisible=((BoolValue) ExprEvaluator.eval(condition, runTimeValues)).getValue();
 		if(panel.getName().equals(QLElsePanel.ELSE_BODY_ID)){
 		panel.setVisible(!isVisible);
 		return;

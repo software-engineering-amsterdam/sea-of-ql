@@ -5,11 +5,10 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QuestionPanel {
 

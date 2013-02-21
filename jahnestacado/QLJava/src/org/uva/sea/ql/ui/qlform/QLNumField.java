@@ -9,9 +9,9 @@ import java.util.Observer;
 
 import javax.swing.JTextField;
 
-import org.uva.sea.ql.ast.expr.values.DecimalLit;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.DecValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 
 public class QLNumField  implements ActionListener, Observer{
@@ -28,7 +28,7 @@ public class QLNumField  implements ActionListener, Observer{
 		txtField=new JTextField(8);
 		this.varName=varName;
 		this.declaredVar=runTimeValues;
-		value=((DecimalLit) runTimeValues.get(varName)).getValue();
+		value=((DecValue) runTimeValues.get(varName)).getValue();
 		
 		this.varUpdater=varUpdater;
 		this.varUpdater.addObserver(this);
@@ -53,7 +53,7 @@ public class QLNumField  implements ActionListener, Observer{
 		if(!QLInputVerifier.isNumChar(txt)) return;
 		
 		Float input=Float.parseFloat(txtField.getText());
-		varUpdater.updateValues(varName, declaredVar, new DecimalLit(input));
+		varUpdater.updateValues(varName, declaredVar, new DecValue(input));
 
 		
 
@@ -72,7 +72,7 @@ public class QLNumField  implements ActionListener, Observer{
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		value=((DecimalLit) varUpdater.getUpdatedValues().get(varName)).getValue();
+		value=((DecValue) varUpdater.getUpdatedValues().get(varName)).getValue();
 		String roundedDisplayedValue=String.valueOf(roundTo2Decimals(value));
 		txtField.setText(roundedDisplayedValue);
 	

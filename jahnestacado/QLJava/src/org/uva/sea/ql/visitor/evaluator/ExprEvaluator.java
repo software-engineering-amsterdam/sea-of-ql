@@ -3,7 +3,6 @@ package org.uva.sea.ql.visitor.evaluator;
 
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.expr.Expr;
@@ -27,21 +26,23 @@ import org.uva.sea.ql.ast.expr.values.BoolLit;
 import org.uva.sea.ql.ast.expr.values.DecimalLit;
 import org.uva.sea.ql.ast.expr.values.IntegerLit;
 import org.uva.sea.ql.ast.expr.values.StringLit;
-import org.uva.sea.ql.ast.expr.values.Value;
-import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitor.evaluator.values.BoolValue;
+import org.uva.sea.ql.visitor.evaluator.values.DecValue;
+import org.uva.sea.ql.visitor.evaluator.values.IntValue;
+import org.uva.sea.ql.visitor.evaluator.values.StrValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
-public class ExprEvaluator implements IExprVisitor<Value> {
-	private final static Map<String, Type> nullVarEnv=new HashMap<String, Type>();
-	private final Map<String,Value> runTimeValues;
+public class ExprEvaluator implements IExprVisitor<org.uva.sea.ql.visitor.evaluator.values.Value> {
 	
+	private final Map<String, org.uva.sea.ql.visitor.evaluator.values.Value> runTimeValues;
 	
-	private ExprEvaluator(Map<String,Value > runTimeValues){
-		this.runTimeValues=Collections.unmodifiableMap(runTimeValues);
+	private ExprEvaluator(Map<String, org.uva.sea.ql.visitor.evaluator.values.Value> runTimeValues2){
+		this.runTimeValues=Collections.unmodifiableMap(runTimeValues2);
 	}
 
-	public static Value eval(Expr expr,Map<String,Value > runTimeValues){
-		ExprEvaluator evaluator=new ExprEvaluator(runTimeValues);
+	public static Value eval(Expr expr,Map<String, org.uva.sea.ql.visitor.evaluator.values.Value> runTimeValues2){
+		ExprEvaluator evaluator=new ExprEvaluator(runTimeValues2);
 		return expr.accept(evaluator);
 		
 	}
@@ -53,44 +54,40 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Add node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new DecimalLit(((DecimalLit)left).getValue() + ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new DecValue(((DecValue)left).getValue() + ((DecValue)right).getValue());
 		}
-		return new IntegerLit(((IntegerLit)left).getValue() + ((IntegerLit)right).getValue());
+		return new IntValue(((IntValue)left).getValue() + ((IntValue)right).getValue());
 	}
 	
 	@Override
 	public Value visit(Div node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new DecimalLit(((DecimalLit)left).getValue() / ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new DecValue(((DecValue)left).getValue() / ((DecValue)right).getValue());
 		}
-		return new IntegerLit(((IntegerLit)left).getValue() / ((IntegerLit)right).getValue());
+		return new IntValue(((IntValue)left).getValue() / ((IntValue)right).getValue());
 	}
 
 	@Override
 	public Value visit(Sub node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new DecimalLit(((DecimalLit)left).getValue() - ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new DecValue(((DecValue)left).getValue() - ((DecValue)right).getValue());
 		}
-		return new IntegerLit(((IntegerLit)left).getValue() - ((IntegerLit)right).getValue());
+		return new IntValue(((IntValue)left).getValue() - ((IntValue)right).getValue());
 	}
 	
 	@Override
 	public Value visit(Mul node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new DecimalLit(((DecimalLit)left).getValue() * ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new DecValue(((DecValue)left).getValue() * ((DecValue)right).getValue());
 		}
-		return new IntegerLit(((IntegerLit)left).getValue() * ((IntegerLit)right).getValue());
+		return new IntValue(((IntValue)left).getValue() * ((IntValue)right).getValue());
 	}
 	
 	//** Logical Exprs
@@ -98,7 +95,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	@Override
 	public Value visit(And node) {
 		Value left = node.getLeftExpr().accept(this);
-		if (!( (BoolLit) left).getValue()) {
+		if (!( (BoolValue) left).getValue()) {
 			return left;
 		}
 
@@ -108,7 +105,7 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	@Override
 	public Value visit(Or node) {
 		Value left = node.getLeftExpr().accept(this);
-		if (((BoolLit) left).getValue()) {
+		if (((BoolValue) left).getValue()) {
 			return left;
 		}
 
@@ -121,37 +118,34 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(Eq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new BoolLit(((DecimalLit)left).getValue() == ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new BoolValue(((DecValue)left).getValue() == ((DecValue)right).getValue());
 		}
-		return new BoolLit(((IntegerLit)left).getValue() == ((IntegerLit)right).getValue());
+		return new BoolValue(((IntValue)left).getValue() == ((IntValue)right).getValue());
 	}
 
 	@Override
 	public Value visit(GEq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new BoolLit(((DecimalLit)left).getValue() >= ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new BoolValue(((DecValue)left).getValue() >= ((DecValue)right).getValue());
 		}
-		return new BoolLit(((IntegerLit)left).getValue() >= ((IntegerLit)right).getValue());
+		return new BoolValue(((IntValue)left).getValue() >= ((IntValue)right).getValue());
 	}
 
 	@Override
 	public Value visit(GT node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new BoolLit(((DecimalLit)left).getValue() > ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new BoolValue(((DecValue)left).getValue() > ((DecValue)right).getValue());
 		}
-		return new BoolLit(((IntegerLit)left).getValue() > ((IntegerLit)right).getValue());
+		return new BoolValue(((IntValue)left).getValue() > ((IntValue)right).getValue());
 	}
 
 	@Override
-	public Value visit(Ident node) {
+	public org.uva.sea.ql.visitor.evaluator.values.Value visit(Ident node) {
 		return runTimeValues.get(node.getName());
 	}
 
@@ -159,22 +153,20 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(LEq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new BoolLit(((DecimalLit)left).getValue() <= ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new BoolValue(((DecValue)left).getValue() <= ((DecValue)right).getValue());
 		}
-		return new BoolLit(((IntegerLit)left).getValue() <= ((IntegerLit)right).getValue());
+		return new BoolValue(((IntValue)left).getValue() <= ((IntValue)right).getValue());
 	}
 
 	@Override
 	public Value visit(LT node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new BoolLit(((DecimalLit)left).getValue() < ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new BoolValue(((DecValue)left).getValue() < ((DecValue)right).getValue());
 		}
-		return new BoolLit(((IntegerLit)left).getValue() < ((IntegerLit)right).getValue());
+		return new BoolValue(((IntValue)left).getValue() < ((IntValue)right).getValue());
 	}
 
 	
@@ -183,28 +175,26 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 	public Value visit(NEq node) {
 		Value left=node.getLeftExpr().accept(this);
 		Value right=node.getRightExpr().accept(this);
-		boolean isMoneyCompatible=left.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new BoolLit(((DecimalLit)left).getValue() != ((DecimalLit)right).getValue());
+		if(left.isDecValue()){
+			return new BoolValue(((DecValue)left).getValue() != ((DecValue)right).getValue());
 		}
-		return new BoolLit(((IntegerLit)left).getValue() != ((IntegerLit)right).getValue());
+		return new BoolValue(((IntValue)left).getValue() != ((IntValue)right).getValue());
 	}
 
 	//** Unary Exprs
 	@Override
 	public Value visit(Neg node) {
 		Value operand=node.getLeftExpr().accept(this);
-		boolean isMoneyCompatible=operand.getExprType(nullVarEnv).isCompatibleToMoneyType();
-		if(isMoneyCompatible){
-			return new DecimalLit(- ((DecimalLit)operand).getValue());
+		if(operand.isDecValue()){
+			return new DecValue(- ((DecValue)operand).getValue());
 		}
-		return new IntegerLit(- ((IntegerLit)operand).getValue());
+		return new IntValue(- ((IntValue)operand).getValue());
 	}
 	
 	@Override
 	public Value visit(Not node) {
 		Value operand=node.getLeftExpr().accept(this);		
-		return new BoolLit(!((BoolLit)operand).getValue());
+		return new BoolValue(!((BoolValue)operand).getValue());
 
 	}
 
@@ -219,23 +209,27 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 
 	@Override
 	public Value visit(IntegerLit node) {
-		return node;
+		return new IntValue(node.getValue());
 	}
 
 	@Override
 	public Value visit(BoolLit node) {
-		return node;
+		return new BoolValue(node.getValue());
 	}
 
 	@Override
 	public Value visit(DecimalLit node) {
-		return node;
+		return new DecValue(node.getValue());
 	}
 
 	@Override
 	public Value visit(StringLit node) {
-		return node;
+		return new StrValue(node.getValue());
 	}
+
+
+
+
 
 	
 

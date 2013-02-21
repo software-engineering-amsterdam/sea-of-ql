@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.output.generators.json.QLToJSON;
 import org.uva.sea.ql.output.generators.pdf.QLToPDF;
 import org.uva.sea.ql.ui.qlform.QLFrame;
 import org.uva.sea.ql.ui.qlform.renderer.Renderer;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLOutputSelectorFrame implements ActionListener{
 	private final JFrame dialog;

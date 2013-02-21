@@ -9,9 +9,9 @@ import java.util.Observer;
 
 import javax.swing.JCheckBox;
 
-import org.uva.sea.ql.ast.expr.values.BoolLit;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.BoolValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLCheckBox implements ActionListener,Observer {
 
@@ -43,7 +43,7 @@ public class QLCheckBox implements ActionListener,Observer {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		varUpdater.updateValues(varName, runTimeValues,new BoolLit(!getState()));
+		varUpdater.updateValues(varName, runTimeValues,new BoolValue(!getState()));
 	
 		
 	}
@@ -61,7 +61,7 @@ public class QLCheckBox implements ActionListener,Observer {
 	}
 
 	private boolean getState() {
-		return ((BoolLit) runTimeValues.get(varName)).getValue();
+		return ((BoolValue) runTimeValues.get(varName)).getValue();
 	}
 
 	private void setStatusText() {

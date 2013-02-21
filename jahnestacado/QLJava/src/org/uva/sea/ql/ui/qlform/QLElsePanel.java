@@ -7,8 +7,8 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLElsePanel extends QLConditionalBody implements Observer {
 	

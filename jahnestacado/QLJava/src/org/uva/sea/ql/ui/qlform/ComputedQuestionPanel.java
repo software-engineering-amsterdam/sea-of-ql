@@ -8,9 +8,9 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.ComputedQuestion;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class ComputedQuestionPanel {
 	private final JLabel label;

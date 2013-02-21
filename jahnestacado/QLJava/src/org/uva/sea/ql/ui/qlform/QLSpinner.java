@@ -12,9 +12,9 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import org.uva.sea.ql.ast.expr.values.IntegerLit;
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
+import org.uva.sea.ql.visitor.evaluator.values.IntValue;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class QLSpinner implements Observer  {
 	private final String varName;
@@ -94,14 +94,14 @@ public class QLSpinner implements Observer  {
 	}
 	
 	private void updateDisplay(int value){
-		varUpdater.updateValues(varName, declaredVar, new IntegerLit(value));
+		varUpdater.updateValues(varName, declaredVar, new IntValue(value));
 		
 		
 	}
     
     
 	private int getCurrentDisplayedValue(){
-		return ((IntegerLit) declaredVar.get(varName)).getValue();
+		return ((IntValue) declaredVar.get(varName)).getValue();
 	}
 
 	@Override

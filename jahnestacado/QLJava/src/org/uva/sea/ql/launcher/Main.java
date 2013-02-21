@@ -9,12 +9,12 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.expr.values.Value;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ui.qlform.QLFrame;
 import org.uva.sea.ql.ui.qlform.interpreter.SwingGenerator;
 import org.uva.sea.ql.ui.qlform.interpreter.VariableUpdater;
 import org.uva.sea.ql.visitor.checkers.ElementChecker;
+import org.uva.sea.ql.visitor.evaluator.values.Value;
 
 public class Main {
 
