@@ -9,15 +9,17 @@ public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
 	
 	return
 	   "\<html\>
-	   '\<head\> \<title\><ident> \</title\>
-	   '\<script type=\"text/javascript\" src=\"<ident>.js\"\>\</script\>
-	   '\</head\>
-	   '\<body onload=\"onLoad()\"\>
-	   '\<form name=\"<ident>\" method=\"POST\" onsubmit=\"return formValidate(this)\"\>
-	   ' <generateHTMLFormBody(bodyItems,"stats0")>
-	   ' \<input type=\"submit\"\>
-	   '\</form\>
-	   '\</body\>
+	   '   \<head\> \<title\> <ident> \</title\>
+	   '      \<script type=\"text/javascript\" src=\"<ident>.js\"\>\</script\>
+	   '      \<script type=\"text/javascript\" src=\"extFuncs.js\"\>\</script\>
+	   '   \</head\>
+	   '
+	   '   \<body onload=\"onLoad()\"\>
+	   '      \<form name=\"<ident>\" method=\"POST\" onsubmit=\"return formValidate(this)\"\>
+	   '        <generateHTMLFormBody(bodyItems,"stats0")>
+	   '        \<input type=\"submit\"\>
+	   '      \</form\>
+	   '   \</body\>
 	   '\</html\>";
 }
 
@@ -28,10 +30,10 @@ str generateHTMLFormBody(list[FormBodyItem] formItems,str refID){
     
     for(x <-formItems){
    	   if(question(Question itemQuestion) := x){
-   	   	    code+=generateHTMLQuestion(itemQuestion,refID);
+   	   	    code+="   <generateHTMLQuestion(itemQuestion,refID)>";
    	   }
    	   else if(conditionalStatement(ConditionalStatement itemCondStatement):=x){
-	   	        code+=generateHTMLCondBody(itemCondStatement);
+	   	        code+="   <generateHTMLCondBody(itemCondStatement)>";
      	   }
     	}
     	

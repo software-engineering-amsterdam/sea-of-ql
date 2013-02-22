@@ -7,24 +7,22 @@ import IO;
 
 alias BDITS=list[FormBodyItem];
 //1. change switch, make functions
-public str generateJavaScriptExpr(ident(str name),BDITS bodyItems){
-	str code="";
-	switch(getVariableType(name,bodyItems)){
-	case integer() : code= "parseInt(document.getElementById(\"<name>\").value)";
-	case string()  : code= "document.getElementById(\"<name>\").value";
-	case boolean() : code= "document.getElementById(\"<name>\").checked";
-	case date()	   : code= "document.getElementById(\"<name>\").value";
-	case money()   : code= "document.getElementById(\"<name>\").value";
-	case float()   : code= "parseFloat(document.getElementById(\"<name>\").value)";
-	}
-	return code;
-}
+public str generateJavaScriptExpr(ident(str name),BDITS bodyItems)=
+	generateJavaScriptExpr(name,getVariableType(name,bodyItems));
+
+str generateJavaScriptExpr(str name, integer()) = "parseInt(document.getElementById(\"<name>\").value)";
+str generateJavaScriptExpr(str name, /string()) = "document.getElementById(\"<name>\").value";
+str generateJavaScriptExpr(str name, /boolean()) = "document.getElementById(\"<name>\").checked";
+str generateJavaScriptExpr(str name, /date()) = "document.getElementById(\"<name>\").value";
+str generateJavaScriptExpr(str name, /money()) = "document.getElementById(\"<name>\").value";
+str generateJavaScriptExpr(str name, /float()) = "parseFloat(document.getElementById(\"<name>\").value)";
+
 public str generateJavaScriptExpr(\int(int ivalue),BDITS bodyItems)="parseInt(\"<ivalue>\")";
-public str generateJavaScriptExpr(string(str strValue),BDITS bodyItems)="<strValue>";
-public str generateJavaScriptExpr(boolean(str bValue),BDITS bodyItems)="<bValue>";
-public str generateJavaScriptExpr(date(str dValue),BDITS bodyItems)="<dValue>"; //I think parseDate?
-public str generateJavaScriptExpr(money (str monValue),BDITS bodyItems)="\"<monValue> Euro\"";
-public str generateJavaScriptExpr(float (real fValue),BDITS bodyItems)="parseFloat(\"<fValue>\")";
+public str generateJavaScriptExpr(/string(str strValue),BDITS bodyItems)="<strValue>";
+public str generateJavaScriptExpr(/boolean(str bValue),BDITS bodyItems)="<bValue>";
+public str generateJavaScriptExpr(/date(str dValue),BDITS bodyItems)="<dValue>"; //I think parseDate?
+public str generateJavaScriptExpr(/money (str monValue),BDITS bodyItems)="\"<monValue> Euro\"";
+public str generateJavaScriptExpr(/float (real fValue),BDITS bodyItems)="parseFloat(\"<fValue>\")";
 
 public str generateJavaScriptExpr(add(Expr addLeft, Expr addRight),BDITS bodyItems)="<generateJavaScriptExpr(addLeft,bodyItems)>  + <generateJavaScriptExpr(addRight,bodyItems)>";
 public str generateJavaScriptExpr(mul(Expr multLeft, Expr multright),BDITS bodyItems)="<generateJavaScriptExpr(multLeft,bodyItems)> * <generateJavaScriptExpr(multright,bodyItems)>";

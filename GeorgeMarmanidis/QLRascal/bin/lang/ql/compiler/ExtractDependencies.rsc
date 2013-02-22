@@ -26,9 +26,9 @@ public map[str,list[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
 
 map[str,list[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,list[str] dependVars] dependenciesMap){
 	vars=getVariableDependencies(exp);
-	
+	//14 tijs code has problem? ha
 	for(x<-vars){
-	 dependenciesMap[x]?[] += [depended];
+	 dependenciesMap[x]? ["a"] += [depended];
 	}
 	
 	return dependenciesMap;
@@ -38,7 +38,7 @@ public Type getVariableType(str variableName,list[FormBodyItem] bodyItems){
 
 		visit(bodyItems){
 			case simpleQuestion(variableName,_,Type qtype) : return qtype;
-			case computedQuestion(variableName,_,Type qtype,_) :return variableType= qtype;
+			case computedQuestion(variableName,_,Type qtype,_) : return qtype;
 		}
 
 }
