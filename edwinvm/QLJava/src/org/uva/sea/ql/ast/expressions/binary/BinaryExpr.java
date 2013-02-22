@@ -1,4 +1,6 @@
-package org.uva.sea.ql.ast.expressions;
+package org.uva.sea.ql.ast.expressions.binary;
+
+import org.uva.sea.ql.ast.expressions.Expr;
 
 
 public abstract class BinaryExpr extends Expr {

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions.binary.logical;
 
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.binary.BinaryExpr;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.TypeEnvironment;
