@@ -37,7 +37,7 @@ public class Program implements ButtonControlEventListener {
 
 		FormBuilder builder = this.form.getBuilder();
 		builder.addButton( SUBMIT_BUTTON_TEXT, this );
-		this.panel = builder.getPanel();
+		this.panel = builder.getFormPanel();
 
 		this.factory.createWindow( this.panel.getName(), this.panel ).show();
 	}

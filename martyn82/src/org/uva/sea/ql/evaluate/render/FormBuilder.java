@@ -9,15 +9,15 @@ import org.uva.sea.ql.ui.control.ButtonControl;
 import org.uva.sea.ql.ui.control.PanelControl;
 
 public class FormBuilder {
-	private final Renderer renderer;
 	private final ControlFactory factory;
+	private final Renderer renderer;
 
 	public FormBuilder( ControlFactory factory ) {
 		this.factory = factory;
 		this.renderer = new Renderer( this.factory, new BindingEnvironment() );
 	}
 
-	public void createFromTree( Statement root ) {
+	public void createForm( Statement root ) {
 		root.accept( this.renderer );
 	}
 
@@ -32,11 +32,11 @@ public class FormBuilder {
 		this.renderer.addControl( button );
 	}
 
-	public PanelControl getPanel() {
-		return this.renderer.getPanel();
+	public Map<String, Object> getValues() {
+		return this.renderer.getValues();
 	}
 
-	public Map<String, Binding> getFormValues() {
-		return this.renderer.getBoundValues();
+	public PanelControl getFormPanel() {
+		return this.renderer.getPanel();
 	}
 }

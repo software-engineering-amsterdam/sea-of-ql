@@ -3,7 +3,6 @@ package org.uva.sea.ql;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.evaluate.render.Binding;
 import org.uva.sea.ql.evaluate.render.FormBuilder;
 import org.uva.sea.ql.evaluate.typecheck.TypeChecker;
 import org.uva.sea.ql.parser.ParseError;
@@ -36,7 +35,7 @@ public class QLForm {
 			throw new RuntimeException( "TypeChecker failed" );
 		}
 
-		this.builder.createFromTree( ast );
+		this.builder.createForm( ast );
 	}
 
 	private boolean typeCheck( Statement root ) {
@@ -58,11 +57,11 @@ public class QLForm {
 	}
 
 	public PanelControl getForm() {
-		return this.builder.getPanel();
+		return this.builder.getFormPanel();
 	}
 
-	public Map<String, Binding> getValues() {
-		return this.builder.getFormValues();
+	public Map<String, Object> getValues() {
+		return this.builder.getValues();
 	}
 
 	public FormBuilder getBuilder() {

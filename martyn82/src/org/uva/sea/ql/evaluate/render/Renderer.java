@@ -45,30 +45,30 @@ class Renderer implements StatementVisitor<Void>, TypeVisitor<InputControl> {
 		this.panel = this.factory.createPanel();
 	}
 
-	protected static PanelControl createPart(
-		Statement statement, BindingEnvironment environment, ControlFactory factory
-	) {
+	protected static PanelControl createPart( Statement statement, BindingEnvironment environment, ControlFactory factory ) {
 		Renderer renderer = new Renderer( factory, environment );
 		statement.accept( renderer );
 		return renderer.panel;
 	}
 
-	public Map<String, Binding> getBoundValues() {
+	protected Map<String, Object> getValues() {
+		Map<String, Object> values = new HashMap<String, Object>();
 		Map<IdentifierExpression, Binding> bindings = this.environment.getBindings();
-		Map<String, Binding> result = new HashMap<String, Binding>();
+		Value value;
 
 		for ( Map.Entry<IdentifierExpression, Binding> each : bindings.entrySet() ) {
-			result.put( each.getKey().getName(), each.getValue() );
+			value = each.getValue().getValue();
+			values.put( each.getKey().getName(), value.getValue() );
 		}
 
-		return result;
+		return values;
 	}
 
-	public PanelControl getPanel() {
+	protected PanelControl getPanel() {
 		return this.panel;
 	}
 
-	public void addControl( Control control ) {
+	protected void addControl( Control control ) {
 		this.panel.add( control );
 	}
 
