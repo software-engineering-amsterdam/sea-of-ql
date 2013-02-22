@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.expression.impl;
 import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class LessThanNode extends BinaryNode
 {
@@ -10,6 +11,12 @@ public class LessThanNode extends BinaryNode
     public LessThanNode(final ExprNode lhs, final ExprNode rhs)
     {
         super(lhs, rhs);
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
+    {
+        return expressionVisitor.visit(this);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.statement.impl.BlockNode;
+import org.uva.sea.ql.ast.statement.BlockNode;
 
 public class FormNode implements Node
 {

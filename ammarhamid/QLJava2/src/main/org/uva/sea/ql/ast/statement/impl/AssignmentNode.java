@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.statement.impl;
 
+import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
@@ -7,13 +8,13 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 public class AssignmentNode implements Statement
 {
     private final String question;
-    private final String identifier;
+    private final IdentifierNode identifierNode;
     private final Type type;
 
     public AssignmentNode(final String question, final String identifier, final Type type)
     {
         this.question = question;
-        this.identifier = identifier;
+        this.identifierNode = new IdentifierNode(identifier);
         this.type = type;
     }
 
@@ -27,9 +28,9 @@ public class AssignmentNode implements Statement
         return question;
     }
 
-    public String getIdentifier()
+    public IdentifierNode getIdentifierNode()
     {
-        return identifier;
+        return identifierNode;
     }
 
     public Type getType()

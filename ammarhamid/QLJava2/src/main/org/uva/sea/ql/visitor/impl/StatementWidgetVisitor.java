@@ -1,8 +1,8 @@
 package org.uva.sea.ql.visitor.impl;
 
+import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
-import org.uva.sea.ql.ast.statement.impl.BlockNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.variable.VariableState;
@@ -12,7 +12,6 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class StatementWidgetVisitor implements StatementVisitor
@@ -44,7 +43,7 @@ public class StatementWidgetVisitor implements StatementVisitor
 
         final JPanel typePanel = new JPanel();
         final Type type = assignmentNode.getType();
-        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifier(), this.variableState));
+        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifierNode(), this.variableState));
 
         addQuestionPanel(questionPanel);
         addTypePanel(typePanel);
@@ -54,16 +53,13 @@ public class StatementWidgetVisitor implements StatementVisitor
     public void visit(final IfNode ifNode)
     {
         final List<ConditionObserver.BranchComponent> branchComponents = new ArrayList<>();
-        final List<IfNode.Branch> branches = ifNode.getBranches();
-        for(final IfNode.Branch branch : branches)
+        for(final IfNode.Branch branch : ifNode.getBranches())
         {
-            JPanel jPanel = new JPanel();
             final BlockNode blockNode = branch.getBlock();
             final List<Component> components = new ArrayList<>();
-            final Collection<Statement> statements = blockNode.getStatements();
-            for(final Statement statement : statements)
+            for(final Statement statement : blockNode.getStatements())
             {
-                jPanel = render(this.frame, jPanel, statement, this.variableState);
+                final JPanel jPanel = render(this.frame, new JPanel(), statement, this.variableState);
 
                 final Component question = jPanel.getComponent(0);
                 final Component type = jPanel.getComponent(1);
@@ -71,32 +67,29 @@ public class StatementWidgetVisitor implements StatementVisitor
                 components.add(question);
                 components.add(type);
 
-                question.setVisible(false);
-                type.setVisible(false);
-
                 addQuestionPanel(question);
                 addTypePanel(type);
             }
 
             branchComponents.add(new ConditionObserver.BranchComponent(branch, components));
+            ExpressionDependencyVisitor.find(branch.getExprNode(), ifNode, this.variableState);
         }
-        // register dependencies
-        final ConditionObserver conditionObserver = registerConditionDependency(branchComponents);
+        ConditionObserver conditionObserver = registerConditionObserver(ifNode, branchComponents);
 
         // trigger if there is an 'else' statement to be initialize
         conditionObserver.update(null, null);
     }
 
+    private ConditionObserver registerConditionObserver(IfNode ifNode, List<ConditionObserver.BranchComponent> branchComponents)
+    {
+        ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents);
+        ifNode.addObserver(conditionObserver);
+        return conditionObserver;
+    }
+
     public JPanel getPanel()
     {
         return panel;
-    }
-
-    public ConditionObserver registerConditionDependency(final Collection<ConditionObserver.BranchComponent> branchComponents)
-    {
-        final ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents);
-        this.variableState.addObserver(conditionObserver);
-        return conditionObserver;
     }
 
     private void addQuestionPanel(final Component question)

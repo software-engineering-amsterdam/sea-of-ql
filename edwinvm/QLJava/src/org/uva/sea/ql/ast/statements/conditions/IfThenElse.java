@@ -1,18 +1,20 @@
 package org.uva.sea.ql.ast.statements.conditions;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.FormStatement;
+import java.util.ArrayList;
+
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
+import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
 public class IfThenElse extends ConditionBlock {
-	private final FormStatement _elseBody;
+	private final ArrayList<FormStatement> _elseBody;
 	
-	public IfThenElse(Expr condition, FormStatement body, FormStatement elseBody) {
+	public IfThenElse(Expr condition, ArrayList<FormStatement> body, ArrayList<FormStatement> elseBody) {
 		super(condition, body); _elseBody = elseBody;
 	}
 	
-	public FormStatement getElseBody() {
+	public ArrayList<FormStatement> getElseBody() {
 		return _elseBody;
 	}
 
