@@ -1,12 +1,11 @@
 package org.uva.sea.ql.check.statements;
 
-import java.util.ArrayList;
-
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.statements.conditions.IfThen;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
@@ -69,8 +68,8 @@ public class StatementChecker implements Visitor {
 		checkQuestionCompatibility(questionVariable, type);
 	}
 	
-	private void checkBody(ArrayList<FormStatement> bodyStatements) {
-		for (FormStatement statement: bodyStatements) {
+	private void checkBody(StatementBody body) {
+		for (FormStatement statement: body.getStatements()) {
 			check(statement);
 		}
 	}
