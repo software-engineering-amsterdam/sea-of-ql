@@ -1,10 +1,10 @@
 package org.uva.sea.ql.variable.observer;
 
 import org.uva.sea.ql.ast.statement.impl.IfNode;
-import org.uva.sea.ql.main.QLMainApp;
 import org.uva.sea.ql.value.impl.BooleanValue;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Observable;
@@ -12,65 +12,76 @@ import java.util.Observer;
 
 public class ConditionObserver implements Observer
 {
-    private final Collection<BranchPanel> branchPanels;
+    private final Collection<BranchComponent> branchComponents;
+    private final JFrame frame;
 
-    public ConditionObserver(final Collection<BranchPanel> branchPanels)
+    public ConditionObserver(final JFrame frame, final Collection<BranchComponent> branchComponents)
     {
-        this.branchPanels = branchPanels;
+        this.frame = frame;
+        this.branchComponents = branchComponents;
     }
 
     @Override
     public void update(Observable o, Object arg)
     {
-        for(final BranchPanel branchPanel : branchPanels)
+        for(final BranchComponent branchComponent : branchComponents)
         {
-            final IfNode.Branch branch = branchPanel.getBranch();
-            final JPanel panel = branchPanel.getJPanel();
+            final IfNode.Branch branch = branchComponent.getBranch();
+            final Collection<Component> components = branchComponent.getComponents();
             final BooleanValue booleanValue = ((BooleanValue) branch.evaluateExpression());
             if(booleanValue!=null && booleanValue.getValue())
             {
                 // clearing all states
                 clearingAllStates();
-                // set the current block to be true and exit the loop right away
-                panel.setVisible(!panel.isVisible());
+                for(Component component : components)
+                {
+                    component.setVisible(!component.isVisible());
+                }
                 break;
             }
             else
             {
-                panel.setVisible(false);
+                for(Component component : components)
+                {
+                    component.setVisible(false);
+                }
             }
         }
 
-        QLMainApp.getFrame().pack();
+        this.frame.pack();
     }
 
     private void clearingAllStates()
     {
-        for(final JPanel jPanel : getAllPanels())
+        for(final Collection<Component> components : getAllComponents())
         {
-            jPanel.setVisible(false);
+            for(final Component component : components)
+            {
+                component.setVisible(false);
+            }
+
         }
     }
 
-    private Collection<JPanel> getAllPanels()
+    private Collection<Collection<Component>> getAllComponents()
     {
-        Collection<JPanel> jPanels = new ArrayList<>();
-        for(final BranchPanel branchPanel : branchPanels)
+        Collection<Collection<Component>> components = new ArrayList<>();
+        for(final BranchComponent branchComponent : branchComponents)
         {
-            jPanels.add(branchPanel.getJPanel());
+            components.add(branchComponent.getComponents());
         }
-        return jPanels;
+        return components;
     }
 
-    public static class BranchPanel
+    public static class BranchComponent
     {
         private final IfNode.Branch branch;
-        private final JPanel jPanel;
+        private final Collection<Component> components;
 
-        public BranchPanel(final IfNode.Branch branch, final JPanel jPanel)
+        public BranchComponent(final IfNode.Branch branch, final Collection<Component> components)
         {
             this.branch = branch;
-            this.jPanel = jPanel;
+            this.components = components;
         }
 
         public IfNode.Branch getBranch()
@@ -78,9 +89,9 @@ public class ConditionObserver implements Observer
             return branch;
         }
 
-        public JPanel getJPanel()
+        public Collection<Component> getComponents()
         {
-            return jPanel;
+            return components;
         }
     }
 

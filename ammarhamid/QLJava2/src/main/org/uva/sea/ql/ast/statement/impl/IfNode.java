@@ -1,15 +1,15 @@
 package org.uva.sea.ql.ast.statement.impl;
 
-import org.uva.sea.ql.ast.Node;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.BlockNode;
+import org.uva.sea.ql.ast.statement.ObservableStatement;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfNode implements Statement
+public class IfNode extends ObservableStatement
 {
     private final List<Branch> branches;
 
@@ -18,7 +18,14 @@ public class IfNode implements Statement
         this.branches = new ArrayList<>();
     }
 
-    public void addBranch(final ExprNode exprNode, final Node block)
+    @Override
+    public void notifyObs()
+    {
+        setChanged();
+        this.notifyObservers();
+    }
+
+    public void addBranch(final ExprNode exprNode, final BlockNode block)
     {
         this.branches.add(new Branch(exprNode, block));
     }
@@ -37,9 +44,9 @@ public class IfNode implements Statement
     public class Branch
     {
         private final ExprNode exprNode;
-        private final Node block;
+        private final BlockNode block;
 
-        private Branch(final ExprNode exprNode, final Node block)
+        private Branch(final ExprNode exprNode, final BlockNode block)
         {
             this.exprNode = exprNode;
             this.block = block;
@@ -55,7 +62,7 @@ public class IfNode implements Statement
             return exprNode;
         }
 
-        public Node getBlock()
+        public BlockNode getBlock()
         {
             return block;
         }

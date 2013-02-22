@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.expression.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.expression.literals.IntLiteral;
-import org.uva.sea.ql.ast.expression.literals.TextLiteral;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntLiteral;
+import org.uva.sea.ql.ast.expression.literal.TextLiteral;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
@@ -204,7 +204,7 @@ public class QLLexer implements QLTokens {
 			    			}
 			    			return token;
 			    		}
-						yylval = new Ident(name);
+						yylval = new Identifier(name);
 			    		return token = IDENT;
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);

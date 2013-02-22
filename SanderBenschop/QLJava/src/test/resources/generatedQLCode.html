@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Question language - QLForm</title>
+    <script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="scripts/selfish-0.3.2.min.js"></script>
+    <script type="text/javascript" src="scripts/generic.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            /* Generated JS code start */
+            var ageQuestionController = ql.IntegerTypeQuestionController.new("age");
+            ageQuestionController.bind();
+            ql.questionControllerList.push(ageQuestionController);
+            var maleQuestionController = ql.BooleanTypeQuestionController.new("male");
+            maleQuestionController.bind();
+            ql.questionControllerList.push(maleQuestionController);
+            var twoTimesAgeComputationController = ql.ComputationController.extend({
+                initialize:function (name) {
+                    ql.ComputationController.initialize.call(this, name);
+                    ql.messageBus.subscribeToVariable("age", this);
+                },
+
+                evaluateExpression:function () {
+                    return 2 * ql.variableMap["age"];
+                }
+            }).new("twoTimesAge");
+            /* Generated JS code end */
+
+            jQuery("#submit").on("click", function () {
+                var identifierValuePairArray = [];
+                jQuery.each(ql.questionControllerList, function (index, questionController) {
+                    if (questionController.view.is(":visible")) {
+                        identifierValuePairArray.push({identifierName:questionController.getName(), value:questionController.getValue()});
+                    }
+                });
+                ql.ajaxUtil.doPost("submit/", identifierValuePairArray, function () {
+                    alert("Submit succesful!");
+                });
+            });
+        });
+    </script>
+    <style type="text/css">
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<form>
+    <label for="age">How old are you?</label><input type="text" id="age" name="age"/><br> <label for="male">Are you
+    male?</label><input type="checkbox" id="male" name="male"/><br> <label for="twoTimesAge">Two times
+    age:</label><input type="text" id="twoTimesAge" name="twoTimesAge" readonly="readonly"/><br>
+</form>
+</body>
+<input id="submit" type="button" value="Persist"/>
+</html>

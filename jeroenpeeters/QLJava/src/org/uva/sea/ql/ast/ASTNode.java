@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.parser.ASTVisitor;
+import org.uva.sea.ql.visitor.ASTVisitor;
 
 public interface ASTNode {
 

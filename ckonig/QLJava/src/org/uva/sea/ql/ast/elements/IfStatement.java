@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 
-public class IfStatement extends BlockElement {
+public class IfStatement extends AbstractBlockElement {
     private Expr condition;
     private Block content;
 

@@ -3,6 +3,8 @@ package org.uva.sea.ql.ast.expression.impl;
 import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.value.impl.BooleanValue;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class AndNode extends BinaryNode
 {
@@ -13,11 +15,17 @@ public class AndNode extends BinaryNode
     }
 
     @Override
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
+    {
+        return expressionVisitor.visit(this);
+    }
+
+    @Override
     public Value evaluate()
     {
         final Value value1 = this.lhs.evaluate();
         final Value value2 = this.rhs.evaluate();
-        return value1.and(value2);
+        return (value1==null || value2==null) ? new BooleanValue(false) : value1.and(value2);
     }
 
     @Override

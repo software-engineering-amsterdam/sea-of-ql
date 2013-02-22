@@ -3,6 +3,7 @@ module lang::ql::compiler::GenerateJSOnLoad
 
 import ParseTree;
 import lang::ql::ast::AST;
+import List;
 
 str generateObjHide(str objId)="<objId>.style.display = \'none\';";
 str generateObjShow(str objId)="<objId>.style.display = \'\';";
