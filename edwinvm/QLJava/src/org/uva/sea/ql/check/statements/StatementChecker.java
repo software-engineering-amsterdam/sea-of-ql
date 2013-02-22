@@ -1,5 +1,7 @@
 package org.uva.sea.ql.check.statements;
 
+import java.util.ArrayList;
+
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.FormStatement;
 import org.uva.sea.ql.ast.Type;
@@ -32,20 +34,14 @@ public class StatementChecker implements Visitor {
 	@Override
 	public void visit(IfThen statement) {
 		checkCondition(statement);
-		for (FormStatement stat: statement.getBody()) {
-			stat.accept(this);
-		}
+		checkBody(statement.getBody());
 	}
 	
 	@Override
 	public void visit(IfThenElse statement) {
 		checkCondition(statement);
-		for (FormStatement stat: statement.getBody()) {
-			stat.accept(this);
-		}
-		for (FormStatement stat: statement.getElseBody()) {
-			stat.accept(this);
-		}
+		checkBody(statement.getBody());
+		checkBody(statement.getElseBody());
 	}
 
 	@Override
@@ -71,6 +67,12 @@ public class StatementChecker implements Visitor {
 	private void checkName(Question statement, Type type) {
 		Ident questionVariable = statement.getVariable();
 		checkQuestionCompatibility(questionVariable, type);
+	}
+	
+	private void checkBody(ArrayList<FormStatement> bodyStatements) {
+		for (FormStatement statement: bodyStatements) {
+			check(statement);
+		}
 	}
 	
 	private void checkQuestionCompatibility(Ident questionVariable, Type type) {
