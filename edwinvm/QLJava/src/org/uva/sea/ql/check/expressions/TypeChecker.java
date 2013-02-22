@@ -1,7 +1,6 @@
 package org.uva.sea.ql.check.expressions;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpr;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
@@ -26,6 +25,7 @@ import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.ErrorMessages;
