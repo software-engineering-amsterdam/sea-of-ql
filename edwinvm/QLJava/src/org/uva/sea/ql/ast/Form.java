@@ -1,12 +1,15 @@
 package org.uva.sea.ql.ast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 
 public class Form implements ASTNode {
 	private final Ident _name;
-	private final FormStatement _body;
+	private final List<FormStatement> _body;
 
-	public Form(Ident name, FormStatement body) {
+	public Form(Ident name, ArrayList<FormStatement> body) {
 		_name = name;
 		_body = body;
 	}
@@ -15,7 +18,7 @@ public class Form implements ASTNode {
 		return _name;
 	}
 	
-	public FormStatement getBody() {
+	public List<FormStatement> getBody() {
 		return _body;
 	}
 }
