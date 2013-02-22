@@ -19,7 +19,7 @@ form TestQL
     }
 
     "Did you sell a car in 2010?" hasSoldCar: boolean
-    if(hasSoldCar)
+    if(hasSoldCar || married)
     {
         "Car price?" housePrice: integer
     }

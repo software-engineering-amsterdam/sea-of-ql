@@ -1,8 +1,8 @@
 package org.uva.sea.ql.visitor.impl;
 
+import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
-import org.uva.sea.ql.ast.statement.impl.BlockNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.variable.VariableState;
@@ -12,7 +12,6 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class StatementWidgetVisitor implements StatementVisitor
@@ -44,7 +43,7 @@ public class StatementWidgetVisitor implements StatementVisitor
 
         final JPanel typePanel = new JPanel();
         final Type type = assignmentNode.getType();
-        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifier(), this.variableState));
+        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifierNode(), this.variableState));
 
         addQuestionPanel(questionPanel);
         addTypePanel(typePanel);
@@ -73,24 +72,24 @@ public class StatementWidgetVisitor implements StatementVisitor
             }
 
             branchComponents.add(new ConditionObserver.BranchComponent(branch, components));
+            ExpressionDependencyVisitor.find(branch.getExprNode(), ifNode, this.variableState);
         }
-        // register dependencies
-        final ConditionObserver conditionObserver = registerConditionDependency(branchComponents);
+        ConditionObserver conditionObserver = registerConditionObserver(ifNode, branchComponents);
 
         // trigger if there is an 'else' statement to be initialize
         conditionObserver.update(null, null);
     }
 
+    private ConditionObserver registerConditionObserver(IfNode ifNode, List<ConditionObserver.BranchComponent> branchComponents)
+    {
+        ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents);
+        ifNode.addObserver(conditionObserver);
+        return conditionObserver;
+    }
+
     public JPanel getPanel()
     {
         return panel;
-    }
-
-    public ConditionObserver registerConditionDependency(final Collection<ConditionObserver.BranchComponent> branchComponents)
-    {
-        final ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents);
-        this.variableState.addObserver(conditionObserver);
-        return conditionObserver;
     }
 
     private void addQuestionPanel(final Component question)

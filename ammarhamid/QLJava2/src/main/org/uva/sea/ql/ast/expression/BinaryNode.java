@@ -31,6 +31,16 @@ public abstract class BinaryNode extends ExprNode
         return compatible;
     }
 
+    public ExprNode getLhs()
+    {
+        return lhs;
+    }
+
+    public ExprNode getRhs()
+    {
+        return rhs;
+    }
+
     protected abstract String getOperator();
 
     @Override

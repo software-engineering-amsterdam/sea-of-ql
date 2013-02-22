@@ -1,5 +1,6 @@
 package org.uva.sea.ql.visitor.impl;
 
+import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.type.impl.BooleanType;
 import org.uva.sea.ql.type.impl.IntegerType;
 import org.uva.sea.ql.type.impl.MoneyType;
@@ -22,13 +23,13 @@ public class TypeWidgetVisitor implements TypeVisitor
     public static final int LENGTH = 10;
     private final JPanel panel;
     private final VariableState variableState;
-    private final String identifier;
+    private final IdentifierNode identifierNode;
 
-    public TypeWidgetVisitor(JPanel panel, String identifier, VariableState variableState)
+    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState)
     {
         this.panel = panel;
         this.variableState = variableState;
-        this.identifier = identifier;
+        this.identifierNode = identifierNode;
     }
 
     @Override
@@ -39,11 +40,10 @@ public class TypeWidgetVisitor implements TypeVisitor
         {
             public void itemStateChanged(ItemEvent e)
             {
-                variableState.add(TypeWidgetVisitor.this.identifier, new BooleanValue(checkBox.isSelected()));
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new BooleanValue(checkBox.isSelected()));
             }
         });
         this.panel.add(checkBox);
-
     }
 
     @Override
@@ -55,7 +55,7 @@ public class TypeWidgetVisitor implements TypeVisitor
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                variableState.add(TypeWidgetVisitor.this.identifier, new StringValue(jTextField.getText()));
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new StringValue(jTextField.getText()));
             }
         });
         this.panel.add(jTextField);
@@ -71,7 +71,7 @@ public class TypeWidgetVisitor implements TypeVisitor
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                variableState.add(TypeWidgetVisitor.this.identifier, new IntegerValue(jTextField.getText()));
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new IntegerValue(jTextField.getText()));
             }
         });
         this.panel.add(jTextField);
@@ -86,7 +86,7 @@ public class TypeWidgetVisitor implements TypeVisitor
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                variableState.add(TypeWidgetVisitor.this.identifier, new MoneyValue(jTextField.getText()));
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new MoneyValue(jTextField.getText()));
             }
         });
         this.panel.add(jTextField);

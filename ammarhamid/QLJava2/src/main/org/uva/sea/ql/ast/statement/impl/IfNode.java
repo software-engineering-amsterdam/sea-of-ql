@@ -1,20 +1,28 @@
 package org.uva.sea.ql.ast.statement.impl;
 
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.BlockNode;
+import org.uva.sea.ql.ast.statement.ObservableStatement;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfNode implements Statement
+public class IfNode extends ObservableStatement
 {
     private final List<Branch> branches;
 
     public IfNode()
     {
         this.branches = new ArrayList<>();
+    }
+
+    @Override
+    public void notifyObs()
+    {
+        setChanged();
+        this.notifyObservers();
     }
 
     public void addBranch(final ExprNode exprNode, final BlockNode block)

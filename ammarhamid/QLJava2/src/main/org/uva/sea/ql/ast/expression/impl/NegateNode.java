@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.expression.UnaryNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.type.impl.NumericType;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
 
@@ -16,6 +17,12 @@ public class NegateNode extends UnaryNode
     public NegateNode(final ExprNode exprNode)
     {
         super(exprNode);
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
+    {
+        return expressionVisitor.visit(this);
     }
 
     @Override

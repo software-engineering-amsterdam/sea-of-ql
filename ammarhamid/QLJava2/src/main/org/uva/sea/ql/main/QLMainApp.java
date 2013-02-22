@@ -3,7 +3,7 @@ package org.uva.sea.ql.main;
 import net.miginfocom.swing.MigLayout;
 import org.uva.sea.ql.ast.FormNode;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.ast.statement.impl.BlockNode;
+import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
 import org.uva.sea.ql.variable.VariableState;

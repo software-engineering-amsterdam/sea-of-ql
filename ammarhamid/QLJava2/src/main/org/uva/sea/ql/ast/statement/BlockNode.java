@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.statement.impl;
+package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.statement.Statement;
 

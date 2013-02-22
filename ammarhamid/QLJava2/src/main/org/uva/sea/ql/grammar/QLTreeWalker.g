@@ -14,7 +14,7 @@ options
 	import org.uva.sea.ql.ast.FormNode;
 	import org.uva.sea.ql.ast.statement.Statement;
 	import org.uva.sea.ql.ast.statement.impl.IfNode;
-	import org.uva.sea.ql.ast.statement.impl.BlockNode;
+	import org.uva.sea.ql.ast.statement.BlockNode;
 	import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
 	import org.uva.sea.ql.ast.expression.ExprNode;
 	import org.uva.sea.ql.ast.expression.impl.ValueNode;
