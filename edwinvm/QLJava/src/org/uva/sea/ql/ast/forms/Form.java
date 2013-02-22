@@ -1,8 +1,9 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.forms;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.FormStatement;
 

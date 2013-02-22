@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.test.ast;
 import static org.junit.Assert.assertEquals;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.forms.Form;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.ParseError;
 
