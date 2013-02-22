@@ -32,14 +32,20 @@ public class StatementChecker implements Visitor {
 	@Override
 	public void visit(IfThen statement) {
 		checkCondition(statement);
-		statement.getBody().accept(this);
+		for (FormStatement stat: statement.getBody()) {
+			stat.accept(this);
+		}
 	}
 	
 	@Override
 	public void visit(IfThenElse statement) {
 		checkCondition(statement);
-		statement.getBody().accept(this);
-		statement.getElseBody().accept(this);
+		for (FormStatement stat: statement.getBody()) {
+			stat.accept(this);
+		}
+		for (FormStatement stat: statement.getElseBody()) {
+			stat.accept(this);
+		}
 	}
 
 	@Override
