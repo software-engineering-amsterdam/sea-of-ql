@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statements;
 
 import java.util.ArrayList;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public abstract class ConditionBlock extends FormStatement {
 	private final Expr _condition;

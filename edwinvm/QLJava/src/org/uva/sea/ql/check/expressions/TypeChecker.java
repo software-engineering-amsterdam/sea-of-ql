@@ -1,6 +1,6 @@
 package org.uva.sea.ql.check.expressions;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.LiteralExpr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
