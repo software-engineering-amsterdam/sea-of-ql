@@ -33,7 +33,6 @@ public class TestIfThenElseStatements extends ConditionTypeChecker {
 	
 	@Test
 	public void testInnerIfThenElseConditionBlocksWithMultipleBodyLines() throws ParseError {
-		// First we need a AnswerableQuestion to store the identifier used in the IfThen condition
 		isAValidStatementBlock(
 			"if (true) { " +
 				"\"Do you want to buy a house in 2013?\" wantsToBuyHouse: boolean " +
@@ -46,7 +45,7 @@ public class TestIfThenElseStatements extends ConditionTypeChecker {
 	
 	@Test
 	public void testInnerIfThenElseConditionBlocksWithComputedQuestions() throws ParseError {
-		// First we need a AnswerableQuestion to store the identifier used in the IfThen condition
+		// First we need a AnswerableQuestion to store the identifier used in the Else condition
 		isAValidStatementBlock(
 			"if (true) { " +
 				"\"Do you want to buy a house in 2013?\" wantsToBuyHouse: boolean " +
