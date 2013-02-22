@@ -12,25 +12,24 @@ import org.uva.sea.ql.ast.statement.Statements;
 import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.evaluate.Error;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 class StatementTypeChecker implements StatementVisitor<Boolean> {
-	private final TypeCheckerHelper helper;
 	private final TypeEnvironment environment;
 	private final ExpressionTypeChecker expressionChecker;
 
 	public StatementTypeChecker( TypeEnvironment environment ) {
-		this( environment, new ExpressionTypeChecker( environment ) );
-	}
-
-	public StatementTypeChecker( TypeEnvironment environment, ExpressionTypeChecker expressionChecker ) {
 		this.environment = environment;
-		this.expressionChecker = expressionChecker;
-		this.helper = new TypeCheckerHelper( this.environment );
+		this.expressionChecker = new ExpressionTypeChecker( this.environment );
 	}
 
 	private Type typeOf( Expression expression ) {
-		return this.helper.typeOf( expression );
+		return ExpressionTypeResolver.typeOf( expression, this.environment );
+	}
+
+	private void addError( Error error ) {
+		this.environment.addError( error );
 	}
 
 	private Boolean checkCondition( Expression condition, Node node ) {
@@ -41,7 +40,11 @@ class StatementTypeChecker implements StatementVisitor<Boolean> {
 		Type conditionType = this.typeOf( condition );
 
 		if ( !conditionType.isCompatibleToBool() ) {
-			this.helper.addIncompatibleTypeError( node.toString(), "Boolean", conditionType.getName(), node );
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypeError(
+					node.toString(), "Boolean", conditionType.getName(), node
+				)
+			);
 			return false;
 		}
 
@@ -81,11 +84,9 @@ class StatementTypeChecker implements StatementVisitor<Boolean> {
 			Type declaredType = node.getType();
 
 			if ( !identType.equals( declaredType ) ) {
-				this.helper.addAlreadyDeclaredError(
-					node.getIdentifier().getName(),
-					node
+				this.addError(
+					TypeErrorFactory.createAlreadyDeclaredError( node.getIdentifier().getName(), node )
 				);
-
 				return false;
 			}
 
@@ -116,7 +117,11 @@ class StatementTypeChecker implements StatementVisitor<Boolean> {
 		Type rightType = this.typeOf( node.getExpression() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			this.helper.addIncompatibleTypesError( node.toString(), leftType.getName(), rightType.getName(), node );
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypesError(
+					node.toString(), leftType.getName(), rightType.getName(), node
+				)
+			);
 			return false;
 		}
 

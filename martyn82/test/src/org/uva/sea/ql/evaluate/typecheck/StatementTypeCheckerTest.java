@@ -27,10 +27,6 @@ import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.evaluate.typecheck.ExpressionTypeChecker;
-import org.uva.sea.ql.evaluate.typecheck.StatementTypeChecker;
-import org.uva.sea.ql.evaluate.typecheck.TypeEnvironment;
-import org.uva.sea.ql.evaluate.typecheck.TypeError;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {
@@ -43,7 +39,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 
 		this.environment = new TypeEnvironment();
 		this.expressionChecker = new ExpressionTypeChecker( this.environment );
-		this.statementChecker = new StatementTypeChecker( this.environment, this.expressionChecker );
+		this.statementChecker = new StatementTypeChecker( this.environment );
 	}
 
 	private Boolean typeCheck( Statement statement ) {

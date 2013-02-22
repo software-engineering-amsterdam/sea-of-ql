@@ -17,6 +17,10 @@ import org.uva.sea.ql.ast.expression.binary.comparison.NotEqualExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.AndExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.LogicalExpression;
 import org.uva.sea.ql.ast.expression.binary.logical.OrExpression;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.logical.UnaryLogicalExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
@@ -24,19 +28,22 @@ import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.UnaryNumericExpression;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.UndefinedType;
+import org.uva.sea.ql.evaluate.Error;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
-	private final TypeCheckerHelper helper;
 	private final TypeEnvironment environment;
 
 	public ExpressionTypeChecker( TypeEnvironment environment ) {
 		this.environment = environment;
-		this.helper = new TypeCheckerHelper( this.environment );
 	}
 
 	private Type typeOf( Expression expression ) {
-		return this.helper.typeOf( expression );
+		return ExpressionTypeResolver.typeOf( expression, this.environment );
+	}
+
+	private void addError( Error error ) {
+		this.environment.addError( error );
 	}
 
 	private Boolean visitArithmeticExpression( ArithmeticExpression node ) {
@@ -51,11 +58,13 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			this.helper.addIncompatibleTypesError(
-				node.toString(),
-				"Number",
-				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
-				node
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypesError(
+					node.toString(),
+					"Number",
+					String.format( "%s and %s", leftType.getName(), rightType.getName() ),
+					node
+				)
 			);
 			return false;
 		}
@@ -75,11 +84,13 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToBool() && rightType.isCompatibleToBool() ) ) {
-			this.helper.addIncompatibleTypesError(
-				node.toString(),
-				"Boolean",
-				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
-				node
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypesError(
+					node.toString(),
+					"Boolean",
+					String.format( "%s and %s", leftType.getName(), rightType.getName() ),
+					node
+				)
 			);
 			return false;
 		}
@@ -99,11 +110,13 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !( leftType.isCompatibleToNumber() && rightType.isCompatibleToNumber() ) ) {
-			this.helper.addIncompatibleTypesError(
-				node.toString(),
-				"Number",
-				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
-				node
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypesError(
+					node.toString(),
+					"Number",
+					String.format( "%s and %s", leftType.getName(), rightType.getName() ),
+					node
+				)
 			);
 			return false;
 		}
@@ -119,8 +132,10 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type expressionType = this.typeOf( node.getExpression() );
 
 		if ( !expressionType.isCompatibleToBool() ) {
-			this.helper.addIncompatibleTypeError(
-				node.toString(), "Boolean.", expressionType.getName(), node
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypeError(
+					node.toString(), "Boolean.", expressionType.getName(), node
+				)
 			);
 			return false;
 		}
@@ -136,8 +151,10 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type expressionType = this.typeOf( node.getExpression() );
 
 		if ( !expressionType.isCompatibleToNumber() ) {
-			this.helper.addIncompatibleTypeError(
-				node.toString(), "Number.", expressionType.getName(), node
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypeError(
+					node.toString(), "Number.", expressionType.getName(), node
+				)
 			);
 			return false;
 		}
@@ -157,11 +174,13 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type rightType = this.typeOf( node.getRhs() );
 
 		if ( !leftType.isCompatibleTo( rightType ) ) {
-			this.helper.addIncompatibleTypesError(
-				node.toString(),
-				"same",
-				String.format( "%s and %s", leftType.getName(), rightType.getName() ),
-				node
+			this.addError(
+				TypeErrorFactory.createIncompatibleTypesError(
+					node.toString(),
+					"same",
+					String.format( "%s and %s", leftType.getName(), rightType.getName() ),
+					node
+				)
 			);
 			return false;
 		}
@@ -170,22 +189,22 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.IntegerLiteral node ) {
+	public Boolean visit( IntegerLiteral node ) {
 		return this.typeOf( node ).isCompatibleToInt();
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.BooleanLiteral node ) {
+	public Boolean visit( BooleanLiteral node ) {
 		return this.typeOf( node ).isCompatibleToBool();
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.MoneyLiteral node ) {
+	public Boolean visit( MoneyLiteral node ) {
 		return this.typeOf( node ).isCompatibleToMoney();
 	}
 
 	@Override
-	public Boolean visit( org.uva.sea.ql.ast.expression.literal.StringLiteral node ) {
+	public Boolean visit( StringLiteral node ) {
 		return this.typeOf( node ).isCompatibleToStr();
 	}
 
@@ -194,7 +213,9 @@ class ExpressionTypeChecker implements ExpressionVisitor<Boolean> {
 		Type identifierType = this.typeOf( node );
 
 		if ( identifierType.equals( UndefinedType.UNDEFINED ) ) {
-			this.helper.addUndefinedError( node.getName(), node );
+			this.addError(
+				TypeErrorFactory.createUndefinedError( node.getName(), node )
+			);
 			return false;
 		}
 
