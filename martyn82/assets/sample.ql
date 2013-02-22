@@ -12,5 +12,12 @@ form Box1HouseOwning {
         "Private debts for the sold house:" privateDebt  : money
         "Price the house was sold for:"     sellingPrice : money
         "Value residue:"                    valueResidue = sellingPrice - privateDebt
+        
+        if ( valueResidue > 0 ) {
+            "Value is positive"         valuePositive = valueResidue > 0
+        }
+        else {
+            "Value is negative"         valueNegative = valueResidue <= 0
+        }
     }
 }

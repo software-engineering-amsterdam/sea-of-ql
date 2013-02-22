@@ -3,9 +3,9 @@ package org.uva.sea.ql;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.evaluator.FormBuilder;
-import org.uva.sea.ql.evaluator.environment.Binding;
-import org.uva.sea.ql.evaluator.typechecker.TypeChecker;
+import org.uva.sea.ql.evaluate.render.Binding;
+import org.uva.sea.ql.evaluate.render.FormBuilder;
+import org.uva.sea.ql.evaluate.typecheck.TypeChecker;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.QLParser;
 import org.uva.sea.ql.ui.ControlFactory;

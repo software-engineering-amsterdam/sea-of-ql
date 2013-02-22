@@ -2,9 +2,10 @@ package org.uva.sea.ql.ast;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
-import org.uva.sea.ql.ast.expression.binary.arithmetic.AddExpression;
+import org.uva.sea.ql.ast.expression.binary.BinaryExpression;
 import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
-import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
+import org.uva.sea.ql.ast.expression.unary.UnaryExpression;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class ExpressionContractTest {
 	@Test( expected = AssertionError.class )
@@ -19,16 +20,31 @@ public class ExpressionContractTest {
 
 	@Test( expected = AssertionError.class )
 	public void testUnaryExpression() {
-		new NegativeExpression( null );
+		new UnaryExpression( null ) {
+			@Override
+			public <T> T accept( ExpressionVisitor<T> visitor ) {
+				return null;
+			}
+		};
 	}
 
 	@Test( expected = AssertionError.class )
 	public void testBinaryExpression_NoRhs() {
-		new AddExpression( new IntegerLiteral( 0 ), null );
+		new BinaryExpression( new IntegerLiteral( 0 ), null ) {
+			@Override
+			public <T> T accept( ExpressionVisitor<T> visitor ) {
+				return null;
+			}
+		};
 	}
 
 	@Test( expected = AssertionError.class )
 	public void testBinaryExpression_NoLhs() {
-		new AddExpression( null, new IntegerLiteral( 0 ) );
+		new BinaryExpression( null, new IntegerLiteral( 0 ) ) {
+			@Override
+			public <T> T accept( ExpressionVisitor<T> visitor ) {
+				return null;
+			}
+		};
 	}
 }
