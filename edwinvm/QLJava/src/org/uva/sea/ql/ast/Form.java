@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.statements.FormStatement;
 
 public class Form implements ASTNode {
 	private final Ident _name;
