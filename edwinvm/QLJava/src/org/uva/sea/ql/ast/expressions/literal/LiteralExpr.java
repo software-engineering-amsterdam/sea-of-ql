@@ -1,6 +1,6 @@
-package org.uva.sea.ql.ast.expressions;
+package org.uva.sea.ql.ast.expressions.literal;
 
-import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.Expr;
 
 public abstract class LiteralExpr extends Expr {
 	private final Object _value;
