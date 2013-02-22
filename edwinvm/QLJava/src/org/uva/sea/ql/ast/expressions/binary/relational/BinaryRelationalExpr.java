@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.expressions.binary;
+package org.uva.sea.ql.ast.expressions.binary.relational;
 
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
