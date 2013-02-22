@@ -6,7 +6,12 @@ import lang::ql::compiler::ExtractDependencies;
 
 public str generateJSValidateFunctions(list[FormBodyItem] bodyItems){
 	str code="";
-	str formValCode="function formValidate(){\n\tvar isValid=true;";
+	str formValCode="function formValidate(form){\n\tvar isValid=true;";
+	//2. changed by tijs--save/accept the changes, and find other relevant stuff
+	return "<for (/Question q := bodyItems) {>
+           '  <generateVarValidate(q.id, q.questionType, q.label)>;
+           '  if (!<q.id>Validate()) { return false; }	       
+	       '<}>";
 	
 	visit(bodyItems){
 		case q:simpleQuestion(str questionId,str label,Type questionType) : {
@@ -20,7 +25,7 @@ public str generateJSValidateFunctions(list[FormBodyItem] bodyItems){
 			formValCode+="\tif(!isValid) {return false;}\n";
 			}
 	}
-	
+	formValCode+="\texportToCsv(form);\n";
 	formValCode+="}\n";
 	code+=generateStringValidFun();
 	code+=generateIntegerValidFun();
@@ -28,24 +33,29 @@ public str generateJSValidateFunctions(list[FormBodyItem] bodyItems){
 	code+=generateDateValidFun();
 	code+=generateMoneyValidFun();
 	code+=generateFloatValidFun();
+	code+=generateDownloadFun();
 	
 	return formValCode+code;
 }
-
+//3. output source Code as writen bellow
 str generateVarValidate(str questionId,Type questionType,str questionLabel){
 	return "function <questionId>Validate(){
-		 '\tif(<generateTypeValidation(questionId,questionType)>){
-		 '\t\talert(\"Failed on <questionId>\");
-		 '\t\treturn(false);}
-		 '\t\telse {return true;}
-		 '}\n";
+		   '  if(<generateTypeValidation(questionId,questionType)>){
+		   '    alert(\"Failed on <questionId>\");
+		   '    return(false);
+		   '  }
+		   '  else {return true;}
+		   '}
+		   ";
 }
 
-str generateTypeValidation(str questionId,Type questionType){
+
+//4. Change switch to Functions - not open for extensions
+str generateTypeValidation(str questionId, Type questionType){
 	str code="";
 	
-	switch(questionType){
-		case integer() : code= "!validInteger(document.getElementById(\"<questionId>\").value)";
+	 switch(questionType){
+		case integer() : return  "!validInteger(document.getElementById(\"<questionId>\").value)";
 		case string()  : code= "!validString(document.getElementById(\"<questionId>\").value)";
 		case boolean() : code= "!validBoolean(\"<questionId>\")";
 		case date()	   : code= "!validDate(document.getElementById(\"<questionId>\").value)";
@@ -55,7 +65,7 @@ str generateTypeValidation(str questionId,Type questionType){
 	
 	return code;
 }
-
+//5. Remove stuff from here..External JS that provide these functions
 str generateStringValidFun(){
 	return "function validString(input){
     		return !(/[\\\\/&;]/.test(input));}\n\n";
@@ -89,4 +99,19 @@ str generateFloatValidFun(){
 	return "function validFloat(input){
 		if(input==\"\"){return true;}
 		return /^-{0,1}\\d+[.]?\\d{0,2}$/.test(inpt);}\n\n";
+}
+//6. Check for boolean output
+str generateDownloadFun(){
+	return "function exportToCsv(form) {
+            '\tvar myCsv = \"\";
+			'\tfor(i=0; i\<form.elements.length-1; i++)
+			'\tif(form.elements[i].getAttribute(\"type\")!=\"radio\"){
+			'\tmyCsv+=form.elements[i].name +\" : \" +form.elements[i].value + \";\\n\" ;
+			'}
+			'else {
+			'if(form.elements[i].checked) myCsv+=form.elements[i].name + \" : true\\n\" ;
+			'}
+			'\twindow.open(\'data:text/csv;charset=utf-8,\' + escape(myCsv));
+        	'}";
+	
 }

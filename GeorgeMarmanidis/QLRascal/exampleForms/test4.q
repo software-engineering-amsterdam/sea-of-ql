@@ -5,11 +5,9 @@ form test  {
 	age: "Age:" integer
 	mothersage: "mothersage:" integer
 	/*dawdwdawd*/
-	   
-	   agedifference: "agedifference:" integer (mothersage - age)
-	   
-		
-	   if (agedifference>30)
+	agedifference: "agedifference:" integer (mothersage - age)
+	
+	if (agedifference>30)
 		   {
 			   	   if(age>20){
 			   	   	   attitude: "30aDo you see any difference in attitude" boolean 
