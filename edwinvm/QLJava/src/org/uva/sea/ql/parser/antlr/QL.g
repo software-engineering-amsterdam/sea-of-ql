@@ -14,6 +14,8 @@ import org.uva.sea.ql.ast.statements.conditions.*;
 import org.uva.sea.ql.ast.statements.questions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
+import java.util.ArrayList;
+import java.util.List;
 }
 
 @lexer::header
@@ -22,7 +24,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-    :   'form' Ident '{' body=formStatement* '}' { $result = new Form(new Ident($Ident.text), $body.result); }
+    :   'form' Ident '{' body=conditionBody '}' { $result = new Form(new Ident($Ident.text), $body.result); }
     ;
 
 formStatement returns [FormStatement result]
@@ -42,11 +44,11 @@ conditionBlock returns [ConditionBlock result]
         { $result = new IfThen(condition, $ifBody.result); }
     ;
 
-conditionBody returns [FormStatement result]
-    :   '{' body=formStatement '}'  { $result = body; }
-    |   body=formStatement          { $result = body; }
-    |   '{' body=formStatement* '}' { $result = body; }
-    |   body=formStatement*         { $result = body; }
+conditionBody returns [ArrayList<FormStatement> result]
+	@init  { ArrayList<FormStatement> statements = new ArrayList<FormStatement>(); }
+    @after { $result = statements; }
+    :   '{' (body=formStatement { statements.add(body); })+ '}'
+    |   body=formStatement { statements.add(body); }
     ;
 
 primary returns [Expr result]
