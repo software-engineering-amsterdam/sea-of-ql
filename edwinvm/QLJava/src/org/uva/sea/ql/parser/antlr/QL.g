@@ -48,7 +48,7 @@ conditionBody returns [ArrayList<FormStatement> result]
 	@init  { ArrayList<FormStatement> statements = new ArrayList<FormStatement>(); }
     @after { $result = statements; }
     :   '{' (body=formStatement { statements.add(body); })+ '}'
-    |   body=formStatement { statements.add(body); }
+    |   (body=formStatement { statements.add(body); })+
     ;
 
 primary returns [Expr result]
