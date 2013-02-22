@@ -46,11 +46,11 @@ conditionBlock returns [ConditionBlock result]
         { $result = new IfThen(condition, $ifBody.result); }
     ;
 
-conditionBody returns [ArrayList<FormStatement> result]
-	@init  { ArrayList<FormStatement> statements = new ArrayList<FormStatement>(); }
+conditionBody returns [StatementBody result]
+	@init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
-    :   '{' (body=formStatement { statements.add(body); })+ '}'
-    |   (body=formStatement { statements.add(body); })+
+    :   '{' (statement=formStatement { statements.add(statement); })+ '}'
+    |   (statement=formStatement { statements.add(statement); })+
     ;
 
 primary returns [Expr result]

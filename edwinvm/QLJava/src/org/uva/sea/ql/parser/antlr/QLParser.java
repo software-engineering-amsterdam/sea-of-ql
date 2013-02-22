@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-22 17:28:31
+// $ANTLR 3.4 C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-22 17:44:37
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -96,7 +96,7 @@ public class QLParser extends Parser {
         int form_StartIndex = input.index();
 
         Token Ident1=null;
-        ArrayList<FormStatement> body =null;
+        StatementBody body =null;
 
 
         try {
@@ -347,9 +347,9 @@ public class QLParser extends Parser {
 
         Expr condition =null;
 
-        ArrayList<FormStatement> ifBody =null;
+        StatementBody ifBody =null;
 
-        ArrayList<FormStatement> elseBody =null;
+        StatementBody elseBody =null;
 
 
         try {
@@ -464,20 +464,20 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "conditionBody"
-    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:49:1: conditionBody returns [ArrayList<FormStatement> result] : ( '{' (body= formStatement )+ '}' | (body= formStatement )+ );
-    public final ArrayList<FormStatement> conditionBody() throws RecognitionException {
-        ArrayList<FormStatement> result = null;
+    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:49:1: conditionBody returns [StatementBody result] : ( '{' (statement= formStatement )+ '}' | (statement= formStatement )+ );
+    public final StatementBody conditionBody() throws RecognitionException {
+        StatementBody result = null;
 
         int conditionBody_StartIndex = input.index();
 
-        FormStatement body =null;
+        FormStatement statement =null;
 
 
-         ArrayList<FormStatement> statements = new ArrayList<FormStatement>(); 
+         StatementBody statements = new StatementBody(); 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-            // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:5: ( '{' (body= formStatement )+ '}' | (body= formStatement )+ )
+            // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:5: ( '{' (statement= formStatement )+ '}' | (statement= formStatement )+ )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -497,11 +497,11 @@ public class QLParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:9: '{' (body= formStatement )+ '}'
+                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:9: '{' (statement= formStatement )+ '}'
                     {
                     match(input,34,FOLLOW_34_in_conditionBody280); if (state.failed) return result;
 
-                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:13: (body= formStatement )+
+                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:13: (statement= formStatement )+
                     int cnt4=0;
                     loop4:
                     do {
@@ -515,15 +515,15 @@ public class QLParser extends Parser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:14: body= formStatement
+                    	    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:52:14: statement= formStatement
                     	    {
                     	    pushFollow(FOLLOW_formStatement_in_conditionBody285);
-                    	    body=formStatement();
+                    	    statement=formStatement();
 
                     	    state._fsp--;
                     	    if (state.failed) return result;
 
-                    	    if ( state.backtracking==0 ) { statements.add(body); }
+                    	    if ( state.backtracking==0 ) { statements.add(statement); }
 
                     	    }
                     	    break;
@@ -544,9 +544,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:9: (body= formStatement )+
+                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:9: (statement= formStatement )+
                     {
-                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:9: (body= formStatement )+
+                    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:9: (statement= formStatement )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -575,15 +575,15 @@ public class QLParser extends Parser {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:10: body= formStatement
+                    	    // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:10: statement= formStatement
                     	    {
                     	    pushFollow(FOLLOW_formStatement_in_conditionBody304);
-                    	    body=formStatement();
+                    	    statement=formStatement();
 
                     	    state._fsp--;
                     	    if (state.failed) return result;
 
-                    	    if ( state.backtracking==0 ) { statements.add(body); }
+                    	    if ( state.backtracking==0 ) { statements.add(statement); }
 
                     	    }
                     	    break;
@@ -1438,9 +1438,9 @@ public class QLParser extends Parser {
     public final void synpred3_QL_fragment() throws RecognitionException {
         Expr condition =null;
 
-        ArrayList<FormStatement> ifBody =null;
+        StatementBody ifBody =null;
 
-        ArrayList<FormStatement> elseBody =null;
+        StatementBody elseBody =null;
 
 
         // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:43:9: ( 'if' '(' condition= orExpr ')' ifBody= conditionBody 'else' elseBody= conditionBody )
@@ -1479,14 +1479,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start synpred6_QL
     public final void synpred6_QL_fragment() throws RecognitionException {
-        FormStatement body =null;
+        FormStatement statement =null;
 
 
-        // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:10: (body= formStatement )
-        // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:10: body= formStatement
+        // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:10: (statement= formStatement )
+        // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:53:10: statement= formStatement
         {
         pushFollow(FOLLOW_formStatement_in_synpred6_QL304);
-        body=formStatement();
+        statement=formStatement();
 
         state._fsp--;
         if (state.failed) return ;
