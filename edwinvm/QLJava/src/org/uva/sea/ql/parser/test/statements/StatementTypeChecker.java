@@ -27,9 +27,9 @@ public class StatementTypeChecker {
 	
 	public void isAValidStatement(String input)        throws ParseError { assertTrue(checkStatement(input)); }
 	
-	private FormStatement parseStatement(String input) throws ParseError { return parse(input); }
-	
 	public FormStatement parse(String input)           throws ParseError { return (FormStatement) _parser.parse(input); }
+
+	private FormStatement parseStatement(String input) throws ParseError { return parse(input); }
 	
 	private Boolean checkStatement(String input)       throws ParseError {
 		FormStatement statement = parseStatement(input);
