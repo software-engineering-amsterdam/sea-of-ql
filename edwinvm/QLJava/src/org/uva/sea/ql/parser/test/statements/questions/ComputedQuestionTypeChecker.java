@@ -2,8 +2,8 @@ package org.uva.sea.ql.parser.test.statements.questions;
 
 import static org.junit.Assert.assertTrue;
 
-import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserQuestions;
 import org.uva.sea.ql.parser.test.statements.StatementTypeChecker;

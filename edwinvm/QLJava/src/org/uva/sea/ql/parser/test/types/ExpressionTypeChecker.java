@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.LiteralExpr;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;

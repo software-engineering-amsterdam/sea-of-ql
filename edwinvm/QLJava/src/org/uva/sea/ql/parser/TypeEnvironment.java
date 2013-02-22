@@ -3,8 +3,8 @@ package org.uva.sea.ql.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.types.Type;
 
 public class TypeEnvironment {
 	private final Map<Ident, Type> _typeEnvironment;

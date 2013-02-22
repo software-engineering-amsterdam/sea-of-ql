@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.FormStatement;
-import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.Question;
@@ -12,6 +11,7 @@ import org.uva.sea.ql.ast.statements.conditions.IfThen;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;

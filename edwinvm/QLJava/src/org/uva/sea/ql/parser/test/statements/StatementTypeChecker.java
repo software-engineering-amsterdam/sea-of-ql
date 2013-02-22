@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.FormStatement;
-import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.check.statements.StatementChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;

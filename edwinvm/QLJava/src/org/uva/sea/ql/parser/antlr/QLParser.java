@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.statements.conditions.*;
 import org.uva.sea.ql.ast.statements.questions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
