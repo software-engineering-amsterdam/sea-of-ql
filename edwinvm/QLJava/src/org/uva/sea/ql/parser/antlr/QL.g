@@ -35,8 +35,8 @@ formStatement returns [FormStatement result]
     ;
 
 question returns [Question result]
-    :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), t); }
-    |   String Ident '=' e=expression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $e.result); }
+    :   String Ident ':' type     { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $type.result); }
+    |   String Ident '=' expression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $expression.result); }
     ;
 
 conditionBlock returns [ConditionBlock result]
@@ -59,51 +59,56 @@ primary returns [Expression result]
     |   Money  { $result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
     |   String { $result = new org.uva.sea.ql.ast.expressions.literal.Str($String.text); }
     |   Ident  { $result = new Ident($Ident.text); }
-    |   '(' x=expression ')'{ $result = $x.result; }
+    |   '(' e=expression ')'{ $result = $e.result; }
     ;
     
 unaryExpression returns [Expression result]
-    :   '+' x=unaryExpression { $result = new PositiveExpression($x.result); }
-    |   '-' x=unaryExpression { $result = new NegativeExpression($x.result); }
-    |   '!' x=unaryExpression { $result = new NegationalExpression($x.result); }
-    |   x=primary    { $result = $x.result; }
+    :   '+' e=unaryExpression { $result = new PositiveExpression($e.result); }
+    |   '-' e=unaryExpression { $result = new NegativeExpression($e.result); }
+    |   '!' e=unaryExpression { $result = new NegationalExpression($e.result); }
+    |   e=primary             { $result = $e.result; }
     ;    
     
 multiplicationExpression returns [Expression result]
-    :   lhs=unaryExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unaryExpression 
+    :   leftHandSide  = unaryExpression { $result = leftHandSide; } ( op = ('*' | '/') 
+        rightHandSide = unaryExpression 
     { 
-        if ($op.text.equals("*")) { $result = new Multiplication($result, rhs); }
-        if ($op.text.equals("/")) { $result = new Division($result, rhs); }
+        if ($op.text.equals("*")) { $result = new Multiplication(leftHandSide, rightHandSide); }
+        if ($op.text.equals("/")) { $result = new Division(leftHandSide,       rightHandSide); }
     })*
     ;
     
 additionExpression returns [Expression result]
-    :   lhs=multiplicationExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=multiplicationExpression
+    :   leftHandSide  = multiplicationExpression { $result = leftHandSide; } ( op = ('+' | '-') 
+        rightHandSide = multiplicationExpression
     { 
-        if ($op.text.equals("+")) { $result = new Addition($result, rhs); }
-        if ($op.text.equals("-")) { $result = new Subtraction($result, rhs); }
+        if ($op.text.equals("+")) { $result = new Addition(leftHandSide,    rightHandSide); }
+        if ($op.text.equals("-")) { $result = new Subtraction(leftHandSide, rightHandSide); }
     })*
     ;
   
 relationalExpression returns [Expression result]
-    :   lhs=additionExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=additionExpression 
+    :   leftHandSide  = additionExpression { $result = leftHandSide; } ( op = ('<'|'<='|'>'|'>='|'=='|'!=') 
+        rightHandSide = additionExpression 
     { 
-        if ($op.text.equals("<"))  { $result = new LessThanExpression($result, rhs);  }
-        if ($op.text.equals("<=")) { $result = new LessThanOrEqualToExpression($result, rhs); }
-        if ($op.text.equals(">"))  { $result = new GreaterThanExpression($result, rhs);  }
-        if ($op.text.equals(">=")) { $result = new GreaterThanOrEqualToExpression($result, rhs); }
-        if ($op.text.equals("==")) { $result = new EqualToExpression($result, rhs);  }
-        if ($op.text.equals("!=")) { $result = new NotEqualToExpression($result, rhs); }
+        if ($op.text.equals("<"))  { $result = new LessThanExpression(leftHandSide,             rightHandSide); }
+        if ($op.text.equals("<=")) { $result = new LessThanOrEqualToExpression(leftHandSide,    rightHandSide); }
+        if ($op.text.equals(">"))  { $result = new GreaterThanExpression(leftHandSide,          rightHandSide); }
+        if ($op.text.equals(">=")) { $result = new GreaterThanOrEqualToExpression(leftHandSide, rightHandSide); }
+        if ($op.text.equals("==")) { $result = new EqualToExpression(leftHandSide,              rightHandSide); }
+        if ($op.text.equals("!=")) { $result = new NotEqualToExpression(leftHandSide,           rightHandSide); }
     })*
     ;
     
 logicallyEquivalentExpression returns [Expression result]
-    :   lhs=relationalExpression { $result=$lhs.result; } ( '&&' rhs=relationalExpression { $result = new LogicallyEquivalentExpression($result, rhs); } )*
+    :   leftHandSide  = relationalExpression { $result = leftHandSide; } ( '&&' 
+        rightHandSide = relationalExpression { $result = new LogicallyEquivalentExpression(leftHandSide, rightHandSide); } )*
     ;
     
 
 logicallyNotEquivalentExpression returns [Expression result]
-    :   lhs=logicallyEquivalentExpression { $result = $lhs.result; } ( '||' rhs=logicallyEquivalentExpression { $result = new LogicallyNotEquivalentExpression($result, rhs); } )*
+    :   leftHandSide  = logicallyEquivalentExpression { $result = leftHandSide; } ( '||' 
+        rightHandSide = logicallyEquivalentExpression { $result = new LogicallyNotEquivalentExpression(leftHandSide, rightHandSide); } )*
     ;
 
 expression returns [Expression result]
