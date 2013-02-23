@@ -124,6 +124,6 @@ class AcceptFinder implements ExpressionVisitor {
 
     @Override
     public void visit(BoolLiteral b) throws QLException {
-        throw new NotImplementedException();
+        this.result = BooleanType.class;
     }
 }

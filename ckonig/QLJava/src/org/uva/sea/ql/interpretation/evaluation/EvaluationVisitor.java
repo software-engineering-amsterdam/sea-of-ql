@@ -27,8 +27,6 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public abstract class EvaluationVisitor implements ExpressionVisitor {
     protected SwingRegistry registry;
     protected boolean boolRet;
@@ -146,7 +144,7 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public void visit(BoolLiteral b) throws QLException {
-        throw new NotImplementedException();
+        this.boolRet = b.getValue();
     }
 
     private boolean checkReturn(BinaryExpr ex, Class<?> type)

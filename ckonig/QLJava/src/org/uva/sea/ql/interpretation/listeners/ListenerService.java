@@ -79,9 +79,8 @@ public final class ListenerService {
 
         @Override
         public final void visit(IntType i) {
-            if (this.questionPanel.hasAutoValue()) {
-                throw new NotImplementedException();
-            }
+            this.helper = new MathHelper();
+            this.tryToAddListeners();
         }
 
         @Override
