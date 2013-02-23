@@ -6,8 +6,8 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
-public class Neg extends UnaryExpression {
-	public Neg(Expression expression) {
+public class NegativeExpression extends UnaryExpression {
+	public NegativeExpression(Expression expression) {
 		super(expression);
 	}
 	

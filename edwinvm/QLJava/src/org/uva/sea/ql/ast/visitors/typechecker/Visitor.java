@@ -17,9 +17,9 @@ import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
-import org.uva.sea.ql.ast.expressions.unary.Neg;
-import org.uva.sea.ql.ast.expressions.unary.Not;
-import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
+import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
+import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
 
 public interface Visitor<T> {
 	
@@ -42,9 +42,9 @@ public interface Visitor<T> {
 	T visit(NotEqualToExpression ast);
 	
 	// Unary expressions
-	T visit(Neg ast);
-	T visit(Not ast);
-	T visit(Pos ast);
+	T visit(NegativeExpression ast);
+	T visit(NegationalExpression ast);
+	T visit(PositiveExpression ast);
 	
 	// Literal expressions
 	T visit(Bool ast);

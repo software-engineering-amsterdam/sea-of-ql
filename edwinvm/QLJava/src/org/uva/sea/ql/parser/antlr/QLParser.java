@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 22:10:58
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 22:27:49
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -825,7 +825,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Pos(x); }
+                    if ( state.backtracking==0 ) { result = new PositiveExpression(x); }
 
                     }
                     break;
@@ -840,7 +840,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Neg(x); }
+                    if ( state.backtracking==0 ) { result = new NegativeExpression(x); }
 
                     }
                     break;
@@ -855,7 +855,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Not(x); }
+                    if ( state.backtracking==0 ) { result = new NegationalExpression(x); }
 
                     }
                     break;
