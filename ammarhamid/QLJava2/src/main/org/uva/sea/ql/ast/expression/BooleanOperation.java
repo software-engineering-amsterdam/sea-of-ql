@@ -26,7 +26,7 @@ public abstract class BooleanOperation extends BinaryNode
         boolean compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
         if(!compatible)
         {
-            errors.add(new Message("Invalid type for " + getOperator(), this));
+            errors.add(createErrorMessage());
         }
 
         return compatible;

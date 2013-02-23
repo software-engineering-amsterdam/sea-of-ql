@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.Message;
+
 public abstract class BinaryNode extends ExprNode
 {
     protected final ExprNode lhs;
@@ -22,6 +24,11 @@ public abstract class BinaryNode extends ExprNode
     }
 
     protected abstract String getOperator();
+
+    protected Message createErrorMessage()
+    {
+        return new Message("Invalid type for " + getOperator() + ' ', this);
+    }
 
     @Override
     public String toString()

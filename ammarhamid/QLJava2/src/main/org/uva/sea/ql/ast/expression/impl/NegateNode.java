@@ -12,7 +12,6 @@ import java.util.Collection;
 
 public class NegateNode extends UnaryNode
 {
-    private static final String OPERATOR = "-";
 
     public NegateNode(final ExprNode exprNode)
     {
@@ -46,16 +45,16 @@ public class NegateNode extends UnaryNode
 
         if(!compatible)
         {
-            errors.add(new Message("Invalid type for " + OPERATOR, this));
+            errors.add(createErrorMessage());
         }
 
         return compatible;
     }
 
     @Override
-    public String toString()
+    protected String getOperator()
     {
-        return  OPERATOR + exprNode.toString();
+        return "-";
     }
 
 }

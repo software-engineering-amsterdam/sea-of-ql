@@ -3,6 +3,8 @@ package org.uva.sea.ql.visitor.impl;
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
+import org.uva.sea.ql.ast.statement.BlockNode;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.visitor.StatementVisitor;
@@ -35,8 +37,24 @@ public class StatementCheckVisitor implements StatementVisitor
         List<IfNode.Branch> branches = ifNode.getBranches();
         for(final IfNode.Branch branch : branches)
         {
-            final ExprNode exprNode = branch.getExprNode();
-            exprNode.validate(errors);
+            validateExpression(branch);
+            validateBlock(branch);
+        }
+    }
+
+    private void validateExpression(IfNode.Branch branch)
+    {
+        final ExprNode exprNode = branch.getExprNode();
+        exprNode.validate(errors);
+    }
+
+    private void validateBlock(IfNode.Branch branch)
+    {
+        final BlockNode block = branch.getBlock();
+        final Collection<Statement> statements = block.getStatements();
+        for(Statement statement : statements)
+        {
+            statement.accept(this);
         }
     }
 

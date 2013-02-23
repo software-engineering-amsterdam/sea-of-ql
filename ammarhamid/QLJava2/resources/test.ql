@@ -9,7 +9,7 @@ form TestQL
     }
     else
     {
-        "Definitely sure?" sure: boolean
+        "Definitely sure?" houseSure: boolean
     }
 
     "Are you married?" married: boolean
@@ -21,11 +21,11 @@ form TestQL
     "Did you sell a car in 2010?" hasSoldCar: boolean
     if(hasSoldCar || married)
     {
-        "Car price?" housePrice: integer
+        "Car price?" carPrice: integer
     }
     else
     {
-        "Absolutely sure?" sure: boolean
+        "Absolutely sure?" carSure: boolean
     }
 
 }

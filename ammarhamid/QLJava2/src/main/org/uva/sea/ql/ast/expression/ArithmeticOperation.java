@@ -26,7 +26,7 @@ public abstract class ArithmeticOperation extends BinaryNode
         boolean compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
         if(!compatible)
         {
-            errors.add(new Message("Invalid type for " + getOperator(), this));
+            errors.add(createErrorMessage());
         }
 
         return compatible;
