@@ -1,0 +1,25 @@
+package org.uva.sea.ql.ast.statements;
+
+import java.util.ArrayList;
+import org.uva.sea.ql.semanticCheck.FormStmtVisitor;
+
+public class BlockOfStatements extends AStatement {
+	private final ArrayList<AStatement> blStmts; 
+	
+	public BlockOfStatements(ArrayList<AStatement> blStmts) {
+		this.blStmts = blStmts;
+	}
+	
+	public void addStatement(AStatement stmt) {
+		blStmts.add(stmt);
+	}
+	
+	public ArrayList<AStatement> getBlStmt() {
+		return blStmts;
+	}
+	
+	@Override
+	public <T> T accept(FormStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
+	}
+}
