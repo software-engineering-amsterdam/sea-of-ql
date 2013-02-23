@@ -23,6 +23,7 @@ public class QLMainApp
         final FormNode formNode= parser.parseFormFromFile(qlFilename);
         final BlockNode blockNode = formNode.getBlockNode();
         final Collection<Statement> statements = blockNode.getStatements();
+        final VariableState variableState = new VariableState();
 
         SwingUtilities.invokeLater(new Runnable()
         {
@@ -39,11 +40,13 @@ public class QLMainApp
 
                 final JFrame frame = new JFrame(formNode.getFormName());
                 final JPanel mainPanel = new JPanel(new MigLayout("hidemode 3"));
-                final VariableState variableState = new VariableState();
+
+                // render statements widget
                 for(final Statement statement : statements)
                 {
                     StatementWidgetVisitor.render(frame, mainPanel, statement, variableState);
                 }
+
                 frame.getContentPane().add(mainPanel);
                 frame.pack();
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

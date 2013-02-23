@@ -5,12 +5,15 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.uva.sea.ql.Message;
+import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.parser.exception.ParserException;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QLParserTest
 {
@@ -78,26 +81,44 @@ public class QLParserTest
         System.out.println("walk = " + expression.node.evaluate());
     }
 
-    @Ignore
-    public void ifStatementTest() throws RecognitionException
+    @Test
+    public void invalidIfStatementTest() throws RecognitionException
     {
-        final String validSrc = "" +
-                "	if (1+1==2) " +
-                "	{ " +
-                "		hasNothing: \"nothing?\" boolean " +
-                "		hasNothing2: \"nothing?\" boolean " +
-                "	}" +
-                "	else" +
-                "	{" +
-                "		hasNothing: \"nothing?\" boolean " +
-                "	}";
+        final String invalidSrc =
+            "	if (1 + true == 3) " +
+            "	{ " +
+            "		\"nothing?\" hasNothing: boolean " +
+            "	}";
+        testIfStatement(invalidSrc, false, 1);
+    }
 
-        final QLParser qlParser = this.parser.createQLParser(validSrc);
+    @Test
+    public void validIfStatementTest() throws RecognitionException
+    {
+        final String validSrc =
+            "	if (1 + 2 == 3) " +
+            "	{ " +
+            "		\"nothing?\" hasNothing: boolean " +
+            "	}";
+        testIfStatement(validSrc, true, 0);
+    }
+
+    private void testIfStatement(final String source, final boolean expectedValidationResult, final int errorMessageSize) throws RecognitionException
+    {
+        final QLParser qlParser = this.parser.createQLParser(source);
         final CommonTree commonTree = (CommonTree) qlParser.ifStatement().getTree();
         final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
         final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
-        QLTreeWalker.ifStatement_return expression = qlTreeWalker.ifStatement();
-//        System.out.println("Test " +expression.node.evaluate());
+        IfNode ifNode = qlTreeWalker.ifStatement().node;
+        List<IfNode.Branch> branches = ifNode.getBranches();
+        final List<Message> messages = new ArrayList<>();
+        for(IfNode.Branch branch : branches)
+        {
+            final boolean validate = branch.getExprNode().validate(messages);
+            Assert.assertEquals("The result should be the same", expectedValidationResult, validate);
+        }
+
+        Assert.assertEquals("The result should be the same", errorMessageSize, messages.size());
     }
 
     @Test

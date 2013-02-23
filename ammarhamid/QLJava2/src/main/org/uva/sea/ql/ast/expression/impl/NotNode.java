@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ErrorMessage;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.ast.expression.UnaryNode;
 import org.uva.sea.ql.type.Type;
@@ -33,14 +33,20 @@ public class NotNode extends UnaryNode
     }
 
     @Override
-    public boolean validate(final Collection<ErrorMessage> errors)
+    public Type getType()
     {
-        final Type type = this.exprNode.evaluate().getType();
-        final boolean compatible = type.isCompatibleTo(new BooleanType());
+        return new BooleanType();
+    }
+
+    @Override
+    public boolean validate(final Collection<Message> errors)
+    {
+        final Type type = this.exprNode.getType();
+        final boolean compatible = type.isCompatibleToBoolean();
 
         if(!compatible)
         {
-            errors.add(new ErrorMessage(this, "Invalid type for " + OPERATOR));
+            errors.add(new Message("Invalid type for " + OPERATOR, this));
         }
 
         return compatible;

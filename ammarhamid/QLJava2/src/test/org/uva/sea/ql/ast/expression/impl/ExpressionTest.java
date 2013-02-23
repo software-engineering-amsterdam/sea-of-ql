@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expression.impl;
 
 import junit.framework.Assert;
 import org.junit.Test;
-import org.uva.sea.ql.ErrorMessage;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.impl.BooleanValue;
 import org.uva.sea.ql.value.impl.IntegerValue;
@@ -177,9 +177,9 @@ public class ExpressionTest
 
     private void invalidTypeTest(final ExprNode exprNode)
     {
-        Collection<ErrorMessage> errorMessages = new ArrayList<>();
-        exprNode.validate(errorMessages);
-        Assert.assertTrue("Error message should be exist", errorMessages.size() > 0);
+        Collection<Message> messages = new ArrayList<>();
+        exprNode.validate(messages);
+        Assert.assertTrue("Error message should be exist", messages.size() > 0);
     }
 
 }

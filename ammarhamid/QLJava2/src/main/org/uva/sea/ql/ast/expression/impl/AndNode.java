@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.expression.BinaryNode;
+import org.uva.sea.ql.ast.expression.BooleanOperation;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.value.impl.BooleanValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class AndNode extends BinaryNode
+public class AndNode extends BooleanOperation
 {
 
     public AndNode(final ExprNode lhs, final ExprNode rhs)

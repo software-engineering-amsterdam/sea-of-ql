@@ -15,6 +15,7 @@ public class AssignmentNode implements Statement
     {
         this.question = question;
         this.identifierNode = new IdentifierNode(identifier);
+        this.identifierNode.setType(type);
         this.type = type;
     }
 

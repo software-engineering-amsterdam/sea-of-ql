@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ErrorMessage;
-import org.uva.sea.ql.variable.VariableState;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
@@ -11,6 +12,7 @@ import java.util.Collection;
 public class IdentifierNode extends ExprNode
 {
     public final String identifier;
+    public Type type;
 
     public IdentifierNode(final String identifier)
     {
@@ -30,16 +32,21 @@ public class IdentifierNode extends ExprNode
     }
 
     @Override
-    public boolean validate(Collection<ErrorMessage> errorMessages)
+    public boolean validate(Collection<Message> messages)
     {
-        // TODO use contains key rather than check its value
-        final Value value = VariableState.getVariables().get(this);
-        if(value == null)
-        {
-            errorMessages.add(new ErrorMessage(this, "Undefined variable: " + this.identifier));
-        }
+        // TODO check if validate is correct
+        return type.isCompatibleToBoolean();
+    }
 
-        return value != null;
+    public void setType(Type type)
+    {
+        this.type = type;
+    }
+
+    @Override
+    public Type getType()
+    {
+        return type;
     }
 
     @Override

@@ -30,6 +30,7 @@ public class VariableState
 
     private void notifyObservers(IdentifierNode identifierNode)
     {
+        // TODO check for NPE
         Collection<ObservableStatement> observableStatements = observables.get(identifierNode);
         for(final ObservableStatement observableStatement : observableStatements)
         {

@@ -2,15 +2,15 @@ package org.uva.sea.ql;
 
 import org.uva.sea.ql.ast.expression.ExprNode;
 
-public class ErrorMessage
+public class Message
 {
     private final String message;
     private final ExprNode exprNode;
 
-    public ErrorMessage(final ExprNode exprNode, final String message)
+    public Message(final String message, final ExprNode exprNode)
     {
-        this.exprNode = exprNode;
         this.message = message;
+        this.exprNode = exprNode;
     }
 
     public ExprNode getExprNode()
@@ -21,5 +21,14 @@ public class ErrorMessage
     public String getMessage()
     {
         return message;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Message{" +
+                "message='" + message + '\'' +
+                ", exprNode=" + exprNode +
+                '}';
     }
 }

@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.expression.BinaryNode;
+import org.uva.sea.ql.ast.expression.ArithmeticOperation;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class EqualNode extends BinaryNode
+public class EqualNode extends ArithmeticOperation
 {
 
     public EqualNode(final ExprNode lhs, final ExprNode rhs)

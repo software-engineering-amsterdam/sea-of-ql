@@ -67,7 +67,7 @@ statement returns [Statement node]
 		| assignmentStatement { $node = $assignmentStatement.node; }
 	;
 
-ifStatement returns [Statement node]
+ifStatement returns [IfNode node]
 @init
 {
     final IfNode ifNode = new IfNode();
@@ -79,7 +79,7 @@ ifStatement returns [Statement node]
 	     )
 	;
 
-assignmentStatement returns [Statement node]
+assignmentStatement returns [AssignmentNode node]
 	:	^(ASSIGNMENT StringLiteral Identifier type) { $node = new AssignmentNode($StringLiteral.text, $Identifier.text, $type.type); }
 	;
 

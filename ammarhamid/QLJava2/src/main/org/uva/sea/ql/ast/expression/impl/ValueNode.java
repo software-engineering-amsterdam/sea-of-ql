@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ErrorMessage;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
@@ -29,13 +30,20 @@ public class ValueNode extends ExprNode
     }
 
     @Override
-    public boolean validate(Collection<ErrorMessage> errorMessages)
+    public Type getType()
+    {
+        return this.value.getType();
+    }
+
+    @Override
+    public boolean validate(Collection<Message> messages)
     {
         return true;
     }
 
-    public ExprNode getExprNode()
+    @Override
+    public String toString()
     {
-        return this;
+        return value.toString();
     }
 }
