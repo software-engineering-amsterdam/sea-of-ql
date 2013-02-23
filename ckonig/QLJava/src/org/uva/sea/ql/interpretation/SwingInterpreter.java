@@ -7,10 +7,10 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import org.uva.sea.ql.interpretation.components.ContentPanel;
 import org.uva.sea.ql.interpretation.components.LeftPanel;
 import org.uva.sea.ql.interpretation.components.PanelDimensions;
 import org.uva.sea.ql.interpretation.components.TopPanel;
-import org.uva.sea.ql.interpretation.components.content.ContentPanel;
 
 public class SwingInterpreter extends JFrame {
     private static final long serialVersionUID = -1942492887122279651L;

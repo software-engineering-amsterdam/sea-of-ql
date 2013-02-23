@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.components;
+package org.uva.sea.ql.interpretation.components.control;
 
 import java.io.File;
 

@@ -18,8 +18,7 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
-import org.uva.sea.ql.interpretation.evaluation.BoolEvaluator;
-import org.uva.sea.ql.interpretation.evaluation.MathEvaluator;
+import org.uva.sea.ql.interpretation.evaluation.Evaluator;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.listeners.UserInputReader;
 
@@ -94,13 +93,13 @@ public final class QuestionPanel extends JPanel {
         final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
                 (Expression) e);
         if (f.getResult().equals(BooleanType.class)) {
-            final boolean result = new BoolEvaluator(registry).eval(e);
+            final boolean result = new Evaluator(registry, true).evalBool(e);
             ((JCheckBox) this.input).setSelected(result);
             return;
         }
         if (f.getResult().equals(AbstractMathType.class)) {
             try {
-                final float result = new MathEvaluator(registry, true).eval(e);
+                final float result = new Evaluator(registry, true).evalFloat(e);
                 ((JTextField) this.input).setText(Float.toString(result));
             } catch (EmptyInputException ex) {
                 // no input? no output!

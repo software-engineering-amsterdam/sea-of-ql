@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.components.content;
+package org.uva.sea.ql.interpretation.components;
 
 import javax.swing.JPanel;
 
