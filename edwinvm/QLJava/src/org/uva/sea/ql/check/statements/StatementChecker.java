@@ -14,6 +14,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
+import org.uva.sea.ql.parser.Message;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
 public class StatementChecker implements Visitor {
@@ -83,7 +84,7 @@ public class StatementChecker implements Visitor {
 	}
 	
 	private void addError(Ident ident) {
-		_errorMessages.add("Invalid type for identifier " + ident.getValue().toString());
+		_errorMessages.add(new Message("Invalid type for identifier " + ident.getValue()));
 	}
 	
 }

@@ -6,15 +6,15 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpressi
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
-import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpression;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyNotEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.BinaryRelationalExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
-import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
-import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
@@ -22,13 +22,14 @@ import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.LiteralExpression;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
-import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
+import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpression;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.ErrorMessages;
+import org.uva.sea.ql.parser.Message;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
 public class TypeChecker implements Visitor<Boolean> {
@@ -197,6 +198,6 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private void addError(Expression expression, String errorMessage) {
-		_errorMessages.add("Type error for expr " + expression.toString() + ": " + errorMessage);
+		_errorMessages.add(new Message("Type error for expr " + expression + ": " + errorMessage));
 	}
 }

@@ -10,8 +10,8 @@ public class ErrorMessages {
 		_errorMessages = new ArrayList<Message>();
 	}
 	
-	public void add(String message) {
-		_errorMessages.add(new Message(message));
+	public void add(Message message) {
+		_errorMessages.add(message);
 	}
 	
 	public Boolean hasErrors() {
