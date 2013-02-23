@@ -1,4 +1,4 @@
-package eu.karuza.ql.service;
+package eu.karuza.ql.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,12 +14,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import eu.karuza.ql.QLFrontEndException;
-
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import eu.karuza.ql.QLFrontEndException;
+import eu.karuza.ql.service.IConnectionService;
 
-public class ConnectionService {
+public class ConnectionService implements IConnectionService {
 
 	public InputStream createGetConnection(ConnectivityManager connectionManager, String urlString) throws QLFrontEndException {
 		if (isNetworkAvailable(connectionManager)) {
@@ -28,13 +28,13 @@ public class ConnectionService {
 			try {
 				url = new URL(urlString);
 			} catch (MalformedURLException e) {
-				throw new QLFrontEndException();
+				throw new QLFrontEndException(e);
 			}
 			try {
 				connection = url.openConnection();
 				return connection.getInputStream();
 			} catch (IOException e) {
-				throw new QLFrontEndException();
+				throw new QLFrontEndException("Malformed URL: " + urlString);
 			}
 		} else {
 			throw new QLFrontEndException("No connection available");
@@ -53,11 +53,11 @@ public class ConnectionService {
 				HttpResponse response = client.execute(post);
 				return response.getEntity().getContent();
 			} catch (UnsupportedEncodingException e) {
-				throw new QLFrontEndException();
+				throw new QLFrontEndException(e);
 			} catch (ClientProtocolException e) {
-				throw new QLFrontEndException();
+				throw new QLFrontEndException(e);
 			} catch (IOException e) {
-				throw new QLFrontEndException();
+				throw new QLFrontEndException(e);
 			}
 		} else {
 			throw new QLFrontEndException("No connection available");
