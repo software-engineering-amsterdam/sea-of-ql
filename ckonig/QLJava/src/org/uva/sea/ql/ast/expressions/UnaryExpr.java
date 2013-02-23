@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.interpretation.TreeVisitor;
+import org.uva.sea.ql.common.RecursiveIdentVisitor;
 
 public class UnaryExpr extends Expr implements TreeNode {
 	private Expr adjacent;
@@ -15,7 +15,7 @@ public class UnaryExpr extends Expr implements TreeNode {
 	}
 
     @Override
-    public final void accept(TreeVisitor v) {
+    public final void accept(RecursiveIdentVisitor v) {
        v.visit(this);
     }
 }

@@ -9,6 +9,7 @@ import org.uva.sea.ql.parser.ParseError;
 public class Validator {
     private boolean throwExceptions;
     private List<String> errors;
+
     public Validator() {
         this.throwExceptions = false;
     }
@@ -17,13 +18,15 @@ public class Validator {
         this();
         this.throwExceptions = throwErrors;
     }
-    
-    public final List<String> getErrors(){
+
+    public final List<String> getErrors() {
         return this.errors;
     }
-    public final boolean hasErrors(){
+
+    public final boolean hasErrors() {
         return this.errors.size() > 0;
     }
+
     public final void validate(Form e) throws AstValidationError {
         try {
             if (e != null) {

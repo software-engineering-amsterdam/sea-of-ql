@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.ReturnFinder;
+import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 
 public class ValidationVisitor implements ElementVisitor {
     private Registry registry;
@@ -33,12 +33,12 @@ public class ValidationVisitor implements ElementVisitor {
         this();
         this.throwExceptions = throwErrors;
     }
-    
-    public final List<String> getErrors(){
+
+    public final List<String> getErrors() {
         return this.errors;
     }
-    
-    public final boolean hasErrors(){
+
+    public final boolean hasErrors() {
         return this.errors.size() > 0;
     }
 
@@ -73,9 +73,9 @@ public class ValidationVisitor implements ElementVisitor {
 
     @Override
     public final void visit(IfStatement ifStatement) throws QLException {
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         final Expr condition = ifStatement.getCondition();
-        ((Evaluatable) condition).accept(f);
+        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
+                ((Evaluatable) condition));
         final Class<?> r = f.getResult();
         if (r.equals(BooleanType.class)) {
             this.visit(ifStatement.getCondition());
@@ -98,8 +98,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void visit(Expr operator) throws QLException {
         final AcceptFinder f = new AcceptFinder();
-        ((Evaluatable) operator).accept(f); 
-        System.out.println("visiting " + operator.getClass());
+        ((Evaluatable) operator).accept(f);
         if (f.getResult().equals(BooleanType.class)) {
             if (!(bothhaveEqualReturnType(operator, BooleanType.class))) {
                 throwError(operator, "boolean");
@@ -107,7 +106,8 @@ public class ValidationVisitor implements ElementVisitor {
         }
         if (f.getResult().equals(AbstractMathType.class)) {
             if (!(bothhaveEqualReturnType(operator, AbstractMathType.class))) {
-                throwError(operator, "math ( "+ f.getResult().toString()+") ");
+                throwError(operator, "math ( " + f.getResult().toString()
+                        + ") ");
             }
         }
         if (f.getResult().equals(AbstractType.class)) {
@@ -120,8 +120,8 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void throwError(Expr r, String msg) throws AstValidationError {
         final BinaryExpr b = (BinaryExpr) r;
-        final String err = "BOTH childs of " + r.getClass() + " must return " + msg
-                + " operands: " + b.getLeft().getClass() + ", "
+        final String err = "BOTH childs of " + r.getClass() + " must return "
+                + msg + " operands: " + b.getLeft().getClass() + ", "
                 + b.getRight().getClass();
         if (this.throwExceptions) {
             throw new AstValidationError(err);
@@ -136,13 +136,13 @@ public class ValidationVisitor implements ElementVisitor {
         final Class<?> left = this.getReturnTypes(b.getLeft());
         final Class<?> right = this.getReturnTypes(b.getRight());
         System.out.println(left + " - " + right);
-        return  left.equals(type) && right.equals(type);
+        return left.equals(type) && right.equals(type);
     }
 
     private Class<?> getReturnTypes(Expr e) throws QLException {
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         this.visit(e);
-        ((Evaluatable) e).accept(f);
+        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
+                ((Evaluatable) e));
         return f.getResult();
     }
 }

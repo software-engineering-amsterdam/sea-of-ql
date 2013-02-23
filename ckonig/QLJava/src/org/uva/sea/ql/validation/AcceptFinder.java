@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.bool.NEq;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -23,6 +24,8 @@ import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 class AcceptFinder implements ExpressionVisitor {
     private Class<?> result;
@@ -117,5 +120,10 @@ class AcceptFinder implements ExpressionVisitor {
     @Override
     public final void visit(IntLiteral i) throws QLException {
         this.result = NullType.class;
+    }
+
+    @Override
+    public void visit(BoolLiteral b) throws QLException {
+        throw new NotImplementedException();
     }
 }

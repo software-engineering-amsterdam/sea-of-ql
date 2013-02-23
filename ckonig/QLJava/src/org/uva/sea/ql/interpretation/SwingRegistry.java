@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,9 @@ import java.util.Map;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.interpretation.components.content.IfStatementPanel;
+import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
-import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
-import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 public class SwingRegistry {
     private List<QuestionPanel> questions;
@@ -37,7 +37,8 @@ public class SwingRegistry {
         return this.ifStatements;
     }
 
-    public final void evaluateFunctions() {
+    public final void updateIfPanelVisibilities() {
+        System.out.println("update visibilities");
         try {
             for (IfStatementPanel isp : this.ifStatements) {
                 try {
@@ -49,6 +50,18 @@ public class SwingRegistry {
             }
         } catch (QLException ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    public final void updateAutoValues()  {
+        for (QuestionPanel q : this.questions) {
+            if (q.hasAutoValue()) {
+                try {
+                    q.setAutoValue(this);
+                } catch (QLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -68,19 +81,19 @@ public class SwingRegistry {
         }
         return ret;
     }
-    
-    public final boolean isValid(){
-        for(QuestionPanel qp : this.questions){
-            if(!qp.isValidInput()){
+
+    public final boolean isValid() {
+        for (QuestionPanel qp : this.questions) {
+            if (!qp.isValidInput()) {
                 return false;
             }
         }
         return true;
     }
-    
+
     public final Map<String, Object> getInput() {
-        final Map<String,Object> ret = new HashMap<String, Object>();
-        for(QuestionPanel q : this.getQuestions()){
+        final Map<String, Object> ret = new HashMap<String, Object>();
+        for (QuestionPanel q : this.getQuestions()) {
             ret.put(q.getIdentName(), q.getUserInput());
         }
         return ret;

@@ -1,24 +1,19 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation;
 
 import java.awt.Font;
-import java.util.List;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.interpretation.IdentFinder;
-import org.uva.sea.ql.interpretation.QLDocument;
-import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
-import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
-import org.uva.sea.ql.interpretation.swing.components.Sizes;
-import org.uva.sea.ql.interpretation.swing.visitors.ListenerFactory;
-import org.uva.sea.ql.interpretation.swing.visitors.QuestionListener;
+import org.uva.sea.ql.common.QLDocument;
+import org.uva.sea.ql.interpretation.components.PanelDimensions;
+import org.uva.sea.ql.interpretation.components.content.IfStatementPanel;
+import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
+import org.uva.sea.ql.interpretation.listeners.ListenerService;
 
 public class SwingDocument implements QLDocument {
     private final JPanel panel;
@@ -41,7 +36,7 @@ public class SwingDocument implements QLDocument {
     @Override
     public final void setHeading(String content) {
         final JLabel lbl = new JLabel(content);
-        lbl.setFont(new Font("Times New Roman", 0, Sizes.HEADING_FONT_SIZE));
+        lbl.setFont(new Font("Times New Roman", 0, PanelDimensions.HEADING_FONT_SIZE));
         this.panelStack.peek().add(lbl);
     }
 
@@ -68,12 +63,10 @@ public class SwingDocument implements QLDocument {
     }
 
     @Override
-    public final void create() {
+    public final void create() {        
         for (QuestionPanel questionPanel : this.registry.getQuestions()) {
-            addQuestionListener(questionPanel);
-        }
-        for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
-            addIdentListener(ifPanel);
+            System.out.println("CREATE: " + questionPanel.getIdentName());
+            ListenerService.createListeners(questionPanel, this.registry);
         }
     }
 
@@ -81,20 +74,4 @@ public class SwingDocument implements QLDocument {
         return this.registry;
     }
 
-    private void addQuestionListener(QuestionPanel qp) {
-        ListenerFactory.createListeners(qp, this.registry);
-    }
-
-    private void addIdentListener(IfStatementPanel ifPanel) {
-        final IfStatement ifStatement = ifPanel.getIfStatement();
-        final IdentFinder finder = new IdentFinder(
-                (TreeNode) ifStatement.getCondition());
-        final List<Ident> idents = finder.getIdents();
-        for (Ident ident : idents) {
-            final QuestionPanel questionPanel = this.registry
-                    .getQuestionPanelByIdent(ident);
-            final QuestionListener v = new QuestionListener(questionPanel,
-                    this.registry);
-        }
-    }
 }

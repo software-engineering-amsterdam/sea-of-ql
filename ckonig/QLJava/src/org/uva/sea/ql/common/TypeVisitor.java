@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation;
+package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.types.*;
 

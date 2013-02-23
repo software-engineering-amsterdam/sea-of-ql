@@ -1,6 +1,4 @@
-package org.uva.sea.ql.interpretation;
-
-import java.util.Map;
+package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;

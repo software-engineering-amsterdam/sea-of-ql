@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +9,7 @@ import javax.swing.JTextArea;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.common.IOHelper;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.interpretation.VisitorDocumentBuilder;
-import org.uva.sea.ql.interpretation.swing.components.LeftPanel;
+import org.uva.sea.ql.interpretation.components.LeftPanel;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;

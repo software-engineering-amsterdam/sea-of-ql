@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing.visitors;
+package org.uva.sea.ql.interpretation.evaluation;
 
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -22,11 +23,11 @@ import org.uva.sea.ql.ast.math.Sub;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.ReturnFinder;
+import org.uva.sea.ql.common.returnfinder.ReturnFinder;
+import org.uva.sea.ql.interpretation.SwingRegistry;
+import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
-import org.uva.sea.ql.interpretation.swing.SwingRegistry;
-import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -46,8 +47,8 @@ public class MathEvaluator {
     }
 
     public final float eval(Expr e) throws QLException {
+        System.out.println("math eval: " + e.toString());
         ((Evaluatable) e).accept(new MathEval());
-
         return this.ret;
     }
 
@@ -133,8 +134,7 @@ public class MathEvaluator {
             final QuestionPanel questionPanel = registry
                     .getQuestionPanelByIdent(i);
             final ReturnFinder finder = new ReturnFinder(
-                    registry.getQuestionsAst());
-            questionPanel.getQuestion().getType().accept(finder);
+                    registry.getQuestionsAst(), questionPanel.getQuestion().getType());
             final Class<?> result = finder.getResult();
             if (result.equals(AbstractMathType.class)) {
                 final String val = questionPanel.getStringValue();
@@ -167,6 +167,11 @@ public class MathEvaluator {
 
         public final void visit(IntLiteral i) {
             ret = i.getValue();
+        }
+
+        @Override
+        public void visit(BoolLiteral b) throws QLException {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing.components;
+package org.uva.sea.ql.interpretation.components;
 
 import java.awt.Color;
 
@@ -14,12 +14,12 @@ public class LeftPanel extends JPanel {
 
     public LeftPanel() {
         this.log = new JTextArea();
-        this.log.setSize(Sizes.LEFT_WIDTH, Sizes.CENTER_HEIGHT);
+        this.log.setSize(PanelDimensions.LEFT_WIDTH, PanelDimensions.CENTER_HEIGHT);
         this.log.setText("");
         this.log.setLineWrap(true);
         this.add(this.log);
         this.setBackground(Color.red);
-        this.setSize(Sizes.LEFT_WIDTH, Sizes.CENTER_HEIGHT);
+        this.setSize(PanelDimensions.LEFT_WIDTH, PanelDimensions.CENTER_HEIGHT);
     }
 
     public final JTextArea getLog() {

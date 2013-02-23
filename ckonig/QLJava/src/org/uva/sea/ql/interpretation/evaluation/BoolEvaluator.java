@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing.visitors;
+package org.uva.sea.ql.interpretation.evaluation;
 
 import java.util.List;
 
@@ -16,6 +16,7 @@ import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -27,9 +28,9 @@ import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.ReturnFinder;
-import org.uva.sea.ql.interpretation.swing.SwingRegistry;
-import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.common.returnfinder.ReturnFinder;
+import org.uva.sea.ql.interpretation.SwingRegistry;
+import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -43,6 +44,7 @@ public class BoolEvaluator {
     }
 
     public final boolean eval(Expr e) throws QLException {
+        System.out.println("bool eval: " + e.toString());
         ((Evaluatable) e).accept(new BoolEvaluationVisitor());
         return this.ret;
     }
@@ -149,8 +151,7 @@ public class BoolEvaluator {
         @Override
         public final void visit(Ident ident) throws QLException {
             final QuestionPanel q = registry.getQuestionPanelByIdent(ident);
-            final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst());
-            ident.accept(f);
+            final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(), ident);
             final Class<?> r = f.getResult();
             if (r.equals(BooleanType.class)) {
                 ret = q.getBoolValue();
@@ -159,6 +160,11 @@ public class BoolEvaluator {
 
         @Override
         public final void visit(IntLiteral i) throws QLException {
+            throw new NotImplementedException();
+        }
+
+        @Override
+        public void visit(BoolLiteral b) throws QLException {
             throw new NotImplementedException();
         }
 
@@ -172,8 +178,7 @@ public class BoolEvaluator {
 
     private static boolean checkReturn(Expr ex, List<Question> questions,
             Class<?> type) throws QLException {
-        final ReturnFinder r = new ReturnFinder(questions);
-        ((Evaluatable) ex).accept(r);
+        final ReturnFinder r = new ReturnFinder(questions, ((Evaluatable) ex));
         return r.getResult().equals(type);
     }
 

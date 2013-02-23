@@ -1,6 +1,6 @@
-package org.uva.sea.ql.interpretation.swing.components;
+package org.uva.sea.ql.interpretation.components;
 
-public final class Sizes {
+public final class PanelDimensions {
 
     public static final int WINDOW_WIDTH = 800;
     public static final int WINDOW_HEIGHT = 600;
@@ -11,7 +11,7 @@ public final class Sizes {
     public static final int BOTTOM_HEIGHT = 100;
     public static final int HEADING_FONT_SIZE = 20;
 
-    private Sizes() {
+    private PanelDimensions() {
 
     }
 }

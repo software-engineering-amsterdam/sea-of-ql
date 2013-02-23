@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpretation.swing;
+package org.uva.sea.ql.interpretation;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -7,10 +7,10 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.interpretation.swing.components.CenterPanel;
-import org.uva.sea.ql.interpretation.swing.components.LeftPanel;
-import org.uva.sea.ql.interpretation.swing.components.Sizes;
-import org.uva.sea.ql.interpretation.swing.components.TopPanel;
+import org.uva.sea.ql.interpretation.components.LeftPanel;
+import org.uva.sea.ql.interpretation.components.PanelDimensions;
+import org.uva.sea.ql.interpretation.components.TopPanel;
+import org.uva.sea.ql.interpretation.components.content.ContentPanel;
 
 public class SwingInterpreter extends JFrame {
     private static final long serialVersionUID = -1942492887122279651L;
@@ -18,25 +18,25 @@ public class SwingInterpreter extends JFrame {
 
     private TopPanel topPanel;
     private LeftPanel leftPanel;
-    private CenterPanel centerPanel;
+    private ContentPanel centerPanel;
 
     public SwingInterpreter() {
         super(TITLE);
         createComponents();
         setSizes();
         setLayout();
-        setSize(Sizes.WINDOW_WIDTH, Sizes.WINDOW_HEIGHT);
+        setSize(PanelDimensions.WINDOW_WIDTH, PanelDimensions.WINDOW_HEIGHT);
         setVisible(true);
     }
 
     private void setSizes() {
         this.centerPanel.setBackground(Color.green);
-        this.centerPanel.setSize(Sizes.CENTER_WIDTH, Sizes.CENTER_HEIGHT);
+        this.centerPanel.setSize(PanelDimensions.CENTER_WIDTH, PanelDimensions.CENTER_HEIGHT);
     }
 
     private void createComponents() {
         this.leftPanel = new LeftPanel();
-        this.centerPanel = new CenterPanel();
+        this.centerPanel = new ContentPanel();
         this.topPanel = new TopPanel(this.getHelper());
     }
 

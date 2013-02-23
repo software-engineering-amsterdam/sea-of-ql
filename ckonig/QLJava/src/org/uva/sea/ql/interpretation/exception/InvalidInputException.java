@@ -1,6 +1,6 @@
 package org.uva.sea.ql.interpretation.exception;
 
-import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
+import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 
 public class InvalidInputException extends EvaluationException {
 

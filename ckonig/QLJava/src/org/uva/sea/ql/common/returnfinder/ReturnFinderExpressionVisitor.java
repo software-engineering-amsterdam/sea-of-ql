@@ -1,4 +1,4 @@
-package org.uva.sea.ql.common;
+package org.uva.sea.ql.common.returnfinder;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -20,25 +21,14 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.AbstractMathType;
-import org.uva.sea.ql.ast.types.Money;
-import org.uva.sea.ql.ast.types.NullType;
-import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.interpretation.TypeVisitor;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.common.ExpressionVisitor;
+import org.uva.sea.ql.common.QLException;
 
-public class ReturnFinder implements ExpressionVisitor, TypeVisitor {
-
-    private Class<?> ret;
-    private List<Question> questions;
-
-    public ReturnFinder(List<Question> q) {
-        this.questions = q;
-    }
-
-    public final Class<?> getResult() {
-        return this.ret;
+public class ReturnFinderExpressionVisitor extends AbstractReturnFinderVisitor implements ExpressionVisitor {
+    public ReturnFinderExpressionVisitor(List<Question> q) {
+        super(q);
     }
 
     @Override
@@ -121,12 +111,15 @@ public class ReturnFinder implements ExpressionVisitor, TypeVisitor {
         boolean found = false;
         for (Question question : this.questions) {
             if (question.getIdentName().equals(ident.getName())) {
-                question.getType().accept(this);
+                final ReturnFinderTypeVisitor f = new ReturnFinderTypeVisitor(this.questions);
+                question.getType().accept(f);
+                this.ret = f.getResult();
                 found = true;
             }
         }
         if (!found) {
-            throw new RuntimeException("Question not found: " + ident.getName());
+            throw new RuntimeException("Question not found: "
+                    + ident.getName());
         }
     }
 
@@ -136,27 +129,7 @@ public class ReturnFinder implements ExpressionVisitor, TypeVisitor {
     }
 
     @Override
-    public final void visit(BooleanType b) {
+    public void visit(BoolLiteral b) throws QLException {
         this.ret = BooleanType.class;
-    }
-
-    @Override
-    public final void visit(Money m) {
-        this.ret = AbstractMathType.class;
-    }
-
-    @Override
-    public final void visit(StrType s) {
-        this.ret = StrType.class;
-    }
-
-    @Override
-    public final void visit(IntType i) {
-        this.ret = AbstractMathType.class;
-    }
-
-    @Override
-    public void visit(NullType n) {
-        this.ret = NullType.class;
     }
 }
