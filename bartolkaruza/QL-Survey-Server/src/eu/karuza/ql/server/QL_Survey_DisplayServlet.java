@@ -15,6 +15,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.gson.Gson;
 
 import eu.karuza.ql.FormResult;
 import eu.karuza.ql.QuestionResult;
@@ -39,8 +40,9 @@ public class QL_Survey_DisplayServlet extends HttpServlet {
 	}
 
 	private void printResults(PreparedQuery preparedQuery, PrintWriter writer) {
+		Gson gson = new Gson();
 		for(Entity result : preparedQuery.asIterable()) {
-			FormResult formResult = (FormResult)result.getProperty(Constants.DATA_FORM_RESULT);
+			FormResult formResult = gson.fromJson((String)result.getProperty(Constants.DATA_FORM_RESULT), FormResult.class);
 			writer.println(result.getProperty(Constants.DATA_TIMESTAMP) + "");
 			if(formResult != null) {
 				for(QuestionResult question : formResult.getResult()) {
