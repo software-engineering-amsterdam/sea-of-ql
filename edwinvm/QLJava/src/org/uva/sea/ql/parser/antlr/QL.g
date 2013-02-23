@@ -73,7 +73,7 @@ mulExpression returns [Expression result]
     :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
     { 
         if ($op.text.equals("*")) { $result = new Mul($result, rhs); }
-        if ($op.text.equals("/")) { $result = new Div($result, rhs); }
+        if ($op.text.equals("/")) { $result = new Division($result, rhs); }
     })*
     ;
     

@@ -3,7 +3,7 @@ package org.uva.sea.ql.check.expressions;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
@@ -49,7 +49,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Addition ast) { return checkArithmeticExpression(ast, "+"); }
 	@Override
-	public Boolean visit(Div ast) { return checkArithmeticExpression(ast, "/"); }
+	public Boolean visit(Division ast) { return checkArithmeticExpression(ast, "/"); }
 	@Override
 	public Boolean visit(Sub ast) { return checkArithmeticExpression(ast, "-"); }
 	@Override
