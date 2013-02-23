@@ -8,10 +8,7 @@ public class IfThenElse extends IfThen {
 
 	public IfThenElse( Expression condition, Statements ifBody, Statements elseBody ) {
 		super( condition, ifBody );
-
-		if ( elseBody == null ) {
-			elseBody = new Statements();
-		}
+		assert ( elseBody != null );
 
 		this.elseBody = elseBody;
 	}

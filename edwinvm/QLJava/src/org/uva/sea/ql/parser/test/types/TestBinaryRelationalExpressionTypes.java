@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestBinaryRelationalExpressionTypes extends ExpressionTypeChecker {
-	
 	@Test
 	public void testRels() throws ParseError {
 		isAValidExpression("1 < 2");

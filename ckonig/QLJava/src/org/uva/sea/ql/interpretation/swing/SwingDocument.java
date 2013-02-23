@@ -1,9 +1,7 @@
 package org.uva.sea.ql.interpretation.swing;
 
 import java.awt.Font;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
@@ -19,12 +17,13 @@ import org.uva.sea.ql.interpretation.QLDocument;
 import org.uva.sea.ql.interpretation.swing.components.IfStatementPanel;
 import org.uva.sea.ql.interpretation.swing.components.QuestionPanel;
 import org.uva.sea.ql.interpretation.swing.components.Sizes;
+import org.uva.sea.ql.interpretation.swing.visitors.ListenerFactory;
+import org.uva.sea.ql.interpretation.swing.visitors.QuestionListener;
 
 public class SwingDocument implements QLDocument {
     private final JPanel panel;
     private Stack<JPanel> panelStack;
     private SwingRegistry registry;
-    
 
     public SwingDocument() {
         this.panel = new JPanel();
@@ -71,27 +70,31 @@ public class SwingDocument implements QLDocument {
     @Override
     public final void create() {
         for (QuestionPanel questionPanel : this.registry.getQuestions()) {
-            new AutoValueSetter(this.registry, questionPanel).createListeners();
+            addQuestionListener(questionPanel);
         }
-        final QuestionListener listener = new QuestionListener(this.registry);
         for (IfStatementPanel ifPanel : this.registry.getIfStatements()) {
-            addIdentListener(listener, ifPanel);
+            addIdentListener(ifPanel);
         }
     }
-    
-    public final SwingRegistry getRegistry(){
+
+    public final SwingRegistry getRegistry() {
         return this.registry;
     }
 
-    private static void addIdentListener(QuestionListener questionListener,
-            IfStatementPanel ifPanel) {
+    private void addQuestionListener(QuestionPanel qp) {
+        ListenerFactory.createListeners(qp, this.registry);
+    }
+
+    private void addIdentListener(IfStatementPanel ifPanel) {
         final IfStatement ifStatement = ifPanel.getIfStatement();
-        final IdentFinder finder = new IdentFinder();
-        final TreeNode  n = ((TreeNode) ifStatement.getCondition());
-        n.accept(finder);
+        final IdentFinder finder = new IdentFinder(
+                (TreeNode) ifStatement.getCondition());
         final List<Ident> idents = finder.getIdents();
         for (Ident ident : idents) {
-            questionListener.addIdentListener(ident);
+            final QuestionPanel questionPanel = this.registry
+                    .getQuestionPanelByIdent(ident);
+            final QuestionListener v = new QuestionListener(questionPanel,
+                    this.registry);
         }
     }
 }

@@ -40,11 +40,11 @@ statement returns [Statement result]
   ;
 
 computedValue returns [ComputedValue result]
-  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text), new StringLiteral($STRING.text), $x.result);}
+  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Variable(new Identifier($IDENT.text),$type.result), new StringLiteral($STRING.text), $x.result);}
   ;
 
 question returns [Question result]
-  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
+  : IDENT COLON STRING type { $result = new Question(new Variable(new Identifier($IDENT.text),$type.result), new StringLiteral($STRING.text));}
   ;
 
 type returns [TypeDeclaration result]

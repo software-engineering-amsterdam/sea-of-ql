@@ -5,7 +5,7 @@ public class StringVal extends Val {
 	private String value;
 	
 	public StringVal() {
-		
+		value = "";
 	}
 	
 	public StringVal(String value) {
@@ -22,7 +22,7 @@ public class StringVal extends Val {
 
 	@Override
 	public String toString() {
-		return "StringVal [value=" + value + "]";
+		return value;
 	}
 
 

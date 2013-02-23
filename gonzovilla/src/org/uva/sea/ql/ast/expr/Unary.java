@@ -2,14 +2,14 @@ package org.uva.sea.ql.ast.expr;
 
 public abstract class Unary extends Expr {
 	
-	private final Expr arg;
+	private final Expr expression;
 
-	public Unary(Expr arg) {
-		this.arg = arg;
+	public Unary(Expr expression) {
+		this.expression = expression;
 	}
 
-	public Expr getArg() {
-		return arg;
+	public Expr getExpression() {
+		return expression;
 	}
 	
 }

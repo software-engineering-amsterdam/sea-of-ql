@@ -25,9 +25,14 @@ CONTACT
 TO DO
 ======================
 Implement generator for JavaScript.
-Known Bugs:
+Need Changes:
 -----------
-  1. problems with single line comments?? 
-  2. appearance of the code
-  3. Boolean variables // maybe a check for TENV(variables type) and required type in compileExpressions
-  4. Generate ValidateFunctions
+  1. CompileExpression -change switch, make functions, because it's not open for extension
+  2. GenerateJSvalidateFunctions  -changed by tijs--save/accept the changes, and find other relevant stuff
+  3. GEnerateJSValidateFunctions - output source Code as writen bellow
+  4. GEnerateJSValidateFunctions -  Change switch to Functions
+  5. GenerateJSvalidateFunctions -  Remove stuff from here..External JS that provide these functions
+  6. GenerateJSvalidateFunctions - Check for boolean output
+  7. ExtractDependencies - use set instead of list..i don't want order, and i don't care for duplicates
+  8. ExtractDependencies -Tijs provided better way..apply it..needs just return
+  9. CyclicCheck - should start with false, because if env.symbols is empty, then it says that is cycclic ;)

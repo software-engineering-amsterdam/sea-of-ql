@@ -11,4 +11,12 @@ public abstract class RelationalOperator extends Expression {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
+
+	public Expression getLhs() {
+		return lhs;
+	}
+	
+	public Expression getRhs() {
+		return rhs;
+	}
 }

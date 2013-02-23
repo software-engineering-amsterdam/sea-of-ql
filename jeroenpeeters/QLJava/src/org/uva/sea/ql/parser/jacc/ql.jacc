@@ -9,7 +9,7 @@
 %token <TextLiteral> TEXT
 %token <BooleanLiteral> BOOL
 
-%token <Ident> IDENT
+%token <Identifier> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' '{' '}' ':' '"'
 %token IF ELSE
@@ -26,21 +26,19 @@
 %type <CompoundStatement> cmpnd_stmnt
 %type <Question> quest
 %type <Expression> expr
-%type <Statement> stmnt
+%type <Statement> stmnt else_stmnt
 %type <IfStatement> if_stmnt 
 %type <DataType> data_type
- 
-%{ 
+
+%{
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.binary.*;
-import org.uva.sea.ql.ast.expression.binary.bool.*;
 import org.uva.sea.ql.ast.expression.unary.*;
-import org.uva.sea.ql.ast.expression.unary.bool.*;
-import org.uva.sea.ql.ast.expression.literals.*;
-%} 
+import org.uva.sea.ql.ast.expression.literal.*;
+%}
 
-%% 
+%%
 
  top 			: frm	 					{ formResult = $1; }
  				| expr						{ exprResult = $1; }
@@ -58,10 +56,14 @@ import org.uva.sea.ql.ast.expression.literals.*;
  				| quest					{ $$ = $1; }
  				; 
 
- if_stmnt		: IF '(' expr ')' '{' cmpnd_stmnt '}' 							{ $$ = new IfStatement($3, $6); } 
- 				| IF '(' expr ')' '{' cmpnd_stmnt '}' ELSE '{' cmpnd_stmnt '}'	{ $$ = new IfElseStatement($3, $6, $10); } 				
+ if_stmnt		: IF '(' expr ')' '{' cmpnd_stmnt '}' 						{ $$ = new IfStatement($3, $6); } 
+ 				| IF '(' expr ')' '{' cmpnd_stmnt '}' ELSE else_stmnt		{ $$ = new IfElseStatement($3, $6, $9); } 
 				;
 				
+ else_stmnt		: '{' cmpnd_stmnt '}' 	{ $$ = $2; }
+				| if_stmnt				{ $$ = $1; }
+				;
+
  expr	 		: '+' expr	%prec UPLUS { $$ = new Pos($2); } 
 				| '-' expr	%prec UMIN  { $$ = new Neg($2); }
 				| '!' expr %prec UNOT  	{ $$ = new Not($2); }
@@ -90,10 +92,9 @@ import org.uva.sea.ql.ast.expression.literals.*;
  				| DT_INTEGER 				{ $$ = DataType.INTEGER; }
  				| DT_MONEY 					{ $$ = DataType.MONEY; }
  				| DT_TEXT					{ $$ = DataType.TEXT; }
- 				;
-		 
-%%
-
+				;
+%%	
+							
 private QLLexer lexer; 
 
 private Form formResult;

@@ -1,18 +1,18 @@
 package org.uva.sea.ql.ast.statements.conditions;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.FormStatement;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
+import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
 public class IfThenElse extends ConditionBlock {
-	private final FormStatement _elseBody;
+	private final StatementBody _elseBody;
 	
-	public IfThenElse(Expr condition, FormStatement body, FormStatement elseBody) {
+	public IfThenElse(Expression condition, StatementBody body, StatementBody elseBody) {
 		super(condition, body); _elseBody = elseBody;
 	}
 	
-	public FormStatement getElseBody() {
+	public StatementBody getElseBody() {
 		return _elseBody;
 	}
 

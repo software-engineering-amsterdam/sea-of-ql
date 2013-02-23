@@ -3,61 +3,67 @@ package khosrow.uva.sea.ql.visitor.eval;
 import java.util.ArrayList;
 import java.util.List;
 
-import khosrow.uva.sea.ql.ast.decl.Form;
+import khosrow.uva.sea.ql.ast.stmt.Stmt;
 import khosrow.uva.sea.ql.env.Env;
 import khosrow.uva.sea.ql.resources.QlDeclarationError;
 import khosrow.uva.sea.ql.resources.QlTypeError;
-import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 import khosrow.uva.sea.ql.visitor.check.StmtTypeChecker;
 
-public class FormEvaluator {
-	//private final Form form;
+public class FormEvaluator {	
 	private final Env env;	
 	private final List<QlDeclarationError> declarationErrors;
 	private final List<QlTypeError> typeErrors;
-	private final List<String> ErrorList;
-	private final IStmtVisitor<Void> interpreter;
+	private final List<String> errorList;	
 
-	public FormEvaluator(Env env, IStmtVisitor<Void> interpreter) {			
-		this.env = env;
-		this.interpreter = interpreter;
+	private FormEvaluator(Env env, List<String> errorList) {			
+		this.env = env;		
 		this.typeErrors = new ArrayList<QlTypeError>();
 		this.declarationErrors = new ArrayList<QlDeclarationError>();
-		this.ErrorList = new ArrayList<String>();
+		this.errorList = errorList;
 	}
 	
 	
-	public void evaluate(Form form) {
-		boolean declSucceeded = DeclEvaluator.Evaluate(form, env, declarationErrors);
+	public static void evaluate(Stmt stmt, Env env, List<String> ErrorList) {
+		FormEvaluator evaluator = new FormEvaluator(env, ErrorList);
+		try{
+			evaluator.evaluate(stmt);
+		}
+		catch(Exception ex){
+			throw new RuntimeException("The source code contains " + ex.getMessage());
+		}						
+	}
+	
+	
+	private void evaluate(Stmt stmt) {
+		evaluateDecls(stmt);
+		evaluateTypes(stmt);
+	}
+
+	private void evaluateDecls(Stmt stmt) {
+		boolean declSucceeded = DeclEvaluator.Evaluate(stmt, env, declarationErrors);
 		if(!declSucceeded) {
 			addDeclErrorsToErrorList();
-			throw new RuntimeException("The source code contains declaration errors.");
+			throw new RuntimeException("declaration errors");
 		}
-		
-		boolean typeSucceeded = StmtTypeChecker.Check(form.getStmts(), env, typeErrors);
+	}
+	
+	private void evaluateTypes(Stmt stmt) {
+		boolean typeSucceeded = StmtTypeChecker.Check(stmt, env, typeErrors);
 		if(!typeSucceeded) {
 			addTypeErrorsToErrorList();
-			throw new RuntimeException("The source code contains type errors.");
+			throw new RuntimeException("type errors");
 		}
-		
-		interpreter.visit(form.getStmts());
 	}
-
-
+	
 	private void addDeclErrorsToErrorList() {
 		for(QlDeclarationError error:declarationErrors)
-			ErrorList.add(error.getMessage());		
+			errorList.add(error.getMessage());		
 	}
 	
 	private void addTypeErrorsToErrorList() {
 		for(QlTypeError error:typeErrors)
-			ErrorList.add(error.getMessage());		
-	}
-
-
-	public List<String> getErrors() {
-		return ErrorList;
-	}	
+			errorList.add(error.getMessage());		
+	}		
 	
 	public Env getEnv() {
 		return env;

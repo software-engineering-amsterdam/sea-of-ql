@@ -1,9 +1,10 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.FormNode;
 import org.uva.sea.ql.ast.Location;
+import org.uva.sea.ql.ast.visitor.FormVisitor;
 
-public class Form implements ASTNode {
+public class Form implements FormNode {
 	private final String name;
 	private final Body body;
 	private final Location startLocation;
@@ -22,6 +23,11 @@ public class Form implements ASTNode {
 		return body;
 	}
 
+	@Override
+	public <T> T accept(FormVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 	@Override
 	public Location getLocation() {
 		return new Location(startLocation, body.getLocation());

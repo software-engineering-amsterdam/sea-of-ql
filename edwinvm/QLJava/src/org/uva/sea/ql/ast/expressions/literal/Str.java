@@ -1,18 +1,17 @@
 package org.uva.sea.ql.ast.expressions.literal;
 
-import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.expressions.LiteralExpr;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 
-public class Str extends LiteralExpr {
+public class Str extends LiteralExpression {
 
 	public Str(String value) {
 		super(value);
 	}
 
 	@Override
-	public Type typeOf(SupportedTypes supportedTypes) {
+	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Str();
 	}
 	

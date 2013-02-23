@@ -1,27 +1,27 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.visitor.StmtVisitor;
+import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.semanticCheck.FormStmtVisitor;
 
-public class ifStatement extends Statement {
-	private final Expr condition;
-	private final BlockOfStatements ifStms;
+public class ifStatement extends AStatement {
+	private final AExpr condition;
+	private final BlockOfStatements ifStmts;
 	
-	public ifStatement(Expr condition, BlockOfStatements ifStms) {
+	public ifStatement(AExpr condition, BlockOfStatements ifStmts) {
 		this.condition = condition;
-		this.ifStms = ifStms;
+		this.ifStmts = ifStmts;
 	}
 	
-	public Expr getCondition() {
+	public AExpr getCondition() {
 		return condition;
 	}
 	
-	public BlockOfStatements getIfStms() {
-		return ifStms;
+	public BlockOfStatements getIfStmts() {
+		return ifStmts;
 	}
 	
 	@Override
-	public void accept(StmtVisitor visitor) {
-		visitor.visit(this);		
+	public <T> T accept(FormStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
 	}
 }

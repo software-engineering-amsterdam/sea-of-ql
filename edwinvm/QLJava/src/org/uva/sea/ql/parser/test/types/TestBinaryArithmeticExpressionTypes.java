@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestBinaryArithmeticExpressionTypes extends ExpressionTypeChecker {
-	
 	@Test
 	public void testAdds() throws ParseError {
 		isAValidExpression("1 + 1");

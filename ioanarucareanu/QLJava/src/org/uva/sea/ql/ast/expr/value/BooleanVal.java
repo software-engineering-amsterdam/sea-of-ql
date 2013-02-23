@@ -5,7 +5,7 @@ public class BooleanVal extends Val {
 	private boolean value;
 	
 	public BooleanVal() {
-		
+		value = false;
 	}
 	
 	public BooleanVal(boolean value) {
@@ -24,29 +24,41 @@ public class BooleanVal extends Val {
 		this.value = value;
 	}
 	
-	public BooleanVal and(BooleanVal bool) {
-		return new BooleanVal(getValue() && bool.getValue());
+	public Val and(Val bool) {
+		if (bool.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal(getValue() && ((BooleanVal)bool).getValue());
 	}
 
-	public BooleanVal or(BooleanVal bool) {
-		return new BooleanVal(getValue() || bool.getValue());
+	public Val or(Val bool) {
+		if (bool.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal(getValue() || ((BooleanVal)bool).getValue());
 	}
 
 	public BooleanVal not() {
 		return new BooleanVal(!getValue());
 	}
 	
-	public BooleanVal equalTo(BooleanVal value) {
-		return new BooleanVal(getValue() == value.getValue());
+	public Val equalTo(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
+		return new BooleanVal(getValue() == ((BooleanVal)value).getValue());
 	}
 	
-	public BooleanVal notEqualTo(BooleanVal value) {
+	public Val notEqualTo(Val value) {
+		if (value.getClass().equals(UndefinedVal.class)) {
+			return new UndefinedVal();
+		}
 		return equalTo(value).not();
 	}
 
 	@Override
 	public String toString() {
-		return "BooleanVal [value=" + value + "]";
+		return String.valueOf(value);
 	}
 
 }

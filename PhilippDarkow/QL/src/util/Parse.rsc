@@ -13,3 +13,5 @@ public start[Question] parseQuestion(str src,loc l) = parse(#start[Question], sr
 public start[Type] parseType(str src, loc l) = parse(#start[Type], src, l);
 
 public start[Program] parseProgram(str src, loc l) = parse(#start[Program], src, l);
+
+public start[Program] parse(str src, loc l) = parse(#start[Program], src, l);

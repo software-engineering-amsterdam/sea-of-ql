@@ -11,10 +11,10 @@ import javax.swing.WindowConstants;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
-import org.uva.sea.ql.save.Saver;
+import org.uva.sea.ql.save.SaveBehaviour;
 import org.uva.sea.ql.save.Xml;
 import org.uva.sea.ql.visitor.IForm;
-import org.uva.sea.ql.visitor.eval.Application;
+import org.uva.sea.ql.visitor.eval.ui.Application;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {
@@ -51,8 +51,8 @@ public class Program {
 			Application application = questionForm.accept(swingVisitor);
 
 			// Save application results to xml.
-			Saver saver = new Xml("result.xml");
-			application.addObserver(saver);
+			SaveBehaviour saveBehaviour = new Xml("result.xml");
+			application.addObserver(saveBehaviour);
 
 			// Get created form and define close-behaviour.
 			JFrame frame = application.getGui();

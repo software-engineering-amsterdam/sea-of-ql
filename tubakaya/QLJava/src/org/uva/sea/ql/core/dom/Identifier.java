@@ -2,7 +2,7 @@ package org.uva.sea.ql.core.dom;
 
 public class Identifier  extends Expression {
 
-	public final String name;
+	private final String name;
 	
 	public Identifier(String name) {
 		this.name=name;
@@ -13,4 +13,7 @@ public class Identifier  extends Expression {
 		visitor.visit(this);		
 	}
 
+	public String getName() {
+		return name;
+	}
 }

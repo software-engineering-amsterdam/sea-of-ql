@@ -36,7 +36,14 @@ public abstract class Widget implements ChangeEventSource {
 	}
 	
 	
+	public boolean isDefined() {
+		return getValue().isDefined();
+	}
+	
+	
 	public abstract Component getComponent();
 	
 	public abstract Primitive getValue();
+	
+	
 }

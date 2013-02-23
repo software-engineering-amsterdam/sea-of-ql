@@ -12,8 +12,12 @@ public str generateJSTriggerFunctions(map[str var,list[str] dependVars] dependen
 	
 	for(variable<-dependenciesMap){
 		code+="function <variable>Trigger(){
-			<for(depended<-dependenciesMap[variable]){><generateUpdateFunction(depended)><generateTriggerFunction(depended,dependenciesMap)><}> 			
-			'}\n\n";
+			  '<for(depended<-dependenciesMap[variable]){>
+			  '   <generateUpdateFunction(depended)>
+			  '   <generateTriggerFunction(depended,dependenciesMap)><}> 			
+			  '}
+			  '
+";
 	}
 	
 	return code;
@@ -22,13 +26,13 @@ public str generateJSTriggerFunctions(map[str var,list[str] dependVars] dependen
 str generateUpdateFunction(str variable){
 	return startsWith(variable,"Cond") 
 			? !contains(variable,"e")
-				?"\n\t<variable>Update();"
-				:"\n\t<substring(variable,0,findFirst(variable,"e"))>Update(); " 
-			: "\n\t<variable>Update();";
+				?"<variable>Update();"
+				:"<substring(variable,0,findFirst(variable,"e"))>Update(); " 
+			: "<variable>Update();";
 }
 
 str generateTriggerFunction(str variable,map[str,list[str]] dependenciesMap){
 	return startsWith(variable,"Cond")? 
 			" " 
-			: variable in dependenciesMap?"\n\t<variable>Trigger();":" ";
+			: variable in dependenciesMap?"<variable>Trigger();":" ";
 }

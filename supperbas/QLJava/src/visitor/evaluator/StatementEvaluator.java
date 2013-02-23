@@ -24,16 +24,8 @@ public class StatementEvaluator implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Assignment ast) {
-		environment.setVal(
-				ast.getIdent(),
-				(Value) ast.getExpression().accept(
-						new ExpressionEvaluator(environment)));
+		environment.setVal(ast.getIdent(), (Value) ast.getExpression().accept(new ExpressionEvaluator(environment)));
 		return true;
-	}
-
-	@Override
-	public Boolean visit(Else ast) {
-		return ast.getBlock().accept(this);
 	}
 
 	@Override
@@ -46,7 +38,9 @@ public class StatementEvaluator implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(If ast) {
 		ast.getCondition().accept(new ExpressionEvaluator(environment));
-		return ast.getBlock().accept(this);
+		if (!ast.getTrueBlock().accept(this))
+			return false;
+		return ast.getFalseBlock().accept(this);
 	}
 
 	@Override
@@ -61,9 +55,9 @@ public class StatementEvaluator implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(QuestionComputed ast) {
-		if ( !environment.hasIdent( ast.getIdent()) )
-			environment.setVar(new Var(ast.getIdent(),new Undefined()));
-		Bindable bind = environment.getIdent(ast.getIdent());		
+		if (!environment.hasIdent(ast.getIdent()))
+			environment.setVar(new Var(ast.getIdent(), new Undefined()));
+		Bindable bind = environment.getIdent(ast.getIdent());
 		ast.getAssignment().accept(new StatementEvaluator(environment));
 		ast.getIdent().accept(new ExpressionEvaluator(environment));
 		bind.setType(ast.getAssignment().getExpression().typeOf(environment.getTypeEnv()));
@@ -72,7 +66,7 @@ public class StatementEvaluator implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Var ast) {
-		if ( !environment.hasIdent( ast.getIdent()) )
+		if (!environment.hasIdent(ast.getIdent()))
 			environment.setVar(ast);
 		Bindable bind = environment.getIdent(ast.getIdent());
 		ast.getIdent().accept(new ExpressionEvaluator(environment));

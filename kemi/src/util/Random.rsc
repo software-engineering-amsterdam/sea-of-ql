@@ -39,16 +39,16 @@ public bool randomBool() =
   arbInt(2) == 0;
 
 public list[int] randomListInt() = 
-  [randomInt() | i <- [0 .. randomInt(255)]];
+  [randomInt() | _ <- [0 .. randomInt(255)]];
 
 public list[int] randomListInt(int n) =
-  [randomInt() | i <- [1 .. n]];
+  [randomInt() | _ <- [0 .. n]];
 
 public list[int] randomListInt(int n, int max) =
-  [randomInt(max) | i <- [1 .. n]];
+  [randomInt(max) | _ <- [0 .. n]];
 
 public list[int] randomListInt(int n, int min, int max) =
-  [randomInt(min, max) | i <- [1 .. n]];
+  [randomInt(min, max) | _ <- [0 .. n]];
 
 public str randomStr() =
   stringChars(randomListInt(randomInt(255), 32, 126));
@@ -57,7 +57,7 @@ public str randomStr(int n) =
   stringChars(randomListInt(n, 32, 126));
 
 public str randomWord() =
-  randomWord(randomInt(255));
+  randomWord(randomInt(1, 255));
 
 public str randomWord(int length) {
   first = length / 2;

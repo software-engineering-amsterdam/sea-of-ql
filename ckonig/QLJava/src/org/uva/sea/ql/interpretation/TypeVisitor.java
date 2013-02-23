@@ -11,4 +11,6 @@ public interface TypeVisitor {
     public void visit(StrType s);
     
     public void visit(IntType i);
+    
+    public void visit(NullType n);
 }

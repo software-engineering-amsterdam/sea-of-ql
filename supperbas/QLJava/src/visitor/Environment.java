@@ -1,10 +1,11 @@
 package visitor;
 
-import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import visitor.evaluator.Bindable;
 
@@ -17,14 +18,14 @@ import ast.statement.Var;
 import ast.type.Message;
 
 public class Environment {
-	private Map<Ident, QuestionComputed> mapComputed = new HashMap<Ident, QuestionComputed>();
-	private Map<Ident, QuestionVar> mapVar = new HashMap<Ident, QuestionVar>();
+	private final Map<Ident, QuestionComputed> mapComputed = new HashMap<Ident, QuestionComputed>();
+	private final Map<Ident, QuestionVar> mapVar = new HashMap<Ident, QuestionVar>();
 	private final Map<Ident, Type> typeEnv = new HashMap<Ident, Type>();
 	private final Map<Ident, Bindable> valEnv = new HashMap<Ident, Bindable>();
 	private final List<Message> messages = new ArrayList<Message>();
+	private final Map<Ident, Observable> observables = new HashMap<Ident, Observable>();
 
 	public Environment() {
-
 	}
 
 	public void setComputed(Ident ident, QuestionComputed stat) {
@@ -60,8 +61,8 @@ public class Environment {
 	public Bindable getIdent(Ident ident) {
 		return valEnv.get(ident);
 	}
-	
-	public boolean hasIdent(Ident ident){
+
+	public boolean hasIdent(Ident ident) {
 		return valEnv.containsKey(ident);
 	}
 
@@ -72,6 +73,8 @@ public class Environment {
 	public void setVal(Ident ident, Value val) {
 		Bindable bind = valEnv.get(ident);
 		bind.setValue(val);
+		putObservable(ident, bind);
+		System.out.println("X"+ident.getValue());
 	}
 
 	public Map<Ident, Bindable> getValEnv() {
@@ -81,5 +84,28 @@ public class Environment {
 	public void addError(String err) {
 		this.messages.add(new Message(err));
 	}
+	
+	public void putObservable(Ident ident, Bindable bind){
+		observables.put(ident, bind);
+	}
 
+	public void addObserver(Ident ident, Observer observer) {
+		System.out.println(this.valEnv);
+		System.out.println(ident.getValue());
+		System.out.println(this.valEnv.get(ident));
+		System.out.println(observables);
+		observables.get(ident).addObserver(observer);
+		//this.valEnv.get(ident).addObserver(observer);
+	}
+
+	public void notifyObservers(Ident ident) {
+		observables.get(ident).notifyObservers();
+		//this.valEnv.get(ident).notifyObservers();
+	}
+
+	public void printErrors() {
+		System.out.println("There was an error during parsing:");
+		for (Message i : this.getMessages())
+			System.out.println("-" + i.getMessage());
+	}
 }

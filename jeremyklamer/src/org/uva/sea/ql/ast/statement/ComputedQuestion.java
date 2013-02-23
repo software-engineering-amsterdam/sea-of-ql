@@ -3,15 +3,19 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.value.Ident;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.interpreter.Env;
+import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.ui.components.BaseComponent;
 import org.uva.sea.ql.ui.components.QuestionComponent;
+import org.uva.sea.ql.ui.observing.ComputedObserver;
+import org.uva.sea.ql.ui.observing.QuestionObservable;
 
 
-public class ComputedQuestion extends Question{
+public class ComputedQuestion extends Question {
 	
 	private final Expr computation;
 	
@@ -23,30 +27,41 @@ public class ComputedQuestion extends Question{
 	public Expr getComputation() {
 		return computation;
 	}
-
+	
 	@Override
-	public String toString(int indentation){
-		String returnString = getIndentation(indentation);
-		
-		returnString += getSimpleName(this) + ", Ident : " + name.getName() + " : " + sentence + " return value : " + getSimpleName(getReturnType());
-		returnString += newLine;
-		return returnString; 
-	}
+	public void getErrorsMessages(List<Message> errors, Env env) {
+		super.getErrorsMessages(errors, env);
+		computation.checkType(errors, env);
+	}	
 	
 	@Override
 	public List<BaseComponent> getUIComponents(Env env, Form form) {
-		ArrayList<BaseComponent> components = new ArrayList<BaseComponent>();
+		List<BaseComponent> components = new ArrayList<BaseComponent>();
+		
+		QuestionComponent uiComponent = new QuestionComponent(sentence, true, returnType.getAnswerComponent());
 
-		uiComponent = new QuestionComponent(sentence, true, returnType.getAnswerComponent(env, form, name));
+		QuestionObservable observable = new QuestionObservable(this, env, uiComponent);
+		env.registerObservable(name, observable);
+		
+		uiComponent.getAnswerField().addActionListener(observable);
+		env.registerObserver(new ComputedObserver(this, uiComponent.getAnswerField(), env));
+				
 		components.add(uiComponent);
-		return components;
+		return components; 
 	}
-	
+
 	@Override
-	public boolean eval(Env env) {
-		if(!(computation.checkType(env).size() > 0)){
-			uiComponent.updateValue(computation.eval(env));
-		}	
-		return false;		
+	public String genFormFeedBack(Env env, int indentation) {
+		StringBuilder feedBack = new StringBuilder(getIndentation(indentation));
+		feedBack.append(name.getName() + " : " + sentence + " return type : " + getSimpleName(returnType) + "(" + getSimpleName(computation) + ")"); 
+		feedBack.append(newLine);
+		ArrayList<Message> errors = new ArrayList<Message>();
+		getErrorsMessages(errors , env);
+		for(Message message : errors) {
+			feedBack.append(errorStartSign);
+			feedBack.append(message.getMessage());
+			feedBack.append(newLine);
+		}
+		return feedBack.toString();
 	}
 }

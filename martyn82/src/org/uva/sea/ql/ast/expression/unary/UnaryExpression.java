@@ -5,7 +5,9 @@ import org.uva.sea.ql.ast.expression.Expression;
 abstract public class UnaryExpression extends Expression {
 	private final Expression expression;
 
-	protected UnaryExpression( Expression expression ) {
+	public UnaryExpression( Expression expression ) {
+		assert ( expression != null );
+
 		this.expression = expression;
 	}
 

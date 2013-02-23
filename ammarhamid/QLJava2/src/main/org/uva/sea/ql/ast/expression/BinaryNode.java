@@ -1,9 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ErrorMessage;
-import org.uva.sea.ql.type.Type;
-
-import java.util.Collection;
+import org.uva.sea.ql.Message;
 
 public abstract class BinaryNode extends ExprNode
 {
@@ -16,22 +13,22 @@ public abstract class BinaryNode extends ExprNode
         this.rhs = rhs;
     }
 
-    @Override
-    public boolean validate(final Collection<ErrorMessage> errors)
+    public ExprNode getLhs()
     {
-        final Type type1 = this.lhs.evaluate().getType();
-        final Type type2 = this.rhs.evaluate().getType();
-        final boolean compatible = type1.isCompatibleTo(type2);
+        return lhs;
+    }
 
-        if(!compatible)
-        {
-            errors.add(new ErrorMessage(this, "Invalid type for " + getOperator()));
-        }
-
-        return compatible;
+    public ExprNode getRhs()
+    {
+        return rhs;
     }
 
     protected abstract String getOperator();
+
+    protected Message createErrorMessage()
+    {
+        return new Message("Invalid type for " + getOperator() + ' ', this);
+    }
 
     @Override
     public String toString()

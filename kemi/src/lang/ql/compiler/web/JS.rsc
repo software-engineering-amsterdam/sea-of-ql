@@ -10,45 +10,36 @@
 
 module lang::ql::compiler::web::JS
 
+import Configuration;
 import IO;
 import String;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::web::JSExpressionPrinter;
+import lang::ql::util::FormHelper;
 
-import util::ValueUI; 
-
-private str BLOCK = "Block";
-private loc JS_SRC_LOC = |project://QL-R-kemi/js/|;
-
-public void JS(Form f, loc dest) {
-  for(js <- listEntries(JS_SRC_LOC))
-    writeFile(dest + js, readFile(JS_SRC_LOC + js));
-
-  writeFile(dest + "styling.js", "function styling() { }");
+public void js(Form f, loc dest) {
+  writeFile(dest + getStylingJSName(), "function styling() { }");
   
-  dest += "checking.js";
+  dest += getCheckingJSName();
   
-  writeFile(dest, JS(f));
+  writeFile(dest, js(f));
 }
 
 private str showElement(str name) =
-  "show($(\"#<name><BLOCK>\"));";
+  "show($(\"#<name><getBlockSuffix()>\"));";
 
 private str hideElement(str name) =
-  "hide($(\"#<name><BLOCK>\"));";
+  "hide($(\"#<name><getBlockSuffix()>\"));";
+  
+private str setFormValue(Type \type, str ident) =
+  "setFormValue(\"#<ident>\", roundMoney(result));"
+    when \type == moneyType("money");
+
+private default str setFormValue(Type \type, str ident) =
+  "setFormValue(\"#<ident>\", result);";
 
 private str assignVar(str ident) =
   "var <ident> = getFormValue(\"#<ident>\");";
-  
-private set[str] getDirectDescendingIdents(Statement cond) =
-  getDirectDescendingIdents(
-    cond.ifPart.body + 
-    [*ei.body | ei <- cond.elseIfs] +
-    [*ep.body | ep <- cond.elsePart]
-  );
-
-private set[str] getDirectDescendingIdents(list[Statement] items) =
-  {q.answerIdentifier.ident | i <- items, question(Question q) := i};
   
 private set[str] getConditionalVariableMembers(Statement cond) =
   {
@@ -56,9 +47,9 @@ private set[str] getConditionalVariableMembers(Statement cond) =
     /x:ident(name) <- 
       [cond.ifPart.condition] + 
       [x.condition | x <- cond.elseIfs]
-   };
+  };
 
-private str JS(Form f) =
+private str js(Form f) =
   "// THIS IS AN AUTOMATICALLY GENERATED FILE. DO NOT EDIT!
   '
   'function validate<f.formName.ident>() {
@@ -69,9 +60,12 @@ private str JS(Form f) =
   '    }
   '  });
   '
-  '  $(\"#<f.formName.ident>\").on(\"input\", function(evt) {
+  '  $(\"#<f.formName.ident>\").on(\"input change\", function(evt) {
   '    if($(evt.target).attr(\"type\") !== \"date\") {
   '      $(evt.target).valid();
+  '    }
+  '    if(evt.type === \"change\") {
+  '      $(evt.target).attr(\"touched\", \"touched\");
   '    }
   '  });
   '
@@ -103,13 +97,14 @@ private str calculatedFields(Form f) {
   return ret;
 }
   
-private str individualCalculatedField(int cnt, Type \type, str ident, Expr expr) {  
+private str individualCalculatedField(int cnt, Type \type, 
+    str ident, Expr expr) {  
   list[str] eidents = [];
   
   top-down visit(expr) {
     case Expr e: ident(str name): eidents += name;
   }
-
+  
   return "
     '<for(e <- eidents) {>
     '$(\"#<e>\").on(\"input change\", calc_callback_<cnt>);
@@ -121,14 +116,10 @@ private str individualCalculatedField(int cnt, Type \type, str ident, Expr expr)
     '  <assignVar(e)>
     '<}>
     '  result = <jsPrint(expr)>;
-    '<if(\type == moneyType("money")){>
-    '  setFormValue(\"#<ident>\", roundMoney(result));
-    '<} else {>
-    '  setFormValue(\"#<ident>\", result);
-    '<}>
+    '  <setFormValue(\type, ident)>
     '}
     ";
-}  
+} 
 
 private str createValidationRules(Form f) {
   list[tuple[str ident, Type \type]] rules = [];
@@ -200,11 +191,11 @@ private str individualConditional(int suffix, Statement cond) {
   str ret = "";
 
   cbs = getConditionalVariableMembers(cond);
-  qs = getDirectDescendingIdents(cond);
+  qs = getDescendingIdents(cond);
   
   for(cb <- cbs) {
     ret += "
-    '$(\"#<cb>\").on(\"input change\", callback_<suffix>);
+    '$(\"*[name=<cb>]\").on(\"input change\", callback_<suffix>);
     ";
   }
   

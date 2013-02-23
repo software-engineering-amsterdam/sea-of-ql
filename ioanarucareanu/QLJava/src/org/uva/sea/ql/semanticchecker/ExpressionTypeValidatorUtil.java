@@ -54,7 +54,7 @@ public class ExpressionTypeValidatorUtil {
 
 		Type leftExprType = (Type) binary.getLeftExpr().accept(visitor);
 		Type rightExprType = (Type) binary.getRightExpr().accept(visitor);
-		if (!leftExprType.equals(rightExprType) || !(leftExprType.equals(ReturnTypeHolder.getDecType()) || !(leftExprType.equals(ReturnTypeHolder.getIntType())))) {
+		if (!leftExprType.equals(rightExprType) ||  !(leftExprType.equals(ReturnTypeHolder.getIntType()))) {
 			errors.addError("Both members of the expression " + binary + " must share the same numeric type.");
 			return false;
 		}

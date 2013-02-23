@@ -5,10 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
 import org.uva.sea.ql.ui.control.ButtonControl;
-import org.uva.sea.ql.value.Value;
 
 public class JButtonControl extends ButtonControl {
 	private final JButton control;
@@ -34,22 +33,14 @@ public class JButtonControl extends ButtonControl {
 	}
 
 	@Override
-	public void setValue( Value value ) {
-		return;
-	}
-
-	@Override
-	public Value getValue() {
-		return null;
-	}
-
-	@Override
-	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed( ActionEvent event ) {
-				listener.itemChanged( new ControlEvent( JButtonControl.this ) );
+	public void addClickListener( final ButtonControlEventListener listener ) {
+		this.control.addActionListener(
+			new ActionListener() {
+				@Override
+				public void actionPerformed( ActionEvent event ) {
+					listener.buttonClicked( new ControlEvent( JButtonControl.this ) );
+				}
 			}
-		} );
+		);
 	}
 }

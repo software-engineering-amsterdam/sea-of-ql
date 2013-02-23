@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 
 public class ErrorScreen {
 
-	private final String errorDialogName = "Wrong input";
+	private static final String errorDialogName = "Wrong input";
 	
 	public ErrorScreen(String error){		
 		JOptionPane.showMessageDialog(new JFrame(), error, errorDialogName,

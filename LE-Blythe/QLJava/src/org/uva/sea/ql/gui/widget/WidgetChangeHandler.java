@@ -25,7 +25,9 @@ public class WidgetChangeHandler extends Observable implements ChangeEventListen
 	@Override
 	public void onChange(EventObject e) {
 		
-		environment.putValue(identifier, widget.getValue());
+		///update value in the environment
+		if(widget.isDefined())
+			environment.putValue(identifier, widget.getValue());
 		
 		setChanged();
 		notifyObservers();

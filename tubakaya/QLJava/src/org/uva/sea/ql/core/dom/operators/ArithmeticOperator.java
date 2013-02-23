@@ -12,4 +12,11 @@ public abstract class ArithmeticOperator extends Expression {
 		this.rhs = rhs;
 	}
 
+	public Expression getLhs() {
+		return lhs;
+	}
+
+	public Expression getRhs() {
+		return rhs;
+	}
 }

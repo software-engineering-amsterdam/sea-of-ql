@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestLiteralExpressionTypes extends ExpressionTypeChecker {
-	
 	@Test
 	public void testIds() throws ParseError {
 		isOfTypeIdent("boolean");
@@ -39,5 +38,4 @@ public class TestLiteralExpressionTypes extends ExpressionTypeChecker {
 		isOfTypeString("\"abc2323\"");
 		isOfTypeString("\"a2bc232ABC\"");
 	}
-	
 }

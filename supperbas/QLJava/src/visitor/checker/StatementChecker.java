@@ -5,13 +5,7 @@ import java.util.Iterator;
 import visitor.Environment;
 import ast.Form;
 import ast.Statement;
-import ast.statement.Assignment;
-import ast.statement.Block;
-import ast.statement.Else;
-import ast.statement.If;
-import ast.statement.QuestionComputed;
-import ast.statement.QuestionVar;
-import ast.statement.Var;
+import ast.statement.*;
 
 public class StatementChecker implements ast.statement.Visitor<Boolean> {
 
@@ -28,14 +22,9 @@ public class StatementChecker implements ast.statement.Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Assignment ast) {
-		if(!environment.getTypeEnv().containsKey(ast.getIdent()))
-			environment.addError("undefined identifier ("+ast.getIdent().getValue()+")");
+		if (!environment.getTypeEnv().containsKey(ast.getIdent()))
+			environment.addError("undefined identifier (" + ast.getIdent().getValue() + ")");
 		return true;
-	}
-
-	@Override
-	public Boolean visit(Else ast) {
-		return ast.getBlock().accept(this);
 	}
 
 	@Override
@@ -49,14 +38,16 @@ public class StatementChecker implements ast.statement.Visitor<Boolean> {
 	public Boolean visit(If ast) {
 		if (!ast.getCondition().accept(new ExpressionChecker(environment)))
 			return false;
-		return ast.getBlock().accept(this);
+		if (!ast.getTrueBlock().accept(this))
+			return false;
+		return ast.getFalseBlock().accept(this);
 	}
 
 	@Override
 	public Boolean visit(QuestionVar ast) {
 		if (!environment.getTypeEnv().containsKey(ast.getIdent()))
 			environment.getTypeEnv().put(ast.getIdent(), ast.getType());
-		
+
 		ast.getIdent().accept(new ExpressionChecker(environment));
 		return true;
 	}
@@ -64,8 +55,7 @@ public class StatementChecker implements ast.statement.Visitor<Boolean> {
 	@Override
 	public Boolean visit(QuestionComputed ast) {
 		if (!environment.getTypeEnv().containsKey(ast.getIdent()))
-			environment.getTypeEnv().put(ast.getIdent(),
-					ast.getLabel().typeOf(environment.getTypeEnv()));
+			environment.getTypeEnv().put(ast.getIdent(), ast.getLabel().typeOf(environment.getTypeEnv()));
 		ast.getIdent().accept(new ExpressionChecker(environment));
 		return true;
 	}
@@ -82,7 +72,7 @@ public class StatementChecker implements ast.statement.Visitor<Boolean> {
 		for (Iterator<Statement> i = ast.iterator(); i.hasNext();)
 			if (!i.next().accept(this))
 				return false;
-		
+
 		return true;
 	}
 

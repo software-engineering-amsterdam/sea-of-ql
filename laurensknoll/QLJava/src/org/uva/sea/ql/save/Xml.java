@@ -3,10 +3,10 @@ package org.uva.sea.ql.save;
 import java.util.List;
 import java.util.Observable;
 
-import org.uva.sea.ql.visitor.eval.Application;
 import org.uva.sea.ql.visitor.eval.FormData;
+import org.uva.sea.ql.visitor.eval.ui.Application;
 
-public class Xml extends Saver {
+public class Xml extends SaveBehaviour {
 
 	private final String path;
 

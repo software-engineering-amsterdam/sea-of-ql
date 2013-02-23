@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Location;
-import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class IfStatement extends AbstractConditional {

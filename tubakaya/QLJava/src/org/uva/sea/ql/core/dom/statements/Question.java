@@ -1,21 +1,18 @@
 package org.uva.sea.ql.core.dom.statements;
 
-import org.uva.sea.ql.core.dom.Identifier;
 import org.uva.sea.ql.core.dom.Statement;
 import org.uva.sea.ql.core.dom.StatementVisitor;
-import org.uva.sea.ql.core.dom.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.core.dom.Variable;
 import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 
 public class Question extends Statement{
 
-	public Identifier name;
+	public Variable variable;
 	public StringLiteral text;
-	public TypeDeclaration type;
 	
-	public Question(Identifier name,StringLiteral text, TypeDeclaration type) {
-		this.name=name;
+	public Question(Variable variable, StringLiteral text) {
+		this.variable=variable;
 		this.text=text;
-		this.type=type;
 	}
 	
 	@Override

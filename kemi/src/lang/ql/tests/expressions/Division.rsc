@@ -10,7 +10,7 @@
 
 module lang::ql::tests::expressions::Division
 
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::util::ParseHelper;
 import lang::ql::util::Random;
 
