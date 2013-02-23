@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+import org.uva.sea.ql.ast.statement.impl.ComputedNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
@@ -47,6 +48,21 @@ public class StatementWidgetVisitor implements StatementVisitor
         final JPanel typePanel = new JPanel();
         final Type type = assignmentNode.getType();
         type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifierNode(), this.variableState));
+
+        addQuestionPanel(questionPanel);
+        addTypePanel(typePanel);
+    }
+
+    @Override
+    public void visit(ComputedNode computedNode)
+    {
+        final String question = computedNode.getQuestion();
+        final JPanel questionPanel = new JPanel();
+        questionPanel.add(new JLabel(question));
+
+        final JPanel typePanel = new JPanel();
+        final Type type = computedNode.getType();
+        type.accept(new TypeWidgetVisitor(typePanel, computedNode.getIdentifierNode(), this.variableState, false));
 
         addQuestionPanel(questionPanel);
         addTypePanel(typePanel);

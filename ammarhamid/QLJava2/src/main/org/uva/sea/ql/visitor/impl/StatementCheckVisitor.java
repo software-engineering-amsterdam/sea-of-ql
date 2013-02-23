@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+import org.uva.sea.ql.ast.statement.impl.ComputedNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
@@ -29,6 +30,12 @@ public class StatementCheckVisitor implements StatementVisitor
     public void visit(AssignmentNode assignmentNode)
     {
         validateVariableName(assignmentNode);
+    }
+
+    @Override
+    public void visit(ComputedNode computedNode)
+    {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -28,32 +28,41 @@ public class TypeWidgetVisitor implements TypeVisitor
     private final JPanel panel;
     private final VariableState variableState;
     private final IdentifierNode identifierNode;
+    private final boolean editable;
 
-    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState)
+    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState, final boolean editable)
     {
         this.panel = panel;
         this.variableState = variableState;
         this.identifierNode = identifierNode;
+        this.editable = editable;
+    }
+
+    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState)
+    {
+        this(panel, identifierNode, variableState, true);
     }
 
     @Override
     public void visit(BooleanType booleanType)
     {
-        final JCheckBox checkBox = new JCheckBox("Yes");
-        checkBox.addItemListener(new ItemListener()
+        final JCheckBox jCheckBox = new JCheckBox("Yes");
+        jCheckBox.setEnabled(this.editable);
+        jCheckBox.addItemListener(new ItemListener()
         {
             public void itemStateChanged(ItemEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new BooleanValue(checkBox.isSelected()));
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new BooleanValue(jCheckBox.isSelected()));
             }
         });
-        this.panel.add(checkBox);
+        this.panel.add(jCheckBox);
     }
 
     @Override
     public void visit(StringType stringType)
     {
         final JTextField jTextField = new JTextField(LENGTH);
+        jTextField.setEditable(this.editable);
         jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
             public void changedUpdate(DocumentEvent e)
@@ -84,6 +93,7 @@ public class TypeWidgetVisitor implements TypeVisitor
     public void visit(IntegerType integerType)
     {
         final JTextField jTextField = new JTextField(LENGTH);
+        jTextField.setEditable(this.editable);
         jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
             public void changedUpdate(DocumentEvent e)
@@ -128,6 +138,7 @@ public class TypeWidgetVisitor implements TypeVisitor
     public void visit(MoneyType moneyType)
     {
         final JTextField jTextField = new JTextField(LENGTH);
+        jTextField.setEditable(this.editable);
         jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
             public void changedUpdate(DocumentEvent e)

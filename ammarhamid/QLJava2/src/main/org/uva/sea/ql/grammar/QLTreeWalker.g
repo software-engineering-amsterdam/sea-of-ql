@@ -13,9 +13,10 @@ options
 	import org.uva.sea.ql.ast.Node;
 	import org.uva.sea.ql.ast.FormNode;
 	import org.uva.sea.ql.ast.statement.Statement;
+	import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+	import org.uva.sea.ql.ast.statement.impl.ComputedNode;
 	import org.uva.sea.ql.ast.statement.impl.IfNode;
 	import org.uva.sea.ql.ast.statement.BlockNode;
-	import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
 	import org.uva.sea.ql.ast.expression.ExprNode;
 	import org.uva.sea.ql.ast.expression.impl.ValueNode;
 	import org.uva.sea.ql.ast.expression.impl.AddNode;
@@ -74,6 +75,7 @@ block returns [BlockNode node]
 statement returns [Statement node]
 	:	ifStatement { $node = $ifStatement.node; }
 		| assignmentStatement { $node = $assignmentStatement.node; }
+		| computedStatement { $node = $computedStatement.node; }
 	;
 
 ifStatement returns [IfNode node]
@@ -96,6 +98,15 @@ assignmentStatement returns [AssignmentNode node]
 	        $node = new AssignmentNode($StringLiteral.text, identifierNode);
 	    }
 	;
+
+computedStatement returns [ComputedNode node]
+    :   ^(COMPUTED StringLiteral Identifier type expression)
+        {
+            final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, $type.defaultValue);
+            variables.put($Identifier.text, identifierNode);
+            $node = new ComputedNode($StringLiteral.text, identifierNode, $expression.node);
+        }
+    ;
 
 type returns [Value defaultValue]
 	:	'boolean'   { $defaultValue = new BooleanValue("false"); }
