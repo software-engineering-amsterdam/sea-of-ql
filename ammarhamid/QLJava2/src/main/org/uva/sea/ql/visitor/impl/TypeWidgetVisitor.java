@@ -13,14 +13,18 @@ import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.TypeVisitor;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.math.BigDecimal;
 
 public class TypeWidgetVisitor implements TypeVisitor
 {
     public static final int LENGTH = 10;
+    public static final String MESSAGE = "Please enter a number !";
+    public static final String TITLE = "Error Message";
+
     private final JPanel panel;
     private final VariableState variableState;
     private final IdentifierNode identifierNode;
@@ -50,10 +54,24 @@ public class TypeWidgetVisitor implements TypeVisitor
     public void visit(StringType stringType)
     {
         final JTextField jTextField = new JTextField(LENGTH);
-        jTextField.addActionListener(new ActionListener()
+        jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            public void changedUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void update()
             {
                 variableState.put(TypeWidgetVisitor.this.identifierNode, new StringValue(jTextField.getText()));
             }
@@ -66,14 +84,43 @@ public class TypeWidgetVisitor implements TypeVisitor
     public void visit(IntegerType integerType)
     {
         final JTextField jTextField = new JTextField(LENGTH);
-        jTextField.addActionListener(new ActionListener()
+        jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            public void changedUpdate(DocumentEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new IntegerValue(jTextField.getText()));
+                update();
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void update()
+            {
+                final String text = jTextField.getText();
+                Integer value = 0;
+                try
+                {
+                    if(!text.isEmpty())
+                    {
+                        value = Integer.valueOf(text);
+                    }
+                }
+                catch(NumberFormatException nfe)
+                {
+                    JOptionPane.showMessageDialog(null, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
+                }
+
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new IntegerValue(value));
             }
         });
+
         this.panel.add(jTextField);
     }
 
@@ -81,19 +128,43 @@ public class TypeWidgetVisitor implements TypeVisitor
     public void visit(MoneyType moneyType)
     {
         final JTextField jTextField = new JTextField(LENGTH);
-        jTextField.addActionListener(new ActionListener()
+        jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            public void changedUpdate(DocumentEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new MoneyValue(jTextField.getText()));
+                update();
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void update()
+            {
+                final String text = jTextField.getText();
+                BigDecimal value = new BigDecimal(0.0);
+                try
+                {
+                    if(!text.isEmpty())
+                    {
+                        value = new BigDecimal(Double.valueOf(text));
+                    }
+                }
+                catch(NumberFormatException nfe)
+                {
+                    JOptionPane.showMessageDialog(null, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
+                }
+
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new MoneyValue(value));
             }
         });
         this.panel.add(jTextField);
     }
 
-    public JPanel getPanel()
-    {
-        return panel;
-    }
 }

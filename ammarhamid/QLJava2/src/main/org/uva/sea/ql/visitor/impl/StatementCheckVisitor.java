@@ -28,7 +28,7 @@ public class StatementCheckVisitor implements StatementVisitor
     @Override
     public void visit(AssignmentNode assignmentNode)
     {
-        checkVariableName(assignmentNode);
+        validateVariableName(assignmentNode);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class StatementCheckVisitor implements StatementVisitor
         }
     }
 
-    private void checkVariableName(AssignmentNode assignmentNode)
+    private void validateVariableName(AssignmentNode assignmentNode)
     {
         final IdentifierNode identifierNode = assignmentNode.getIdentifierNode();
         if(this.declaredVariables.contains(identifierNode))
