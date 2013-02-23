@@ -3,16 +3,16 @@ package org.uva.sea.ql.parser.antlr;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.statements.Statement;
+import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.ast.statements.AStatement;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
 public class ANTLRParser implements IParse {
 
 	@Override
-	public Expr parseExpr(String src) throws ParseError {
+	public AExpr parseExpr(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
@@ -25,7 +25,7 @@ public class ANTLRParser implements IParse {
 	}
 
 	@Override
-	public Statement parseStatement(String src) throws ParseError {
+	public AStatement parseStatement(String src) throws ParseError {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
