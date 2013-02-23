@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
 import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpression;
@@ -53,7 +53,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Sub ast) { return checkArithmeticExpression(ast, "-"); }
 	@Override
-	public Boolean visit(Mul ast) { return checkArithmeticExpression(ast, "*"); }
+	public Boolean visit(Multiplication ast) { return checkArithmeticExpression(ast, "*"); }
 
 	@Override
 	public Boolean visit(Eq ast)  { return checkRelationalExpression(ast, "=="); }

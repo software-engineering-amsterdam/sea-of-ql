@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.visitors.typechecker;
 
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
 import org.uva.sea.ql.ast.expressions.binary.logical.Or;
@@ -27,7 +27,7 @@ public interface Visitor<T> {
 	T visit(Addition ast);
 	T visit(Division ast);
 	T visit(Sub ast);
-	T visit(Mul ast);
+	T visit(Multiplication ast);
 	
 	// Binary logical expressions
 	T visit(And ast);
