@@ -24,7 +24,7 @@ import eu.karuza.ql.QuestionResult;
 
 @SuppressWarnings("serial")
 public class QL_Survey_DisplayServlet extends HttpServlet {
-	
+
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss S");
 
 	@Override
@@ -46,12 +46,12 @@ public class QL_Survey_DisplayServlet extends HttpServlet {
 	private void printResults(PreparedQuery preparedQuery, PrintWriter writer) {
 		Gson gson = new Gson();
 		Calendar calendar = Calendar.getInstance();
-		for(Entity result : preparedQuery.asIterable()) {
-			FormResult formResult = gson.fromJson((String)result.getProperty(Constants.DATA_FORM_RESULT), FormResult.class);
-			calendar.setTimeInMillis((Long)result.getProperty(Constants.DATA_TIMESTAMP));
+		for (Entity result : preparedQuery.asIterable()) {
+			FormResult formResult = gson.fromJson((String) result.getProperty(Constants.DATA_FORM_RESULT), FormResult.class);
+			calendar.setTimeInMillis((Long) result.getProperty(Constants.DATA_TIMESTAMP));
 			writer.println(dateFormat.format(calendar.getTime()));
-			if(formResult != null) {
-				for(QuestionResult question : formResult.getResult()) {
+			if (formResult != null) {
+				for (QuestionResult question : formResult.getResult()) {
 					writer.println(question.getName());
 					writer.println(question.getValue());
 					writer.println();
