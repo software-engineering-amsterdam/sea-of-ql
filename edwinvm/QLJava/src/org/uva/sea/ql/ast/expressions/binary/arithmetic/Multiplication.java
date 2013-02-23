@@ -3,9 +3,9 @@ package org.uva.sea.ql.ast.expressions.binary.arithmetic;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class Mul extends BinaryArithmeticExpression {
-	public Mul(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+public class Multiplication extends BinaryArithmeticExpression {
+	public Multiplication(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override

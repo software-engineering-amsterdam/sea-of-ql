@@ -1,11 +1,11 @@
 package org.uva.sea.ql.check.expressions;
 
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
 import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpression;
 import org.uva.sea.ql.ast.expressions.binary.logical.Or;
@@ -47,13 +47,13 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(Add ast) { return checkArithmeticExpression(ast, "+"); }
+	public Boolean visit(Addition ast) { return checkArithmeticExpression(ast, "+"); }
 	@Override
-	public Boolean visit(Div ast) { return checkArithmeticExpression(ast, "/"); }
+	public Boolean visit(Division ast) { return checkArithmeticExpression(ast, "/"); }
 	@Override
-	public Boolean visit(Sub ast) { return checkArithmeticExpression(ast, "-"); }
+	public Boolean visit(Subtraction ast) { return checkArithmeticExpression(ast, "-"); }
 	@Override
-	public Boolean visit(Mul ast) { return checkArithmeticExpression(ast, "*"); }
+	public Boolean visit(Multiplication ast) { return checkArithmeticExpression(ast, "*"); }
 
 	@Override
 	public Boolean visit(Eq ast)  { return checkRelationalExpression(ast, "=="); }
@@ -92,19 +92,19 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(Str ast)   { return checkLiteralExpression(ast, Str.class.toString());   }
 	
 	private Boolean checkArithmeticExpression(BinaryArithmeticExpression expression, String binarySymbol) {
-		boolean checkLhs = expression.getLhs().accept(this);
-		boolean checkRhs = expression.getRhs().accept(this);
+		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);
+		boolean checkRightHandSide = expression.getRightHandSide().accept(this);
 		
-		if (!(checkLhs && checkRhs)) {
+		if (!(checkLeftHandSide && checkRightHandSide)) {
 			// Type errors occurred
 			return false;
 		}
 		
-		Type lhsType = expression.getLhs().typeOf(_typeEnvironment);
-		Type rhsType = expression.getRhs().typeOf(_typeEnvironment);
+		Type leftHandSideType  = expression.getLeftHandSide().typeOf(_typeEnvironment);
+		Type rightHandSideType = expression.getRightHandSide().typeOf(_typeEnvironment);
 		
 		// Check if Types are compatible with BinaryNumericExpr
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
+		if (!(leftHandSideType.isCompatibleToNumeric() && rightHandSideType.isCompatibleToNumeric())) {
 			addError(expression, "invalid type for " + binarySymbol);
 			return false;
 		}
@@ -114,19 +114,19 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkRelationalExpression(BinaryRelationalExpression expression, String binarySymbol) {
-		boolean checkLhs = expression.getLhs().accept(this);
-		boolean checkRhs = expression.getRhs().accept(this);
+		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);
+		boolean checkRightHandSide = expression.getRightHandSide().accept(this);
 		
-		if (!(checkLhs && checkRhs)) {
+		if (!(checkLeftHandSide && checkRightHandSide)) {
 			// Type errors occurred
 			return false;
 		}
 		
-		Type lhsType = expression.getLhs().typeOf(_typeEnvironment);
-		Type rhsType = expression.getRhs().typeOf(_typeEnvironment);
+		Type leftHandSideType  = expression.getLeftHandSide().typeOf(_typeEnvironment);
+		Type rightHandSideType = expression.getRightHandSide().typeOf(_typeEnvironment);
 		
 		// Check if Types are compatible with each other
-		if (!lhsType.isCompatibleTo(rhsType)) {
+		if (!leftHandSideType.isCompatibleTo(rightHandSideType)) {
 			addError(expression, "invalid type for " + binarySymbol);
 			return false;
 		}
@@ -136,19 +136,19 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkLogicalExpression(BinaryLogicalExpression expression, String binarySymbol) {
-		boolean checkLhs = expression.getLhs().accept(this);
-		boolean checkRhs = expression.getRhs().accept(this);
+		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);
+		boolean checkRightHandSide = expression.getRightHandSide().accept(this);
 		
-		if (!(checkLhs && checkRhs)) {
+		if (!(checkLeftHandSide && checkRightHandSide)) {
 			// Type errors occurred
 			return false;
 		}
 		
-		Type lhsType = expression.getLhs().typeOf(_typeEnvironment);
-		Type rhsType = expression.getRhs().typeOf(_typeEnvironment);
+		Type leftHandSideType  = expression.getLeftHandSide().typeOf(_typeEnvironment);
+		Type rightHandSideType = expression.getRightHandSide().typeOf(_typeEnvironment);
 		
 		// Check if Types are compatible with BinaryBoolExpr
-		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
+		if (!(leftHandSideType.isCompatibleToBool() && rightHandSideType.isCompatibleToBool())) {
 			addError(expression, "invalid type for " + binarySymbol);
 			return false;
 		}
@@ -158,10 +158,10 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkUnaryArithmeticExpression(UnaryExpression expression, String binarySymbol) {
-		Type exprType = expression.typeOf(_typeEnvironment);
+		Type expressionType = expression.typeOf(_typeEnvironment);
 		
 		// Check if Type is compatible with UnaryExpr
-		if (!exprType.isCompatibleToNumeric()) {
+		if (!expressionType.isCompatibleToNumeric()) {
 			addError(expression, "invalid type for " + binarySymbol);
 			return false;
 		}
@@ -171,10 +171,10 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkUnaryLogicalExpression(UnaryExpression expression, String binarySymbol) {
-		Type exprType = expression.typeOf(_typeEnvironment);
+		Type expressionType = expression.typeOf(_typeEnvironment);
 		
 		// Check if Type is compatible with UnaryExpr
-		if (!exprType.isCompatibleToBool()) {
+		if (!expressionType.isCompatibleToBool()) {
 			addError(expression, "invalid type for " + binarySymbol);
 			return false;
 		}
@@ -184,10 +184,10 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkLiteralExpression(LiteralExpression expression, String className) {
-		Type exprType = expression.typeOf(_typeEnvironment);
+		Type expressionType = expression.typeOf(_typeEnvironment);
 		
 		// Check if Type is compatible with LiteralExpr
-		if (!exprType.isCompatibleTo(exprType)) {
+		if (!expressionType.isCompatibleTo(expressionType)) {
 			addError(expression, "invalid type for literal " + className);
 			return false;
 		}

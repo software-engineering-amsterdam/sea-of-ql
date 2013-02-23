@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 20:41:55
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 21:15:08
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -891,12 +891,12 @@ public class QLParser extends Parser {
 
 
 
-    // $ANTLR start "mulExpression"
-    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:72:1: mulExpression returns [Expression result] : lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* ;
-    public final Expression mulExpression() throws RecognitionException {
+    // $ANTLR start "multiplicationExpression"
+    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:72:1: multiplicationExpression returns [Expression result] : lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* ;
+    public final Expression multiplicationExpression() throws RecognitionException {
         Expression result = null;
 
-        int mulExpression_StartIndex = input.index();
+        int multiplicationExpression_StartIndex = input.index();
 
         Token op=null;
         Expression lhs =null;
@@ -910,7 +910,7 @@ public class QLParser extends Parser {
             // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:73:5: (lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )* )
             // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:73:9: lhs= unExpression (op= ( '*' | '/' ) rhs= unExpression )*
             {
-            pushFollow(FOLLOW_unExpression_in_mulExpression518);
+            pushFollow(FOLLOW_unExpression_in_multiplicationExpression518);
             lhs=unExpression();
 
             state._fsp--;
@@ -947,15 +947,15 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_unExpression_in_mulExpression538);
+            	    pushFollow(FOLLOW_unExpression_in_multiplicationExpression538);
             	    rhs=unExpression();
 
             	    state._fsp--;
             	    if (state.failed) return result;
 
             	    if ( state.backtracking==0 ) { 
-            	            if ((op!=null?op.getText():null).equals("*")) { result = new Mul(result, rhs); }
-            	            if ((op!=null?op.getText():null).equals("/")) { result = new Div(result, rhs); }
+            	            if ((op!=null?op.getText():null).equals("*")) { result = new Multiplication(result, rhs); }
+            	            if ((op!=null?op.getText():null).equals("/")) { result = new Division(result, rhs); }
             	        }
 
             	    }
@@ -977,21 +977,21 @@ public class QLParser extends Parser {
 
         finally {
         	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 8, mulExpression_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 8, multiplicationExpression_StartIndex); }
 
         }
         return result;
     }
-    // $ANTLR end "mulExpression"
+    // $ANTLR end "multiplicationExpression"
 
 
 
-    // $ANTLR start "addExpression"
-    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:80:1: addExpression returns [Expression result] : lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )* ;
-    public final Expression addExpression() throws RecognitionException {
+    // $ANTLR start "additionExpression"
+    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:80:1: additionExpression returns [Expression result] : lhs= multiplicationExpression (op= ( '+' | '-' ) rhs= multiplicationExpression )* ;
+    public final Expression additionExpression() throws RecognitionException {
         Expression result = null;
 
-        int addExpression_StartIndex = input.index();
+        int additionExpression_StartIndex = input.index();
 
         Token op=null;
         Expression lhs =null;
@@ -1002,18 +1002,18 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:5: (lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )* )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:9: lhs= mulExpression (op= ( '+' | '-' ) rhs= mulExpression )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:5: (lhs= multiplicationExpression (op= ( '+' | '-' ) rhs= multiplicationExpression )* )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:9: lhs= multiplicationExpression (op= ( '+' | '-' ) rhs= multiplicationExpression )*
             {
-            pushFollow(FOLLOW_mulExpression_in_addExpression576);
-            lhs=mulExpression();
+            pushFollow(FOLLOW_multiplicationExpression_in_additionExpression576);
+            lhs=multiplicationExpression();
 
             state._fsp--;
             if (state.failed) return result;
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:52: (op= ( '+' | '-' ) rhs= mulExpression )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:63: (op= ( '+' | '-' ) rhs= multiplicationExpression )*
             loop10:
             do {
                 int alt10=2;
@@ -1026,7 +1026,7 @@ public class QLParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:54: op= ( '+' | '-' ) rhs= mulExpression
+            	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:81:65: op= ( '+' | '-' ) rhs= multiplicationExpression
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1042,15 +1042,15 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_mulExpression_in_addExpression594);
-            	    rhs=mulExpression();
+            	    pushFollow(FOLLOW_multiplicationExpression_in_additionExpression594);
+            	    rhs=multiplicationExpression();
 
             	    state._fsp--;
             	    if (state.failed) return result;
 
             	    if ( state.backtracking==0 ) { 
-            	            if ((op!=null?op.getText():null).equals("+")) { result = new Add(result, rhs); }
-            	            if ((op!=null?op.getText():null).equals("-")) { result = new Sub(result, rhs); }
+            	            if ((op!=null?op.getText():null).equals("+")) { result = new Addition(result, rhs); }
+            	            if ((op!=null?op.getText():null).equals("-")) { result = new Subtraction(result, rhs); }
             	        }
 
             	    }
@@ -1072,17 +1072,17 @@ public class QLParser extends Parser {
 
         finally {
         	// do for sure before leaving
-            if ( state.backtracking>0 ) { memoize(input, 9, addExpression_StartIndex); }
+            if ( state.backtracking>0 ) { memoize(input, 9, additionExpression_StartIndex); }
 
         }
         return result;
     }
-    // $ANTLR end "addExpression"
+    // $ANTLR end "additionExpression"
 
 
 
     // $ANTLR start "relExpression"
-    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: relExpression returns [Expression result] : lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* ;
+    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: relExpression returns [Expression result] : lhs= additionExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= additionExpression )* ;
     public final Expression relExpression() throws RecognitionException {
         Expression result = null;
 
@@ -1097,18 +1097,18 @@ public class QLParser extends Parser {
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:5: (lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )* )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:9: lhs= addExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:5: (lhs= additionExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= additionExpression )* )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:9: lhs= additionExpression (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= additionExpression )*
             {
-            pushFollow(FOLLOW_addExpression_in_relExpression629);
-            lhs=addExpression();
+            pushFollow(FOLLOW_additionExpression_in_relExpression629);
+            lhs=additionExpression();
 
             state._fsp--;
             if (state.failed) return result;
 
             if ( state.backtracking==0 ) { result =lhs; }
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:52: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:57: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= additionExpression )*
             loop11:
             do {
                 int alt11=2;
@@ -1121,7 +1121,7 @@ public class QLParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:54: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpression
+            	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:89:59: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= additionExpression
             	    {
             	    op=(Token)input.LT(1);
 
@@ -1137,8 +1137,8 @@ public class QLParser extends Parser {
             	    }
 
 
-            	    pushFollow(FOLLOW_addExpression_in_relExpression653);
-            	    rhs=addExpression();
+            	    pushFollow(FOLLOW_additionExpression_in_relExpression653);
+            	    rhs=additionExpression();
 
             	    state._fsp--;
             	    if (state.failed) return result;
@@ -1576,15 +1576,15 @@ public class QLParser extends Parser {
     public static final BitSet FOLLOW_11_in_unExpression462 = new BitSet(new long[]{0x0000000000064BD0L});
     public static final BitSet FOLLOW_unExpression_in_unExpression466 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_primary_in_unExpression480 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpression_in_mulExpression518 = new BitSet(new long[]{0x0000000000090002L});
-    public static final BitSet FOLLOW_set_in_mulExpression526 = new BitSet(new long[]{0x0000000000064BD0L});
-    public static final BitSet FOLLOW_unExpression_in_mulExpression538 = new BitSet(new long[]{0x0000000000090002L});
-    public static final BitSet FOLLOW_mulExpression_in_addExpression576 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_set_in_addExpression584 = new BitSet(new long[]{0x0000000000064BD0L});
-    public static final BitSet FOLLOW_mulExpression_in_addExpression594 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_addExpression_in_relExpression629 = new BitSet(new long[]{0x0000000007601002L});
+    public static final BitSet FOLLOW_unExpression_in_multiplicationExpression518 = new BitSet(new long[]{0x0000000000090002L});
+    public static final BitSet FOLLOW_set_in_multiplicationExpression526 = new BitSet(new long[]{0x0000000000064BD0L});
+    public static final BitSet FOLLOW_unExpression_in_multiplicationExpression538 = new BitSet(new long[]{0x0000000000090002L});
+    public static final BitSet FOLLOW_multiplicationExpression_in_additionExpression576 = new BitSet(new long[]{0x0000000000060002L});
+    public static final BitSet FOLLOW_set_in_additionExpression584 = new BitSet(new long[]{0x0000000000064BD0L});
+    public static final BitSet FOLLOW_multiplicationExpression_in_additionExpression594 = new BitSet(new long[]{0x0000000000060002L});
+    public static final BitSet FOLLOW_additionExpression_in_relExpression629 = new BitSet(new long[]{0x0000000007601002L});
     public static final BitSet FOLLOW_set_in_relExpression637 = new BitSet(new long[]{0x0000000000064BD0L});
-    public static final BitSet FOLLOW_addExpression_in_relExpression653 = new BitSet(new long[]{0x0000000007601002L});
+    public static final BitSet FOLLOW_additionExpression_in_relExpression653 = new BitSet(new long[]{0x0000000007601002L});
     public static final BitSet FOLLOW_relExpression_in_andExpression691 = new BitSet(new long[]{0x0000000000002002L});
     public static final BitSet FOLLOW_13_in_andExpression697 = new BitSet(new long[]{0x0000000000064BD0L});
     public static final BitSet FOLLOW_relExpression_in_andExpression701 = new BitSet(new long[]{0x0000000000002002L});

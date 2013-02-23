@@ -69,24 +69,24 @@ unExpression returns [Expression result]
     |   x=primary    { $result = $x.result; }
     ;    
     
-mulExpression returns [Expression result]
+multiplicationExpression returns [Expression result]
     :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
     { 
-        if ($op.text.equals("*")) { $result = new Mul($result, rhs); }
-        if ($op.text.equals("/")) { $result = new Div($result, rhs); }
+        if ($op.text.equals("*")) { $result = new Multiplication($result, rhs); }
+        if ($op.text.equals("/")) { $result = new Division($result, rhs); }
     })*
     ;
     
-addExpression returns [Expression result]
-    :   lhs=mulExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpression
+additionExpression returns [Expression result]
+    :   lhs=multiplicationExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=multiplicationExpression
     { 
-        if ($op.text.equals("+")) { $result = new Add($result, rhs); }
-        if ($op.text.equals("-")) { $result = new Sub($result, rhs); }
+        if ($op.text.equals("+")) { $result = new Addition($result, rhs); }
+        if ($op.text.equals("-")) { $result = new Subtraction($result, rhs); }
     })*
     ;
   
 relExpression returns [Expression result]
-    :   lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
+    :   lhs=additionExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=additionExpression 
     { 
         if ($op.text.equals("<"))  { $result = new LT($result, rhs);  }
         if ($op.text.equals("<=")) { $result = new LEq($result, rhs); }

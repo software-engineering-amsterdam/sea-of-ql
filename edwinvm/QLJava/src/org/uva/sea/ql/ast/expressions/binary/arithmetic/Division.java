@@ -3,9 +3,9 @@ package org.uva.sea.ql.ast.expressions.binary.arithmetic;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class Add extends BinaryArithmeticExpression {
-	public Add(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+public class Division extends BinaryArithmeticExpression {
+	public Division(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override

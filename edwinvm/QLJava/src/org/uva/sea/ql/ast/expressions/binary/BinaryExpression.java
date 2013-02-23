@@ -2,20 +2,19 @@ package org.uva.sea.ql.ast.expressions.binary;
 
 import org.uva.sea.ql.ast.expressions.Expression;
 
-
 public abstract class BinaryExpression extends Expression {
-	private final Expression _lhs, _rhs;
+	private final Expression _leftHandSide, _rightHandSide;
 	
-	protected BinaryExpression(Expression lhs, Expression rhs) {
-		_lhs = lhs;
-		_rhs = rhs;
+	protected BinaryExpression(Expression leftHandSide, Expression rightHandSide) {
+		_leftHandSide = leftHandSide;
+		_rightHandSide = rightHandSide;
 	}
 	
-	public Expression getLhs() {
-		return _lhs;
+	public Expression getLeftHandSide() {
+		return _leftHandSide;
 	}
 	
-	public Expression getRhs() {
-		return _rhs;
+	public Expression getRightHandSide() {
+		return _rightHandSide;
 	}
 }

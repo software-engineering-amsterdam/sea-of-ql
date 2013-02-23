@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
 public class Or extends BinaryLogicalExpression {
-	public Or(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+	public Or(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override

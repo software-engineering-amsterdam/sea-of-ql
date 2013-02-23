@@ -7,8 +7,8 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
 public abstract class BinaryArithmeticExpression extends BinaryExpression {
-	protected BinaryArithmeticExpression(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+	protected BinaryArithmeticExpression(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override
