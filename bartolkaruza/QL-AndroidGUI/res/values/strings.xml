@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">QL-SurveyTool</string>
+    <string name="app_name">QL Survey</string>
     <string name="title_question_detail">Question Detail</string>
     <string name="menu_reload">reload</string>
     <string name="menu_store">store</string>
