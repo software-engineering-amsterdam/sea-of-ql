@@ -6,15 +6,15 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import eu.karuza.ql.ast.IfConditionalStatement;
+import eu.karuza.ql.ast.Expr;
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.expr.grouping.Expr;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.statement.IfConditionalStatement;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.parser.antlr.ANTLRParser;
-import eu.karuza.ql.semantic.StatementSemanticChecker;
+import eu.karuza.ql.visitor.impl.StatementSemanticChecker;
 
 public class TestEvaluate {
 	

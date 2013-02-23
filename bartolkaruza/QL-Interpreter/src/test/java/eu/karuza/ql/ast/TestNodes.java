@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.statement.IfConditionalStatement;
+import eu.karuza.ql.ast.statement.IfElseConditionalStatement;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.antlr.ANTLRParser;

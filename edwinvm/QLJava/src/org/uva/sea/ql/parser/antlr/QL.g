@@ -36,13 +36,13 @@ formStatement returns [FormStatement result]
 
 question returns [Question result]
     :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), t); }
-    |   String Ident '=' e=orExpression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $e.result); }
+    |   String Ident '=' e=expression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $e.result); }
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpression ')' ifBody=statementBody 'else' elseBody=statementBody
+    :   'if' '(' condition=expression ')' ifBody=statementBody 'else' elseBody=statementBody
         { $result = new IfThenElse(condition, ifBody, elseBody); }
-    |   'if' '(' condition=orExpression ')' ifBody=statementBody
+    |   'if' '(' condition=expression ')' ifBody=statementBody
         { $result = new IfThen(condition, ifBody); }
     ;
 
@@ -50,7 +50,7 @@ statementBody returns [StatementBody result]
 	@init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
     :   '{' (statement=formStatement { statements.add(statement); })+ '}'
-    |   (statement=formStatement { statements.add(statement); })+
+    |       (statement=formStatement { statements.add(statement); })+
     ;
 
 primary returns [Expression result]
@@ -59,18 +59,18 @@ primary returns [Expression result]
     |   Money  { $result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
     |   String { $result = new org.uva.sea.ql.ast.expressions.literal.Str($String.text); }
     |   Ident  { $result = new Ident($Ident.text); }
-    |   '(' x=orExpression ')'{ $result = $x.result; }
+    |   '(' x=expression ')'{ $result = $x.result; }
     ;
     
-unExpression returns [Expression result]
-    :   '+' x=unExpression { $result = new Pos($x.result); }
-    |   '-' x=unExpression { $result = new Neg($x.result); }
-    |   '!' x=unExpression { $result = new Not($x.result); }
+unaryExpression returns [Expression result]
+    :   '+' x=unaryExpression { $result = new Pos($x.result); }
+    |   '-' x=unaryExpression { $result = new Neg($x.result); }
+    |   '!' x=unaryExpression { $result = new Not($x.result); }
     |   x=primary    { $result = $x.result; }
     ;    
     
 multiplicationExpression returns [Expression result]
-    :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
+    :   lhs=unaryExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unaryExpression 
     { 
         if ($op.text.equals("*")) { $result = new Multiplication($result, rhs); }
         if ($op.text.equals("/")) { $result = new Division($result, rhs); }
@@ -85,25 +85,29 @@ additionExpression returns [Expression result]
     })*
     ;
   
-relExpression returns [Expression result]
+relationalExpression returns [Expression result]
     :   lhs=additionExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=additionExpression 
     { 
-        if ($op.text.equals("<"))  { $result = new LT($result, rhs);  }
-        if ($op.text.equals("<=")) { $result = new LEq($result, rhs); }
-        if ($op.text.equals(">"))  { $result = new GT($result, rhs);  }
-        if ($op.text.equals(">=")) { $result = new GEq($result, rhs); }
-        if ($op.text.equals("==")) { $result = new Eq($result, rhs);  }
-        if ($op.text.equals("!=")) { $result = new NEq($result, rhs); }
+        if ($op.text.equals("<"))  { $result = new LessThanExpression($result, rhs);  }
+        if ($op.text.equals("<=")) { $result = new LessThanOrEqualToExpression($result, rhs); }
+        if ($op.text.equals(">"))  { $result = new GreaterThanExpression($result, rhs);  }
+        if ($op.text.equals(">=")) { $result = new GreaterThanOrEqualToExpression($result, rhs); }
+        if ($op.text.equals("==")) { $result = new EqualToExpression($result, rhs);  }
+        if ($op.text.equals("!=")) { $result = new NotEqualToExpression($result, rhs); }
     })*
     ;
     
-andExpression returns [Expression result]
-    :   lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*
+logicallyEquivalentExpression returns [Expression result]
+    :   lhs=relationalExpression { $result=$lhs.result; } ( '&&' rhs=relationalExpression { $result = new LogicallyEquivalentExpression($result, rhs); } )*
     ;
     
 
-orExpression returns [Expression result]
-    :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
+logicallyNotEquivalentExpression returns [Expression result]
+    :   lhs=logicallyEquivalentExpression { $result = $lhs.result; } ( '||' rhs=logicallyEquivalentExpression { $result = new LogicallyNotEquivalentExpression($result, rhs); } )*
+    ;
+
+expression returns [Expression result]
+    :   getExpression=logicallyNotEquivalentExpression { $result = getExpression; }
     ;
 
 type returns [Type result]

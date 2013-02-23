@@ -33,22 +33,22 @@
     </pluginRepository>
   </pluginRepositories>
   <build>
-    <sourceDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/src</sourceDirectory>
-    <scriptSourceDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/src/main/scripts</scriptSourceDirectory>
-    <testSourceDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/src/test/java</testSourceDirectory>
-    <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target/classes</outputDirectory>
-    <testOutputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target/test-classes</testOutputDirectory>
+    <sourceDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/src</sourceDirectory>
+    <scriptSourceDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/src/test/java</testSourceDirectory>
+    <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target/classes</outputDirectory>
+    <testOutputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target/test-classes</testOutputDirectory>
     <resources>
       <resource>
-        <directory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/src/main/resources</directory>
+        <directory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/src/main/resources</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/src/test/resources</directory>
+        <directory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/src/test/resources</directory>
       </testResource>
     </testResources>
-    <directory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target</directory>
+    <directory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target</directory>
     <finalName>org.sea.ql.ui-1.0</finalName>
     <pluginManagement>
       <plugins>
@@ -199,7 +199,7 @@
               <goal>site</goal>
             </goals>
             <configuration>
-              <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target/site</outputDirectory>
+              <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -215,7 +215,7 @@
               <goal>deploy</goal>
             </goals>
             <configuration>
-              <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target/site</outputDirectory>
+              <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target/site</outputDirectory>
               <reportPlugins>
                 <reportPlugin>
                   <groupId>org.apache.maven.plugins</groupId>
@@ -226,7 +226,7 @@
           </execution>
         </executions>
         <configuration>
-          <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target/site</outputDirectory>
+          <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target/site</outputDirectory>
           <reportPlugins>
             <reportPlugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -238,6 +238,6 @@
     </plugins>
   </build>
   <reporting>
-    <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-SurveyTool/target/site</outputDirectory>
+    <outputDirectory>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-AndroidGUI/target/site</outputDirectory>
   </reporting>
 </project>

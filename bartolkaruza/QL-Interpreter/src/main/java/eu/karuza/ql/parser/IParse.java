@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 
 import eu.karuza.ql.ast.ASTNode;
-import eu.karuza.ql.ast.expr.grouping.Expr;
+import eu.karuza.ql.ast.Expr;
 import eu.karuza.ql.error.ParseError;
 
 public interface IParse {

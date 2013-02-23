@@ -4,17 +4,17 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.karuza.ql.ast.AnswerableQuestion;
-import eu.karuza.ql.ast.ComputedQuestion;
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.expr.type.BoolType;
-import eu.karuza.ql.ast.expr.type.IntType;
-import eu.karuza.ql.ast.expr.type.MoneyType;
-import eu.karuza.ql.ast.expr.type.TextType;
-import eu.karuza.ql.ast.expr.value.Bool;
-import eu.karuza.ql.ast.expr.value.Int;
-import eu.karuza.ql.ast.expr.value.Money;
-import eu.karuza.ql.ast.expr.value.Text;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.statement.ComputedQuestion;
+import eu.karuza.ql.ast.type.BoolType;
+import eu.karuza.ql.ast.type.IntType;
+import eu.karuza.ql.ast.type.MoneyType;
+import eu.karuza.ql.ast.type.TextType;
+import eu.karuza.ql.ast.value.Bool;
+import eu.karuza.ql.ast.value.Int;
+import eu.karuza.ql.ast.value.Money;
+import eu.karuza.ql.ast.value.Text;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.antlr.ANTLRParser;

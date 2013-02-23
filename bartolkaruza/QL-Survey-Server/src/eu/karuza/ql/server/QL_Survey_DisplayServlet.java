@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -27,11 +26,20 @@ public class QL_Survey_DisplayServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String formName = req.getParameter(Constants.DATA_FORM_NAME);
+		PreparedQuery preparedQuery = prepareQuery(formName);
+		PrintWriter writer = resp.getWriter();
+		printResults(preparedQuery, writer);
+	}
+
+	private PreparedQuery prepareQuery(String formName) {
 		Key formKey = KeyFactory.createKey(Constants.DATA_FORM_NAME, formName);
 		Query query = new Query(Constants.DATA_FORM_ELEMENT, formKey);
 		DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 		PreparedQuery preparedQuery = dataStore.prepare(query);
-		PrintWriter writer = resp.getWriter();
+		return preparedQuery;
+	}
+
+	private void printResults(PreparedQuery preparedQuery, PrintWriter writer) {
 		Gson gson = new Gson();
 		for(Entity result : preparedQuery.asIterable()) {
 			FormResult formResult = gson.fromJson((String)result.getProperty(Constants.DATA_FORM_RESULT), FormResult.class);
@@ -43,7 +51,6 @@ public class QL_Survey_DisplayServlet extends HttpServlet {
 					writer.println();
 				}
 			}
-			
 		}
 	}
 }

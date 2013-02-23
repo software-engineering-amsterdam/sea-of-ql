@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 21:15:09
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 22:10:59
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -637,8 +637,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:3: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:118:10: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:3: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:10: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -668,10 +668,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:8: ( ( '/*' ( . )* '*/' | '//' ) )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:10: ( '/*' ( . )* '*/' | '//' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:8: ( ( '/*' ( . )* '*/' | '//' ) )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:10: ( '/*' ( . )* '*/' | '//' )
             {
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:10: ( '/*' ( . )* '*/' | '//' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:10: ( '/*' ( . )* '*/' | '//' )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -701,13 +701,13 @@ public class QLLexer extends Lexer {
             }
             switch (alt2) {
                 case 1 :
-                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:11: '/*' ( . )* '*/'
+                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:11: '/*' ( . )* '*/'
                     {
                     match("/*"); 
 
 
 
-                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:16: ( . )*
+                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:16: ( . )*
                     loop1:
                     do {
                         int alt1=2;
@@ -732,7 +732,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:16: .
+                    	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:16: .
                     	    {
                     	    matchAny(); 
 
@@ -752,7 +752,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:120:26: '//'
+                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:26: '//'
                     {
                     match("//"); 
 
@@ -782,10 +782,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Bool;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:5: ( ( 'true' | 'false' ) )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:10: ( 'true' | 'false' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:5: ( ( 'true' | 'false' ) )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:10: ( 'true' | 'false' )
             {
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:10: ( 'true' | 'false' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:10: ( 'true' | 'false' )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -804,7 +804,7 @@ public class QLLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:11: 'true'
+                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:11: 'true'
                     {
                     match("true"); 
 
@@ -813,7 +813,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:122:18: 'false'
+                    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:18: 'false'
                     {
                     match("false"); 
 
@@ -841,8 +841,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
                 input.consume();
@@ -854,7 +854,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:124:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop4:
             do {
                 int alt4=2;
@@ -904,13 +904,13 @@ public class QLLexer extends Lexer {
         try {
             int _type = Money;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:6: ( ( ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+ ) )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:10: ( ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+ )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:6: ( ( ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+ ) )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:10: ( ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+ )
             {
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:10: ( ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+ )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:11: ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:10: ( ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+ )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:11: ( '0' .. '9' )+ ( '.' | ',' ) ( '0' .. '9' )+
             {
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:11: ( '0' .. '9' )+
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:11: ( '0' .. '9' )+
             int cnt5=0;
             loop5:
             do {
@@ -959,7 +959,7 @@ public class QLLexer extends Lexer {
             }
 
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:126:35: ( '0' .. '9' )+
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:35: ( '0' .. '9' )+
             int cnt6=0;
             loop6:
             do {
@@ -1017,15 +1017,15 @@ public class QLLexer extends Lexer {
         try {
             int _type = String;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:7: ( ( '\"' ( . )* '\"' ) )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:10: ( '\"' ( . )* '\"' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:7: ( ( '\"' ( . )* '\"' ) )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:10: ( '\"' ( . )* '\"' )
             {
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:10: ( '\"' ( . )* '\"' )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:11: '\"' ( . )* '\"'
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:10: ( '\"' ( . )* '\"' )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:11: '\"' ( . )* '\"'
             {
             match('\"'); 
 
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:15: ( . )*
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:15: ( . )*
             loop7:
             do {
                 int alt7=2;
@@ -1041,7 +1041,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:128:15: .
+            	    // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:15: .
             	    {
             	    matchAny(); 
 
@@ -1075,10 +1075,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:4: ( ( '0' .. '9' )+ )
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:10: ( '0' .. '9' )+
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:4: ( ( '0' .. '9' )+ )
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:10: ( '0' .. '9' )+
             {
-            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:130:10: ( '0' .. '9' )+
+            // C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:134:10: ( '0' .. '9' )+
             int cnt8=0;
             loop8:
             do {

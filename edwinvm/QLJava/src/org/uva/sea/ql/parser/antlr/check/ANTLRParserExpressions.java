@@ -8,6 +8,6 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 public class ANTLRParserExpressions extends ANTLRParser implements IParser {
 	@Override
 	public Expression parse(String src) throws ParseError {
-		return (Expression)parseInput(src, "orExpression");
+		return (Expression)parseInput(src, "expression");
 	}
 }

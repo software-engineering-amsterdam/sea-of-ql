@@ -4,14 +4,14 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
-import org.uva.sea.ql.ast.expressions.binary.logical.And;
-import org.uva.sea.ql.ast.expressions.binary.logical.Or;
-import org.uva.sea.ql.ast.expressions.binary.relational.Eq;
-import org.uva.sea.ql.ast.expressions.binary.relational.GEq;
-import org.uva.sea.ql.ast.expressions.binary.relational.GT;
-import org.uva.sea.ql.ast.expressions.binary.relational.LEq;
-import org.uva.sea.ql.ast.expressions.binary.relational.LT;
-import org.uva.sea.ql.ast.expressions.binary.relational.NEq;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyNotEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
@@ -30,16 +30,16 @@ public interface Visitor<T> {
 	T visit(Multiplication ast);
 	
 	// Binary logical expressions
-	T visit(And ast);
-	T visit(Or ast);
+	T visit(LogicallyEquivalentExpression ast);
+	T visit(LogicallyNotEquivalentExpression ast);
 	
 	// Binary relational expressions
-	T visit(Eq ast);
-	T visit(GEq ast);
-	T visit(GT ast);
-	T visit(LEq ast);
-	T visit(LT ast);
-	T visit(NEq ast);
+	T visit(EqualToExpression ast);
+	T visit(GreaterThanOrEqualToExpression ast);
+	T visit(GreaterThanExpression ast);
+	T visit(LessThanOrEqualToExpression ast);
+	T visit(LessThanExpression ast);
+	T visit(NotEqualToExpression ast);
 	
 	// Unary expressions
 	T visit(Neg ast);

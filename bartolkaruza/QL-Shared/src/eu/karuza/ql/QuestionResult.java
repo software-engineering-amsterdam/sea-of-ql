@@ -1,7 +1,10 @@
 package eu.karuza.ql;
 
-public class QuestionResult {
+import java.io.Serializable;
 
+public class QuestionResult implements Serializable {
+
+	private static final long serialVersionUID = 4356203745467789794L;
 	private String name;
 	private String value;
 
