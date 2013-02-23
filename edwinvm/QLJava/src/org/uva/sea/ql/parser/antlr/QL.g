@@ -35,8 +35,12 @@ formStatement returns [FormStatement result]
     ;
 
 question returns [Question result]
-    :   String Ident ':' type     { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $type.result); }
-    |   String Ident '=' expression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $expression.result); }
+    :   questionLabel Ident ':' type     { $result = new AnswerableQuestion($questionLabel.result, new Ident($Ident.text), $type.result); }
+    |   questionLabel Ident '=' expression { $result = new ComputedQuestion($questionLabel.result, new Ident($Ident.text), $expression.result); }
+    ;
+
+questionLabel returns [QuestionLabel result]
+    :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.expressions.literal.Str($String.text)); }
     ;
 
 conditionBlock returns [ConditionBlock result]
