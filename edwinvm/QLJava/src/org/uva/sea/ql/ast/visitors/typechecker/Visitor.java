@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
-import org.uva.sea.ql.ast.expressions.binary.logical.And;
-import org.uva.sea.ql.ast.expressions.binary.logical.Or;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyNotEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
@@ -30,8 +30,8 @@ public interface Visitor<T> {
 	T visit(Multiplication ast);
 	
 	// Binary logical expressions
-	T visit(And ast);
-	T visit(Or ast);
+	T visit(LogicallyEquivalentExpression ast);
+	T visit(LogicallyNotEquivalentExpression ast);
 	
 	// Binary relational expressions
 	T visit(EqualToExpression ast);

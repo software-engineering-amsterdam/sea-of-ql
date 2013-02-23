@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast.expressions.binary.logical;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class Or extends BinaryLogicalExpression {
-	public Or(Expression leftHandSide, Expression rightHandSide) {
+public class LogicallyNotEquivalentExpression extends BinaryLogicalExpression {
+	public LogicallyNotEquivalentExpression(Expression leftHandSide, Expression rightHandSide) {
 		super(leftHandSide, rightHandSide);
 	}
 	

@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpressi
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
-import org.uva.sea.ql.ast.expressions.binary.logical.And;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpression;
-import org.uva.sea.ql.ast.expressions.binary.logical.Or;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyNotEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.BinaryRelationalExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
@@ -69,9 +69,9 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(NotEqualToExpression ast) { return checkRelationalExpression(ast, "!="); }
 	
 	@Override
-	public Boolean visit(And ast) { return checkLogicalExpression(ast, "&&"); }
+	public Boolean visit(LogicallyEquivalentExpression ast) { return checkLogicalExpression(ast, "&&"); }
 	@Override
-	public Boolean visit(Or ast)  { return checkLogicalExpression(ast, "||"); }
+	public Boolean visit(LogicallyNotEquivalentExpression ast)  { return checkLogicalExpression(ast, "||"); }
 
 	@Override
 	public Boolean visit(Neg ast) { return checkUnaryArithmeticExpression(ast, "--"); }
