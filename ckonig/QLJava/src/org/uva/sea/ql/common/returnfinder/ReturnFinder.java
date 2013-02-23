@@ -3,7 +3,7 @@ package org.uva.sea.ql.common.returnfinder;
 import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
@@ -13,7 +13,7 @@ public class ReturnFinder {
 
     private AbstractReturnFinderVisitor visitor;
 
-    public ReturnFinder(List<Question> q, Evaluatable e) throws QLException {
+    public ReturnFinder(List<Question> q, Expression e) throws QLException {
         this.visitor = new ReturnFinderExpressionVisitor(q);
         e.accept((ExpressionVisitor) this.visitor);
     }

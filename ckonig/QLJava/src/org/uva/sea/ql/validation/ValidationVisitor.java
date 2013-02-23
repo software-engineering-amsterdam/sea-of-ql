@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
@@ -75,7 +75,7 @@ public class ValidationVisitor implements ElementVisitor {
     public final void visit(IfStatement ifStatement) throws QLException {
         final Expr condition = ifStatement.getCondition();
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
-                ((Evaluatable) condition));
+                ((Expression) condition));
         final Class<?> r = f.getResult();
         if (r.equals(BooleanType.class)) {
             this.visit(ifStatement.getCondition());
@@ -98,7 +98,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void visit(Expr operator) throws QLException {
         final AcceptFinder f = new AcceptFinder();
-        ((Evaluatable) operator).accept(f);
+        ((Expression) operator).accept(f);
         if (f.getResult().equals(BooleanType.class)) {
             if (!(bothhaveEqualReturnType(operator, BooleanType.class))) {
                 throwError(operator, "boolean");
@@ -142,7 +142,7 @@ public class ValidationVisitor implements ElementVisitor {
     private Class<?> getReturnTypes(Expr e) throws QLException {
         this.visit(e);
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
-                ((Evaluatable) e));
+                ((Expression) e));
         return f.getResult();
     }
 }

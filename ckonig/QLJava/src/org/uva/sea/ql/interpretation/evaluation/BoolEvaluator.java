@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
@@ -35,24 +35,25 @@ import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class BoolEvaluator {
-
-    private SwingRegistry registry;
-    private boolean ret;
+    private BoolEvaluationVisitor visitor;
 
     public BoolEvaluator(SwingRegistry reg) {
-        this.registry = reg;
+       this.visitor = new BoolEvaluationVisitor(reg);
     }
 
     public final boolean eval(Expr e) throws QLException {
         System.out.println("bool eval: " + e.toString());
-        ((Evaluatable) e).accept(new BoolEvaluationVisitor());
-        return this.ret;
+        ((Expression) e).accept(this.visitor);
+        return this.visitor.boolRet;
     }
 
-    private class BoolEvaluationVisitor implements ExpressionVisitor {
+    private class BoolEvaluationVisitor extends Evaluator implements
+            ExpressionVisitor {
 
-        public BoolEvaluationVisitor() {
-            this.math = new MathEvaluator(registry);
+        public BoolEvaluationVisitor(SwingRegistry reg) {
+            super(reg, true);
+            this.registry = reg;
+            this.math = new MathEvaluator(registry, true);
         }
 
         private MathEvaluator math;
@@ -79,22 +80,22 @@ public class BoolEvaluator {
 
         @Override
         public final void visit(And and) throws QLException {
-            ret = eval(and.getLeft()) && eval(and.getRight());
+            boolRet = eval(and.getLeft()) && eval(and.getRight());
         }
 
         @Override
         public final void visit(Or or) throws QLException {
-            ret = eval(or.getLeft()) || eval(or.getRight());
+            boolRet = eval(or.getLeft()) || eval(or.getRight());
         }
 
         @Override
         public final void visit(Eq eq) throws QLException {
             if (checkReturn(eq, registry.getQuestionsAst(), BooleanType.class)) {
-                ret = eval(eq.getLeft()) == eval(eq.getRight());
+                boolRet = eval(eq.getLeft()) == eval(eq.getRight());
             }
             if (checkReturn(eq, registry.getQuestionsAst(),
                     AbstractMathType.class)) {
-                ret = this.math.eval(eq.getLeft()) == this.math.eval(eq
+                boolRet = this.math.eval(eq.getLeft()) == this.math.eval(eq
                         .getRight());
             }
         }
@@ -102,40 +103,42 @@ public class BoolEvaluator {
         @Override
         public final void visit(NEq neq) throws QLException {
             if (checkReturn(neq, registry.getQuestionsAst(), BooleanType.class)) {
-                ret = eval(neq.getLeft()) != eval(neq.getRight());
+                boolRet = eval(neq.getLeft()) != eval(neq.getRight());
             }
             if (checkReturn(neq, registry.getQuestionsAst(),
                     AbstractMathType.class)) {
-                ret = this.math.eval(neq.getLeft()) != this.math.eval(neq
+                boolRet = this.math.eval(neq.getLeft()) != this.math.eval(neq
                         .getRight());
             }
         }
 
         @Override
         public final void visit(GT gt) throws QLException {
-            ret = this.math.eval(gt.getLeft()) > this.math.eval(gt.getRight());
+            boolRet = this.math.eval(gt.getLeft()) > this.math.eval(gt
+                    .getRight());
         }
 
         @Override
         public final void visit(GEq geq) throws QLException {
-            ret = this.math.eval(geq.getLeft()) >= this.math.eval(geq
+            boolRet = this.math.eval(geq.getLeft()) >= this.math.eval(geq
                     .getRight());
         }
 
         @Override
         public final void visit(LT lt) throws QLException {
-            ret = this.math.eval(lt.getLeft()) < this.math.eval(lt.getRight());
+            boolRet = this.math.eval(lt.getLeft()) < this.math.eval(lt
+                    .getRight());
         }
 
         @Override
         public final void visit(LEq leq) throws QLException {
-            ret = this.math.eval(leq.getLeft()) <= this.math.eval(leq
+            boolRet = this.math.eval(leq.getLeft()) <= this.math.eval(leq
                     .getRight());
         }
 
         @Override
         public final void visit(Not not) throws QLException {
-            ret = !eval(not.getAdjacent());
+            boolRet = !eval(not.getAdjacent());
         }
 
         @Override
@@ -151,10 +154,11 @@ public class BoolEvaluator {
         @Override
         public final void visit(Ident ident) throws QLException {
             final QuestionPanel q = registry.getQuestionPanelByIdent(ident);
-            final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(), ident);
+            final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
+                    ident);
             final Class<?> r = f.getResult();
             if (r.equals(BooleanType.class)) {
-                ret = q.getBoolValue();
+                boolRet = q.getBoolValue();
             }
         }
 
@@ -178,7 +182,7 @@ public class BoolEvaluator {
 
     private static boolean checkReturn(Expr ex, List<Question> questions,
             Class<?> type) throws QLException {
-        final ReturnFinder r = new ReturnFinder(questions, ((Evaluatable) ex));
+        final ReturnFinder r = new ReturnFinder(questions, ((Expression) ex));
         return r.getResult().equals(type);
     }
 

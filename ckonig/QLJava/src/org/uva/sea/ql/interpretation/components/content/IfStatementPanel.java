@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.returnfinder.ReturnFinder;
@@ -29,7 +29,7 @@ public class IfStatementPanel extends JPanel {
 
         final Expr e = this.ifStatement.getCondition();
         final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
-                (Evaluatable) e);
+                (Expression) e);
         if (f.getResult().equals(BooleanType.class)) {
 
             final boolean result = new BoolEvaluator(registry).eval(e);

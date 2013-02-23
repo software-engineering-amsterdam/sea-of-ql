@@ -22,11 +22,10 @@ public final class SwingInputComponentFactory {
     }
 
     public static final JComponent getInputComponent(QuestionPanel q) {
-        SwingInputComponentFactory factory = new SwingInputComponentFactory(q);           
-        return factory.getComponent();
+        return new SwingInputComponentFactory(q).getComponent();
     }
-    
-    private JComponent getComponent(){
+
+    private JComponent getComponent() {
         return this.visitor.getInputComponent();
     }
 
@@ -67,7 +66,7 @@ public final class SwingInputComponentFactory {
 
         @Override
         public void visit(NullType n) {
-            // TODO Auto-generated method stub
+            //do nothing
         }
 
     }

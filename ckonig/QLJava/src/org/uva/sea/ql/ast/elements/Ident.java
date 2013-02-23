@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.RecursiveIdentVisitor;
 
-public class Ident extends Expr implements Evaluatable, TreeNode {
+public class Ident extends Expr implements Expression, TreeNode {
 
     private final String name;
 

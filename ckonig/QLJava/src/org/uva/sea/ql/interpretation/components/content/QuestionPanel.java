@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.QLException;
@@ -91,7 +91,8 @@ public final class QuestionPanel extends JPanel {
 
     public void setAutoValue(SwingRegistry registry) throws QLException {
         final Expr e = this.question.getExpr();
-        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(), (Evaluatable) e);
+        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
+                (Expression) e);
         if (f.getResult().equals(BooleanType.class)) {
             final boolean result = new BoolEvaluator(registry).eval(e);
             ((JCheckBox) this.input).setSelected(result);
@@ -99,7 +100,7 @@ public final class QuestionPanel extends JPanel {
         }
         if (f.getResult().equals(AbstractMathType.class)) {
             try {
-                final float result = new MathEvaluator(registry).eval(e);
+                final float result = new MathEvaluator(registry, true).eval(e);
                 ((JTextField) this.input).setText(Float.toString(result));
             } catch (EmptyInputException ex) {
                 // no input? no output!

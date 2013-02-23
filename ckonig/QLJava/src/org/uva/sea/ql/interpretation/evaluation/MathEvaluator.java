@@ -11,7 +11,7 @@ import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
@@ -32,46 +32,44 @@ import org.uva.sea.ql.interpretation.exception.EvaluationException;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MathEvaluator {
-    private boolean replaceEmtyWithZero;
-    private SwingRegistry registry;
-    private float ret;
-
-    public MathEvaluator(SwingRegistry reg) {
-        registry = reg;
-        this.replaceEmtyWithZero = false;
-    }
-
+ 
+    private MathEval evaluator;
+    
     public MathEvaluator(SwingRegistry reg, boolean replaceEmptyInputWithZero) {
-        this(reg);
-        this.replaceEmtyWithZero = replaceEmptyInputWithZero;
+        this.evaluator = new MathEval(replaceEmptyInputWithZero, reg);
     }
 
     public final float eval(Expr e) throws QLException {
         System.out.println("math eval: " + e.toString());
-        ((Evaluatable) e).accept(new MathEval());
-        return this.ret;
+        ((Expression) e).accept(evaluator);
+        return this.evaluator.mathRet;
     }
 
-    private class MathEval implements ExpressionVisitor {
+    private class MathEval extends Evaluator implements ExpressionVisitor {
+        private boolean replaceEmtyWithZero;
+        private float mathRet;
 
+        public MathEval(boolean replaceEmptyWithZero, SwingRegistry reg){
+            super(reg, false);
+        }
         @Override
         public void visit(Add add) throws QLException {
-            ret = eval(add.getLeft()) + eval(add.getRight());
+            mathRet = eval(add.getLeft()) + eval(add.getRight());
         }
 
         @Override
         public void visit(Mul mul) throws QLException {
-            ret = eval(mul.getLeft()) * eval(mul.getRight());
+            mathRet = eval(mul.getLeft()) * eval(mul.getRight());
         }
 
         @Override
         public void visit(Div div) throws QLException {
-            ret = eval(div.getLeft()) / eval(div.getRight());
+            mathRet = eval(div.getLeft()) / eval(div.getRight());
         }
 
         @Override
         public void visit(Sub sub) throws QLException {
-            ret = eval(sub.getLeft()) - eval(sub.getRight());
+            mathRet = eval(sub.getLeft()) - eval(sub.getRight());
         }
 
         @Override
@@ -121,12 +119,12 @@ public class MathEvaluator {
 
         @Override
         public void visit(Pos pos) throws QLException {
-            ret = eval(pos.getAdjacent()) * (1);
+            mathRet = eval(pos.getAdjacent()) * (1);
         }
 
         @Override
         public void visit(Neg neg) throws QLException {
-            ret = eval(neg.getAdjacent()) * (-1);
+            mathRet = eval(neg.getAdjacent()) * (-1);
         }
 
         @Override
@@ -146,9 +144,18 @@ public class MathEvaluator {
             }
         }
 
+        public final void visit(IntLiteral i) {
+            mathRet = i.getValue();
+        }
+
+        @Override
+        public void visit(BoolLiteral b) throws QLException {
+            throw new NotImplementedException();
+        }
+        
         private void tryToReplaceEmptyInput() throws EmptyInputException {
             if (replaceEmtyWithZero) {
-                ret = 0;
+                mathRet = 0;
             } else {
                 throw new EmptyInputException();
             }
@@ -158,20 +165,12 @@ public class MathEvaluator {
                 throws EvaluationException {
             try {
                 questionPanel.setValid(true);
-                ret = Float.parseFloat(questionPanel.getStringValue().replace(
+                mathRet = Float.parseFloat(questionPanel.getStringValue().replace(
                         ',', '.'));
             } catch (NumberFormatException ex) {
                 questionPanel.setValid(false);
             }
         }
 
-        public final void visit(IntLiteral i) {
-            ret = i.getValue();
-        }
-
-        @Override
-        public void visit(BoolLiteral b) throws QLException {
-            throw new NotImplementedException();
-        }
     }
 }
