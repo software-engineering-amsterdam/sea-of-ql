@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
 public class Div extends BinaryArithmeticExpression {
-	public Div(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+	public Div(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override

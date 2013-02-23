@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
 public class Add extends BinaryArithmeticExpression {
-	public Add(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+	public Add(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override

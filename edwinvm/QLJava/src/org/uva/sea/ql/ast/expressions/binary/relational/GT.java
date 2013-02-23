@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
 public class GT extends BinaryRelationalExpression {
-	public GT(Expression lhs, Expression rhs) {
-		super(lhs, rhs);
+	public GT(Expression leftHandSide, Expression rightHandSide) {
+		super(leftHandSide, rightHandSide);
 	}
 	
 	@Override
