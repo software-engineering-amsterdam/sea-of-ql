@@ -1,7 +1,7 @@
 package org.uva.sea.ql.core.dom.visitors;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import org.uva.sea.ql.core.dom.ExpressionVisitor;
 import org.uva.sea.ql.core.dom.Identifier;
 import org.uva.sea.ql.core.dom.Variable;
@@ -28,24 +28,26 @@ import org.uva.sea.ql.core.dom.types.primitive.BooleanLiteral;
 import org.uva.sea.ql.core.dom.types.primitive.IntLiteral;
 import org.uva.sea.ql.core.dom.types.primitive.MoneyLiteral;
 import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
-import org.uva.sea.ql.parsers.exceptions.IdentifierNotDefinedException;
 
-public class ExpressionVisitorToCheckIdentifierDefinitions implements ExpressionVisitor {
+public class ExpressionVisitorToSetTypeOfIdentifiers implements ExpressionVisitor {
 
 	private List<Variable> variableList;
-	private List<IdentifierNotDefinedException> exceptions;
 	
-	public ExpressionVisitorToCheckIdentifierDefinitions(List<Variable> variableList){
-		this.variableList=variableList;
-		this.exceptions=new ArrayList<IdentifierNotDefinedException>();
-	}
-	
-	public List<IdentifierNotDefinedException> getExceptions() {
-		return exceptions;
+	public ExpressionVisitorToSetTypeOfIdentifiers(List<Variable> variableList){
+		this.variableList = variableList;
 	}
 	
 	@Override
 	public void visit(BooleanLiteral booleanLiteral) {
+	}
+
+	@Override
+	public void visit(Identifier identifier) {
+		for(Variable variable:variableList){
+			if(variable.getIdentifier().getName()==identifier.getName()){
+				identifier.setType(variable.getTypeDeclaration());
+			}
+		}
 	}
 
 	@Override
@@ -62,77 +64,77 @@ public class ExpressionVisitorToCheckIdentifierDefinitions implements Expression
 
 	@Override
 	public void visit(Add add) {
-		this.callAcceptOnIdentifiers(add);
+		callAcceptOnIdentifiers(add);
 	}
 
 	@Override
 	public void visit(Div div) {
-		this.callAcceptOnIdentifiers(div);
+		callAcceptOnIdentifiers(div);
 	}
-	
+
 	@Override
 	public void visit(Sub sub) {
-		this.callAcceptOnIdentifiers(sub);
+		callAcceptOnIdentifiers(sub);
 	}
 
 	@Override
 	public void visit(Mul mul) {
-		this.callAcceptOnIdentifiers(mul);
+		callAcceptOnIdentifiers(mul);
 	}
 
 	@Override
 	public void visit(And and) {
-		this.callAcceptOnIdentifiers(and);
+		callAcceptOnIdentifiers(and);
 	}
 
 	@Override
 	public void visit(Or or) {
-		this.callAcceptOnIdentifiers(or);	
+		callAcceptOnIdentifiers(or);
 	}
 
 	@Override
 	public void visit(Eq eq) {
-		this.callAcceptOnIdentifiers(eq);	
+		callAcceptOnIdentifiers(eq);
 	}
 
 	@Override
 	public void visit(GEq gEq) {
-		this.callAcceptOnIdentifiers(gEq);	
+		callAcceptOnIdentifiers(gEq);
 	}
 
 	@Override
 	public void visit(GT gT) {
-		this.callAcceptOnIdentifiers(gT);	
+		callAcceptOnIdentifiers(gT);
 	}
 
 	@Override
 	public void visit(LEq lEq) {
-		this.callAcceptOnIdentifiers(lEq);	
+		callAcceptOnIdentifiers(lEq);
 	}
 
 	@Override
 	public void visit(LT lT) {
-		this.callAcceptOnIdentifiers(lT);	
+		callAcceptOnIdentifiers(lT);
 	}
 
 	@Override
 	public void visit(NEq nEq) {
-		this.callAcceptOnIdentifiers(nEq);	
+		callAcceptOnIdentifiers(nEq);
 	}
 
 	@Override
 	public void visit(Neg neg) {
-		this.callAcceptOnIdentifiers(neg);	
+		callAcceptOnIdentifiers(neg);
 	}
 
 	@Override
 	public void visit(Not not) {
-		this.callAcceptOnIdentifiers(not);	
+		callAcceptOnIdentifiers(not);
 	}
 
 	@Override
 	public void visit(Pos pos) {
-		this.callAcceptOnIdentifiers(pos);	
+		callAcceptOnIdentifiers(pos);
 	}
 
 	private void callAcceptOnIdentifiers(ArithmeticOperator arithmeticOperator){
@@ -154,22 +156,4 @@ public class ExpressionVisitorToCheckIdentifierDefinitions implements Expression
 		unaryOperator.getExpression().accept(this);
 	}
 	
-	@Override
-	public void visit(Identifier identifier) {
-		if(!IdentifierBelongsToAVariable(identifier)){
-			exceptions.add(new IdentifierNotDefinedException(identifier));
-		}
-	}
-	
-	private boolean IdentifierBelongsToAVariable(Identifier identifier){		
-		boolean identifierBelongsToAVariable = false;
-		
-		for(Variable variable : variableList)	{
-			if(variable.getIdentifier().getName() == identifier.getName()){
-				identifierBelongsToAVariable=true;
-				break;
-			}
-		}
-		return identifierBelongsToAVariable;			
-	}
 }

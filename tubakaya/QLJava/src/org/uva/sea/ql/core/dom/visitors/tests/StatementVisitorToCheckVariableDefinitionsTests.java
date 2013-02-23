@@ -28,13 +28,13 @@ public class StatementVisitorToCheckVariableDefinitionsTests {
 		String identifierName="identifier";
 		TypeDeclaration type=new BooleanDeclaration();
 		
-		Variable variable = new Variable (new Identifier(identifierName),type);
-		Question question = new Question(variable,new StringLiteral("question"));
+		Identifier identifier = new Identifier(identifierName,type);
+		Question question = new Question(identifier,new StringLiteral("question"));
 		target.visit(question);
 		assertEquals(0,target.getErrors().size());	
 		
-		Variable variable2 = new Variable (new Identifier(identifierName),type);
-		Question question2 = new Question(variable2,new StringLiteral("question2"));
+		Identifier identifier2 = new Identifier(identifierName,type);
+		Question question2 = new Question(identifier2,new StringLiteral("question2"));
 		target.visit(question2);
 		assertEquals(1,target.getErrors().size());	
 	}
@@ -44,13 +44,13 @@ public class StatementVisitorToCheckVariableDefinitionsTests {
 		String identifierName="identifier";
 		TypeDeclaration type=new BooleanDeclaration();
 		
-		Variable variable = new Variable (new Identifier(identifierName),type);
-		ComputedValue computedValue = new ComputedValue(variable,new StringLiteral("computedValue"), new IntLiteral("1"));
+		Identifier identifier = new Identifier(identifierName,type);
+		ComputedValue computedValue = new ComputedValue(identifier,new StringLiteral("computedValue"), new IntLiteral("1"));
 		target.visit(computedValue);
 		assertEquals(0,target.getErrors().size());	
 		
-		Variable variable2 = new Variable (new Identifier(identifierName),type);
-		ComputedValue computedValue2 = new ComputedValue(variable2,new StringLiteral("computedValue2"), new IntLiteral("1"));
+		Identifier identifier2 = new Identifier(identifierName,type);
+		ComputedValue computedValue2 = new ComputedValue(identifier2,new StringLiteral("computedValue2"), new IntLiteral("1"));
 		target.visit(computedValue2);
 		assertEquals(1,target.getErrors().size());	
 	}

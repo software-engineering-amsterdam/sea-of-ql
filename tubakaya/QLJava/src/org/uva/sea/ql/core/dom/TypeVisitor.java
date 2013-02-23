@@ -4,7 +4,7 @@ import org.uva.sea.ql.core.dom.types.declarations.BooleanDeclaration;
 import org.uva.sea.ql.core.dom.types.declarations.IntDeclaration;
 import org.uva.sea.ql.core.dom.types.declarations.StringDeclaration;
 
-public interface TypeDeclarationVisitor {
+public interface TypeVisitor {
 
 	boolean visit(BooleanDeclaration booleanDeclaration);
 	boolean visit(IntDeclaration intDeclaration);
