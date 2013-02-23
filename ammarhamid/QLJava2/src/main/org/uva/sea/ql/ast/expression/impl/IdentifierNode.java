@@ -11,12 +11,13 @@ import java.util.Collection;
 
 public class IdentifierNode extends ExprNode
 {
-    public final String identifier;
-    public Type type;
+    private final String identifier;
+    private final Value defaultValue;
 
-    public IdentifierNode(final String identifier)
+    public IdentifierNode(final String identifier, final Value defaultValue)
     {
         this.identifier = identifier;
+        this.defaultValue = defaultValue;
     }
 
     @Override
@@ -32,21 +33,15 @@ public class IdentifierNode extends ExprNode
     }
 
     @Override
-    public boolean validate(Collection<Message> messages)
+    public boolean validate(Collection<Message> errors)
     {
-        // TODO check if validate is correct
-        return type.isCompatibleToBoolean();
-    }
-
-    public void setType(Type type)
-    {
-        this.type = type;
+        return true;
     }
 
     @Override
     public Type getType()
     {
-        return type;
+        return this.defaultValue.getType();
     }
 
     @Override
@@ -54,12 +49,8 @@ public class IdentifierNode extends ExprNode
     {
         if(this == o) return true;
         if(o == null || getClass() != o.getClass()) return false;
-
         IdentifierNode that = (IdentifierNode) o;
-
-        if(identifier != null ? !identifier.equals(that.identifier) : that.identifier != null) return false;
-
-        return true;
+        return !(identifier != null ? !identifier.equals(that.identifier) : that.identifier != null);
     }
 
     @Override
@@ -71,8 +62,6 @@ public class IdentifierNode extends ExprNode
     @Override
     public String toString()
     {
-        return "IdentifierNode{" +
-                "identifier='" + identifier + '\'' +
-                '}';
+        return identifier;
     }
 }

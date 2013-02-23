@@ -7,7 +7,7 @@ public class FormNode implements Node
     private final String formName;
     private final BlockNode blockNode;
 
-    public FormNode(String formName, BlockNode blockNode)
+    public FormNode(final String formName, final BlockNode blockNode)
     {
         this.formName = formName;
         this.blockNode = blockNode;
@@ -22,4 +22,5 @@ public class FormNode implements Node
     {
         return blockNode;
     }
+
 }

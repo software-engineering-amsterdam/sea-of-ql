@@ -4,6 +4,7 @@ import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.value.impl.UndefinedValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
@@ -36,9 +37,15 @@ public class ValueNode extends ExprNode
     }
 
     @Override
-    public boolean validate(Collection<Message> messages)
+    public boolean validate(Collection<Message> errors)
     {
-        return true;
+        final boolean validate = !this.value.equals(new UndefinedValue());
+        if(!validate)
+        {
+            throw new UnsupportedOperationException("Undefined default value: " + this);
+        }
+
+        return validate;
     }
 
     @Override

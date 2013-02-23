@@ -12,6 +12,6 @@ public abstract class ExprNode implements Node
 {
     public abstract Value evaluate();
     public abstract Type getType();
-    public abstract boolean validate(Collection<Message> messages);
+    public abstract boolean validate(Collection<Message> errors);
     public abstract <T> T accept(ExpressionVisitor<T> expressionVisitor);
 }

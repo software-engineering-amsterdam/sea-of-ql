@@ -15,7 +15,7 @@ form TestQL
     "Are you married?" married: boolean
     if(married)
     {
-        "When is that?" married: string
+        "When is that?" when: string
     }
 
     "Did you sell a car in 2010?" hasSoldCar: boolean
@@ -27,6 +27,5 @@ form TestQL
     {
         "Absolutely sure?" sure: boolean
     }
-
 
 }

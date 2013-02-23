@@ -13,11 +13,6 @@ public class Message
         this.exprNode = exprNode;
     }
 
-    public ExprNode getExprNode()
-    {
-        return exprNode;
-    }
-
     public String getMessage()
     {
         return message;
@@ -26,9 +21,6 @@ public class Message
     @Override
     public String toString()
     {
-        return "Message{" +
-                "message='" + message + '\'' +
-                ", exprNode=" + exprNode +
-                '}';
+        return "* " + message + '\'' + exprNode +'\'' ;
     }
 }
