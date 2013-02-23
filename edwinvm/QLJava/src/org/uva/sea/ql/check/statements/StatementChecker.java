@@ -13,9 +13,9 @@ import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
-import org.uva.sea.ql.parser.ErrorMessages;
-import org.uva.sea.ql.parser.Message;
 import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.Message;
 
 public class StatementChecker implements Visitor {
 	

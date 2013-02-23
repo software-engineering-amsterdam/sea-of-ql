@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser;
+package org.uva.sea.ql.parser.errors;
 
 import java.util.ArrayList;
 import java.util.List;

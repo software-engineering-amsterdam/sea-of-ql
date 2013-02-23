@@ -28,9 +28,9 @@ import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpression;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.ErrorMessages;
-import org.uva.sea.ql.parser.Message;
 import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.Message;
 
 public class TypeChecker implements Visitor<Boolean> {
 	

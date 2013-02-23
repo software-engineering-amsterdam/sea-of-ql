@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestBinaryRelationalExpressions extends ExpressionParserChecker {
 	@Test

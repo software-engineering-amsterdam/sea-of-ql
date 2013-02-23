@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestBinaryArithmeticExpressions extends ExpressionParserChecker {
 	@Test

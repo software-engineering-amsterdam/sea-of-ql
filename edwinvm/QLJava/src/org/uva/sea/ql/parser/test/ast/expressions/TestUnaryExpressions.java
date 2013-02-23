@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
 import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestUnaryExpressions extends ExpressionParserChecker {
 	@Test

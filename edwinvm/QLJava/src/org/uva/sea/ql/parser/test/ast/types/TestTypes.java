@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.test.ast.types;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestTypes extends TypeParserChecker {
 	@Test
