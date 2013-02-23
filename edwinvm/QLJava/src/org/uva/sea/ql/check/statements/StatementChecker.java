@@ -6,8 +6,8 @@ import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.StatementBody;
-import org.uva.sea.ql.ast.statements.conditions.IfThen;
-import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
+import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
+import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.ast.types.Type;
@@ -32,13 +32,13 @@ public class StatementChecker implements Visitor {
 	}
 
 	@Override
-	public void visit(IfThen statement) {
+	public void visit(IfThenStatement statement) {
 		checkCondition(statement);
 		checkBody(statement.getBody());
 	}
 	
 	@Override
-	public void visit(IfThenElse statement) {
+	public void visit(IfThenElseStatement statement) {
 		checkCondition(statement);
 		checkBody(statement.getBody());
 		checkBody(statement.getElseBody());

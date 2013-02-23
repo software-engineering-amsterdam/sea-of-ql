@@ -41,9 +41,9 @@ question returns [Question result]
 
 conditionBlock returns [ConditionBlock result]
     :   'if' '(' condition=expression ')' ifBody=statementBody 'else' elseBody=statementBody
-        { $result = new IfThenElse(condition, ifBody, elseBody); }
+        { $result = new IfThenElseStatement(condition, ifBody, elseBody); }
     |   'if' '(' condition=expression ')' ifBody=statementBody
-        { $result = new IfThen(condition, ifBody); }
+        { $result = new IfThenStatement(condition, ifBody); }
     ;
 
 statementBody returns [StatementBody result]

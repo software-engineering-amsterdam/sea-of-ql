@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 23:00:22
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 23:33:35
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -415,7 +415,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new IfThenElse(condition, ifBody, elseBody); }
+                    if ( state.backtracking==0 ) { result = new IfThenElseStatement(condition, ifBody, elseBody); }
 
                     }
                     break;
@@ -440,7 +440,7 @@ public class QLParser extends Parser {
                     state._fsp--;
                     if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new IfThen(condition, ifBody); }
+                    if ( state.backtracking==0 ) { result = new IfThenStatement(condition, ifBody); }
 
                     }
                     break;

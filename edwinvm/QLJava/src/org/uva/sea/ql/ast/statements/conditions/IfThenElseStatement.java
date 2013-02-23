@@ -5,9 +5,15 @@ import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
-public class IfThen extends ConditionBlock {
-	public IfThen(Expression condition, StatementBody body) {
-		super(condition, body);
+public class IfThenElseStatement extends ConditionBlock {
+	private final StatementBody _elseBody;
+	
+	public IfThenElseStatement(Expression condition, StatementBody body, StatementBody elseBody) {
+		super(condition, body); _elseBody = elseBody;
+	}
+	
+	public StatementBody getElseBody() {
+		return _elseBody;
 	}
 
 	@Override
