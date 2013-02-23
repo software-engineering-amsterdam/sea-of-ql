@@ -1,7 +1,5 @@
 package org.uva.sea.ql.interpretation.evaluation;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
 import org.uva.sea.ql.ast.bool.GEq;
@@ -11,7 +9,6 @@ import org.uva.sea.ql.ast.bool.LT;
 import org.uva.sea.ql.ast.bool.NEq;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
-import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Expression;
@@ -91,12 +88,11 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public final void visit(Eq eq) throws QLException {
-        if (checkReturn(eq, this.registry.getQuestionsAst(), BooleanType.class)) {
+        if (checkReturn(eq, BooleanType.class)) {
             this.boolRet = this.evaluator.evalBool(eq.getLeft()) == this.evaluator
                     .evalBool(eq.getRight());
         }
-        if (checkReturn(eq, this.registry.getQuestionsAst(),
-                AbstractMathType.class)) {
+        if (checkReturn(eq, AbstractMathType.class)) {
             this.boolRet = this.evaluator.evalFloat(eq.getLeft()) == this.evaluator
                     .evalFloat(eq.getRight());
         }
@@ -104,12 +100,11 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public final void visit(NEq neq) throws QLException {
-        if (checkReturn(neq, this.registry.getQuestionsAst(), BooleanType.class)) {
+        if (checkReturn(neq, BooleanType.class)) {
             this.boolRet = this.evaluator.evalBool(neq.getLeft()) != this.evaluator
                     .evalBool(neq.getRight());
         }
-        if (checkReturn(neq, this.registry.getQuestionsAst(),
-                AbstractMathType.class)) {
+        if (checkReturn(neq, AbstractMathType.class)) {
             this.boolRet = this.evaluator.evalFloat(neq.getLeft()) != this.evaluator
                     .evalFloat(neq.getRight());
         }
@@ -154,15 +149,15 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
         throw new NotImplementedException();
     }
 
-    private static boolean checkReturn(BinaryExpr ex, List<Question> questions,
-            Class<?> type) throws QLException {
-        return checkReturn(ex.getLeft(), questions, type)
-                && checkReturn(ex.getRight(), questions, type);
+    private boolean checkReturn(BinaryExpr ex, Class<?> type)
+            throws QLException {
+        return checkReturn(ex.getLeft(), type)
+                && checkReturn(ex.getRight(), type);
     }
 
-    private static boolean checkReturn(Expr ex, List<Question> questions,
-            Class<?> type) throws QLException {
-        final ReturnFinder r = new ReturnFinder(questions, (Expression) ex);
+    private boolean checkReturn(Expr ex, Class<?> type) throws QLException {
+        final ReturnFinder r = new ReturnFinder(
+                this.registry.getQuestionsAst(), (Expression) ex);
         return r.getResult().equals(type);
     }
 

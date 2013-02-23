@@ -49,24 +49,28 @@ public final class SwingInputComponentFactory {
 
         @Override
         public final void visit(Money m) {
-            this.input = new JTextField(LENGTH);
-            ((JTextField) this.input).setEditable(!this.questionPanel
-                    .hasAutoValue());
+            setInputAsTextField();
         }
 
         @Override
         public final void visit(StrType s) {
-            this.input = new JTextField(LENGTH);
+            setInputAsTextField();
         }
 
         @Override
         public final void visit(IntType i) {
-            this.input = new JTextField(LENGTH);
+            setInputAsTextField();
         }
 
         @Override
         public void visit(NullType n) {
-            //do nothing
+            // do nothing
+        }
+
+        private void setInputAsTextField() {
+            this.input = new JTextField(LENGTH);
+            ((JTextField) this.input).setEditable(!this.questionPanel
+                    .hasAutoValue());
         }
 
     }

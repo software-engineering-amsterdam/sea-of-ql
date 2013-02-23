@@ -1,4 +1,4 @@
-package org.uva.sea.ql.common;
+package org.uva.sea.ql.common.identfinder;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;

@@ -16,7 +16,7 @@ public class QuestionListenerFactory extends ListenerFactory {
     }
 
     @Override
-    public ActionListener getActionListener() {
+    public final ActionListener getActionListener() {
         return new ActionListener() {
 
             @Override
@@ -28,7 +28,7 @@ public class QuestionListenerFactory extends ListenerFactory {
     }
 
     @Override
-    public KeyListener getKeyListener() {
+    public final KeyListener getKeyListener() {
         return new KeyListener() {
 
             @Override

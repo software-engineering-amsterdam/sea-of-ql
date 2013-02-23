@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.RecursiveIdentVisitor;
+import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
 
 public class Ident extends Expr implements Expression, TreeNode {
 

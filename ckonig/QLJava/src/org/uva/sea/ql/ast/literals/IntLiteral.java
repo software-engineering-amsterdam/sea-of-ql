@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.RecursiveIdentVisitor;
+import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
 
 public class IntLiteral extends Expr implements Expression, TreeNode {
 
@@ -25,7 +25,7 @@ public class IntLiteral extends Expr implements Expression, TreeNode {
     }
 
     @Override
-    public void accept(RecursiveIdentVisitor v) {
+    public final void accept(RecursiveIdentVisitor v) {
         v.visit(this);
     }
 }

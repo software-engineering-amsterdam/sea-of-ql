@@ -12,8 +12,8 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.StrType;
-import org.uva.sea.ql.common.IdentFinder;
 import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.common.identfinder.IdentFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 
