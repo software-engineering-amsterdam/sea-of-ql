@@ -22,9 +22,9 @@ import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.LiteralExpression;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
-import org.uva.sea.ql.ast.expressions.unary.Neg;
-import org.uva.sea.ql.ast.expressions.unary.Not;
-import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
+import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
+import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpression;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
@@ -74,11 +74,11 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(LogicallyNotEquivalentExpression ast)  { return checkLogicalExpression(ast, "||"); }
 
 	@Override
-	public Boolean visit(Neg ast) { return checkUnaryArithmeticExpression(ast, "--"); }
+	public Boolean visit(NegativeExpression ast) { return checkUnaryArithmeticExpression(ast, "--"); }
 	@Override
-	public Boolean visit(Pos ast) { return checkUnaryArithmeticExpression(ast, "++"); }
+	public Boolean visit(PositiveExpression ast) { return checkUnaryArithmeticExpression(ast, "++"); }
 	@Override
-	public Boolean visit(Not ast) { return checkUnaryLogicalExpression(ast, "!");  }
+	public Boolean visit(NegationalExpression ast) { return checkUnaryLogicalExpression(ast, "!");  }
 
 	@Override
 	public Boolean visit(Bool ast)  { return checkLiteralExpression(ast, Bool.class.toString());  }

@@ -63,9 +63,9 @@ primary returns [Expression result]
     ;
     
 unaryExpression returns [Expression result]
-    :   '+' x=unaryExpression { $result = new Pos($x.result); }
-    |   '-' x=unaryExpression { $result = new Neg($x.result); }
-    |   '!' x=unaryExpression { $result = new Not($x.result); }
+    :   '+' x=unaryExpression { $result = new PositiveExpression($x.result); }
+    |   '-' x=unaryExpression { $result = new NegativeExpression($x.result); }
+    |   '!' x=unaryExpression { $result = new NegationalExpression($x.result); }
     |   x=primary    { $result = $x.result; }
     ;    
     
