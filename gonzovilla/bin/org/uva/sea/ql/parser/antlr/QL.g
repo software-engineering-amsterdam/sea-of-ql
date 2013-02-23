@@ -5,9 +5,11 @@ grammar QL;
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.stat.*;
+import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.values.*;
+
 }
 
 @lexer::header
@@ -32,7 +34,7 @@ formUnit returns [FormUnit result]
 question returns [Question result]
 	: Ident ':' String '[' type ']' { $result = new Question(new Ident($Ident.text), $String.text, $type.result); }
 	;
-	  
+	
 computedQuestion returns [ComputedQuestion result]
 	: Ident ':' String '(' orExpr ')' '[' type ']' { $result = new ComputedQuestion(new Ident($Ident.text), $String.text, $orExpr.result, $type.result); }
 	;
