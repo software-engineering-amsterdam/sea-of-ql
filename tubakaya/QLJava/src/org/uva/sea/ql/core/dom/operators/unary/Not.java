@@ -13,5 +13,5 @@ public class Not extends UnaryOperator{
 	@Override
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
-	}	
+	}
 }

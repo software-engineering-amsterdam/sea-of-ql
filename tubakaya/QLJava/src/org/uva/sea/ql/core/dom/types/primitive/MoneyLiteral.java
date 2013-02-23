@@ -15,5 +15,4 @@ public class MoneyLiteral extends Expression {
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
 	}
-
 }

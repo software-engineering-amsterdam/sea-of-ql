@@ -5,5 +5,4 @@ public class IntDeclaration extends TypeDeclaration {
 	public IntDeclaration() {
 		super("int");
 	}	
-	
 }

@@ -4,8 +4,8 @@ import org.uva.sea.ql.core.dom.statements.*;
 
 public interface StatementVisitor {
 	
-	boolean visit(Form form);
-	boolean visit(Question question);
-	boolean visit(ComputedValue computedValue);
-	boolean visit(IfStatement ifStatement);
+	void visit(Form form);
+	void visit(Question question);
+	void visit(ComputedValue computedValue);
+	void visit(IfStatement ifStatement);
 }

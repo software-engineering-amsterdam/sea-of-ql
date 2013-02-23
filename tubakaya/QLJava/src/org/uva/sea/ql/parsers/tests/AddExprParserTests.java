@@ -1,7 +1,6 @@
 package org.uva.sea.ql.parsers.tests;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.core.dom.operators.arithmetic.Add;
