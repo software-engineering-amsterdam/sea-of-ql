@@ -1,4 +1,4 @@
-package eu.karuza.ql.visitor;
+package eu.karuza.ql.visitor.impl;
 
 
 import eu.karuza.ql.ast.ASTNode;
@@ -17,11 +17,12 @@ import eu.karuza.ql.ast.expr.Not;
 import eu.karuza.ql.ast.expr.Or;
 import eu.karuza.ql.ast.expr.Pos;
 import eu.karuza.ql.ast.expr.Sub;
-import eu.karuza.ql.ast.expr.value.Bool;
-import eu.karuza.ql.ast.expr.value.Ident;
-import eu.karuza.ql.ast.expr.value.Int;
-import eu.karuza.ql.ast.expr.value.Money;
-import eu.karuza.ql.ast.expr.value.Text;
+import eu.karuza.ql.ast.value.Bool;
+import eu.karuza.ql.ast.value.Ident;
+import eu.karuza.ql.ast.value.Int;
+import eu.karuza.ql.ast.value.Money;
+import eu.karuza.ql.ast.value.Text;
+import eu.karuza.ql.visitor.ExpressionVisitor;
 
 public class ExpressionPrinter implements ExpressionVisitor<Void> {
 

@@ -1,9 +1,11 @@
-package eu.karuza.ql.semantic;
+package eu.karuza.ql.visitor.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+import eu.karuza.ql.ast.BinaryExpr;
+import eu.karuza.ql.ast.UnaryExpr;
 import eu.karuza.ql.ast.expr.Add;
 import eu.karuza.ql.ast.expr.And;
 import eu.karuza.ql.ast.expr.Div;
@@ -19,13 +21,11 @@ import eu.karuza.ql.ast.expr.Not;
 import eu.karuza.ql.ast.expr.Or;
 import eu.karuza.ql.ast.expr.Pos;
 import eu.karuza.ql.ast.expr.Sub;
-import eu.karuza.ql.ast.expr.grouping.BinaryExpr;
-import eu.karuza.ql.ast.expr.grouping.UnaryExpr;
-import eu.karuza.ql.ast.expr.value.Bool;
-import eu.karuza.ql.ast.expr.value.Ident;
-import eu.karuza.ql.ast.expr.value.Int;
-import eu.karuza.ql.ast.expr.value.Money;
-import eu.karuza.ql.ast.expr.value.Text;
+import eu.karuza.ql.ast.value.Bool;
+import eu.karuza.ql.ast.value.Ident;
+import eu.karuza.ql.ast.value.Int;
+import eu.karuza.ql.ast.value.Money;
+import eu.karuza.ql.ast.value.Text;
 import eu.karuza.ql.error.QLError;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.symbol.Symbol;

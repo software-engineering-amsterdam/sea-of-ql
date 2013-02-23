@@ -1,28 +1,33 @@
-package eu.karuza.ql.ast.expr.type;
+package eu.karuza.ql.ast.type;
 
-import eu.karuza.ql.ast.expr.value.Money;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.value.Int;
+import eu.karuza.ql.ast.value.Value;
 
-public class MoneyType extends Type {
+public class IntType extends Type {
 
 	@Override
 	public Value getMatchingNode(int lineNumber) {
-		return new Money(lineNumber);
+		return new Int(lineNumber);
 	}
-	
+
 	@Override
 	public boolean isCompatibleTo(Type type) {
-		return type.isCompatibleToMoney();
+		return type.isCompatibleToInt();
 	}
 	
 	@Override
-	public boolean isCompatibleToInt() {
+	public boolean isCompatibleToMoney() {
 		return true;
 	}
 
 	@Override
 	public Type leastUpperBound(Type otherType) {
-		return otherType.leastUpperBoundFromMoney(this);
+		return otherType.leastUpperBoundFromInt(this);
+	}
+	
+	@Override
+	public Type leastUpperBoundFromMoney(MoneyType type) {
+		return type;
 	}
 	
 	@Override
@@ -31,15 +36,10 @@ public class MoneyType extends Type {
 	}
 	
 	@Override
-	public Type leastUpperBoundFromMoney(MoneyType type) {
-		return this;
-	}
-	
-	@Override
 	public Type leastUpperBoundFromText(TextType type) {
 		return type;
 	}
-
+	
 	@Override
 	public boolean isCompatibleWithAdd() {
 		return true;
@@ -99,4 +99,5 @@ public class MoneyType extends Type {
 	public boolean isCompatibleWithSub() {
 		return true;
 	}
+
 }

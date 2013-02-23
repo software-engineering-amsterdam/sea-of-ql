@@ -1,8 +1,8 @@
-package eu.karuza.ql.ast.expr.grouping;
+package eu.karuza.ql.ast;
 
 
-import eu.karuza.ql.ast.expr.type.Type;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.type.Type;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.symbol.SymbolTable;
 
 

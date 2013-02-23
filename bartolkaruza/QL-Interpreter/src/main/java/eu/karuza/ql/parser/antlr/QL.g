@@ -6,9 +6,9 @@ options {backtrack=true; memoize=true;}
 package eu.karuza.ql.parser.antlr;
 import eu.karuza.ql.ast.*;
 import eu.karuza.ql.ast.expr.*;
-import eu.karuza.ql.ast.expr.value.*;
-import eu.karuza.ql.ast.expr.type.*;
-import eu.karuza.ql.ast.expr.grouping.*;
+import eu.karuza.ql.ast.value.*;
+import eu.karuza.ql.ast.type.*;
+import eu.karuza.ql.ast.statement.*;
 import eu.karuza.ql.error.*;
 }
 

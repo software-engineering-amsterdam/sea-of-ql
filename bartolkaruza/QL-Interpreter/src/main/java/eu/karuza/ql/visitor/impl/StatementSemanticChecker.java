@@ -1,16 +1,16 @@
-package eu.karuza.ql.semantic;
+package eu.karuza.ql.visitor.impl;
 
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Stack;
 
-import eu.karuza.ql.ast.AnswerableQuestion;
-import eu.karuza.ql.ast.ComputedQuestion;
+import eu.karuza.ql.ast.Expr;
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.IfConditionalStatement;
-import eu.karuza.ql.ast.IfElseConditionalStatement;
 import eu.karuza.ql.ast.Statement;
-import eu.karuza.ql.ast.expr.grouping.Expr;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.statement.ComputedQuestion;
+import eu.karuza.ql.ast.statement.IfConditionalStatement;
+import eu.karuza.ql.ast.statement.IfElseConditionalStatement;
 import eu.karuza.ql.error.QLError;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.symbol.DefinitionCollector;

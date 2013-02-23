@@ -1,10 +1,10 @@
-package eu.karuza.ql.ast.expr.value;
+package eu.karuza.ql.ast.value;
 
 import java.math.BigDecimal;
 
 
-import eu.karuza.ql.ast.expr.type.IntType;
-import eu.karuza.ql.ast.expr.type.Type;
+import eu.karuza.ql.ast.type.IntType;
+import eu.karuza.ql.ast.type.Type;
 import eu.karuza.ql.symbol.SymbolTable;
 import eu.karuza.ql.visitor.ExpressionVisitor;
 

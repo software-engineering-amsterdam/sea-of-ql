@@ -1,7 +1,7 @@
-package eu.karuza.ql.ast.expr.type;
+package eu.karuza.ql.ast.type;
 
-import eu.karuza.ql.ast.expr.value.Text;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.value.Text;
+import eu.karuza.ql.ast.value.Value;
 
 public class TextType extends Type {
 

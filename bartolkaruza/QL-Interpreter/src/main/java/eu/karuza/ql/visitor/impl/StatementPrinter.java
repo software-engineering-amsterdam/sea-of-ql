@@ -1,14 +1,16 @@
-package eu.karuza.ql.visitor;
+package eu.karuza.ql.visitor.impl;
 
 import java.util.List;
 
 import eu.karuza.ql.ast.ASTNode;
-import eu.karuza.ql.ast.AnswerableQuestion;
-import eu.karuza.ql.ast.ComputedQuestion;
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.IfConditionalStatement;
-import eu.karuza.ql.ast.IfElseConditionalStatement;
 import eu.karuza.ql.ast.Statement;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.statement.ComputedQuestion;
+import eu.karuza.ql.ast.statement.IfConditionalStatement;
+import eu.karuza.ql.ast.statement.IfElseConditionalStatement;
+import eu.karuza.ql.visitor.ExpressionVisitor;
+import eu.karuza.ql.visitor.StatementVisitor;
 
 public class StatementPrinter implements StatementVisitor<Void> {
 

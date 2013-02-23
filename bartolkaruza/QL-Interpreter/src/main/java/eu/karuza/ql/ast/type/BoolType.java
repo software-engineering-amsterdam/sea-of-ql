@@ -1,12 +1,11 @@
-package eu.karuza.ql.ast.expr.type;
+package eu.karuza.ql.ast.type;
 
-import eu.karuza.ql.ast.expr.value.Bool;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.value.Bool;
 
 public class BoolType extends Type {
 	
 	@Override
-	public Value getMatchingNode(int lineNumber) {
+	public Bool getMatchingNode(int lineNumber) {
 		return new Bool(lineNumber);
 	}
 

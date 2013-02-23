@@ -1,9 +1,10 @@
-package eu.karuza.ql.ast;
+package eu.karuza.ql.ast.statement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.karuza.ql.ast.expr.grouping.Expr;
+import eu.karuza.ql.ast.Expr;
+import eu.karuza.ql.ast.Statement;
 import eu.karuza.ql.visitor.StatementVisitor;
 
 public class IfElseConditionalStatement implements Statement {

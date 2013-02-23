@@ -1,13 +1,13 @@
-package eu.karuza.ql.interpreter;
+package eu.karuza.ql.visitor.impl;
 
 
-import eu.karuza.ql.ast.AnswerableQuestion;
-import eu.karuza.ql.ast.ComputedQuestion;
-import eu.karuza.ql.ast.IfConditionalStatement;
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.IfElseConditionalStatement;
 import eu.karuza.ql.ast.Statement;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.statement.ComputedQuestion;
+import eu.karuza.ql.ast.statement.IfConditionalStatement;
+import eu.karuza.ql.ast.statement.IfElseConditionalStatement;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.visitor.StatementVisitor;
 
 public class Evaluator implements StatementVisitor<Void> {

@@ -1,9 +1,10 @@
-package eu.karuza.ql.ast;
+package eu.karuza.ql.ast.statement;
 
 
-import eu.karuza.ql.ast.expr.grouping.Expr;
-import eu.karuza.ql.ast.expr.type.Type;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.Expr;
+import eu.karuza.ql.ast.Question;
+import eu.karuza.ql.ast.type.Type;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.visitor.StatementVisitor;
 
 public class AnswerableQuestion extends Question {
