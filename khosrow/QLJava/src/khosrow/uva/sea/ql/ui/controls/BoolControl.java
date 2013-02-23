@@ -7,14 +7,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
-import khosrow.uva.sea.ql.env.Env;
+import khosrow.uva.sea.ql.ui.State;
 import khosrow.uva.sea.ql.values.BoolVal;
 import khosrow.uva.sea.ql.values.Value;
 
-public class BoolWidget extends Control{
+public class BoolControl extends Control{
 	private final JCheckBox component;
 	
-	public BoolWidget(){
+	public BoolControl(){
 		this.component = new JCheckBox();
 	}
 	
@@ -40,11 +40,12 @@ public class BoolWidget extends Control{
 	}
 
 	@Override
-	public void addListener(final Ident name, final Env env) {
+	public void addListener(final Ident name, final State state) {
 		component.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				env.assignValue(name, getBoolVal());				
+				state.assignValue(name, getBoolVal());	
+				state.notifyObervers(name);
 			}			
 		});		
 	}

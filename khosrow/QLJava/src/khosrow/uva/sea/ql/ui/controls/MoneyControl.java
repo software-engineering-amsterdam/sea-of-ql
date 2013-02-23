@@ -1,9 +1,9 @@
 package khosrow.uva.sea.ql.ui.controls;
 
-import khosrow.uva.sea.ql.values.StrVal;
+import khosrow.uva.sea.ql.values.MoneyVal;
 import khosrow.uva.sea.ql.values.Value;
 
-public class StringWidget extends TextInputControl {
+public class MoneyControl extends TextInputControl {
 
 	@Override
 	protected Control getControl() {
@@ -11,12 +11,13 @@ public class StringWidget extends TextInputControl {
 	}
 
 	@Override
-	protected Value getValue() {
-		return new StrVal(component.getText());
+	protected Value getValue() {		
+		return new MoneyVal(Double.parseDouble(component.getText()));
 	}
 
 	@Override
 	public <T> T accept(IControlVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
 }
