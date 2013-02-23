@@ -26,7 +26,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-    :   'form' Ident '{' body=conditionBody '}' { $result = new Form(new Ident($Ident.text), $body.result); }
+    :   'form' Ident '{' statementBody '}' { $result = new Form(new Ident($Ident.text), $statementBody.result); }
     ;
 
 formStatement returns [FormStatement result]
@@ -40,13 +40,13 @@ question returns [Question result]
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpression ')' ifBody=conditionBody 'else' elseBody=conditionBody
-        { $result = new IfThenElse(condition, $ifBody.result, $elseBody.result); }
-    |   'if' '(' condition=orExpression ')' ifBody=conditionBody
-        { $result = new IfThen(condition, $ifBody.result); }
+    :   'if' '(' condition=orExpression ')' ifBody=statementBody 'else' elseBody=statementBody
+        { $result = new IfThenElse(condition, ifBody, elseBody); }
+    |   'if' '(' condition=orExpression ')' ifBody=statementBody
+        { $result = new IfThen(condition, ifBody); }
     ;
 
-conditionBody returns [StatementBody result]
+statementBody returns [StatementBody result]
 	@init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
     :   '{' (statement=formStatement { statements.add(statement); })+ '}'
