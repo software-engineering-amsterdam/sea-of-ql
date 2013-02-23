@@ -1,6 +1,6 @@
 package org.uva.sea.ql.check.statements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.FormStatement;
@@ -51,16 +51,16 @@ public class StatementChecker implements Visitor {
 	@Override
 	public void visit(ComputedQuestion statement) {
 		checkName(statement, statement.getExpression().typeOf(_typeEnvironment));
-		checkExpr(statement.getExpression());
+		checkExpression(statement.getExpression());
 	}
 	
 	private void checkCondition(ConditionBlock statement) {
-		checkExpr(statement.getCondition());
+		checkExpression(statement.getCondition());
 	}
 
-	private void checkExpr(Expr expr) {
+	private void checkExpression(Expression expression) {
 		// Run expression through TypeChecker
-		TypeChecker.check(expr, _typeEnvironment, _errorMessages);
+		TypeChecker.check(expression, _typeEnvironment, _errorMessages);
 	}
 	
 	private void checkName(Question statement, Type type) {

@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestBinaryLogicalExpressionTypes extends ExpressionTypeChecker {
-	
 	@Test
 	public void testAnds() throws ParseError {
 		isAValidExpression("true && true");

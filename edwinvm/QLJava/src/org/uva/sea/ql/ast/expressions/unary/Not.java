@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.expressions.unary;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
-public class Not extends UnaryExpr {
-	public Not(Expr expr) {
-		super(expr);
+public class Not extends UnaryExpression {
+	public Not(Expression expression) {
+		super(expression);
 	}
 	
 	@Override

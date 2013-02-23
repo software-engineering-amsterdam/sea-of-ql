@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.expressions.binary.relational;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class LEq extends BinaryRelationalExpr {
-	public LEq(Expr lhs, Expr rhs) {
+public class LEq extends BinaryRelationalExpression {
+	public LEq(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 	

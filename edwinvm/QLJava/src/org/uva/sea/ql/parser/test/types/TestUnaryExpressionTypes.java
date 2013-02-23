@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestUnaryExpressionTypes extends ExpressionTypeChecker {
-	
 	@Test
 	public void testNegs() throws ParseError {
 		isAValidExpression("--3");

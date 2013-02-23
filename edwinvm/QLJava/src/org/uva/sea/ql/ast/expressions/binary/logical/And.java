@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.expressions.binary.logical;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class And extends BinaryLogicalExpr {
-	public And(Expr lhs, Expr rhs) {
+public class And extends BinaryLogicalExpression {
+	public And(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 	

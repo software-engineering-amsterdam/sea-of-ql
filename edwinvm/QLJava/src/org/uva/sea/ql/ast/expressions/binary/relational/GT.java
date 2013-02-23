@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.expressions.binary.relational;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class GT extends BinaryRelationalExpr {
-	public GT(Expr lhs, Expr rhs) {
+public class GT extends BinaryRelationalExpression {
+	public GT(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 	

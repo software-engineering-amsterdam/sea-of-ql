@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statements.conditions;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 public class IfThenElse extends ConditionBlock {
 	private final StatementBody _elseBody;
 	
-	public IfThenElse(Expr condition, StatementBody body, StatementBody elseBody) {
+	public IfThenElse(Expression condition, StatementBody body, StatementBody elseBody) {
 		super(condition, body); _elseBody = elseBody;
 	}
 	

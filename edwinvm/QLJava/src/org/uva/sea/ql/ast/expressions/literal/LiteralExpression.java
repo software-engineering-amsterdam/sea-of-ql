@@ -1,11 +1,11 @@
 package org.uva.sea.ql.ast.expressions.literal;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 
-public abstract class LiteralExpr extends Expr {
+public abstract class LiteralExpression extends Expression {
 	private final Object _value;
 	
-	protected LiteralExpr(Object value) {
+	protected LiteralExpression(Object value) {
 		_value = value;
 	}
 	

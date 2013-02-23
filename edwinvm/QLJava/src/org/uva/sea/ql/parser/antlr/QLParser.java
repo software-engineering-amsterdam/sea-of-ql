@@ -232,7 +232,7 @@ public class QLParser extends Parser {
         Token Ident7=null;
         Type t =null;
 
-        Expr e =null;
+        Expression e =null;
 
 
         try {
@@ -345,7 +345,7 @@ public class QLParser extends Parser {
 
         int conditionBlock_StartIndex = input.index();
 
-        Expr condition =null;
+        Expression condition =null;
 
         StatementBody ifBody =null;
 
@@ -623,8 +623,8 @@ public class QLParser extends Parser {
 
     // $ANTLR start "primary"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:56:1: primary returns [Expr result] : ( Int | Bool | Money | String | Ident | '(' x= orExpr ')' );
-    public final Expr primary() throws RecognitionException {
-        Expr result = null;
+    public final Expression primary() throws RecognitionException {
+        Expression result = null;
 
         int primary_StartIndex = input.index();
 
@@ -633,7 +633,7 @@ public class QLParser extends Parser {
         Token Money10=null;
         Token String11=null;
         Token Ident12=null;
-        Expr x =null;
+        Expression x =null;
 
 
         try {
@@ -765,12 +765,12 @@ public class QLParser extends Parser {
 
     // $ANTLR start "unExpr"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:65:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
-    public final Expr unExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression unExpr() throws RecognitionException {
+        Expression result = null;
 
         int unExpr_StartIndex = input.index();
 
-        Expr x =null;
+        Expression x =null;
 
 
         try {
@@ -893,15 +893,15 @@ public class QLParser extends Parser {
 
     // $ANTLR start "mulExpr"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:72:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
-    public final Expr mulExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression mulExpr() throws RecognitionException {
+        Expression result = null;
 
         int mulExpr_StartIndex = input.index();
 
         Token op=null;
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -988,15 +988,15 @@ public class QLParser extends Parser {
 
     // $ANTLR start "addExpr"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:80:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-    public final Expr addExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression addExpr() throws RecognitionException {
+        Expression result = null;
 
         int addExpr_StartIndex = input.index();
 
         Token op=null;
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -1083,15 +1083,15 @@ public class QLParser extends Parser {
 
     // $ANTLR start "relExpr"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:88:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-    public final Expr relExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression relExpr() throws RecognitionException {
+        Expression result = null;
 
         int relExpr_StartIndex = input.index();
 
         Token op=null;
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -1182,14 +1182,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "andExpr"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:100:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
-    public final Expr andExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression andExpr() throws RecognitionException {
+        Expression result = null;
 
         int andExpr_StartIndex = input.index();
 
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -1261,14 +1261,14 @@ public class QLParser extends Parser {
 
     // $ANTLR start "orExpr"
     // C:\\Documents and Settings\\6188583\\My Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:105:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
-    public final Expr orExpr() throws RecognitionException {
-        Expr result = null;
+    public final Expression orExpr() throws RecognitionException {
+        Expression result = null;
 
         int orExpr_StartIndex = input.index();
 
-        Expr lhs =null;
+        Expression lhs =null;
 
-        Expr rhs =null;
+        Expression rhs =null;
 
 
         try {
@@ -1436,7 +1436,7 @@ public class QLParser extends Parser {
 
     // $ANTLR start synpred3_QL
     public final void synpred3_QL_fragment() throws RecognitionException {
-        Expr condition =null;
+        Expression condition =null;
 
         StatementBody ifBody =null;
 

@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.expressions.binary.arithmetic;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 
-public class Sub extends BinaryArithmeticExpr {
-	public Sub(Expr lhs, Expr rhs) {
+public class Sub extends BinaryArithmeticExpression {
+	public Sub(Expression lhs, Expression rhs) {
 		super(lhs, rhs);
 	}
 	

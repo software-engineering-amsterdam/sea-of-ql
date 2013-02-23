@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
-public abstract class Expr implements ASTNode {
+public abstract class Expression implements ASTNode {
 	
 	public abstract Type typeOf(TypeEnvironment typeEnvironment);
 	
