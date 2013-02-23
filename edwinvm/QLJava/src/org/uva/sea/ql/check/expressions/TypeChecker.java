@@ -10,12 +10,12 @@ import org.uva.sea.ql.ast.expressions.binary.logical.And;
 import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpression;
 import org.uva.sea.ql.ast.expressions.binary.logical.Or;
 import org.uva.sea.ql.ast.expressions.binary.relational.BinaryRelationalExpression;
-import org.uva.sea.ql.ast.expressions.binary.relational.Eq;
-import org.uva.sea.ql.ast.expressions.binary.relational.GEq;
-import org.uva.sea.ql.ast.expressions.binary.relational.GT;
-import org.uva.sea.ql.ast.expressions.binary.relational.LEq;
-import org.uva.sea.ql.ast.expressions.binary.relational.LT;
-import org.uva.sea.ql.ast.expressions.binary.relational.NEq;
+import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
@@ -56,17 +56,17 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(Multiplication ast) { return checkArithmeticExpression(ast, "*"); }
 
 	@Override
-	public Boolean visit(Eq ast)  { return checkRelationalExpression(ast, "=="); }
+	public Boolean visit(EqualToExpression ast)  { return checkRelationalExpression(ast, "=="); }
 	@Override
-	public Boolean visit(GEq ast) { return checkRelationalExpression(ast, ">="); }
+	public Boolean visit(GreaterThanOrEqualToExpression ast) { return checkRelationalExpression(ast, ">="); }
 	@Override
-	public Boolean visit(GT ast)  { return checkRelationalExpression(ast, ">");  }
+	public Boolean visit(GreaterThanExpression ast)  { return checkRelationalExpression(ast, ">");  }
 	@Override
-	public Boolean visit(LEq ast) { return checkRelationalExpression(ast, "<="); }
+	public Boolean visit(LessThanOrEqualToExpression ast) { return checkRelationalExpression(ast, "<="); }
 	@Override
-	public Boolean visit(LT ast)  { return checkRelationalExpression(ast, "<");  }
+	public Boolean visit(LessThanExpression ast)  { return checkRelationalExpression(ast, "<");  }
 	@Override
-	public Boolean visit(NEq ast) { return checkRelationalExpression(ast, "!="); }
+	public Boolean visit(NotEqualToExpression ast) { return checkRelationalExpression(ast, "!="); }
 	
 	@Override
 	public Boolean visit(And ast) { return checkLogicalExpression(ast, "&&"); }

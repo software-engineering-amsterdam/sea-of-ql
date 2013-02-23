@@ -50,7 +50,7 @@ statementBody returns [StatementBody result]
 	@init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
     :   '{' (statement=formStatement { statements.add(statement); })+ '}'
-    |   (statement=formStatement { statements.add(statement); })+
+    |       (statement=formStatement { statements.add(statement); })+
     ;
 
 primary returns [Expression result]
@@ -62,15 +62,15 @@ primary returns [Expression result]
     |   '(' x=orExpression ')'{ $result = $x.result; }
     ;
     
-unExpression returns [Expression result]
-    :   '+' x=unExpression { $result = new Pos($x.result); }
-    |   '-' x=unExpression { $result = new Neg($x.result); }
-    |   '!' x=unExpression { $result = new Not($x.result); }
+unaryExpression returns [Expression result]
+    :   '+' x=unaryExpression { $result = new Pos($x.result); }
+    |   '-' x=unaryExpression { $result = new Neg($x.result); }
+    |   '!' x=unaryExpression { $result = new Not($x.result); }
     |   x=primary    { $result = $x.result; }
     ;    
     
 multiplicationExpression returns [Expression result]
-    :   lhs=unExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpression 
+    :   lhs=unaryExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unaryExpression 
     { 
         if ($op.text.equals("*")) { $result = new Multiplication($result, rhs); }
         if ($op.text.equals("/")) { $result = new Division($result, rhs); }
@@ -85,20 +85,20 @@ additionExpression returns [Expression result]
     })*
     ;
   
-relExpression returns [Expression result]
+relationalExpression returns [Expression result]
     :   lhs=additionExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=additionExpression 
     { 
-        if ($op.text.equals("<"))  { $result = new LT($result, rhs);  }
-        if ($op.text.equals("<=")) { $result = new LEq($result, rhs); }
-        if ($op.text.equals(">"))  { $result = new GT($result, rhs);  }
-        if ($op.text.equals(">=")) { $result = new GEq($result, rhs); }
-        if ($op.text.equals("==")) { $result = new Eq($result, rhs);  }
-        if ($op.text.equals("!=")) { $result = new NEq($result, rhs); }
+        if ($op.text.equals("<"))  { $result = new LessThanExpression($result, rhs);  }
+        if ($op.text.equals("<=")) { $result = new LessThanOrEqualToExpression($result, rhs); }
+        if ($op.text.equals(">"))  { $result = new GreaterThanExpression($result, rhs);  }
+        if ($op.text.equals(">=")) { $result = new GreaterThanOrEqualToExpression($result, rhs); }
+        if ($op.text.equals("==")) { $result = new EqualToExpression($result, rhs);  }
+        if ($op.text.equals("!=")) { $result = new NotEqualToExpression($result, rhs); }
     })*
     ;
     
 andExpression returns [Expression result]
-    :   lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*
+    :   lhs=relationalExpression { $result=$lhs.result; } ( '&&' rhs=relationalExpression { $result = new And($result, rhs); } )*
     ;
     
 
