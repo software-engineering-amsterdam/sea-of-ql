@@ -1,24 +1,19 @@
-module TypeChecker::Evaluate
+module TypeCheck::EvaluateExpressions
+
 
 import Prelude;
-import syntax::abstractSyntax;
+import syntax::Abstract;
 import load::Load;
-import TypeChecker::ExpressionChecker;
-import TypeChecker::QuestionChecker;
+import TypeCheck::CheckExpression;
+import TypeCheck::QuestionChecker;
 
-alias QuestinireId=str;
+//alias QuestinireId=str;
 
 
-data FormValue = boolVal(bool B) | strVal(str s) | moneyVal(int M)|intVal(int i)|errorVal(loc l, str msg);
-data FormValue = natval(int n) | strval(str s) | errorval(loc l, str msg); 
+data FormValue = natval(int n) |boolVal(bool B) | strVal(str s) | moneyVal(int M)|intVal(int i)|errorVal(loc l, str msg);
+//data FormValue = natval(int n) | strval(str s) | errorval(loc l, str msg); 
 
 alias VENV = map[str, FormValue];   
-
-/*VENV addInstance(VENV venv, str id, formValue fval)
-{
-venv +=(id:fval);
-return venv;
-} */                                   
 
 // Evaluate Expressions.
 
@@ -26,7 +21,7 @@ FormValue evalExp(exp:moneyCon(int M), VENV env) = moneyVal(M);
 
 FormValue evalExp(exp:boolCon(bool B), VENV env) = boolVal(B);
 
-FormValue evalExp(exp:id(QuestionireId Id), VENV env)  = env[Id]?  ? env[Id] : errorval(exp@location, "Uninitialized variable <Id>");
+FormValue evalExp(exp:id(QuestionId Id), VENV env)  = env[Id]?  ? env[Id] : errorval(exp@location, "Uninitialized variable <Id>");
 
 //evaluate strings
 FormValue evalExp(exp:add(EXP E1, EXP E2), VENV env) =  (natval(n1) := evalExp(E1, env) && 
@@ -56,7 +51,6 @@ FormValue evalExp(exp:geq(EXP E1, EXP E2), VENV env) = (strval(n1) := evalExp(E1
 FormValue evalExp(exp:neq(EXP E1, EXP E2), VENV env) = (strval(n1) := evalExp(E1, env) && 
     													strval(n2) := evalExp(E2, env)) ? strval(n1 != n2)
                                     					: errorval(exp@location, "== requires integer arguments"); 
-
 
 //evaluate integers
 FormValue evalExp(exp:add(EXP E1, EXP E2), VENV env) =  (natval(n1) := evalExp(E1, env) && 
@@ -183,17 +177,17 @@ VENV evalStats(list[Statement] Stats1, VENV env)
 }
 
 // Evaluate the form
-
-public VENV evalProgram(Program P)
+public VENV evalForm(Form P)
 {
-  if(program(Expression exp, list[Statement]Stats) := P)
-  {
-  	VENV env= <{},[]>;
-    VENV env = evalStatement(Statement,env);
-    return evalStats(Series, env);
-  } 
-  else
-    throw "Cannot happen";
+	println("ok in eval");
+  	if(form(Expression exp, list[Statement]Stats) := P)
+  	{
+  		VENV env= <{},[]>;
+		env = evalStatement(Stats, env);
+		return  env;
+	} 
+  	else
+  	  	throw "Cannot happen";
 }
 
 public VENV evalForm(str txt) = evalForm(load(txt));
