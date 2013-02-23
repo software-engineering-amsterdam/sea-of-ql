@@ -16,10 +16,13 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
+	: 'form' Ident body=block {$result = new Form(new Ident($Ident.text), body);};
+	
+block returns [Block result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
-	: 'form' Ident ':' (formUnit {formUnits.add($formUnit.result);})* 'endform' { $result = new Form($Ident.text, formUnits); }
+	: 'block' (formUnit {formUnits.add($formUnit.result);})* 'endblock' { $result = new Block(formUnits); }
 	; 
-
+	
 formUnit returns [FormUnit result]
 	: question         { $result = $question.result; }
   | computedQuestion { $result = $computedQuestion.result; }
@@ -27,34 +30,32 @@ formUnit returns [FormUnit result]
 	;
 
 question returns [Question result]
-	: Ident ':' sentence '(' type ')' { $result = new Question($Ident.text, $sentence.text, $type.result); }
+	: Ident ':' String '[' type ']' { $result = new Question(new Ident($Ident.text), $String.text, $type.result); }
 	;
 	  
 computedQuestion returns [ComputedQuestion result]
-	: Ident ':' '[' orExpr ']' sentence '(' type ')' { $result = new ComputedQuestion($Ident.text, $sentence.text, $orExpr.result, $type.result); }
+	: Ident ':' String '(' orExpr ')' '[' type ']' { $result = new ComputedQuestion(new Ident($Ident.text), $String.text, $orExpr.result, $type.result); }
 	;
- 
+	
 ifStatement returns [IfStatement result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
-	: 'if' '(' orExpr ')' 'then' (formUnit {formUnits.add($formUnit.result);})* 'endif' { $result = new IfStatement($orExpr.result, formUnits); }
+	: 'if' '(' orExpr ')' 'then' ifBody=block 'else' elseBody=block 'endif' { $result = new IfStatement($orExpr.result, ifBody, elseBody); }
 	;  
-
+	 
 type returns [Type result]
-  : 'Boolean' {$result = new TypeBool();}
-  | 'Integer' {$result = new TypeInt();}
+  : 'Bool' {$result = new TypeBool();}
+  | 'Int' {$result = new TypeInt();}
   | 'String'  {$result = new TypeString();}
   ;
- 
-sentence
-  : '"' .* '"'
-  ; 
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+  | Bool {$result = new BoolValue(Boolean.parseBoolean($Bool.text)); }
+  | String { $result = new StringValue($String.text); }
   | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
-    
+     
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
@@ -130,6 +131,10 @@ SINGLECOMMENT : '//' .* ('\n' | '\r') {$channel=HIDDEN;} ;
 COMMENT 
     : '/*' .* '*/' {$channel=HIDDEN;} ;
     
+Bool: ('true' | 'false');
+
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+String: ('"' .* '"');

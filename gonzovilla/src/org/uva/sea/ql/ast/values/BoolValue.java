@@ -5,12 +5,14 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.TypeBool;
+import org.uva.sea.ql.ast.visitor.VisitorExpressions;
 
-public class Bool extends Expr {
+public class BoolValue extends Expr {
 	
 	private final boolean value;
 
-	public Bool(boolean value) {
+	public BoolValue(boolean value) {
 		this.value = value;
 	}
 
@@ -20,6 +22,12 @@ public class Bool extends Expr {
 	
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		return new org.uva.sea.ql.ast.types.TypeBool();
+		return new TypeBool();
 	}
+
+	@Override
+	public <T> T accept(VisitorExpressions<T> visitor) {
+		return  visitor.visit(this);
+	}
+	
 }
