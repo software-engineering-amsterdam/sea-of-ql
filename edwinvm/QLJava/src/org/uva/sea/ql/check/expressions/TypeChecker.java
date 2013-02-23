@@ -47,49 +47,49 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(Addition ast) { return checkArithmeticExpression(ast, "+"); }
+	public Boolean visit(Addition astNode)                         { return checkArithmeticExpression(astNode, "+"); }
 	@Override
-	public Boolean visit(Division ast) { return checkArithmeticExpression(ast, "/"); }
+	public Boolean visit(Division astNode)                         { return checkArithmeticExpression(astNode, "/"); }
 	@Override
-	public Boolean visit(Subtraction ast) { return checkArithmeticExpression(ast, "-"); }
+	public Boolean visit(Subtraction astNode)                      { return checkArithmeticExpression(astNode, "-"); }
 	@Override
-	public Boolean visit(Multiplication ast) { return checkArithmeticExpression(ast, "*"); }
+	public Boolean visit(Multiplication astNode)                   { return checkArithmeticExpression(astNode, "*"); }
 
 	@Override
-	public Boolean visit(EqualToExpression ast)  { return checkRelationalExpression(ast, "=="); }
+	public Boolean visit(EqualToExpression astNode)                { return checkRelationalExpression(astNode, "=="); }
 	@Override
-	public Boolean visit(GreaterThanOrEqualToExpression ast) { return checkRelationalExpression(ast, ">="); }
+	public Boolean visit(GreaterThanOrEqualToExpression astNode)   { return checkRelationalExpression(astNode, ">="); }
 	@Override
-	public Boolean visit(GreaterThanExpression ast)  { return checkRelationalExpression(ast, ">");  }
+	public Boolean visit(GreaterThanExpression astNode)            { return checkRelationalExpression(astNode, ">");  }
 	@Override
-	public Boolean visit(LessThanOrEqualToExpression ast) { return checkRelationalExpression(ast, "<="); }
+	public Boolean visit(LessThanOrEqualToExpression astNode)      { return checkRelationalExpression(astNode, "<="); }
 	@Override
-	public Boolean visit(LessThanExpression ast)  { return checkRelationalExpression(ast, "<");  }
+	public Boolean visit(LessThanExpression astNode)               { return checkRelationalExpression(astNode, "<");  }
 	@Override
-	public Boolean visit(NotEqualToExpression ast) { return checkRelationalExpression(ast, "!="); }
+	public Boolean visit(NotEqualToExpression astNode)             { return checkRelationalExpression(astNode, "!="); }
 	
 	@Override
-	public Boolean visit(LogicallyEquivalentExpression ast) { return checkLogicalExpression(ast, "&&"); }
+	public Boolean visit(LogicallyEquivalentExpression astNode)    { return checkLogicalExpression(astNode, "&&"); }
 	@Override
-	public Boolean visit(LogicallyNotEquivalentExpression ast)  { return checkLogicalExpression(ast, "||"); }
+	public Boolean visit(LogicallyNotEquivalentExpression astNode) { return checkLogicalExpression(astNode, "||"); }
 
 	@Override
-	public Boolean visit(NegativeExpression ast) { return checkUnaryArithmeticExpression(ast, "--"); }
+	public Boolean visit(NegativeExpression astNode)               { return checkUnaryArithmeticExpression(astNode, "--"); }
 	@Override
-	public Boolean visit(PositiveExpression ast) { return checkUnaryArithmeticExpression(ast, "++"); }
+	public Boolean visit(PositiveExpression astNode)               { return checkUnaryArithmeticExpression(astNode, "++"); }
 	@Override
-	public Boolean visit(NegationalExpression ast) { return checkUnaryLogicalExpression(ast, "!");  }
+	public Boolean visit(NegationalExpression astNode)             { return checkUnaryLogicalExpression(astNode, "!");  }
 
 	@Override
-	public Boolean visit(Bool ast)  { return checkLiteralExpression(ast, Bool.class.toString());  }
+	public Boolean visit(Bool astNode)                             { return checkLiteralExpression(astNode, Bool.class.toString());  }
 	@Override
-	public Boolean visit(Ident ast) { return checkLiteralExpression(ast, Ident.class.toString()); }
+	public Boolean visit(Ident astNode)                            { return checkLiteralExpression(astNode, Ident.class.toString()); }
 	@Override
-	public Boolean visit(Int ast)   { return checkLiteralExpression(ast, Int.class.toString());   }
+	public Boolean visit(Int astNode)                              { return checkLiteralExpression(astNode, Int.class.toString());   }
 	@Override
-	public Boolean visit(Money ast) { return checkLiteralExpression(ast, Money.class.toString()); }
+	public Boolean visit(Money astNode)                            { return checkLiteralExpression(astNode, Money.class.toString()); }
 	@Override
-	public Boolean visit(Str ast)   { return checkLiteralExpression(ast, Str.class.toString());   }
+	public Boolean visit(Str astNode)                              { return checkLiteralExpression(astNode, Str.class.toString());   }
 	
 	private Boolean checkArithmeticExpression(BinaryArithmeticExpression expression, String binarySymbol) {
 		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);

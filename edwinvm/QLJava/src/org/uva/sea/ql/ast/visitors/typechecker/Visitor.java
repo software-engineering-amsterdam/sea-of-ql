@@ -24,33 +24,33 @@ import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
 public interface Visitor<T> {
 	
 	// Binary arithmetic expressions
-	T visit(Addition ast);
-	T visit(Division ast);
-	T visit(Subtraction ast);
-	T visit(Multiplication ast);
+	T visit(Addition                         astNode);
+	T visit(Division                         astNode);
+	T visit(Subtraction                      astNode);
+	T visit(Multiplication                   astNode);
 	
 	// Binary logical expressions
-	T visit(LogicallyEquivalentExpression ast);
-	T visit(LogicallyNotEquivalentExpression ast);
+	T visit(LogicallyEquivalentExpression    astNode);
+	T visit(LogicallyNotEquivalentExpression astNode);
 	
 	// Binary relational expressions
-	T visit(EqualToExpression ast);
-	T visit(GreaterThanOrEqualToExpression ast);
-	T visit(GreaterThanExpression ast);
-	T visit(LessThanOrEqualToExpression ast);
-	T visit(LessThanExpression ast);
-	T visit(NotEqualToExpression ast);
+	T visit(EqualToExpression                astNode);
+	T visit(GreaterThanOrEqualToExpression   astNode);
+	T visit(GreaterThanExpression            astNode);
+	T visit(LessThanOrEqualToExpression      astNode);
+	T visit(LessThanExpression               astNode);
+	T visit(NotEqualToExpression             astNode);
 	
 	// Unary expressions
-	T visit(NegativeExpression ast);
-	T visit(NegationalExpression ast);
-	T visit(PositiveExpression ast);
+	T visit(NegativeExpression               astNode);
+	T visit(NegationalExpression             astNode);
+	T visit(PositiveExpression               astNode);
 	
 	// Literal expressions
-	T visit(Bool ast);
-	T visit(Ident ast);
-	T visit(Int ast);
-	T visit(Money money);
-	T visit(Str str);
+	T visit(Bool                             astNode);
+	T visit(Ident                            astNode);
+	T visit(Int                              astNode);
+	T visit(Money                            astNode);
+	T visit(Str                              astNode);
 	
 }

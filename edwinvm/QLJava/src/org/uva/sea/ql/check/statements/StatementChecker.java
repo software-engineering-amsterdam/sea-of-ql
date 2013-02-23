@@ -26,8 +26,8 @@ public class StatementChecker implements Visitor {
 		_errorMessages = messages;
 	}
 	
-	public void check(FormStatement statement) {
-		statement.accept(this);
+	public void check(FormStatement statement) { 
+		statement.accept(this); 
 	}
 
 	@Override
@@ -54,10 +54,7 @@ public class StatementChecker implements Visitor {
 		checkExpression(statement.getExpression());
 	}
 	
-	private void checkCondition(ConditionBlock statement) {
-		checkExpression(statement.getCondition());
-	}
-
+	private void checkCondition(ConditionBlock statement) { checkExpression(statement.getCondition()); }
 	private void checkExpression(Expression expression) {
 		// Run expression through TypeChecker
 		TypeChecker.check(expression, _typeEnvironment, _errorMessages);
