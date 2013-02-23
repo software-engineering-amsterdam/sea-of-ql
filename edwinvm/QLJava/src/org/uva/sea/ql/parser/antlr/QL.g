@@ -35,12 +35,16 @@ formStatement returns [FormStatement result]
     ;
 
 question returns [Question result]
-    :   questionLabel Ident ':' type     { $result = new AnswerableQuestion($questionLabel.result, new Ident($Ident.text), $type.result); }
-    |   questionLabel Ident '=' expression { $result = new ComputedQuestion($questionLabel.result, new Ident($Ident.text), $expression.result); }
+    :   label = questionLabel variable = questionVariable ':' type     { $result = new AnswerableQuestion(label, variable, $type.result); }
+    |   label = questionLabel variable = questionVariable '=' expression { $result = new ComputedQuestion(label, variable, $expression.result); }
     ;
 
 questionLabel returns [QuestionLabel result]
     :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.expressions.literal.Str($String.text)); }
+    ;
+    
+questionVariable returns [QuestionVariable result]
+    :   Ident  { $result = new QuestionVariable(new Ident($Ident.text)); }
     ;
 
 conditionBlock returns [ConditionBlock result]

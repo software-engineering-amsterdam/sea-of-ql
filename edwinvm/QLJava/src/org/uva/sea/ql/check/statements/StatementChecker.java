@@ -6,10 +6,11 @@ import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.StatementBody;
-import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
+import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.questions.QuestionVariable;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
@@ -62,8 +63,7 @@ public class StatementChecker implements Visitor {
 	}
 	
 	private void checkName(Question statement, Type type) {
-		Ident questionVariable = statement.getVariable();
-		checkQuestionCompatibility(questionVariable, type);
+		checkQuestionCompatibility(statement.getQuestionVariable(), type);
 	}
 	
 	private void checkBody(StatementBody body) {
@@ -72,15 +72,20 @@ public class StatementChecker implements Visitor {
 		}
 	}
 	
-	private void checkQuestionCompatibility(Ident questionVariable, Type type) {
+	private void checkQuestionCompatibility(QuestionVariable questionVariable, Type type) {
 		storeQuestionVariable(questionVariable, type);
-		if (!type.isCompatibleTo(questionVariable.typeOf(_typeEnvironment))) {
-			addError(questionVariable);
+		Type questionVariableType = getVariableTypeFor(questionVariable.getVariable());
+		if (!type.isCompatibleTo(questionVariableType)) {
+			addError(questionVariable.getVariable());
 		}
 	}
+	
+	private Type getVariableTypeFor(Ident variable) {
+		return variable.typeOf(_typeEnvironment);
+	}
 
-	private void storeQuestionVariable(Ident questionVariable, Type type) {
-		_typeEnvironment.add(questionVariable, type);
+	private void storeQuestionVariable(QuestionVariable variable, Type type) {
+		_typeEnvironment.add(variable.getVariable(), type);
 	}
 	
 	private void addError(Ident ident) {

@@ -1,22 +1,22 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
+import org.uva.sea.ql.ast.statements.questions.QuestionVariable;
 
 public abstract class Question extends FormStatement {
 	private final QuestionLabel _label;
-	private final Ident _variable;
+	private final QuestionVariable _variable;
 	
-	protected Question(QuestionLabel label, Ident variable) {
+	protected Question(QuestionLabel label, QuestionVariable variable) {
 		_label = label;
 		_variable = variable;
 	}
 	
-	public QuestionLabel getLabel() {
+	public QuestionLabel getQuestionLabel() {
 		return _label;
 	}
 	
-	public Ident getVariable() {
+	public QuestionVariable getQuestionVariable() {
 		return _variable;
 	}
 }
