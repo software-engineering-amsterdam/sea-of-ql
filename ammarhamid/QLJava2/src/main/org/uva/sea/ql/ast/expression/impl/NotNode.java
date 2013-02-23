@@ -9,6 +9,7 @@ import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class NotNode extends UnaryNode
 {
@@ -25,9 +26,9 @@ public class NotNode extends UnaryNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        final Value value = this.exprNode.evaluate();
+        final Value value = this.exprNode.evaluate(variables);
         return value.not();
     }
 

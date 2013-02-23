@@ -6,16 +6,15 @@ import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class UndefinedIdentifierNode extends IdentifierNode
 {
-    private final String identifier;
     private final Value defaultValue;
 
     public UndefinedIdentifierNode(String identifier, Value defaultValue)
     {
         super(identifier, defaultValue);
-        this.identifier = identifier;
         this.defaultValue = defaultValue;
     }
 
@@ -33,7 +32,7 @@ public class UndefinedIdentifierNode extends IdentifierNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
         return throwUnsupportedOperationException();
     }

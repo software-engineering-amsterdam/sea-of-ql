@@ -4,10 +4,10 @@ import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class IdentifierNode extends ExprNode
 {
@@ -27,9 +27,9 @@ public class IdentifierNode extends ExprNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        return VariableState.getVariables().get(this);
+        return variables.get(this);
     }
 
     @Override

@@ -6,5 +6,6 @@ import org.uva.sea.ql.ast.statement.impl.IfNode;
 public interface StatementVisitor
 {
     void visit(AssignmentNode assignmentNode);
+
     void visit(IfNode ifNode);
 }

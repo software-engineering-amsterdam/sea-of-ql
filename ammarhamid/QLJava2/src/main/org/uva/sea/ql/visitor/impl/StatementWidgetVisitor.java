@@ -1,18 +1,21 @@
 package org.uva.sea.ql.visitor.impl;
 
+import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.variable.VariableState;
-import org.uva.sea.ql.variable.observer.ConditionObserver;
+import org.uva.sea.ql.visitor.observer.ConditionObserver;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class StatementWidgetVisitor implements StatementVisitor
 {
@@ -74,15 +77,15 @@ public class StatementWidgetVisitor implements StatementVisitor
             branchComponents.add(new ConditionObserver.BranchComponent(branch, components));
             ExpressionDependencyVisitor.find(branch.getExprNode(), ifNode, this.variableState);
         }
-        ConditionObserver conditionObserver = registerConditionObserver(ifNode, branchComponents);
+        ConditionObserver conditionObserver = registerConditionObserver(ifNode, branchComponents, this.variableState.getVariables());
 
         // trigger if there is an 'else' statement to be initialize
         conditionObserver.update(null, null);
     }
 
-    private ConditionObserver registerConditionObserver(IfNode ifNode, List<ConditionObserver.BranchComponent> branchComponents)
+    private ConditionObserver registerConditionObserver(final IfNode ifNode, final List<ConditionObserver.BranchComponent> branchComponents, final Map<IdentifierNode, Value> variables)
     {
-        ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents);
+        ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents, variables);
         ifNode.addObserver(conditionObserver);
         return conditionObserver;
     }

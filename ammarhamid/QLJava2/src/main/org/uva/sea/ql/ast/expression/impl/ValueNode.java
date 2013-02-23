@@ -8,6 +8,7 @@ import org.uva.sea.ql.value.impl.UndefinedValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class ValueNode extends ExprNode
 {
@@ -25,7 +26,7 @@ public class ValueNode extends ExprNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
         return this.value;
     }
