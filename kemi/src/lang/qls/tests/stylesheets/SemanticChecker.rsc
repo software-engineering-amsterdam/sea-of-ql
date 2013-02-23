@@ -12,7 +12,7 @@ module lang::qls::tests::stylesheets::SemanticChecker
 
 import Set;
 import lang::qls::analysis::SemanticChecker;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::ParseHelper;
 import util::IDE;
 

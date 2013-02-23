@@ -8,7 +8,6 @@ import org.uva.sea.ql.ast.expression.operators.logical.*;
 import org.uva.sea.ql.ast.expression.operators.numeric.*;
 import org.uva.sea.ql.ast.expression.operators.relational.*;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class CheckExpression implements ExpressionVisitor<Boolean> {
 
@@ -25,29 +24,32 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 		return expr.accept(check);
 	}
 	
-	public boolean checkOperands(Operator ast) {
+	public Type typeOf(Expression expr) {
+		return expr.typeOf(typeEnv);
+	}
+	
+	public boolean checkOperands(Operator expr) {
 		
 		boolean compatible = true;
 
-		for(Expression e : ast.getOperands()) {
+		for(Expression e : expr.getOperands()) {
 			compatible = compatible && e.accept(this);  
 		}
 		
 		return compatible;
 	}
 	
-	public boolean checkOperator(Operator ast) {
+	public boolean checkOperator(Operator expr) {
 		
-		if (!checkOperands(ast)) {
+		if (!checkOperands(expr)) {
 			return false;
 		}
 		
-		Type operatorType = ast.typeOf(typeEnv);
+		Type operatorType = typeOf(expr);
 		
-		for(Expression e : ast.getOperands()) {
-			Type operandType = e.typeOf(typeEnv);
-			if (!operandType.isCompatibleWith(operatorType)) {
-				//addError(ast, "invalid type for " + ast.getRepresentation());
+		for(Expression operand : expr.getOperands()) {
+			if (!typeOf(operand).isCompatibleWith(operatorType)) {
+				//addError(expr, "invalid type for " + expr.getRepresentation());
 				return false;
 			}
 		}
@@ -55,91 +57,91 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 		return true;
 	}
 	
-	public boolean checkRelationalOperator(BinaryOperator ast) {
+	public boolean checkRelationalOperator(BinaryOperator expr) {
 		
-		if (!checkOperands(ast)) {
+		if (!checkOperands(expr)) {
 			return false;
 		}
 		
-		Type lhsType = ast.getLeftOperand().typeOf(typeEnv);
-		Type rhsType = ast.getLeftOperand().typeOf(typeEnv);
+		Type lhsType = typeOf(expr.getLeftOperand());
+		Type rhsType = typeOf(expr.getLeftOperand());
 		
 		return lhsType.isCompatibleWith(rhsType);
 	}
 
-	public Boolean visit(Add ast) {
-		return checkOperator(ast);
+	public Boolean visit(Add expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Div ast) {
-		return checkOperator(ast);
+	public Boolean visit(Div expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Mul ast) {
-		return checkOperator(ast);
+	public Boolean visit(Mul expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Neg ast) {
-		return checkOperator(ast);
+	public Boolean visit(Neg expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Pos ast) {
-		return checkOperator(ast);
+	public Boolean visit(Pos expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Sub ast) {
-		return checkOperator(ast);
+	public Boolean visit(Sub expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(And ast) {
-		return checkOperator(ast);
+	public Boolean visit(And expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Not ast) {
-		return checkOperator(ast);
+	public Boolean visit(Not expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Or ast) {
-		return checkOperator(ast);
+	public Boolean visit(Or expr) {
+		return checkOperator(expr);
 	}
 
-	public Boolean visit(Eq ast) {
-		return checkRelationalOperator(ast);
+	public Boolean visit(Eq expr) {
+		return checkRelationalOperator(expr);
 	}
 
-	public Boolean visit(GEq ast) {
-		return checkRelationalOperator(ast);
+	public Boolean visit(GEq expr) {
+		return checkRelationalOperator(expr);
 	}
 
-	public Boolean visit(GT ast) {
-		return checkRelationalOperator(ast);
+	public Boolean visit(GT expr) {
+		return checkRelationalOperator(expr);
 	}
 
-	public Boolean visit(LEq ast) {
-		return checkRelationalOperator(ast);
+	public Boolean visit(LEq expr) {
+		return checkRelationalOperator(expr);
 	}
 
-	public Boolean visit(LT ast) {
-		return checkRelationalOperator(ast);
+	public Boolean visit(LT expr) {
+		return checkRelationalOperator(expr);
 	}
 
-	public Boolean visit(NEq ast) {
-		return checkRelationalOperator(ast);
+	public Boolean visit(NEq expr) {
+		return checkRelationalOperator(expr);
 	}
 
-	public Boolean visit(Identifier ast) {
+	public Boolean visit(Identifier expr) {
 		return true;
 	}
 
-	public Boolean visit(BooleanLiteral ast) {
+	public Boolean visit(BooleanLiteral expr) {
 		return true;
 	}
 
-	public Boolean visit(IntegerLiteral ast) {
+	public Boolean visit(IntegerLiteral expr) {
 		return true;
 	}
 
-	public Boolean visit(StringLiteral ast) {
+	public Boolean visit(StringLiteral expr) {
 		return true;
 	}
 	

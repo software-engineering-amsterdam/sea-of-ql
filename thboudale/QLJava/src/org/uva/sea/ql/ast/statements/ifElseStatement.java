@@ -1,16 +1,22 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.semanticCheck.FormStmtVisitor;
 
 public class ifElseStatement extends ifStatement {
-	private final BlockOfStatements elseStms;
+	private final BlockOfStatements elseStmts;
 	
-	public ifElseStatement(Expr condition, BlockOfStatements ifStms, BlockOfStatements elseStms) {
+	public ifElseStatement(AExpr condition, BlockOfStatements ifStms, BlockOfStatements elseStmts) {
 		super(condition, ifStms);
-		this.elseStms = elseStms;
+		this.elseStmts = elseStmts;
 	}
 	
-	public BlockOfStatements getElseStms() {
-		return elseStms;
+	public BlockOfStatements getElseStmts() {
+		return elseStmts;
+	}
+	
+	@Override
+	public <T> T accept(FormStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
 	}
 }

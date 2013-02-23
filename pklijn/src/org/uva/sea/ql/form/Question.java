@@ -16,11 +16,11 @@ import org.uva.sea.ql.messages.Error;
 
 public class Question extends FormItem {
 
-	protected final Ident id;
-	protected final String label;
-	protected final Type questionType;
-	protected final JLabel questionLabel;
-	protected final AbstractQuestionTypeComponent answerComponent;
+	private final Ident id;
+	private final String label;
+	private final Type questionType;
+	private final JLabel questionLabel;
+	private final AbstractQuestionTypeComponent answerComponent;
 	
 	public Question(Ident id, String question, Type questionType) {
 		this.id = id;
@@ -34,12 +34,20 @@ public class Question extends FormItem {
 		return id;
 	}
 	
-	public String getLabel() {
+	protected String getLabel() {
 		return label;
 	}
 	
-	public Type getQuestionType() {
+	protected Type getQuestionType() {
 		return questionType;
+	}
+	
+	protected JLabel getQuestionLabel() {
+		return questionLabel;
+	}
+	
+	protected AbstractQuestionTypeComponent getAnswerComponent() {
+		return answerComponent;
 	}
 
 	@Override

@@ -1,32 +1,21 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.FormStatement;
+import org.uva.sea.ql.ast.expressions.Expr;
 
-public class ConditionBlock extends FormStatement {
+public abstract class ConditionBlock extends FormStatement {
 	private final Expr _condition;
-	private final FormStatement _ifBody;
-	private final FormStatement _elseBody;
-
-	public ConditionBlock(Expr condition, FormStatement ifBody) {
-		this(condition, ifBody, null);
-	}
+	private final StatementBody _body;
 	
-	public ConditionBlock(Expr condition, FormStatement ifBody, FormStatement elseBody) {
+	public ConditionBlock(Expr condition, StatementBody body) {
 		_condition = condition;
-		_ifBody = ifBody;
-		_elseBody = elseBody;
+		_body = body;
 	}
 	
 	public Expr getCondition() {
 		return _condition;
 	}
 	
-	public FormStatement getIfBody() {
-		return _ifBody;
-	}
-	
-	public FormStatement getElseBody() {
-		return _elseBody;
+	public StatementBody getBody() {
+		return _body;
 	}
 }

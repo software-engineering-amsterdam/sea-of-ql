@@ -13,8 +13,9 @@ import org.uva.sea.ql.ast.literals.StringLiteral;
 public class IdentFinder implements TreeVisitor {
     private List<Ident> idents;
 
-    public IdentFinder() {
+    public IdentFinder(TreeNode t) {
         this.idents = new ArrayList<Ident>();
+        t.accept(this);
     }
 
     public final void reset() {
@@ -32,18 +33,15 @@ public class IdentFinder implements TreeVisitor {
 
     @Override
     public final void visit(BinaryExpr b) {
-        final IdentFinder i = new IdentFinder();
-        ((TreeNode) b.getLeft()).accept(i);
+        IdentFinder i = new IdentFinder((TreeNode) b.getLeft());
         this.idents.addAll(i.getIdents());
-        i.reset();
-        ((TreeNode) b.getRight()).accept(i);
+        i = new IdentFinder(((TreeNode) b.getRight()));
         this.idents.addAll(i.getIdents());
     }
 
     @Override
     public final void visit(UnaryExpr u) {
-        final IdentFinder i = new IdentFinder();
-        ((TreeNode) u.getAdjacent()).accept(i);
+        final IdentFinder i = new IdentFinder((TreeNode) u.getAdjacent());
         this.idents.addAll(i.getIdents());
     }
 

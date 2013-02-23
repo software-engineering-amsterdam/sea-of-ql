@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.types;
 
-public class BoolType extends Type {
+public class BoolType extends AType {
 	
 	@Override
-	public boolean isCompatibleTo(Type t) {
+	public boolean isCompatibleTo(AType t) {
 		return t.isCompatibleToBool();
 	}
 	

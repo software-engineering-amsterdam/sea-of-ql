@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Block;
-import org.uva.sea.ql.ast.elements.BlockElement;
+import org.uva.sea.ql.ast.elements.AbstractBlockElement;
 import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Evaluatable;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.AbstractMathType;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.ReturnFinder;
@@ -47,7 +49,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     @Override
     public final void visit(Block block) throws QLException {
-        for (BlockElement expr : block.getContent()) {
+        for (AbstractBlockElement expr : block.getContent()) {
             expr.accept(this);
         }
     }
@@ -74,8 +76,8 @@ public class ValidationVisitor implements ElementVisitor {
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         final Expr condition = ifStatement.getCondition();
         ((Evaluatable) condition).accept(f);
-        final ReturnTypes r = f.getResult();
-        if (r.equals(ReturnTypes.BOOLEAN)) {
+        final Class<?> r = f.getResult();
+        if (r.equals(BooleanType.class)) {
             this.visit(ifStatement.getCondition());
         } else {
             throwInvalidConditionError(ifStatement.getCondition());
@@ -96,20 +98,21 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void visit(Expr operator) throws QLException {
         final AcceptFinder f = new AcceptFinder();
-        ((Evaluatable) operator).accept(f);
-        if (f.getResult().equals(ReturnTypes.BOOLEAN)) {
-            if (!(bothhaveEqualReturnType(operator, ReturnTypes.BOOLEAN))) {
+        ((Evaluatable) operator).accept(f); 
+        System.out.println("visiting " + operator.getClass());
+        if (f.getResult().equals(BooleanType.class)) {
+            if (!(bothhaveEqualReturnType(operator, BooleanType.class))) {
                 throwError(operator, "boolean");
             }
         }
-        if (f.getResult().equals(ReturnTypes.MATH)) {
-            if (!(bothhaveEqualReturnType(operator, ReturnTypes.MATH))) {
-                throwError(operator, "math");
+        if (f.getResult().equals(AbstractMathType.class)) {
+            if (!(bothhaveEqualReturnType(operator, AbstractMathType.class))) {
+                throwError(operator, "math ( "+ f.getResult().toString()+") ");
             }
         }
-        if (f.getResult().equals(ReturnTypes.BOTH)) {
-            if (!((bothhaveEqualReturnType(operator, ReturnTypes.MATH)) || (bothhaveEqualReturnType(
-                    operator, ReturnTypes.BOOLEAN)))) {
+        if (f.getResult().equals(AbstractType.class)) {
+            if (!((bothhaveEqualReturnType(operator, AbstractMathType.class)) || (bothhaveEqualReturnType(
+                    operator, BooleanType.class)))) {
                 throwError(operator, "either math OR bool");
             }
         }
@@ -127,16 +130,16 @@ public class ValidationVisitor implements ElementVisitor {
         }
     }
 
-    private boolean bothhaveEqualReturnType(Expr r, ReturnTypes type)
+    private boolean bothhaveEqualReturnType(Expr r, Class<?> type)
             throws QLException {
         final BinaryExpr b = (BinaryExpr) r;
-        final ReturnTypes left = this.getReturnTypes(b.getLeft());
-        final ReturnTypes right = this.getReturnTypes(b.getRight());
-        return left != null && left.equals(type) && right != null
-                && right.equals(type);
+        final Class<?> left = this.getReturnTypes(b.getLeft());
+        final Class<?> right = this.getReturnTypes(b.getRight());
+        System.out.println(left + " - " + right);
+        return  left.equals(type) && right.equals(type);
     }
 
-    private ReturnTypes getReturnTypes(Expr e) throws QLException {
+    private Class<?> getReturnTypes(Expr e) throws QLException {
         final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         this.visit(e);
         ((Evaluatable) e).accept(f);

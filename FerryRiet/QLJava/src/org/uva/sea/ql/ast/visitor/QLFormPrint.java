@@ -6,10 +6,8 @@ import org.uva.sea.ql.ast.literals.MoneyLiteral;
 import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.Add;
 import org.uva.sea.ql.ast.operators.And;
-import org.uva.sea.ql.ast.operators.BinExpr;
 import org.uva.sea.ql.ast.operators.Div;
 import org.uva.sea.ql.ast.operators.Eq;
-import org.uva.sea.ql.ast.operators.Expr;
 import org.uva.sea.ql.ast.operators.GEq;
 import org.uva.sea.ql.ast.operators.GT;
 import org.uva.sea.ql.ast.operators.Ident;
@@ -22,7 +20,6 @@ import org.uva.sea.ql.ast.operators.Not;
 import org.uva.sea.ql.ast.operators.Or;
 import org.uva.sea.ql.ast.operators.Pos;
 import org.uva.sea.ql.ast.operators.Sub;
-import org.uva.sea.ql.ast.operators.UnExpr;
 import org.uva.sea.ql.ast.statements.CompoundStatement;
 import org.uva.sea.ql.ast.statements.ConditionalStatement;
 import org.uva.sea.ql.ast.statements.LineStatement;
@@ -60,8 +57,8 @@ public class QLFormPrint implements Visitor<PrintResult> {
 	public PrintResult visit(LineStatement lineStatement) {
 		PrintResult pres;
 
-		pres = new PrintResult(lineStatement.getLineName() + ": "
-				+ "\"" + lineStatement.getDisplayText() + "\"");
+		pres = new PrintResult(lineStatement.getLineName() + ": " + "\""
+				+ lineStatement.getDisplayText() + "\"");
 
 		pres.appendResult(" " + lineStatement.getTypeDescription().accept(this) + " ");
 
@@ -86,41 +83,14 @@ public class QLFormPrint implements Visitor<PrintResult> {
 
 		if (conditionalStatement.getFalseCompound() != null) {
 			result.appendResult(" else ");
-			result.appendResult(conditionalStatement.getFalseCompound().accept(
-					this));
+			result.appendResult(conditionalStatement.getFalseCompound().accept(this));
 		}
 		return result;
 	}
 
 	@Override
 	public PrintResult visit(Type typeDescription) {
-	    return new PrintResult(typeDescription.getTypeName());
-	}
-
-	@Override
-	public PrintResult visit(BinExpr expr) {
-		return null;
-	}
-
-	@Override
-	public PrintResult visit(UnExpr expr) {
-		PrintResult result = null;
-
-		if (expr.getClass() == Not.class)
-			result = new PrintResult(" ! ");
-		else if (expr.getClass() == Pos.class)
-			result = new PrintResult(" + ");
-		else if (expr.getClass() == Neg.class)
-			result = new PrintResult(" - ");
-
-		result.appendResult(expr.getExprRightHand().accept(this));
-
-		return result;
-	}
-
-	@Override
-	public PrintResult visit(Expr expr) {
-		return null;
+		return new PrintResult(typeDescription.getTypeName());
 	}
 
 	@Override
@@ -274,11 +244,6 @@ public class QLFormPrint implements Visitor<PrintResult> {
 	}
 
 	@Override
-	public PrintResult visit(Ident expr) {
-		return new PrintResult(expr.getName());
-	}
-
-	@Override
 	public PrintResult visit(IntegerLiteral expr) {
 		return new PrintResult(Integer.toString(expr.getValue()));
 	}
@@ -292,8 +257,15 @@ public class QLFormPrint implements Visitor<PrintResult> {
 	public PrintResult visit(BooleanLiteral expr) {
 		return new PrintResult(expr.getValue());
 	}
+
 	@Override
 	public PrintResult visit(MoneyLiteral expr) {
 		return new PrintResult(expr.getValue().toString());
+	}
+
+	@Override
+	public PrintResult visit(Ident expr) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

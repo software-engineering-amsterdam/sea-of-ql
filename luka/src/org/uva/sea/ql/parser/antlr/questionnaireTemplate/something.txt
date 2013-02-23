@@ -1,0 +1,90 @@
+form Something{
+arrValue1 : "Int array" integer["1","2"]
+arrValue2 : "Bool array" boolean["true","false"]
+arrValue3B : "Bool array 2" boolean["true","false"]
+arrValue3 : "Money array" money["2.2","1.2","3.2","5.2"]
+arrValue4 : "String array" string["ada","dodo","dudi","wfdf"]
+arrValue5 : "Double array" double["10.2","1.22","0.1","1.2"]
+arrValue6 : "Double array 2" double["10.2","1.22","0.1","1.2"]
+
+hiddenComp : double(arrValue1 * arrValue3)
+visibleOfHidden : "Showing comp. of hiddenComp" double(hiddenComp)
+if(arrValue2 != arrValue3B){
+ungleich : "Bool array 1 & 2 unequal" string("yeah")
+}
+
+if(arrValue1>1){
+intArrYes: "Int array > 1" integer
+}
+if(arrValue2){
+boolArrYes: "Bool array true" integer
+}
+if(arrValue3>3.2){
+monArrYes: "Money array > 3.2" integer
+}
+if(arrValue4 == "dodo"){
+strArrYes: "strArrYes" integer
+}
+if(arrValue5>1.1){
+doubArrYes: "doubArrYes" integer
+}
+if(arrValue5== arrValue6){
+doubArrYes2: "comparison bet. 2 doubArrays" double(arrValue5* arrValue6)
+}
+yourName: "whats your name?" string
+if((yourName == "Luka") || (arrValue4 == "dodo")){
+niceName: "yeah bravo!" string("nice name!")
+}else{
+niceName1: "hmmm!" string(yourName)
+}
+boolVal1 : "boolVal1" boolean
+computedBool1: "computedBool1" boolean(boolVal1)
+computedBoo2: "computedBool2" boolean(computedBool1)
+computedBoo3: "computedBool3" boolean(computedBoo2)
+doubleValue1 : "doubleValue1" double
+if(computedBoo3){
+computedBoo7: "computedBool3" boolean(computedBoo3)
+}
+vBool1 : "nested" boolean
+if(vBool1){
+vBool2 : "nested1" boolean
+if(vBool2){
+vBool3 : "nested2" boolean
+if(vBool3){
+vBool4 : "nested3" boolean
+if(vBool4){
+vBool5 : "nested4" boolean
+if(vBool5){
+vBool6 : "nested5" boolean
+if(vBool6){
+vBool7 : "nested6" boolean
+}else{
+vBool8 : "the eeend" string("you got it")
+}
+}
+}
+}
+}
+}
+intValue1 : "intValue1" integer
+computedBoo4: "computedBool3" boolean(intValue1 > doubleValue1)
+if(false && true){
+calculatedInt: "first question +2.2 int" integer(intValue1 + 2.2)
+calculatedDouble: "first question +2.2 double" double(intValue1 + 2.2)
+calculatedMoney: "first question +2.2 money" money(intValue1 + 2.2)
+}
+if(doubleValue1 >0){
+calculatedInt1: "first question +2.2 int" integer(doubleValue1 + 2.2)
+calculatedDouble1: "first question +2.2 double" double(doubleValue1 + 2.2)
+calculatedMoney1: "first question +2.2 money" money(doubleValue1 + 2.2)
+}
+intValue2 : "intValue2" integer
+doubleValue2 : "intValue2" double
+if(intValue2 >0){
+calculatedInt3: "first question /2.2 int" integer(intValue2 / 2.2)
+calculatedDouble2: "first question /2.2 double" double(intValue2 / 2.2)
+calculatedMoney2: "first question /2.2 money" money(intValue2 / 2.2)
+}
+calculatedHIDDENInt:  integer(intValue2 * 2.2)
+
+}

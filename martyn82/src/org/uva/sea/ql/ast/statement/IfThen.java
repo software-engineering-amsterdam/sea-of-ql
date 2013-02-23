@@ -8,9 +8,7 @@ public class IfThen extends Statement {
 	private final Statements ifBody;
 
 	public IfThen( Expression condition, Statements ifBody ) {
-		if ( ifBody == null ) {
-			ifBody = new Statements();
-		}
+		assert ( condition != null ) && ( ifBody != null );
 
 		this.condition = condition;
 		this.ifBody = ifBody;

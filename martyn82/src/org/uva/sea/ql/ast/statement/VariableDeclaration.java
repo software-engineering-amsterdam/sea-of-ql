@@ -9,6 +9,8 @@ public class VariableDeclaration extends Statement {
 	private final Type type;
 
 	public VariableDeclaration( IdentifierExpression identifier, Type type ) {
+		assert ( identifier != null ) && ( type != null );
+
 		this.identifier = identifier;
 		this.type = type;
 	}

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expression.integer.operation;
 import org.uva.sea.ql.ast.expression.integer.IntegerExpression;
 import org.uva.sea.ql.ast.expression.operation.UnaryOperation;
 
-public class UnaryArithmeticOperation extends ArithmeticOperation implements
+public abstract class UnaryArithmeticOperation extends IntegerOperation implements
 		UnaryOperation {
 
 	protected IntegerExpression operand;

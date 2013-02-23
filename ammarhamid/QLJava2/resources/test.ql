@@ -1,27 +1,31 @@
-form test
+form TestQL
 {
     "First name" name: string
-    "Did you sell a house in 2010?" hasSoldHouse: boolean
 
+    "Did you sell a house in 2010?" hasSoldHouse: boolean
     if(hasSoldHouse)
     {
-        "What is the price of the house?" housePrice: integer
+        "House price?" housePrice: integer
     }
     else
     {
-        "Are you sure that you don't sell house in 2010?" sure: boolean
-    }
-
-    "Did you sell a car in 2010?" hasSoldCar: boolean
-
-    if(hasSoldCar)
-    {
-        "What is the price of the car?" housePrice: integer
-    }
-    else
-    {
-        "Are you sure that you don't sell car in 2010?" sure: boolean
+        "Definitely sure?" houseSure: boolean
     }
 
     "Are you married?" married: boolean
+    if(married)
+    {
+        "When is that?" when: string
+    }
+
+    "Did you sell a car in 2010?" hasSoldCar: boolean
+    if(hasSoldCar || married)
+    {
+        "Car price?" carPrice: integer
+    }
+    else
+    {
+        "Absolutely sure?" carSure: boolean
+    }
+
 }

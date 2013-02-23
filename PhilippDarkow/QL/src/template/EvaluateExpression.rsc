@@ -22,12 +22,8 @@ public str evaluateExp(exp:integer(int I), Type req) {
 //  req == string() ? env : addError(env, exp@location, required(req, "string"));
  
 public str evaluateExp(exp:id(str id), Type req) {
-  println("in evaluate id : <id>");
-  //if(env.question[id] == {})return addError(env, exp@location, "Undeclared variable <id>");
-  //else{
 	return id;  
 }
-
 
 // CHECK BOOLEAN EXPRESSIONS
 public str evaluateExp(exp:and(Expression E1, Expression E2), Type req) {                        

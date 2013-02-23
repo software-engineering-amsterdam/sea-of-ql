@@ -1,38 +1,38 @@
 package org.uva.sea.ql.visitor.impl;
 
-import net.miginfocom.swing.MigLayout;
-import org.uva.sea.ql.VariableState;
-import org.uva.sea.ql.ast.statement.AssignmentNode;
+import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
-import org.uva.sea.ql.ast.statement.IfNode;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.main.QLMainApp;
+import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.value.impl.BooleanValue;
+import org.uva.sea.ql.variable.VariableState;
+import org.uva.sea.ql.visitor.observer.ConditionObserver;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import javax.swing.*;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-public class StatementWidgetVisitor implements StatementVisitor, Observer
+public class StatementWidgetVisitor implements StatementVisitor
 {
+    private final JFrame frame;
     private final JPanel panel;
     private final VariableState variableState;
-    private final ConcurrentMap<IfNode, List<BranchPanel>> ifNodes;
 
-    private StatementWidgetVisitor(final VariableState variableState)
+    private StatementWidgetVisitor(final JFrame frame, final JPanel panel, final VariableState variableState)
     {
-        this.panel = new JPanel(new MigLayout("hidemode 3"));
+        this.frame = frame;
+        this.panel = panel;
         this.variableState = variableState;
-        variableState.addObserver(this);
-        this.ifNodes = new ConcurrentHashMap<>();
     }
 
-    public static JPanel render(Statement statement, VariableState variableState) {
-        StatementWidgetVisitor statementWidgetVisitor = new StatementWidgetVisitor(variableState);
+    public static JPanel render(final JFrame frame, final JPanel panel, final Statement statement, final VariableState variableState)
+    {
+        final StatementWidgetVisitor statementWidgetVisitor = new StatementWidgetVisitor(frame, panel, variableState);
         statement.accept(statementWidgetVisitor);
         return statementWidgetVisitor.getPanel();
     }
@@ -46,40 +46,48 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
 
         final JPanel typePanel = new JPanel();
         final Type type = assignmentNode.getType();
-        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifier(), this.variableState));
+        type.accept(new TypeWidgetVisitor(typePanel, assignmentNode.getIdentifierNode(), this.variableState));
 
-        this.panel.add(questionPanel, "right, gapright 12");
-        this.panel.add(typePanel, "span");
+        addQuestionPanel(questionPanel);
+        addTypePanel(typePanel);
     }
 
     @Override
-    public void visit(final BlockNode blockNode)
+    public void visit(final IfNode ifNode)
     {
-        Collection<Statement> statements = blockNode.getStatements();
-        for(Statement statement : statements)
+        final List<ConditionObserver.BranchComponent> branchComponents = new ArrayList<>();
+        for(final IfNode.Branch branch : ifNode.getBranches())
         {
-            statement.accept(this);
+            final BlockNode blockNode = branch.getBlock();
+            final List<Component> components = new ArrayList<>();
+            for(final Statement statement : blockNode.getStatements())
+            {
+                final JPanel jPanel = render(this.frame, new JPanel(), statement, this.variableState);
+
+                final Component question = jPanel.getComponent(0);
+                final Component type = jPanel.getComponent(1);
+
+                components.add(question);
+                components.add(type);
+
+                addQuestionPanel(question);
+                addTypePanel(type);
+            }
+
+            branchComponents.add(new ConditionObserver.BranchComponent(branch, components));
+            ExpressionDependencyVisitor.find(branch.getExprNode(), ifNode, this.variableState);
         }
+        ConditionObserver conditionObserver = registerConditionObserver(ifNode, branchComponents, this.variableState.getVariables());
+
+        // trigger if there is an 'else' statement to be initialize
+        conditionObserver.update(null, null);
     }
 
-    @Override
-    public void visit(IfNode ifNode)
+    private ConditionObserver registerConditionObserver(final IfNode ifNode, final List<ConditionObserver.BranchComponent> branchComponents, final Map<IdentifierNode, Value> variables)
     {
-        final List<BranchPanel> branchPanels = new ArrayList<>();
-        final List<IfNode.Branch> branches = ifNode.getBranches();
-        for(final IfNode.Branch branch : branches)
-        {
-            Value value = branch.evaluateExpression();
-            Statement statement = (Statement) branch.getBlock();
-            JPanel branchBlockPanel = render(statement, this.variableState);
-            branchBlockPanel.setVisible(false);
-            branchPanels.add(new BranchPanel(branch, branchBlockPanel));
-            panel.add(branchBlockPanel, "right, gapright 12, span");
-        }
-        ifNodes.put(ifNode, branchPanels);
-
-        // trigger if there is an else statement to be initialize
-        update(null, null);
+        ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents, variables);
+        ifNode.addObserver(conditionObserver);
+        return conditionObserver;
     }
 
     public JPanel getPanel()
@@ -87,73 +95,14 @@ public class StatementWidgetVisitor implements StatementVisitor, Observer
         return panel;
     }
 
-    @Override
-    public void update(Observable o, Object arg)
+    private void addQuestionPanel(final Component question)
     {
-        // TODO remove this print - debug usage only !!
-        Map<String, Value> variableMap = VariableState.getVariableMap();
-        for(Map.Entry<String, Value> stringValueEntry : variableMap.entrySet())
-        {
-            System.out.println("stringValueEntry = " + stringValueEntry);
-        }
-
-        // TODO refactor this IfNode update task !!!
-        for(Map.Entry<IfNode, List<BranchPanel>> ifNodeListEntry : ifNodes.entrySet())
-        {
-            IfNode key = ifNodeListEntry.getKey();
-            List<BranchPanel> branchPanels = ifNodeListEntry.getValue();
-
-            List<JPanel> jPanels = new ArrayList<>();
-            for(BranchPanel branchPanel : branchPanels)
-            {
-                jPanels.add(branchPanel.getjPanel());
-            }
-
-            for(BranchPanel branchPanel : branchPanels)
-            {
-                IfNode.Branch branch = branchPanel.getBranch();
-                JPanel panel = branchPanel.getjPanel();
-                Value value = branch.evaluateExpression();
-                BooleanValue value1 = ((BooleanValue) value);
-                if(value1!=null && value1.getValue())
-                {
-                    // clearing all states
-                    for(JPanel jPanel1 : jPanels)
-                    {
-                        jPanel1.setVisible(false);
-                    }
-                    // set the current block to be true and exit the loop right away
-                    panel.setVisible(!panel.isVisible());
-                    break;
-                }
-
-            }
-        }
-
-        QLMainApp.getFrame().pack();
+        this.panel.add(question, "left, gapright 10");
     }
 
-    // TODO refactor this, maybe a new class ??
-    private class BranchPanel
+    private void addTypePanel(final Component type)
     {
-        private final IfNode.Branch branch;
-        private final JPanel jPanel;
-
-        private BranchPanel(IfNode.Branch branch, JPanel jPanel)
-        {
-            this.branch = branch;
-            this.jPanel = jPanel;
-        }
-
-        public IfNode.Branch getBranch()
-        {
-            return branch;
-        }
-
-        public JPanel getjPanel()
-        {
-            return jPanel;
-        }
+        this.panel.add(type, "left, span");
     }
 
 }

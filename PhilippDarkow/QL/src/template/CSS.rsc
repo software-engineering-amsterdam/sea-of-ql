@@ -10,7 +10,10 @@ import Prelude;
 * @author Philipp
 */
 public void cssEndLabels(str formId, str id){
-	str res = "p.<id>Paragraph { padding-left: 10px; font-weight: bold; } "; 
+	str res = "p.<id>Paragraph { 
+		' padding-left: 10px; 
+		' font-weight: bold; 
+		'}"; 
 	appendToCssFile(formId, res);
 }
 
@@ -20,7 +23,10 @@ public void cssEndLabels(str formId, str id){
 * @author Philipp
 */
 public void cssDiv(str id){
-	str res = "div.<id>Div { background: rgb(103, 111, 128); text-align: center; } ";
+	str res = "div.<id>Div {
+		' background: rgb(103, 111, 128);
+		' text-align: center;
+		'}";
 	appendToCssFile(id, res);
 }
 

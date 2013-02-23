@@ -5,20 +5,11 @@ import ParseTree;
 import lang::ql::ast::AST;
 import lang::ql::compiler::CompileExpressions;
 
-anno str ConditionalStatement@ref;
-anno str ElseIf@ref;
-anno str FormBodyItem@ref;
+public list[str] getVariableDependencies(Expr exp)
+  = [ n | /ident(str n) := exp ];
 
-public list[str] getVariableDependacies(Expr exp){
-	list[str] variables=[];
-	
-	visit(exp){
-		case ident(str name) :variables=variables+name; 
-	}
-	
-	return variables;
-}
 
+//7. use set instead of list..i don't want order, and i don't care for duplicates
 public map[str,list[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
 	map[str,list[str]] dependenciesMap=();
 	
@@ -34,16 +25,20 @@ public map[str,list[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
 }
 
 map[str,list[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,list[str] dependVars] dependenciesMap){
-	vars=getVariableDependacies(exp);
-	
+	vars=getVariableDependencies(exp);
+	//14 tijs code has problem? ha
 	for(x<-vars){
-		if(x in dependenciesMap){
-			dependenciesMap[x]+=[depended];
-		}else
-		{
-			dependenciesMap+=("<x>":[depended]);
-		}
+	 dependenciesMap[x]? ["a"] += [depended];
 	}
 	
 	return dependenciesMap;
+}
+//8. Tijs provided better way..apply it..needs just return
+public Type getVariableType(str variableName,list[FormBodyItem] bodyItems){
+
+		visit(bodyItems){
+			case simpleQuestion(variableName,_,Type qtype) : return qtype;
+			case computedQuestion(variableName,_,Type qtype,_) : return qtype;
+		}
+
 }

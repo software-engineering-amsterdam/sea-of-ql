@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g 2013-02-17 16:01:19
+// $ANTLR 3.5 C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g 2013-02-23 14:40:09
 
 package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.core.dom.*; 
@@ -450,8 +450,9 @@ public class QLParser extends Parser {
 		int computedValue_StartIndex = input.index();
 
 		Token IDENT4=null;
-		Token STRING5=null;
+		Token STRING6=null;
 		Expression x =null;
+		TypeDeclaration type5 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
@@ -461,9 +462,9 @@ public class QLParser extends Parser {
 			{
 			IDENT4=(Token)match(input,IDENT,FOLLOW_IDENT_in_computedValue182); if (state.failed) return result;
 			match(input,COLON,FOLLOW_COLON_in_computedValue184); if (state.failed) return result;
-			STRING5=(Token)match(input,STRING,FOLLOW_STRING_in_computedValue186); if (state.failed) return result;
+			STRING6=(Token)match(input,STRING,FOLLOW_STRING_in_computedValue186); if (state.failed) return result;
 			pushFollow(FOLLOW_type_in_computedValue188);
-			type();
+			type5=type();
 			state._fsp--;
 			if (state.failed) return result;
 			match(input,15,FOLLOW_15_in_computedValue190); if (state.failed) return result;
@@ -472,7 +473,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return result;
 			match(input,16,FOLLOW_16_in_computedValue196); if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new ComputedValue(new Identifier((IDENT4!=null?IDENT4.getText():null)), new StringLiteral((STRING5!=null?STRING5.getText():null)), x);}
+			if ( state.backtracking==0 ) { result = new ComputedValue(new Variable(new Identifier((IDENT4!=null?IDENT4.getText():null)),type5), new StringLiteral((STRING6!=null?STRING6.getText():null)), x);}
 			}
 
 		}
@@ -498,8 +499,8 @@ public class QLParser extends Parser {
 
 		int question_StartIndex = input.index();
 
-		Token IDENT6=null;
-		Token STRING7=null;
+		Token IDENT7=null;
+		Token STRING9=null;
 		TypeDeclaration type8 =null;
 
 		try {
@@ -508,14 +509,14 @@ public class QLParser extends Parser {
 			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:47:3: ( IDENT COLON STRING type )
 			// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:47:5: IDENT COLON STRING type
 			{
-			IDENT6=(Token)match(input,IDENT,FOLLOW_IDENT_in_question215); if (state.failed) return result;
+			IDENT7=(Token)match(input,IDENT,FOLLOW_IDENT_in_question215); if (state.failed) return result;
 			match(input,COLON,FOLLOW_COLON_in_question217); if (state.failed) return result;
-			STRING7=(Token)match(input,STRING,FOLLOW_STRING_in_question219); if (state.failed) return result;
+			STRING9=(Token)match(input,STRING,FOLLOW_STRING_in_question219); if (state.failed) return result;
 			pushFollow(FOLLOW_type_in_question221);
 			type8=type();
 			state._fsp--;
 			if (state.failed) return result;
-			if ( state.backtracking==0 ) { result = new Question(new Identifier((IDENT6!=null?IDENT6.getText():null)), new StringLiteral((STRING7!=null?STRING7.getText():null)), type8);}
+			if ( state.backtracking==0 ) { result = new Question(new Variable(new Identifier((IDENT7!=null?IDENT7.getText():null)),type8), new StringLiteral((STRING9!=null?STRING9.getText():null)));}
 			}
 
 		}
@@ -617,10 +618,10 @@ public class QLParser extends Parser {
 
 		int primary_StartIndex = input.index();
 
-		Token INT9=null;
-		Token BOOL10=null;
-		Token STRING11=null;
-		Token IDENT12=null;
+		Token INT10=null;
+		Token BOOL11=null;
+		Token STRING12=null;
+		Token IDENT13=null;
 		Expression x =null;
 
 		try {
@@ -664,29 +665,29 @@ public class QLParser extends Parser {
 				case 1 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:57:5: INT
 					{
-					INT9=(Token)match(input,INT,FOLLOW_INT_in_primary283); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new IntLiteral((INT9!=null?INT9.getText():null)); }
+					INT10=(Token)match(input,INT,FOLLOW_INT_in_primary283); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new IntLiteral((INT10!=null?INT10.getText():null)); }
 					}
 					break;
 				case 2 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:58:5: BOOL
 					{
-					BOOL10=(Token)match(input,BOOL,FOLLOW_BOOL_in_primary293); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new BooleanLiteral((BOOL10!=null?BOOL10.getText():null)); }
+					BOOL11=(Token)match(input,BOOL,FOLLOW_BOOL_in_primary293); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new BooleanLiteral((BOOL11!=null?BOOL11.getText():null)); }
 					}
 					break;
 				case 3 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:59:5: STRING
 					{
-					STRING11=(Token)match(input,STRING,FOLLOW_STRING_in_primary303); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result = new StringLiteral((STRING11!=null?STRING11.getText():null));}
+					STRING12=(Token)match(input,STRING,FOLLOW_STRING_in_primary303); if (state.failed) return result;
+					if ( state.backtracking==0 ) {result = new StringLiteral((STRING12!=null?STRING12.getText():null));}
 					}
 					break;
 				case 4 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:60:5: IDENT
 					{
-					IDENT12=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary311); if (state.failed) return result;
-					if ( state.backtracking==0 ) { result = new Identifier((IDENT12!=null?IDENT12.getText():null)); }
+					IDENT13=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary311); if (state.failed) return result;
+					if ( state.backtracking==0 ) { result = new Identifier((IDENT13!=null?IDENT13.getText():null)); }
 					}
 					break;
 				case 5 :

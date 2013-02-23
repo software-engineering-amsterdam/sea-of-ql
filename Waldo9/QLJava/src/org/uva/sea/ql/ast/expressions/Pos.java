@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class Pos extends Binary {
+public class Pos extends Unary {
 
 	public Pos(Expr x) {
 		super(x);

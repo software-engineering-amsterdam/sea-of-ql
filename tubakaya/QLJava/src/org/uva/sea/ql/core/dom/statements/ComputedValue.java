@@ -1,19 +1,19 @@
 package org.uva.sea.ql.core.dom.statements;
 
 import org.uva.sea.ql.core.dom.Expression;
-import org.uva.sea.ql.core.dom.Identifier;
 import org.uva.sea.ql.core.dom.Statement;
 import org.uva.sea.ql.core.dom.StatementVisitor;
+import org.uva.sea.ql.core.dom.Variable;
 import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 
 public class ComputedValue extends Statement{
 
-	public Identifier name;
+	public Variable variable;
 	public StringLiteral text;
 	public Expression expression;
 	
-	public ComputedValue(Identifier name,StringLiteral text, Expression expression) {
-		this.name=name;
+	public ComputedValue(Variable variable, StringLiteral text, Expression expression) {
+		this.variable=variable;
 		this.text=text;
 		this.expression=expression;
 	}

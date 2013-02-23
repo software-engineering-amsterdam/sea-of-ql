@@ -1,0 +1,61 @@
+question(id, controllerType) ::= <<
+    var $id$QuestionController = ql.$controllerType$.new("$id$");
+    $id$QuestionController.bind();
+    ql.questionControllerList.push($id$QuestionController);
+>>
+
+computation(name, initializationBlock, expression) ::= <<
+    var $name$ComputationController = ql.ComputationController.extend({
+        initialize : function(name) {
+            ql.ComputationController.initialize.call(this, name);
+            $initializationBlock$
+        },
+
+        evaluateExpression : function() {
+            return $expression$;
+        }
+    }).new("$name$");
+>>
+
+conditional(identifier, parentController, initializationBlock, expression) ::= <<
+    var $identifier$ConditionalController = $parentController$.extend({
+        initialize : function(identifier) {
+            $parentController$.initialize.call(this, identifier);
+            $initializationBlock$
+        },
+
+        evaluateExpression : function() {
+            return $expression$;
+        }
+    }).new("$identifier$");
+>>
+
+positive(expr) ::= <<Math.abs($expr$);>>
+negative(expr) ::= <<-($expr$)>>
+not(expr) ::= <<!$expr$>>
+
+multiply(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ * $rightHandSideExpr$>>
+divide(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ / $rightHandSideExpr$>>
+subtract(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ - $rightHandSideExpr$>>
+add(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ + $rightHandSideExpr$>>
+
+and(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= <<$leftHandSideBoolExpr$ && $rightHandSideBoolExpr$>>
+or(leftHandSideBoolExpr, rightHandSideBoolExpr) ::= <<$leftHandSideBoolExpr$ || $rightHandSideBoolExpr$>>
+
+equalTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ === $rightHandSideExpr$>>
+notEqualTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ !== $rightHandSideExpr$>>
+
+greaterThan(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ > $rightHandSideExpr$>>
+greaterThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ >= $rightHandSideExpr$>>
+lessThan(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ < $rightHandSideExpr$>>
+lessThanOrEqualTo(leftHandSideExpr, rightHandSideExpr) ::= <<$leftHandSideExpr$ <= $rightHandSideExpr$>>
+
+ident(name) ::= <<$variableMapStart()$$name$$variableMapEnd()$>>
+variableMapStart() ::= <<ql.variableMap[">>
+variableMapEnd() ::= <<"]>>
+
+variableSubscription(variableName) ::= <<ql.messageBus.subscribeToVariable("$variableName$", this);>>
+fixedExpressionInitialization() ::= <<this.triggerEvaluation();>>
+
+ifStatementParentController() ::= <<ql.IfStatementController>>
+ifElseStatementParentController() ::= <<ql.IfElseStatementController>>

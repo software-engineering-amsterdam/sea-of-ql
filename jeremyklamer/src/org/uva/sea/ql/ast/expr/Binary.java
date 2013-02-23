@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expr;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.type.Type;
@@ -19,23 +18,28 @@ public abstract class Binary extends Expr {
 		this.right = right;
 	}
 	
+	public abstract Type getAllowedType();
+	
 	@Override 
-	public List<Message> checkType(Env env) { // TODO check out double dispatch
-		ArrayList<Message> errors = new ArrayList<Message>();
-		
-		errors.addAll(left.checkType(env));  
-		errors.addAll(right.checkType(env)); 		
+	public void checkType(List<Message> errors, Env env) { 
+		left.checkType(errors, env);  
+		right.checkType(errors, env); 		
 			
 		Type leftType = left.typeOf(env);  
 		Type rightType = right.typeOf(env);  
 		
-		if(!(leftType.isCompatibleTo(rightType))){
+		if(!(leftType.isCompatibleTo(getAllowedType()))) {
+			errors.add(new Error(getSimpleName(leftType) + " is not allowed in :" + getSimpleName(this)));
+		}
+		
+		else if(!(rightType.isCompatibleTo(getAllowedType()))) {
+			errors.add(new Error(getSimpleName(rightType) + " is not allowed in :" + getSimpleName(this)));
+		}
+		
+		else if(!(leftType.isCompatibleTo(rightType))) {
 			errors.add(new Error(getSimpleName(leftType) + " is not compatible with " + getSimpleName(rightType) + ". In :" + getSimpleName(this)));
 		}
 		
-		return errors;
-	}
-	
-	
+	}	
 	
 }

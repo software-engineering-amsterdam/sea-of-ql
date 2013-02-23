@@ -29,5 +29,19 @@ public class Ident extends Expr {
 			}
 		return new ErrorType();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Ident) {
+			Ident otherIdent = (Ident) obj;
+			return otherIdent.getName().equals(name);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return name.hashCode();
+	}
 
 }

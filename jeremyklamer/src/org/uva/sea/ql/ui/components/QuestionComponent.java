@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ui.components;
 
-import java.awt.Component;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
-
 
 import org.uva.sea.ql.interpreter.Value;
 
@@ -13,22 +12,18 @@ public class QuestionComponent extends BaseComponent {
 
 	private final ActiveComponent answerField;
 	private final BaseComponent labelField;
-	private final JPanel component;
+	private final JPanel panel;
 	private final String args; 
 	
 	public QuestionComponent(String sentence, boolean computed, ActiveComponent answerField) { 
-		//super("growx, wrap");
-		
 		this.answerField = answerField;
 		this.labelField = new LabelComponent(sentence, "align right");
 		
-		this.component = new JPanel(new MigLayout());
-		component.add(labelField.getComponent(), labelField.getArgs());
-		component.add(answerField.getComponent(), answerField.getArgs());
-		
-		if(computed){
-			//TODO remove double dots. 
-			answerField.getComponent().setEnabled(false);
+		this.panel = new JPanel(new MigLayout());
+		panel.add(labelField.getComponent(), labelField.getArgs());
+		panel.add(answerField.getComponent(), answerField.getArgs());
+		if(computed){ 
+			answerField.setEnabled(false);
 		}
 		args = "growx, wrap";
 	}
@@ -36,20 +31,28 @@ public class QuestionComponent extends BaseComponent {
 	public void updateValue(Value newValue) {
 		answerField.updateValue(newValue);
 	}
-
-	@Override
-	public Component getComponent() {
-		return component;
+	
+	public ActiveComponent getAnswerField() {
+		return answerField;
 	}
 	
-	public void setVisibile(boolean visible) {
-		//TODO pull down to answerfield (two dots! )
-		answerField.getComponent().setVisible(visible);
-		labelField.getComponent().setVisible(visible);
+	public Value getValue() {
+		return answerField.getValue();
+	}
+
+	@Override
+	public JComponent getComponent() {
+		return panel;
 	}
 
 	@Override
 	public String getArgs() {
 		return args; 
 	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		panel.setVisible(visible);
+	}
+
 }

@@ -13,11 +13,21 @@ import Prelude;
 * @author Philipp
 */
 public void javaScriptCreateForm(str id, list[Body] Body){
-	str f = "function createForm(){ <id>Div = document.createElement(\"div\"); <id>Div.setAttribute(\'name\',\'<id>Div\'); <id>Div.setAttribute(\'id\',<id>Div);
-	 <id>Div.setAttribute(\'class\',\'<id>Div\'); <id> = document.createElement(\"form\"); <id>.setAttribute(\'method\',\"post\");
-	 <id>.setAttribute(\'action\',\"<id>.php\"); <id>.setAttribute(\'name\',\'<id>\'); <id>.setAttribute(\'id\',<id>);
-	 <for (s <- Body) { > <generateBody(id,s)> < } > <createSubmitButton(id)>
-	 <id>.appendChild(<id>Submit); <id>Div.appendChild(<id>); document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);	} ";
+	str f = "function createForm(){ 
+	        '	<id>Div = document.createElement(\"div\");
+	        '	<id>Div.setAttribute(\'name\',\'<id>Div\'); 
+	        '	<id>Div.setAttribute(\'id\',<id>Div);
+	 		'	<id>Div.setAttribute(\'class\',\'<id>Div\');
+	 		'	<id> = document.createElement(\"form\"); 
+	 		'	<id>.setAttribute(\'method\',\"post\");
+	 		'	<id>.setAttribute(\'action\',\"<id>.php\"); 
+	 		'	<id>.setAttribute(\'name\',\'<id>\'); 
+	 		'	<id>.setAttribute(\'id\',<id>);
+	 		'	<for (s <- Body) { > <generateBody(id,s)> < } > <createSubmitButton(id)>
+	 		'	<id>.appendChild(<id>Submit);
+	 		'	<id>Div.appendChild(<id>);
+	 		'	document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);
+	 '} ";
 	appendToJavaScriptFile(id, f);
 	createSubmitMethod(id);
 }
@@ -27,8 +37,11 @@ public void javaScriptCreateForm(str id, list[Body] Body){
 * @return str with the code snipped for a submit button
 * @author Philipp
 */
-str createSubmitButton(str id) = "<id>Submit = document.createElement(\'input\'); <id>Submit.setAttribute(\'type\',\"submit\"); <id>Submit.setAttribute(\'name\',\"<id>Submit\");		
-		<id>Submit.setAttribute(\'value\',\"Submit\"); <id>Submit.setAttribute(\'onclick\',\"submit<id>()\");	";
+str createSubmitButton(str id) = "	<id>Submit = document.createElement(\'input\');
+								'	<id>Submit.setAttribute(\'type\',\"submit\"); 
+								'	<id>Submit.setAttribute(\'name\',\"<id>Submit\");		
+								'	<id>Submit.setAttribute(\'value\',\"Submit\");
+								'	<id>Submit.setAttribute(\'onclick\',\"submit<id>()\");";
 
 
 /** Method to create a submit action when the submit button is pressed
@@ -36,7 +49,9 @@ str createSubmitButton(str id) = "<id>Submit = document.createElement(\'input\')
 * @author Philipp
 */
 void createSubmitMethod(str id){
-	str result = "function submit<id>() { alert(\'submit button pressed\'); } ";
+	str result = "function submit<id>() {
+				'	alert(\'submit button pressed\'); 
+				'} ";
 	appendToJavaScriptFile(id, result);
 }
 
@@ -50,11 +65,13 @@ public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
 	str function = "";
 	if(tp == boolean()){
 		function = "function <checkBoxId> {
-		if(cb.checked == true) { cb.parentNode.children[2].innerHTML = \"No\"; }
-	    if(cb.checked == false) { cb.parentNode.children[2].innerHTML = \"Yes\"; } }"; 
+					'	if(cb.checked == true) { cb.parentNode.children[2].innerHTML = \"No\"; }
+	    			'	if(cb.checked == false) { cb.parentNode.children[2].innerHTML = \"Yes\"; }
+	    			'}"; 
 	}else{
 		function = "function <checkBoxId> {
-		if(isNaN(cb.value)) { alert(\"is not number\"); } }"; 
+						'	if(isNaN(cb.value)) { alert(\"is not number\"); } 
+						'}"; 
 	}
 	appendToJavaScriptFile(formId, "\n <function>");
 }
@@ -70,11 +87,14 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	str ifTruePart = "";
 	for(i <- thenPart) ifTruePart += i;
 	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
-	if(cb.checked)
-	{ <formId>.removeChild(<formId>Submit); <ifTruePart> <formId>.appendChild(<formId>Submit);
-	}else {
-		<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
-	} }";
+					'	if(cb.checked) {
+					'	<formId>.removeChild(<formId>Submit);
+					'	<ifTruePart>
+					'	<formId>.appendChild(<formId>Submit);
+					'	}else {
+					'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
+					'	}
+					'}";
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
@@ -83,16 +103,18 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 * @param exp the expression to evaluate
 * @author Philipp
 */
-public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
+public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp, Type tp){
 	list[value] expressionIds = [];
 	top-down visit(exp){
 		case Expression e : {
 			if(getName(e) == "id") expressionIds += getChildren(e);
 		}
 	}
-	str ev = evaluateExp(exp, money());
+	str ev = evaluateExp(exp, tp);
 	for(j <- expressionIds) addOnChangeForComputedFunction(formId, toString(j) , id);
-	str result = "function <id>Calculation(cb) { cb.value = <ev>; }";	
+	str result = "function <id>Calculation(cb) {
+				'	cb.value = <ev>; 
+				'}";	
 	appendToJavaScriptFile(formId, "\n <result>");	
 }
 
@@ -104,8 +126,9 @@ public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp){
 */
 void addOnChangeForComputedFunction(str formId, str id, str methodName){
 	str result = "function <id>CheckNumeric(cb) {
-	<methodName>Calculation(<methodName>);
-	if(isNaN(cb.value)) { alert(\"is not number\"); } } ";
+				'	<methodName>Calculation(<methodName>);
+				'	if(isNaN(cb.value)) { alert(\"is not number\"); }
+				'}";
 	appendToJavaScriptFile(formId, "\n <result>");
 }
 

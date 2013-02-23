@@ -1,18 +1,15 @@
 package org.uva.sea.ql.check.expressions;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.expressions.LiteralExpr;
-import org.uva.sea.ql.ast.expressions.UnaryExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryLogicalExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryRelationalExpr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpr;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
 import org.uva.sea.ql.ast.expressions.binary.logical.And;
+import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpr;
 import org.uva.sea.ql.ast.expressions.binary.logical.Or;
+import org.uva.sea.ql.ast.expressions.binary.relational.BinaryRelationalExpr;
 import org.uva.sea.ql.ast.expressions.binary.relational.Eq;
 import org.uva.sea.ql.ast.expressions.binary.relational.GEq;
 import org.uva.sea.ql.ast.expressions.binary.relational.GT;
@@ -22,38 +19,41 @@ import org.uva.sea.ql.ast.expressions.binary.relational.NEq;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
+import org.uva.sea.ql.ast.expressions.literal.LiteralExpr;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.expressions.unary.Neg;
 import org.uva.sea.ql.ast.expressions.unary.Not;
 import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.expressions.unary.UnaryExpr;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.ErrorMessages;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
 
 public class TypeChecker implements Visitor<Boolean> {
 	
-	private final SupportedTypes _supportedTypes;
+	private final TypeEnvironment _typeEnvironment;
 	private final ErrorMessages _errorMessages;
 	
-	private TypeChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
-		_supportedTypes = supportedTypes;
+	private TypeChecker(TypeEnvironment supportedTypes, ErrorMessages messages) {
+		_typeEnvironment = supportedTypes;
 		_errorMessages = messages;
 	}
 	
-	public static boolean check(Expr expr, SupportedTypes supportedTypes, ErrorMessages errors) {
+	public static boolean check(Expr expr, TypeEnvironment supportedTypes, ErrorMessages errors) {
 		TypeChecker exprChecker = new TypeChecker(supportedTypes, errors);
 		return expr.accept(exprChecker);
 	}
 	
 	@Override
-	public Boolean visit(Add ast) { return checkNumericExpr(ast, "+"); }
+	public Boolean visit(Add ast) { return checkArithmeticExpr(ast, "+"); }
 	@Override
-	public Boolean visit(Div ast) { return checkNumericExpr(ast, "/"); }
+	public Boolean visit(Div ast) { return checkArithmeticExpr(ast, "/"); }
 	@Override
-	public Boolean visit(Sub ast) { return checkNumericExpr(ast, "-"); }
+	public Boolean visit(Sub ast) { return checkArithmeticExpr(ast, "-"); }
 	@Override
-	public Boolean visit(Mul ast) { return checkNumericExpr(ast, "*"); }
+	public Boolean visit(Mul ast) { return checkArithmeticExpr(ast, "*"); }
 
 	@Override
 	public Boolean visit(Eq ast)  { return checkRelationalExpr(ast, "=="); }
@@ -74,9 +74,9 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(Or ast)  { return checkLogicalExpr(ast, "||"); }
 
 	@Override
-	public Boolean visit(Neg ast) { return checkUnaryNumericExpr(ast, "--"); }
+	public Boolean visit(Neg ast) { return checkUnaryArithmeticExpr(ast, "--"); }
 	@Override
-	public Boolean visit(Pos ast) { return checkUnaryNumericExpr(ast, "++"); }
+	public Boolean visit(Pos ast) { return checkUnaryArithmeticExpr(ast, "++"); }
 	@Override
 	public Boolean visit(Not ast) { return checkUnaryLogicalExpr(ast, "!");  }
 
@@ -91,7 +91,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Str ast)   { return checkLiteralExpr(ast, Str.class.toString());   }
 	
-	private Boolean checkNumericExpr(BinaryArithmeticExpr expr, String binarySymbol) {
+	private Boolean checkArithmeticExpr(BinaryArithmeticExpr expr, String binarySymbol) {
 		boolean checkLhs = expr.getLhs().accept(this);
 		boolean checkRhs = expr.getRhs().accept(this);
 		
@@ -100,8 +100,8 @@ public class TypeChecker implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
-		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
+		Type lhsType = expr.getLhs().typeOf(_typeEnvironment);
+		Type rhsType = expr.getRhs().typeOf(_typeEnvironment);
 		
 		// Check if Types are compatible with BinaryNumericExpr
 		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
@@ -122,8 +122,8 @@ public class TypeChecker implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
-		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
+		Type lhsType = expr.getLhs().typeOf(_typeEnvironment);
+		Type rhsType = expr.getRhs().typeOf(_typeEnvironment);
 		
 		// Check if Types are compatible with each other
 		if (!lhsType.isCompatibleTo(rhsType)) {
@@ -144,8 +144,8 @@ public class TypeChecker implements Visitor<Boolean> {
 			return false;
 		}
 		
-		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
-		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
+		Type lhsType = expr.getLhs().typeOf(_typeEnvironment);
+		Type rhsType = expr.getRhs().typeOf(_typeEnvironment);
 		
 		// Check if Types are compatible with BinaryBoolExpr
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
@@ -157,8 +157,8 @@ public class TypeChecker implements Visitor<Boolean> {
 		return true; 
 	}
 	
-	private Boolean checkUnaryNumericExpr(UnaryExpr expr, String binarySymbol) {
-		Type exprType = expr.typeOf(_supportedTypes);
+	private Boolean checkUnaryArithmeticExpr(UnaryExpr expr, String binarySymbol) {
+		Type exprType = expr.typeOf(_typeEnvironment);
 		
 		// Check if Type is compatible with UnaryExpr
 		if (!exprType.isCompatibleToNumeric()) {
@@ -171,7 +171,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkUnaryLogicalExpr(UnaryExpr expr, String binarySymbol) {
-		Type exprType = expr.typeOf(_supportedTypes);
+		Type exprType = expr.typeOf(_typeEnvironment);
 		
 		// Check if Type is compatible with UnaryExpr
 		if (!exprType.isCompatibleToBool()) {
@@ -184,7 +184,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	private Boolean checkLiteralExpr(LiteralExpr expr, String className) {
-		Type exprType = expr.typeOf(_supportedTypes);
+		Type exprType = expr.typeOf(_typeEnvironment);
 		
 		// Check if Type is compatible with LiteralExpr
 		if (!exprType.isCompatibleTo(exprType)) {

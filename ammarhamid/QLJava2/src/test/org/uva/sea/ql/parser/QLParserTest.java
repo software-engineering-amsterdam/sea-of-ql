@@ -5,12 +5,18 @@ import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.uva.sea.ql.Message;
+import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
+import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.parser.exception.ParserException;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
+import org.uva.sea.ql.value.Value;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class QLParserTest
 {
@@ -75,55 +81,66 @@ public class QLParserTest
         final CommonTreeNodeStream commonTreeNodeStream1 = new CommonTreeNodeStream(commonTree1);
         final QLTreeWalker qlTreeWalker1 = new QLTreeWalker(commonTreeNodeStream1);
         QLTreeWalker.expression_return expression = qlTreeWalker1.expression();
-        System.out.println("walk = " + expression.node.evaluate());
+        System.out.println("walk = " + expression.node.evaluate(new HashMap<IdentifierNode, Value>()));
     }
 
-    @Ignore
-    public void ifStatementTest() throws RecognitionException
+    @Test
+    public void invalidIfStatementTest() throws RecognitionException
     {
-        final String validSrc = "" +
+        final String invalidSrc =
+                "	if (1 + true == 3) " +
+                        "	{ " +
+                        "		\"nothing?\" hasNothing: boolean " +
+                        "	}";
+        testIfStatement(invalidSrc, false, 1);
+    }
+
+    @Test
+    public void validIfStatementTest() throws RecognitionException
+    {
+        final String validSrc =
+                "	if (1 + 2 == 3) " +
+                        "	{ " +
+                        "		\"nothing?\" hasNothing: boolean " +
+                        "	}";
+        testIfStatement(validSrc, true, 0);
+    }
+
+    private void testIfStatement(final String source, final boolean expectedValidationResult, final int errorMessageSize) throws RecognitionException
+    {
+        final QLParser qlParser = this.parser.createQLParser(source);
+        final CommonTree commonTree = (CommonTree) qlParser.ifStatement().getTree();
+        final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
+        final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
+        IfNode ifNode = qlTreeWalker.ifStatement().node;
+        List<IfNode.Branch> branches = ifNode.getBranches();
+        final List<Message> messages = new ArrayList<>();
+        for(IfNode.Branch branch : branches)
+        {
+            final boolean validate = branch.getExprNode().validate(messages);
+            Assert.assertEquals("The result should be the same", expectedValidationResult, validate);
+        }
+
+        Assert.assertEquals("The result should be the same", errorMessageSize, messages.size());
+    }
+
+    @Test(expected = ParserException.class)
+    public void simpleInvalidFormTest()
+    {
+        // missing the keyword 'form'
+        this.parser.parseForm("" +
+                "test " +
+                "{ " +
+                "	hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
+                "	hasSoldCar: \"Did you sell a car in 2010?\" integer " +
                 "	if (1+1==2) " +
                 "	{ " +
                 "		hasNothing: \"nothing?\" boolean " +
-                "		hasNothing2: \"nothing?\" boolean " +
                 "	}" +
                 "	else" +
                 "	{" +
                 "		hasNothing: \"nothing?\" boolean " +
-                "	}";
-
-        final QLParser qlParser = this.parser.createQLParser(validSrc);
-        final CommonTree commonTree = (CommonTree) qlParser.ifStatement().getTree();
-        final CommonTreeNodeStream commonTreeNodeStream = new CommonTreeNodeStream(commonTree);
-        final QLTreeWalker qlTreeWalker = new QLTreeWalker(commonTreeNodeStream);
-        QLTreeWalker.ifStatement_return expression = qlTreeWalker.ifStatement();
-//        System.out.println("Test " +expression.node.evaluate());
-    }
-
-    @Test
-    public void simpleInvalidFormTest()
-    {
-        try
-        {
-            this.parser.parseForm("" +
-                    "test " +
-                    "{ " +
-                    "	hasSoldHouse: \"Did you sell a house in 2010?\" boolean " +
-                    "	hasSoldCar: \"Did you sell a car in 2010?\" integer " +
-                    "	if (1+1==2) " +
-                    "	{ " +
-                    "		hasNothing: \"nothing?\" boolean " +
-                    "	}" +
-                    "	else" +
-                    "	{" +
-                    "		hasNothing: \"nothing?\" boolean " +
-                    "	}" +
-                    "}");
-            Assert.fail("Ill-formed program - test should fail !!");
-        } catch(ParserException e)
-        {
-            // expected
-            System.out.println(e.getMessage());
-        }
+                "	}" +
+                "}");
     }
 }

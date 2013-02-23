@@ -22,10 +22,10 @@ import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.evaluation.values.Value;
-import org.uva.sea.ql.evaluation.values.Int;
 import org.uva.sea.ql.evaluation.values.Bool;
+import org.uva.sea.ql.evaluation.values.Int;
 import org.uva.sea.ql.evaluation.values.String;
+import org.uva.sea.ql.evaluation.values.Value;
 
 public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 	
@@ -115,7 +115,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Neg neg) {
-		Value value = neg.getLhs().accept(this);
+		Value value = neg.getContainedExpression().accept(this);
 		return new Int(-((Int)value).getValue());
 	}
 
@@ -128,7 +128,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Not not) {
-		Value value = not.getLhs().accept(this);
+		Value value = not.getContainedExpression().accept(this);
 		return new Bool(!((Bool)value).getValue());
 	}
 
@@ -141,7 +141,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Pos pos) {
-		Value value = pos.getLhs().accept(this);
+		Value value = pos.getContainedExpression().accept(this);
 		return new Int(((Int)value).getValue());
 	}
 

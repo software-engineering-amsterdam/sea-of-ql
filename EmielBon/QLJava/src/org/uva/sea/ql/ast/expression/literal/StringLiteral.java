@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.expression.literal;
 
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
 import org.uva.sea.ql.ast.type.Str;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 public class StringLiteral extends Literal<String> {
 
@@ -11,10 +11,10 @@ public class StringLiteral extends Literal<String> {
 		super(s);
 	}
 	
-	public Type typeOf(TypeEnvironment typeEnv) {
+	public Type typeOf(TypeEnvironment env) {
 		return new Str();
 	}
-
+	
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.value;
 
 
-
 public class IntegerValue extends Value {
 	private final Integer value;
 	
@@ -13,6 +12,16 @@ public class IntegerValue extends Value {
 		return value;
 	}
 
+	@Override
+	public boolean isCompatibleToNumericType() {
+		return true;
+	}
+	
+	@Override
+	public boolean isCompatibleToIntegerType() {
+		return true;
+	}
+	
 	@Override
 	public Value add(Value arg) {
 		return arg.addInt(this);
@@ -40,7 +49,7 @@ public class IntegerValue extends Value {
 	
 	@Override
 	public Value neg() {
-		return new IntegerValue(getValue()*-1);
+		return new IntegerValue(getValue()*(-1));
 	}
 
 	@Override

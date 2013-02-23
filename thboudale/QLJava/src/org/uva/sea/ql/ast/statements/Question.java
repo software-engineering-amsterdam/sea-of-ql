@@ -1,17 +1,17 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Str;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.AType;
+import org.uva.sea.ql.semanticCheck.FormStmtVisitor;
 
-public class Question extends Statement {
+public class Question extends AStatement {
 	private final Ident ident;
-	private final Str strLtr;
-	private final Type type;
+	private final String label;
+	private final AType type;
 
-	public Question(Ident ident, Str strLtr, Type type) {
+	public Question(Ident ident, String label, AType type) {
 		this.ident = ident;
-		this.strLtr = strLtr;
+		this.label = label;
 		this.type = type;
 	}
 	
@@ -19,11 +19,16 @@ public class Question extends Statement {
 		return ident;
 	}
 	
-	public Str getStrLtr() {
-		return strLtr;
+	public String getLabel() {
+		return label;
 	}
 	
-	public Type getType() {
+	public AType getType() {
 		return type;
+	}
+
+	@Override
+	public <T> T accept(FormStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
 	}
 }

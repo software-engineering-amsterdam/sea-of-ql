@@ -1,19 +1,19 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.parser.ASTVisitor;
+import org.uva.sea.ql.visitor.ASTVisitor;
 
 public class IfElseStatement extends IfStatement {
 
-	private final CompoundStatement elseCompoundStatement;
+	private final Statement elseStatement;
 	
-	public IfElseStatement(Expression expr, CompoundStatement compoundStatement, CompoundStatement elseCompoundStatement) {
-		super(expr, compoundStatement);
-		this.elseCompoundStatement = elseCompoundStatement;
+	public IfElseStatement(Expression expr, Statement statement, Statement elseStatement) {
+		super(expr, statement);
+		this.elseStatement = elseStatement;
 	}
 
-	public CompoundStatement getElseCompoundStatement() {
-		return elseCompoundStatement;
+	public Statement getElseStatement() {
+		return elseStatement;
 	}
 	
 	public void accept(ASTVisitor v){

@@ -22,32 +22,32 @@ import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 public interface ExpressionVisitor {
 	
 	// Primitive types
-	boolean visit(BooleanLiteral ast);
-	boolean visit(Identifier identifier);
-	boolean visit(IntLiteral integer);
-	boolean visit(MoneyLiteral money);
-	boolean visit(StringLiteral str);
+	void visit(BooleanLiteral booleanLiteral);
+	void visit(Identifier identifier);
+	void visit(IntLiteral integerLiteral);
+	void visit(MoneyLiteral moneyLiteral);
+	void visit(StringLiteral stringLiteral);
 
 	// Arithmetic operators
-	boolean visit(Add ast);
-	boolean visit(Div ast);
-	boolean visit(Sub ast);
-	boolean visit(Mul ast);
+	void visit(Add add);
+	void visit(Div div);
+	void visit(Sub sub);
+	void visit(Mul mul);
 	
 	// Conditional operators
-	boolean visit(And ast);
-	boolean visit(Or ast);
+	void visit(And and);
+	void visit(Or or);
 	
 	// Relational operators
-	boolean visit(Eq ast);
-	boolean visit(GEq ast);
-	boolean visit(GT ast);
-	boolean visit(LEq ast);
-	boolean visit(LT ast);
-	boolean visit(NEq ast);
+	void visit(Eq eq);
+	void visit(GEq gEq);
+	void visit(GT gT);
+	void visit(LEq lEq);
+	void visit(LT lT);
+	void visit(NEq nEq);
 	
 	// Unary operators
-	boolean visit(Neg ast);
-	boolean visit(Not ast);
-	boolean visit(Pos ast);
+	void visit(Neg neg);
+	void visit(Not not);
+	void visit(Pos pos);
 }

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.gui;
 
 import static org.junit.Assert.fail;
-import javafx.scene.Node;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,18 +24,16 @@ public class VisibleFormNodeCreatorTest {
 		creator = new VisibleFormNodeCreator(model);
 	}
 
-	@Test
-	public void testVisitIfStatement() {
+	@Test(expected = IllegalStateException.class)
+	public void testVisitIfStatementExpressionNotRegistred() {
 
 		Computed computed = new Computed(new IntegerType(), new Identifier(
 				"cash"), new IntegerValue(900));
-		BooleanValue exp = new BooleanValue(true);
 
-		IfStatement ifStm = new IfStatement(exp,
+		IfStatement ifStm = new IfStatement(new BooleanValue(true),
 				new CompoundStatement(computed));
 
-		Node node = creator.visit(ifStm);
-
+		creator.visit(ifStm);
 	}
 
 	@Test

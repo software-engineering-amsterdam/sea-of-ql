@@ -6,9 +6,10 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.nodes.*;
-import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.nodes.statements.*;
+import org.uva.sea.ql.ast.nodes.types.*;
 import java.util.HashSet;
 }
 
@@ -24,33 +25,39 @@ start	returns [Expr result]
 	;
 
 formDeclaration returns [Expr result]
-	: FORM i=FORMIDENT x=block { $result = new Form(new Ident($i.text), $x.result);}
-	| x=orExpr { $result = $x.result; }
+	: FORM i=FORMIDENT b=block { $result = new Form(new Ident($i.text), $b.result);}
+	// for test cases
+	| x=block { $result = $x.result; }
+	| x=statement { $result = $x.result; }
+	| x=condition { $result = $x.result; }
+	| x=conditionalStatement { $result = $x.result; }
+	| x=unExpr {$result = $x.result; }
 	;
 	
-blockContent returns [HashSet<Expr> result]
+blockContent returns [ArrayList<Statement> result]
 	@init
 	{
-	    	$result = new HashSet<Expr>();
+	    	$result = new ArrayList<Statement>();
 	}
     	: (v=statement { $result.add($v.result); } )*
 	;
 	
-block returns [Expr result]
+block returns [Statement result]
 	: LCB b=blockContent RCB { $result = new Block($b.result); }
 	;
 
-conditionalStatement returns [Expr result]
+conditionalStatement returns [Statement result]
 	: c=condition b=block { $result = new ConditionalStatement($c.result, $b.result);}
 	;
 	
-statement returns [Expr result]
+statement returns [Statement result]
 	: a=assDeclStatement { $result = $a.result; }
 	| c=conditionalStatement { $result = $c.result; }
 	;
 	
-condition returns [Expr result]
-	: IF LB x=orExpr RB { $result = new Condition($x.result); }
+condition returns [Statement result]
+	: IF LB x=IDENT RB { $result = new Condition(new Ident($x.text)); }
+	| IF LB e=unExpr RB { $result = new Condition($e.result); }
 	;
 
 tMoney	returns [Expr result]
@@ -59,12 +66,12 @@ tMoney	returns [Expr result]
 	;
 	
 tBoolean returns [Expr result]
-	: b=BOOLEAN {$result = new Bool($b.text);}
+	: b=BOOLEAN {$result = new Bool(new Boolean(false));}
 	;
 
-assDeclStatement returns [Expr result]
-	: i=IDENT CL s=STRING b=tBoolean { $result = new Question( new Ident($i.text), new Str($s.text), $b.result ); }
-	| i=IDENT CL s=STRING x=tMoney { $result = new Question( new Ident($i.text), new Str($s.text), $x.result ); }
+assDeclStatement returns [Statement result]
+	: i=IDENT CL s=STRING b=tBoolean { $result = new Question( new Ident($i.text), new QuestionBody(new Str($s.text), $b.result )); }
+	| i=IDENT CL s=STRING x=tMoney { $result = new Question( new Ident($i.text),  new QuestionBody(new Str($s.text), $x.result )); }
 	;
 	
 
@@ -73,9 +80,9 @@ primary returns [Expr result]
   : i=INT   { $result = new Int(Integer.parseInt($i.text)); }
   | s=STRING   { $result = new Str($s.text); }
   | m=MONEY { $result = new Money($m.text); }
-  | b=BOOLEAN  { $result = new Bool($b.text); }
-  | i=IDENT { $result = new Ident($i.text); }
-  | LB x=orExpr RB { $result = $x.result; } 
+  | b=BOOLEAN  { $result = new Bool(new Boolean(false)); }
+  | LB x=orExpr RB { $result = $x.result; }
+  | i=IDENT { $result = new Ident($i.text); } 
   ;
     
 unExpr returns [Expr result]
@@ -156,15 +163,17 @@ LINE_COMMENT	: '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
 // QL Tokens
 
 FORM		: KEYWORD_FORM;
+IF		: KEYWORD_IF;
 FORMIDENT 	: ( UPPERCASE_LETTER )( LOWERCASE_LETTER | UPPERCASE_LETTER | INT_DIGIT )* 	
 		;
-IF		: KEYWORD_IF;
+
+ELSE 		: KEYWORD_ELSE;	
 // QL Type Tokens
 BOOLEAN		
 	: ( KEYWORD_BOOLEAN | KEYWORD_TRUE | KEYWORD_FALSE ) 
 	;
 MONEY		
-	: ( KEYWORD_MONEY )
+	: ( KEYWORD_MONEY | (INT_DIGIT)+(MONEY_COMMA)(INT_DIGIT)+ )
 	;
 IDENT	
 	: ( LOWERCASE_LETTER ) (LOWERCASE_LETTER | UPPERCASE_LETTER | INT_DIGIT | UNDERSCORE )* 
@@ -277,5 +286,9 @@ KEYWORD_FORM
 	;
 fragment
 KEYWORD_IF
-	: 'if' | 'If'
+	: 'If' | 'if'
+	;
+fragment
+KEYWORD_ELSE
+	: 'else' | 'Else'
 	;

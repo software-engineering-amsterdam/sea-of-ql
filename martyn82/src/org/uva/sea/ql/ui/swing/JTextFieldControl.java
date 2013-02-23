@@ -6,10 +6,10 @@ import java.awt.event.FocusListener;
 import javax.swing.JTextField;
 
 import org.uva.sea.ql.ui.ControlEvent;
-import org.uva.sea.ql.ui.ControlEventListener;
+import org.uva.sea.ql.ui.InputControlEventListener;
 import org.uva.sea.ql.ui.control.TextFieldControl;
-import org.uva.sea.ql.visitor.evaluator.value.Value;
-import org.uva.sea.ql.visitor.evaluator.value.StringValue;
+import org.uva.sea.ql.value.StringValue;
+import org.uva.sea.ql.value.Value;
 
 public class JTextFieldControl extends TextFieldControl {
 	private final JTextField control;
@@ -44,15 +44,17 @@ public class JTextFieldControl extends TextFieldControl {
 	}
 
 	@Override
-	public void addChangeListener( final ControlEventListener listener ) {
-		this.control.addFocusListener( new FocusListener() {
-			@Override
-			public void focusLost( FocusEvent focusEvent ) {
-				listener.itemChanged( new ControlEvent( JTextFieldControl.this ) );
-			}
+	public void addChangeListener( final InputControlEventListener listener ) {
+		this.control.addFocusListener(
+			new FocusListener() {
+				@Override
+				public void focusLost( FocusEvent focusEvent ) {
+					listener.valueChanged( new ControlEvent( JTextFieldControl.this ) );
+				}
 
-			@Override
-			public void focusGained( FocusEvent focusEvent ) {}
-		} );
+				@Override
+				public void focusGained( FocusEvent focusEvent ) {}
+			}
+		);
 	}
 }

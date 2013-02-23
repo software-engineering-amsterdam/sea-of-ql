@@ -5,14 +5,19 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.forms.*;
+import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.*;
 import org.uva.sea.ql.ast.expressions.binary.logical.*;
 import org.uva.sea.ql.ast.expressions.binary.relational.*;
 import org.uva.sea.ql.ast.expressions.literal.*;
 import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.statements.conditions.*;
 import org.uva.sea.ql.ast.statements.questions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
+import java.util.ArrayList;
+import java.util.List;
 }
 
 @lexer::header
@@ -21,7 +26,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-    :   'form' Ident '{' body=formStatement* '}' { $result = new Form(new Ident($Ident.text), $body.result); }
+    :   'form' Ident '{' body=conditionBody '}' { $result = new Form(new Ident($Ident.text), $body.result); }
     ;
 
 formStatement returns [FormStatement result]
@@ -36,16 +41,16 @@ question returns [Question result]
 
 conditionBlock returns [ConditionBlock result]
     :   'if' '(' condition=orExpr ')' ifBody=conditionBody 'else' elseBody=conditionBody
-        { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
+        { $result = new IfThenElse(condition, $ifBody.result, $elseBody.result); }
     |   'if' '(' condition=orExpr ')' ifBody=conditionBody
-        { $result = new ConditionBlock(condition, $ifBody.result); }
+        { $result = new IfThen(condition, $ifBody.result); }
     ;
 
-conditionBody returns [FormStatement result]
-    :   '{' body=formStatement '}'  { $result = body; }
-    |   body=formStatement          { $result = body; }
-    |   '{' body=formStatement* '}' { $result = body; }
-    |   body=formStatement*         { $result = body; }
+conditionBody returns [StatementBody result]
+	@init  { StatementBody statements = new StatementBody(); }
+    @after { $result = statements; }
+    :   '{' (statement=formStatement { statements.add(statement); })+ '}'
+    |   (statement=formStatement { statements.add(statement); })+
     ;
 
 primary returns [Expr result]
@@ -67,7 +72,7 @@ unExpr returns [Expr result]
 mulExpr returns [Expr result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
-        if ($op.text.equals("*"))  { $result = new Mul($result, rhs); }
+        if ($op.text.equals("*")) { $result = new Mul($result, rhs); }
         if ($op.text.equals("/")) { $result = new Div($result, rhs); }
     })*
     ;

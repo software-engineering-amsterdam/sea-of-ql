@@ -13,5 +13,5 @@ public class Pos extends UnaryOperator{
 	@Override
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
-	}	
+	}
 }

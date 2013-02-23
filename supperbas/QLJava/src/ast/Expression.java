@@ -1,9 +1,10 @@
 package ast;
 
+import java.util.ArrayList;
 import java.util.Map;
 
+import ast.expression.Ident;
 import ast.expression.Visitor;
-import ast.expression.value.Ident;
 
 public abstract class Expression implements ASTNode {
 
@@ -16,5 +17,6 @@ public abstract class Expression implements ASTNode {
 	}
 	
 	public abstract String typeStr();
+	public abstract ArrayList<Ident> getIdents();
 
 }

@@ -1,0 +1,46 @@
+page(formName, formContent, documentReadyContent) ::= <<
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Question language - $formName$</title>
+        <script type="text/javascript" src="scripts/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="scripts/selfish-0.3.2.min.js"></script>
+        <script type="text/javascript" src="scripts/generic.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+
+                /* Generated JS code start */
+                $documentReadyContent$
+                /* Generated JS code end */
+
+                jQuery("#submit").on("click", function(){
+                    var identifierValuePairArray = [];
+                    jQuery.each(ql.questionControllerList, function(index, questionController) {
+                       if (questionController.view.is(":visible")) {
+                          identifierValuePairArray.push({identifierName : questionController.getName(), value : questionController.getValue()});
+                       }
+                    });
+                    ql.ajaxUtil.doPost("submit/", identifierValuePairArray, function(){
+                        alert("Submit succesful!");
+                    });
+                });
+            });
+        </script>
+        <style type="text/css">
+            .hidden {
+                display:none;
+            }
+        </style>
+    </head>
+    <body>
+        $formContent$
+    </body>
+    <input id="submit" type="button" value="Persist"/>
+</html>
+>>
+
+form(statements) ::= <<
+    <form>
+        $statements$
+    </form>
+>>

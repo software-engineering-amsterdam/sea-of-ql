@@ -7,7 +7,6 @@ import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class Form implements ASTNode {
-
 	private final Ident id;
 	private List<Statement> statements;
 	

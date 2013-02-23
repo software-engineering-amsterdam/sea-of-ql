@@ -1,14 +1,14 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.parser.ASTVisitor;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.visitor.ASTVisitor;
 
 public class Form implements ASTNode {
 
-	private final Ident identity;
+	private final Identifier identity;
 	private final CompoundStatement compoundStatement;
 	
-	public Form(Ident identity, CompoundStatement compoundStatement) {
+	public Form(Identifier identity, CompoundStatement compoundStatement) {
 		this.identity = identity;
 		this.compoundStatement = compoundStatement;
 	}
@@ -18,7 +18,7 @@ public class Form implements ASTNode {
 		visitor.visit(this);
 	}
 
-	public Ident getIdentity() {
+	public Identifier getIdentity() {
 		return identity;
 	}
 

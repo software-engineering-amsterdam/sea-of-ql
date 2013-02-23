@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ast.ASTNode;
+import ast.expression.Ident;
 import ast.expression.value.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
+	private static final Map<String, Ident> IDENTS = new HashMap<String, Ident>();
 
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
@@ -45,9 +47,9 @@ public class QLLexer implements QLTokens {
 			try {
 				cOld = c;
 				c = input.read();
-				System.out.print((char) c);
+				//System.out.print((char) c);
 				if (c == '\n') {
-					System.out.println();
+					//System.out.println();
 					line++;
 					column = 0;
 				}
@@ -168,6 +170,7 @@ public class QLLexer implements QLTokens {
 			}
 
 			case '\"': {
+				nextChar(); // remove the "
 				StringBuilder sb = new StringBuilder();
 				do {
 					sb.append((char) c);
@@ -190,7 +193,7 @@ public class QLLexer implements QLTokens {
 						nextChar();
 					} while (Character.isDigit(c));
 					yylval = new ast.expression.value.Int(n);
-					System.out.println("FOUND");
+					//System.out.println("FOUND");
 					return token = INT;
 				}
 				if (Character.isLetter(c)) {
@@ -201,10 +204,17 @@ public class QLLexer implements QLTokens {
 					} while (Character.isLetterOrDigit(c));
 					String name = sb.toString();
 					if (KEYWORDS.containsKey(name)) {
-						System.out.println("FOUND!");
+						//System.out.println("FOUND!");
 						return token = KEYWORDS.get(name);
 					}
+					
+					if (IDENTS.containsKey(name)) {
+						//System.out.println("FOUND!");
+						yylval = IDENTS.get(name);
+						return token = IDENT;
+					}
 					yylval = new Ident(name);
+					IDENTS.put(name, (Ident) yylval);
 					return token = IDENT;
 				}
 				throw new RuntimeException("Unexpected character: " + (char) c);

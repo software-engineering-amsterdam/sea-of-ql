@@ -1,6 +1,8 @@
 package org.uva.sea.ql.visitor.eval;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -8,18 +10,19 @@ import java.util.Observer;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
+import org.uva.sea.ql.visitor.eval.value.Undefined;
 
-public class Environment {
+public class Environment extends Observable implements Observer {
 
 	private class Binding extends Observable implements Observer {
 		private final Widget widget;
 		private AbstractValue value;
 
-		public Binding(Widget widget) {
+		public Binding(Widget widget, AbstractValue value) {
 			this.widget = widget;
 			this.widget.addObserver(this);
 
-			this.value = this.widget.getValue();
+			this.value = value;
 		}
 
 		public Widget getWidget() {
@@ -35,6 +38,7 @@ public class Environment {
 
 			// Update GUI (This will trigger the observer pattern).
 			this.widget.setValue(value);
+
 		}
 
 		@Override
@@ -42,30 +46,44 @@ public class Environment {
 			// Read value from GUI
 			this.value = this.widget.getValue();
 
-			// And propagate to Environment.
 			this.setChanged();
 			this.notifyObservers();
 		}
 	}
 
 	private final Environment parent;
-	private Map<Ident, Binding> bindings;
+	private final List<Environment> children;
+	private final Map<Ident, Binding> bindings;
+	private boolean visible;
 
 	public Environment() {
 		this(null);
 	}
 
-	public Environment(Environment env) {
-		this.parent = env;
+	private Environment(Environment environment) {
+		this.parent = environment;
+
 		this.bindings = new HashMap<Ident, Binding>();
+		this.children = new ArrayList<Environment>();
+
+		this.visible = true;
 	}
 
-	public Environment getParent() {
-		return this.parent;
+	public Environment getChildEnvironment() {
+		Environment child = new Environment(this);
+		child.addObserver(this);
+		this.children.add(child);
+		return child;
+	}
+
+	public List<Environment> getChildren() {
+		return this.children;
 	}
 
 	public void declare(Ident ident, Widget widget) {
-		this.bindings.put(ident, new Binding(widget));
+		// A new variable gets the default value: Undefined.
+		this.bindings.put(ident, new Binding(widget, Undefined.UNDEFINED));
+		this.addObserver(ident, this);
 	}
 
 	public void addObserver(Ident ident, Observer observer) {
@@ -87,6 +105,15 @@ public class Environment {
 		}
 	}
 
+	public Map<Ident, AbstractValue> getValues() {
+		Map<Ident, AbstractValue> values = new HashMap<Ident, AbstractValue>();
+		for (Map.Entry<Ident, Binding> entry : this.bindings.entrySet()) {
+			values.put(entry.getKey(), entry.getValue().getValue());
+		}
+
+		return values;
+	}
+
 	public void setValue(Ident ident, AbstractValue value) {
 		// Semantic validator guarantees that ident is defined.
 		if (this.bindings.containsKey(ident)) {
@@ -104,6 +131,47 @@ public class Environment {
 		} else {
 			this.parent.setReadOnly(ident, isReadOnly);
 		}
+	}
+
+	public void setVisible(boolean isVisible) {
+		this.visible = isVisible;
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (this.isCompleted()) {
+			// Persist results
+			this.setChanged();
+			this.notifyObservers();
+		}
+	}
+
+	private boolean isCompleted() {
+		if (this.parent != null) {
+			return this.parent.isCompleted();
+		} else {
+			return this.isCompletedRecursive();
+		}
+	}
+
+	private boolean isCompletedRecursive() {
+		if (!this.visible) {
+			return true;
+		}
+
+		for (Map.Entry<Ident, Binding> entry : this.bindings.entrySet()) {
+			if (entry.getValue().getValue().equals(Undefined.UNDEFINED)) {
+				return false;
+			}
+		}
+
+		for (Environment child : this.children) {
+			if (!child.isCompletedRecursive()) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.OperatorBinary;
-import org.uva.sea.ql.ast.OperatorUnary;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -19,6 +17,8 @@ import org.uva.sea.ql.ast.operative.Mul;
 import org.uva.sea.ql.ast.operative.NEq;
 import org.uva.sea.ql.ast.operative.Neg;
 import org.uva.sea.ql.ast.operative.Not;
+import org.uva.sea.ql.ast.operative.OperatorBinary;
+import org.uva.sea.ql.ast.operative.OperatorUnary;
 import org.uva.sea.ql.ast.operative.Or;
 import org.uva.sea.ql.ast.operative.Pos;
 import org.uva.sea.ql.ast.operative.Sub;
@@ -28,13 +28,10 @@ import org.uva.sea.ql.ast.primitive.Undefined;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.checker.errors.Error;
-import org.uva.sea.ql.checker.errors.ExpressionTypeError;
-import org.uva.sea.ql.checker.errors.IdentifierScopeError;
-import org.uva.sea.ql.interfaces.IVisitorExpr;
+import org.uva.sea.ql.ast.visitor.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorExprChecker implements IVisitorExpr<Void> {
+public class VisitorExprChecker implements IVisitorExpr<Boolean> {
 
 	private Environment environment;
 	private List<Error> errors;
@@ -52,47 +49,59 @@ public class VisitorExprChecker implements IVisitorExpr<Void> {
 	}
 	
 	
-	private Void checkType(Expr expr, Type type){
+	private boolean checkType(Expr expr, Type type){
 		
 		if(!expr.typeOf(environment).isCompatibleTo(type)){
-			errors.add(new ExpressionTypeError(expr, type));
+			errors.add(new ErrorExpressionType(expr, type));
+			return false;
 		}
 		
-		return null;
+		return true;
 	}
 	
 	
-	private Void checkExpression(Expr expression, Type type){
-		expression.accept(this);
-		checkType(expression, type);
-		return null;
+	private boolean checkExpression(Expr expression, Type type){
+		
+		if(!expression.accept(this))
+			return false;
+		
+		return checkType(expression, type);
 	}
 	
 	
-	private Void checkOperatorBinary(OperatorBinary operator, Type operandType){
+	private boolean checkOperatorBinary(OperatorBinary operator, Type operandType){
 		Expr lhs = operator.getLeftHandOperand();
 		Expr rhs = operator.getRightHandOperand();
 		
-		checkExpression(lhs, operandType);
-		checkExpression(rhs, operandType);
-		return null;
+		return checkExpression(lhs, operandType) & checkExpression(rhs, operandType);
 	}
 	
 	
-	private Void checkOperatorUnary(OperatorUnary operator, Type operandType){
+	private boolean checkOperatorUnary(OperatorUnary operator, Type operandType){
 		Expr op = operator.getOperand();
-		checkExpression(op, operandType);
-		return null;
+		return checkExpression(op, operandType);
+	}
+	
+	
+	private boolean checkEqual(OperatorBinary operator){
+		
+		Expr lhs = operator.getLeftHandOperand();
+		Expr rhs = operator.getRightHandOperand();
+		
+		//check mutual compatibility
+		return 	checkExpression(lhs, rhs.typeOf(environment)) & 
+				checkExpression(rhs, lhs.typeOf(environment));
 	}
 	
 	
 	@Override
-	public Void visit(Ident ident) {
+	public Boolean visit(Ident ident) {
 		if(!ident.typeOf(environment).isDefinedType()){
-			errors.add(new IdentifierScopeError(ident));
+			errors.add(new ErrorIdentifierScope(ident));
+			return false;
 		}
 		
-		return null;
+		return true;
 	}
 
 	
@@ -106,134 +115,119 @@ public class VisitorExprChecker implements IVisitorExpr<Void> {
 	}
 	
 	@Override
-	public Void visit(Add operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Add operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(And operator) {
-		checkOperatorBinary(operator, new Bool() );
-		return null;
+	public Boolean visit(And operator) {
+		return checkOperatorBinary(operator, new Bool() );
 	}
 
 
 	@Override
-	public Void visit(Div operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Div operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(Eq operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Eq operator) {
+		return checkEqual(operator);
 	}
 
 
 	@Override
-	public Void visit(GEq operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(GEq operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(GT operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(GT operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(LEq operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(LEq operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(LT operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(LT operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(Mul operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Mul operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(Neg operator) {
-		checkOperatorUnary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Neg operator) {
+		return checkOperatorUnary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(NEq operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(NEq operator) {
+		return checkEqual(operator);
 	}
 
 
 	@Override
-	public Void visit(Not operator) {
-		checkOperatorUnary(operator, new Bool() );
-		return null;
+	public Boolean visit(Not operator) {
+		return checkOperatorUnary(operator, new Bool() );
 	}
 
 
 	@Override
-	public Void visit(Or operator) {
-		checkOperatorBinary(operator, new Bool() );
-		return null;
+	public Boolean visit(Or operator) {
+		return checkOperatorBinary(operator, new Bool() );
 	}
 
 
 	@Override
-	public Void visit(Pos operator) {
-		checkOperatorUnary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Pos operator) {
+		return checkOperatorUnary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(Sub operator) {
-		checkOperatorBinary(operator, new Numeric() );
-		return null;
+	public Boolean visit(Sub operator) {
+		return checkOperatorBinary(operator, new Numeric() );
 	}
 
 
 	@Override
-	public Void visit(Int ast) {
+	public Boolean visit(Int ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 
 	@Override
-	public Void visit(org.uva.sea.ql.ast.primitive.Bool ast) {
+	public Boolean visit(org.uva.sea.ql.ast.primitive.Bool ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 
 	@Override
-	public Void visit(Str ast) {
+	public Boolean visit(Str ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
-	public Void visit(Undefined ast) {
+	public Boolean visit(Undefined ast) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 }

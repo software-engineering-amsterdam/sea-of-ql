@@ -6,7 +6,6 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.typeCheck.TypeMapper;
 
-
 public class Div extends Binary {
 
 	public Div(Expr lhs, Expr rhs) {
@@ -27,5 +26,4 @@ public class Div extends Binary {
 	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

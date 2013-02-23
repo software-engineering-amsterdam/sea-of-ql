@@ -1,23 +1,16 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::CompileForm
 
-import ParseTree;
 import lang::ql::ast::AST;
 import IO;
-import Node;
-import util::ValueUI;
 import lang::ql::compiler::GenerateHTMLForm;
 import lang::ql::compiler::GenerateJavaScript;
 
-anno str ConditionalStatement@ref;
-anno str ElseIf@ref;
-anno str FormBodyItem@ref;
-
-public void compileForm(f:form(ident,formBody)){
+public void compileForm(f:form(ident,formBody),loc target){
 	formRefrnced=setConditionalReference(formBody);
-	print(ok);	
-	loc htmlFile=|project://SofConsrt/<ident>.html|;
+	loc htmlFile=target.parent+"<ident>.html";
 	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
-	loc jsFile=|project://SofConsrt/<ident>.js|;
+	loc jsFile=target.parent+"<ident>.js";
 	writeFile(jsFile,generateJavaScipt(formRefrnced));	   
 }
 	

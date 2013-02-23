@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-02-13 23:17:32
+// $ANTLR 3.5 C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g 2013-02-18 18:39:09
 
   package org.uva.sea.ql.parser;
   import java.util.LinkedList;
@@ -537,8 +537,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = If;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:179:9: ( 'if' )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:179:11: 'if'
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:198:9: ( 'if' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:198:11: 'if'
 			{
 			match("if"); 
 
@@ -558,8 +558,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Else;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:180:9: ( 'else' )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:180:11: 'else'
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:199:9: ( 'else' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:199:11: 'else'
 			{
 			match("else"); 
 
@@ -579,7 +579,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:182:9: ( 'true' | 'false' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:201:9: ( 'true' | 'false' )
 			int alt1=2;
 			int LA1_0 = input.LA(1);
 			if ( (LA1_0=='t') ) {
@@ -597,14 +597,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt1) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:182:11: 'true'
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:201:11: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:182:20: 'false'
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:201:20: 'false'
 					{
 					match("false"); 
 
@@ -626,10 +626,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:183:9: ( ( Digit )+ )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:183:11: ( Digit )+
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:202:9: ( ( Digit )+ )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:202:11: ( Digit )+
 			{
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:183:11: ( Digit )+
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:202:11: ( Digit )+
 			int cnt2=0;
 			loop2:
 			while (true) {
@@ -678,8 +678,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:184:9: ( ( Letter | '_' ) ( Letter | Digit | '_' )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:184:11: ( Letter | '_' ) ( Letter | Digit | '_' )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:203:9: ( ( Letter | '_' ) ( Letter | Digit | '_' )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:203:11: ( Letter | '_' ) ( Letter | Digit | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||input.LA(1)=='_'||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -689,7 +689,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:184:26: ( Letter | Digit | '_' )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:203:26: ( Letter | Digit | '_' )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -734,7 +734,7 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:189:9: ( '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:208:9: ( '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"' | '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\'' )
 			int alt6=2;
 			int LA6_0 = input.LA(1);
 			if ( (LA6_0=='\"') ) {
@@ -752,10 +752,10 @@ public class QLLexer extends Lexer {
 
 			switch (alt6) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:189:12: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:208:12: '\"' (~ ( '\"' | '\\\\' ) | '\\\\' . )* '\"'
 					{
 					match('\"'); 
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:189:17: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:208:17: (~ ( '\"' | '\\\\' ) | '\\\\' . )*
 					loop4:
 					while (true) {
 						int alt4=3;
@@ -769,7 +769,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt4) {
 						case 1 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:189:18: ~ ( '\"' | '\\\\' )
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:208:18: ~ ( '\"' | '\\\\' )
 							{
 							if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
 								input.consume();
@@ -782,7 +782,7 @@ public class QLLexer extends Lexer {
 							}
 							break;
 						case 2 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:189:35: '\\\\' .
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:208:35: '\\\\' .
 							{
 							match('\\'); 
 							matchAny(); 
@@ -798,10 +798,10 @@ public class QLLexer extends Lexer {
 					}
 					break;
 				case 2 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:190:12: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:209:12: '\\'' (~ ( '\\'' | '\\\\' ) | '\\\\' . )* '\\''
 					{
 					match('\''); 
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:190:17: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:209:17: (~ ( '\\'' | '\\\\' ) | '\\\\' . )*
 					loop5:
 					while (true) {
 						int alt5=3;
@@ -815,7 +815,7 @@ public class QLLexer extends Lexer {
 
 						switch (alt5) {
 						case 1 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:190:18: ~ ( '\\'' | '\\\\' )
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:209:18: ~ ( '\\'' | '\\\\' )
 							{
 							if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&')||(input.LA(1) >= '(' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
 								input.consume();
@@ -828,7 +828,7 @@ public class QLLexer extends Lexer {
 							}
 							break;
 						case 2 :
-							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:190:35: '\\\\' .
+							// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:209:35: '\\\\' .
 							{
 							match('\\'); 
 							matchAny(); 
@@ -862,8 +862,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:193:9: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:193:11: ( ' ' | '\\t' | '\\n' | '\\r' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:212:9: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:212:11: ( ' ' | '\\t' | '\\n' | '\\r' )
 			{
 			if ( (input.LA(1) >= '\t' && input.LA(1) <= '\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
 				input.consume();
@@ -890,12 +890,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = SComment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:194:9: ( '//' (~ ( '\\r' | '\\n' ) )* )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:194:11: '//' (~ ( '\\r' | '\\n' ) )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:213:9: ( '//' (~ ( '\\r' | '\\n' ) )* )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:213:11: '//' (~ ( '\\r' | '\\n' ) )*
 			{
 			match("//"); 
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:194:16: (~ ( '\\r' | '\\n' ) )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:213:16: (~ ( '\\r' | '\\n' ) )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -941,12 +941,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = MComment;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:195:9: ( '/*' ( . )* '*/' )
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:195:11: '/*' ( . )* '*/'
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:214:9: ( '/*' ( . )* '*/' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:214:11: '/*' ( . )* '*/'
 			{
 			match("/*"); 
 
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:195:16: ( . )*
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:214:16: ( . )*
 			loop8:
 			while (true) {
 				int alt8=2;
@@ -967,7 +967,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt8) {
 				case 1 :
-					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:195:16: .
+					// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:214:16: .
 					{
 					matchAny(); 
 					}
@@ -995,7 +995,7 @@ public class QLLexer extends Lexer {
 	// $ANTLR start "Digit"
 	public final void mDigit() throws RecognitionException {
 		try {
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:197:17: ( '0' .. '9' )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:216:17: ( '0' .. '9' )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:
 			{
 			if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -1018,7 +1018,7 @@ public class QLLexer extends Lexer {
 	// $ANTLR start "Letter"
 	public final void mLetter() throws RecognitionException {
 		try {
-			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:198:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
+			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:217:17: ( ( 'a' .. 'z' | 'A' .. 'Z' ) )
 			// C:\\GIT\\sea-of-ql\\ruudvanderweijde\\sea-of-ql\\ruudvanderweijde\\src\\org\\uva\\sea\\ql\\parser\\QL.g:
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
