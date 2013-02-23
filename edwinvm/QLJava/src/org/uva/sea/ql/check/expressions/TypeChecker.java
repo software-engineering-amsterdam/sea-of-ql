@@ -1,7 +1,7 @@
 package org.uva.sea.ql.check.expressions;
 
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
@@ -47,7 +47,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(Add ast) { return checkArithmeticExpression(ast, "+"); }
+	public Boolean visit(Addition ast) { return checkArithmeticExpression(ast, "+"); }
 	@Override
 	public Boolean visit(Div ast) { return checkArithmeticExpression(ast, "/"); }
 	@Override

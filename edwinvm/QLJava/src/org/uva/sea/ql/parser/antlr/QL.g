@@ -80,7 +80,7 @@ mulExpression returns [Expression result]
 addExpression returns [Expression result]
     :   lhs=mulExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpression
     { 
-        if ($op.text.equals("+")) { $result = new Add($result, rhs); }
+        if ($op.text.equals("+")) { $result = new Addition($result, rhs); }
         if ($op.text.equals("-")) { $result = new Sub($result, rhs); }
     })*
     ;

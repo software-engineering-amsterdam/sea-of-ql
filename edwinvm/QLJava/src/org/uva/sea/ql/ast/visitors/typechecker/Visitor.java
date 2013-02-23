@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.visitors.typechecker;
 
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
@@ -24,7 +24,7 @@ import org.uva.sea.ql.ast.expressions.unary.Pos;
 public interface Visitor<T> {
 	
 	// Binary arithmetic expressions
-	T visit(Add ast);
+	T visit(Addition ast);
 	T visit(Div ast);
 	T visit(Sub ast);
 	T visit(Mul ast);

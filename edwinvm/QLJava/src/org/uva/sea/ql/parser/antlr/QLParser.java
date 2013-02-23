@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 20:41:55
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 21:09:24
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -1049,7 +1049,7 @@ public class QLParser extends Parser {
             	    if (state.failed) return result;
 
             	    if ( state.backtracking==0 ) { 
-            	            if ((op!=null?op.getText():null).equals("+")) { result = new Add(result, rhs); }
+            	            if ((op!=null?op.getText():null).equals("+")) { result = new Addition(result, rhs); }
             	            if ((op!=null?op.getText():null).equals("-")) { result = new Sub(result, rhs); }
             	        }
 
