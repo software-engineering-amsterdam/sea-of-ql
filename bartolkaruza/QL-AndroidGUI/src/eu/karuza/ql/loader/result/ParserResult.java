@@ -1,4 +1,4 @@
-package eu.karuza.ql.loader;
+package eu.karuza.ql.loader.result;
 
 import eu.karuza.ql.parser.ParserContext;
 

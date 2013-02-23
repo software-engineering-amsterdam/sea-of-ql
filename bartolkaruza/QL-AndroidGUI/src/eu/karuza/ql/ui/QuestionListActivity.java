@@ -11,18 +11,18 @@ import android.view.View;
 import android.widget.Toast;
 import eu.karuza.ql.R;
 import eu.karuza.ql.loader.FormLoader;
-import eu.karuza.ql.loader.LoaderResult;
-import eu.karuza.ql.loader.ParserResult;
 import eu.karuza.ql.loader.StoreLoader;
-import eu.karuza.ql.loader.StoreResult;
+import eu.karuza.ql.loader.result.LoaderResult;
+import eu.karuza.ql.loader.result.ParserResult;
+import eu.karuza.ql.loader.result.StoreResult;
 import eu.karuza.ql.parser.ParserContext;
 
 public class QuestionListActivity extends Activity implements LoaderCallbacks<LoaderResult> {
 
 	private int retryAttempt = 0;
 
-	private final static int GET_SURVEY_LOADER = 0;
-	private final static int STORE_SURVEY_LOADER = 1;
+	private static final int GET_SURVEY_LOADER = 0;
+	private static final int STORE_SURVEY_LOADER = 1;
 
 	private ParserContext context = null;
 
