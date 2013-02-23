@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.FormStatement;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Str;
 

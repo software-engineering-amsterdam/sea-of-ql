@@ -1,15 +1,16 @@
 package org.uva.sea.ql.check.statements;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.FormStatement;
-import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.statements.ConditionBlock;
+import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.statements.conditions.IfThen;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
 import org.uva.sea.ql.parser.ErrorMessages;
@@ -32,14 +33,14 @@ public class StatementChecker implements Visitor {
 	@Override
 	public void visit(IfThen statement) {
 		checkCondition(statement);
-		statement.getBody().accept(this);
+		checkBody(statement.getBody());
 	}
 	
 	@Override
 	public void visit(IfThenElse statement) {
 		checkCondition(statement);
-		statement.getBody().accept(this);
-		statement.getElseBody().accept(this);
+		checkBody(statement.getBody());
+		checkBody(statement.getElseBody());
 	}
 
 	@Override
@@ -65,6 +66,12 @@ public class StatementChecker implements Visitor {
 	private void checkName(Question statement, Type type) {
 		Ident questionVariable = statement.getVariable();
 		checkQuestionCompatibility(questionVariable, type);
+	}
+	
+	private void checkBody(StatementBody body) {
+		for (FormStatement statement: body.getStatements()) {
+			check(statement);
+		}
 	}
 	
 	private void checkQuestionCompatibility(Ident questionVariable, Type type) {

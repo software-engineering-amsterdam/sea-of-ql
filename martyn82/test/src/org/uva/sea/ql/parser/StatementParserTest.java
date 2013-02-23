@@ -51,7 +51,7 @@ public class StatementParserTest extends ParserTest implements StatementTest {
 		}
 
 		assertEquals( VariableQuestion.class, root.getClass() );
-		assertEquals( VariableDeclaration.class, ( (VariableQuestion) root ).getVarDeclaration().getClass() );
+		assertEquals( VariableDeclaration.class, ( (VariableQuestion) root ).getVariableDeclaration().getClass() );
 	}
 
 	@Test

@@ -4,7 +4,3 @@ TODO
 - make codelocation class to bundle column and linenumber QLLexer
 
 - review typecheckerhelper
-
-- test for controls
-
-- Environment (generic?) same interface, declare abstract type

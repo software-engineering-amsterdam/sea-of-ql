@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statements.questions;
 
-import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.statements.Question;

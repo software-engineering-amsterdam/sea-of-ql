@@ -10,12 +10,12 @@ import org.uva.sea.ql.ui.control.TextFieldControl;
 import org.uva.sea.ql.ui.control.WindowControl;
 
 abstract public class ControlFactory {
+	abstract public ButtonControl createButton( String text );
 	abstract public CheckBoxControl createCheckBox();
+	abstract public LabelControl createLabel( String text );
 	abstract public MoneyFieldControl createMoneyBox();
 	abstract public NumberFieldControl createNumberBox();
-	abstract public TextFieldControl createTextBox();
 	abstract public PanelControl createPanel();
+	abstract public TextFieldControl createTextBox();
 	abstract public WindowControl createWindow( String title, PanelControl panel );
-	abstract public LabelControl createLabel( String text );
-	abstract public ButtonControl createButton( String text );
 }

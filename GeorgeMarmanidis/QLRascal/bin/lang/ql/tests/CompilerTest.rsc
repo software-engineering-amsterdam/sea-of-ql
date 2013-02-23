@@ -7,7 +7,7 @@ import IO;
 import lang::ql::compiler::CompileForm;
 
 public void compTest(){
-Form a=load(|project://SofConstr/exampleForms/test4.q|);
+Form a=load(|project://SofConstr/exampleForms/test5.q|);
 
-compileForm(a,|project://SofConstr/|);
+compileForm(a,|project://SofConstr/exampleForms/test5.q|);
 }
