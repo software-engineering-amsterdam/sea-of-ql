@@ -9,6 +9,11 @@ public class QLFrontEndException extends Exception {
 	
 	private String message;
 	
+	public QLFrontEndException(Exception e) {
+		this.message = e.getLocalizedMessage();
+		setStackTrace(e.getStackTrace());
+	}
+	
 	public QLFrontEndException() {
 		
 	}
@@ -19,7 +24,7 @@ public class QLFrontEndException extends Exception {
 	
 	@Override
 	public String getLocalizedMessage() {
-		if(message != null || !message.equals("")) {
+		if(message != null && !message.equals("")) {
 			return message;
 		} else {
 			return super.getLocalizedMessage();
