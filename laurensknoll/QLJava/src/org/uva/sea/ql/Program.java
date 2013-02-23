@@ -14,7 +14,7 @@ import org.uva.sea.ql.parser.test.form.Parser;
 import org.uva.sea.ql.save.SaveBehaviour;
 import org.uva.sea.ql.save.Xml;
 import org.uva.sea.ql.visitor.IForm;
-import org.uva.sea.ql.visitor.eval.Application;
+import org.uva.sea.ql.visitor.eval.ui.Application;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {

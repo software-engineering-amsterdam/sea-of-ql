@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
 import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.eval.ui.Application;
 
 public class Form implements IForm<Application> {
 

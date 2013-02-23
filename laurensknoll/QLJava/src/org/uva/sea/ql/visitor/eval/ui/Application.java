@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval;
+package org.uva.sea.ql.visitor.eval.ui;
 
 import java.util.Map;
 import java.util.Observable;
@@ -7,6 +7,8 @@ import java.util.Observer;
 import javax.swing.JFrame;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
+import org.uva.sea.ql.visitor.eval.Environment;
+import org.uva.sea.ql.visitor.eval.FormData;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Application extends Observable implements Observer {
