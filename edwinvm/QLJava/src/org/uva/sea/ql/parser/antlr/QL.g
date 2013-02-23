@@ -36,13 +36,13 @@ formStatement returns [FormStatement result]
 
 question returns [Question result]
     :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), t); }
-    |   String Ident '=' e=orExpression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $e.result); }
+    |   String Ident '=' e=expression { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $e.result); }
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpression ')' ifBody=statementBody 'else' elseBody=statementBody
+    :   'if' '(' condition=expression ')' ifBody=statementBody 'else' elseBody=statementBody
         { $result = new IfThenElse(condition, ifBody, elseBody); }
-    |   'if' '(' condition=orExpression ')' ifBody=statementBody
+    |   'if' '(' condition=expression ')' ifBody=statementBody
         { $result = new IfThen(condition, ifBody); }
     ;
 
@@ -59,7 +59,7 @@ primary returns [Expression result]
     |   Money  { $result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
     |   String { $result = new org.uva.sea.ql.ast.expressions.literal.Str($String.text); }
     |   Ident  { $result = new Ident($Ident.text); }
-    |   '(' x=orExpression ')'{ $result = $x.result; }
+    |   '(' x=expression ')'{ $result = $x.result; }
     ;
     
 unaryExpression returns [Expression result]
@@ -97,13 +97,17 @@ relationalExpression returns [Expression result]
     })*
     ;
     
-andExpression returns [Expression result]
-    :   lhs=relationalExpression { $result=$lhs.result; } ( '&&' rhs=relationalExpression { $result = new And($result, rhs); } )*
+logicallyEquivalentExpression returns [Expression result]
+    :   lhs=relationalExpression { $result=$lhs.result; } ( '&&' rhs=relationalExpression { $result = new LogicallyEquivalentExpression($result, rhs); } )*
     ;
     
 
-orExpression returns [Expression result]
-    :   lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
+logicallyNotEquivalentExpression returns [Expression result]
+    :   lhs=logicallyEquivalentExpression { $result = $lhs.result; } ( '||' rhs=logicallyEquivalentExpression { $result = new LogicallyNotEquivalentExpression($result, rhs); } )*
+    ;
+
+expression returns [Expression result]
+    :   getExpression=logicallyNotEquivalentExpression { $result = getExpression; }
     ;
 
 type returns [Type result]
