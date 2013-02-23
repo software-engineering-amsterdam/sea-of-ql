@@ -77,16 +77,16 @@ multiplicationExpression returns [Expression result]
     })*
     ;
     
-addExpression returns [Expression result]
+additionExpression returns [Expression result]
     :   lhs=multiplicationExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=multiplicationExpression
     { 
         if ($op.text.equals("+")) { $result = new Addition($result, rhs); }
-        if ($op.text.equals("-")) { $result = new Sub($result, rhs); }
+        if ($op.text.equals("-")) { $result = new Subtraction($result, rhs); }
     })*
     ;
   
 relExpression returns [Expression result]
-    :   lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
+    :   lhs=additionExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=additionExpression 
     { 
         if ($op.text.equals("<"))  { $result = new LT($result, rhs);  }
         if ($op.text.equals("<=")) { $result = new LEq($result, rhs); }

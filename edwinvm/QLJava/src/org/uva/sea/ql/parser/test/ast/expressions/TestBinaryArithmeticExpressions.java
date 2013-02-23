@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
 import org.uva.sea.ql.parser.ParseError;
 
 public class TestBinaryArithmeticExpressions extends ExpressionParserChecker {
@@ -40,7 +40,7 @@ public class TestBinaryArithmeticExpressions extends ExpressionParserChecker {
 	
 	@Test
 	public void testSubs() throws ParseError {
-		expressionMatchesASTClass("a - b",       Sub.class);
-		expressionMatchesASTClass("a - (b * c)", Sub.class);
+		expressionMatchesASTClass("a - b",       Subtraction.class);
+		expressionMatchesASTClass("a - (b * c)", Subtraction.class);
 	}
 }
