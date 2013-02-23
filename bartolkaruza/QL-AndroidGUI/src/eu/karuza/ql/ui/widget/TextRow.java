@@ -1,4 +1,4 @@
-package eu.karuza.ql.widget;
+package eu.karuza.ql.ui.widget;
 
 import android.view.KeyEvent;
 import android.view.View;
@@ -6,9 +6,9 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.widget.EditText;
 import eu.karuza.ql.R;
-import eu.karuza.ql.ast.AnswerableQuestion;
 import eu.karuza.ql.ast.Question;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.ui.FormAdapter.Callbacks;
 
 public class TextRow implements RowWrapper, OnKeyListener, OnFocusChangeListener {

@@ -1,4 +1,4 @@
-package eu.karuza.ql.widget;
+package eu.karuza.ql.ui.widget;
 
 
 import eu.karuza.ql.ast.Question;

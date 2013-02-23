@@ -1,4 +1,4 @@
-package eu.karuza.ql.widget;
+package eu.karuza.ql.ui.widget;
 
 
 
@@ -7,9 +7,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import eu.karuza.ql.R;
-import eu.karuza.ql.ast.AnswerableQuestion;
 import eu.karuza.ql.ast.Question;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.ui.FormAdapter.Callbacks;
 
 public class CheckBoxRow implements RowWrapper, OnCheckedChangeListener {

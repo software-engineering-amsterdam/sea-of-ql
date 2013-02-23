@@ -1,12 +1,12 @@
-package eu.karuza.ql.widget;
+package eu.karuza.ql.ui.widget;
 
 
 
 import android.view.View;
 import android.widget.TextView;
 import eu.karuza.ql.R;
-import eu.karuza.ql.ast.ComputedQuestion;
 import eu.karuza.ql.ast.Question;
+import eu.karuza.ql.ast.statement.ComputedQuestion;
 import eu.karuza.ql.ui.FormAdapter.Callbacks;
 
 public class ValueRow implements RowWrapper {
