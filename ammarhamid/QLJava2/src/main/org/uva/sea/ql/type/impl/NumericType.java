@@ -24,4 +24,9 @@ public class NumericType extends Type
         return true;
     }
 
+    @Override
+    public String toString()
+    {
+        return "numeric";
+    }
 }

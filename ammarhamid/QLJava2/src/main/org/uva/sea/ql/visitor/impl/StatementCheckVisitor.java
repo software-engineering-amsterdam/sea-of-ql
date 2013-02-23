@@ -8,6 +8,7 @@ import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
 import org.uva.sea.ql.ast.statement.impl.ComputedNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 import java.util.Collection;
@@ -29,13 +30,24 @@ public class StatementCheckVisitor implements StatementVisitor
     @Override
     public void visit(AssignmentNode assignmentNode)
     {
-        validateVariableName(assignmentNode);
+        validateVariableName(assignmentNode.getIdentifierNode());
     }
 
     @Override
     public void visit(ComputedNode computedNode)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        IdentifierNode identifierNode = computedNode.getIdentifierNode();
+        validateVariableName(identifierNode);
+
+        final ExprNode exprNode = computedNode.getExprNode();
+        exprNode.validate(errors);
+        Type computedNodeType = computedNode.getType();
+        Type exprNodeType = exprNode.getType();
+        boolean compatible = exprNodeType.isCompatibleTo(computedNodeType);
+        if(!compatible)
+        {
+            this.errors.add(new Message("Mismatch computed type for " + identifierNode + ": "+ computedNodeType +" and "+ exprNodeType + ": ", exprNode));
+        }
     }
 
     @Override
@@ -44,15 +56,12 @@ public class StatementCheckVisitor implements StatementVisitor
         List<IfNode.Branch> branches = ifNode.getBranches();
         for(final IfNode.Branch branch : branches)
         {
-            validateExpression(branch);
+            // validate expression
+            final ExprNode exprNode = branch.getExprNode();
+            exprNode.validate(errors);
+
             validateBlock(branch);
         }
-    }
-
-    private void validateExpression(IfNode.Branch branch)
-    {
-        final ExprNode exprNode = branch.getExprNode();
-        exprNode.validate(errors);
     }
 
     private void validateBlock(IfNode.Branch branch)
@@ -65,9 +74,8 @@ public class StatementCheckVisitor implements StatementVisitor
         }
     }
 
-    private void validateVariableName(AssignmentNode assignmentNode)
+    private void validateVariableName(IdentifierNode identifierNode)
     {
-        final IdentifierNode identifierNode = assignmentNode.getIdentifierNode();
         if(this.declaredVariables.contains(identifierNode))
         {
             errors.add(new Message("Variable is already defined: ", identifierNode));

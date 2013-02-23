@@ -24,4 +24,9 @@ public class StringType extends Type
         return true;
     }
 
+    @Override
+    public String toString()
+    {
+        return "string";
+    }
 }

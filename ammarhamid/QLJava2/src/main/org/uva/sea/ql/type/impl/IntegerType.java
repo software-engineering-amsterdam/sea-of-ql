@@ -24,4 +24,10 @@ public class IntegerType extends NumericType
         return true;
     }
 
+    @Override
+    public String toString()
+    {
+        return "integer";
+    }
+
 }

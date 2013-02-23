@@ -24,4 +24,9 @@ public class MoneyType extends NumericType
         return true;
     }
 
+    @Override
+    public String toString()
+    {
+        return "money";
+    }
 }

@@ -18,4 +18,9 @@ public class UndefinedType extends Type
         throw new UnsupportedOperationException("Unsupported operation: UNDEFINED type");
     }
 
+    @Override
+    public String toString()
+    {
+        return "UNDEFINED";
+    }
 }
