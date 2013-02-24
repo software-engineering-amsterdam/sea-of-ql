@@ -31,7 +31,6 @@ import org.uva.sea.ql.errors.QLError;
 public class ExprTypeChecker implements IExprVisitor<Boolean> {
 	
 	private final Map<String, Type> typeEnvironment;
-	//private final List<String> errors;
 	private final List<QLError> errors;
 	
 	public ExprTypeChecker(Map<String, Type> typeEnvironment, List<QLError> errors) {

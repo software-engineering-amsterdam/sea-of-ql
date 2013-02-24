@@ -35,6 +35,12 @@ public class Renderer implements IStatementVisitor<Void> {
 		this.panel = new JPanel(new MigLayout());
 	}
 	
+	public Renderer(State state, JPanel customPanel) {
+		
+		this.state = state;
+		this.panel = customPanel;
+	}
+	
 	public static JPanel render(QLComponent statement, State state) {
 		
 		Renderer r = new Renderer(state);
@@ -46,8 +52,24 @@ public class Renderer implements IStatementVisitor<Void> {
 		return r.getPanel();
 	}
 	
+	//overload
+	public static JPanel render(QLComponent statement, State state, JPanel customPanel) {
+		
+		Renderer r = new Renderer(state, customPanel);
+		
+		if (statement != null) {
+			statement.accept(r);
+		}
+			
+		return r.getPanel();
+	}
+	
 	public JPanel getPanel() {
 		return panel;
+	}
+	
+	public State getState() {
+		return state;
 	}
 	
 	@Override
@@ -79,11 +101,18 @@ public class Renderer implements IStatementVisitor<Void> {
 	public Void visit(IfStatement ifStatement) {
 			
 		Expr expr = ifStatement.getExpr();
-		JPanel ifBody = render(ifStatement.getBody(),state);
+		
+		JPanel tempPanel = new JPanel(new MigLayout());
+		
+		registerConditionObserver(expr, tempPanel);
+		
+		JPanel ifBody = render(ifStatement.getBody(),state,tempPanel);
+		
+		//JPanel ifBody = render(ifStatement.getBody(),state);
 		
 		ifBody.setVisible(false);
 		
-		registerConditionObserver(expr, ifBody);
+		//registerConditionObserver(expr, ifBody);
 		
 		addStatementBodyToPanel(ifBody);
 		

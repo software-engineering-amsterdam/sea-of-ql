@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import org.uva.sea.ql.ast.Form;
@@ -72,12 +73,26 @@ public class UIGenerator {
 			
 			configureFrame(frame);
 			
+			JButton button = new JButton("Save");
+			
+			button.addActionListener(new SaveButtonListener(renderer));
+			
+			renderer.getPanel().add(button);
+			
 			frame.setContentPane(renderer.getPanel());
+			
+			
 		}
 		else {
 			errors = checker.getErrors();
 			printErrors();
 		}
+		
+		//JButton button = new JButton("Save");
+		//button.addActionListener(new SaveButtonListener(renderer));
+		
+		//frame.add(button);
+		
 	}
 	
 	private void printErrors() {

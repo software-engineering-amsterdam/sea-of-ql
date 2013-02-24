@@ -197,7 +197,6 @@ public class Evaluator implements IExprVisitor<Value> {
 		return new Bool(Boolean.parseBoolean(node.getValue()));
 	}
 
-
 	@Override
 	public Value visit(StringLiteral node) {
 		

@@ -9,6 +9,8 @@ form Box1HouseOwning {
 		privateDebt : "Private debts for the sold house:" int  
 		valueResidue : "Value residue: " int (sellingPrice - privateDebt) 
 		mirrorQ : "mirror" int (valueResidue)
+		
+		test : "test" bool 
 		  		
 	}
 	
