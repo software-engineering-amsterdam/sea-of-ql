@@ -16,9 +16,9 @@ import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.IType;
 import org.uva.sea.ql.visitor.eval.observer.Computed;
-import org.uva.sea.ql.visitor.eval.observer.Conditional;
 import org.uva.sea.ql.visitor.eval.observer.Dependency;
 import org.uva.sea.ql.visitor.eval.observer.DependencySet;
+import org.uva.sea.ql.visitor.eval.ui.ConditionalPanel;
 import org.uva.sea.ql.visitor.eval.ui.Panel;
 import org.uva.sea.ql.visitor.eval.ui.QuestionPanel;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
@@ -72,11 +72,10 @@ public class Statement implements IStatement<Panel> {
 
 		// Observe condition
 		AbstractExpr condition = ifStatement.getCondition();
-		Conditional observer = new Conditional(condition, this.environment,
+		Panel panel = new ConditionalPanel(this.environment, condition,
 				truePanel);
-		this.observeDependencies(condition, observer);
 
-		return truePanel;
+		return panel;
 	}
 
 	@Override

@@ -11,6 +11,11 @@ public class Panel extends JPanel {
 	private static final long serialVersionUID = 4659697811101808530L;
 	private final Environment environment;
 
+	public Panel(Environment environment) {
+		super();
+		this.environment = environment;
+	}
+
 	public Panel(LayoutManager layoutManager, Environment environment) {
 		super(layoutManager);
 		this.environment = environment;
