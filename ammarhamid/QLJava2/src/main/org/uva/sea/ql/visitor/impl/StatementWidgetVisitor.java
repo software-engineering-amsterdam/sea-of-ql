@@ -9,9 +9,10 @@ import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.variable.VariableState;
+import org.uva.sea.ql.visitor.StatementVisitor;
 import org.uva.sea.ql.visitor.observer.ComputedObserver;
 import org.uva.sea.ql.visitor.observer.ConditionObserver;
-import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.widget.CustomWidget;
 
 import javax.swing.*;
 import java.awt.*;
@@ -60,22 +61,15 @@ public class StatementWidgetVisitor implements StatementVisitor
         final String question = computedNode.getQuestion();
         final JPanel questionPanel = new JPanel();
         questionPanel.add(new JLabel(question));
+        addQuestionPanel(questionPanel);
 
         final JPanel typePanel = new JPanel();
         final Type type = computedNode.getType();
-        type.accept(new TypeWidgetVisitor(typePanel, computedNode.getIdentifierNode(), this.variableState, false));
-
-        addQuestionPanel(questionPanel);
+        final TypeWidgetVisitor typeWidgetVisitor = new TypeWidgetVisitor(typePanel, computedNode.getIdentifierNode(), this.variableState, false);
+        final CustomWidget customWidget = type.accept(typeWidgetVisitor);
         addTypePanel(typePanel);
 
-        ExpressionDependencyVisitor.find(computedNode.getExprNode(), computedNode, this.variableState);
-
-        // TODO SHOULD HAVE NO CASTING
-        final ComputedObserver computedObserver = new ComputedObserver(computedNode.getExprNode(), (JTextField)typePanel.getComponent(0), this.variableState.getVariables());
-        computedNode.addObserver(computedObserver);
-
-        // TODO not sure if this is necessary
-        computedObserver.update(null, null);
+        registerComputedObserver(computedNode, customWidget);
     }
 
     @Override
@@ -103,17 +97,26 @@ public class StatementWidgetVisitor implements StatementVisitor
             branchComponents.add(new ConditionObserver.BranchComponent(branch, components));
             ExpressionDependencyVisitor.find(branch.getExprNode(), ifNode, this.variableState);
         }
-        ConditionObserver conditionObserver = registerConditionObserver(ifNode, branchComponents, this.variableState.getVariables());
 
-        // trigger if there is an 'else' statement to be initialize
-        conditionObserver.update(null, null);
+        registerConditionObserver(ifNode, branchComponents, this.variableState.getVariables());
     }
 
     private ConditionObserver registerConditionObserver(final IfNode ifNode, final List<ConditionObserver.BranchComponent> branchComponents, final Map<IdentifierNode, Value> variables)
     {
         ConditionObserver conditionObserver = new ConditionObserver(this.frame, branchComponents, variables);
         ifNode.addObserver(conditionObserver);
+
+        // trigger if there is an 'else' statement to be initialize
+        conditionObserver.update(null, null);
+
         return conditionObserver;
+    }
+
+    private void registerComputedObserver(ComputedNode computedNode, CustomWidget customWidget)
+    {
+        ExpressionDependencyVisitor.find(computedNode.getExprNode(), computedNode, this.variableState);
+        final ComputedObserver computedObserver = new ComputedObserver(computedNode.getExprNode(), customWidget, this.variableState.getVariables());
+        computedNode.addObserver(computedObserver);
     }
 
     public JPanel getPanel()

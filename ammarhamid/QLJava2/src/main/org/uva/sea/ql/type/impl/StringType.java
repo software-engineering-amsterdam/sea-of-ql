@@ -1,15 +1,16 @@
 package org.uva.sea.ql.type.impl;
 
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.visitor.TypeVisitor;
+import org.uva.sea.ql.visitor.impl.TypeWidgetVisitor;
+import org.uva.sea.ql.visitor.widget.CustomWidget;
 
 public class StringType extends Type
 {
 
     @Override
-    public void accept(TypeVisitor typeVisitor)
+    public CustomWidget accept(TypeWidgetVisitor typeWidgetVisitor)
     {
-        typeVisitor.visit(this);
+        return typeWidgetVisitor.visit(this);
     }
 
     @Override

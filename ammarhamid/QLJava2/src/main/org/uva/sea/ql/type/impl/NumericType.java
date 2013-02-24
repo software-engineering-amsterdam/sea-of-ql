@@ -1,13 +1,14 @@
 package org.uva.sea.ql.type.impl;
 
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.visitor.TypeVisitor;
+import org.uva.sea.ql.visitor.impl.TypeWidgetVisitor;
+import org.uva.sea.ql.visitor.widget.CustomWidget;
 
 public class NumericType extends Type
 {
 
     @Override
-    public void accept(TypeVisitor typeVisitor)
+    public CustomWidget accept(TypeWidgetVisitor typeWidgetVisitor)
     {
         throw new UnsupportedOperationException("Unsupported type visitor: numeric");
     }

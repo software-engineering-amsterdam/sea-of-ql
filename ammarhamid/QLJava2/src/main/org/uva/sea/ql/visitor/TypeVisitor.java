@@ -1,14 +1,17 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.type.impl.*;
+import org.uva.sea.ql.type.impl.BooleanType;
+import org.uva.sea.ql.type.impl.IntegerType;
+import org.uva.sea.ql.type.impl.MoneyType;
+import org.uva.sea.ql.type.impl.StringType;
 
-public interface TypeVisitor
+public interface TypeVisitor<T>
 {
-    void visit(BooleanType booleanType);
+    T visit(BooleanType booleanType);
 
-    void visit(StringType stringType);
+    T visit(StringType stringType);
 
-    void visit(IntegerType integerType);
+    T visit(IntegerType integerType);
 
-    void visit(MoneyType moneyType);
+    T visit(MoneyType moneyType);
 }
