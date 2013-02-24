@@ -1,6 +1,8 @@
-package org.uva.sea.ql.ast.statements;
+package org.uva.sea.ql.ast.statements.conditions;
 
 import org.uva.sea.ql.ast.expressions.Expression;
+import org.uva.sea.ql.ast.statements.FormStatement;
+import org.uva.sea.ql.ast.statements.StatementBody;
 
 public abstract class ConditionBlock extends FormStatement {
 	private final Expression _condition;

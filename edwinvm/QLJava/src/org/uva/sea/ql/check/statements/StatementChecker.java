@@ -2,10 +2,10 @@ package org.uva.sea.ql.check.statements;
 
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
-import org.uva.sea.ql.ast.statements.ConditionBlock;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.StatementBody;
+import org.uva.sea.ql.ast.statements.conditions.ConditionBlock;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
 import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
