@@ -2,11 +2,11 @@ package org.uva.sea.ql.semanticCheck;
 
 import java.util.List;
 import java.util.Map;
-import org.uva.sea.ql.ast.expressions.values.Bool;
+import org.uva.sea.ql.ast.expressions.literals.BoolLiteral;
 import org.uva.sea.ql.ast.expressions.AExpr;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.values.Int;
-import org.uva.sea.ql.ast.expressions.values.Str;
+import org.uva.sea.ql.ast.expressions.literals.IntLiteral;
+import org.uva.sea.ql.ast.expressions.literals.StrLiteral;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Add;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.And;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Div;
@@ -38,7 +38,7 @@ public class ExprChecker implements ExprVisitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(Bool ast) {
+	public Boolean visit(BoolLiteral ast) {
 		return true;
 	}
 
@@ -55,12 +55,12 @@ public class ExprChecker implements ExprVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(Int ast) {
+	public Boolean visit(IntLiteral ast) {
 		return true;
 	}
 
 	@Override
-	public Boolean visit(Str ast) {
+	public Boolean visit(StrLiteral ast) {
 		return true;
 	}
 

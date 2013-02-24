@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.expressions.binaryExpressions.*;
 import org.uva.sea.ql.ast.expressions.unaryExpressions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.expressions.values.*;
+import org.uva.sea.ql.ast.expressions.literals.*;
 import org.uva.sea.ql.ast.form.*;
 }
 
@@ -64,10 +64,10 @@ type returns [AType result]
     ;
 
 primary returns [AExpr result]
-    : INT             { $result = new Int(Integer.parseInt($INT.text)); }
+    : INT             { $result = new IntLiteral(Integer.parseInt($INT.text)); }
   	| IDENT           { $result = new Ident($IDENT.text); }
-  	| BOOLEAN         { $result = new Bool(Boolean.parseBoolean($BOOLEAN.text)); }
-  	| STRING_LITERAL  { $result = new Str($STRING_LITERAL.text); }
+  	| BOOLEAN         { $result = new BoolLiteral(Boolean.parseBoolean($BOOLEAN.text)); }
+  	| STRING_LITERAL  { $result = new StrLiteral($STRING_LITERAL.text); }
   	| '(' x=orExpr ')'{ $result = $x.result; }
   	;
     

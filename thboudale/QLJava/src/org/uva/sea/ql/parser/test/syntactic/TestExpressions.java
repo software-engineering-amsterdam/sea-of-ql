@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.*;
 import org.uva.sea.ql.ast.expressions.unaryExpressions.*;
 import org.uva.sea.ql.ast.expressions.*;
-import org.uva.sea.ql.ast.expressions.values.*;
+import org.uva.sea.ql.ast.expressions.literals.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -76,14 +76,14 @@ public class TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parseExpr("0").getClass(), Int.class);
-		assertEquals(parser.parseExpr("1223").getClass(), Int.class);
-		assertEquals(parser.parseExpr("234234234").getClass(), Int.class);
+		assertEquals(parser.parseExpr("0").getClass(), IntLiteral.class);
+		assertEquals(parser.parseExpr("1223").getClass(), IntLiteral.class);
+		assertEquals(parser.parseExpr("234234234").getClass(), IntLiteral.class);
 	}
 	
 	@Test
 	 public void testBooleans() throws ParseError {
-	 	assertEquals(parser.parseExpr("true").getClass(), Bool.class);
-	 	assertEquals(parser.parseExpr("false").getClass(), Bool.class);
+	 	assertEquals(parser.parseExpr("true").getClass(), BoolLiteral.class);
+	 	assertEquals(parser.parseExpr("false").getClass(), BoolLiteral.class);
 	 }
 }

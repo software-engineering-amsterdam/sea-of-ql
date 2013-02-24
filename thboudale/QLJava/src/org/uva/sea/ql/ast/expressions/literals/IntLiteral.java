@@ -1,25 +1,26 @@
-package org.uva.sea.ql.ast.expressions.values;
+package org.uva.sea.ql.ast.expressions.literals;
 
 import java.util.Map;
+
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.AType;
-import org.uva.sea.ql.ast.types.StringType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.semanticCheck.ExprVisitor;
 
-public class Str extends AValue {
-	private final String value;
+public class IntLiteral extends ALiteral {
+	private final int value;
 
-	public Str(String n) {
+	public IntLiteral(int n) {
 		this.value = n;
 	}
 
-	public String getValue() {
+	public int getValue() {
 		return value;
 	}
 	
 	@Override
 	public AType typeOf(Map<Ident, AType> typeEnv) {
-		return new StringType();
+		return new IntType();
 	}
 	
 	@Override
