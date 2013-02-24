@@ -7,4 +7,7 @@ form Box1HouseOwning2 {
      privateDebt: "Private debts for the sold house:" money
      valueResidue: "Value residue:" sellingPrice - privateDebt
    }
+   stringTest: "Enter your name:" string
+   intTest: "Enter your age:" integer
+   intValue: "in 5 years, your age will be:" intTest + 5
 }

@@ -17,7 +17,7 @@ import eu.karuza.ql.parser.antlr.ANTLRParser;
 import eu.karuza.ql.visitor.impl.StatementSemanticChecker;
 
 @SuppressWarnings("serial")
-public class QL_Survey_GetServlet extends HttpServlet {
+public class GetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		InputStream stream = getServletContext().getResourceAsStream("/WEB-INF/QL");
 		String formString = readForm(stream);

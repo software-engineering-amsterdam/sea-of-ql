@@ -23,7 +23,7 @@ import eu.karuza.ql.FormResult;
 import eu.karuza.ql.QuestionResult;
 
 @SuppressWarnings("serial")
-public class QL_Survey_DisplayServlet extends HttpServlet {
+public class DisplayServlet extends HttpServlet {
 
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss S");
 

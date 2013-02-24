@@ -20,7 +20,7 @@ import eu.karuza.ql.FormResult;
 import eu.karuza.ql.ServerResult;
 
 @SuppressWarnings("serial")
-public class QL_Survey_StoreServlet extends HttpServlet {
+public class StoreServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
