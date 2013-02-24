@@ -95,7 +95,6 @@ public class StatementWidgetVisitor implements StatementVisitor
             }
 
             branchComponents.add(new ConditionObserver.BranchComponent(branch, components));
-            ExpressionDependencyVisitor.find(branch.getExprNode(), ifNode, this.variableState);
         }
 
         registerConditionObserver(ifNode, branchComponents, this.variableState.getVariables());
@@ -108,13 +107,11 @@ public class StatementWidgetVisitor implements StatementVisitor
 
         // trigger if there is an 'else' statement to be initialize
         conditionObserver.update(null, null);
-
         return conditionObserver;
     }
 
     private void registerComputedObserver(ComputedNode computedNode, CustomWidget customWidget)
     {
-        ExpressionDependencyVisitor.find(computedNode.getExprNode(), computedNode, this.variableState);
         final ComputedObserver computedObserver = new ComputedObserver(computedNode.getExprNode(), customWidget, this.variableState.getVariables());
         computedNode.addObserver(computedObserver);
     }

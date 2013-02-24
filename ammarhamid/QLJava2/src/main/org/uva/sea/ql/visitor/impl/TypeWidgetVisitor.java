@@ -130,7 +130,7 @@ public class TypeWidgetVisitor implements TypeVisitor<CustomWidget>
                 }
                 catch(NumberFormatException nfe)
                 {
-                    JOptionPane.showMessageDialog(null, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
                 }
 
                 variableState.put(TypeWidgetVisitor.this.identifierNode, new IntegerValue(value));
@@ -176,7 +176,7 @@ public class TypeWidgetVisitor implements TypeVisitor<CustomWidget>
                 }
                 catch(NumberFormatException nfe)
                 {
-                    JOptionPane.showMessageDialog(null, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
                 }
 
                 variableState.put(TypeWidgetVisitor.this.identifierNode, new MoneyValue(value));
