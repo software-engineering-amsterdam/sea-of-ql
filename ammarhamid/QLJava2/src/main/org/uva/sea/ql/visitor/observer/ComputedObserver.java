@@ -27,7 +27,5 @@ public class ComputedObserver implements Observer
     {
         Value value = this.exprNode.evaluate(this.variables);
         this.customWidget.setValue(value.toString());
-
-        // TODO also propagate the change ??
     }
 }
