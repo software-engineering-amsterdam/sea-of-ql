@@ -59,7 +59,7 @@ public class Program {
 
 			// Get created form and define close-behaviour.
 			JFrame frame = application.getGui();
-			frame.setSize(400, 600);
+			frame.setSize(700, 300);
 			frame.setVisible(true);
 			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}

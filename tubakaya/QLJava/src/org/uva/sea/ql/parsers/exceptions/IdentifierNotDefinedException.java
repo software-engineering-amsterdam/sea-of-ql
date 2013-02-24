@@ -2,7 +2,7 @@ package org.uva.sea.ql.parsers.exceptions;
 
 import org.uva.sea.ql.core.dom.Identifier;
 
-public class IdentifierNotDefinedException extends Exception {
+public class IdentifierNotDefinedException extends QLException {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -14,5 +14,10 @@ public class IdentifierNotDefinedException extends Exception {
 
 	public Identifier getIdentifier() {
 		return identifier;
+	}
+
+	@Override
+	public String ToString() {
+		return String.format("Non-defined identifier found. Identifier name : {0}",identifier.getName());
 	}
 }

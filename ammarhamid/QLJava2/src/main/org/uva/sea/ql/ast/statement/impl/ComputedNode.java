@@ -20,13 +20,6 @@ public class ComputedNode extends ObservableStatement
     }
 
     @Override
-    public void notifyObs()
-    {
-        setChanged();
-        this.notifyObservers();
-    }
-
-    @Override
     public void accept(final StatementVisitor statementVisitor)
     {
         statementVisitor.visit(this);

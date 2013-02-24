@@ -6,7 +6,7 @@ import org.uva.sea.ql.core.dom.StatementVisitor;
 
 public class Form extends Statement{
 
-	public List<Statement> statements;
+	private List<Statement> statements;
 
 	public Form(List<Statement> statements) {
 		this.statements = statements;
@@ -15,5 +15,9 @@ public class Form extends Statement{
 	@Override
 	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);
+	}
+
+	public List<Statement> getStatements() {
+		return statements;
 	}
 }

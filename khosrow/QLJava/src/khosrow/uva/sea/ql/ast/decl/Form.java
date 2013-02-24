@@ -5,16 +5,16 @@ import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.stmt.Stmts;
 
 public class Form extends ASTNode{	
-	private final Ident name;
+	private final Ident ident;
 	private final Stmts stmts;
 
-	public Form(Ident name, Stmts stmts) {
-		this.name = name;		
+	public Form(Ident ident, Stmts stmts) {
+		this.ident = ident;		
 		this.stmts = stmts;
 	}
 
-	public Ident getName() {
-		return name;
+	public Ident getIdent() {
+		return ident;
 	}
 
 	public Stmts getStmts() {
