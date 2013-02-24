@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.Location;
+import org.uva.sea.ql.ast.misc.Location;
 
 public abstract class AbstractIfThenElse extends FormElement {
 	private final Body body;

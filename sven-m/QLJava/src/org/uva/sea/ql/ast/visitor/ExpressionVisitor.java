@@ -1,31 +1,31 @@
 package org.uva.sea.ql.ast.visitor;
 
-import org.uva.sea.ql.ast.expressions.Add;
-import org.uva.sea.ql.ast.expressions.And;
-import org.uva.sea.ql.ast.expressions.Bool;
-import org.uva.sea.ql.ast.expressions.Div;
-import org.uva.sea.ql.ast.expressions.Eq;
-import org.uva.sea.ql.ast.expressions.GEq;
-import org.uva.sea.ql.ast.expressions.GT;
-import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Int;
-import org.uva.sea.ql.ast.expressions.LEq;
-import org.uva.sea.ql.ast.expressions.LT;
-import org.uva.sea.ql.ast.expressions.Mul;
-import org.uva.sea.ql.ast.expressions.NEq;
-import org.uva.sea.ql.ast.expressions.Neg;
-import org.uva.sea.ql.ast.expressions.Not;
-import org.uva.sea.ql.ast.expressions.Or;
-import org.uva.sea.ql.ast.expressions.Pos;
-import org.uva.sea.ql.ast.expressions.Str;
-import org.uva.sea.ql.ast.expressions.Sub;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.BoolLiteral;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IntLiteral;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.StrLiteral;
+import org.uva.sea.ql.ast.expression.Sub;
 
 public interface ExpressionVisitor<T> {
 	/* binary operators */
 	T visit(Add ast);
+	T visit(Sub ast);
 	T visit(Mul ast);
 	T visit(Div ast);
-	T visit(Sub ast);
 	T visit(And ast);
 	T visit(Or ast);
 	T visit(LT ast);
@@ -42,7 +42,7 @@ public interface ExpressionVisitor<T> {
 	
 	/* leaf nodes */
 	T visit(Ident ast);
-	T visit(Int ast);
-	T visit(Str ast);
-	T visit(Bool ast);
+	T visit(IntLiteral ast);
+	T visit(StrLiteral ast);
+	T visit(BoolLiteral ast);
 }

@@ -7,6 +7,8 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.form.types.*;
+import org.uva.sea.ql.ast.misc.*;
 }
 
 @lexer::header
@@ -124,8 +126,14 @@ expression returns [Expr result]
 primary returns [Expr result]
   : INT
     {
-      $result = new Int(Integer.parseInt($INT.text), new Location($INT.line,
+      $result = new IntLiteral(Integer.parseInt($INT.text), new Location($INT.line,
         $INT.pos, $INT.line, $INT.pos + $INT.text.length()));
+    }
+  | BOOL_LITERAL
+    {
+      $result = new BoolLiteral($BOOL_LITERAL.text.equals("true"), new Location(
+        $BOOL_LITERAL.line, $BOOL_LITERAL.pos, $BOOL_LITERAL.line,
+          $BOOL_LITERAL.pos + $BOOL_LITERAL.text.length()));
     }
   | IDENT
     {
@@ -134,7 +142,7 @@ primary returns [Expr result]
     }
   | STRING_LITERAL
     {
-      $result = new Str($STRING_LITERAL.text,
+      $result = new StrLiteral($STRING_LITERAL.text,
         new Location($STRING_LITERAL.line, $STRING_LITERAL.pos,
           $STRING_LITERAL.line,
           $STRING_LITERAL.pos + $STRING_LITERAL.text.length()));
@@ -217,6 +225,9 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel = HIDDEN; }
 
 COMMENT :  '/*' .* '*/' { $channel = HIDDEN; }
         ;
+
+BOOL_LITERAL  : 'true' | 'false'
+              ;
 
 IDENT : LETTER (LETTER | DIGIT | '_')*
       ;

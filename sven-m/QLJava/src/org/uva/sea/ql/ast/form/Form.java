@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.form;
 
 import org.uva.sea.ql.ast.FormNode;
-import org.uva.sea.ql.ast.Location;
+import org.uva.sea.ql.ast.misc.Location;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class Form implements FormNode {
