@@ -1,6 +1,5 @@
-package org.uva.sea.ql;
+package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.statements.Body;
 import org.uva.sea.ql.ast.statements.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.IfStatement;

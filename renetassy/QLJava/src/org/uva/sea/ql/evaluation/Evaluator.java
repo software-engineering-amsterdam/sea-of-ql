@@ -3,7 +3,7 @@ package org.uva.sea.ql.evaluation;
 import java.util.Collections;
 import java.util.Map;
 
-import org.uva.sea.ql.IExprVisitor;
+import org.uva.sea.ql.ast.IExprVisitor;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.BoolLiteral;

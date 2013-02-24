@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.expr;
 
 import java.util.Map;
 
-import org.uva.sea.ql.IExprVisitor;
+import org.uva.sea.ql.ast.IExprVisitor;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 

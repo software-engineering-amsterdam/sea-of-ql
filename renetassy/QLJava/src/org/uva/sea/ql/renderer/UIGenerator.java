@@ -9,9 +9,9 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import org.uva.sea.ql.StatementChecker;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.checkers.StatementChecker;
 import org.uva.sea.ql.errors.ParseError;
 import org.uva.sea.ql.errors.QLError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;

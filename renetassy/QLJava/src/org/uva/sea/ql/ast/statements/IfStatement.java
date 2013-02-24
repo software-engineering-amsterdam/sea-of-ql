@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.IStatementVisitor;
+import org.uva.sea.ql.ast.IStatementVisitor;
 import org.uva.sea.ql.ast.expr.Expr;
 
 public class IfStatement extends Statement {

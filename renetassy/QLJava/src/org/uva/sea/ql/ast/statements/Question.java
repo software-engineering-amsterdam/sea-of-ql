@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.IStatementVisitor;
+import org.uva.sea.ql.ast.IStatementVisitor;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;

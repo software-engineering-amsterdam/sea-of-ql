@@ -1,4 +1,4 @@
-package org.uva.sea.ql;
+package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;

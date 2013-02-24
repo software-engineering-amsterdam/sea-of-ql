@@ -1,9 +1,10 @@
-package org.uva.sea.ql;
+package org.uva.sea.ql.checkers;
 
 import java.util.List;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.IStatementVisitor;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.statements.Body;
@@ -41,7 +42,6 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 	@Override
 	public Boolean visit(Form form) {
 		
-		//Ident id = form.getID();
 		boolean checkBody = form.getBody().accept(this);
 		
 		if(!checkBody) {
@@ -83,7 +83,7 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 		}
 		
 		if (!(computedQuestion.getType().isCompatibleTo(expr.isOfType(typeEnvironment)))) {
-			errors.add( new QLError("Invalid expression in question " + computedQuestion.getID() + 
+			errors.add( new QLError("Invalid expression in question " + computedQuestion.getID().getName() + 
 					". Expected expression of type " + computedQuestion.getType()+""));
 			return false;
 		}
@@ -91,7 +91,7 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 		boolean checkExpr = ExprTypeChecker.check(expr, typeEnvironment, errors);
 		
 		if (!checkExpr) {
-			errors.add(new QLError("Invalid expression in question " + computedQuestion.getID()+""));
+			errors.add(new QLError("Invalid expression in question " + computedQuestion.getID().getName()+""));
 			return false;
 		}
 		
@@ -106,7 +106,6 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 		boolean checkCondition = ExprTypeChecker.check(expr, typeEnvironment, errors);
 		
 		if(!checkCondition) {
-			//errors.add(new StmntError("Invalid expression in condition"));
 			return false;
 		}
 		
@@ -141,8 +140,6 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 		
 		return true;
 	}
-
-	
 }
 
 	

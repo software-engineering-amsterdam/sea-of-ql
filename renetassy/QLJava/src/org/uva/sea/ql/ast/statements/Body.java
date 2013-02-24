@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statements;
 
 import java.util.List;
 
-import org.uva.sea.ql.IStatementVisitor;
+import org.uva.sea.ql.ast.IStatementVisitor;
 
 public class Body extends Statement {
 	
