@@ -26,5 +26,10 @@
 			<type>1</type>
 			<locationURI>PARENT-4-PROJECT_LOC/Downloads/miglayout-4.0-swing.jar</locationURI>
 		</link>
+		<link>
+			<name>lib/xstream-1.4.4.jar</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Downloads/xstream-1.4.4.jar</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

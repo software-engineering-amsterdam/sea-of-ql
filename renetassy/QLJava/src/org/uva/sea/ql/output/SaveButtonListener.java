@@ -1,7 +1,9 @@
-package org.uva.sea.ql.renderer;
+package org.uva.sea.ql.output;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import org.uva.sea.ql.renderer.Renderer;
 
 public class SaveButtonListener implements ActionListener {
 

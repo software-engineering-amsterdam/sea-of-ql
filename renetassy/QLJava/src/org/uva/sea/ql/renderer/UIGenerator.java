@@ -15,6 +15,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.checkers.StatementChecker;
 import org.uva.sea.ql.errors.ParseError;
 import org.uva.sea.ql.errors.QLError;
+import org.uva.sea.ql.output.SaveButtonListener;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.test.QLFileReader;
 
@@ -40,7 +41,6 @@ public class UIGenerator {
 	public static void main(String[] args) throws ParseError, IOException {
 		
 		new UIGenerator();
-
 	}
 	
 	public UIGenerator() throws ParseError, IOException {
@@ -64,34 +64,23 @@ public class UIGenerator {
 		if (typeChecking) {
 			
 			state = new State();
-			
 			renderer = new Renderer(state);
 			
 			ast.accept(renderer);
 			
 			frame = new JFrame(ast.getID().getName());
-			
 			configureFrame(frame);
 			
 			JButton button = new JButton("Save");
-			
 			button.addActionListener(new SaveButtonListener(renderer));
-			
 			renderer.getPanel().add(button);
 			
 			frame.setContentPane(renderer.getPanel());
-			
-			
 		}
 		else {
 			errors = checker.getErrors();
 			printErrors();
 		}
-		
-		//JButton button = new JButton("Save");
-		//button.addActionListener(new SaveButtonListener(renderer));
-		
-		//frame.add(button);
 		
 	}
 	
