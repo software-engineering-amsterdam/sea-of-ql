@@ -27,11 +27,15 @@ public class ComputedObserver implements Observer, InputSource {
 		this.state = state;
 	}
 
+	private State getState() {
+		return state;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		/* (Re-)Evaluate expression */
 		ExpressionEvaluator eval =
-				new ExpressionEvaluator(state.getSymbolTable());
+				new ExpressionEvaluator(getState().getSymbolTable());
 		
 		value = question.getExpression().accept(eval);
 		

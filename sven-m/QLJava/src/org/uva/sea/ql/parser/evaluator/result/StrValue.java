@@ -7,10 +7,12 @@ public class StrValue extends Value {
 		this.value = new String(value);
 	}
 	
+	@Override
 	public String getValue() {
 		return value;
 	}
 	
+	@Override
 	public <T> T accept(ValueVisitor<T> visitor) {
 		return visitor.visit(this);
 	}

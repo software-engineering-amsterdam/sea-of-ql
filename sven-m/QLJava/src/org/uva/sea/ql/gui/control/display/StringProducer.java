@@ -27,7 +27,7 @@ public class StringProducer implements ValueVisitor<String> {
 
 	@Override
 	public String visit(IntValue value) {
-		return Integer.toString(value.getIntValue());
+		return Integer.toString(value.getValue());
 	}
 
 	@Override

@@ -7,10 +7,12 @@ public class BoolValue extends Value {
 		this.value = value;
 	}
 	
-	public boolean getValue() {
+	@Override
+	public Boolean getValue() {
 		return value;
 	}
 	
+	@Override
 	public <T> T accept(ValueVisitor<T> visitor) {
 		return visitor.visit(this);
 	}

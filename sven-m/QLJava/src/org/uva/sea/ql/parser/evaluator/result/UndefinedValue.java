@@ -3,6 +3,21 @@ package org.uva.sea.ql.parser.evaluator.result;
 public class UndefinedValue extends Value {
 	
 	@Override
+	public UndefinedValue getValue() {
+		return this;
+	}
+	
+	@Override
+	public <T> T accept(ValueVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public boolean isDefined() {
+		return false;
+	}
+	
+	@Override
 	public Value add(Value val) {
 		return this;
 	}
@@ -15,10 +30,6 @@ public class UndefinedValue extends Value {
 	@Override
 	public Value addStr(StrValue val) {
 		return this;
-	}
-	
-	public <T> T accept(ValueVisitor<T> visitor) {
-		return visitor.visit(this);
 	}
 	
 	/*

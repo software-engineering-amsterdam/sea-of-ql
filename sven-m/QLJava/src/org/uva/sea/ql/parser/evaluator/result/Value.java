@@ -4,6 +4,12 @@ public abstract class Value {
 	
 	public abstract <T> T accept(ValueVisitor<T> visitor);
 	
+	public abstract Object getValue();
+	
+	public boolean isDefined() {
+		return true;
+	}
+	
 	/*
 	 * Adding (overloaded)
 	 */

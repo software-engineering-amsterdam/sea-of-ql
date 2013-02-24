@@ -7,10 +7,12 @@ public class IntValue extends Value {
 		this.value = value;
 	}
 	
-	public int getIntValue() {
+	@Override
+	public Integer getValue() {
 		return value;
 	}
 	
+	@Override
 	public <T> T accept(ValueVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
@@ -25,7 +27,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value addInt(IntValue val) {
-		return new IntValue(val.getIntValue() + this.getIntValue());
+		return new IntValue(val.getValue() + this.getValue());
 	}
 	
 	@Override
@@ -35,7 +37,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value subInt(IntValue val) {
-		return new IntValue(val.getIntValue() - this.getIntValue());
+		return new IntValue(val.getValue() - this.getValue());
 	}
 	
 	@Override
@@ -45,7 +47,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value mulInt(IntValue val) {
-		return new IntValue(val.getIntValue() * this.getIntValue());
+		return new IntValue(val.getValue() * this.getValue());
 	}
 	
 	@Override
@@ -55,7 +57,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value divInt(IntValue val) {
-		return new IntValue(val.getIntValue() / this.getIntValue());
+		return new IntValue(val.getValue() / this.getValue());
 	}
 	
 	@Override
@@ -65,7 +67,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value neg() {
-		return new IntValue(-getIntValue());
+		return new IntValue(-getValue());
 	}
 	
 	
@@ -79,7 +81,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value ltInt(IntValue val) {
-		return new BoolValue(val.getIntValue() < this.getIntValue());
+		return new BoolValue(val.getValue() < this.getValue());
 	}
 	
 	@Override
@@ -89,7 +91,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value leqInt(IntValue val) {
-		return new BoolValue(val.getIntValue() <= this.getIntValue());
+		return new BoolValue(val.getValue() <= this.getValue());
 	}
 	
 	@Override
@@ -99,7 +101,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value eqInt(IntValue val) {
-		return new BoolValue(val.getIntValue() == this.getIntValue());
+		return new BoolValue(val.getValue() == this.getValue());
 	}
 	
 	@Override
@@ -109,7 +111,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value neqInt(IntValue val) {
-		return new BoolValue(val.getIntValue() != this.getIntValue());
+		return new BoolValue(val.getValue() != this.getValue());
 	}
 	
 	@Override
@@ -119,7 +121,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value geqInt(IntValue val) {
-		return new BoolValue(val.getIntValue() >= this.getIntValue());
+		return new BoolValue(val.getValue() >= this.getValue());
 	}
 	
 	@Override
@@ -129,7 +131,7 @@ public class IntValue extends Value {
 	
 	@Override
 	public Value gtInt(IntValue val) {
-		return new BoolValue(val.getIntValue() > this.getIntValue());
+		return new BoolValue(val.getValue() > this.getValue());
 	}
 	
 }

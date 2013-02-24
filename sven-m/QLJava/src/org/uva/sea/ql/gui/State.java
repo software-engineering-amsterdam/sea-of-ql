@@ -2,6 +2,7 @@ package org.uva.sea.ql.gui;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +22,13 @@ public class State {
 		observables.get(ident).addObserver(observer);
 	}
 	
+	public void addObserverToAll(Observer observer) {
+		for (Entry<Ident, Observable> observable : observables.entrySet())
+		{
+			observable.getValue().addObserver(observer);
+		}
+	}
+	
 	public void putObservable(Ident ident, Observable observable) {
 	     observables.put(ident,  observable);
 	}
@@ -33,11 +41,4 @@ public class State {
 		symbolTable.put(ident, value);
 	}
 	
-	public Value getValue(Ident ident) {
-		return symbolTable.get(ident);
-	}
-	
-	public void notify(Ident ident) {
-		observables.get(ident).notifyObservers();
-	}
 }

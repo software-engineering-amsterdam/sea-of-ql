@@ -28,8 +28,5 @@ public class ObservableQuestion extends Observable implements InputSourceDelegat
 		notifyObservers();
 		clearChanged();
 	}
-
-	
-	
 	
 }
