@@ -1,7 +1,6 @@
-package org.uva.sea.ql.ast.statements;
+package org.uva.sea.ql.ast.statements.questions;
 
-import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
-import org.uva.sea.ql.ast.statements.questions.QuestionVariable;
+import org.uva.sea.ql.ast.statements.FormStatement;
 
 public abstract class Question extends FormStatement {
 	private final QuestionLabel _label;

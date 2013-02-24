@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.statements.questions;
 
-import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
