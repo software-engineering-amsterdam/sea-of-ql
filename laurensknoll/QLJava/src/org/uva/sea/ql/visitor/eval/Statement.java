@@ -3,6 +3,8 @@ package org.uva.sea.ql.visitor.eval;
 import java.awt.GridLayout;
 import java.util.Observer;
 
+import javax.swing.BoxLayout;
+
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.String;
@@ -33,7 +35,8 @@ public class Statement implements IStatement<Panel> {
 
 	@Override
 	public Panel visit(Block block) {
-		Panel panel = new Panel(new GridLayout(0, 1), this.environment);
+		Panel panel = new Panel(this.environment);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		Environment innerEnvironment = this.environment.getChildEnvironment();
 		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
@@ -75,6 +78,8 @@ public class Statement implements IStatement<Panel> {
 		Panel panel = new ConditionalPanel(this.environment, condition,
 				truePanel);
 
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
 		return panel;
 	}
 
@@ -86,8 +91,9 @@ public class Statement implements IStatement<Panel> {
 		IType<Widget> typeVisitor = new Type();
 		Widget widget = type.accept(typeVisitor);
 
-		Panel panel = new QuestionPanel(new GridLayout(0, 2), this.environment,
+		Panel panel = new QuestionPanel(this.environment,
 				questionLabel.getValue(), widget);
+		panel.setLayout(new GridLayout(1, 2));
 
 		Ident id = question.getIdent();
 		this.environment.declare(id, widget);
