@@ -6,9 +6,8 @@ import net.miginfocom.swing.MigLayout;
 
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.Computed;
-import org.uva.sea.ql.ast.form.ElseIfStatement;
-import org.uva.sea.ql.ast.form.ElseStatement;
 import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.form.IfElseStatement;
 import org.uva.sea.ql.ast.form.IfStatement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
@@ -55,17 +54,11 @@ public class Renderer implements FormVisitor<Void> {
 	}
 
 	@Override
-	public Void visit(ElseIfStatement ast) {
+	public Void visit(IfElseStatement ast) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public Void visit(ElseStatement ast) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public Void visit(Question ast) {
 		// TODO Auto-generated method stub

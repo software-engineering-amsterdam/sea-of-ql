@@ -89,29 +89,22 @@ type returns [Type result]
     }
   ;
 
-ifStatement returns [IfStatement result]
+ifStatement returns [AbstractConditional result]
   @init {
-    List<ElseIfStatement> elseIfs = new ArrayList<>();
-    ElseStatement elseStmt = null;
+    Body elseBody = null;
   }
-  : ifTok='if' '(' ic=expression ')' ib=body
+  : ifTok='if' '(' cond=expression ')' ifTrue=body
     (
-      elseIfTok='else' 'if' '(' eic=expression ')' eib=body
-      {
-        elseIfs.add(new ElseIfStatement($eic.result, $eib.result,
-          new Location($elseIfTok.line, $elseIfTok.pos, null)));
-      }
-    )*
-    (
-      elseTok='else' eb=body
-      {
-        elseStmt = new ElseStatement($eb.result, new Location($elseTok.line,
-          $elseTok.pos, null));
-      }
+      elseTok='else' ifFalse=body
     )?
     {
-      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt,
-        new Location($ifTok.line, $ifTok.pos, null)); 
+      if (elseBody == null) {
+        $result = new IfStatement($cond.result, $ifTrue.result,
+          new Location($ifTok.line, $ifTok.pos, null)); 
+      } else {
+        $result = new IfElseStatement($cond.result, $ifTrue.result,
+          $ifFalse.result, new Location($ifTok.line, $ifTok.pos, null)); 
+      }
     }
   ;
 

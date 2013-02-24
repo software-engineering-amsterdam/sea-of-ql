@@ -2,12 +2,12 @@ package org.uva.sea.ql.parser.typechecker;
 
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.form.AbstractConditional;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.Body;
 import org.uva.sea.ql.ast.form.FormElement;
+import org.uva.sea.ql.ast.form.IfElseStatement;
 import org.uva.sea.ql.ast.form.IfStatement;
-import org.uva.sea.ql.ast.form.ElseIfStatement;
-import org.uva.sea.ql.ast.form.ElseStatement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.Computed;
 import org.uva.sea.ql.parser.typechecker.error.VariableRedefinitionError;
@@ -23,6 +23,11 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 		this.exprTypeChecker = new ExpressionTypeChecker(environment);
 		this.exprTypeEval = new ExpressionTypeEvaluator(
 				environment.getTypeEnvironment());
+	}
+	
+	private boolean checkConditional(AbstractConditional conditional) {
+		return conditional.getBody().accept(this) 
+				&& conditional.getCondition().accept(exprTypeChecker);
 	}
 
 	@Override
@@ -43,33 +48,12 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(IfStatement ast) {
-		boolean typeCorrect =
-				ast.getCondition().accept(exprTypeChecker);
-		
-		for (ElseIfStatement elseIf : ast.getElseIfs()) {
-			typeCorrect &= elseIf.accept(this);
-		}
-		
-		if (ast.getElse() != null) {
-			typeCorrect &= ast.getElse().accept(this);
-		}
-		
-		return typeCorrect;
+		return checkConditional(ast);
 	}
 
 	@Override
-	public Boolean visit(ElseIfStatement ast) {
-		boolean typeCorrect =
-				ast.getCondition().accept(exprTypeChecker);
-		
-		typeCorrect &= ast.getBody().accept(this);
-		
-		return typeCorrect;
-	}
-
-	@Override
-	public Boolean visit(ElseStatement ast) {
-		return ast.getBody().accept(this);
+	public Boolean visit(IfElseStatement ast) {
+		return checkConditional(ast) && ast.getElse().accept(this);
 	}
 
 	@Override
@@ -106,5 +90,6 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 		
 		return typeCorrect;
 	}
+
 
 }
