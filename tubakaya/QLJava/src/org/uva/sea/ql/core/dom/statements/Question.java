@@ -7,8 +7,8 @@ import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 
 public class Question extends Statement{
 
-	public Identifier identifier;
-	public StringLiteral text;
+	private Identifier identifier;
+	private StringLiteral text;
 	
 	public Question(Identifier identifier, StringLiteral text) {
 		this.identifier=identifier;
@@ -18,5 +18,13 @@ public class Question extends Statement{
 	@Override
 	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public StringLiteral getText() {
+		return text;
 	}
 }
