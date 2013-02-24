@@ -16,8 +16,7 @@ public class DependencyTracer implements IExprVisitor<Void>{
 		DependencyTracer tracer = new DependencyTracer(dependencies);
 		expr.accept(tracer);
 		return null;
-	}
-	
+	}	
 	
 	@Override
 	public Void visit(Add ast) {
