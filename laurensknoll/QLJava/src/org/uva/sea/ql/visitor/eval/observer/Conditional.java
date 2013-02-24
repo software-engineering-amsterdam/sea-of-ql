@@ -4,9 +4,11 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.eval.Environment;
 import org.uva.sea.ql.visitor.eval.Expression;
 import org.uva.sea.ql.visitor.eval.ui.Panel;
+import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Bool;
 
 public class Conditional implements Observer {
@@ -26,7 +28,7 @@ public class Conditional implements Observer {
 	}
 
 	public void update() {
-		Expression evaluator = new Expression(this.environment);
+		IExpression<AbstractValue> evaluator = new Expression(this.environment);
 		Bool result = (Bool) this.condition.accept(evaluator);
 		this.truePanel.setVisible(result.getValue());
 	}

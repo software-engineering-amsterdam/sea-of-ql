@@ -3,8 +3,6 @@ package org.uva.sea.ql.visitor.eval;
 import java.awt.GridLayout;
 import java.util.Observer;
 
-import javax.swing.JLabel;
-
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.String;
@@ -22,6 +20,7 @@ import org.uva.sea.ql.visitor.eval.observer.Conditional;
 import org.uva.sea.ql.visitor.eval.observer.Dependency;
 import org.uva.sea.ql.visitor.eval.observer.DependencySet;
 import org.uva.sea.ql.visitor.eval.ui.Panel;
+import org.uva.sea.ql.visitor.eval.ui.QuestionPanel;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 
 public class Statement implements IStatement<Panel> {
@@ -52,11 +51,11 @@ public class Statement implements IStatement<Panel> {
 		Panel panel = question.accept(this);
 
 		// The question is computed. Therefore make it read only.
-		Ident ident = question.getIdent();
-		this.environment.setReadOnly(ident, true);
+		panel.setEnabled(false);
 
 		// Observe dependent questions
 		AbstractExpr computation = computedQuestion.getComputation();
+		Ident ident = question.getIdent();
 		Computed observer = new Computed(computation, ident, this.environment);
 		this.observeDependencies(computation, observer);
 
@@ -82,16 +81,14 @@ public class Statement implements IStatement<Panel> {
 
 	@Override
 	public Panel visit(Question question) {
-		Panel panel = new Panel(new GridLayout(0, 2), this.environment);
-
 		String questionLabel = question.getQuestion();
-		JLabel label = new JLabel(questionLabel.getValue());
-		panel.add(label);
 
 		AbstractType type = question.getType();
 		IType<Widget> typeVisitor = new Type();
 		Widget widget = type.accept(typeVisitor);
-		panel.add(widget.getComponent());
+
+		Panel panel = new QuestionPanel(new GridLayout(0, 2), this.environment,
+				questionLabel.getValue(), widget);
 
 		Ident id = question.getIdent();
 		this.environment.declare(id, widget);
