@@ -18,11 +18,6 @@ public class StringValue extends Value implements Comparable<StringValue>
         return value;
     }
 
-    public void setValue(final String value)
-    {
-        this.value = value;
-    }
-
     @Override
     public Type getType()
     {
@@ -60,6 +55,6 @@ public class StringValue extends Value implements Comparable<StringValue>
     @Override
     public String toString()
     {
-        return this.value;
+        return value;
     }
 }

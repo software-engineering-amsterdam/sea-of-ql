@@ -8,11 +8,12 @@ import java.util.*;
 
 public class VariableState
 {
-    private Map<IdentifierNode, Value> variables = new HashMap<>();
+    private final Map<IdentifierNode, Value> variables;
     private final Map<IdentifierNode, Collection<ObservableStatement>> observables;
 
-    public VariableState()
+    public VariableState(final Map<IdentifierNode, Value> variables)
     {
+        this.variables = variables;
         this.observables = new HashMap<>();
     }
 

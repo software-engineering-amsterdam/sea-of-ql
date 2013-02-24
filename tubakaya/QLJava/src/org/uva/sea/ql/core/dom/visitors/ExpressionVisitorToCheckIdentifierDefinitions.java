@@ -162,10 +162,10 @@ public class ExpressionVisitorToCheckIdentifierDefinitions implements Expression
 	}
 	
 	private boolean IdentifierBelongsToAVariable(Identifier identifier){		
-		boolean identifierBelongsToAVariable=false;
+		boolean identifierBelongsToAVariable = false;
 		
 		for(Variable variable : variableList)	{
-			if(variable.identifier.getName() == identifier.getName()){
+			if(variable.getIdentifier().getName() == identifier.getName()){
 				identifierBelongsToAVariable=true;
 				break;
 			}

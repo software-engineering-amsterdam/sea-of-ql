@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.test.syntax;
 
+import org.uva.sea.ql.parser.antlr.ParseError;
 import org.uva.sea.ql.parser.test.AbstractTest;
-import org.uva.sea.ql.parser.test.ParseError;
 
 public abstract class SyntaxTest extends AbstractTest {
 	

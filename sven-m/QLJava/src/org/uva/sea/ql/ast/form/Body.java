@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.FormNode;
-import org.uva.sea.ql.ast.Location;
+import org.uva.sea.ql.ast.misc.Location;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class Body implements FormNode {

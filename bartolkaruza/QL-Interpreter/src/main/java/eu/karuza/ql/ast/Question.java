@@ -1,6 +1,5 @@
 package eu.karuza.ql.ast;
 
-import eu.karuza.ql.ast.expr.grouping.Expr;
 
 
 public abstract class Question implements Statement {

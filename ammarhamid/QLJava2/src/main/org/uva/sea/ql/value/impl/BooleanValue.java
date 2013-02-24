@@ -23,11 +23,6 @@ public class BooleanValue extends Value implements Comparable<BooleanValue>
         return value;
     }
 
-    public void setValue(final Boolean value)
-    {
-        this.value = value;
-    }
-
     @Override
     public Type getType()
     {

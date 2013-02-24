@@ -10,49 +10,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class IOHelper {
-	public static final String OUT_PATH = "";
-	private IOHelper(){
-	    
-	}
-	public static void write(String path, String output)
-			throws FileNotFoundException {
-		final PrintWriter out = new PrintWriter(path);
-		out.print(output);
-		out.close();
-	}
+    public static final String OUT_PATH = "";
 
-	public static String read(String path) throws IOException {
-		return read(new File(path));
-	}
+    private IOHelper() {
 
-	public static String read(File file) throws IOException {
-		final StringBuilder content = new StringBuilder();
-		final LineNumberReader lnr = new LineNumberReader(new FileReader(file));
-		try {
-			String line = lnr.readLine();
-			while (line != null) {
-				content.append(line);
-				content.append("\n");
-				line = lnr.readLine();
-			}
-		} finally {
-			lnr.close();
-		}
-		return content.toString();
-	}
+    }
+    
+    public static void write(String path, String output)
+            throws FileNotFoundException {
+        final PrintWriter out = new PrintWriter(path);
+        out.print(output);
+        out.close();
+    }
 
-	public static Map<String, String> readFolder(String path)
-			throws IOException {
-		final Map<String, String> m = new HashMap<String, String>();
-		final File folder = new File(path);
-		for (final File fileEntry : folder.listFiles()) {
-			if (fileEntry.isFile()) {
-				m.put(fileEntry.getName().replace(".html", ""), read(path
-						+ fileEntry.getName()));
-			}
-		}
+    public static String read(String path) throws IOException {
+        return read(new File(path));
+    }
 
-		return m;
-	}
+    public static String read(File file) throws IOException {
+        final StringBuilder content = new StringBuilder();
+        final LineNumberReader reader = new LineNumberReader(new FileReader(
+                file));
+        try {
+            String line = reader.readLine();
+            while (line != null) {
+                content.append(line);
+                content.append("\n");
+                line = reader.readLine();
+            }
+        } finally {
+            reader.close();
+        }
+
+        return content.toString();
+    }
+
+    public static Map<String, String> readFolder(String path)
+            throws IOException {
+        final Map<String, String> map = new HashMap<String, String>();
+        final File folder = new File(path);
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isFile()) {
+                map.put(fileEntry.getName().replace(".html", ""), read(path
+                        + fileEntry.getName()));
+            }
+        }
+
+        return map;
+    }
 
 }
