@@ -13,5 +13,5 @@ public class And extends ConditionalOperator {
 	@Override
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
-	}	
+	}
 }

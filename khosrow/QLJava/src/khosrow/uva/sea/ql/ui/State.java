@@ -34,7 +34,7 @@ public class State {
 		observables.get(name).notifyObservers();
 	}
 	
-	public void putValue(Ident name, Value value) {
+	public void assignValue(Ident name, Value value) {
 		env.assignValue(name, value);
 	}
 

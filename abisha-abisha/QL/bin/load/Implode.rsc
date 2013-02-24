@@ -2,7 +2,8 @@ module load::Implode
 
 import ParseTree;
 import load::Load;
-import syntax::abstractSyntax;
+import syntax::Abstract;
+import load::Parse;
 import IO;
 import Prelude;
 
@@ -18,6 +19,6 @@ public Question load(loc l) = implode(parse(readFile(l), l));
 public Type implodeType(Tree t) = implode(#Type, t);
 public Type load(loc l) = implode(parse(readFile(l), l));
 
-public Program implodeProgram(Tree t) = implode(#Program, t);
+public Form implodeForm(Tree t) = implode(#Form, t);
 
-public Program load(loc l) = implode(parse(readFile(l), l));
+public Form load(loc l) = implode(parse(readFile(l), l));

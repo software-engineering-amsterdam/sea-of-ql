@@ -53,7 +53,12 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>linked-src</name>
+			<name>linked-interpreter</name>
+			<type>2</type>
+			<location>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-Interpreter/src/main/java</location>
+		</link>
+		<link>
+			<name>linked-shared</name>
 			<type>2</type>
 			<location>/Users/bartol/Workspaces/Study/sea-of-ql/bartolkaruza/QL-Shared/src</location>
 		</link>

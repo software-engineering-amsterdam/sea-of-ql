@@ -54,6 +54,7 @@ public class Environment extends Observable implements Observer {
 	private final Environment parent;
 	private final List<Environment> children;
 	private final Map<Ident, Binding> bindings;
+	private boolean visible;
 
 	public Environment() {
 		this(null);
@@ -64,6 +65,8 @@ public class Environment extends Observable implements Observer {
 
 		this.bindings = new HashMap<Ident, Binding>();
 		this.children = new ArrayList<Environment>();
+
+		this.visible = true;
 	}
 
 	public Environment getChildEnvironment() {
@@ -130,6 +133,10 @@ public class Environment extends Observable implements Observer {
 		}
 	}
 
+	public void setVisible(boolean isVisible) {
+		this.visible = isVisible;
+	}
+
 	@Override
 	public void update(Observable o, Object arg) {
 		if (this.isCompleted()) {
@@ -148,6 +155,10 @@ public class Environment extends Observable implements Observer {
 	}
 
 	private boolean isCompletedRecursive() {
+		if (!this.visible) {
+			return true;
+		}
+
 		for (Map.Entry<Ident, Binding> entry : this.bindings.entrySet()) {
 			if (entry.getValue().getValue().equals(Undefined.UNDEFINED)) {
 				return false;
@@ -162,4 +173,5 @@ public class Environment extends Observable implements Observer {
 
 		return true;
 	}
+
 }

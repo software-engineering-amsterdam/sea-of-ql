@@ -46,7 +46,7 @@ public class TestDeclEvaluator {
 		formToEvaluate.append("} ");
 		formToEvaluate.append("}");
 		String src = formToEvaluate.toString();	
-		DeclEvaluator.Evaluate(parser.ParseForm(src), env, errorList);
+		DeclEvaluator.Evaluate(parser.ParseForm(src).getStmts(), env, errorList);
 		assertEquals(env.typeOf(q1).getClass(), Bool.class);
 		assertEquals(env.typeOf(q2).getClass(), Bool.class);
 		assertEquals(env.typeOf(q3).getClass(), Money.class);
@@ -64,7 +64,7 @@ public class TestDeclEvaluator {
 		formToEvaluate.append(" \"This is a label\" (a + b * c) ");		
 		formToEvaluate.append("}");
 		String src = formToEvaluate.toString();	
-		boolean result = DeclEvaluator.Evaluate(parser.ParseForm(src), env, errorList);
+		boolean result = DeclEvaluator.Evaluate(parser.ParseForm(src).getStmts(), env, errorList);
 		boolean expected = true;
 		assertEquals(result, expected);		
 	}
@@ -81,7 +81,7 @@ public class TestDeclEvaluator {
 		formToEvaluate.append(" Q2: \"Ask a question?\" boolean "); //error
 		formToEvaluate.append("}");
 		String src = formToEvaluate.toString();	
-		boolean result = DeclEvaluator.Evaluate(parser.ParseForm(src), env, errorList);
+		boolean result = DeclEvaluator.Evaluate(parser.ParseForm(src).getStmts(), env, errorList);
 		boolean expected = false;
 		if(result == expected) {
 		for(QlDeclarationError error: errorList)

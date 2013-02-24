@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
-public class Ident extends LiteralExpr {
+public class Ident extends LiteralExpression {
 
 	public Ident(String name) {
 		super(name);

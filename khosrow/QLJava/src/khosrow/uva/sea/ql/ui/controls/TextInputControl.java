@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextField;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
-import khosrow.uva.sea.ql.env.Env;
+import khosrow.uva.sea.ql.ui.State;
 import khosrow.uva.sea.ql.values.Value;
 
 public abstract class TextInputControl extends Control {
@@ -50,14 +50,15 @@ public abstract class TextInputControl extends Control {
 	}
 
 	@Override
-	public void addListener(final Ident name, final Env env) {
+	public void addListener(final Ident name, final State state) {
 		component.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {				
 				if(!InputVerifier.Verify(getControl())){					
 					return;
 				}
-				env.assignValue(name, getValue());				
+				state.assignValue(name, getValue());
+				state.notifyObervers(name);
 			}			
 		});			
 	}

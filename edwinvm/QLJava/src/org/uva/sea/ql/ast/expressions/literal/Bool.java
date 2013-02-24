@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
-public class Bool extends LiteralExpr {
+public class Bool extends LiteralExpression {
 
 	public Bool(boolean value) {
 		super(value);

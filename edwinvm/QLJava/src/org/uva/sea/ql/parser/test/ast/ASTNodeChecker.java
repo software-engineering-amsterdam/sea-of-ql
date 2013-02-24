@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.forms.Form;
 import org.uva.sea.ql.parser.IParser;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class ASTNodeChecker {
 	

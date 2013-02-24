@@ -1,11 +1,11 @@
 package eu.karuza.ql.ast.expr;
 
 
-import eu.karuza.ql.ast.expr.grouping.BinaryExpr;
-import eu.karuza.ql.ast.expr.grouping.Expr;
-import eu.karuza.ql.ast.expr.type.BoolType;
-import eu.karuza.ql.ast.expr.type.Type;
-import eu.karuza.ql.ast.expr.value.Value;
+import eu.karuza.ql.ast.BinaryExpr;
+import eu.karuza.ql.ast.Expr;
+import eu.karuza.ql.ast.type.BoolType;
+import eu.karuza.ql.ast.type.Type;
+import eu.karuza.ql.ast.value.Value;
 import eu.karuza.ql.symbol.SymbolTable;
 import eu.karuza.ql.visitor.ExpressionVisitor;
 

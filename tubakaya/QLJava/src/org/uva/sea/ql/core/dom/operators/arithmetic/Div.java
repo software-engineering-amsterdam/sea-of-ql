@@ -13,5 +13,5 @@ public class Div extends ArithmeticOperator {
 	@Override
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
-	}		
+	}
 }

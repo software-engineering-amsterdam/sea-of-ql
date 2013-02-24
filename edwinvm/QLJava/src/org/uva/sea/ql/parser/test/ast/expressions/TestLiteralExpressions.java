@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestLiteralExpressions extends ExpressionParserChecker {
 	@Test
