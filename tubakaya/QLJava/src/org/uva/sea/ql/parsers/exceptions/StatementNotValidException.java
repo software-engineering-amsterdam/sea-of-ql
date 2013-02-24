@@ -2,7 +2,7 @@ package org.uva.sea.ql.parsers.exceptions;
 
 import org.uva.sea.ql.core.dom.Statement;
 
-public class StatementNotValidException extends Exception {
+public class StatementNotValidException extends QLException {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -12,4 +12,8 @@ public class StatementNotValidException extends Exception {
 		this.statement=statement;
 	}
 
+	@Override
+	public String ToString() {
+		return String.format("Invalid statement error occured. Statement type : {0}",statement.getClass());
+	}
 }

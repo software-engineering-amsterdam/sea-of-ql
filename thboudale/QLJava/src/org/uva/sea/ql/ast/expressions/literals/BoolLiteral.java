@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.expressions.values;
+package org.uva.sea.ql.ast.expressions.literals;
 
 import java.util.Map;
 import org.uva.sea.ql.ast.expressions.Ident;
@@ -6,10 +6,10 @@ import org.uva.sea.ql.ast.types.AType;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.semanticCheck.ExprVisitor;
 
-public class Bool extends AValue {
+public class BoolLiteral extends ALiteral {
 	private final boolean value;
 
-	public Bool(boolean value) {
+	public BoolLiteral(boolean value) {
 		this.value = value;
 	}
 	

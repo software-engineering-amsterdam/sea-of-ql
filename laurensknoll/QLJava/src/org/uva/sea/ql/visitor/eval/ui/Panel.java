@@ -1,7 +1,5 @@
 package org.uva.sea.ql.visitor.eval.ui;
 
-import java.awt.LayoutManager;
-
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.visitor.eval.Environment;
@@ -13,11 +11,6 @@ public class Panel extends JPanel {
 
 	public Panel(Environment environment) {
 		super();
-		this.environment = environment;
-	}
-
-	public Panel(LayoutManager layoutManager, Environment environment) {
-		super(layoutManager);
 		this.environment = environment;
 	}
 
