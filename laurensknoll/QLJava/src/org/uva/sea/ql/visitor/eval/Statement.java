@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import java.util.Observer;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
@@ -35,14 +34,13 @@ public class Statement implements IStatement<Panel> {
 
 	@Override
 	public Panel visit(Block block) {
-		Panel panel = new Panel(new JPanel(new GridLayout(0, 1)),
-				this.environment);
+		Panel panel = new Panel(new GridLayout(0, 1), this.environment);
 
 		Environment innerEnvironment = this.environment.getChildEnvironment();
 		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
 		for (AbstractStatement statement : block.getStatements()) {
 			Panel inner = statement.accept(statementVisitor);
-			panel.addPanel(inner);
+			panel.add(inner);
 		}
 
 		return panel;
@@ -84,17 +82,16 @@ public class Statement implements IStatement<Panel> {
 
 	@Override
 	public Panel visit(Question question) {
-		Panel panel = new Panel(new JPanel(new GridLayout(0, 2)),
-				this.environment);
+		Panel panel = new Panel(new GridLayout(0, 2), this.environment);
 
 		String questionLabel = question.getQuestion();
 		JLabel label = new JLabel(questionLabel.getValue());
-		panel.addComponent(label);
+		panel.add(label);
 
 		AbstractType type = question.getType();
 		IType<Widget> typeVisitor = new Type();
 		Widget widget = type.accept(typeVisitor);
-		panel.addComponent(widget.getComponent());
+		panel.add(widget.getComponent());
 
 		Ident id = question.getIdent();
 		this.environment.declare(id, widget);

@@ -24,7 +24,7 @@ public class Form implements IForm<Application> {
 				application.getEnvironment());
 		Panel container = statements.accept(statementVisitor);
 
-		JScrollPane scrollableContainer = new JScrollPane(container.getPanel());
+		JScrollPane scrollableContainer = new JScrollPane(container);
 		application.getGui().add(scrollableContainer);
 
 		return application;
