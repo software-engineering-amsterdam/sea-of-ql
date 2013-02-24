@@ -23,7 +23,7 @@ public abstract class LiteralExpression extends Expression {
 
 	@Override
 	public boolean equals(Object obj) {
-		Ident identifier = (Ident) obj;
+		Identifier identifier = (Identifier) obj;
 		return ((String)this.getValue()).equals(((String)identifier.getValue()));
 	}
 }

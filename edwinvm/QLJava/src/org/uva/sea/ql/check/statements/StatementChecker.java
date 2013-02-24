@@ -1,7 +1,7 @@
 package org.uva.sea.ql.check.statements;
 
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Identifier;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.statements.conditions.ConditionBlock;
@@ -80,7 +80,7 @@ public class StatementChecker implements Visitor {
 		}
 	}
 	
-	private Type getVariableTypeFor(Ident variable) {
+	private Type getVariableTypeFor(Identifier variable) {
 		return variable.typeOf(_typeEnvironment);
 	}
 
@@ -88,8 +88,8 @@ public class StatementChecker implements Visitor {
 		_typeEnvironment.add(variable.getVariable(), type);
 	}
 	
-	private void addError(Ident ident) {
-		_errorMessages.add(new Message("Invalid type for identifier " + ident.getValue()));
+	private void addError(Identifier identifier) {
+		_errorMessages.add(new Message("Invalid type for identifier " + identifier.getValue()));
 	}
 	
 }

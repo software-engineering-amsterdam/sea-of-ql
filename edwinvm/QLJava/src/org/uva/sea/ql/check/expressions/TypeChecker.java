@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
-import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Identifier;
 import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.LiteralExpression;
 import org.uva.sea.ql.ast.expressions.literal.Money;
@@ -85,7 +85,7 @@ public class TypeChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Bool astNode)                             { return checkLiteralExpression(astNode, Bool.class.toString());  }
 	@Override
-	public Boolean visit(Ident astNode)                            { return checkLiteralExpression(astNode, Ident.class.toString()); }
+	public Boolean visit(Identifier astNode)                       { return checkLiteralExpression(astNode, Identifier.class.toString()); }
 	@Override
 	public Boolean visit(Int astNode)                              { return checkLiteralExpression(astNode, Int.class.toString());   }
 	@Override

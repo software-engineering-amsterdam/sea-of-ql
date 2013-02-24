@@ -26,7 +26,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-    :   'form' Ident '{' statementBody '}' { $result = new Form(new Ident($Ident.text), $statementBody.result); }
+    :   'form' Identifier '{' statementBody '}' { $result = new Form(new Identifier($Identifier.text), $statementBody.result); }
     ;
 
 formStatement returns [FormStatement result]
@@ -44,7 +44,7 @@ questionLabel returns [QuestionLabel result]
     ;
     
 questionVariable returns [QuestionVariable result]
-    :   Ident  { $result = new QuestionVariable(new Ident($Ident.text)); }
+    :   Identifier { $result = new QuestionVariable(new Identifier($Identifier.text)); }
     ;
 
 conditionBlock returns [ConditionBlock result]
@@ -62,11 +62,11 @@ statementBody returns [StatementBody result]
     ;
 
 primary returns [Expression result]
-    :   Int    { $result = new org.uva.sea.ql.ast.expressions.literal.Int(Integer.parseInt($Int.text)); }
-    |   Bool   { $result = new org.uva.sea.ql.ast.expressions.literal.Bool(Boolean.parseBoolean($Bool.text)); }
-    |   Money  { $result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
-    |   String { $result = new org.uva.sea.ql.ast.expressions.literal.Str($String.text); }
-    |   Ident  { $result = new Ident($Ident.text); }
+    :   Int        { $result = new org.uva.sea.ql.ast.expressions.literal.Int(Integer.parseInt($Int.text)); }
+    |   Bool       { $result = new org.uva.sea.ql.ast.expressions.literal.Bool(Boolean.parseBoolean($Bool.text)); }
+    |   Money      { $result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
+    |   String     { $result = new org.uva.sea.ql.ast.expressions.literal.Str($String.text); }
+    |   Identifier { $result = new Identifier($Identifier.text); }
     |   '(' e=expression ')'{ $result = $e.result; }
     ;
     
@@ -132,16 +132,16 @@ type returns [Type result]
 
     
 // Tokens
-WS:	     (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+WS:	        (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT: ('/*' .* '*/' | '//') { $channel=HIDDEN; };
+COMMENT:    ('/*' .* '*/' | '//') { $channel=HIDDEN; };
 
-Bool:    ('true'|'false');
+Bool:       ('true'|'false');
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Identifier: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-Money:   (('0'..'9')+ ('.' | ',') ('0'..'9')+);
+Money:      (('0'..'9')+ ('.' | ',') ('0'..'9')+);
 
-String:	 ('"' .* '"');
+String:	    ('"' .* '"');
 
-Int:     ('0'..'9')+;
+Int:        ('0'..'9')+;

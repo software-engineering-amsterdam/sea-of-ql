@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpress
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
-import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.literal.Identifier;
 import org.uva.sea.ql.ast.expressions.literal.Int;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
@@ -48,7 +48,7 @@ public interface Visitor<T> {
 	
 	// Literal expressions
 	T visit(Bool                             astNode);
-	T visit(Ident                            astNode);
+	T visit(Identifier                       astNode);
 	T visit(Int                              astNode);
 	T visit(Money                            astNode);
 	T visit(Str                              astNode);
