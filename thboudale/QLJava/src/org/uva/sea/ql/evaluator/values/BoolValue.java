@@ -7,7 +7,8 @@ public class BoolValue extends AValue {
 		this.value = value;
 	}
 	
-	public boolean getValue() {
+	@Override
+	public Boolean getValue() {
 		return value;
 	}
 	

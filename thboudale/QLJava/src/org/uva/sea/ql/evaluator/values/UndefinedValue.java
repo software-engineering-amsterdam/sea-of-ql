@@ -2,6 +2,11 @@ package org.uva.sea.ql.evaluator.values;
 
 public class UndefinedValue extends AValue {
 	
+	@Override
+	public UndefinedValue getValue() {
+		return this;
+	}
+	
 	public AValue add(AValue arg) {
 		return new UndefinedValue();
 	}

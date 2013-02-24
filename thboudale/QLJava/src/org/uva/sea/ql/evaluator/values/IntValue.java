@@ -7,6 +7,7 @@ public class IntValue extends AValue {
 		this.value = value;
 	}
 	
+	@Override
 	public Integer getValue() {
 		return value;
 	}

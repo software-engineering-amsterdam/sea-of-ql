@@ -2,6 +2,8 @@ package org.uva.sea.ql.evaluator;
 
 import java.util.Collections;
 import java.util.Map;
+
+import org.uva.sea.ql.ast.expressions.AExpr;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Add;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.And;
@@ -35,6 +37,9 @@ public class ExprEvaluator implements ExprVisitor<AValue> {
 		this.valEnv = Collections.unmodifiableMap(valEnv);
 	}
 	
+	public AValue evaluate(AExpr exp, Map<Ident, AValue> valEnv) {
+		return exp.accept(this);
+	}
 	
 	@Override
 	public AValue visit(BoolLiteral exp) {
