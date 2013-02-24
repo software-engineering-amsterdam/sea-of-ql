@@ -1,6 +1,7 @@
 package org.uva.sea.ql.check.expressions;
 
 import org.uva.sea.ql.ast.expressions.Expression;
+import org.uva.sea.ql.ast.expressions.binary.BinaryExpression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
@@ -93,108 +94,81 @@ public class TypeChecker implements Visitor<Boolean> {
 	public Boolean visit(Str astNode)                              { return checkLiteralExpression(astNode, Str.class.toString());   }
 	
 	private Boolean checkArithmeticExpression(BinaryArithmeticExpression expression, String binarySymbol) {
-		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);
-		boolean checkRightHandSide = expression.getRightHandSide().accept(this);
-		
-		if (!(checkLeftHandSide && checkRightHandSide)) {
-			// Type errors occurred
-			return false;
-		}
-		
-		Type leftHandSideType  = expression.getLeftHandSide().typeOf(_typeEnvironment);
-		Type rightHandSideType = expression.getRightHandSide().typeOf(_typeEnvironment);
-		
-		// Check if Types are compatible with BinaryNumericExpr
-		if (!(leftHandSideType.isCompatibleToNumeric() && rightHandSideType.isCompatibleToNumeric())) {
-			addError(expression, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type errors
-		return true; 
+		return isAValidExpression(expression) && isCompatibleToNumeric(expression, binarySymbol);
 	}
 	
 	private Boolean checkRelationalExpression(BinaryRelationalExpression expression, String binarySymbol) {
-		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);
-		boolean checkRightHandSide = expression.getRightHandSide().accept(this);
-		
-		if (!(checkLeftHandSide && checkRightHandSide)) {
-			// Type errors occurred
-			return false;
-		}
-		
-		Type leftHandSideType  = expression.getLeftHandSide().typeOf(_typeEnvironment);
-		Type rightHandSideType = expression.getRightHandSide().typeOf(_typeEnvironment);
-		
-		// Check if Types are compatible with each other
-		if (!leftHandSideType.isCompatibleTo(rightHandSideType)) {
-			addError(expression, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type errors
-		return true; 
+		return isAValidExpression(expression) && isCompatibleTo(expression, binarySymbol); 
 	}
 	
 	private Boolean checkLogicalExpression(BinaryLogicalExpression expression, String binarySymbol) {
-		boolean checkLeftHandSide  = expression.getLeftHandSide().accept(this);
-		boolean checkRightHandSide = expression.getRightHandSide().accept(this);
-		
-		if (!(checkLeftHandSide && checkRightHandSide)) {
-			// Type errors occurred
-			return false;
-		}
-		
-		Type leftHandSideType  = expression.getLeftHandSide().typeOf(_typeEnvironment);
-		Type rightHandSideType = expression.getRightHandSide().typeOf(_typeEnvironment);
-		
-		// Check if Types are compatible with BinaryBoolExpr
-		if (!(leftHandSideType.isCompatibleToBool() && rightHandSideType.isCompatibleToBool())) {
-			addError(expression, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type errors
-		return true; 
+		return isAValidExpression(expression) && isCompatibleToBool(expression, binarySymbol);
 	}
 	
 	private Boolean checkUnaryArithmeticExpression(UnaryExpression expression, String binarySymbol) {
-		Type expressionType = expression.typeOf(_typeEnvironment);
-		
-		// Check if Type is compatible with UnaryExpr
-		if (!expressionType.isCompatibleToNumeric()) {
-			addError(expression, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type error
-		return true;
+		return isCompatibleToNumeric(expression, binarySymbol);
 	}
 	
 	private Boolean checkUnaryLogicalExpression(UnaryExpression expression, String binarySymbol) {
-		Type expressionType = expression.typeOf(_typeEnvironment);
-		
-		// Check if Type is compatible with UnaryExpr
-		if (!expressionType.isCompatibleToBool()) {
-			addError(expression, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type error
-		return true;
+		return isCompatibleToBool(expression, binarySymbol);
 	}
 	
 	private Boolean checkLiteralExpression(LiteralExpression expression, String className) {
-		Type expressionType = expression.typeOf(_typeEnvironment);
+		return isCompatibleTo(expression, className);
+	}
+	
+	private Expression getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide();  }
+	private Expression getRightHandSide(BinaryExpression expression) { return expression.getRightHandSide(); }
+	
+	private Type getTypeFor(Expression expression)                   { return expression.typeOf(_typeEnvironment); }
+	private Type getLeftHandSideType(BinaryExpression expression)    { return getLeftHandSide(expression).typeOf(_typeEnvironment);  }
+	private Type getRightHandSideType(BinaryExpression expression)   { return getRightHandSide(expression).typeOf(_typeEnvironment); }
+	
+	private boolean isAValidExpression(BinaryExpression expression) {
+		Expression leftHandSide  = getLeftHandSide(expression);
+		Expression rightHandSide = getRightHandSide(expression);
 		
-		// Check if Type is compatible with LiteralExpr
-		if (!expressionType.isCompatibleTo(expressionType)) {
-			addError(expression, "invalid type for literal " + className);
-			return false;
+		boolean checkLeftHandSide  = leftHandSide.accept(this);
+		boolean checkRightHandSide = rightHandSide.accept(this);
+		
+		return checkLeftHandSide && checkRightHandSide;
+	}
+	
+	private boolean isCompatibleToNumeric(BinaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getLeftHandSideType(expression).isCompatibleToNumeric() && getRightHandSideType(expression).isCompatibleToNumeric();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleToNumeric(UnaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getTypeFor(expression).isCompatibleToNumeric();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleToBool(BinaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getLeftHandSideType(expression).isCompatibleToBool() && getRightHandSideType(expression).isCompatibleToBool();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleToBool(UnaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getTypeFor(expression).isCompatibleToBool();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleTo(BinaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getLeftHandSideType(expression).isCompatibleTo(getRightHandSideType(expression));
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleTo(LiteralExpression expression, String binarySymbol) {
+		boolean isCompatible = getTypeFor(expression).isCompatibleTo(getTypeFor(expression));
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean checkTypes(Expression expression, String binarySymbol, boolean isCompatible) {
+		if (!isCompatible) {
+			addError(expression, "invalid type for " + binarySymbol);
 		}
-		
-		// No Type error
-		return true; 
+		return isCompatible;
 	}
 	
 	private void addError(Expression expression, String errorMessage) {
