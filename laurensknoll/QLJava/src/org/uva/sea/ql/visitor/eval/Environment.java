@@ -25,10 +25,6 @@ public class Environment extends Observable implements Observer {
 			this.value = value;
 		}
 
-		public Widget getWidget() {
-			return this.widget;
-		}
-
 		public AbstractValue getValue() {
 			return this.value;
 		}
@@ -38,7 +34,6 @@ public class Environment extends Observable implements Observer {
 
 			// Update GUI (This will trigger the observer pattern).
 			this.widget.setValue(value);
-
 		}
 
 		@Override
@@ -108,7 +103,8 @@ public class Environment extends Observable implements Observer {
 	public Map<Ident, AbstractValue> getValues() {
 		Map<Ident, AbstractValue> values = new HashMap<Ident, AbstractValue>();
 		for (Map.Entry<Ident, Binding> entry : this.bindings.entrySet()) {
-			values.put(entry.getKey(), entry.getValue().getValue());
+			Binding binding = entry.getValue();
+			values.put(entry.getKey(), binding.getValue());
 		}
 
 		return values;
@@ -121,15 +117,6 @@ public class Environment extends Observable implements Observer {
 			binding.setValue(value);
 		} else {
 			this.parent.setValue(ident, value);
-		}
-	}
-
-	public void setReadOnly(Ident ident, boolean isReadOnly) {
-		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			binding.getWidget().setReadOnly(isReadOnly);
-		} else {
-			this.parent.setReadOnly(ident, isReadOnly);
 		}
 	}
 

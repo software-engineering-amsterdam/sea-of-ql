@@ -1,6 +1,7 @@
 package khosrow.uva.sea.ql.parser.test.evaluation;
 
-import java.awt.BorderLayout;
+
+import java.awt.FlowLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import khosrow.uva.sea.ql.ast.decl.Form;
 import khosrow.uva.sea.ql.env.Env;
@@ -21,8 +21,8 @@ import khosrow.uva.sea.ql.visitor.eval.FormEvaluator;
 import khosrow.uva.sea.ql.visitor.interpreter.FormPrinter;
 import khosrow.uva.sea.ql.visitor.interpreter.FormSwingInterpreter;
 
-public class TestFormInterpreters {
-	private static final String QLForm1 = "src/QLForm1.ql";
+public class TestFormInterpreters  {
+	private static final String QLForm1 = "src/khosrow/uva/sea/ql/scource/QLForm1.ql";
 	private IParse parser;
 	private final List<String> errors;
 	private final Env env;
@@ -35,7 +35,7 @@ public class TestFormInterpreters {
 		state = new State(env);
 	}
 	public static void main(String[] args) throws IOException {
-	
+		
 		TestFormInterpreters tester = new TestFormInterpreters();
 		try{
 			String src = tester.readFile(QLForm1);			
@@ -48,7 +48,7 @@ public class TestFormInterpreters {
 			System.out.println(ex.getMessage());			
 			for(int i = tester.errors.size()-1 ; i >= 0; i-- )
 				System.out.println(tester.errors.get(i));			
-		}
+		}	
 	}
 	
 	private Form parseForm(String src) throws ParseError {		
@@ -67,12 +67,11 @@ public class TestFormInterpreters {
 		JFrame frame = new JFrame();		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
-		JPanel contentPane = (JPanel)FormSwingInterpreter.interpret(form.getStmts(), state).getComponent();
-		contentPane.setAlignmentX(0);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//contentPane.setLayout(new BorderLayout(0, 0));
-		frame.setContentPane(contentPane );
-		frame.setVisible(true);
+		JPanel mainPanel = new JPanel( new FlowLayout(FlowLayout.LEFT, 0, 0) );
+		JPanel contentPane = (JPanel)FormSwingInterpreter.interpret(form.getStmts(), state).getComponent();	
+		mainPanel.add(contentPane);
+		frame.setContentPane(mainPanel);		
+		frame.setVisible(true);		
 		return frame;
 	}
 		

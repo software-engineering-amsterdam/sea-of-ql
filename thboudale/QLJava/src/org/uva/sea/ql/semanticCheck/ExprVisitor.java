@@ -1,9 +1,9 @@
 package org.uva.sea.ql.semanticCheck;
 
-import org.uva.sea.ql.ast.expressions.values.Bool;
+import org.uva.sea.ql.ast.expressions.literals.BoolLiteral;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.values.Int;
-import org.uva.sea.ql.ast.expressions.values.Str;
+import org.uva.sea.ql.ast.expressions.literals.IntLiteral;
+import org.uva.sea.ql.ast.expressions.literals.StrLiteral;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Add;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.And;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Div;
@@ -22,10 +22,10 @@ import org.uva.sea.ql.ast.expressions.unaryExpressions.Pos;
 
 public interface ExprVisitor<T> {
 	
-	T visit(Bool ast);
+	T visit(BoolLiteral ast);
 	T visit(Ident ast);
-	T visit(Int ast);
-	T visit(Str ast);
+	T visit(IntLiteral ast);
+	T visit(StrLiteral ast);
 	
 	T visit(Add ast);
 	T visit(And ast);

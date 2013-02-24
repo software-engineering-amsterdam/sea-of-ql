@@ -2,7 +2,6 @@ package org.uva.sea.ql.core.dom.visitors;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.uva.sea.ql.core.dom.ExpressionVisitor;
 import org.uva.sea.ql.core.dom.*;
 import org.uva.sea.ql.core.dom.statements.*;
 import org.uva.sea.ql.parsers.exceptions.StatementNotValidException;
@@ -11,31 +10,33 @@ public class StatementVisitorToCheckVariableDefinitions implements StatementVisi
 
 	private List<Identifier> identifierList;
 	private List<StatementNotValidException> exceptions;
-	private ExpressionVisitor expressionVisitor;
 	
-	public StatementVisitorToCheckVariableDefinitions(ExpressionVisitor expressionVisitor)	{
+	public StatementVisitorToCheckVariableDefinitions()	{
 		this.identifierList = new ArrayList<Identifier>();
 		this.exceptions = new ArrayList<StatementNotValidException>();
-		this.expressionVisitor = expressionVisitor;
 	}
 	
-	public List<StatementNotValidException> getErrors() {
+	public List<StatementNotValidException> getExceptions() {
 		return exceptions;
 	}	
 	
+	public List<Identifier> getIdentifierList() {
+		return identifierList;
+	}
+	
 	@Override
 	public void visit(Form form) {		
-		for(Statement statement : form.statements)	{
+		for(Statement statement : form.getStatements())	{
 			statement.accept(this);
 		}
 	}
 
 	@Override
 	public void visit(Question question) {
-		if(identifierWithSameNameAndTypeAlreadyDefined(question.identifier)){
+		if(identifierWithSameNameAndTypeAlreadyDefined(question.getIdentifier())){
 			addExceptionInExceptionsList(question);
 		}
-		addIdentifierInIdentifiersList(question.identifier);
+		addIdentifierInIdentifiersList(question.getIdentifier());
 	}
 
 	@Override
@@ -48,8 +49,6 @@ public class StatementVisitorToCheckVariableDefinitions implements StatementVisi
 
 	@Override
 	public void visit(IfStatement ifStatement) {
-		ifStatement.getExpression().accept(expressionVisitor);
-
 		for(Statement statement : ifStatement.getStatements())	{
 			statement.accept(this);
 		}

@@ -6,7 +6,7 @@ import org.uva.sea.ql.core.dom.types.declarations.StringDeclaration;
 
 public interface TypeVisitor {
 
-	boolean visit(BooleanDeclaration booleanDeclaration);
-	boolean visit(IntDeclaration intDeclaration);
-	boolean visit(StringDeclaration stringDeclaration);
+	void visit(BooleanDeclaration booleanDeclaration);
+	void visit(IntDeclaration intDeclaration);
+	void visit(StringDeclaration stringDeclaration);
 }

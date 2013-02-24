@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Theodora\\Documents\\GitHub\\sea-of-ql\\thboudale\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-22 00:03:03
+// $ANTLR 3.4 C:\\Users\\Theodora\\Documents\\GitHub\\sea-of-ql\\thboudale\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-23 23:34:30
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.expressions.binaryExpressions.*;
 import org.uva.sea.ql.ast.expressions.unaryExpressions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.expressions.values.*;
+import org.uva.sea.ql.ast.expressions.literals.*;
 import org.uva.sea.ql.ast.form.*;
 
 
@@ -731,7 +731,7 @@ public class QLParser extends Parser {
                     {
                     INT8=(Token)match(input,INT,FOLLOW_INT_in_primary398); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Int(Integer.parseInt((INT8!=null?INT8.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new IntLiteral(Integer.parseInt((INT8!=null?INT8.getText():null))); }
 
                     }
                     break;
@@ -749,7 +749,7 @@ public class QLParser extends Parser {
                     {
                     BOOLEAN10=(Token)match(input,BOOLEAN,FOLLOW_BOOLEAN_in_primary438); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Bool(Boolean.parseBoolean((BOOLEAN10!=null?BOOLEAN10.getText():null))); }
+                    if ( state.backtracking==0 ) { result = new BoolLiteral(Boolean.parseBoolean((BOOLEAN10!=null?BOOLEAN10.getText():null))); }
 
                     }
                     break;
@@ -758,7 +758,7 @@ public class QLParser extends Parser {
                     {
                     STRING_LITERAL11=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_primary455); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new Str((STRING_LITERAL11!=null?STRING_LITERAL11.getText():null)); }
+                    if ( state.backtracking==0 ) { result = new StrLiteral((STRING_LITERAL11!=null?STRING_LITERAL11.getText():null)); }
 
                     }
                     break;

@@ -25,11 +25,6 @@ public class Ident extends AExpr {
 			}
 		}
 		return new ErrorType();
-		 		
-		/*if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
-		}
-		return new ErrorType();*/
 	}
 	
 	@Override
