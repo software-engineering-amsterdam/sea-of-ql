@@ -2,7 +2,9 @@ package org.uva.sea.ql.ast.expression.impl;
 
 import org.uva.sea.ql.Message;
 import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.type.impl.UndefinedType;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.value.impl.UndefinedValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
@@ -10,12 +12,10 @@ import java.util.Map;
 
 public class UndefinedIdentifierNode extends IdentifierNode
 {
-    private final Value defaultValue;
 
-    public UndefinedIdentifierNode(String identifier, Value defaultValue)
+    public UndefinedIdentifierNode(String identifier)
     {
-        super(identifier, defaultValue);
-        this.defaultValue = defaultValue;
+        super(identifier, new UndefinedValue());
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UndefinedIdentifierNode extends IdentifierNode
     @Override
     public Type getType()
     {
-        return this.defaultValue.getType();
+        return new UndefinedType();
     }
 
     private <T> T throwUnsupportedOperationException()

@@ -52,7 +52,7 @@ options
 
 @members
 {
-    private Map<String, IdentifierNode> variables = new HashMap<>();
+    private Map<IdentifierNode, Value> variables = new HashMap<>();
 }
 
 walk returns [FormNode node]
@@ -60,7 +60,7 @@ walk returns [FormNode node]
     ;   
    
 form returns [FormNode node]
-	:	^(FORM Identifier ^(BLOCK block)) { $node = new FormNode($Identifier.text, $block.node); }
+	:	^(FORM Identifier ^(BLOCK block)) { $node = new FormNode($Identifier.text, $block.node, variables); }
 	;
 
 block returns [BlockNode node]
@@ -93,8 +93,9 @@ ifStatement returns [IfNode node]
 assignmentStatement returns [AssignmentNode node]
 	:	^(ASSIGNMENT StringLiteral Identifier type)
 	    {
-	        final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, $type.defaultValue);
-	        variables.put($Identifier.text, identifierNode);
+	        final Value defaultValue = $type.defaultValue;
+	        final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, defaultValue);
+	        variables.put(identifierNode, defaultValue);
 	        $node = new AssignmentNode($StringLiteral.text, identifierNode);
 	    }
 	;
@@ -102,8 +103,9 @@ assignmentStatement returns [AssignmentNode node]
 computedStatement returns [ComputedNode node]
     :   ^(COMPUTED StringLiteral Identifier type expression)
         {
-            final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, $type.defaultValue);
-            variables.put($Identifier.text, identifierNode);
+            final Value defaultValue = $type.defaultValue;
+            final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, defaultValue);
+            variables.put(identifierNode, defaultValue);
             $node = new ComputedNode($StringLiteral.text, identifierNode, $expression.node);
         }
     ;
@@ -136,11 +138,16 @@ expression returns [ExprNode node]
     |   StringLiteral { $node = new ValueNode(new StringValue($StringLiteral.text)); }
     |   Identifier
         {
-            $node = variables.get($Identifier.text);
+            final Value defaultValue = variables.get(new IdentifierNode($Identifier.text, null));
+
             // variable is undefined
-            if($node == null)
+            if(defaultValue == null)
             {
-                $node = new UndefinedIdentifierNode($Identifier.text, new UndefinedValue());
+                $node = new UndefinedIdentifierNode($Identifier.text);
+            }
+            else
+            {
+                $node = new IdentifierNode($Identifier.text, defaultValue);
             }
         }
     ;

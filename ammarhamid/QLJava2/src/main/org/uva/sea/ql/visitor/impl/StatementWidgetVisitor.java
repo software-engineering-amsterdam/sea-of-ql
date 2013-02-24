@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.statement.impl.IfNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.variable.VariableState;
+import org.uva.sea.ql.visitor.observer.ComputedObserver;
 import org.uva.sea.ql.visitor.observer.ConditionObserver;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
@@ -66,6 +67,15 @@ public class StatementWidgetVisitor implements StatementVisitor
 
         addQuestionPanel(questionPanel);
         addTypePanel(typePanel);
+
+        ExpressionDependencyVisitor.find(computedNode.getExprNode(), computedNode, this.variableState);
+
+        // TODO SHOULD HAVE NO CASTING
+        final ComputedObserver computedObserver = new ComputedObserver(computedNode.getExprNode(), (JTextField)typePanel.getComponent(0), this.variableState.getVariables());
+        computedNode.addObserver(computedObserver);
+
+        // TODO not sure if this is necessary
+        computedObserver.update(null, null);
     }
 
     @Override
