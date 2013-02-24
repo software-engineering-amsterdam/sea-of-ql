@@ -19,10 +19,12 @@ import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {
 	private final static int FormLocation = 0;
+	private final static int ResultPath = 1;
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
-			throw new IllegalArgumentException("Example use: Program form.ql");
+		if (args.length != 2) {
+			throw new IllegalArgumentException(
+					"Example use: Program form.ql resultPath.xml");
 		}
 
 		String formText = Program
@@ -51,7 +53,8 @@ public class Program {
 			Application application = questionForm.accept(swingVisitor);
 
 			// Save application results to xml.
-			SaveBehaviour saveBehaviour = new Xml("result.xml");
+			String resultPath = args[Program.ResultPath];
+			SaveBehaviour saveBehaviour = new Xml(resultPath);
 			application.addObserver(saveBehaviour);
 
 			// Get created form and define close-behaviour.

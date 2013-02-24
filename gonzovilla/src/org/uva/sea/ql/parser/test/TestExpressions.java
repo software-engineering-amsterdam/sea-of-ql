@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.GT;
@@ -18,21 +16,15 @@ import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.types.TypeInt;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
-	private IParse parser;
+	private IParse parser = new ANTLRParser();
 
 	@Parameters
 	public static List<Object[]> theParsers() {
 		List<Object[]> parser = new ArrayList<Object[]>();
 		parser.add(new Object[] {new ANTLRParser()});
 		return parser;
-	}
-
-	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
 	}
 
 	

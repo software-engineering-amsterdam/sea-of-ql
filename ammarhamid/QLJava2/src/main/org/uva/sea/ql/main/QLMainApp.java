@@ -29,7 +29,7 @@ public class QLMainApp
         final BlockNode blockNode = formNode.getBlockNode();
         final Collection<Statement> statements = blockNode.getStatements();
 
-        final VariableState variableState = new VariableState();
+        final VariableState variableState = new VariableState(formNode.getVariables());
         final Collection<Message> errors = new ArrayList<>();
 
         // statement validation check

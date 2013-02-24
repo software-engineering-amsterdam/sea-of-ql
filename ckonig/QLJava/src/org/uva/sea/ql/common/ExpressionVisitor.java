@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.bool.NEq;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
@@ -53,4 +54,6 @@ public interface ExpressionVisitor {
     void visit(Ident ident) throws QLException;
     
     void visit(IntLiteral i) throws QLException;
+    
+    void visit(BoolLiteral b) throws QLException;
 }

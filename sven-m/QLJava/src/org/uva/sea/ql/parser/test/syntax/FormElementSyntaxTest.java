@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.form.Computed;
 import org.uva.sea.ql.ast.form.IfStatement;
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.antlr.ParseError;
 
 public class FormElementSyntaxTest extends SyntaxTest {
 

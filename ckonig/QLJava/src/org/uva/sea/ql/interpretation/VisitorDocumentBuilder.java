@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.common.ElementVisitor;
+import org.uva.sea.ql.common.QLDocument;
 import org.uva.sea.ql.common.QLException;
 
 public final class VisitorDocumentBuilder implements ElementVisitor {

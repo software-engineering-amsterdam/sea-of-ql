@@ -9,18 +9,18 @@ import org.uva.sea.ql.parsers.exceptions.StatementNotValidException;
 
 public class StatementVisitorToCheckVariableDefinitions implements StatementVisitor{
 
-	private List<Variable> variableList;
-	private List<StatementNotValidException> errors;
+	private List<Identifier> identifierList;
+	private List<StatementNotValidException> exceptions;
 	private ExpressionVisitor expressionVisitor;
 	
 	public StatementVisitorToCheckVariableDefinitions(ExpressionVisitor expressionVisitor)	{
-		this.variableList = new ArrayList<Variable>();
-		this.errors = new ArrayList<StatementNotValidException>();
+		this.identifierList = new ArrayList<Identifier>();
+		this.exceptions = new ArrayList<StatementNotValidException>();
 		this.expressionVisitor = expressionVisitor;
 	}
 	
 	public List<StatementNotValidException> getErrors() {
-		return errors;
+		return exceptions;
 	}	
 	
 	@Override
@@ -32,18 +32,18 @@ public class StatementVisitorToCheckVariableDefinitions implements StatementVisi
 
 	@Override
 	public void visit(Question question) {
-		if(VariableWithSameNameAndTypeAlreadyDefined(question.variable)){
-			AddErrorInTheErrorList(question);
+		if(identifierWithSameNameAndTypeAlreadyDefined(question.identifier)){
+			addExceptionInExceptionsList(question);
 		}
-		AddVariableInTheList(question.variable);
+		addIdentifierInIdentifiersList(question.identifier);
 	}
 
 	@Override
 	public void visit(ComputedValue computedValue) {
-		if(VariableWithSameNameAndTypeAlreadyDefined(computedValue.variable)){
-			AddErrorInTheErrorList(computedValue);
+		if(identifierWithSameNameAndTypeAlreadyDefined(computedValue.identifier)){
+			addExceptionInExceptionsList(computedValue);
 		}
-		AddVariableInTheList(computedValue.variable);
+		addIdentifierInIdentifiersList(computedValue.identifier);
 	}
 
 	@Override
@@ -55,25 +55,25 @@ public class StatementVisitorToCheckVariableDefinitions implements StatementVisi
 		}
 	}
 
-	private boolean VariableWithSameNameAndTypeAlreadyDefined(Variable variable){
-		boolean variableWithSameNameAndTypeAlreadyDefined = false;
+	private boolean identifierWithSameNameAndTypeAlreadyDefined(Identifier identifier){
+		boolean identifierWithSameNameAndTypeAlreadyDefined = false;
 		
-		for(Variable definedVariable : variableList){
-			if(definedVariable.identifier.getName() == variable.identifier.getName() 
-				&& definedVariable.typeDeclaration.getTypeName() == variable.typeDeclaration.getTypeName()){
-				variableWithSameNameAndTypeAlreadyDefined = true;
+		for(Identifier definedIdentifier : identifierList){
+			if(definedIdentifier.getName() == identifier.getName() 
+				&& definedIdentifier.getType().getTypeName() == identifier.getType().getTypeName()){
+				identifierWithSameNameAndTypeAlreadyDefined = true;
 				break;
 			}
 		}
 		
-		return variableWithSameNameAndTypeAlreadyDefined;
+		return identifierWithSameNameAndTypeAlreadyDefined;
 	}
 	
-	private void AddErrorInTheErrorList(Statement statement){
-		this.errors.add(new StatementNotValidException(statement));
+	private void addExceptionInExceptionsList(Statement statement){
+		this.exceptions.add(new StatementNotValidException(statement));
 	}
 	
-	private boolean AddVariableInTheList(Variable variable){
-		return variableList.add(variable);
+	private boolean addIdentifierInIdentifiersList(Identifier identifier){
+		return identifierList.add(identifier);
 	}
 }

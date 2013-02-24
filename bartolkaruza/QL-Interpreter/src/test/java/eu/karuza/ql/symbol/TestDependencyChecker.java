@@ -8,7 +8,7 @@ import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.parser.antlr.ANTLRParser;
-import eu.karuza.ql.semantic.StatementSemanticChecker;
+import eu.karuza.ql.visitor.impl.StatementSemanticChecker;
 
 public class TestDependencyChecker {
 	

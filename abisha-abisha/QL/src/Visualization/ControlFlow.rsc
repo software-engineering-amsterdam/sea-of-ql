@@ -2,7 +2,7 @@ module Visualization::ControlFlow
 
 import Prelude;
 import analysis::graphs::Graph;
-import syntax::abstractSyntax;
+import syntax::Abstract;
 import load::Load;
 
 public data CFNode                                                                
@@ -15,9 +15,9 @@ public data CFNode
 
 alias CFGraph = tuple[set[CFNode] entry, Graph[CFNode] graph, set[CFNode] exit];  
 
-/*CFGraph cflowStat(s:asgStat(QuestionireId Id, EXP Exp)) {                                
+/*CFGraph cflowStat(s:asgStat(QuestionId Id, EXP Exp)) {                                
    S = statement(s@location, s);
-   return <{Q}, {}, {Q}>;
+   return <{S}, {}, {S}>;
 }*/
 
 CFGraph cflowStat(statement:ifStat(Expression exp, list[Statement]Stats ))
@@ -62,16 +62,16 @@ CFGraph cflowQuestion(question:computedQuestion(str id, str labelQuestion, Type 
 	 return <{Q}, {}, {Q}>;
 }
 
-public CFGraph cflowProgram(Program P)
+public CFGraph cflowForm(Form F)
 {                                           
-	if(program(str id, list[Statement] Stat) := P)
+	if(form(str id, list[Statement] Stat) := F)
 	{  
-    	CF = cflowStatement(Series);
-     	Entry = entry(P@location);
+    	CF = cflowStats(Stat);
+     	Entry = entry(F@location);
      	Exit  = exit();
      	return <{Entry}, ({Entry} * CF.entry) + CF.graph + (CF.exit * {Exit}), {Exit}>;
   	}
   	else
     throw "Cannot happen";
 }
-public CFGraph cflowProgram(str txt) = cflowProgram(load(txt));  
+public CFGraph cflowForm(str txt) = cflowForm(load(txt));  

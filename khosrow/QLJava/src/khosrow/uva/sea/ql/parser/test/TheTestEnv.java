@@ -11,7 +11,7 @@ public class TheTestEnv {
 	
 	private TheTestEnv(){}
 	
-	public static Env getTypeEnv() {
+	public static Env getEnv() {
 		if(testEnv == null) {
 			testEnv = new TheTestEnv();
 			env = new Env();

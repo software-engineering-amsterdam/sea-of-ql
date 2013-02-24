@@ -3,7 +3,10 @@ package org.uva.sea.ql.value.impl;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.type.impl.MoneyType;
 import org.uva.sea.ql.value.Value;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class MoneyValue extends Value implements Comparable<MoneyValue>
 {
@@ -22,11 +25,6 @@ public class MoneyValue extends Value implements Comparable<MoneyValue>
     public BigDecimal getValue()
     {
         return value;
-    }
-
-    public void setValue(final BigDecimal value)
-    {
-        this.value = value;
     }
 
     @Override
@@ -168,6 +166,7 @@ public class MoneyValue extends Value implements Comparable<MoneyValue>
     @Override
     public String toString()
     {
-        return this.value.toString();
+        final NumberFormat formatter = new DecimalFormat("#0.00");
+        return formatter.format(this.value);
     }
 }

@@ -23,11 +23,6 @@ public class IntegerValue extends Value implements Comparable<IntegerValue>
         return value;
     }
 
-    public void setValue(final Integer value)
-    {
-        this.value = value;
-    }
-
     @Override
     public Type getType()
     {

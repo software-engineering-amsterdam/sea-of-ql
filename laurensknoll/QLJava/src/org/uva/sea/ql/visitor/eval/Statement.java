@@ -3,9 +3,6 @@ package org.uva.sea.ql.visitor.eval;
 import java.awt.GridLayout;
 import java.util.Observer;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.atom.String;
@@ -19,10 +16,11 @@ import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.IType;
 import org.uva.sea.ql.visitor.eval.observer.Computed;
-import org.uva.sea.ql.visitor.eval.observer.Conditional;
 import org.uva.sea.ql.visitor.eval.observer.Dependency;
 import org.uva.sea.ql.visitor.eval.observer.DependencySet;
+import org.uva.sea.ql.visitor.eval.ui.ConditionalPanel;
 import org.uva.sea.ql.visitor.eval.ui.Panel;
+import org.uva.sea.ql.visitor.eval.ui.QuestionPanel;
 import org.uva.sea.ql.visitor.eval.ui.Widget;
 
 public class Statement implements IStatement<Panel> {
@@ -35,14 +33,13 @@ public class Statement implements IStatement<Panel> {
 
 	@Override
 	public Panel visit(Block block) {
-		Panel panel = new Panel(new JPanel(new GridLayout(0, 1)),
-				this.environment);
+		Panel panel = new Panel(new GridLayout(0, 1), this.environment);
 
 		Environment innerEnvironment = this.environment.getChildEnvironment();
 		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
 		for (AbstractStatement statement : block.getStatements()) {
 			Panel inner = statement.accept(statementVisitor);
-			panel.addPanel(inner);
+			panel.add(inner);
 		}
 
 		return panel;
@@ -54,11 +51,11 @@ public class Statement implements IStatement<Panel> {
 		Panel panel = question.accept(this);
 
 		// The question is computed. Therefore make it read only.
-		Ident ident = question.getIdent();
-		this.environment.setReadOnly(ident, true);
+		panel.setEnabled(false);
 
 		// Observe dependent questions
 		AbstractExpr computation = computedQuestion.getComputation();
+		Ident ident = question.getIdent();
 		Computed observer = new Computed(computation, ident, this.environment);
 		this.observeDependencies(computation, observer);
 
@@ -75,26 +72,22 @@ public class Statement implements IStatement<Panel> {
 
 		// Observe condition
 		AbstractExpr condition = ifStatement.getCondition();
-		Conditional observer = new Conditional(condition, this.environment,
+		Panel panel = new ConditionalPanel(this.environment, condition,
 				truePanel);
-		this.observeDependencies(condition, observer);
 
-		return truePanel;
+		return panel;
 	}
 
 	@Override
 	public Panel visit(Question question) {
-		Panel panel = new Panel(new JPanel(new GridLayout(0, 2)),
-				this.environment);
-
 		String questionLabel = question.getQuestion();
-		JLabel label = new JLabel(questionLabel.getValue());
-		panel.addComponent(label);
 
 		AbstractType type = question.getType();
 		IType<Widget> typeVisitor = new Type();
 		Widget widget = type.accept(typeVisitor);
-		panel.addComponent(widget.getComponent());
+
+		Panel panel = new QuestionPanel(new GridLayout(0, 2), this.environment,
+				questionLabel.getValue(), widget);
 
 		Ident id = question.getIdent();
 		this.environment.declare(id, widget);

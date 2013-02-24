@@ -1,10 +1,11 @@
 package org.uva.sea.ql.type;
 
-import org.uva.sea.ql.visitor.TypeVisitor;
+import org.uva.sea.ql.visitor.impl.TypeWidgetVisitor;
+import org.uva.sea.ql.visitor.widget.CustomWidget;
 
 public abstract class Type
 {
-    public abstract void accept(TypeVisitor typeVisitor);
+    public abstract CustomWidget accept(TypeWidgetVisitor typeWidgetVisitor);
 
     public abstract boolean isCompatibleTo(Type type);
 
