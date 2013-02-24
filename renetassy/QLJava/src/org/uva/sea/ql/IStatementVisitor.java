@@ -1,10 +1,11 @@
 package org.uva.sea.ql;
 
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.stmnt.Body;
-import org.uva.sea.ql.ast.stmnt.ComputedQuestion;
-import org.uva.sea.ql.ast.stmnt.IfStatement;
-import org.uva.sea.ql.ast.stmnt.Question;
+import org.uva.sea.ql.ast.statements.Body;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.IfStatement;
+import org.uva.sea.ql.ast.statements.Question;
+
 
 public interface IStatementVisitor<T> {
 

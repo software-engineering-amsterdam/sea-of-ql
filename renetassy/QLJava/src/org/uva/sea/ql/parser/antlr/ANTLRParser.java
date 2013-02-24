@@ -4,9 +4,9 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.test.IParse;
-import org.uva.sea.ql.test.ParseError;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.errors.ParseError;
 
 public class ANTLRParser implements IParse {
 

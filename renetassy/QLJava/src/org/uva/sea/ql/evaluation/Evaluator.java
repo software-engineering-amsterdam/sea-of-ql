@@ -1,8 +1,9 @@
-package org.uva.sea.ql;
+package org.uva.sea.ql.evaluation;
 
 import java.util.Collections;
 import java.util.Map;
 
+import org.uva.sea.ql.IExprVisitor;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.BoolLiteral;
@@ -23,10 +24,10 @@ import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.expr.Sub;
-import org.uva.sea.ql.values.Bool;
-import org.uva.sea.ql.values.Int;
-import org.uva.sea.ql.values.Str;
-import org.uva.sea.ql.values.Value;
+import org.uva.sea.ql.evaluation.values.Bool;
+import org.uva.sea.ql.evaluation.values.Int;
+import org.uva.sea.ql.evaluation.values.Str;
+import org.uva.sea.ql.evaluation.values.Value;
 
 public class Evaluator implements IExprVisitor<Value> {
 	

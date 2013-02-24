@@ -4,10 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
-import org.uva.sea.ql.Evaluator;
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.errors.ParseError;
+import org.uva.sea.ql.evaluation.Evaluator;
+import org.uva.sea.ql.evaluation.values.Value;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.values.Value;
 
 public class TestExprEvaluator {
 

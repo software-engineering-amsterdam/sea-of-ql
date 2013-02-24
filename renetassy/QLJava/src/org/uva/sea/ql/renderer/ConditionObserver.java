@@ -5,8 +5,8 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.Evaluator;
 import org.uva.sea.ql.ast.expr.Expr;
+import org.uva.sea.ql.evaluation.Evaluator;
 
 public class ConditionObserver implements Observer {
 	
@@ -28,7 +28,7 @@ public class ConditionObserver implements Observer {
 		
 		statementBody.setVisible(v);
 		
-		System.out.println("update");
+		System.out.println("update condition");
 		
 	}
 	

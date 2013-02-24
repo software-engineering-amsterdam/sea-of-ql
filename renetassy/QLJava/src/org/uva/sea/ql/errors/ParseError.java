@@ -1,4 +1,4 @@
-package org.uva.sea.ql.test;
+package org.uva.sea.ql.errors;
 
 public class ParseError extends Exception {
 	private static final long serialVersionUID = 1L;

@@ -6,12 +6,14 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.ast.stmnt.Body;
-import org.uva.sea.ql.ast.stmnt.ComputedQuestion;
-import org.uva.sea.ql.ast.stmnt.IfStatement;
-import org.uva.sea.ql.ast.stmnt.Question;
-import org.uva.sea.ql.ast.stmnt.Statement;
+import org.uva.sea.ql.ast.statements.Body;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.IfStatement;
+import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.errors.QLError;
+
 
 public class StatementChecker implements IStatementVisitor<Boolean> {
 	

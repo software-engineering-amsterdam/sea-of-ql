@@ -19,6 +19,7 @@ import org.uva.sea.ql.ast.expr.LEq;
 import org.uva.sea.ql.ast.expr.LT;
 import org.uva.sea.ql.ast.expr.Mul;
 import org.uva.sea.ql.ast.expr.Not;
+import org.uva.sea.ql.errors.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 

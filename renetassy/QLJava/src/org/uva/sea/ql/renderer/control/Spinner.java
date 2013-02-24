@@ -5,9 +5,9 @@ import java.awt.Dimension;
 import javax.swing.JComponent;
 import javax.swing.JSpinner;
 
+import org.uva.sea.ql.evaluation.values.Int;
+import org.uva.sea.ql.evaluation.values.Value;
 import org.uva.sea.ql.renderer.ObservableQuestion;
-import org.uva.sea.ql.values.Int;
-import org.uva.sea.ql.values.Value;
 
 public class Spinner extends Control {
 

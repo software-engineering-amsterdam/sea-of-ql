@@ -24,6 +24,7 @@ import org.uva.sea.ql.ast.expr.Pos;
 import org.uva.sea.ql.ast.expr.StringLiteral;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.errors.QLError;
 
 public class ExprTypeChecker implements IExprVisitor<Boolean> {
 	

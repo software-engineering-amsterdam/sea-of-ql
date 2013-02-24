@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.uva.sea.ql.values.Value;
+import org.uva.sea.ql.evaluation.values.Value;
 
 public class State {
 	
@@ -22,22 +22,22 @@ public class State {
 	}
 	
 	public void putValue(String x, Value v) {
-		System.out.println("put value "+x);
 		env.put(x, v);
 	}
 
 	public void addObserver(String x, Observer obs) {
 		observables.get(x).addObserver(obs);
-		System.out.println("add observer");
 	}
 	
 	public void putObservable(String x, Observable obs) {
 		observables.put(x, obs); 
-		System.out.println("put observable"+x);
 	}
 
 	public Map<String, Observable> getObservables() {
 		return observables;
 	}
-	
+
+	public void notify(String name) {
+		observables.get(name).notifyObservers();
+	}
 }

@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.uva.sea.ql.Evaluator;
 import org.uva.sea.ql.ExprTypeChecker;
-import org.uva.sea.ql.QLError;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.errors.ParseError;
+import org.uva.sea.ql.errors.QLError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
-import org.uva.sea.ql.values.Value;
 
 public class TestExprTypeChecker {
 
@@ -21,7 +20,6 @@ public class TestExprTypeChecker {
 	private Map<String,Type> typeEnvironment;
 	private List<QLError> errors;
 	
-	private Map<String, Value> env;
 	//private ExprTypeChecker typeChecker;
 
 	public TestExprTypeChecker() {

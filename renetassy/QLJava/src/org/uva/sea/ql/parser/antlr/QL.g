@@ -6,7 +6,7 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.stmnt.*;
+import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
 
 }

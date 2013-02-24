@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.stmnt;
+package org.uva.sea.ql.ast.statements;
 
 import java.util.List;
 
