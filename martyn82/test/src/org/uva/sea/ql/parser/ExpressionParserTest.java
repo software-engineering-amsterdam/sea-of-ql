@@ -28,8 +28,6 @@ import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.parser.Parser;
-import org.uva.sea.ql.parser.ParseError;
 
 public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 	private enum Side {
@@ -89,8 +87,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		}
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAddExpression() {
 		assertExpression( AddExpression.class, "a + b" );
 		assertExpression( AddExpression.class, "a + b + c" );
@@ -104,8 +102,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( AddExpression.class, "3+2+1" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testSubtractExpression() {
 		assertExpression( SubtractExpression.class, "a - b" );
 		assertExpression( SubtractExpression.class, "a - b - c" );
@@ -118,8 +116,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( SubtractExpression.class, "1-1" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMultiplyExpression() {
 		assertExpression( MultiplyExpression.class, "a * b" );
 		assertExpression( MultiplyExpression.class, "a * b * c" );
@@ -131,8 +129,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( MultiplyExpression.class, "1*1" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testDivideExpression() {
 		assertExpression( DivideExpression.class, "a / b" );
 		assertExpression( DivideExpression.class, "a / b / c" );
@@ -144,8 +142,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( DivideExpression.class, "1/1" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanExpression() {
 		// lesser-than
 		assertExpression( LesserThanExpression.class, "a < b" );
@@ -154,8 +152,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( LesserThanExpression.class, "(a * b) < c" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanExpression() {
 		// greater-than
 		assertExpression( GreaterThanExpression.class, "a > b" );
@@ -164,8 +162,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( GreaterThanExpression.class, "(a * b) > c" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testLesserThanOrEqualExpression() {
 		// lesser-than-equals
 		assertExpression( LesserThanOrEqualExpression.class, "a <= b" );
@@ -174,8 +172,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( LesserThanOrEqualExpression.class, "(a * b) <= c" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testGreaterThanOrEqualExpression() {
 		// greater-than-equals
 		assertExpression( GreaterThanOrEqualExpression.class, "a >= b");
@@ -184,8 +182,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( GreaterThanOrEqualExpression.class, "(a * b ) >= c" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testEqualExpression() {
 		// equals
 		assertExpression( EqualExpression.class, "a == b" );
@@ -194,8 +192,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( EqualExpression.class, "a == b + c" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotEqualExpression() {
 		// not-equals
 		assertExpression( NotEqualExpression.class, "a != b" );
@@ -204,8 +202,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( NotEqualExpression.class, "a != (b < c)" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIdentifierExpression() {
 		assertExpression( IdentifierExpression.class, "a" );
 		assertExpression( IdentifierExpression.class, "abc" );
@@ -218,16 +216,16 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( IdentifierExpression.class, "a_12bla" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testIntegerLiteral() {
 		assertExpression( IntegerLiteral.class, "0" );
 		assertExpression( IntegerLiteral.class, "1223" );
 		assertExpression( IntegerLiteral.class, "234234234" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testMoneyLiteral() {
 		assertExpression( MoneyLiteral.class, "0.0" );
 		assertExpression( MoneyLiteral.class, "0.034982390" );
@@ -237,8 +235,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( MoneyLiteral.class, "1.9e4" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNegativeExpression() {
 		assertExpression( NegativeExpression.class, "-1" );
 		assertExpression( NegativeExpression.class, "-44320" );
@@ -246,8 +244,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( NegativeExpression.class, "-(a * b)" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testPositiveExpression() {
 		assertExpression( PositiveExpression.class, "+1" );
 		assertExpression( PositiveExpression.class, "+0" );
@@ -255,15 +253,15 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( PositiveExpression.class, "+(-43 * (11 + -3))" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testBooleanLiteral() {
 		assertExpression( BooleanLiteral.class, "true" );
 		assertExpression( BooleanLiteral.class, "false" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testStringLiteral() {
 		assertExpression( StringLiteral.class, "\"\"" );
 		assertExpression( StringLiteral.class, "\"abc\"" );
@@ -276,8 +274,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( StringLiteral.class, "\"\\n\"" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testAndExpression() {
 		assertExpression( AndExpression.class, "a && b" );
 		assertExpression( AndExpression.class, "(a && b)" );
@@ -286,8 +284,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( AndExpression.class, "a && !b" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testOrExpression() {
 		assertExpression( OrExpression.class, "a || b" );
 		assertExpression( OrExpression.class, "(a || b)" );
@@ -295,8 +293,8 @@ public class ExpressionParserTest extends ParserTest implements ExpressionTest {
 		assertExpression( OrExpression.class, "a || (b && c)" );
 	}
 
-	@Override
 	@Test
+	@Override
 	public void testNotExpression() {
 		assertExpression( NotExpression.class, "!a" );
 		assertExpression( NotExpression.class, "!(a && b)" );

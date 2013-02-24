@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class Neg extends Binary {
+public class Neg extends Unary {
 
 	public Neg(Expr x) {
 		super(x);

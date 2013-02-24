@@ -10,7 +10,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
 import eu.karuza.ql.ast.ASTNode;
-import eu.karuza.ql.ast.expr.grouping.Expr;
+import eu.karuza.ql.ast.Expr;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.ParserContext;
@@ -22,9 +22,9 @@ public class ANTLRParser implements IParse {
 		try {
 			return getParser(src).orExpr();
 		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		} catch (RuntimeException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		}
 	}
 
@@ -33,9 +33,9 @@ public class ANTLRParser implements IParse {
 		try {
 			return getParser(src).form();
 		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		} catch (RuntimeException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		}
 	}
 	
@@ -44,9 +44,9 @@ public class ANTLRParser implements IParse {
 		try {
 			return getStreamParser(stream).form();
 		} catch (IOException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		}
 	}
 	
@@ -54,25 +54,23 @@ public class ANTLRParser implements IParse {
 		ANTLRInputStream stream = new ANTLRInputStream(inputStream, ParserContext.CHARACTER_ENCODING);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		return parser;
+		return new QLParser(tokens);
 	}
 
 	private QLParser getParser(String src) {
 		ANTLRStringStream stream = new ANTLRStringStream(src);
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		return parser;
+		return new QLParser(tokens);
 	}
 
 	public ASTNode parseFile(String fileName) throws ParseError{
 		try {
 			return getParserFromFile(fileName).form();
 		} catch (IOException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
+			throw new ParseError(e);
 		}
 	}
 

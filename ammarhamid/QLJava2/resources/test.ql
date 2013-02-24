@@ -1,32 +1,36 @@
 form TestQL
 {
-    "First name" name: string
+    "What is your name?" name: string
+    "How old are you?" age: integer
 
     "Did you sell a house in 2010?" hasSoldHouse: boolean
     if(hasSoldHouse)
     {
-        "House price?" housePrice: integer
+        "The house price when you sold it" houseSoldPrice: money
+        "The house price when you bought it" houseBoughtPrice: money
+        "Price residue " valueResidue: money(houseSoldPrice-houseBoughtPrice)
+        "Villa price " villaPrice: money
+        "Total money residue + villaPrice" total: money(valueResidue+villaPrice)
     }
     else
     {
-        "Definitely sure?" sure: boolean
+        "Definitely sure?" houseSure: boolean
     }
 
     "Are you married?" married: boolean
     if(married)
     {
-        "When is that?" married: string
+        "What is your wife's name?" wifeName: string
     }
 
     "Did you sell a car in 2010?" hasSoldCar: boolean
-    if(hasSoldCar)
+    if(hasSoldCar || married)
     {
-        "Car price?" housePrice: integer
+        "The car price" carPrice: money
     }
     else
     {
-        "Absolutely sure?" sure: boolean
+        "Absolutely sure?" carSure: boolean
     }
-
 
 }

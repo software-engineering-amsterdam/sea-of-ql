@@ -12,7 +12,7 @@ module lang::ql::ide::Outline
 
 import List;
 import Node;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::PrettyPrinter;
 import lang::ql::util::ParseHelper;
 import util::IDE;

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.TypeBool;
+import org.uva.sea.ql.ast.visitor.VisitorExpressions;
 
 public class Eq extends Binary {
 
@@ -16,4 +17,9 @@ public class Eq extends Binary {
 		return new TypeBool();
 	}
 
+	@Override
+	public <T> T accept(VisitorExpressions<T> visitor) {
+		return  visitor.visit(this);
+	}
+	
 }

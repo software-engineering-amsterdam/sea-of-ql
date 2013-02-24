@@ -5,9 +5,9 @@ form foodinwork {
 	male: "Male:" boolean
 	fullname: "Full Name:" string (name+" "+surname)
 	/*dawdwadawdwA*/
-
+	
 	if (male) {
-	 y: "Age in days" integer (365*age)
+	 ageindays: "Age in days" integer (365*age)
 	}
 	
 	if(name!="George"){

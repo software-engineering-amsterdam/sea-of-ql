@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.math;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.EvaluationVisitor;
+import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 
 public class Div extends BinaryMathOperator {
@@ -17,7 +17,7 @@ public class Div extends BinaryMathOperator {
     }
 
     @Override
-    public void accept(EvaluationVisitor visitor) throws QLException {
+    public final void accept(ExpressionVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 

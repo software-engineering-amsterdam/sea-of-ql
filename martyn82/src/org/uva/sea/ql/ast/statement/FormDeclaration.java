@@ -7,6 +7,8 @@ public class FormDeclaration extends Statement {
 	private final Statements body;
 
 	public FormDeclaration( String label, Statements body ) {
+		assert ( label != null ) && ( label != "" ) && ( body != null );
+
 		this.label = label;
 		this.body = body;
 	}

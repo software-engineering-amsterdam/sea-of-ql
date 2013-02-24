@@ -26,5 +26,10 @@ public class Div extends Binary {
 	public Type typeOf(Env env) {
 		return new IntType();
 	}
+	
+	@Override
+	public Type getAllowedType() {
+		return new IntType();
+	}
 
 }

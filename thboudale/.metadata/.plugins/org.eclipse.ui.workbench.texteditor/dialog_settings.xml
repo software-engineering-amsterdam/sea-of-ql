@@ -13,12 +13,19 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="LITERAL" key="selection"/>
+		<item value="binaryExpressions" key="selection"/>
 		<list key="findhistory">
+			<item value="binaryExpr"/>
+			<item value="assertEquals(false, "/>
+			<item value="assertEquals(true, "/>
 			<item value="Literal"/>
 			<item value="Label"/>
 		</list>
 		<list key="replacehistory">
+			<item value="binaryExpressions"/>
+			<item value="assertFalse("/>
+			<item value="assertTrue("/>
+			<item value="assertTrue"/>
 		</list>
 	</section>
 </section>

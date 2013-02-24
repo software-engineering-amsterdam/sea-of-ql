@@ -6,87 +6,36 @@ import lang::ql::compiler::ExtractDependencies;
 
 public str generateJSValidateFunctions(list[FormBodyItem] bodyItems){
 	str code="";
-	str formValCode="function formValidate(){\n\tvar isValid=true;";
+	str formValCode="function formValidate(form){\n\tvar isValid=true;\n";
 	
-	visit(bodyItems){
-		case q:simpleQuestion(str questionId,str label,Type questionType) : {
-			code+=generateVarValidate(questionId,questionType,label);
-			formValCode+="\tisValid=<questionId>Validate();\n";
-			formValCode+="\tif(!isValid) {return false;}\n";
-			}
-		case q:computedQuestion(str questionId,str label,Type questionType,_) : {
-			code+=generateVarValidate(questionId,questionType,label);
-			formValCode+="\tisValid=<questionId>Validate();\n";
-			formValCode+="\tif(!isValid) {return false;}\n";
-			}
+	for(/Question q := bodyItems){
+		code+=generateVarValidate(q.questionId,  q.questionType,q.questionLabel);
+		formValCode+="\tisValid=<q.questionId>Validate();
+					 '\tif(!isValid) {return false;}\n";
 	}
 	
-	formValCode+="}\n";
-	code+=generateStringValidFun();
-	code+=generateIntegerValidFun();
-	code+=generateBooleanValidFun();
-	code+=generateDateValidFun();
-	code+=generateMoneyValidFun();
-	code+=generateFloatValidFun();
-	
+	formValCode+="\texportToCsv(form);
+	             '}
+				 ";	
 	return formValCode+code;
 }
-
+//3. output source Code as writen bellow
 str generateVarValidate(str questionId,Type questionType,str questionLabel){
 	return "function <questionId>Validate(){
-		 '\tif(<generateTypeValidation(questionId,questionType)>){
-		 '\t\talert(\"Failed on <questionId>\");
-		 '\t\treturn(false);}
-		 '\t\telse {return true;}
-		 '}\n";
+		   '  if(<generateTypeValidation(questionId,questionType)>){
+		   '     alert(\"Failed on <questionId>\");
+		   '     return(false);
+		   '  }
+		   '  else {return true;}
+		   '}
+		   '
+";
 }
 
-str generateTypeValidation(str questionId,Type questionType){
-	str code="";
-	
-	switch(questionType){
-		case integer() : code= "!validInteger(document.getElementById(\"<questionId>\").value)";
-		case string()  : code= "!validString(document.getElementById(\"<questionId>\").value)";
-		case boolean() : code= "!validBoolean(\"<questionId>\")";
-		case date()	   : code= "!validDate(document.getElementById(\"<questionId>\").value)";
-		case money()   : code= "!validMoney(document.getElementById(\"<questionId>\").value)";
-		case float()   : code= "!validFloat(parseFloat(document.getElementById(\"<questionId>\").value))";
-	}
-	
-	return code;
-}
+str generateTypeValidation(str questionId, integer())="!validInteger(document.getElementById(\"<questionId>\").value)";
+str generateTypeValidation(str questionId, /string())="!validString(document.getElementById(\"<questionId>\").value)";
+str generateTypeValidation(str questionId, /boolean())="!validBoolean(\"<questionId>\")";
+str generateTypeValidation(str questionId, /date())="!validDate(document.getElementById(\"<questionId>\").value)";
+str generateTypeValidation(str questionId, /money())="!validMoney(document.getElementById(\"<questionId>\").value)";
+str generateTypeValidation(str questionId, /float())="!validFloat(parseFloat(document.getElementById(\"<questionId>\").value))";
 
-str generateStringValidFun(){
-	return "function validString(input){
-    		return !(/[\\\\/&;]/.test(input));}\n\n";
-}
-
-str generateIntegerValidFun(){
-	return "function validInteger(input){
-		if(input==\"\"){return true;}
-		return /(^-?\\d\\d*$)/.test(input);}\n\n";
-}
-
-str generateBooleanValidFun(){
-	return "function validBoolean(input){
-		return true;
-		}\n\n";
-}
-
-str generateDateValidFun(){
-	return "function validDate(input){
-		if(input==\"\"){return true;}
-		return /^(0?[1-9]|[12][0-9]|3[01])[\\/\\-](0?[1-9]|1[012])[\\/\\-]\\d{4}$/.test(input);}\n\n";
-}
-
-str generateMoneyValidFun(){
-	return "function validMoney(input){
-		if(input==\"\"){return true;}
-		return /^-{0,1}\\d+[,]?\\d{0,2}$/.test(inpt);}\n\n";
-}
-
-str generateFloatValidFun(){
-	return "function validFloat(input){
-		if(input==\"\"){return true;}
-		return /^-{0,1}\\d+[.]?\\d{0,2}$/.test(inpt);}\n\n";
-}

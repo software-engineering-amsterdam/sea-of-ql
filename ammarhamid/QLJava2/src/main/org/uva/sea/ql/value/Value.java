@@ -10,6 +10,7 @@ public abstract class Value
     public static final String UNSUPPORTED_OPERATION_EXCEPTION = "Unsupported operation exception";
 
     public abstract Type getType();
+    public abstract Object getValue();
 
     public Value equal(Value value)
     {

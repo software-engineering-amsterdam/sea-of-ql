@@ -8,19 +8,25 @@ import javax.swing.JCheckBox;
 
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Primitive;
+import org.uva.sea.ql.ast.primitive.Undefined;
 
 public class WidgetBool extends Widget implements ItemListener{
 	private JCheckBox chkbox;
+	
+	//tracks whether the checkbox has been clicked before
+	boolean initialized;
 	
 	public WidgetBool(){
 		super();
 		
 		chkbox = new JCheckBox();
 		chkbox.addItemListener(this);
+		this.initialized = false;
 	}
 
 	@Override
 	public Component getComponent(){
+		initialized = true;
 		return chkbox;
 	}
 	
@@ -31,9 +37,7 @@ public class WidgetBool extends Widget implements ItemListener{
 
 	@Override
 	public Primitive getValue() {
-		return new Bool(chkbox.isSelected());
+		return initialized ? new Bool(chkbox.isSelected()) : new Undefined();
 	}
-
-
 	
 }

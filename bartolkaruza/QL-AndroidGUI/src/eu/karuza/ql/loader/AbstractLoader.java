@@ -1,11 +1,13 @@
 package eu.karuza.ql.loader;
 
+import eu.karuza.ql.loader.result.LoaderResult;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 
 public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult> {
 	
-	protected LoaderResult result;
+	protected abstract LoaderResult getResult();
+	protected abstract void setResult(LoaderResult result);
 	
 	public AbstractLoader(Context context) {
 		super(context);
@@ -13,8 +15,8 @@ public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult> {
 	
 	@Override
 	public void deliverResult(LoaderResult result) {
-		if (this.result == null) {
-			this.result = result;
+		if (getResult() == null) {
+			setResult(result);
 		}
 		if(isStarted()) {
 			super.deliverResult(result);
@@ -25,11 +27,11 @@ public abstract class AbstractLoader<D> extends AsyncTaskLoader<LoaderResult> {
 	
 	@Override
 	protected void onStartLoading() {
-		if(this.result != null) {
-			deliverResult(this.result);
+		if(getResult() != null) {
+			deliverResult(getResult());
 		}
 		
-		if(takeContentChanged() || this.result == null) {
+		if(takeContentChanged() || getResult() == null) {
 			forceLoad();
 		}	
 	}

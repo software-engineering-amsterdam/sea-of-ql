@@ -1,24 +1,22 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::CompileExpressions
-//change the name
+
 import lang::ql::ast::AST;
 import lang::ql::compiler::ExtractDependencies;
 import IO;
 
 alias BDITS=list[FormBodyItem];
+//1. change switch, make functions
+public str generateJavaScriptExpr(ident(str name),BDITS bodyItems)=
+	generateJavaScriptExpr(name,getVariableType(name,bodyItems));
 
-public str generateJavaScriptExpr(ident(str name),BDITS bodyItems){
-	str code="";
-	switch(getVariableType(name,bodyItems)){
-	case integer() : code= "parseInt(document.getElementById(\"<name>\").value)";
-	case string()  : code= "document.getElementById(\"<name>\").value";
-	case boolean() : code= "document.getElementById(\"<name>\").checked";
-	case date()	   : code= "document.getElementById(\"<name>\").value";
-	case money()   : code= "document.getElementById(\"<name>\").value";
-	case float()   : code= "parseFloat(document.getElementById(\"<name>\").value)";
-	}
-	return code;
-}
+str generateJavaScriptExpr(str name, integer()) = "parseInt(document.getElementById(\"<name>\").value)";
+str generateJavaScriptExpr(str name, /string()) = "document.getElementById(\"<name>\").value";
+str generateJavaScriptExpr(str name, /boolean()) = "document.getElementById(\"<name>\").checked";
+str generateJavaScriptExpr(str name, /date()) = "document.getElementById(\"<name>\").value";
+str generateJavaScriptExpr(str name, /money()) = "document.getElementById(\"<name>\").value";
+str generateJavaScriptExpr(str name, /float()) = "parseFloat(document.getElementById(\"<name>\").value)";
+
 public str generateJavaScriptExpr(\int(int ivalue),BDITS bodyItems)="parseInt(\"<ivalue>\")";
 public str generateJavaScriptExpr(/string(str strValue),BDITS bodyItems)="<strValue>";
 public str generateJavaScriptExpr(/boolean(str bValue),BDITS bodyItems)="<bValue>";

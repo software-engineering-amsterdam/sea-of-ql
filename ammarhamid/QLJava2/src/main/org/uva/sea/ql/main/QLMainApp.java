@@ -1,25 +1,39 @@
 package org.uva.sea.ql.main;
 
-import org.uva.sea.ql.variable.VariableState;
+import net.miginfocom.swing.MigLayout;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.FormNode;
+import org.uva.sea.ql.ast.statement.BlockNode;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
+import org.uva.sea.ql.variable.VariableState;
+import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.impl.StatementCheckVisitor;
 import org.uva.sea.ql.visitor.impl.StatementWidgetVisitor;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class QLMainApp
 {
-    private static JFrame frame;
+    private static final String QL_FILENAME = "/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql";
+    public static final String LAYOUT_CONSTRAINTS = "hidemode 3";
 
     public static void main(String[] args) throws IOException
     {
         final IParser parser = new ANTLRParser();
-        final String qlFilename = "/Users/ammarhamidbasymeleh/sea-of-ql/ammarhamid/QLJava2/resources/test.ql";
-        final FormNode formNode= parser.parseFormFromFile(qlFilename);
-        final Statement statement = formNode.getBlockNode();
+        final FormNode formNode = parser.parseFormFromFile(QL_FILENAME);
+        final BlockNode blockNode = formNode.getBlockNode();
+        final Collection<Statement> statements = blockNode.getStatements();
+
+        final VariableState variableState = new VariableState(formNode.getVariables());
+        final Collection<Message> errors = new ArrayList<>();
+
+        // statement validation check
+        validateStatement(statements, errors);
 
         SwingUtilities.invokeLater(new Runnable()
         {
@@ -34,9 +48,10 @@ public class QLMainApp
                     ex.printStackTrace();
                 }
 
-                frame = new JFrame(formNode.getFormName());
-                final JPanel jPanel = StatementWidgetVisitor.render(statement, new VariableState());
-                frame.getContentPane().add(jPanel);
+                final JFrame frame = new JFrame(formNode.getFormName());
+                final JPanel mainPanel = new JPanel(new MigLayout(LAYOUT_CONSTRAINTS));
+                renderWidget(frame, mainPanel, statements, variableState);
+                frame.getContentPane().add(mainPanel);
                 frame.pack();
                 frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 frame.setVisible(true);
@@ -44,9 +59,37 @@ public class QLMainApp
         });
     }
 
-    public static JFrame getFrame()
+    private static void renderWidget(final JFrame frame, final JPanel mainPanel, final Collection<Statement> statements, final VariableState variableState)
     {
-        return frame;
+        // render statements widget
+        for(final Statement statement : statements)
+        {
+            StatementWidgetVisitor.render(frame, mainPanel, statement, variableState);
+        }
+    }
+
+    private static void validateStatement(final Collection<Statement> statements, final Collection<Message> errors)
+    {
+        final StatementVisitor statementCheckVisitor = new StatementCheckVisitor(errors);
+        for(final Statement statement : statements)
+        {
+            statement.accept(statementCheckVisitor);
+        }
+
+        if(!errors.isEmpty())
+        {
+            System.out.println("Semantic errors found:");
+            for(final Message error : errors)
+            {
+                System.out.println(error);
+            }
+        }
+
+        if(!errors.isEmpty())
+        {
+            // there is no point going forward, exit the application
+            System.exit(1);
+        }
     }
 
 }

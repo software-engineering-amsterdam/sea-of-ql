@@ -32,8 +32,8 @@ public class IfStatementParserTests {
 		
 		String text="if (true) { hasSoldHouse: \"Did you sell a house in 2010?\" boolean valueResidue: \"Value residue:\" integer(5-3)}";
 		IfStatement actual=(IfStatement)parser.parse(text);
-		assertEquals(2, actual.statements.size());		
-		assertEquals(Question.class, actual.statements.get(0).getClass());	
-		assertEquals(ComputedValue.class, actual.statements.get(1).getClass());	
+		assertEquals(2, actual.getStatements().size());		
+		assertEquals(Question.class, actual.getStatements().get(0).getClass());	
+		assertEquals(ComputedValue.class, actual.getStatements().get(1).getClass());	
 	}
 }

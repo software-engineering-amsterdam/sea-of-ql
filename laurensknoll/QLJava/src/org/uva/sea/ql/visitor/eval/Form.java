@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor.eval;
 
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
@@ -8,6 +7,8 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
 import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.eval.ui.Application;
+import org.uva.sea.ql.visitor.eval.ui.Panel;
 
 public class Form implements IForm<Application> {
 
@@ -19,11 +20,11 @@ public class Form implements IForm<Application> {
 		application.getGui().setTitle(ident.getName());
 
 		Block statements = form.getStatements();
-		IStatement<JPanel> statementVisitor = new Statement(
+		IStatement<Panel> statementVisitor = new Statement(
 				application.getEnvironment());
-		JPanel container = statements.accept(statementVisitor);
+		Panel container = statements.accept(statementVisitor);
 
-		JScrollPane scrollableContainer = new JScrollPane(container);
+		JScrollPane scrollableContainer = new JScrollPane(container.getPanel());
 		application.getGui().add(scrollableContainer);
 
 		return application;

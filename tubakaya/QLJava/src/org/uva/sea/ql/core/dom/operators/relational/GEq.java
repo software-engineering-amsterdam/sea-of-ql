@@ -13,5 +13,5 @@ public class GEq extends RelationalOperator {
 	@Override
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
-	}	
+	}
 }

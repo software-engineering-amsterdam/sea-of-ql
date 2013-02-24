@@ -11,8 +11,8 @@
 module lang::ql::compiler::PrettyPrinter
 
 import Node;
-import lang::ql::ast::AST;
-import lang::ql::ast::Keyword;
+import lang::ql::\ast::AST;
+import lang::ql::\ast::Keyword;
 import lang::ql::util::ParenthesizeExpressions;
 
 private str printExpression(Expr p, str print) = "(<print>)"

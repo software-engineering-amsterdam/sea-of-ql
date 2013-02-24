@@ -11,6 +11,7 @@ abstract public class WindowControl {
 		return this.panel;
 	}
 
+	abstract public void pack();
 	abstract public void show();
 	abstract public void hide();
 }

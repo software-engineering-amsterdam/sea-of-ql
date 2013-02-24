@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.common.EvaluationVisitor;
-import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.interpretation.TypeVisitor;
+import org.uva.sea.ql.common.TypeVisitor;
 
-public class StrType extends Type {
+public class StrType extends AbstractType {
     public StrType() {
 
     }
@@ -14,8 +12,4 @@ public class StrType extends Type {
         v.visit(this);
     }
 
-    @Override
-    public final void accept(EvaluationVisitor visitor) throws QLException {
-        visitor.visit(this);
-    }
 }

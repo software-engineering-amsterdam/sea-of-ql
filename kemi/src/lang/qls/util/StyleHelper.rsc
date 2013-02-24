@@ -13,16 +13,16 @@ module lang::qls::util::StyleHelper
 import IO;
 import lang::ql::analysis::SemanticChecker;
 import lang::ql::analysis::State;
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::util::ParseHelper;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::ParseHelper;
 import util::StringHelper;
 import List;
 import Map;
 import String;
 
-private str FORM_EXT = ".q";
+private str formExt = ".q";
 
 public TypeMap getTypeMap(Form f) =
   semanticAnalysisState(f).definitions;
@@ -36,7 +36,7 @@ public default Form getAccompanyingForm(Stylesheet s) =
   form(identDefinition(""), []);
 
 public loc getAccompanyingFormLocation(Stylesheet s) =
-  s@location.parent + "<s.ident><FORM_EXT>";
+  s@location.parent + "<s.ident.name><formExt>";
 
 public list[StyleRule] getStyleRules(str questionIdent, Form f, Stylesheet s) {
   TypeMap typeMap = getTypeMap(f);
@@ -67,7 +67,7 @@ private list[Definition] getDefinitions(str qid, list[Definition] definitions) {
       defs = getDefinitions(qid, toDefinitionList(d.layoutRules));
       if(size(defs) > 0)
         return d + defs;
-    } else if(d is questionDefinition && d.ident == qid) {
+    } else if(d is questionDefinition && d.ident.name == qid) {
       return [d];
     }
   }
@@ -77,8 +77,8 @@ private list[Definition] getDefinitions(str qid, list[Definition] definitions) {
 }
 
 /*
- * The later an element occurs in the list, the higher it's 
- * importance (e.g. more specific binding).
+ * The later an element occurs in the list, the higher its importance (e.g. 
+ * more specific binding).
  */ 
 public list[StyleRule] deDupeStyleRules(list[StyleRule] styleRules) {
   map[StyleAttr, StyleRule] rules = (r.attr : r | r <- styleRules);
@@ -120,3 +120,9 @@ public list[Definition] getChildSectionsQuestions(Definition d) =
 
 public list[Definition] getDefaultDefinitions(Stylesheet s) =
   [d | /Definition d <- s, d is defaultDefinition];
+
+public rel[Type, Definition] getDefaultsPerType(list[Definition] defaults) =
+  {<d.\type, d> | d <- defaults};
+
+public list[StyleRule] getStyleRules(Stylesheet s) =
+  [r | /StyleRule r <- s];

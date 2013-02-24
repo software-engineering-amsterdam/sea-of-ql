@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::ast::AST
+module lang::ql::\ast::AST
 
 data Form
   = form(IdentDefinition formName, list[Statement] formElements);

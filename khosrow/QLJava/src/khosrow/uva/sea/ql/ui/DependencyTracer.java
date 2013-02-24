@@ -12,7 +12,7 @@ public class DependencyTracer implements IExprVisitor<Void>{
 		this.dependencies = dependencies;
 	}
 	
-	public static Void Find(Expr expr, List<Ident> dependencies) {
+	public static Void getDependencies(Expr expr, List<Ident> dependencies) {
 		DependencyTracer tracer = new DependencyTracer(dependencies);
 		expr.accept(tracer);
 		return null;

@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::syntax::Keyword
+module lang::ql::\syntax::Keyword
 
 keyword Keywords 
   = boolean: "boolean"

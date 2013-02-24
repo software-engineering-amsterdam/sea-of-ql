@@ -1,202 +1,177 @@
 package org.uva.sea.ql.check.expressions;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.expressions.LiteralExpr;
-import org.uva.sea.ql.ast.expressions.UnaryExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryArithmeticExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryLogicalExpr;
-import org.uva.sea.ql.ast.expressions.binary.BinaryRelationalExpr;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Add;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Div;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Mul;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.Sub;
-import org.uva.sea.ql.ast.expressions.binary.logical.And;
-import org.uva.sea.ql.ast.expressions.binary.logical.Or;
-import org.uva.sea.ql.ast.expressions.binary.relational.Eq;
-import org.uva.sea.ql.ast.expressions.binary.relational.GEq;
-import org.uva.sea.ql.ast.expressions.binary.relational.GT;
-import org.uva.sea.ql.ast.expressions.binary.relational.LEq;
-import org.uva.sea.ql.ast.expressions.binary.relational.LT;
-import org.uva.sea.ql.ast.expressions.binary.relational.NEq;
+import org.uva.sea.ql.ast.expressions.Expression;
+import org.uva.sea.ql.ast.expressions.binary.BinaryExpression;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
+import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
+import org.uva.sea.ql.ast.expressions.binary.logical.BinaryLogicalExpression;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyNotEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.BinaryRelationalExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.literal.Bool;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
 import org.uva.sea.ql.ast.expressions.literal.Int;
+import org.uva.sea.ql.ast.expressions.literal.LiteralExpression;
 import org.uva.sea.ql.ast.expressions.literal.Money;
 import org.uva.sea.ql.ast.expressions.literal.Str;
-import org.uva.sea.ql.ast.expressions.unary.Neg;
-import org.uva.sea.ql.ast.expressions.unary.Not;
-import org.uva.sea.ql.ast.expressions.unary.Pos;
+import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
+import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
+import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
+import org.uva.sea.ql.ast.expressions.unary.UnaryExpression;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.ErrorMessages;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.Message;
 
 public class TypeChecker implements Visitor<Boolean> {
 	
-	private final SupportedTypes _supportedTypes;
+	private final TypeEnvironment _typeEnvironment;
 	private final ErrorMessages _errorMessages;
 	
-	private TypeChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
-		_supportedTypes = supportedTypes;
+	private TypeChecker(TypeEnvironment supportedTypes, ErrorMessages messages) {
+		_typeEnvironment = supportedTypes;
 		_errorMessages = messages;
 	}
 	
-	public static boolean check(Expr expr, SupportedTypes supportedTypes, ErrorMessages errors) {
-		TypeChecker exprChecker = new TypeChecker(supportedTypes, errors);
-		return expr.accept(exprChecker);
+	public static boolean check(Expression expression, TypeEnvironment supportedTypes, ErrorMessages errors) {
+		TypeChecker expressionChecker = new TypeChecker(supportedTypes, errors);
+		return expression.accept(expressionChecker);
 	}
 	
 	@Override
-	public Boolean visit(Add ast) { return checkArithmeticExpr(ast, "+"); }
+	public Boolean visit(Addition astNode)                         { return checkArithmeticExpression(astNode, "+"); }
 	@Override
-	public Boolean visit(Div ast) { return checkArithmeticExpr(ast, "/"); }
+	public Boolean visit(Division astNode)                         { return checkArithmeticExpression(astNode, "/"); }
 	@Override
-	public Boolean visit(Sub ast) { return checkArithmeticExpr(ast, "-"); }
+	public Boolean visit(Subtraction astNode)                      { return checkArithmeticExpression(astNode, "-"); }
 	@Override
-	public Boolean visit(Mul ast) { return checkArithmeticExpr(ast, "*"); }
+	public Boolean visit(Multiplication astNode)                   { return checkArithmeticExpression(astNode, "*"); }
 
 	@Override
-	public Boolean visit(Eq ast)  { return checkRelationalExpr(ast, "=="); }
+	public Boolean visit(EqualToExpression astNode)                { return checkRelationalExpression(astNode, "=="); }
 	@Override
-	public Boolean visit(GEq ast) { return checkRelationalExpr(ast, ">="); }
+	public Boolean visit(GreaterThanOrEqualToExpression astNode)   { return checkRelationalExpression(astNode, ">="); }
 	@Override
-	public Boolean visit(GT ast)  { return checkRelationalExpr(ast, ">");  }
+	public Boolean visit(GreaterThanExpression astNode)            { return checkRelationalExpression(astNode, ">");  }
 	@Override
-	public Boolean visit(LEq ast) { return checkRelationalExpr(ast, "<="); }
+	public Boolean visit(LessThanOrEqualToExpression astNode)      { return checkRelationalExpression(astNode, "<="); }
 	@Override
-	public Boolean visit(LT ast)  { return checkRelationalExpr(ast, "<");  }
+	public Boolean visit(LessThanExpression astNode)               { return checkRelationalExpression(astNode, "<");  }
 	@Override
-	public Boolean visit(NEq ast) { return checkRelationalExpr(ast, "!="); }
+	public Boolean visit(NotEqualToExpression astNode)             { return checkRelationalExpression(astNode, "!="); }
 	
 	@Override
-	public Boolean visit(And ast) { return checkLogicalExpr(ast, "&&"); }
+	public Boolean visit(LogicallyEquivalentExpression astNode)    { return checkLogicalExpression(astNode, "&&"); }
 	@Override
-	public Boolean visit(Or ast)  { return checkLogicalExpr(ast, "||"); }
+	public Boolean visit(LogicallyNotEquivalentExpression astNode) { return checkLogicalExpression(astNode, "||"); }
 
 	@Override
-	public Boolean visit(Neg ast) { return checkUnaryArithmeticExpr(ast, "--"); }
+	public Boolean visit(NegativeExpression astNode)               { return checkUnaryArithmeticExpression(astNode, "--"); }
 	@Override
-	public Boolean visit(Pos ast) { return checkUnaryArithmeticExpr(ast, "++"); }
+	public Boolean visit(PositiveExpression astNode)               { return checkUnaryArithmeticExpression(astNode, "++"); }
 	@Override
-	public Boolean visit(Not ast) { return checkUnaryLogicalExpr(ast, "!");  }
+	public Boolean visit(NegationalExpression astNode)             { return checkUnaryLogicalExpression(astNode, "!");  }
 
 	@Override
-	public Boolean visit(Bool ast)  { return checkLiteralExpr(ast, Bool.class.toString());  }
+	public Boolean visit(Bool astNode)                             { return checkLiteralExpression(astNode, Bool.class.toString());  }
 	@Override
-	public Boolean visit(Ident ast) { return checkLiteralExpr(ast, Ident.class.toString()); }
+	public Boolean visit(Ident astNode)                            { return checkLiteralExpression(astNode, Ident.class.toString()); }
 	@Override
-	public Boolean visit(Int ast)   { return checkLiteralExpr(ast, Int.class.toString());   }
+	public Boolean visit(Int astNode)                              { return checkLiteralExpression(astNode, Int.class.toString());   }
 	@Override
-	public Boolean visit(Money ast) { return checkLiteralExpr(ast, Money.class.toString()); }
+	public Boolean visit(Money astNode)                            { return checkLiteralExpression(astNode, Money.class.toString()); }
 	@Override
-	public Boolean visit(Str ast)   { return checkLiteralExpr(ast, Str.class.toString());   }
+	public Boolean visit(Str astNode)                              { return checkLiteralExpression(astNode, Str.class.toString());   }
 	
-	private Boolean checkArithmeticExpr(BinaryArithmeticExpr expr, String binarySymbol) {
-		boolean checkLhs = expr.getLhs().accept(this);
-		boolean checkRhs = expr.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
-			// Type errors occurred
-			return false;
-		}
-		
-		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
-		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
-		
-		// Check if Types are compatible with BinaryNumericExpr
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
-			addError(expr, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type errors
-		return true; 
+	private Boolean checkArithmeticExpression(BinaryArithmeticExpression expression, String binarySymbol) {
+		return isAValidExpression(expression) && isCompatibleToNumeric(expression, binarySymbol);
 	}
 	
-	private Boolean checkRelationalExpr(BinaryRelationalExpr expr, String binarySymbol) {
-		boolean checkLhs = expr.getLhs().accept(this);
-		boolean checkRhs = expr.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
-			// Type errors occurred
-			return false;
-		}
-		
-		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
-		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
-		
-		// Check if Types are compatible with each other
-		if (!lhsType.isCompatibleTo(rhsType)) {
-			addError(expr, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type errors
-		return true; 
+	private Boolean checkRelationalExpression(BinaryRelationalExpression expression, String binarySymbol) {
+		return isAValidExpression(expression) && isCompatibleTo(expression, binarySymbol); 
 	}
 	
-	private Boolean checkLogicalExpr(BinaryLogicalExpr expr, String binarySymbol) {
-		boolean checkLhs = expr.getLhs().accept(this);
-		boolean checkRhs = expr.getRhs().accept(this);
-		
-		if (!(checkLhs && checkRhs)) {
-			// Type errors occurred
-			return false;
-		}
-		
-		Type lhsType = expr.getLhs().typeOf(_supportedTypes);
-		Type rhsType = expr.getRhs().typeOf(_supportedTypes);
-		
-		// Check if Types are compatible with BinaryBoolExpr
-		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
-			addError(expr, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type errors
-		return true; 
+	private Boolean checkLogicalExpression(BinaryLogicalExpression expression, String binarySymbol) {
+		return isAValidExpression(expression) && isCompatibleToBool(expression, binarySymbol);
 	}
 	
-	private Boolean checkUnaryArithmeticExpr(UnaryExpr expr, String binarySymbol) {
-		Type exprType = expr.typeOf(_supportedTypes);
-		
-		// Check if Type is compatible with UnaryExpr
-		if (!exprType.isCompatibleToNumeric()) {
-			addError(expr, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type error
-		return true;
+	private Boolean checkUnaryArithmeticExpression(UnaryExpression expression, String binarySymbol) {
+		return isCompatibleToNumeric(expression, binarySymbol);
 	}
 	
-	private Boolean checkUnaryLogicalExpr(UnaryExpr expr, String binarySymbol) {
-		Type exprType = expr.typeOf(_supportedTypes);
-		
-		// Check if Type is compatible with UnaryExpr
-		if (!exprType.isCompatibleToBool()) {
-			addError(expr, "invalid type for " + binarySymbol);
-			return false;
-		}
-		
-		// No Type error
-		return true;
+	private Boolean checkUnaryLogicalExpression(UnaryExpression expression, String binarySymbol) {
+		return isCompatibleToBool(expression, binarySymbol);
 	}
 	
-	private Boolean checkLiteralExpr(LiteralExpr expr, String className) {
-		Type exprType = expr.typeOf(_supportedTypes);
-		
-		// Check if Type is compatible with LiteralExpr
-		if (!exprType.isCompatibleTo(exprType)) {
-			addError(expr, "invalid type for literal " + className);
-			return false;
-		}
-		
-		// No Type error
-		return true; 
+	private Boolean checkLiteralExpression(LiteralExpression expression, String className) {
+		return isCompatibleTo(expression, className);
 	}
 	
-	private void addError(Expr expr, String errorMessage) {
-		_errorMessages.add("Type error for expr " + expr.toString() + ": " + errorMessage);
+	private Expression getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide();  }
+	private Expression getRightHandSide(BinaryExpression expression) { return expression.getRightHandSide(); }
+	
+	private Type getTypeFor(Expression expression)                   { return expression.typeOf(_typeEnvironment); }
+	private Type getLeftHandSideType(BinaryExpression expression)    { return getLeftHandSide(expression).typeOf(_typeEnvironment);  }
+	private Type getRightHandSideType(BinaryExpression expression)   { return getRightHandSide(expression).typeOf(_typeEnvironment); }
+	
+	private boolean isAValidExpression(BinaryExpression expression) {
+		Expression leftHandSide  = getLeftHandSide(expression);
+		Expression rightHandSide = getRightHandSide(expression);
+		
+		boolean checkLeftHandSide  = leftHandSide.accept(this);
+		boolean checkRightHandSide = rightHandSide.accept(this);
+		
+		return checkLeftHandSide && checkRightHandSide;
+	}
+	
+	private boolean isCompatibleToNumeric(BinaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getLeftHandSideType(expression).isCompatibleToNumeric() && getRightHandSideType(expression).isCompatibleToNumeric();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleToNumeric(UnaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getTypeFor(expression).isCompatibleToNumeric();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleToBool(BinaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getLeftHandSideType(expression).isCompatibleToBool() && getRightHandSideType(expression).isCompatibleToBool();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleToBool(UnaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getTypeFor(expression).isCompatibleToBool();
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleTo(BinaryExpression expression, String binarySymbol) {
+		boolean isCompatible = getLeftHandSideType(expression).isCompatibleTo(getRightHandSideType(expression));
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean isCompatibleTo(LiteralExpression expression, String binarySymbol) {
+		boolean isCompatible = getTypeFor(expression).isCompatibleTo(getTypeFor(expression));
+		return checkTypes(expression, binarySymbol, isCompatible);
+	}
+	
+	private boolean checkTypes(Expression expression, String binarySymbol, boolean isCompatible) {
+		if (!isCompatible) {
+			addError(expression, "invalid type for " + binarySymbol);
+		}
+		return isCompatible;
+	}
+	
+	private void addError(Expression expression, String errorMessage) {
+		_errorMessages.add(new Message("Type error for expr " + expression + ": " + errorMessage));
 	}
 }

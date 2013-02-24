@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Str;
+import org.uva.sea.ql.ast.primitive.Undefined;
 
 public class WidgetStr extends Widget implements KeyListener{
 
@@ -19,6 +20,11 @@ public class WidgetStr extends Widget implements KeyListener{
 		txtfield.addKeyListener(this);
 	}
 
+	
+	private boolean empty(){
+		return txtfield.getText().equals("");
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 	}
@@ -39,7 +45,10 @@ public class WidgetStr extends Widget implements KeyListener{
 
 	@Override
 	public Primitive getValue() {
-		return new Str(txtfield.getText());
+		if(!empty())
+			return new Str(txtfield.getText());
+		
+		return new Undefined();
 	}
 
 }

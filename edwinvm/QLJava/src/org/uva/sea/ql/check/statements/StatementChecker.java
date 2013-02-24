@@ -1,46 +1,48 @@
 package org.uva.sea.ql.check.statements;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.FormStatement;
-import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.expressions.literal.Ident;
-import org.uva.sea.ql.ast.statements.ConditionBlock;
-import org.uva.sea.ql.ast.statements.Question;
-import org.uva.sea.ql.ast.statements.conditions.IfThen;
-import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
+import org.uva.sea.ql.ast.statements.FormStatement;
+import org.uva.sea.ql.ast.statements.StatementBody;
+import org.uva.sea.ql.ast.statements.conditions.ConditionBlock;
+import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
+import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.questions.Question;
+import org.uva.sea.ql.ast.statements.questions.QuestionVariable;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
-import org.uva.sea.ql.parser.ErrorMessages;
-import org.uva.sea.ql.parser.SupportedTypes;
+import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.Message;
 
 public class StatementChecker implements Visitor {
 	
-	private final SupportedTypes _supportedTypes;
+	private final TypeEnvironment _typeEnvironment;
 	private final ErrorMessages _errorMessages;
 	
-	private StatementChecker(SupportedTypes supportedTypes, ErrorMessages messages) {
-		_supportedTypes = supportedTypes;
+	public StatementChecker(TypeEnvironment typeEnvironment, ErrorMessages messages) {
+		_typeEnvironment = typeEnvironment;
 		_errorMessages = messages;
 	}
 	
-	public static void check(FormStatement statement, SupportedTypes supportedTypes, ErrorMessages errors) {
-		StatementChecker statementChecker = new StatementChecker(supportedTypes, errors);
-		statement.accept(statementChecker);
+	public void check(FormStatement statement) { 
+		statement.accept(this); 
 	}
 
 	@Override
-	public void visit(IfThen statement) {
+	public void visit(IfThenStatement statement) {
 		checkCondition(statement);
-		statement.getBody().accept(this);
+		checkBody(statement.getBody());
 	}
 	
 	@Override
-	public void visit(IfThenElse statement) {
+	public void visit(IfThenElseStatement statement) {
 		checkCondition(statement);
-		statement.getBody().accept(this);
-		statement.getElseBody().accept(this);
+		checkBody(statement.getBody());
+		checkBody(statement.getElseBody());
 	}
 
 	@Override
@@ -50,39 +52,44 @@ public class StatementChecker implements Visitor {
 
 	@Override
 	public void visit(ComputedQuestion statement) {
-		checkName(statement, statement.getExpression().typeOf(_supportedTypes));
-		checkExpr(statement.getExpression());
+		checkName(statement, statement.getExpression().typeOf(_typeEnvironment));
+		checkExpression(statement.getExpression());
 	}
 	
-	private void checkCondition(ConditionBlock statement) {
-		checkExpr(statement.getCondition());
-	}
-
-	private void checkExpr(Expr expr) {
+	private void checkCondition(ConditionBlock statement) { checkExpression(statement.getCondition()); }
+	private void checkExpression(Expression expression) {
 		// Run expression through TypeChecker
-		TypeChecker.check(expr, _supportedTypes, _errorMessages);
+		TypeChecker.check(expression, _typeEnvironment, _errorMessages);
 	}
 	
 	private void checkName(Question statement, Type type) {
-		Ident questionVariable = statement.getVariable();
-		checkQuestionCompatibility(questionVariable, type);
+		checkQuestionCompatibility(statement.getQuestionVariable(), type);
 	}
 	
-	private void checkQuestionCompatibility(Ident questionVariable, Type type) {
-		storeQuestionVariable(questionVariable, type);
-		if (!type.isCompatibleTo(questionVariable.typeOf(_supportedTypes))) {
-			addError(questionVariable);
+	private void checkBody(StatementBody body) {
+		for (FormStatement statement: body.getStatements()) {
+			check(statement);
 		}
 	}
-
-	private void storeQuestionVariable(Ident questionVariable, Type type) {
-		if (!_supportedTypes.contains(questionVariable)) {
-			_supportedTypes.add(questionVariable, type);
+	
+	private void checkQuestionCompatibility(QuestionVariable questionVariable, Type type) {
+		storeQuestionVariable(questionVariable, type);
+		Type questionVariableType = getVariableTypeFor(questionVariable.getVariable());
+		if (!type.isCompatibleTo(questionVariableType)) {
+			addError(questionVariable.getVariable());
 		}
+	}
+	
+	private Type getVariableTypeFor(Ident variable) {
+		return variable.typeOf(_typeEnvironment);
+	}
+
+	private void storeQuestionVariable(QuestionVariable variable, Type type) {
+		_typeEnvironment.add(variable.getVariable(), type);
 	}
 	
 	private void addError(Ident ident) {
-		_errorMessages.add("Invalid type for identifier " + ident.getValue().toString());
+		_errorMessages.add(new Message("Invalid type for identifier " + ident.getValue()));
 	}
 	
 }

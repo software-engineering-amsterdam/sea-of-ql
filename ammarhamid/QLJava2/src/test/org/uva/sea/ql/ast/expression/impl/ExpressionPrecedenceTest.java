@@ -3,10 +3,12 @@ package org.uva.sea.ql.ast.expression.impl;
 import org.junit.Test;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
+import org.uva.sea.ql.type.impl.IntegerType;
 
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ExpressionPrecedenceTest
 {
@@ -57,21 +59,21 @@ public class ExpressionPrecedenceTest
 	@Test
 	public void testIds() throws ParseException
 	{
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("a").getClass());
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("abc").getClass());
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("ABC").getClass());
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("ABCDEF").getClass());
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("abc2323").getClass());
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("a2bc232").getClass());
-		assertEquals(IdentifierNode.class, this.parser.parseExpr("a2bc232aa").getClass());
+		assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("a").getClass()));
+        assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("abc").getClass()));
+        assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("ABC").getClass()));
+        assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("ABCDEF").getClass()));
+        assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("abc2323").getClass()));
+        assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("a2bc232").getClass()));
+        assertTrue(IdentifierNode.class.isAssignableFrom(this.parser.parseExpr("a2bc232aa").getClass()));
 	}
 
 	@Test
 	public void testNums() throws ParseException
 	{
-//		assertEquals(IntegerValue.class, this.parser.parseExpr("0").getClass());
-//		assertEquals(IntegerValue.class, this.parser.parseExpr("1223").getClass());
-//		assertEquals(IntegerValue.class, this.parser.parseExpr("234234234").getClass());
+		assertEquals(IntegerType.class, this.parser.parseExpr("0").getType().getClass());
+		assertEquals(IntegerType.class, this.parser.parseExpr("1223").getType().getClass());
+		assertEquals(IntegerType.class, this.parser.parseExpr("234234234").getType().getClass());
 	}
 
 }
