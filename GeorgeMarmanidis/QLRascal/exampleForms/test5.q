@@ -5,7 +5,7 @@ form foodinwork {
 	male: "Male:" boolean
 	fullname: "Full Name:" string (name+" "+surname)
 	/*dawdwadawdwA*/
-
+	
 	if (male) {
 	 ageindays: "Age in days" integer (365*age)
 	}

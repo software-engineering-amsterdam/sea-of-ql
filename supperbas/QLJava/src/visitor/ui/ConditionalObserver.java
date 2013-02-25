@@ -4,9 +4,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JPanel;
-
 import visitor.Environment;
 import visitor.evaluator.ExpressionEvaluator;
+import ast.expression.value.Bool;
 import ast.statement.If;
 
 public class ConditionalObserver implements Observer  {
@@ -23,10 +23,13 @@ public class ConditionalObserver implements Observer  {
 	}
 
 	public void update(Observable observable, Object arg) {
-		boolean cond = ifExpr.getCondition().accept(new ExpressionEvaluator(environment));
-		tru.setVisible(cond);
-		fls.setVisible(!cond);
-		
+		Bool value = ifExpr.getCondition().accept(new ExpressionEvaluator(environment));
+		boolean visible = value.isDefined() && value.getValue();
+		System.out.println(visible);
+		tru.setVisible(visible);
+		fls.setVisible(!visible);
+		System.out.println(tru.isVisible());
+		System.out.println(fls.isVisible());
 	}
 
 }

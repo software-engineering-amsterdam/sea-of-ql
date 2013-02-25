@@ -18,10 +18,9 @@ public abstract class Unary extends Expr{
 	@Override
 	public void checkType(List<Message> errors, Env env) {
 		Type type = expr.typeOf(env);
-		if(!(type.isCompatibleTo(type))) {
+		if(!(type.isCompatibleTo(this.typeOf(env)))) {
 			errors.add(new Error(type.getClass().getSimpleName() + " is not compatible. In " + getSimpleName(this)));
-		}
-			
+		}			
 	}
 	
 }

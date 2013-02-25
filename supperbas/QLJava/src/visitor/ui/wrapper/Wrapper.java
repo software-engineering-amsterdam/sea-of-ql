@@ -3,8 +3,6 @@ package visitor.ui.wrapper;
 import java.awt.Component;
 import javax.swing.JLabel;
 
-import visitor.Environment;
-
 public abstract class Wrapper {
 	abstract public Component getComponent();
 
@@ -17,8 +15,6 @@ public abstract class Wrapper {
 	abstract public String getValue();
 
 	abstract public void addListener(final WrapperEventListener wrapperEventListener);
-
-	abstract public Environment getEnv();
 
 	private JLabel label = new JLabel();
 

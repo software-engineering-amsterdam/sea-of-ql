@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import eu.karuza.ql.ast.Expr;
 import eu.karuza.ql.ast.Question;
-import eu.karuza.ql.ast.expr.grouping.Expr;
-import eu.karuza.ql.ast.expr.type.Type;
+import eu.karuza.ql.ast.type.Type;
 
 public class Symbol {
 

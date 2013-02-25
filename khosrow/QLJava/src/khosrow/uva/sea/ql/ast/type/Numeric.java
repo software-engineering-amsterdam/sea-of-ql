@@ -8,7 +8,7 @@ public class Numeric extends Type {
 	
 	@Override
 	public <T> T accept(ITypeVisitor<T> visitor){
-		throw new  UnsupportedOperationException();
+		return visitor.visit(new Money());
 	}
 	
 	@Override

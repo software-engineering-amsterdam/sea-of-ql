@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.Location;
-import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.ast.misc.Location;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class Question extends FormElement {

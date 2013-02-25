@@ -1,13 +1,13 @@
 package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
+import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.interpretation.TreeVisitor;
+import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
 
-public class IntLiteral extends Expr implements Evaluatable, TreeNode {
+public class IntLiteral extends Expr implements Expression, TreeNode {
 
     private final int value;
 
@@ -25,9 +25,7 @@ public class IntLiteral extends Expr implements Evaluatable, TreeNode {
     }
 
     @Override
-    public final void accept(TreeVisitor v) {
+    public final void accept(RecursiveIdentVisitor v) {
         v.visit(this);
-
     }
-
 }

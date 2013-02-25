@@ -1,8 +1,8 @@
 package org.uva.sea.ql.parser.antlr.check;
 
-import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class ANTLRParserTypes extends ANTLRParser {
 	@Override

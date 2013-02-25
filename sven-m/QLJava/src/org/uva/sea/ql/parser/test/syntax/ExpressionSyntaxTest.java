@@ -3,24 +3,24 @@ package org.uva.sea.ql.parser.test.syntax;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import org.uva.sea.ql.parser.test.ParseError;
-import org.uva.sea.ql.ast.expressions.Add;
-import org.uva.sea.ql.ast.expressions.And;
-import org.uva.sea.ql.ast.expressions.Div;
-import org.uva.sea.ql.ast.expressions.Eq;
-import org.uva.sea.ql.ast.expressions.GEq;
-import org.uva.sea.ql.ast.expressions.GT;
-import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Int;
-import org.uva.sea.ql.ast.expressions.LEq;
-import org.uva.sea.ql.ast.expressions.LT;
-import org.uva.sea.ql.ast.expressions.Mul;
-import org.uva.sea.ql.ast.expressions.Neg;
-import org.uva.sea.ql.ast.expressions.Not;
-import org.uva.sea.ql.ast.expressions.Or;
-import org.uva.sea.ql.ast.expressions.Pos;
-import org.uva.sea.ql.ast.expressions.Str;
-import org.uva.sea.ql.ast.expressions.Sub;
+import org.uva.sea.ql.parser.antlr.ParseError;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IntLiteral;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.StrLiteral;
+import org.uva.sea.ql.ast.expression.Sub;
 
 
 public class ExpressionSyntaxTest extends SyntaxTest {
@@ -135,11 +135,11 @@ public class ExpressionSyntaxTest extends SyntaxTest {
 
 	@Test
 	public void testInts() throws ParseError {
-		assertEquals(Int.class, parseClass("0"));
-		assertEquals(Int.class, parseClass("00000000000000"));
-		assertEquals(Int.class, parseClass("1223"));
-		assertEquals(Int.class, parseClass("234234234"));
-		assertEquals(Int.class, parseClass("000000003"));
+		assertEquals(IntLiteral.class, parseClass("0"));
+		assertEquals(IntLiteral.class, parseClass("00000000000000"));
+		assertEquals(IntLiteral.class, parseClass("1223"));
+		assertEquals(IntLiteral.class, parseClass("234234234"));
+		assertEquals(IntLiteral.class, parseClass("000000003"));
 		
 		assertEquals(Pos.class, parseClass("+0"));
 		assertEquals(Pos.class, parseClass("+00000000000000"));
@@ -156,9 +156,9 @@ public class ExpressionSyntaxTest extends SyntaxTest {
 	
 	@Test
 	public void testStrings() throws ParseError {
-		assertEquals(Str.class, parseClass("\"\""));
-		assertEquals(Str.class, parseClass("\"a\""));
-		assertEquals(Str.class, parseClass("\"fdT$)G*(FHE\""));
+		assertEquals(StrLiteral.class, parseClass("\"\""));
+		assertEquals(StrLiteral.class, parseClass("\"a\""));
+		assertEquals(StrLiteral.class, parseClass("\"fdT$)G*(FHE\""));
 	}
 
 }

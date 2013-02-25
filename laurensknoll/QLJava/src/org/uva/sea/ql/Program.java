@@ -5,24 +5,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
-import org.uva.sea.ql.save.SaveBehaviour;
-import org.uva.sea.ql.save.Xml;
 import org.uva.sea.ql.visitor.IForm;
-import org.uva.sea.ql.visitor.eval.Application;
+import org.uva.sea.ql.visitor.eval.ui.Application;
+import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.AbstractAutoSave;
+import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.Xml;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {
 	private final static int FormLocation = 0;
+	private final static int ResultPath = 1;
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
-			throw new IllegalArgumentException("Example use: Program form.ql");
+		if (args.length != 2) {
+			throw new IllegalArgumentException(
+					"Example use: Program form.ql resultPath.xml");
 		}
 
 		String formText = Program
@@ -51,14 +50,9 @@ public class Program {
 			Application application = questionForm.accept(swingVisitor);
 
 			// Save application results to xml.
-			SaveBehaviour saveBehaviour = new Xml("result.xml");
+			String resultPath = args[Program.ResultPath];
+			AbstractAutoSave saveBehaviour = new Xml(resultPath);
 			application.addObserver(saveBehaviour);
-
-			// Get created form and define close-behaviour.
-			JFrame frame = application.getGui();
-			frame.setSize(400, 600);
-			frame.setVisible(true);
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}
 	}
 

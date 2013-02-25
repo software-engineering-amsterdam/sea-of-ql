@@ -23,7 +23,7 @@ public class ComputedObserver implements Observer {
 
 	public void update(Observable observable, Object arg) {
 		Value value = question.getAssignment().getExpression().accept(new ExpressionEvaluator(environment));
-		boolean visible = (boolean) value.getValue();
+		boolean visible = Boolean.parseBoolean(value.getValue().toString());
 		this.environment.setVal(question.getIdent(), value);
 		this.environment.notifyObservers(this.question.getIdent());
 		this.wrap.setValue(value.getValue().toString());

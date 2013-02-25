@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.Node;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class BlockNode
+public class BlockNode implements Node
 {
     private final Collection<Statement> statements;
 

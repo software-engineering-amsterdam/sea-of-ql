@@ -1,7 +1,5 @@
 package org.uva.sea.ql.interpretation;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 

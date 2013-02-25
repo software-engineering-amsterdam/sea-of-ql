@@ -1,6 +1,6 @@
 package org.uva.sea.ql.run;
 
-import org.uva.sea.ql.interpretation.swing.SwingInterpreter;
+import org.uva.sea.ql.interpretation.SwingInterpreter;
 
 final class InterpretationRunner {
     private InterpretationRunner() {

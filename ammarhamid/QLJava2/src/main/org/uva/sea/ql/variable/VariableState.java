@@ -8,11 +8,12 @@ import java.util.*;
 
 public class VariableState
 {
-    private static Map<IdentifierNode, Value> variables = new HashMap<>();
+    private final Map<IdentifierNode, Value> variables;
     private final Map<IdentifierNode, Collection<ObservableStatement>> observables;
 
-    public VariableState()
+    public VariableState(final Map<IdentifierNode, Value> variables)
     {
+        this.variables = variables;
         this.observables = new HashMap<>();
     }
 
@@ -22,23 +23,19 @@ public class VariableState
         notifyObservers(identifierNode);
     }
 
-    public void remove(final IdentifierNode identifierNode)
-    {
-        variables.remove(identifierNode);
-        notifyObservers(identifierNode);
-    }
-
     private void notifyObservers(IdentifierNode identifierNode)
     {
         Collection<ObservableStatement> observableStatements = observables.get(identifierNode);
-        for(final ObservableStatement observableStatement : observableStatements)
+        if(observableStatements != null)
         {
-            observableStatement.notifyObs();
+            for(final ObservableStatement observableStatement : observableStatements)
+            {
+                observableStatement.notifyObs();
+            }
         }
     }
 
-    // TODO remove static (global) access
-    public static Map<IdentifierNode, Value> getVariables()
+    public Map<IdentifierNode, Value> getVariables()
     {
         return variables;
     }
@@ -54,17 +51,4 @@ public class VariableState
         this.observables.put(identifierNode, observableStatements);
     }
 
-    public void addObserver(final IdentifierNode identifierNode, final Observer observer)
-    {
-        final Collection<ObservableStatement> observableStatements = this.observables.get(identifierNode);
-        for(final ObservableStatement observableStatement : observableStatements)
-        {
-            observableStatement.addObserver(observer);
-        }
-    }
-
-    public Map<IdentifierNode, Collection<ObservableStatement>> getObservables()
-    {
-        return observables;
-    }
 }

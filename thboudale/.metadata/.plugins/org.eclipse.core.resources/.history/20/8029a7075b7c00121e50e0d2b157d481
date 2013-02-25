@@ -1,0 +1,34 @@
+package org.uva.sea.ql.ast.statements;
+
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.types.AType;
+import org.uva.sea.ql.visitor.FrmStmtVisitor;
+
+public class Question extends AStatement {
+	private final Ident ident;
+	private final String strLtr;
+	private final AType type;
+
+	public Question(Ident ident, Str strLtr, AType type) {
+		this.ident = ident;
+		this.strLtr = strLtr;
+		this.type = type;
+	}
+	
+	public Ident getIdent() {
+		return ident;
+	}
+	
+	public String getStrLtr() {
+		return strLtr;
+	}
+	
+	public AType getType() {
+		return type;
+	}
+
+	@Override
+	public <T> T accept(FrmStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
+	}
+}

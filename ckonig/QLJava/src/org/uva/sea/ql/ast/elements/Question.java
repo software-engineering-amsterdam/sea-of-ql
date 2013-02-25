@@ -27,10 +27,6 @@ public class Question extends AbstractBlockElement {
         return this.content;
     }
 
-    public final Ident getIdent() {
-        return this.ident;
-    }
-
     public final String getIdentName() {
         return this.ident.getName();
     }
@@ -46,6 +42,10 @@ public class Question extends AbstractBlockElement {
     @Override
     public final void accept(ElementVisitor visitor) throws QLException {
         visitor.visit(this);
+    }
+
+    public boolean hasAutoValue() {
+        return this.getExpr() != null;
     }
 
 }

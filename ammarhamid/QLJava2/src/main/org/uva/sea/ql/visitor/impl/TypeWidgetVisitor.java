@@ -11,89 +11,180 @@ import org.uva.sea.ql.value.impl.MoneyValue;
 import org.uva.sea.ql.value.impl.StringValue;
 import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.TypeVisitor;
+import org.uva.sea.ql.visitor.widget.CustomWidget;
+import org.uva.sea.ql.visitor.widget.impl.CustomJCheckBox;
+import org.uva.sea.ql.visitor.widget.impl.CustomJTextField;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.math.BigDecimal;
 
-public class TypeWidgetVisitor implements TypeVisitor
+public class TypeWidgetVisitor implements TypeVisitor<CustomWidget>
 {
     public static final int LENGTH = 10;
+    public static final String MESSAGE = "Please enter a number!";
+    public static final String TITLE = "Error Message";
+
     private final JPanel panel;
     private final VariableState variableState;
     private final IdentifierNode identifierNode;
+    private final boolean editable;
 
-    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState)
+    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState, final boolean editable)
     {
         this.panel = panel;
         this.variableState = variableState;
         this.identifierNode = identifierNode;
+        this.editable = editable;
+    }
+
+    public TypeWidgetVisitor(JPanel panel, IdentifierNode identifierNode, VariableState variableState)
+    {
+        this(panel, identifierNode, variableState, true);
     }
 
     @Override
-    public void visit(BooleanType booleanType)
+    public CustomWidget visit(BooleanType booleanType)
     {
-        final JCheckBox checkBox = new JCheckBox("Yes");
-        checkBox.addItemListener(new ItemListener()
+        final CustomJCheckBox customJCheckBox = new CustomJCheckBox("Yes");
+        customJCheckBox.setEnabled(this.editable);
+        customJCheckBox.addItemListener(new ItemListener()
         {
             public void itemStateChanged(ItemEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new BooleanValue(checkBox.isSelected()));
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new BooleanValue(customJCheckBox.isSelected()));
             }
         });
-        this.panel.add(checkBox);
+        this.panel.add(customJCheckBox);
+
+        return customJCheckBox;
     }
 
     @Override
-    public void visit(StringType stringType)
+    public CustomWidget visit(StringType stringType)
     {
-        final JTextField jTextField = new JTextField(LENGTH);
-        jTextField.addActionListener(new ActionListener()
+        final CustomJTextField customJTextField = new CustomJTextField(LENGTH);
+        customJTextField.setEditable(this.editable);
+        customJTextField.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            public void changedUpdate(DocumentEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new StringValue(jTextField.getText()));
+                update();
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void update()
+            {
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new StringValue(customJTextField.getText()));
             }
         });
-        this.panel.add(jTextField);
-    }
+        this.panel.add(customJTextField);
 
+        return customJTextField;
+    }
 
     @Override
-    public void visit(IntegerType integerType)
+    public CustomWidget visit(IntegerType integerType)
     {
-        final JTextField jTextField = new JTextField(LENGTH);
-        jTextField.addActionListener(new ActionListener()
+        final CustomJTextField customJTextField = new CustomJTextField(LENGTH);
+        customJTextField.setEditable(this.editable);
+        customJTextField.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            public void changedUpdate(DocumentEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new IntegerValue(jTextField.getText()));
+                update();
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void update()
+            {
+                final String text = customJTextField.getText();
+                Integer value = 0;
+                try
+                {
+                    if(!text.isEmpty())
+                    {
+                        value = Integer.valueOf(text);
+                    }
+                }
+                catch(NumberFormatException nfe)
+                {
+                    JOptionPane.showMessageDialog(panel, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
+                }
+
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new IntegerValue(value));
             }
         });
-        this.panel.add(jTextField);
+        this.panel.add(customJTextField);
+
+        return customJTextField;
     }
 
     @Override
-    public void visit(MoneyType moneyType)
+    public CustomWidget visit(MoneyType moneyType)
     {
-        final JTextField jTextField = new JTextField(LENGTH);
-        jTextField.addActionListener(new ActionListener()
+        final CustomJTextField customJTextField = new CustomJTextField(LENGTH);
+        customJTextField.setEditable(this.editable);
+        customJTextField.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
+            public void changedUpdate(DocumentEvent e)
             {
-                variableState.put(TypeWidgetVisitor.this.identifierNode, new MoneyValue(jTextField.getText()));
+                update();
+            }
+
+            public void removeUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void insertUpdate(DocumentEvent e)
+            {
+                update();
+            }
+
+            public void update()
+            {
+                final String text = customJTextField.getText();
+                BigDecimal value = new BigDecimal(0.0);
+                try
+                {
+                    if(!text.isEmpty())
+                    {
+                        value = new BigDecimal(Double.valueOf(text));
+                    }
+                }
+                catch(NumberFormatException nfe)
+                {
+                    JOptionPane.showMessageDialog(panel, MESSAGE, TITLE, JOptionPane.ERROR_MESSAGE);
+                }
+
+                variableState.put(TypeWidgetVisitor.this.identifierNode, new MoneyValue(value));
             }
         });
-        this.panel.add(jTextField);
+        this.panel.add(customJTextField);
+
+        return customJTextField;
     }
 
-    public JPanel getPanel()
-    {
-        return panel;
-    }
 }

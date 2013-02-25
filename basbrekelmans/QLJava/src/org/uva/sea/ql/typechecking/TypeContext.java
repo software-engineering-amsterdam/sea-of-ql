@@ -1,31 +1,40 @@
 package org.uva.sea.ql.typechecking;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ICodeLocationInformation;
 import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.parser.ParseError;
 
 public class TypeContext {
 
-	private Map<Identifier, Type> symbolTable;
-	private Map<Node, String> errors;
+	private final Map<Identifier, Type> symbolTable;
+	private final List<ParseError> errors;
 
 	public TypeContext() {
 		this.symbolTable = new HashMap<Identifier, Type>();
-		this.errors = new HashMap<Node, String>();
+		this.errors = new ArrayList<ParseError>();
 	}
-	
+
+	public void addError(final ICodeLocationInformation element,
+			final String message) {
+		this.errors.add(new ParseError(element, message));
+
+	}
+
+	public List<ParseError> getErrors() {
+		return this.errors;
+	}
+
 	public Map<Identifier, Type> getSymbolTable() {
-		return symbolTable;
+		return this.symbolTable;
 	}
-	
-	public Map<Node, String> getErrors() {
-		return errors;
-	}
-	
+
 	public boolean hasErrors() {
-		return !errors.isEmpty();
+		return !this.errors.isEmpty();
 	}
 }

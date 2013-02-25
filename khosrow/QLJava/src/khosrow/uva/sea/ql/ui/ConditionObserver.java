@@ -14,7 +14,7 @@ public class ConditionObserver implements Observer {
 	private final State state;
 	private final Control control;
 	
-	public ConditionObserver(Expr cond, State state,Control control) {
+	public ConditionObserver(Expr cond, State state, Control control) {
 		this.cond = cond;
 		this.state = state;
 		this.control = control;		

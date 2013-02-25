@@ -20,7 +20,7 @@ public class Form implements ASTNode {
 		return ident;
 	}
 
-	public Statement getContent() {
+	public Block getContent() {
 		return content;
 	}
 

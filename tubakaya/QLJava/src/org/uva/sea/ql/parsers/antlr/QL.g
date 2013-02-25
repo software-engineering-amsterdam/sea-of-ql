@@ -28,23 +28,23 @@ form returns [Form result]
 statementList returns [List<Statement> result]
   : {$result = new ArrayList<Statement>();} (element=statement {$result.add($element.result);})*
   ;
-  
-ifStatement returns [IfStatement result]
-  :'if' '(' x=orExpr ')' '{' statements = statementList '}' {$result = new IfStatement($x.result,statements);} 
-  ;  
-  
+    
 statement returns [Statement result]
   : question { $result = $question.result; }
   | computedValue  { $result = $computedValue.result; }
   | ifStatement { $result = $ifStatement.result; }
   ;
 
+ifStatement returns [IfStatement result]
+  :'if' '(' x=orExpr ')' '{' statements = statementList '}' {$result = new IfStatement($x.result,statements);} 
+  ;  
+  
 computedValue returns [ComputedValue result]
-  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text), new StringLiteral($STRING.text), $x.result);}
+  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text,$type.result), new StringLiteral($STRING.text), $x.result);}
   ;
 
 question returns [Question result]
-  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
+  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text,$type.result), new StringLiteral($STRING.text));}
   ;
 
 type returns [TypeDeclaration result]

@@ -3,20 +3,23 @@ package org.uva.sea.ql.validation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.AbstractBlockElement;
+import org.uva.sea.ql.ast.elements.Block;
 import org.uva.sea.ql.ast.elements.Form;
+import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Evaluatable;
-import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.interfaces.Expression;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
+import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.ReturnFinder;
+import org.uva.sea.ql.common.identfinder.IdentFinder;
+import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 
 public class ValidationVisitor implements ElementVisitor {
     private Registry registry;
@@ -33,12 +36,12 @@ public class ValidationVisitor implements ElementVisitor {
         this();
         this.throwExceptions = throwErrors;
     }
-    
-    public final List<String> getErrors(){
+
+    public final List<String> getErrors() {
         return this.errors;
     }
-    
-    public final boolean hasErrors(){
+
+    public final boolean hasErrors() {
         return this.errors.size() > 0;
     }
 
@@ -56,27 +59,20 @@ public class ValidationVisitor implements ElementVisitor {
 
     @Override
     public final void visit(Question question) throws QLException {
-        for (Question q : this.registry.getQuestions()) {
-            if (q.getIdentName().equals(question.getIdentName())) {
-                final String err = "duplicate question Identifier:"
-                        + question.getIdentName();
-                if (this.throwExceptions) {
-                    throw new AstValidationError(err);
-                } else {
-                    this.errors.add(err);
-                }
-            }
+        this.checkDuplicateIdentName(question);
+        if (question.hasAutoValue()) {
+            this.checkSelfReference(question);
+            this.checkValidCondition(question);
         }
-        this.registry.addQuestion(question);
 
+        this.registry.addQuestion(question);
     }
 
     @Override
     public final void visit(IfStatement ifStatement) throws QLException {
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         final Expr condition = ifStatement.getCondition();
-        ((Evaluatable) condition).accept(f);
-        final Class<?> r = f.getResult();
+        final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
+                (Expression) condition);
         if (r.equals(BooleanType.class)) {
             this.visit(ifStatement.getCondition());
         } else {
@@ -98,18 +94,20 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void visit(Expr operator) throws QLException {
         final AcceptFinder f = new AcceptFinder();
-        ((Evaluatable) operator).accept(f); 
-        System.out.println("visiting " + operator.getClass());
+        ((Expression) operator).accept(f);
         if (f.getResult().equals(BooleanType.class)) {
             if (!(bothhaveEqualReturnType(operator, BooleanType.class))) {
                 throwError(operator, "boolean");
             }
         }
+
         if (f.getResult().equals(AbstractMathType.class)) {
             if (!(bothhaveEqualReturnType(operator, AbstractMathType.class))) {
-                throwError(operator, "math ( "+ f.getResult().toString()+") ");
+                throwError(operator, "math ( " + f.getResult().toString()
+                        + ") ");
             }
         }
+
         if (f.getResult().equals(AbstractType.class)) {
             if (!((bothhaveEqualReturnType(operator, AbstractMathType.class)) || (bothhaveEqualReturnType(
                     operator, BooleanType.class)))) {
@@ -120,8 +118,8 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void throwError(Expr r, String msg) throws AstValidationError {
         final BinaryExpr b = (BinaryExpr) r;
-        final String err = "BOTH childs of " + r.getClass() + " must return " + msg
-                + " operands: " + b.getLeft().getClass() + ", "
+        final String err = "BOTH childs of " + r.getClass() + " must return "
+                + msg + " operands: " + b.getLeft().getClass() + ", "
                 + b.getRight().getClass();
         if (this.throwExceptions) {
             throw new AstValidationError(err);
@@ -136,13 +134,54 @@ public class ValidationVisitor implements ElementVisitor {
         final Class<?> left = this.getReturnTypes(b.getLeft());
         final Class<?> right = this.getReturnTypes(b.getRight());
         System.out.println(left + " - " + right);
-        return  left.equals(type) && right.equals(type);
+        return left.equals(type) && right.equals(type);
     }
 
     private Class<?> getReturnTypes(Expr e) throws QLException {
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions());
         this.visit(e);
-        ((Evaluatable) e).accept(f);
-        return f.getResult();
+        return ReturnFinder.getResult(this.registry.getQuestions(),
+                (Expression) e);
     }
+
+    private void checkDuplicateIdentName(Question question)
+            throws AstValidationError {
+        for (Question q : this.registry.getQuestions()) {
+            if (q.getIdentName().equals(question.getIdentName())) {
+                final String err = "duplicate question Identifier:"
+                        + question.getIdentName();
+                if (this.throwExceptions) {
+                    throw new AstValidationError(err);
+                } else {
+                    this.errors.add(err);
+                }
+            }
+        }
+    }
+
+    private void checkValidCondition(Question question) throws QLException {
+        this.visit(question.getExpr());
+        final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
+                (Expression) question.getExpr());
+        final Class<?> typeResult = ReturnFinder.getResult(
+                this.registry.getQuestions(), question.getType());
+        if (!typeResult.equals(r)) {
+            throw new AstValidationError(
+                    "question condition invalid: expected "
+                            + question.getType().getClass().toString()
+                            + " , got: " + r.toString());
+        }
+    }
+
+    private void checkSelfReference(Question question)
+            throws AstValidationError {
+        List<Ident> idents = IdentFinder.getIdents((TreeNode) question
+                .getExpr());
+        for (Ident ident : idents) {
+            if (ident.getName().equals(question.getIdentName())) {
+                throw new AstValidationError(
+                        "Question may not reference itself: " + ident.getName());
+            }
+        }
+    }
+
 }

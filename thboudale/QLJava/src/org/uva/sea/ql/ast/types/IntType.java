@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.types;
 
-public class IntType extends Type {
+public class IntType extends AType {
 	
 	@Override
-	public boolean isCompatibleTo(Type t) {
+	public boolean isCompatibleTo(AType t) {
 		return t.isCompatibleToInt();
 	}
 	

@@ -1,4 +1,4 @@
-// Output created by jacc on Mon Jan 28 21:34:43 CET 2013
+// Output created by jacc on Mon Feb 25 12:41:08 CET 2013
 
 package org.uva.sea.ql.parser;
 
@@ -22,10 +22,7 @@ interface Tokens {
     int STRING = 16;
     int STRINGLITERAL = 17;
     int TRUE = 18;
-    int UMIN = 19;
-    int UNOT = 20;
-    int UPLUS = 21;
-    int error = 22;
+    int error = 19;
     // '!' (code=33)
     // '(' (code=40)
     // ')' (code=41)

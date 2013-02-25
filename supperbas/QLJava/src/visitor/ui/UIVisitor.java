@@ -7,7 +7,7 @@ import java.util.Observer;
 import javax.swing.*;
 
 import visitor.Environment;
-import visitor.checker.ExpressionChecker;
+import visitor.evaluator.ExpressionEvaluator;
 import visitor.ui.wrapper.JCheckBoxWrap;
 import visitor.ui.wrapper.JTextFieldWrap;
 import visitor.ui.wrapper.Wrapper;
@@ -24,16 +24,21 @@ import ast.type.Str;
 
 @SuppressWarnings("serial")
 public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type.Visitor {
-	private static Environment environment;
-	private static JPanel panel = new JPanel();
+	private Environment environment;
+	private JPanel panel;
 
 	public UIVisitor(Environment environment) {
-		UIVisitor.environment = environment;
+		this.environment = environment;
+		panel = new JPanel();
 	}
 
-	public UIVisitor(Environment environment, Statement stat) {
-		UIVisitor.environment = environment;
-		stat.accept(this);
+	public UIVisitor(Environment environment, Block ast) {
+		panel = new JPanel();
+		GridLayout flo = new GridLayout(0, 1);
+		panel.setLayout(flo);
+		this.environment = environment;
+		for (Statement i : ast.getStatements())
+			i.accept(this);
 	}
 
 	public JPanel getPanel() {
@@ -41,7 +46,7 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 	}
 
 	public void generate() {
-		GridLayout flo = new GridLayout(0, 2);
+		GridLayout flo = new GridLayout(0, 1);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(flo);
 		pack();
@@ -55,21 +60,29 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	@Override
 	public Object visit(Form ast) {
-		ast.getContent().accept(this);
+		JPanel panel = new UIVisitor(environment, ast.getContent()).getPanel();
 		this.setName(ast.getIdent().getValue());
+		panel.setVisible(true);
+		add(panel);
 		generate();
 		return null;
 	}
 
 	@Override
 	public Object visit(If ast) {
-		boolean cond = ast.getCondition().accept(new ExpressionChecker(environment));
+		System.out.println("AA"+environment);
+		ast.expression.value.Bool value = ast.getCondition().accept(new ExpressionEvaluator(environment));
+		boolean visible = value.isDefined() && value.getValue();
 		JPanel tru = new UIVisitor(environment, ast.getTrueBlock()).getPanel();
 		JPanel fls = new UIVisitor(environment, ast.getFalseBlock()).getPanel();
-		tru.setVisible(cond);
-		fls.setVisible(!cond);
-		add(tru);
-		add(fls);
+		tru.setVisible(visible);
+		
+		panel.add(tru);
+		if(ast.getFalseBlock().getStatements().size()==0)
+			fls = new JPanel();
+		
+		fls.setVisible(!visible);
+		
 		Observer ob = new ConditionalObserver(tru, fls, environment, ast);
 		for (Iterator<Ident> i = ast.getCondition().getIdents().iterator(); i.hasNext();)
 			environment.addObserver(i.next(), ob);
@@ -82,37 +95,31 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 		Wrapper wrap = environment.getIdent(ast.getIdent()).getType().accept(this);
 		wrap.setLabel(ast.getLabel().getValue());
 		wrap.setVisible(true);
-		System.out.println(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
 		wrap.setValue(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
 		WrapperEventListener listener = new WrapperEventListener() {
 			@Override
 			public void change(WrapperEvent event) {
-				System.out.println(event.getWrap().getEnv().getValEnv());
-				System.out.println(event.getWrap().getValue());
-				System.out.println(castValue(ast.getType(), event.getWrap().getValue()));
-				System.out.println(UIVisitor.environment.getValEnv());
-				System.exit(0);
 				environment.setVal(ast.getIdent(), castValue(ast.getType(), event.getWrap().getValue()));
 				environment.notifyObservers(ast.getIdent());
 			}
 		};
+		// listener.setEnv(environment);
 		wrap.addListener(listener);
 
-		add(wrap.getLabel());
-		add(wrap.getComponent());
+		panel.add(wrap.getLabel());
+		panel.add(wrap.getComponent()); System.out.println(wrap.getClass());
 		return null;
 	}
 
 	@Override
 	public Object visit(QuestionComputed ast) {
-		ast.getAssignment().accept(this);
 		Wrapper wrap = environment.getIdent(ast.getIdent()).getType().accept(this);
 		wrap.setEnabled(false);
 		wrap.setLabel(ast.getLabel().getValue());
 		wrap.setVisible(true);
 		wrap.setValue(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
-		add(wrap.getLabel());
-		add(wrap.getComponent());
+		panel.add(wrap.getLabel());
+		panel.add(wrap.getComponent()); System.out.println(wrap.getClass());
 		return null;
 	}
 
@@ -123,8 +130,8 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	@Override
 	public Object visit(Block ast) {
-		for (Iterator<Statement> i = ast.iterator(); i.hasNext();)
-			i.next().accept(this);
+		for (Statement i : ast.getStatements())
+			i.accept(this);
 		return null;
 	}
 
@@ -140,16 +147,16 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	@Override
 	public Wrapper visit(Bool ast) {
-		return new JCheckBoxWrap(environment);
+		return new JCheckBoxWrap();
 	}
 
 	@Override
 	public Wrapper visit(Str ast) {
-		return new JTextFieldWrap(environment);
+		return new JTextFieldWrap();
 	}
 
 	@Override
 	public Wrapper visit(Int ast) {
-		return new JTextFieldWrap(environment);
+		return new JTextFieldWrap();
 	}
 }

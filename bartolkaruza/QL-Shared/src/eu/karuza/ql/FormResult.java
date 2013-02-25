@@ -1,9 +1,11 @@
 package eu.karuza.ql;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FormResult {
+public class FormResult implements Serializable {
 
+	private static final long serialVersionUID = 4256448669060242580L;
 	private String name;
 	private List<QuestionResult> result;
 

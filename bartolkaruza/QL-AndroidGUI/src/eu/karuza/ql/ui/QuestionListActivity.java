@@ -11,18 +11,18 @@ import android.view.View;
 import android.widget.Toast;
 import eu.karuza.ql.R;
 import eu.karuza.ql.loader.FormLoader;
-import eu.karuza.ql.loader.LoaderResult;
-import eu.karuza.ql.loader.ParserResult;
 import eu.karuza.ql.loader.StoreLoader;
-import eu.karuza.ql.loader.StoreResult;
+import eu.karuza.ql.loader.result.LoaderResult;
+import eu.karuza.ql.loader.result.ParserResult;
+import eu.karuza.ql.loader.result.StoreResult;
 import eu.karuza.ql.parser.ParserContext;
 
 public class QuestionListActivity extends Activity implements LoaderCallbacks<LoaderResult> {
 
 	private int retryAttempt = 0;
 
-	private final static int GET_SURVEY_LOADER = 0;
-	private final static int STORE_SURVEY_LOADER = 1;
+	private static final int GET_SURVEY_LOADER = 0;
+	private static final int STORE_SURVEY_LOADER = 1;
 
 	private ParserContext context = null;
 
@@ -90,9 +90,9 @@ public class QuestionListActivity extends Activity implements LoaderCallbacks<Lo
 
 	private void handleStoreFormResult(StoreResult result) {
 		if (result.getException() != null) {
-			Toast.makeText(this, "Something went wrong while trying to store the form", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.store_failure_message), Toast.LENGTH_LONG).show();
 		} else {
-			Toast.makeText(getApplicationContext(), "Result of storing: " + result.getResponse(), Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), getString(R.string.store_result_message) + " " + result.getResponse(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -102,11 +102,11 @@ public class QuestionListActivity extends Activity implements LoaderCallbacks<Lo
 		if (result.getException() == null && !result.hasErrors()) {
 			updateFragment(result.getContext());
 		} else if (retryAttempt < 2) {
-			Toast.makeText(this, "Something went wrong while trying to load the form, retrying", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.load_failure_message_retry), Toast.LENGTH_LONG).show();
 			retryAttempt++;
 			getLoaderManager().restartLoader(0, null, this);
 		} else {
-			Toast.makeText(this, "Something went wrong while trying to load the form", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, getString(R.string.load_failure_message), Toast.LENGTH_LONG).show();
 		}
 	}
 

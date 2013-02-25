@@ -1,20 +1,23 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ErrorMessage;
-import org.uva.sea.ql.variable.VariableState;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class IdentifierNode extends ExprNode
 {
-    public final String identifier;
+    private final String identifier;
+    private final Value defaultValue;
 
-    public IdentifierNode(final String identifier)
+    public IdentifierNode(final String identifier, final Value defaultValue)
     {
         this.identifier = identifier;
+        this.defaultValue = defaultValue;
     }
 
     @Override
@@ -24,22 +27,21 @@ public class IdentifierNode extends ExprNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        return VariableState.getVariables().get(this);
+        return variables.get(this);
     }
 
     @Override
-    public boolean validate(Collection<ErrorMessage> errorMessages)
+    public boolean validate(Collection<Message> errors)
     {
-        // TODO use contains key rather than check its value
-        final Value value = VariableState.getVariables().get(this);
-        if(value == null)
-        {
-            errorMessages.add(new ErrorMessage(this, "Undefined variable: " + this.identifier));
-        }
+        return true;
+    }
 
-        return value != null;
+    @Override
+    public Type getType()
+    {
+        return this.defaultValue.getType();
     }
 
     @Override
@@ -47,12 +49,8 @@ public class IdentifierNode extends ExprNode
     {
         if(this == o) return true;
         if(o == null || getClass() != o.getClass()) return false;
-
         IdentifierNode that = (IdentifierNode) o;
-
-        if(identifier != null ? !identifier.equals(that.identifier) : that.identifier != null) return false;
-
-        return true;
+        return !(identifier != null ? !identifier.equals(that.identifier) : that.identifier != null);
     }
 
     @Override
@@ -64,8 +62,6 @@ public class IdentifierNode extends ExprNode
     @Override
     public String toString()
     {
-        return "IdentifierNode{" +
-                "identifier='" + identifier + '\'' +
-                '}';
+        return identifier;
     }
 }
