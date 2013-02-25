@@ -8,25 +8,25 @@ import java.util.Map;
 import org.uva.sea.ql.ICodeLocationInformation;
 import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.QLError;
 
 public class TypeContext {
 
 	private final Map<Identifier, Type> symbolTable;
-	private final List<ParseError> errors;
+	private final List<QLError> errors;
 
 	public TypeContext() {
 		this.symbolTable = new HashMap<Identifier, Type>();
-		this.errors = new ArrayList<ParseError>();
+		this.errors = new ArrayList<QLError>();
 	}
 
 	public void addError(final ICodeLocationInformation element,
 			final String message) {
-		this.errors.add(new ParseError(element, message));
+		this.errors.add(new QLError(element, message));
 
 	}
 
-	public List<ParseError> getErrors() {
+	public List<QLError> getErrors() {
 		return this.errors;
 	}
 

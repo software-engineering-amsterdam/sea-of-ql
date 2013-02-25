@@ -13,19 +13,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 import org.uva.sea.ql.runtime.ui.IBooleanControl;
 import org.uva.sea.ql.runtime.values.BooleanValue;
 import org.uva.sea.ql.runtime.values.Value;
 
 class SwingBooleanControl implements IBooleanControl<JComponent> {
 
-	private final Variable variable;
+	private final RuntimeValue variable;
 	private JPanel contentPane;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton yes, no;
 
-	public SwingBooleanControl(final Variable variable) {
+	public SwingBooleanControl(final RuntimeValue variable) {
 		this.variable = variable;
 		this.initializeComponent();
 		this.setEnabled(true);

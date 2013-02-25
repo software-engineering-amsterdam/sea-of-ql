@@ -22,7 +22,6 @@ import org.uva.sea.ql.ast.expressions.UnaryMinus;
 import org.uva.sea.ql.ast.expressions.UnaryNot;
 import org.uva.sea.ql.ast.expressions.UnaryPlus;
 import org.uva.sea.ql.ast.expressions.Xor;
-import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.runtime.values.BooleanValue;
 import org.uva.sea.ql.runtime.values.IntegerValue;
 import org.uva.sea.ql.runtime.values.MoneyValue;
@@ -33,14 +32,14 @@ import org.uva.sea.ql.visitor.IExpressionVisitor;
 public class ExpressionEvaluator implements IExpressionEvaluator,
 		IExpressionVisitor<Value> {
 
-	private final Variables variables;
+	private final RuntimeValues variables;
 
-	public ExpressionEvaluator(final Variables variables) {
+	public ExpressionEvaluator(final RuntimeValues variables) {
 		this.variables = variables;
 	}
 
 	@Override
-	public Value getValue(final Expression expr) {
+	public Value eval(final Expression expr) {
 		return expr.accept(this);
 	}
 
@@ -95,16 +94,7 @@ public class ExpressionEvaluator implements IExpressionEvaluator,
 
 	@Override
 	public Value visit(final Identifier element) {
-		final Variable variable = this.variables.get(element);
-		if (!variable.hasValue()) {
-			final Statement statement = this.variables.getStatement(element);
-			if (statement.hasExpression()) {
-				final Expression expression = statement.getExpression();
-				final Value result = expression.accept(this);
-				variable.setValue(result);
-				return result;
-			}
-		}
+		final RuntimeValue variable = this.variables.get(element);
 		return variable.getValue();
 	}
 

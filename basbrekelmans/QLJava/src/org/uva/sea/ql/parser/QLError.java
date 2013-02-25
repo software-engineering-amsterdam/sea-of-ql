@@ -5,12 +5,12 @@ import org.uva.sea.ql.ICodeLocationInformation;
 /**
  * Parse error with line, column and source file information attached.
  */
-public class ParseError extends RuntimeException {
-	private static final long serialVersionUID = 1L;
+public class QLError {
 
 	private final int lineNumber;
 	private final int column;
 	private final String sourceFile;
+	private final String message;
 	private static final String messageFormat = "Parse error: \"%s\" near line %d, column %d in \"%s\"";
 
 	/**
@@ -19,7 +19,7 @@ public class ParseError extends RuntimeException {
 	 * from the IErrorInformation directly and persisted in the ParseError
 	 * object.
 	 */
-	public ParseError(final ICodeLocationInformation info, final String message) {
+	public QLError(final ICodeLocationInformation info, final String message) {
 		this(info.getLineNumber(), info.getColumn(), info.getFileName(),
 				message);
 	}
@@ -36,13 +36,13 @@ public class ParseError extends RuntimeException {
 	 * @param message
 	 *            Specify error details.
 	 */
-	ParseError(final int lineNumber, final int column, final String sourceFile,
+	QLError(final int lineNumber, final int column, final String sourceFile,
 			final String message) {
-		super(String.format(messageFormat, message, lineNumber, column,
-				sourceFile));
 		this.lineNumber = lineNumber;
 		this.column = column;
 		this.sourceFile = sourceFile;
+		this.message = String.format(messageFormat, message, lineNumber,
+				column, sourceFile);
 	}
 
 	/**
@@ -59,10 +59,15 @@ public class ParseError extends RuntimeException {
 		return this.lineNumber;
 	}
 
+	public String getMessage() {
+		return this.message;
+	}
+
 	/**
 	 * @return Source file of the error origin.
 	 */
 	public String getSourceFile() {
 		return this.sourceFile;
 	}
+
 }
