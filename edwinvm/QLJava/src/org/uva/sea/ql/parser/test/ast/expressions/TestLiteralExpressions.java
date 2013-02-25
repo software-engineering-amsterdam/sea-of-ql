@@ -1,11 +1,11 @@
 package org.uva.sea.ql.parser.test.ast.expressions;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.expressions.literal.Bool;
-import org.uva.sea.ql.ast.expressions.literal.Identifier;
-import org.uva.sea.ql.ast.expressions.literal.Int;
-import org.uva.sea.ql.ast.expressions.literal.Money;
-import org.uva.sea.ql.ast.expressions.literal.Str;
+import org.uva.sea.ql.ast.expressions.Identifier;
+import org.uva.sea.ql.ast.values.Bool;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.Money;
+import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestLiteralExpressions extends ExpressionParserChecker {
