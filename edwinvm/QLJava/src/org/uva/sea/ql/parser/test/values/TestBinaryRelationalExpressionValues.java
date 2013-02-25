@@ -12,5 +12,8 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 		expressionMatchesValue("true == true", "true");
 		expressionMatchesValue("true == false", "false");
 		expressionMatchesValue("false == false", "true");
+		
+		expressionMatchesValue("1.0 == 1.0", "true");
+		expressionMatchesValue("1.0 == 2.0", "false");
 	}
 }
