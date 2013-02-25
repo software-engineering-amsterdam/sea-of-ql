@@ -36,7 +36,28 @@ public class Int extends Value {
 	protected Value mulInt(Int value) { return new Int(value.getValue() * getValue()); }
 	@Override
 	protected Value divInt(Int value) { return new Int(value.getValue() / getValue()); }
-
+	
+	@Override
+	public Value equalsValue(Value value) { return value.equalsInt(this); }
+	@Override
+	protected Value equalsInt(Int value)  { return new Bool(value.equals(this)); }
+	@Override
+	public Value greaterThan(Value value) { return value.greaterThanInt(this); }
+	@Override
+	protected Value greaterThanInt(Int value) { return new Bool(value.getValue() > getValue()); }
+	@Override
+	public Value greaterThanOrEqualTo(Value value) { return value.greaterThanOrEqualToInt(this); }
+	@Override
+	protected Value greaterThanOrEqualToInt(Int value) { return new Bool(value.getValue() >= getValue()); }
+	@Override
+	public Value lessThan(Value value) { return value.lessThanInt(this); }
+	@Override
+	protected Value lessThanInt(Int value) { return new Bool(value.getValue() < getValue()); }
+	@Override
+	public Value lessThanOrEqualTo(Value value) { return value.lessThanOrEqualToInt(this); }
+	@Override
+	protected Value lessThanOrEqualToInt(Int value) { return new Bool(value.getValue() <= getValue()); }
+	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Int();

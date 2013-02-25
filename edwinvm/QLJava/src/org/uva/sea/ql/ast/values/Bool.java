@@ -20,6 +20,10 @@ public class Bool extends Value {
 	public Value and(Value value) { return new Bool(((Bool)value).getValue() && getValue()); }
 	@Override
 	public Value or(Value value)  { return new Bool(((Bool)value).getValue() || getValue()); }
+	@Override
+	public Value equalsValue(Value value) { return value.equalsBool(this); }
+	@Override
+	protected Value equalsBool(Bool value)  { return new Bool(value.equals(this)); }
 	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
