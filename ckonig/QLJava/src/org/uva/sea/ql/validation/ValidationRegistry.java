@@ -49,12 +49,12 @@ public class ValidationRegistry implements Registry {
     }
 
     @Override
-    public final Class<?> lookupReturnType(Expr condition) throws QLException {
+    public final AbstractType lookupReturnType(Expr condition) throws QLException {
         return ReturnFinder.getResult(this.getQuestions(), condition);
     }
 
     @Override
-    public Class<?> lookupReturnType(AbstractType type) throws QLException {
+    public AbstractType lookupReturnType(AbstractType type) throws QLException {
         return ReturnFinder.getResult2(this.getQuestions(), type);
     }
 }

@@ -10,8 +10,9 @@ import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.TypeVisitor;
- class ReturnFinderTypeVisitor extends AbstractReturnFinderVisitor
-        implements TypeVisitor {
+
+class ReturnFinderTypeVisitor extends AbstractReturnFinderVisitor implements
+        TypeVisitor {
 
     public ReturnFinderTypeVisitor(List<Question> q) {
         super(q);
@@ -19,26 +20,26 @@ import org.uva.sea.ql.common.TypeVisitor;
 
     @Override
     public final void visit(BooleanType b) {
-        this.ret = BooleanType.class;
+        this.ret = b;
     }
 
     @Override
     public final void visit(Money m) {
-        this.ret = AbstractMathType.class;
+        this.ret = m;
     }
 
     @Override
     public final void visit(StrType s) {
-        this.ret = StrType.class;
+        this.ret = s;
     }
 
     @Override
     public final void visit(IntType i) {
-        this.ret = AbstractMathType.class;
+        this.ret = i;
     }
 
     @Override
     public void visit(NullType n) {
-        this.ret = NullType.class;
+        this.ret = n;
     }
 }

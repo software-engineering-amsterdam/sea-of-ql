@@ -20,11 +20,11 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.ast.types.AbstractMathType;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 
 abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
@@ -86,11 +86,11 @@ abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public final void visit(Eq eq) throws QLException {
-        if (checkReturn(eq, BooleanType.class)) {
+        if (checkReturn(eq, new BooleanType())) {
             this.boolRet = this.evaluator.evalBool(eq.getLeft()) == this.evaluator
                     .evalBool(eq.getRight());
         }
-        if (checkReturn(eq, AbstractMathType.class)) {
+        if (checkReturn(eq, new IntType())) {
             this.boolRet = this.evaluator.evalFloat(eq.getLeft()) == this.evaluator
                     .evalFloat(eq.getRight());
         }
@@ -98,11 +98,11 @@ abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public final void visit(NEq neq) throws QLException {
-        if (checkReturn(neq, BooleanType.class)) {
+        if (checkReturn(neq, new BooleanType())) {
             this.boolRet = this.evaluator.evalBool(neq.getLeft()) != this.evaluator
                     .evalBool(neq.getRight());
         }
-        if (checkReturn(neq, AbstractMathType.class)) {
+        if (checkReturn(neq, new IntType())) {
             this.boolRet = this.evaluator.evalFloat(neq.getLeft()) != this.evaluator
                     .evalFloat(neq.getRight());
         }
@@ -151,13 +151,13 @@ abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
     public void visit(StringLiteral s) throws QLException {
     }
 
-    private boolean checkReturn(BinaryExpr ex, Class<?> type)
+    private boolean checkReturn(BinaryExpr ex, AbstractType type)
             throws QLException {
         return checkReturn(ex.getLeft(), type)
                 && checkReturn(ex.getRight(), type);
     }
 
-    private boolean checkReturn(Expr ex, Class<?> type) throws QLException {
+    private boolean checkReturn(Expr ex, AbstractType type) throws QLException {
         return registry.lookupReturnType(ex).equals(type);
     }
 

@@ -12,5 +12,9 @@ public class BooleanType extends AbstractType {
     public final void accept(TypeVisitor v) {
         v.visit(this);
     }
+    
+    public boolean equals(Object o){
+        return o instanceof BooleanType;
+    }
 
 }

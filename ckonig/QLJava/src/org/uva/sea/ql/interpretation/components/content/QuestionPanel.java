@@ -13,6 +13,7 @@ import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
@@ -96,15 +97,15 @@ public final class QuestionPanel extends JPanel {
 
     public void setAutoValue(SwingRegistry registry) throws QLException {
         final Expr e = this.question.getExpr();
-        final Class<?> returnType = registry.lookupReturnType(e);
+        final AbstractType returnType = registry.lookupReturnType(e);
         Evaluator eval = new Evaluator(registry, true);
 
-        if (returnType.equals(BooleanType.class)) {
+        if (returnType.equals(new BooleanType())) {
             final boolean result = eval.evalBool(e);
             this.input.setBoolean(result);
         }
 
-        if (returnType.equals(AbstractMathType.class)) {
+        if (returnType.equals(new IntType())) {
             try {
                 final float result = eval.evalFloat(e);
                 this.input.setStringValue(new StringLiteral(Float

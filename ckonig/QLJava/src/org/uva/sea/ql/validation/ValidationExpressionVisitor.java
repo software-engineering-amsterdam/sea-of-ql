@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.bool.NEq;
 import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
@@ -25,8 +24,9 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.ast.types.AbstractMathType;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 
@@ -152,11 +152,11 @@ class ValidationExpressionVisitor implements ExpressionVisitor {
     }
     
     private boolean acceptsBool(Expr operator) throws QLException{
-        return bothhaveEqualReturnType(operator, BooleanType.class);
+        return bothhaveEqualReturnType(operator, new BooleanType());
     }
     
     private boolean acceptsMath(Expr operator) throws QLException {
-        return bothhaveEqualReturnType(operator, AbstractMathType.class);
+        return bothhaveEqualReturnType(operator, new IntType());
     }
 
     private void setNull() {
@@ -169,7 +169,7 @@ class ValidationExpressionVisitor implements ExpressionVisitor {
         }
     }
 
-    private boolean bothhaveEqualReturnType(Expr r, Class<?> type)
+    private boolean bothhaveEqualReturnType(Expr r, AbstractType type)
             throws QLException {
         ValidationTreeNodeVisitor v = new ValidationTreeNodeVisitor(this, type, this.registry);
         ((TreeNode) r).accept(v);

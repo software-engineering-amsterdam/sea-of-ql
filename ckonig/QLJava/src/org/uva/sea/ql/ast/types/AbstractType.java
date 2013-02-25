@@ -9,4 +9,8 @@ public abstract class AbstractType {
     }
 
     public abstract void accept(TypeVisitor v);
+    
+    public boolean equals(Object o){
+        return o instanceof AbstractType;
+    }
 }

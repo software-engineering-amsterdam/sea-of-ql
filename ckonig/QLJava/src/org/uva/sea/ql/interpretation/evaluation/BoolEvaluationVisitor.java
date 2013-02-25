@@ -1,6 +1,7 @@
 package org.uva.sea.ql.interpretation.evaluation;
 
 import org.uva.sea.ql.ast.elements.Ident;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.interpretation.SwingRegistry;
@@ -16,8 +17,8 @@ class BoolEvaluationVisitor extends AbstractEvaluationVisitor {
     @Override
     public final void visit(Ident ident) throws QLException {
         final QuestionPanel q = registry.getQuestionPanelByIdent(ident);
-        final Class<?> r = registry.lookupReturnType(ident);
-        if (r.equals(BooleanType.class)) {
+        final AbstractType r = registry.lookupReturnType(ident);
+        if (r.equals(new BooleanType())) {
             boolRet = q.getBoolValue();
         }
     }

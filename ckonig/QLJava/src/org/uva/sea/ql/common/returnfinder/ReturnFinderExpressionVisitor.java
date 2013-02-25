@@ -22,8 +22,8 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
-import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 
@@ -34,77 +34,77 @@ public class ReturnFinderExpressionVisitor extends AbstractReturnFinderVisitor i
 
     @Override
     public final void visit(Add add) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
     public final void visit(Mul mul) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
     public final void visit(Div div) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
     public final void visit(Sub sub) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
     public final void visit(And and) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(Or or) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(Eq eq) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(NEq neq) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(GT gt) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(GEq geq) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(LT lt) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(LEq leq) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(Not not) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override
     public final void visit(Pos pos) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
     public final void visit(Neg neg) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
@@ -126,12 +126,12 @@ public class ReturnFinderExpressionVisitor extends AbstractReturnFinderVisitor i
 
     @Override
     public final void visit(IntLiteral i) throws QLException {
-        this.ret = AbstractMathType.class;
+        this.ret = new IntType();
     }
 
     @Override
     public void visit(BoolLiteral b) throws QLException {
-        this.ret = BooleanType.class;
+        this.ret = new BooleanType();
     }
 
     @Override

@@ -11,11 +11,11 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.identfinder.IdentFinder;
-import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 
 public class ValidationElementVisitor implements ElementVisitor {
     private ValidationRegistry registry;
@@ -60,8 +60,8 @@ public class ValidationElementVisitor implements ElementVisitor {
     @Override
     public final void visit(IfStatement ifStatement) throws QLException {
         final Expr condition = ifStatement.getCondition();
-        final Class<?> r = this.getReturnTypes(condition);
-        if (!r.equals(BooleanType.class)) {
+        final AbstractType r = this.getReturnTypes(condition);
+        if (!new BooleanType().equals(r)) {
             throwInvalidConditionError(ifStatement.getCondition());
         }
 
@@ -81,7 +81,7 @@ public class ValidationElementVisitor implements ElementVisitor {
         this.errors.addAll(visitor.getErrors());
     }
 
-    private Class<?> getReturnTypes(Expr e) throws QLException {
+    private AbstractType getReturnTypes(Expr e) throws QLException {
         this.visit(e);
         return this.registry.lookupReturnType(e);
     }
@@ -98,9 +98,10 @@ public class ValidationElementVisitor implements ElementVisitor {
     }
 
     private void checkConditionType(Question question) throws QLException {
-        final Class<?> r = this.getReturnTypes(question.getExpr());
-        final Class<?> typeResult = this.registry.lookupReturnType(question.getType());
-        if (!typeResult.equals(r)) {
+        final AbstractType r = this.getReturnTypes(question.getExpr());
+        final AbstractType typeResult = this.registry.lookupReturnType(question
+                .getType());
+        if (!r.equals(typeResult)) {
             throw new AstValidationError(
                     "question condition invalid: expected "
                             + question.getType().getClass().toString()

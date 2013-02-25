@@ -12,4 +12,7 @@ public class StrType extends AbstractType {
         v.visit(this);
     }
 
+    public boolean equals(Object o){
+        return o instanceof StrType;
+    }
 }

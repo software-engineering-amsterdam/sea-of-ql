@@ -23,16 +23,16 @@ public final class ReturnFinder {
         t.accept((TypeVisitor) this.visitor);
     }
 
-    private final Class<?> getResult() {
+    private final AbstractType getResult() {
         return this.visitor.getResult();
     }
 
-    public static Class<?> getResult2(List<Question> q, AbstractType t) {
+    public static AbstractType getResult2(List<Question> q, AbstractType t) {
         final ReturnFinder finder = new ReturnFinder(q, t);
         return finder.getResult();
     }
 
-    public static Class<?> getResult(List<Question> q, Expr e)
+    public static AbstractType getResult(List<Question> q, Expr e)
             throws QLException {
         final ReturnFinder finder = new ReturnFinder(q, e);
         return finder.getResult();
