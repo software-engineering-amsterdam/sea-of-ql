@@ -3,7 +3,7 @@ package org.uva.sea.ql.ui.control;
 abstract public class WindowControl {
 	private final PanelControl panel;
 
-	protected WindowControl( PanelControl panel ) {
+	public WindowControl( PanelControl panel ) {
 		this.panel = panel;
 	}
 

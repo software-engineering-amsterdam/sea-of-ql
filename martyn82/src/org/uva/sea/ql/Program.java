@@ -4,22 +4,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.uva.sea.ql.evaluate.render.FormBuilder;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.evaluate.Error;
+import org.uva.sea.ql.evaluate.render.Form;
+import org.uva.sea.ql.evaluate.typecheck.TypeChecker;
 import org.uva.sea.ql.export.Exporter;
 import org.uva.sea.ql.export.XmlExporter;
+import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.jacc.QLParser;
 import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
-public class Program implements ButtonControlEventListener {
+public class Program {
 	private final static String SUBMIT_BUTTON_TEXT = "Save";
-
 	private final ControlFactory factory;
-
-	private PanelControl panel;
-	private QLForm form;
 
 	public static void main( String[] args ) {
 		Program program = new Program();
@@ -33,25 +34,59 @@ public class Program implements ButtonControlEventListener {
 	public void run() {
 		String source = this.getProgramSource();
 
-		this.form = new QLForm( source, this.factory );
+		Statement astRoot = this.parse( source );
+		this.typeCheck( astRoot );
+		PanelControl panel = this.render( astRoot );
 
-		FormBuilder builder = this.form.getBuilder();
-		builder.addButton( SUBMIT_BUTTON_TEXT, this );
-		this.panel = builder.getFormPanel();
+		this.factory.createWindow( panel.getName(), panel ).show();
+	}
 
-		this.factory.createWindow( this.panel.getName(), this.panel ).show();
+	private Statement parse( String source ) {
+		QLParser parser = new QLParser();
+		Statement ast;
+
+		try {
+			ast = parser.parse( source );
+		}
+		catch ( ParseError e ) {
+			e.printStackTrace();
+			throw new RuntimeException( e );
+		}
+
+		return ast;
+	}
+
+	private boolean typeCheck( Statement root ) {
+		TypeChecker checker = new TypeChecker();
+		checker.check( root );
+
+		if ( checker.hasErrors() ) {
+			for ( Error each : checker.getErrors() ) {
+				System.err.println( each.toString() );
+			}
+
+			return false;
+		}
+
+		return true;
+	}
+
+	private PanelControl render( Statement root ) {
+		final Form form = new Form( root, this.factory );
+		form.addButton( SUBMIT_BUTTON_TEXT, new ButtonControlEventListener() {
+			@Override
+			public void buttonClicked( ControlEvent event ) {
+				DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
+				String dateString = format.format( new Date() );
+
+				Exporter exporter = new XmlExporter( form.getName(), form.getValues() );
+				exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
+			}
+		} );
+		return form.getFormPanel();
 	}
 
 	private String getProgramSource() {
 		return TextFileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
-	}
-
-	@Override
-	public void buttonClicked( ControlEvent event ) {
-		DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
-		String dateString = format.format( new Date() );
-
-		Exporter exporter = new XmlExporter( this.panel.getName(), this.form.getValues() );
-		exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
 	}
 }

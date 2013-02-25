@@ -24,22 +24,18 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
-import org.uva.sea.ql.evaluate.render.BindingEnvironment;
-import org.uva.sea.ql.evaluate.render.Renderer;
-import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
 public class RendererTest extends EvaluatorTest implements StatementTest {
-	private final ControlFactory factory;
+	private final FormBuilder builder;
 
 	public RendererTest() {
 		super( new BindingEnvironment() );
-
-		this.factory = new SwingControlFactory();
+		this.builder = new FormBuilder( new SwingControlFactory(), this.environment );
 	}
 
 	private void eval( Statement statement ) {
-		Renderer.createPart( statement, this.environment, this.factory );
+		StatementRenderer.renderPart( statement, this.builder, this.environment );
 	}
 
 	@Test

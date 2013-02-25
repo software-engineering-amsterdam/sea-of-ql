@@ -28,7 +28,7 @@ public class JPanelControl extends PanelControl {
 	}
 
 	@Override
-	public void add( Control control ) {
+	public void addControl( Control control ) {
 		this.control.add( (JComponent) control.getInnerControl() );
 	}
 
