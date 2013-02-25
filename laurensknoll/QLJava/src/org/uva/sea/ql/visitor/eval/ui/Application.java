@@ -49,7 +49,6 @@ public class Application extends Observable implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// Persist results
 		this.setChanged();
 		this.notifyObservers();
 	}

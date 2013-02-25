@@ -69,7 +69,7 @@ public class Expression implements IExpression<ValidationResult> {
 	private ValidationResult validateBinary(Arithmetic expr) {
 		ValidationResult result = new ValidationResult();
 
-		result.addValidationResult(this.validateChildren(expr));
+		result.add(this.validateChildren(expr));
 
 		AbstractExpr left = expr.getLeftHandSide();
 		Boolean isLeftNumeric = this.isOfNumericType(left);
@@ -89,7 +89,7 @@ public class Expression implements IExpression<ValidationResult> {
 	private ValidationResult validateBinary(Relational expr) {
 		ValidationResult result = new ValidationResult();
 
-		result.addValidationResult(this.validateChildren(expr));
+		result.add(this.validateChildren(expr));
 
 		AbstractExpr left = expr.getLeftHandSide();
 		Boolean isLeftBool = this.isOfBooleanType(left);
@@ -109,7 +109,7 @@ public class Expression implements IExpression<ValidationResult> {
 	private ValidationResult validateBinary(Equality expr) {
 		ValidationResult result = new ValidationResult();
 
-		result.addValidationResult(this.validateChildren(expr));
+		result.add(this.validateChildren(expr));
 
 		AbstractExpr left = expr.getLeftHandSide();
 		AbstractExpr right = expr.getRightHandSide();
@@ -125,10 +125,10 @@ public class Expression implements IExpression<ValidationResult> {
 		ValidationResult result = new ValidationResult();
 
 		AbstractExpr left = expr.getLeftHandSide();
-		result.addValidationResult(left.accept(this));
+		result.add(left.accept(this));
 
 		AbstractExpr right = expr.getRightHandSide();
-		result.addValidationResult(right.accept(this));
+		result.add(right.accept(this));
 
 		return result;
 	}
@@ -183,7 +183,7 @@ public class Expression implements IExpression<ValidationResult> {
 		ValidationResult result = new ValidationResult();
 
 		AbstractExpr expr = neg.getExpression();
-		result.addValidationResult(expr.accept(this));
+		result.add(expr.accept(this));
 
 		Boolean isExprNumeric = this.isOfNumericType(expr);
 		if (!isExprNumeric) {
@@ -203,7 +203,7 @@ public class Expression implements IExpression<ValidationResult> {
 		ValidationResult result = new ValidationResult();
 
 		AbstractExpr expr = not.getExpression();
-		result.addValidationResult(expr.accept(this));
+		result.add(expr.accept(this));
 
 		Boolean isExprNumeric = this.isOfBooleanType(expr);
 		if (!isExprNumeric) {
@@ -223,7 +223,7 @@ public class Expression implements IExpression<ValidationResult> {
 		ValidationResult result = new ValidationResult();
 
 		AbstractExpr expr = pos.getExpression();
-		result.addValidationResult(expr.accept(this));
+		result.add(expr.accept(this));
 
 		Boolean isExprNumeric = this.isOfNumericType(expr);
 		if (!isExprNumeric) {
