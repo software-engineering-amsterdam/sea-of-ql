@@ -8,9 +8,12 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
+import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.exp.Nature;
@@ -35,19 +38,19 @@ import org.uva.sea.ql.visitor.StatementVisitor;
  * 
  */
 @Visitor
-public class VisibleFormNodeCreator implements StatementVisitor<Node> {
+public class QLNodeVisitor implements StatementVisitor<Node> {
 
+	private static final String INPUT_STYLE = "input";
 	private static final String QUESTION_STYLE = "question";
 
-	Model model;
-
-	ExpressionEvaluator expressionEvaluator;
+	private final Model model;
+	private final ExpressionEvaluator expressionEvaluator;
 
 	/**
 	 * @param model
 	 *            (not null)
 	 */
-	public VisibleFormNodeCreator(final Model model) {
+	public QLNodeVisitor(final Model model) {
 		this.model = model;
 		state.assertNotNull(this.model, "model");
 
@@ -74,8 +77,8 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		final Identifier identifier = computed.getIdentifier();
 		state.assertNotNull(model.getComputed(identifier), identifier
 				+ " not registered at model.");
-		Group holder = new Group();
-		final Label text = createText("");
+
+		final Label valueText = createText(computed.getIdentifier().getName());
 
 		String value = "";
 		if (isExpressionEvaluatable(computed)) {
@@ -89,25 +92,24 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 				if (isExpressionEvaluatable(computed)) {
 					String newVal = evaluateAndGetValue(computed
 							.getExpression());
-					text.setText(identifier.getName() + " : " + newVal);
+					valueText.setText(newVal);
 					LogPrinter.debugInfo("update recieved: " + expression);
-					return;
 				}
 			}
 		});
 
-		text.setText(identifier.getName() + " : " + value);
+		valueText.setText(value);
 
-		holder.getChildren().add(text);
-
-		return holder;
+		return createHorizontalHolder(createText(identifier.getName() + " :"),
+				valueText);
 	}
 
 	protected boolean isExpressionEvaluatable(final Computed computed) {
 		try {
 			computed.getExpression().accept(expressionEvaluator);
 		} catch (UnmodifiedException e) {
-			LogPrinter.debugInfo("cannot be evaluated");
+			LogPrinter.debugInfo(computed.getIdentifier()
+					+ " cannot be evaluated yet.");
 			return false;
 		}
 
@@ -194,9 +196,8 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 		state.assertNotNull(question, "question");
 		Nature nature = question.getDataType().getNature();
 
-		if (nature.equals(new org.uva.sea.ql.ast.exp.Bools())) {
+		if (nature.equals(new Bools())) {
 			return createYesNoQuestion(question);
-
 		} else {
 			return createOpenQuestion(question);
 		}
@@ -205,6 +206,9 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	private Node createOpenQuestion(final Question question) {
 		final TextField input = new TextField();
+		input.setPrefColumnCount(20);
+		input.getStyleClass().add(INPUT_STYLE);
+
 		input.textProperty().addListener(new ChangeListener<String>() {
 
 			@Override
@@ -214,7 +218,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 				handleUserInput(question, input, oldVal, newVal);
 			}
 		});
-		return createVerticalHolder(createText(question.getText()), input);
+		return createHorizontalHolder(createText(question.getText()), input);
 	}
 
 	private void handleUserInput(final Question question,
@@ -237,6 +241,7 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 
 	private Node createYesNoQuestion(final Question question) {
 		CheckBox checkBox = new CheckBox();
+
 		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
 			@Override
@@ -249,17 +254,19 @@ public class VisibleFormNodeCreator implements StatementVisitor<Node> {
 			}
 		});
 
-		return createVerticalHolder(createText(question.getText()), checkBox);
+		return createHorizontalHolder(createText(question.getText()), checkBox);
 	}
 
-	private VBox createVerticalHolder(final Node header, final Node inputNode) {
-		VBox verticalHolder = new VBox();
-		verticalHolder.getStyleClass().add(QUESTION_STYLE);
+	private Node createHorizontalHolder(final Node header, final Node inputNode) {
+		GridPane holder = new GridPane();
 
-		verticalHolder.getChildren().add(header);
-		verticalHolder.getChildren().add(inputNode);
+		holder.getColumnConstraints().add(new ColumnConstraints(300));
+		holder.getStyleClass().add(QUESTION_STYLE);
 
-		return verticalHolder;
+		holder.add(header, 0, 0);
+		holder.add(inputNode, 1, 0);
+
+		return holder;
 	}
 
 	private Label createText(final String text) {

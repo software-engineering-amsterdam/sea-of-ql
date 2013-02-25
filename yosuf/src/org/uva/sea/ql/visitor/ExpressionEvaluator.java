@@ -21,7 +21,7 @@ import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.Model;
 
@@ -44,11 +44,11 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	}
 
 	@Override
-	public IntegerValue visit(final Add add) {
-		IntegerValue leftVal = add.getLeft().accept(this);
-		IntegerValue rightVal = add.getRight().accept(this);
+	public NumericValue visit(final Add add) {
+		NumericValue leftVal = add.getLeft().accept(this);
+		NumericValue rightVal = add.getRight().accept(this);
 
-		return new IntegerValue(leftVal.getValue() + rightVal.getValue());
+		return new NumericValue(leftVal.getValue() + rightVal.getValue());
 	}
 
 	@Override
@@ -60,49 +60,49 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	}
 
 	@Override
-	public IntegerValue visit(final Divide divide) {
-		IntegerValue left = divide.getLeft().accept(this);
-		IntegerValue right = divide.getRight().accept(this);
+	public NumericValue visit(final Divide divide) {
+		NumericValue left = divide.getLeft().accept(this);
+		NumericValue right = divide.getRight().accept(this);
 
-		return new IntegerValue(left.getValue() / right.getValue());
+		return new NumericValue(left.getValue() / right.getValue());
 	}
 
 	@Override
-	public IntegerValue visit(final Multiply multiply) {
-		IntegerValue left = multiply.getLeft().accept(this);
-		IntegerValue right = multiply.getRight().accept(this);
+	public NumericValue visit(final Multiply multiply) {
+		NumericValue left = multiply.getLeft().accept(this);
+		NumericValue right = multiply.getRight().accept(this);
 
-		return new IntegerValue(left.getValue() * right.getValue());
+		return new NumericValue(left.getValue() * right.getValue());
 	}
 
 	@Override
-	public IntegerValue visit(final Substitute substitute) {
-		IntegerValue left = substitute.getLeft().accept(this);
-		IntegerValue right = substitute.getRight().accept(this);
+	public NumericValue visit(final Substitute substitute) {
+		NumericValue left = substitute.getLeft().accept(this);
+		NumericValue right = substitute.getRight().accept(this);
 
-		return new IntegerValue(left.getValue() - right.getValue());
+		return new NumericValue(left.getValue() - right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final Equals equals) {
-		IntegerValue left = equals.getLeft().accept(this);
-		IntegerValue right = equals.getRight().accept(this);
+		NumericValue left = equals.getLeft().accept(this);
+		NumericValue right = equals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() == right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final GreaterOrEquals greaterOrEquals) {
-		IntegerValue left = greaterOrEquals.getLeft().accept(this);
-		IntegerValue right = greaterOrEquals.getRight().accept(this);
+		NumericValue left = greaterOrEquals.getLeft().accept(this);
+		NumericValue right = greaterOrEquals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() >= right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final GreaterThan greaterThan) {
-		IntegerValue left = greaterThan.getLeft().accept(this);
-		IntegerValue right = greaterThan.getRight().accept(this);
+		NumericValue left = greaterThan.getLeft().accept(this);
+		NumericValue right = greaterThan.getRight().accept(this);
 		return new BooleanValue(left.getValue() > right.getValue());
 	}
 
@@ -123,9 +123,9 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	}
 
 	@Override
-	public IntegerValue visit(final Negative negative) {
-		IntegerValue value = negative.getOperation().accept(this);
-		return new IntegerValue(value.getValue() - 1);
+	public NumericValue visit(final Negative negative) {
+		NumericValue value = negative.getOperation().accept(this);
+		return new NumericValue(value.getValue() - 1);
 	}
 
 	@Override
@@ -136,8 +136,8 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 
 	@Override
 	public BooleanValue visit(final NotEquals notEquals) {
-		IntegerValue left = notEquals.getLeft().accept(this);
-		IntegerValue right = notEquals.getRight().accept(this);
+		NumericValue left = notEquals.getLeft().accept(this);
+		NumericValue right = notEquals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() != right.getValue());
 	}
@@ -151,29 +151,29 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	}
 
 	@Override
-	public IntegerValue visit(final Positive positive) {
-		IntegerValue value = positive.getOperation().accept(this);
-		return new IntegerValue(value.getValue() + 1);
+	public NumericValue visit(final Positive positive) {
+		NumericValue value = positive.getOperation().accept(this);
+		return new NumericValue(value.getValue() + 1);
 	}
 
 	@Override
 	public BooleanValue visit(final SmallerOrEquals smallerOrEquals) {
-		IntegerValue left = smallerOrEquals.getLeft().accept(this);
-		IntegerValue right = smallerOrEquals.getRight().accept(this);
+		NumericValue left = smallerOrEquals.getLeft().accept(this);
+		NumericValue right = smallerOrEquals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() <= right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final SmallerThan smallerThan) {
-		IntegerValue left = smallerThan.getLeft().accept(this);
-		IntegerValue right = smallerThan.getRight().accept(this);
+		NumericValue left = smallerThan.getLeft().accept(this);
+		NumericValue right = smallerThan.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() < right.getValue());
 	}
 
 	@Override
-	public IntegerValue visit(final IntegerValue integerValue) {
+	public NumericValue visit(final NumericValue integerValue) {
 		return integerValue;
 	}
 

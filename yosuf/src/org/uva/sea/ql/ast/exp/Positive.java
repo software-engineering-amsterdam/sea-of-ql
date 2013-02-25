@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class Positive extends Unary<IntegerValue> {
+public class Positive extends Unary<NumericValue> {
 
-	public Positive(final Expression<IntegerValue> operation) {
+	public Positive(final Expression<NumericValue> operation) {
 		super(operation);
 	}
 
@@ -16,7 +16,7 @@ public class Positive extends Unary<IntegerValue> {
 	}
 
 	@Override
-	public IntegerValue accept(final ExpressionVisitor visitor) {
+	public NumericValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

@@ -18,16 +18,16 @@ import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 public interface ExpressionVisitor {
 
-	IntegerValue visit(Add add);
+	NumericValue visit(Add add);
 
 	BooleanValue visit(And and);
 
-	IntegerValue visit(Divide divide);
+	NumericValue visit(Divide divide);
 
 	BooleanValue visit(Equals equals);
 
@@ -37,9 +37,9 @@ public interface ExpressionVisitor {
 
 	Expression<?> visit(Identifier identifier);
 
-	IntegerValue visit(Multiply multiply);
+	NumericValue visit(Multiply multiply);
 
-	IntegerValue visit(Negative negative);
+	NumericValue visit(Negative negative);
 
 	BooleanValue visit(Not not);
 
@@ -47,17 +47,17 @@ public interface ExpressionVisitor {
 
 	BooleanValue visit(Or or);
 
-	IntegerValue visit(Positive positive);
+	NumericValue visit(Positive positive);
 
 	BooleanValue visit(SmallerOrEquals smallerOrEquals);
 
 	BooleanValue visit(SmallerThan smallerThan);
 
-	IntegerValue visit(Substitute substitute);
+	NumericValue visit(Substitute substitute);
 
 	BooleanValue visit(BooleanValue booleanValue);
 
-	IntegerValue visit(IntegerValue integerValue);
+	NumericValue visit(NumericValue integerValue);
 
 	StringValue visit(StringValue stringValue);
 
