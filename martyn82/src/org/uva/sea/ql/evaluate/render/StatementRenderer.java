@@ -21,6 +21,8 @@ class StatementRenderer implements StatementVisitor<Void> {
 	private final BindingEnvironment environment;
 	private final FormBuilder builder;
 
+	private String formName;
+
 	public StatementRenderer( ControlFactory factory, BindingEnvironment environment ) {
 		this.builder = new FormBuilder( factory, environment );
 		this.environment = environment;
@@ -36,7 +38,11 @@ class StatementRenderer implements StatementVisitor<Void> {
 		return this.environment.getValueMap();
 	}
 
-	public PanelControl getPanel() {
+	public String getFormName() {
+		return this.formName;
+	}
+
+	public PanelControl getFormPanel() {
 		return this.builder.getResult();
 	}
 
@@ -92,9 +98,10 @@ class StatementRenderer implements StatementVisitor<Void> {
 	@Override
 	public Void visit( FormDeclaration node ) {
 		PanelControl formPanel = renderPart( node.getBody(), this.builder, this.environment );
-		formPanel.setName( node.getLabel() );
 
+		this.formName = node.getLabel();
 		this.builder.addControl( formPanel );
+
 		return null;
 	}
 

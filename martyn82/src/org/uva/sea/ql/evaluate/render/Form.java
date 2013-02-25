@@ -18,13 +18,13 @@ public class Form {
 
 	public void addButton( String text ) {
 		ButtonControl button = this.factory.createButton( text );
-		this.getFormPanel().addControl( button );
+		this.getPanel().addControl( button );
 	}
 
 	public void addButton( String text, ButtonControlEventListener clickListener ) {
 		ButtonControl button = this.factory.createButton( text );
 		button.addClickListener( clickListener );
-		this.getFormPanel().addControl( button );
+		this.getPanel().addControl( button );
 	}
 
 	public ValueMap getValues() {
@@ -32,10 +32,10 @@ public class Form {
 	}
 
 	public String getName() {
-		return this.getFormPanel().getName();
+		return this.renderer.getFormName();
 	}
 
-	public PanelControl getFormPanel() {
-		return this.renderer.getPanel();
+	public PanelControl getPanel() {
+		return this.renderer.getFormPanel();
 	}
 }

@@ -17,7 +17,6 @@ import org.uva.sea.ql.parser.jacc.QLParser;
 import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlFactory;
-import org.uva.sea.ql.ui.control.PanelControl;
 import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
@@ -59,10 +58,10 @@ public class Program {
 
 		Statement astRoot = this.parse( source );
 		this.typeCheck( astRoot );
-		PanelControl panel = this.render( astRoot );
+		Form form = this.render( astRoot );
 
-		this.window.setTitle( panel.getName() );
-		this.window.addControl( panel );
+		this.window.setTitle( form.getName() );
+		this.window.addControl( form.getPanel() );
 		this.window.show();
 	}
 
@@ -161,8 +160,9 @@ public class Program {
 		return true;
 	}
 
-	private PanelControl render( Statement root ) {
+	private Form render( Statement root ) {
 		final Form form = new Form( root, this.factory );
+
 		form.addButton( SUBMIT_BUTTON_TEXT, new ButtonControlEventListener() {
 			@Override
 			public void buttonClicked( ControlEvent event ) {
@@ -176,7 +176,8 @@ public class Program {
 				exporter.export( fileName );
 			}
 		} );
-		return form.getFormPanel();
+
+		return form;
 	}
 
 	private String getProgramSource( String fileName ) {
