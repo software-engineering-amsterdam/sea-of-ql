@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.eval.ui.Application;
-import org.uva.sea.ql.visitor.eval.ui.Panel;
+import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
 
 public class Form implements IForm<Application> {
 

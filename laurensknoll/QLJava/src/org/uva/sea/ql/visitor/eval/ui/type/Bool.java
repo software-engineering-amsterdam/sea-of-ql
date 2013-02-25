@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval.ui;
+package org.uva.sea.ql.visitor.eval.ui.type;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;

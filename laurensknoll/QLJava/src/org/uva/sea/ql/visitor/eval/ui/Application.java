@@ -11,6 +11,7 @@ import javax.swing.WindowConstants;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.eval.Environment;
 import org.uva.sea.ql.visitor.eval.FormData;
+import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Application extends Observable implements Observer {

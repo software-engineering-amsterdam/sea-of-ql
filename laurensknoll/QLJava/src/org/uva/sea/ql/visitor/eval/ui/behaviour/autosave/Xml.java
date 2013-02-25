@@ -1,4 +1,4 @@
-package org.uva.sea.ql.save;
+package org.uva.sea.ql.visitor.eval.ui.behaviour.autosave;
 
 import java.io.File;
 import java.util.List;
@@ -23,7 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-public class Xml extends SaveBehaviour {
+public class Xml extends AutoSave {
 
 	private final String path;
 

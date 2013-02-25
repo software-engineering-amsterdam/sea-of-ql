@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval.observer;
+package org.uva.sea.ql.visitor.eval.ui.expr;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.expr.binary.AbstractBinary;

@@ -1,8 +1,9 @@
-package org.uva.sea.ql.visitor.eval.ui;
+package org.uva.sea.ql.visitor.eval.ui.statement;
 
 import javax.swing.JLabel;
 
 import org.uva.sea.ql.visitor.eval.Environment;
+import org.uva.sea.ql.visitor.eval.ui.type.Widget;
 
 public class Question extends Panel {
 

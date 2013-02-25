@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval.ui;
+package org.uva.sea.ql.visitor.eval.ui.statement;
 
 import javax.swing.JPanel;
 

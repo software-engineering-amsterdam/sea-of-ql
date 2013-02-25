@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval.ui;
+package org.uva.sea.ql.visitor.eval.ui.statement;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -8,8 +8,8 @@ import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.eval.Environment;
 import org.uva.sea.ql.visitor.eval.Expression;
-import org.uva.sea.ql.visitor.eval.observer.Dependency;
-import org.uva.sea.ql.visitor.eval.observer.DependencySet;
+import org.uva.sea.ql.visitor.eval.ui.expr.Dependency;
+import org.uva.sea.ql.visitor.eval.ui.expr.DependencySet;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Computed extends Panel implements Observer {

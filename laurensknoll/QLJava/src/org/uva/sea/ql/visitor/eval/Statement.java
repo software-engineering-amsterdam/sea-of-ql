@@ -15,10 +15,10 @@ import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
 import org.uva.sea.ql.visitor.IType;
-import org.uva.sea.ql.visitor.eval.ui.Computed;
-import org.uva.sea.ql.visitor.eval.ui.Conditional;
-import org.uva.sea.ql.visitor.eval.ui.Panel;
-import org.uva.sea.ql.visitor.eval.ui.Widget;
+import org.uva.sea.ql.visitor.eval.ui.statement.Computed;
+import org.uva.sea.ql.visitor.eval.ui.statement.Conditional;
+import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
+import org.uva.sea.ql.visitor.eval.ui.type.Widget;
 
 public class Statement implements IStatement<Panel> {
 
@@ -82,7 +82,7 @@ public class Statement implements IStatement<Panel> {
 		IType<Widget> typeVisitor = new Type();
 		Widget widget = type.accept(typeVisitor);
 
-		Panel panel = new org.uva.sea.ql.visitor.eval.ui.Question(
+		Panel panel = new org.uva.sea.ql.visitor.eval.ui.statement.Question(
 				this.environment, questionLabel.getValue(), widget);
 		panel.setLayout(new GridLayout(1, 2));
 

@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
-import org.uva.sea.ql.visitor.eval.ui.Widget;
+import org.uva.sea.ql.visitor.eval.ui.type.Widget;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Undefined;
 
