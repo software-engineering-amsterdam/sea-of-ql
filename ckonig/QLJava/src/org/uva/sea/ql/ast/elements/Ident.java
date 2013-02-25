@@ -13,8 +13,8 @@ public class Ident extends Expr implements Expression, TreeNode {
 
     private final StringLiteral name;
 
-    public Ident(String id) {
-        this.name = new StringLiteral(id);
+    public Ident(StringLiteral id) {
+        this.name = id;
     }
 
     public final StringLiteral getName() {

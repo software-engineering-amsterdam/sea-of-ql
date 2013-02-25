@@ -42,12 +42,16 @@ blockLine returns [AbstractBlockElement result]
 ;
 
 question returns [Question result]
-	: Ident Assign String type {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result);}
-	| Ident Assign String type '(' e=orExpr ')' {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result, $e.result);}
+	: ident Assign String type {$result = new Question($ident.result, new StringLiteral($String.text), $type.result);}
+	| ident Assign String type '(' e=orExpr ')' {$result = new Question($ident.result, new StringLiteral($String.text), $type.result, $e.result);}
 ;
 
 ifStatement returns [IfStatement result]
 : 'if' LEFTBR orExpr RIGHTBR LEFTCBR blockContent RIGHTCBR {$result = new IfStatement($orExpr.result, $blockContent.result);}
+;
+
+ident returns [Ident result]
+: Ident { $result = new Ident(new StringLiteral($Ident.text)); }
 ;
 
 type returns [AbstractType result]
@@ -72,7 +76,7 @@ strType returns [StrType result]
 
 primary returns [Expr result]
   : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
+  | ident { $result = $ident.result; }
   | String { $result = new StringLiteral($String.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }  
   //| BoolLit { $result = new BooleanLiteral(true); }
