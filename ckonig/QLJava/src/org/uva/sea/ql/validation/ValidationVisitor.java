@@ -11,7 +11,6 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
@@ -72,7 +71,7 @@ public class ValidationVisitor implements ElementVisitor {
     public final void visit(IfStatement ifStatement) throws QLException {
         final Expr condition = ifStatement.getCondition();
         final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
-                (Expression) condition);
+                condition);
         if (r.equals(BooleanType.class)) {
             this.visit(ifStatement.getCondition());
         } else {
@@ -94,7 +93,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void visit(Expr operator) throws QLException {
         final AcceptFinder f = new AcceptFinder();
-        ((Expression) operator).accept(f);
+        operator.accept(f);
         if (f.getResult().equals(BooleanType.class)) {
             if (!(bothhaveEqualReturnType(operator, BooleanType.class))) {
                 throwError(operator, "boolean");
@@ -139,8 +138,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private Class<?> getReturnTypes(Expr e) throws QLException {
         this.visit(e);
-        return ReturnFinder.getResult(this.registry.getQuestions(),
-                (Expression) e);
+        return ReturnFinder.getResult(this.registry.getQuestions(), e);
     }
 
     private void checkDuplicateIdentName(Question question)
@@ -161,7 +159,7 @@ public class ValidationVisitor implements ElementVisitor {
     private void checkValidCondition(Question question) throws QLException {
         this.visit(question.getExpr());
         final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
-                (Expression) question.getExpr());
+                question.getExpr());
         final Class<?> typeResult = ReturnFinder.getResult(
                 this.registry.getQuestions(), question.getType());
         if (!typeResult.equals(r)) {

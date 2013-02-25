@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expressions;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
 
-public class BinaryExpr extends Expr implements TreeNode{
+public abstract class BinaryExpr extends Expr implements TreeNode{
 	private Expr left;
 	private Expr right;
 

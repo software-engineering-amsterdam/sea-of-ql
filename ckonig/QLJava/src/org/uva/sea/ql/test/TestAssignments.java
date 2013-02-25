@@ -32,7 +32,7 @@ public class TestAssignments extends TestExpressions {
         final Form f = (Form) e;
         assertNotNull(f.getBlock());
         assertNotNull(f.getName());
-        assertEquals("Box1HouseOwning", f.getName());
+        assertEquals(f.getName(),"Box1HouseOwning");
         final Block b = f.getBlock();
         testBlock(b);
     }

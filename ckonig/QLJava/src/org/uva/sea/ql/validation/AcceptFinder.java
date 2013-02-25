@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
 import org.uva.sea.ql.ast.math.Mul;
@@ -125,5 +126,10 @@ class AcceptFinder implements ExpressionVisitor {
     @Override
     public void visit(BoolLiteral b) throws QLException {
         this.result = BooleanType.class;
+    }
+
+    @Override
+    public void visit(StringLiteral s) throws QLException {
+        this.result = NullType.class;
     }
 }

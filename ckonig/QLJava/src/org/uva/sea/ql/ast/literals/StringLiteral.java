@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.common.ExpressionVisitor;
+import org.uva.sea.ql.common.QLException;
 
 public class StringLiteral extends Expr {
 
@@ -28,5 +30,19 @@ public class StringLiteral extends Expr {
             return this.getValue().equals(((StringLiteral) o).getValue());
         }
         return false;
+    }
+
+    public final boolean isEmpty() {
+        return this.value == null || "".equals(this.value.trim());
+    }
+
+    public final StringLiteral replaceCommaWithDot() {
+        this.value.replace(',', '.');
+        return this;
+    }
+
+    @Override
+    public void accept(ExpressionVisitor visitor) throws QLException {
+         visitor.visit(this); 
     }
 }

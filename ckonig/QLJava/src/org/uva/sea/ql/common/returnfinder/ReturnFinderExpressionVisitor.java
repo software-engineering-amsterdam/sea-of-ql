@@ -15,6 +15,7 @@ import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
 import org.uva.sea.ql.ast.math.Mul;
@@ -131,5 +132,11 @@ public class ReturnFinderExpressionVisitor extends AbstractReturnFinderVisitor i
     @Override
     public void visit(BoolLiteral b) throws QLException {
         this.ret = BooleanType.class;
+    }
+
+    @Override
+    public void visit(StringLiteral s) throws QLException {
+        // TODO Auto-generated method stub
+        
     }
 }

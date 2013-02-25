@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
@@ -68,7 +67,7 @@ public final class QuestionPanel extends JPanel {
         return this.input.getBoolValue();
     }
 
-    public final String getStringValue() {
+    public final StringLiteral getStringValue() {
         return this.input.getStringValue();
     }
 
@@ -98,7 +97,7 @@ public final class QuestionPanel extends JPanel {
     public void setAutoValue(SwingRegistry registry) throws QLException {
         final Expr e = this.question.getExpr();
         final Class<?> returnType = ReturnFinder.getResult(
-                registry.getQuestionsAst(), (Expression) e);
+                registry.getQuestionsAst(), e);
         Evaluator eval = new Evaluator(registry, true);
 
         if (returnType.equals(BooleanType.class)) {
@@ -109,7 +108,8 @@ public final class QuestionPanel extends JPanel {
         if (returnType.equals(AbstractMathType.class)) {
             try {
                 final float result = eval.evalFloat(e);
-                this.input.setStringValue(Float.toString(result));
+                this.input.setStringValue(new StringLiteral(Float
+                        .toString(result)));
             } catch (EmptyInputException ex) {
                 // no input? no output!
             }

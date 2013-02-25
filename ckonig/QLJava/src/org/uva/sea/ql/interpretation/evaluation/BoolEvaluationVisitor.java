@@ -7,7 +7,7 @@ import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 
-public class BoolEvaluationVisitor extends EvaluationVisitor {
+class BoolEvaluationVisitor extends AbstractEvaluationVisitor {
 
     public BoolEvaluationVisitor(SwingRegistry reg, Evaluator eval) {
         super(reg, eval);

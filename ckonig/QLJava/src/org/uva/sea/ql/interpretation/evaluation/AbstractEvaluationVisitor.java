@@ -11,9 +11,9 @@ import org.uva.sea.ql.ast.bool.Not;
 import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.math.Add;
 import org.uva.sea.ql.ast.math.Div;
 import org.uva.sea.ql.ast.math.Mul;
@@ -27,13 +27,13 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 
-public abstract class EvaluationVisitor implements ExpressionVisitor {
+abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
     protected SwingRegistry registry;
     protected boolean boolRet;
     protected float mathRet;
     protected Evaluator evaluator;
 
-    public EvaluationVisitor(SwingRegistry reg, Evaluator eval) {
+    public AbstractEvaluationVisitor(SwingRegistry reg, Evaluator eval) {
         this.registry = reg;
         this.evaluator = eval;
     }
@@ -147,6 +147,10 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
         this.boolRet = b.getValue();
     }
 
+    @Override
+    public void visit(StringLiteral s) throws QLException {
+    }
+
     private boolean checkReturn(BinaryExpr ex, Class<?> type)
             throws QLException {
         return checkReturn(ex.getLeft(), type)
@@ -154,8 +158,8 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
     }
 
     private boolean checkReturn(Expr ex, Class<?> type) throws QLException {
-        return ReturnFinder.getResult(this.registry.getQuestionsAst(),
-                (Expression) ex).equals(type);
+        return ReturnFinder.getResult(this.registry.getQuestionsAst(), ex)
+                .equals(type);
     }
 
 }
