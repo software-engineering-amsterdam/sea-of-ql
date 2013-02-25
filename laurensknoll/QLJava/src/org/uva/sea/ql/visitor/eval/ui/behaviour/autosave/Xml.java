@@ -40,11 +40,11 @@ public class Xml extends AbstractAutoSave {
 
 		Application app = (Application) o;
 		Data data = app.getData();
-		DOMSource xml = this.createXmlFromData(data);
+		DOMSource xml = this.createXmlForData(data);
 		this.writeXmlToFile(xml, this.path);
 	}
 
-	private DOMSource createXmlFromData(Data data) {
+	private DOMSource createXmlForData(Data data) {
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
 				.newInstance();
 
