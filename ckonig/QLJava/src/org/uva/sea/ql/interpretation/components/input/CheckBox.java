@@ -2,6 +2,8 @@ package org.uva.sea.ql.interpretation.components.input;
 
 import javax.swing.JCheckBox;
 
+import org.uva.sea.ql.ast.literals.StringLiteral;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class CheckBox extends JCheckBox implements QLInput {
@@ -18,7 +20,7 @@ public class CheckBox extends JCheckBox implements QLInput {
     }
 
     @Override
-    public final String getStringValue() {
+    public final StringLiteral getStringValue() {
         throw new NotImplementedException();
     }
 
@@ -33,7 +35,7 @@ public class CheckBox extends JCheckBox implements QLInput {
     }
 
     @Override
-    public final void setStringValue(String text) {
+    public final void setStringValue(StringLiteral text) {
         throw new NotImplementedException();
     }
 

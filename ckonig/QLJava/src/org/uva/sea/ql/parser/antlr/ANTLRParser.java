@@ -13,11 +13,12 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 
 public class ANTLRParser implements IParse {
+
+    private static final String DEFAULT_FILENAME = "example.ql";
+
     public ANTLRParser() {
 
     }
-
-    private static final String DEFAULT_FILENAME = "example.ql";
 
     @Override
     public final Form parseForm(String src) throws ParseError {

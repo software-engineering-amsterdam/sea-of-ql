@@ -15,10 +15,11 @@ import org.uva.sea.ql.ast.statements.Statements;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.JACCParser;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.typechecking.ITypeChecker;
 import org.uva.sea.ql.typechecking.ITypeResolver;
-import org.uva.sea.ql.typechecking.TypeCheckerFactory;
+import org.uva.sea.ql.typechecking.TypeChecker;
+import org.uva.sea.ql.typechecking.TypeContext;
+import org.uva.sea.ql.typechecking.TypeResolver;
 
 public class TestStatements {
 
@@ -44,19 +45,21 @@ public class TestStatements {
 	}
 
 	@Test
-	public void testForm() throws ParseError {
-		assertEquals(Form.class,
-				this.parser.parse("form MyForm { \"Test 123\" myVar : money }")
+	public void testForm() {
+		assertEquals(
+				Form.class,
+				this.parser.parse(
+						"form \"Test 123\" { \"Test 123\" myVar : money }")
 						.getClass());
 		assertEquals(
 				Form.class,
 				this.parser.parse(
-						"form HankyPanky { \"Test 123\" myVar : money }")
+						"form \"Hanky Panky\" { \"Test 123\" myVar : money }")
 						.getClass());
 	}
 
 	@Test
-	public void testIfs() throws ParseError {
+	public void testIfs() {
 		assertEquals(
 				If.class,
 				firstChild(
@@ -96,7 +99,7 @@ public class TestStatements {
 	}
 
 	@Test
-	public void testQuestions() throws ParseError {
+	public void testQuestions() {
 		assertEquals(InputQuestion.class,
 				firstChild(this.parser.parse("\"Test 123\" myVar : bool"))
 						.getClass());
@@ -121,8 +124,8 @@ public class TestStatements {
 	}
 
 	@Test
-	public void testTypeChecker() throws ParseError {
-		ITypeChecker checker = TypeCheckerFactory.createTypeChecker();
+	public void testTypeChecker() {
+		ITypeChecker checker = new TypeChecker();
 
 		final String ifStatement1Code = "if (a == b) { \"Question 1?\" myVar : bool }";
 		final String ifStatement2Code = "\"Q1?\" a : money "
@@ -134,21 +137,21 @@ public class TestStatements {
 				.parse(ifStatement2Code);
 
 		checker.checkTypes(ifStatement1);
-		assertEquals(2, checker.getContext().getErrors().size());
-		checker = TypeCheckerFactory.createTypeChecker();
+		assertEquals(2, checker.getErrors().size());
+		checker = new TypeChecker();
 		checker.checkTypes(ifStatement2);
-		assertEquals(false, checker.getContext().hasErrors());
+		assertEquals(false, checker.hasErrors());
 	}
 
 	@Test
-	public void testTypeResolving() throws ParseError {
+	public void testTypeResolving() {
 		final String integerExpression1 = "3 + 5";
 		final String floatExpression1 = "3.0 + 5.0";
 		final String floatExpression2 = "3.0 + 5";
 		final String stringComparison1 = "\"Hanky\" == \"Panky\"";
 		final String stringLiteral1 = "\"Hanky\"";
-
-		final ITypeResolver resolver = TypeCheckerFactory.createTypeResolver();
+		final TypeContext context = new TypeContext();
+		final ITypeResolver resolver = new TypeResolver(context);
 
 		assertEquals(Type.INTEGER, resolver.getType((Expression) this.parser
 				.parse(integerExpression1)));

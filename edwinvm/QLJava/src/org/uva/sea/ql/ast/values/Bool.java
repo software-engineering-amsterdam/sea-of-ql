@@ -24,6 +24,10 @@ public class Bool extends Value {
 	public Value equalsValue(Value value) { return value.equalsBool(this); }
 	@Override
 	protected Value equalsBool(Bool value)  { return new Bool(value.equals(this)); }
+	@Override
+	public Value notEqualsValue(Value value) { return value.notEqualsBool(this); }
+	@Override
+	protected Value notEqualsBool(Bool value)  { return new Bool(!value.equals(this)); }
 	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {

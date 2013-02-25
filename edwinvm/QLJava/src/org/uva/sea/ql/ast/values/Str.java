@@ -25,6 +25,10 @@ public class Str extends Value {
 	public Value equalsValue(Value value) { return value.equalsString(this); }
 	@Override
 	protected Value equalsString(Str value) { return new Bool(value.equals(this)); }
+	@Override
+	public Value notEqualsValue(Value value) { return value.notEqualsString(this); }
+	@Override
+	protected Value notEqualsString(Str value) { return new Bool(!value.equals(this)); }
 
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {

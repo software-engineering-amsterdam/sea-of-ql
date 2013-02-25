@@ -8,13 +8,13 @@ import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class ComputedQuestion extends Question {
 
-	private final Expression value;
+	private final Expression computation;
 
 	public ComputedQuestion(final ICodeLocationInformation info,
 			final StringLiteral question, final Identifier identifier,
 			final Expression value) {
 		super(info, question, identifier);
-		this.value = value;
+		this.computation = value;
 	}
 
 	@Override
@@ -22,13 +22,8 @@ public class ComputedQuestion extends Question {
 		visitor.visit(this);
 	}
 
-	@Override
-	public Expression getExpression() {
-		return this.value;
+	public Expression getComputation() {
+		return this.computation;
 	}
 
-	@Override
-	public boolean hasExpression() {
-		return true;
-	}
 }

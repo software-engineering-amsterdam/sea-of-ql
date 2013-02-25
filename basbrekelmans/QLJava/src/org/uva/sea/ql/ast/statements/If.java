@@ -8,12 +8,12 @@ public class If extends Statement {
 
 	private final Statement ifBody;
 
-	private final Expression expression;
+	private final Expression condition;
 
 	public If(final ICodeLocationInformation info, final Expression expression,
 			final Statement ifBody) {
 		super(info);
-		this.expression = expression;
+		this.condition = expression;
 		this.ifBody = ifBody;
 	}
 
@@ -22,18 +22,11 @@ public class If extends Statement {
 		visitor.visit(this);
 	}
 
-	@Override
-	public Expression getExpression() {
-		return this.expression;
+	public Expression getCondition() {
+		return this.condition;
 	}
 
 	public Statement getIfBody() {
 		return this.ifBody;
 	}
-
-	@Override
-	public boolean hasExpression() {
-		return true;
-	}
-
 }

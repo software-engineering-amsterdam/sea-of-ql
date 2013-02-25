@@ -4,15 +4,15 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 import org.uva.sea.ql.runtime.ui.IControl;
 
 class SwingStringControl implements IControl {
 
-	private final Variable variable;
+	private final RuntimeValue variable;
 	private final JTextField textField;
 
-	public SwingStringControl(final Variable variable) {
+	public SwingStringControl(final RuntimeValue variable) {
 		this.variable = variable;
 		this.textField = new JTextField();
 		this.textField.getDocument().addDocumentListener(

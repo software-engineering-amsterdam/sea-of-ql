@@ -1,21 +1,21 @@
 package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
+import org.uva.sea.ql.common.TreeVisitor;
 
-public class Ident extends Expr implements Expression, TreeNode {
+public class Ident extends Expr implements TreeNode {
 
-    private final String name;
+    private final StringLiteral name;
 
-    public Ident(String id) {
+    public Ident(StringLiteral id) {
         this.name = id;
     }
 
-    public final String getName() {
+    public final StringLiteral getName() {
         return this.name;
     }
 
@@ -25,13 +25,13 @@ public class Ident extends Expr implements Expression, TreeNode {
     }
 
     @Override
-    public final void accept(RecursiveIdentVisitor v) {
+    public final void accept(TreeVisitor v) {
         v.visit(this);
     }
-    
+
     @Override
-    public final String toString(){
-        return this.name;
+    public final String toString() {
+        return this.name.getValue();
     }
 
 }

@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.statements.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.If;
@@ -25,27 +27,26 @@ import org.uva.sea.ql.ast.statements.Statements;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.runtime.JsonOutputPrinter;
 import org.uva.sea.ql.runtime.OutputPrinter;
-import org.uva.sea.ql.runtime.Variable;
-import org.uva.sea.ql.runtime.Variables;
+import org.uva.sea.ql.runtime.RuntimeValue;
+import org.uva.sea.ql.runtime.RuntimeValues;
 import org.uva.sea.ql.runtime.ui.IUserInterfaceFactory;
 import org.uva.sea.ql.runtime.ui.IWindow;
-import org.uva.sea.ql.typechecking.ITypeResolver;
 import org.uva.sea.ql.visitor.IParametrizedTypeVisitor;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class SwingUserInterfaceFactory implements IUserInterfaceFactory,
 		IStatementVisitor {
 
-	private final IParametrizedTypeVisitor<Variable, JComponent> readOnlyComponentFactory = new ReadOnlyComponentFactory();
-	private final IParametrizedTypeVisitor<Variable, JComponent> writeOnlyComponentFactory = new WriteOnlyComponentFactory();
-	ITypeResolver typeResolver;
+	private final IParametrizedTypeVisitor<RuntimeValue, JComponent> readOnlyComponentFactory = new ReadOnlyComponentFactory();
+	private final IParametrizedTypeVisitor<RuntimeValue, JComponent> writeOnlyComponentFactory = new WriteOnlyComponentFactory();
+	Map<Identifier, Type> symbolTable;
 	private Container currentPane;
-	private final Variables variables;
+	private final RuntimeValues variables;
 
-	public SwingUserInterfaceFactory(final ITypeResolver typeResolver,
-			final Variables variables) {
-		this.typeResolver = typeResolver;
-		this.variables = variables;
+	public SwingUserInterfaceFactory(final Map<Identifier, Type> symbolTable,
+			final RuntimeValues vars) {
+		this.symbolTable = symbolTable;
+		this.variables = vars;
 	}
 
 	@Override
@@ -96,8 +97,8 @@ public class SwingUserInterfaceFactory implements IUserInterfaceFactory,
 
 	@Override
 	public void visit(final ComputedQuestion element) {
-		final Type type = this.typeResolver.getType(element.getExpression());
-		final Variable variable = this.variables.get(element);
+		final Type type = this.symbolTable.get(element.getIdentifier());
+		final RuntimeValue variable = this.variables.get(element);
 		final JComponent display = type.accept(this.readOnlyComponentFactory,
 				variable);
 		this.currentPane.add(this.createQuestionUserInterface(
@@ -112,7 +113,7 @@ public class SwingUserInterfaceFactory implements IUserInterfaceFactory,
 	@Override
 	public void visit(final IfElse element) {
 		this.visitIfStatement(element);
-		final Variable variable = this.variables.get(element);
+		final RuntimeValue variable = this.variables.get(element);
 		final Container parentContainer = this.currentPane;
 		final SwingPanel elsePanel = new SwingElsePanel(variable);
 		parentContainer.add(elsePanel.getUnderlyingComponent());
@@ -124,7 +125,7 @@ public class SwingUserInterfaceFactory implements IUserInterfaceFactory,
 	@Override
 	public void visit(final InputQuestion element) {
 		final Type type = element.getType();
-		final Variable variable = this.variables.get(element);
+		final RuntimeValue variable = this.variables.get(element);
 		final JComponent editor = type.accept(this.writeOnlyComponentFactory,
 				variable);
 		this.currentPane.add(this.createQuestionUserInterface(
@@ -140,7 +141,7 @@ public class SwingUserInterfaceFactory implements IUserInterfaceFactory,
 	}
 
 	private void visitIfStatement(final If element) {
-		final Variable variable = this.variables.get(element);
+		final RuntimeValue variable = this.variables.get(element);
 		final Container parentContainer = this.currentPane;
 		final SwingPanel panel = new SwingIfPanel(variable);
 		parentContainer.add(panel.getUnderlyingComponent());

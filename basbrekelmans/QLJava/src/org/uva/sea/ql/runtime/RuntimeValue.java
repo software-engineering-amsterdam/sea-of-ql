@@ -1,14 +1,12 @@
 package org.uva.sea.ql.runtime;
 
 import java.util.Observable;
-import java.util.Observer;
 
 import org.uva.sea.ql.runtime.values.Value;
 
-public class Variable extends Observable implements Observer {
+public abstract class RuntimeValue extends Observable {
 
 	private Value value = Value.UNSET_VALUE;
-	protected Observer valueSetter;
 
 	public Value getValue() {
 		return this.value;
@@ -26,14 +24,5 @@ public class Variable extends Observable implements Observer {
 		this.value = value;
 		this.setChanged();
 		this.notifyObservers();
-	}
-
-	public void setValueSetter(final Observer observer) {
-		this.valueSetter = observer;
-	}
-
-	@Override
-	public void update(final Observable o, final Object arg) {
-
 	}
 }

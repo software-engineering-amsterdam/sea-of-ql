@@ -1,10 +1,10 @@
 package org.uva.sea.ql.runtime.ui.swing;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 
 class SwingElsePanel extends SwingPanel {
 
-	public SwingElsePanel(final Variable variable) {
+	public SwingElsePanel(final RuntimeValue variable) {
 		super(variable);
 	}
 

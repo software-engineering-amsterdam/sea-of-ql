@@ -1,0 +1,28 @@
+
+"Age" x: int
+"Adult" a = x > 18
+
+class Ident
+  Type typeOf(Regist r) {
+    return r.getType(this);
+  }
+  
+}
+
+TYPEof: Expr -> type
+
+Add: typeOf -> int
+Lessthan typeOf -> bool
+equals typeOf -> bool
+
+check;
+Add: check lhs.typeOf == int , rhs.typeOf == int
+  visit(Add add) {
+    add.lhs.accept(this);
+    add.rhs.aceppt(this);
+    if (lhs.typeOf(env) != int || rhs.typeOf(env) != int) {
+      addError("Invalid type for add");
+    }
+    
+  }
+Eq: check lhs.typeOf == rhs.typeOf

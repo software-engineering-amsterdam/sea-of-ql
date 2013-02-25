@@ -2,6 +2,8 @@ package org.uva.sea.ql.interpretation.components.input;
 
 import javax.swing.JTextField;
 
+import org.uva.sea.ql.ast.literals.StringLiteral;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class TextBox extends JTextField implements QLInput {
@@ -18,8 +20,8 @@ public class TextBox extends JTextField implements QLInput {
     }
 
     @Override
-    public final String getStringValue() {
-        return this.getText();
+    public final StringLiteral getStringValue() {
+        return new StringLiteral(this.getText());
     }
 
     @Override
@@ -33,8 +35,8 @@ public class TextBox extends JTextField implements QLInput {
     }
 
     @Override
-    public final void setStringValue(String text) {
-        this.setText(text);
+    public final void setStringValue(StringLiteral text) {
+        this.setText(text.getValue());
     }
 
 }
