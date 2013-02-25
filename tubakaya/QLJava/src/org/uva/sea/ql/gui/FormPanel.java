@@ -11,7 +11,7 @@ import org.uva.sea.ql.core.dom.Identifier;
 import org.uva.sea.ql.core.dom.statements.Form;
 import org.uva.sea.ql.core.dom.visitors.ExpressionVisitorToSetTypeOfIdentifiers;
 import org.uva.sea.ql.core.dom.visitors.StatementVisitorForRendering;
-import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckVariableDefinitions;
+import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckIdentifierDefinitions;
 import org.uva.sea.ql.core.dom.visitors.StatementVisitorToSetTypesOfIdentifiers;
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
@@ -35,12 +35,10 @@ public class FormPanel extends JFrame {
 			
 			JPanel rootPanel=new JPanel();
 			AddFormOnRootPanel(rootPanel,rootNode);
-			
-			rootFrame.add(rootPanel);
-			
+		
 			JScrollPane scrollPane = new JScrollPane(rootPanel);
 			rootFrame.add(scrollPane);
-			rootFrame.setSize(825, 5 * 60);
+			rootFrame.setSize(825, 300);
 			rootFrame.setVisible(true);
 			rootFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
@@ -52,7 +50,7 @@ public class FormPanel extends JFrame {
 	}
 
 	private static List<Identifier> ValidateIdentifierDefinitions(Form form){
-		StatementVisitorToCheckVariableDefinitions statementVisitor = new StatementVisitorToCheckVariableDefinitions();
+		StatementVisitorToCheckIdentifierDefinitions statementVisitor = new StatementVisitorToCheckIdentifierDefinitions();
 		form.accept(statementVisitor);		
 		
 		List<QLException> statementExceptions= new ArrayList<QLException>(statementVisitor.getExceptions());
