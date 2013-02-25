@@ -85,7 +85,7 @@ public final class QuestionPanel extends JPanel {
     }
 
     public boolean hasAutoValue() {
-        return this.question.getExpr() != null;
+        return this.question.hasAutoValue();
     }
 
     public void setAutoValue(SwingRegistry registry) throws QLException {

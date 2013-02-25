@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.common.QLDocument;
 import org.uva.sea.ql.interpretation.components.PanelDimensions;
 import org.uva.sea.ql.interpretation.components.content.IfStatementPanel;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;

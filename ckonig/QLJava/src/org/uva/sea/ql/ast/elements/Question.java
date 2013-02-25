@@ -48,4 +48,8 @@ public class Question extends AbstractBlockElement {
         visitor.visit(this);
     }
 
+    public boolean hasAutoValue() {
+        return this.getExpr() != null;
+    }
+
 }
