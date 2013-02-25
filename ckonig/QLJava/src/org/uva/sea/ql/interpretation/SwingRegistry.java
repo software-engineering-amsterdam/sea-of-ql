@@ -43,7 +43,6 @@ public class SwingRegistry implements Registry {
     }
 
     public final void updateIfPanelVisibilities() {
-        System.out.println("update visibilities");
         try {
             for (IfStatementPanel isp : this.ifStatements) {
                 try {
@@ -110,7 +109,7 @@ public class SwingRegistry implements Registry {
     @Override
     public final boolean returnTypeEquals(Expr e, AbstractType type)
             throws QLException {
-        return ReturnFinder.getResult(this.getQuestions(), e).equals(type);
+        return ReturnFinder.returnTypeEquals(this.getQuestions(), e, type);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.validation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.elements.AbstractBlockElement;
@@ -11,27 +10,16 @@ import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.identfinder.IdentFinder;
 
-public class ValidationElementVisitor implements ElementVisitor {
-    private ValidationRegistry registry;
-    private List<String> errors;
+public class ValidationElementVisitor extends AbstractValidationVisitor
+        implements ElementVisitor {
 
     public ValidationElementVisitor() {
-        this.registry = new ValidationRegistry();
-        this.errors = new ArrayList<String>();
-    }
-
-    public final List<String> getErrors() {
-        return this.errors;
-    }
-
-    public final boolean hasErrors() {
-        return this.errors.size() > 0;
+        super(new ValidationRegistry());        
     }
 
     @Override
@@ -109,20 +97,20 @@ public class ValidationElementVisitor implements ElementVisitor {
     }
 
     private void checkConditionType(Question question) throws QLException {
-        this.visit(question.getExpr());
-        if (!this.registry.returnTypeEquals(question.getExpr(),
+        this.visit(question.getCondition());
+        if (!this.registry.returnTypeEquals(question.getCondition(),
                 question.getType())) {
 
             this.errors.add("question condition invalid: expected "
                     + question.getType().getClass().toString() + " , got: "
-                    + question.getExpr().getClass().toString());
+                    + question.getCondition().getClass().toString());
         }
     }
 
     private void checkSelfReference(Question question)
             throws AstValidationError {
         final List<Ident> idents = IdentFinder.getIdents((TreeNode) question
-                .getExpr());
+                .getCondition());
         for (Ident ident : idents) {
             if (ident.getName().equals(question.getIdentName())) {
                 this.errors.add("Question may not reference itself: "

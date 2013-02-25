@@ -1,7 +1,5 @@
 package org.uva.sea.ql.validation;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
@@ -11,28 +9,29 @@ import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.Registry;
-import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
+import org.uva.sea.ql.common.TreeVisitor;
 
-public class ValidationTreeNodeVisitor implements RecursiveIdentVisitor {
+public class ValidationTreeNodeVisitor extends AbstractValidationVisitor
+        implements TreeVisitor {
 
     private final ValidationExpressionVisitor expressionVisitor;
     private final AbstractType type;
-    private final Registry registry;
     private boolean result;
-    private List<String> errors;
 
     public ValidationTreeNodeVisitor(ValidationExpressionVisitor visitor,
-            AbstractType t, Registry reg) {
+            AbstractType t, ValidationRegistry reg) {
+        super(reg);
         this.expressionVisitor = visitor;
         this.type = t;
-        this.registry = reg;
     }
 
     @Override
     public void visit(Ident i) {
-        // TODO Auto-generated method stub
-
+        try {
+            this.result = this.registry.returnTypeEquals(i, type);
+        } catch (QLException ex) {
+            this.errors.add(ex.getMessage());
+        }
     }
 
     @Override

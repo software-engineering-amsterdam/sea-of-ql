@@ -51,8 +51,8 @@ public class ValidationRegistry implements Registry {
     @Override
     public final boolean returnTypeEquals(Expr condition, AbstractType type)
             throws QLException {
-        AbstractType result = ReturnFinder.getResult(this.getQuestions(),
-                condition);
-        return result.equals(type);
+        boolean result = ReturnFinder.returnTypeEquals(this.getQuestions(),
+                condition, type);
+        return result;
     }
 }

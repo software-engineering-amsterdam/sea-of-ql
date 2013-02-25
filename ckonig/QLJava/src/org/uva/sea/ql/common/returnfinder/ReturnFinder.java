@@ -21,9 +21,14 @@ public final class ReturnFinder {
         return this.visitor.getResult();
     }
 
-    public static AbstractType getResult(List<Question> q, Expr e)
+    private static AbstractType getResult(List<Question> q, Expr e)
             throws QLException {
         final ReturnFinder finder = new ReturnFinder(q, e);
         return finder.getResult();
+    }
+
+    public static boolean returnTypeEquals(List<Question> questions,
+            Expr condition, AbstractType type) throws QLException {
+       return getResult(questions, condition).equals(type);
     }
 }

@@ -31,9 +31,9 @@ public class Validator {
                 throw new AstValidationError("result was null");
             }
         } catch (ParseError ex) {
-            System.out.println("ParseError: " + ex.getMessage());
-        } catch (QLException e1) {
-            throw new AstValidationError(e1.getMessage());
+            throw new AstValidationError(ex.getMessage());
+        } catch (QLException ex) {
+            throw new AstValidationError(ex.getMessage());
         }
     }
 }

@@ -10,17 +10,17 @@ public class Question extends AbstractBlockElement {
     private StringLiteral content;
     private AbstractType type;
     private Ident ident;
-    private Expr value;
+    private Expr condition;
 
     public Question(Ident i, StringLiteral s, AbstractType t) {
         this.ident = i;
         this.content = s;
         this.type = t;
     }
-    
-    public Question (Ident i, StringLiteral s, AbstractType t, Expr e){
-        this(i,s,t);
-        this.value = e;
+
+    public Question(Ident i, StringLiteral s, AbstractType t, Expr e) {
+        this(i, s, t);
+        this.condition = e;
     }
 
     public final StringLiteral getContent() {
@@ -34,15 +34,15 @@ public class Question extends AbstractBlockElement {
     public final AbstractType getType() {
         return this.type;
     }
-    
-    public final Expr getExpr() {
-        return this.value;
+
+    public final Expr getCondition() {
+        return this.condition;
     }
 
     public final boolean hasAutoValue() {
-        return this.value != null;
+        return this.condition != null;
     }
-    
+
     @Override
     public final void accept(ElementVisitor visitor) throws QLException {
         visitor.visit(this);

@@ -52,7 +52,7 @@ public final class QuestionPanel extends JPanel {
     }
 
     public final Expr getCondition() {
-        return this.question.getExpr();
+        return this.question.getCondition();
     }
 
     public final QLInput getInput() {
@@ -96,7 +96,7 @@ public final class QuestionPanel extends JPanel {
     }
 
     public void setAutoValue(SwingRegistry registry) throws QLException {
-        final Expr e = this.question.getExpr();
+        final Expr e = this.question.getCondition();
         final Evaluator eval = new Evaluator(registry, true);
 
         if (registry.returnTypeEquals(e, new BooleanType())) {

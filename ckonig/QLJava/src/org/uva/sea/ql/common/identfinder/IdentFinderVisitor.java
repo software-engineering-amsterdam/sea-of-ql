@@ -9,8 +9,9 @@ import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.common.TreeVisitor;
 
-class IdentFinderVisitor implements RecursiveIdentVisitor {
+class IdentFinderVisitor implements TreeVisitor {
     private List<Ident> idents;
 
     public IdentFinderVisitor() {

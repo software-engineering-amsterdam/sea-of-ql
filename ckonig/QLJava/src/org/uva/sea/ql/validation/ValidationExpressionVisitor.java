@@ -1,8 +1,5 @@
 package org.uva.sea.ql.validation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.uva.sea.ql.ast.bool.And;
 import org.uva.sea.ql.ast.bool.Eq;
 import org.uva.sea.ql.ast.bool.GEq;
@@ -30,19 +27,12 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 
-class ValidationExpressionVisitor implements ExpressionVisitor {
+class ValidationExpressionVisitor extends AbstractValidationVisitor implements ExpressionVisitor {
 
-    private ValidationRegistry registry;
-    private List<String> errors;
-
-    public ValidationExpressionVisitor(ValidationRegistry reg) {
-        this.errors = new ArrayList<String>();
-        this.registry = reg;
+   public ValidationExpressionVisitor(ValidationRegistry reg) {
+        super(reg);
     }
 
-    public List<String> getErrors() {
-        return this.errors;
-    }
 
     @Override
     public final void visit(Add add) throws QLException {

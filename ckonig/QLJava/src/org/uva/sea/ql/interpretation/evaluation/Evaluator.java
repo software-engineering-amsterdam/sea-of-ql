@@ -16,13 +16,11 @@ public class Evaluator {
     }
 
     public final float evalFloat(Expr e) throws QLException {
-        System.out.println("math eval: " + e.toString());
         e.accept(this.mathEvaluator);
         return this.mathEvaluator.mathRet;
     }
 
     public final boolean evalBool(Expr e) throws QLException {
-        System.out.println("bool eval: " + e.toString());
         e.accept(this.boolEvaluator);
         return this.boolEvaluator.boolRet;
     }

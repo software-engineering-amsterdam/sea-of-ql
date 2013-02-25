@@ -1,4 +1,4 @@
-package org.uva.sea.ql.common.identfinder;
+package org.uva.sea.ql.common;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 
-public interface RecursiveIdentVisitor {
+public interface TreeVisitor {
     
     public void visit(Ident i);
 

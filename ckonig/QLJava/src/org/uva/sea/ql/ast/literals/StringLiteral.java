@@ -37,12 +37,11 @@ public class StringLiteral extends Expr {
     }
 
     public final StringLiteral replaceCommaWithDot() {
-        this.value.replace(',', '.');
-        return this;
+        return new StringLiteral(this.value.replace(',', '.'));
     }
 
     @Override
     public final void accept(ExpressionVisitor visitor) throws QLException {
-         visitor.visit(this); 
+        visitor.visit(this);
     }
 }

@@ -5,7 +5,7 @@ import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
+import org.uva.sea.ql.common.TreeVisitor;
 
 public class Ident extends Expr implements TreeNode {
 
@@ -25,7 +25,7 @@ public class Ident extends Expr implements TreeNode {
     }
 
     @Override
-    public final void accept(RecursiveIdentVisitor v) {
+    public final void accept(TreeVisitor v) {
         v.visit(this);
     }
 
