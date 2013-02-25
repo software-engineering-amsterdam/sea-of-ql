@@ -5,7 +5,12 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker {
 	@Test
-	public void testRels() throws ParseError {
+	public void testEquality() throws ParseError {
 		expressionMatchesValue("1 == 1", "true");
+		expressionMatchesValue("1 == 0", "false");
+		
+		expressionMatchesValue("true == true", "true");
+		expressionMatchesValue("true == false", "false");
+		expressionMatchesValue("false == false", "true");
 	}
 }
