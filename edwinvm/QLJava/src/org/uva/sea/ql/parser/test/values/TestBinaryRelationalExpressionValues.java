@@ -32,8 +32,8 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 		expressionMatchesValue("1.0 != 1.0", "false");
 		expressionMatchesValue("1.0 != 2.0", "true");
 		
-//		expressionMatchesValue("\"a\" != \"a\"", "true");
-//		expressionMatchesValue("\"a\" != \"b\"", "false");
+		expressionMatchesValue("\"a\" != \"a\"", "false");
+		expressionMatchesValue("\"a\" != \"b\"", "true");
 	}
 	
 	@Test
