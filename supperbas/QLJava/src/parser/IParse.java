@@ -1,4 +1,4 @@
-package parser.test;
+package parser;
 
 import ast.Form;
 

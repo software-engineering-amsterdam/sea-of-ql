@@ -8,7 +8,7 @@ import ast.expression.binary.*;
 import ast.expression.unary.*;
 import ast.expression.value.*;
 
-public class ExpressionEvaluator implements Visitor {
+public class ExpressionEvaluator implements Visitor<Value> {
 
 	private final Environment environment;
 
@@ -31,8 +31,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return intError("Add incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -44,8 +44,8 @@ public class ExpressionEvaluator implements Visitor {
 		Bool lhs;
 		Bool rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Bool) ast.getLhs().accept(this);
+			rhs = (Bool) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("And incompatible types (Required: Bool; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -56,8 +56,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return intError("Div incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -69,8 +69,8 @@ public class ExpressionEvaluator implements Visitor {
 		Bool lhs;
 		Bool rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Bool) ast.getLhs().accept(this);
+			rhs = (Bool) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("Eq incompatible types (Required: Bool; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -82,8 +82,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("GEq incompatible types (Required: Bool; Int: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -95,8 +95,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("Add incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -108,8 +108,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("LEq incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -121,8 +121,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("LT incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -134,8 +134,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return intError("Mul incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -146,7 +146,7 @@ public class ExpressionEvaluator implements Visitor {
 	public Int visit(Neg ast) {
 		Int expression;
 		try {
-			expression = ast.getExpression().accept(this);
+			expression = (Int) ast.getExpression().accept(this);
 		}catch(Exception e){
 			return intError("Neg incompatible types (Required: Int; Got: " +ast.getExpression().typeOf(environment.getTypeEnv())+")");
 		}
@@ -160,8 +160,8 @@ public class ExpressionEvaluator implements Visitor {
 		Bool lhs;
 		Bool rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Bool) ast.getLhs().accept(this);
+			rhs = (Bool) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("NEq incompatible types (Required: Bool; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -172,7 +172,7 @@ public class ExpressionEvaluator implements Visitor {
 	public Bool visit(Not ast) {
 		Bool expression;
 		try {
-			expression = ast.getExpression().accept(this);
+			expression = (Bool) ast.getExpression().accept(this);
 		}catch(Exception e){
 			return boolError("Not incompatible types (Required: Bool; Got: " +ast.getExpression().typeOf(environment.getTypeEnv())+")");
 		}
@@ -184,8 +184,8 @@ public class ExpressionEvaluator implements Visitor {
 		Bool lhs;
 		Bool rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Bool) ast.getLhs().accept(this);
+			rhs = (Bool) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return boolError("Or incompatible types (Required: Bool; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}
@@ -196,7 +196,7 @@ public class ExpressionEvaluator implements Visitor {
 	public Int visit(Pos ast) {
 		Int expression;
 		try {
-			expression = ast.getExpression().accept(this);
+			expression = (Int) ast.getExpression().accept(this);
 		}catch(Exception e){
 			return intError("Pos incompatible types (Required: Int; Got: " +ast.getExpression().typeOf(environment.getTypeEnv())+")");
 		}
@@ -210,8 +210,8 @@ public class ExpressionEvaluator implements Visitor {
 		Int lhs;
 		Int rhs;
 		try {
-			lhs = ast.getLhs().accept(this);
-			rhs = ast.getRhs().accept(this);
+			lhs = (Int) ast.getLhs().accept(this);
+			rhs = (Int) ast.getRhs().accept(this);
 		} catch (Exception e) {
 			return intError("Sub incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
 		}

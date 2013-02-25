@@ -23,13 +23,10 @@ public class ConditionalObserver implements Observer  {
 	}
 
 	public void update(Observable observable, Object arg) {
-		Bool value = ifExpr.getCondition().accept(new ExpressionEvaluator(environment));
+		Bool value = (Bool) ifExpr.getCondition().accept(new ExpressionEvaluator(environment));
 		boolean visible = value.isDefined() && value.getValue();
-		System.out.println(visible);
 		tru.setVisible(visible);
 		fls.setVisible(!visible);
-		System.out.println(tru.isVisible());
-		System.out.println(fls.isVisible());
 	}
 
 }

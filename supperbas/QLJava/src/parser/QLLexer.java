@@ -7,7 +7,6 @@ import java.util.Map;
 
 import ast.ASTNode;
 import ast.expression.Ident;
-import ast.expression.value.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
@@ -47,9 +46,9 @@ public class QLLexer implements QLTokens {
 			try {
 				cOld = c;
 				c = input.read();
-				//System.out.print((char) c);
+				// System.out.print((char) c);
 				if (c == '\n') {
-					//System.out.println();
+					// System.out.println();
 					line++;
 					column = 0;
 				}
@@ -176,10 +175,9 @@ public class QLLexer implements QLTokens {
 					sb.append((char) c);
 					nextChar();
 					if (c == -1)
-						throw new RuntimeException(
-								"String ended unexpectedly: " + (char) c);
+						throw new RuntimeException("String ended unexpectedly: " + (char) c);
 				} while (c != '\"' && c != -1);
-				nextChar(); // for the last 
+				nextChar(); // for the last
 				yylval = new ast.expression.value.Str(sb.toString());
 				return token = STR;
 			}
@@ -193,7 +191,7 @@ public class QLLexer implements QLTokens {
 						nextChar();
 					} while (Character.isDigit(c));
 					yylval = new ast.expression.value.Int(n);
-					//System.out.println("FOUND");
+					// System.out.println("FOUND");
 					return token = INT;
 				}
 				if (Character.isLetter(c)) {
@@ -204,12 +202,12 @@ public class QLLexer implements QLTokens {
 					} while (Character.isLetterOrDigit(c));
 					String name = sb.toString();
 					if (KEYWORDS.containsKey(name)) {
-						//System.out.println("FOUND!");
+						// System.out.println("FOUND!");
 						return token = KEYWORDS.get(name);
 					}
-					
+
 					if (IDENTS.containsKey(name)) {
-						//System.out.println("FOUND!");
+						// System.out.println("FOUND!");
 						yylval = IDENTS.get(name);
 						return token = IDENT;
 					}

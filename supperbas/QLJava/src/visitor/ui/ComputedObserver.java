@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import ast.expression.Value;
+import ast.statement.Assignment;
 import ast.statement.QuestionComputed;
 
 import visitor.Environment;
@@ -22,8 +23,8 @@ public class ComputedObserver implements Observer {
 	}
 
 	public void update(Observable observable, Object arg) {
-		Value value = question.getAssignment().getExpression().accept(new ExpressionEvaluator(environment));
-		boolean visible = Boolean.parseBoolean(value.getValue().toString());
+		Assignment assignment = question.getAssignment();
+		Value value = assignment.getExpression().accept(new ExpressionEvaluator(environment));
 		this.environment.setVal(question.getIdent(), value);
 		this.environment.notifyObservers(this.question.getIdent());
 		this.wrap.setValue(value.getValue().toString());
