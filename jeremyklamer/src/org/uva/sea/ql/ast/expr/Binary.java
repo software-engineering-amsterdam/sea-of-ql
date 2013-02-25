@@ -17,9 +17,7 @@ public abstract class Binary extends Expr {
 		this.left = left; 
 		this.right = right;
 	}
-	
-	public abstract Type getAllowedType();
-	
+		
 	@Override 
 	public void checkType(List<Message> errors, Env env) { 
 		left.checkType(errors, env);  
@@ -28,18 +26,13 @@ public abstract class Binary extends Expr {
 		Type leftType = left.typeOf(env);  
 		Type rightType = right.typeOf(env);  
 		
-		if(!(leftType.isCompatibleTo(getAllowedType()))) {
+		if(!(leftType.isCompatibleTo(this.typeOf(env)))) {
 			errors.add(new Error(getSimpleName(leftType) + " is not allowed in :" + getSimpleName(this)));
 		}
 		
-		else if(!(rightType.isCompatibleTo(getAllowedType()))) {
+		if(!(rightType.isCompatibleTo(this.typeOf(env)))) {
 			errors.add(new Error(getSimpleName(rightType) + " is not allowed in :" + getSimpleName(this)));
 		}
-		
-		else if(!(leftType.isCompatibleTo(rightType))) {
-			errors.add(new Error(getSimpleName(leftType) + " is not compatible with " + getSimpleName(rightType) + ". In :" + getSimpleName(this)));
-		}
-		
 	}	
 	
 }

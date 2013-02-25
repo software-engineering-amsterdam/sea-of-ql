@@ -5,16 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
-import org.uva.sea.ql.save.SaveBehaviour;
-import org.uva.sea.ql.save.Xml;
 import org.uva.sea.ql.visitor.IForm;
 import org.uva.sea.ql.visitor.eval.ui.Application;
+import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.AbstractAutoSave;
+import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.Xml;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
 public class Program {
@@ -27,41 +24,32 @@ public class Program {
 					"Example use: Program form.ql resultPath.xml");
 		}
 
-		String formText = Program
-				.readResourceContent(args[Program.FormLocation]);
+		String form = Program.readResourceContent(args[Program.FormLocation]);
 
 		Question questionForm = null;
-
 		try {
-			Parser formParser = new Parser();
-			questionForm = formParser.parseQuestionForm(formText);
+			Parser parser = new Parser();
+			questionForm = parser.parseQuestionForm(form);
 		} catch (ParseError e) {
 			System.out.println("Parsing has failed:");
 			e.printStackTrace();
 			return;
 		}
 
-		IForm<ValidationResult> semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
-		ValidationResult result = questionForm.accept(semanticFormVistor);
+		IForm<ValidationResult> formChecker = new org.uva.sea.ql.visitor.semantic.Form();
+		ValidationResult result = questionForm.accept(formChecker);
 		if (!result.isValid()) {
 			System.out.println("Form is invalid:");
 			for (String error : result.getErrors()) {
 				System.out.println(error);
 			}
 		} else {
-			IForm<Application> swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
-			Application application = questionForm.accept(swingVisitor);
+			IForm<Application> formEvaluator = new org.uva.sea.ql.visitor.eval.Form();
+			Application application = questionForm.accept(formEvaluator);
 
-			// Save application results to xml.
 			String resultPath = args[Program.ResultPath];
-			SaveBehaviour saveBehaviour = new Xml(resultPath);
-			application.addObserver(saveBehaviour);
-
-			// Get created form and define close-behaviour.
-			JFrame frame = application.getGui();
-			frame.setSize(700, 300);
-			frame.setVisible(true);
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			AbstractAutoSave autoSaveBehaviour = new Xml(resultPath);
+			application.addObserver(autoSaveBehaviour);
 		}
 	}
 

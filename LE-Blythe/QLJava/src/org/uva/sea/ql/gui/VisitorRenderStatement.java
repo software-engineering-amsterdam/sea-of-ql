@@ -2,16 +2,6 @@ package org.uva.sea.ql.gui;
 
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-
-import net.miginfocom.swing.MigLayout;
-
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Statement;
@@ -23,16 +13,22 @@ import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.ast.visitor.IVisitorType;
-import org.uva.sea.ql.gui.widget.WidgetObserverComputed;
-import org.uva.sea.ql.gui.widget.WidgetObserverConditionIf;
-import org.uva.sea.ql.gui.widget.WidgetObserverConditionIfElse;
+import org.uva.sea.ql.gui.control.Applet;
+import org.uva.sea.ql.gui.control.Button;
+import org.uva.sea.ql.gui.control.Control;
+import org.uva.sea.ql.gui.control.Label;
+import org.uva.sea.ql.gui.control.Panel;
+import org.uva.sea.ql.gui.control.ScrollPane;
 import org.uva.sea.ql.gui.widget.Widget;
 import org.uva.sea.ql.gui.widget.WidgetChangeHandler;
 import org.uva.sea.ql.gui.widget.WidgetComputed;
 import org.uva.sea.ql.gui.widget.WidgetObserver;
+import org.uva.sea.ql.gui.widget.WidgetObserverComputed;
+import org.uva.sea.ql.gui.widget.WidgetObserverConditionIf;
+import org.uva.sea.ql.gui.widget.WidgetObserverConditionIfElse;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
+public class VisitorRenderStatement implements IVisitorStatement<Control> {
 
 	private Environment environment;
 	
@@ -41,13 +37,13 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	}
 	
 	
-	private JPanel panel(){
-		return new JPanel(new MigLayout("hidemode 2, fillx"));
+	private Panel panel(){
+		return new Panel("hidemode 2, fillx");
 	}
 	
 	
-	private JButton submitButton(String formName){
-		JButton button = new JButton("Submit");
+	private Button submitButton(String formName){
+		Button button = new Button("Submit");
 		button.addActionListener(new FormSubmissionHandler(formName, environment));
 		return button;
 	}
@@ -70,24 +66,24 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	}
 
 	@Override
-	public JComponent visit(Form form) {
+	public Control visit(Form form) {
 
-		JPanel panel = panel();
-		JButton button = submitButton(form.getName());
+		Panel panel = panel();
+		Button button = submitButton(form.getName());
 		
 		panel.add(form.getBlock().accept(this), "wrap");	
 		panel.add(button);
 		
-		return new JScrollPane(panel);
+		return new ScrollPane(panel);
 	}
 	
 	@Override
-	public JComponent visit(Block block) {
+	public Control visit(Block block) {
 		Environment subEnvironment = environment.branchEnvironment();
 		
 		VisitorRenderStatement renderer = new VisitorRenderStatement(subEnvironment);
 		
-		JPanel panel = panel();
+		Panel panel = panel();
 		
 		for(Statement s: block.getStatements())
 			panel.add(s.accept(renderer), "wrap");
@@ -96,11 +92,11 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	}
 
 	@Override
-	public JComponent visit(IfThen branch) {
+	public Control visit(IfThen branch) {
 		
-		JPanel panel = panel();
+		Panel panel = panel();
 		
-		JComponent ifBlock = branch.getIfBlock().accept(this);
+		Control ifBlock = branch.getIfBlock().accept(this);
 		
 		panel.add(ifBlock);
 		
@@ -113,12 +109,12 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	}
 
 	@Override
-	public JComponent visit(IfThenElse branch) {
+	public Control visit(IfThenElse branch) {
 		
-		JPanel panel = panel();
+		Panel panel = panel();
 		
-		JComponent ifBlock = branch.getIfBlock().accept(this);
-		JComponent elseBlock = branch.getElseBlock().accept(this);
+		Control ifBlock = branch.getIfBlock().accept(this);
+		Control elseBlock = branch.getElseBlock().accept(this);
 		
 		panel.add(ifBlock);
 		panel.add(elseBlock);
@@ -132,30 +128,30 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	}
 	
 	@Override
-	public JComponent visit(QuestionAnswerable question) {
-		JPanel panel = panel();
+	public Control visit(QuestionAnswerable question) {
+		Panel panel = panel();
 		
 		IVisitorType<Widget> visitor = new VisitorRenderType(); 
 		Widget widget = question.typeOf(environment).accept(visitor);
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
-		panel.add(new JLabel(question.getQuestion()));
-		panel.add(widget.getComponent(), "width 100");
+		panel.add(new Label(question.getQuestion()));
+		panel.add(widget.getControl(), "width 100");
 		
 		return panel;
 	}
 	
 	@Override
-	public JComponent visit(QuestionComputed question) {
-		JPanel panel = panel();
+	public Control visit(QuestionComputed question) {
+		Panel panel = panel();
 		
 		WidgetComputed widget = new WidgetComputed();
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
-		panel.add(new JLabel(question.getQuestion()));
-		panel.add(widget.getComponent());
+		panel.add(new Label(question.getQuestion()));
+		panel.add(widget.getControl());
 		
 		WidgetObserverComputed observer = new WidgetObserverComputed(question, widget, environment); 
 		registerObservers(question.getValue(), observer);
@@ -166,15 +162,9 @@ public class VisitorRenderStatement implements IVisitorStatement<JComponent> {
 	
 	public static void Render(final Form form, final int width, final int height){
 		final VisitorRenderStatement renderer = new VisitorRenderStatement(new Environment());
-		final JComponent cmp = renderer.visit(form);
+		final Control ctrl = renderer.visit(form);
 
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-            	JFrame frame = new CloseableFrame(form.getName(), width, height); 
-                frame.getContentPane().add(cmp);
-            }
-         });
+		new Applet(ctrl, form.getName(), width, height);
 	}
 
 }

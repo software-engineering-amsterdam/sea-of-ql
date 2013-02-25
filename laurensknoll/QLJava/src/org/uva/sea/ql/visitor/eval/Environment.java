@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
-import org.uva.sea.ql.visitor.eval.ui.Widget;
+import org.uva.sea.ql.visitor.eval.ui.type.Widget;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Undefined;
 
@@ -31,14 +31,11 @@ public class Environment extends Observable implements Observer {
 
 		public void setValue(AbstractValue value) {
 			this.value = value;
-
-			// Update GUI (This will trigger the observer pattern).
 			this.widget.setValue(value);
 		}
 
 		@Override
 		public void update(Observable observerable, Object arg) {
-			// Read value from GUI
 			this.value = this.widget.getValue();
 
 			this.setChanged();
@@ -64,7 +61,7 @@ public class Environment extends Observable implements Observer {
 		this.visible = true;
 	}
 
-	public Environment getChildEnvironment() {
+	public Environment createChild() {
 		Environment child = new Environment(this);
 		child.addObserver(this);
 		this.children.add(child);
@@ -76,28 +73,18 @@ public class Environment extends Observable implements Observer {
 	}
 
 	public void declare(Ident ident, Widget widget) {
-		// A new variable gets the default value: Undefined.
 		this.bindings.put(ident, new Binding(widget, Undefined.UNDEFINED));
 		this.addObserver(ident, this);
 	}
 
 	public void addObserver(Ident ident, Observer observer) {
-		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			binding.addObserver(observer);
-		} else {
-			this.parent.addObserver(ident, observer);
-		}
+		Binding binding = this.getBinding(ident);
+		binding.addObserver(observer);
 	}
 
 	public AbstractValue getValue(Ident ident) {
-		// Semantic validator guarantees that ident is defined.
-		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			return binding.getValue();
-		} else {
-			return this.parent.getValue(ident);
-		}
+		Binding binding = this.getBinding(ident);
+		return binding.getValue();
 	}
 
 	public Map<Ident, AbstractValue> getValues() {
@@ -111,12 +98,15 @@ public class Environment extends Observable implements Observer {
 	}
 
 	public void setValue(Ident ident, AbstractValue value) {
-		// Semantic validator guarantees that ident is defined.
+		Binding binding = this.getBinding(ident);
+		binding.setValue(value);
+	}
+
+	private Binding getBinding(Ident ident) {
 		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			binding.setValue(value);
+			return this.bindings.get(ident);
 		} else {
-			this.parent.setValue(ident, value);
+			return this.parent.getBinding(ident);
 		}
 	}
 
@@ -127,7 +117,6 @@ public class Environment extends Observable implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (this.isCompleted()) {
-			// Persist results
 			this.setChanged();
 			this.notifyObservers();
 		}

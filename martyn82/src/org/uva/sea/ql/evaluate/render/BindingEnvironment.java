@@ -40,8 +40,16 @@ public class BindingEnvironment extends Environment<Value> {
 		return this.bindings.containsKey( identifier );
 	}
 
-	public Map<IdentifierExpression, Binding> getBindings() {
-		return this.bindings;
+	public ValueMap getValueMap() {
+		ValueMap values = new ValueMap();
+		Binding binding;
+
+		for ( Map.Entry<IdentifierExpression, Binding> each : this.bindings.entrySet() ) {
+			binding = each.getValue();
+			values.add( each.getKey().getName(), binding.getValue() );
+		}
+
+		return values;
 	}
 
 	public void registerObserver( IdentifierExpression identifier, Observer observer ) {

@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import julius.utilities.FileHelper;
 
 import org.uva.sea.ql.ast.stm.Form;
-import org.uva.sea.ql.gui.VisibleForm;
+import org.uva.sea.ql.gui.QLForm;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -85,7 +85,7 @@ public final class Startup extends Application {
 
 		if (form != null && checkTypes(form)) {
 			evaluate(form);
-			new VisibleForm(model, form).start(stage);
+			new QLForm(model, form).start(stage);
 		} else {
 			System.exit(0);
 		}

@@ -16,6 +16,7 @@ public class StatementVisitorForRendering implements StatementVisitor{
 	
 	public StatementVisitorForRendering(JPanel parentPanel){
 		this.typeVisitor = new TypeVisitorForRendering(parentPanel);
+		this.parentPanel=parentPanel;
 	}
 	
 	@Override

@@ -3,27 +3,32 @@ package org.uva.sea.ql.common.returnfinder;
 import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.Expression;
+import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.TypeVisitor;
 
-public class ReturnFinder {
+public final class ReturnFinder {
 
-    private AbstractReturnFinderVisitor visitor;
+    private ReturnFinderExpressionVisitor visitor;
 
-    public ReturnFinder(List<Question> q, Expression e) throws QLException {
+    private ReturnFinder(List<Question> q, Expr e) throws QLException {
         this.visitor = new ReturnFinderExpressionVisitor(q);
         e.accept((ExpressionVisitor) this.visitor);
     }
 
-    public ReturnFinder(List<Question> q, AbstractType t) {
-        this.visitor = new ReturnFinderTypeVisitor(q);
-        t.accept((TypeVisitor) this.visitor);
+    private final AbstractType getResult() {
+        return this.visitor.getResult();
     }
 
-    public final Class<?> getResult() {
-        return this.visitor.getResult();
+    private static AbstractType getResult(List<Question> q, Expr e)
+            throws QLException {
+        final ReturnFinder finder = new ReturnFinder(q, e);
+        return finder.getResult();
+    }
+
+    public static boolean returnTypeEquals(List<Question> questions,
+            Expr condition, AbstractType type) throws QLException {
+       return getResult(questions, condition).equals(type);
     }
 }

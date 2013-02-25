@@ -1,15 +1,15 @@
 package org.uva.sea.ql.ast.statements.questions;
 
-import org.uva.sea.ql.ast.expressions.literal.Ident;
+import org.uva.sea.ql.ast.expressions.Identifier;
 
 public class QuestionVariable {
-	private final Ident _variable;
+	private final Identifier _variable;
 
-	public QuestionVariable(Ident variable) {
+	public QuestionVariable(Identifier variable) {
 		_variable = variable;
 	}
 	
-	public Ident getVariable() {
+	public Identifier getVariable() {
 		return _variable;
 	}
 }

@@ -1,11 +1,11 @@
 package org.uva.sea.ql.gui.widget;
 
-import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.uva.sea.ql.ast.primitive.Primitive;
+import org.uva.sea.ql.gui.control.Control;
 
 public abstract class Widget implements ChangeEventSource {
 
@@ -41,7 +41,7 @@ public abstract class Widget implements ChangeEventSource {
 	}
 	
 	
-	public abstract Component getComponent();
+	public abstract Control getControl();
 	
 	public abstract Primitive getValue();
 	
