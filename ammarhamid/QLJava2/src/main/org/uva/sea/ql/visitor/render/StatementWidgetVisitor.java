@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.impl;
+package org.uva.sea.ql.visitor.render;
 
 import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.BlockNode;
@@ -10,9 +10,9 @@ import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.StatementVisitor;
-import org.uva.sea.ql.visitor.observer.ComputedObserver;
-import org.uva.sea.ql.visitor.observer.ConditionObserver;
-import org.uva.sea.ql.visitor.widget.CustomWidget;
+import org.uva.sea.ql.observer.ComputedObserver;
+import org.uva.sea.ql.observer.ConditionObserver;
+import org.uva.sea.ql.widget.CustomWidget;
 
 import javax.swing.*;
 import java.awt.*;

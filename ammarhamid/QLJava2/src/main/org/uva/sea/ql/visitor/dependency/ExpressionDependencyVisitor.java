@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.impl;
+package org.uva.sea.ql.visitor.dependency;
 
 import org.uva.sea.ql.ast.expression.BinaryNode;
 import org.uva.sea.ql.ast.expression.ExprNode;

@@ -30,10 +30,6 @@ public class WidgetChangeHandler extends Observable implements ChangeEventListen
 			environment.putValue(identifier, widget.getValue());
 		
 		setChanged();
-		notifyObservers();
-		
-		widget.getComponent().invalidate();
-		widget.getComponent().validate();
-		
+		notifyObservers();		
 	}
 }

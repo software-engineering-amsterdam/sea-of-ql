@@ -1,6 +1,6 @@
-package org.uva.sea.ql.visitor.widget.impl;
+package org.uva.sea.ql.widget.impl;
 
-import org.uva.sea.ql.visitor.widget.CustomWidget;
+import org.uva.sea.ql.widget.CustomWidget;
 
 import javax.swing.*;
 
