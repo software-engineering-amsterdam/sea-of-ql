@@ -192,20 +192,4 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	public StringValue visit(final StringValue stringValue) {
 		return stringValue;
 	}
-
-	public static class UnmodifiedException extends RuntimeException {
-
-		private static final long serialVersionUID = -7226851035650176522L;
-		private final String message;
-
-		public UnmodifiedException(final String message) {
-			super(message);
-			this.message = message;
-		}
-
-		@Override
-		public String getMessage() {
-			return message;
-		}
-	}
 }

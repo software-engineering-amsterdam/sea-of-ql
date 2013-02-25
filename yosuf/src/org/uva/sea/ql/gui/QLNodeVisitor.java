@@ -30,8 +30,8 @@ import org.uva.sea.ql.lead.LogPrinter;
 import org.uva.sea.ql.lead.Model;
 import org.uva.sea.ql.lead.ModelChangeListener;
 import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.ExpressionEvaluator.UnmodifiedException;
 import org.uva.sea.ql.visitor.StatementVisitor;
+import org.uva.sea.ql.visitor.UnmodifiedException;
 
 /**
  * This creator class functions as a visitor to create visual objects for the form.

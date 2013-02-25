@@ -35,7 +35,14 @@ public interface ExpressionVisitor {
 
 	Value visit(GreaterThan greaterThan);
 
-	Value visit(Identifier identifier);
+	/**
+	 * 
+	 * @param identifier
+	 * @return
+	 * @throws UnmodifiedException
+	 *             if the value is not known yet
+	 */
+	Value visit(Identifier identifier) throws UnmodifiedException;
 
 	Value visit(Multiply multiply);
 
