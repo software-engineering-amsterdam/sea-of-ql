@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.exp.Numeric;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class NumericValue extends Value<NumericValue> {
+public class NumericValue extends Value {
 
 	private final double value;
 
@@ -32,7 +32,7 @@ public class NumericValue extends Value<NumericValue> {
 	}
 
 	@Override
-	public NumericValue accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

@@ -6,13 +6,13 @@ import org.uva.sea.ql.parser.TypeEnvironment;
 
 public class Money extends Value {
 
-	private final double _value;
+	private final Double _value;
 	
-	public Money(double value) {
+	public Money(Double value) {
 		_value = value;
 	}
 	
-	public double getValue() {
+	public Double getValue() {
 		return _value;
 	}
 
@@ -24,5 +24,40 @@ public class Money extends Value {
 	@Override
 	public <T> T accept(Visitor<T> visitor) {
 		return visitor.visit(this);
+	}
+	
+	/*
+	* NB: below the arguments are reversed because of double dispatch.
+	*/
+	
+	@Override
+	public Value add(Value value)         { return value.addMoney(this); }
+	@Override
+	public Value sub(Value value)         { return value.subMoney(this); }
+	@Override
+	public Value div(Value value)         { return value.divMoney(this); }
+	@Override
+	public Value mul(Value value)         { return value.mulMoney(this); }
+	@Override
+	protected Value addMoney(Money value) { return new Money(value.getValue() + getValue()); }
+	@Override
+	protected Value subMoney(Money value) { return new Money(value.getValue() - getValue()); }
+	@Override
+	protected Value mulMoney(Money value) { return new Money(value.getValue() * getValue()); }
+	@Override
+	protected Value divMoney(Money value) { return new Money(value.getValue() / getValue()); }
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((_value == null) ? 0 : _value.hashCode());
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Money money = (Money) obj;
+		return this.getValue().equals(money.getValue());
 	}
 }

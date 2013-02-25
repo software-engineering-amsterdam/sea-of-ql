@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.NumericValue;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class Substitute extends Binary<NumericValue, NumericValue> {
+public class Substitute extends Binary {
 
-	public Substitute(final Expression<NumericValue> left,
-			final Expression<NumericValue> right) {
+	public Substitute(final Expression left, final Expression right) {
 		super(left, right);
 	}
 
@@ -17,7 +16,7 @@ public class Substitute extends Binary<NumericValue, NumericValue> {
 	}
 
 	@Override
-	public NumericValue accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

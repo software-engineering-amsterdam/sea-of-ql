@@ -30,7 +30,6 @@ import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.LogPrinter;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ExpressionTypeCheckerTest {
 
 	private ExpressionTypeChecker typeCheck;

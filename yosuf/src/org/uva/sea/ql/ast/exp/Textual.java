@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.exp;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.ast.value.Value;
 
 public class Textual extends Nature {
 
@@ -43,7 +44,7 @@ public class Textual extends Nature {
 	}
 
 	@Override
-	public Expression<?> createValue(final String value) {
+	public Value createValue(final String value) {
 		state.assertNotNull(value, "value");
 		return new StringValue(value);
 	}
