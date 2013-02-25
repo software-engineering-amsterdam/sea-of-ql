@@ -52,6 +52,10 @@ public class Money extends Value {
 	@Override
 	protected Value equalsMoney(Money value) { return new Bool(value.equals(this)); }
 	@Override
+	public Value greaterThan(Value value) { return value.greaterThanMoney(this); }
+	@Override
+	protected Value greaterThanMoney(Money value)  { return new Bool(value.getValue() > getValue()); }
+	@Override
 	public Value greaterThanOrEqualTo(Value value) { return value.greaterThanOrEqualToMoney(this); }
 	@Override
 	protected Value greaterThanOrEqualToMoney(Money value) { return new Bool(value.getValue() >= getValue()); }
