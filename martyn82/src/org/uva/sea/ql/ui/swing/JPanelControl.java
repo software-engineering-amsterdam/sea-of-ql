@@ -15,7 +15,7 @@ public class JPanelControl extends PanelControl {
 		this.control = new JPanel();
 		this.control.setName( name );
 		this.control.setLayout( new BoxLayout( this.control, BoxLayout.PAGE_AXIS ) );
-		this.control.add( Box.createHorizontalGlue() );
+		this.control.add( Box.createVerticalGlue() );
 	}
 
 	public JPanelControl() {

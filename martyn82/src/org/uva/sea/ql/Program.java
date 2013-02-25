@@ -34,8 +34,6 @@ public class Program {
 	private final ControlFactory factory;
 	private final WindowControl window;
 
-	private String sourceFileName;
-
 	public static void main( String[] args ) {
 		String sourceFileName = null;
 
@@ -43,22 +41,21 @@ public class Program {
 			sourceFileName = args[ 0 ];
 		}
 
-		Program program = new Program( sourceFileName );
-		program.run();
+		Program program = new Program();
+		program.run( sourceFileName );
 	}
 
-	public Program( String sourceFileName ) {
-		this.sourceFileName = sourceFileName;
+	public Program() {
 		this.factory = new SwingControlFactory();
 		this.window = this.factory.createWindow();
 	}
 
-	public void run() {
-		if ( this.sourceFileName == null ) {
-			this.showFileOpenDialog();
+	public void run( String sourceFileName ) {
+		if ( sourceFileName == null ) {
+			sourceFileName = this.getFileToOpen();
 		}
 
-		String source = this.getProgramSource( this.sourceFileName );
+		String source = this.getProgramSource( sourceFileName );
 
 		Statement astRoot = this.parse( source );
 		this.typeCheck( astRoot );
@@ -77,7 +74,7 @@ public class Program {
 		return (JFrame) this.window.getInnerControl();
 	}
 
-	private void showFileOpenDialog() {
+	private String getFileToOpen() {
 		JFileChooser fileOpen = new JFileChooser( DEFAULT_FILE_DIR );
 		fileOpen.setDialogTitle( FILE_OPEN_TITLE );
 		fileOpen.setDialogType( JFileChooser.OPEN_DIALOG );
@@ -99,14 +96,14 @@ public class Program {
 
 		if ( result == JFileChooser.APPROVE_OPTION ) {
 			File selectedFile = fileOpen.getSelectedFile();
-			this.sourceFileName = selectedFile.getAbsolutePath();
+			return selectedFile.getAbsolutePath();
 		}
-		else {
-			this.stop();
-		}
+
+		this.stop();
+		return null;
 	}
 
-	private String showFileSaveDialog() {
+	private String getFileToSave() {
 		JFileChooser fileSave = new JFileChooser( DEFAULT_FILE_DIR );
 		fileSave.setDialogTitle( FILE_SAVE_TITLE );
 		fileSave.setDialogType( JFileChooser.SAVE_DIALOG );
@@ -169,7 +166,7 @@ public class Program {
 		form.addButton( SUBMIT_BUTTON_TEXT, new ButtonControlEventListener() {
 			@Override
 			public void buttonClicked( ControlEvent event ) {
-				String fileName = Program.this.showFileSaveDialog();
+				String fileName = Program.this.getFileToSave();
 
 				if ( fileName == null ) {
 					return;

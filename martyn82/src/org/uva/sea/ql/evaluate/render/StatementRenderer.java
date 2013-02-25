@@ -58,7 +58,6 @@ class StatementRenderer implements StatementVisitor<Void> {
 		Value conditionValue = ExpressionEvaluator.evaluate( node.getCondition(), this.environment );
 		boolean condition = conditionValue.isDefined() ? ( (BooleanValue) conditionValue ).getValue() : false;
 
-		// TODO falsePanel removed, what is the impact?
 		PanelControl truePanel = renderPart( node.getBody(), this.builder, this.environment );
 		truePanel.setVisible( condition );
 

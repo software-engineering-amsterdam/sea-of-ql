@@ -44,13 +44,11 @@ class QLLexer implements QLTokens {
 		if ( c >= 0 ) {
 			try {
 				c = input.read();
+				column++;
 
 				if ( c == '\n' ) {
 					line++;
-					column = 0;
-				}
-				else if ( c > 0 ) {
-					column++;
+					column = 1;
 				}
 			}
 			catch ( IOException e ) {
@@ -62,7 +60,7 @@ class QLLexer implements QLTokens {
 	public int nextToken() {
 		boolean inComment = false;
 
-		for ( ;; ) {
+		while ( true ) {
 			if ( inComment ) {
 				while ( c != '*' && c != -1 ) {
 					nextChar();
