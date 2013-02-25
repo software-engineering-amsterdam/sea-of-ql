@@ -26,6 +26,7 @@ public class QLForm extends Application {
 
 	private final Model model;
 	private final Form form;
+	private Stage mainStage;
 
 	/**
 	 * 
@@ -44,6 +45,7 @@ public class QLForm extends Application {
 
 	@Override
 	public void start(final Stage stage) throws Exception {
+		mainStage = stage;
 		VBox root = createRootWithMenu();
 
 		Scene scene = createScene(root, WIDTH, HEIGHT);
@@ -67,14 +69,14 @@ public class QLForm extends Application {
 	}
 
 	private Node createFormNode() {
-		QLNodeCreator visitorBuilder = new QLNodeCreator(model);
+		QLNodeVisitor visitorBuilder = new QLNodeVisitor(model);
 
 		return form.accept(visitorBuilder);
 	}
 
 	private VBox createRootWithMenu() {
 		VBox root = new VBox();
-		root.getChildren().add(new QLMenuBar(model).create());
+		root.getChildren().add(new QLMenuBar(model, mainStage).create());
 
 		return root;
 	}

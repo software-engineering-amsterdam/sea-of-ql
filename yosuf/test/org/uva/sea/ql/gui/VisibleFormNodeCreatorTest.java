@@ -16,12 +16,12 @@ import org.uva.sea.ql.lead.Model;
 public class VisibleFormNodeCreatorTest {
 
 	private Model model;
-	QLNodeCreator creator;
+	QLNodeVisitor creator;
 
 	@Before
 	public void setUp() {
 		model = new Model();
-		creator = new QLNodeCreator(model);
+		creator = new QLNodeVisitor(model);
 	}
 
 	@Test(expected = IllegalStateException.class)

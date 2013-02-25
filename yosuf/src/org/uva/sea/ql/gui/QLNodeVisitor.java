@@ -38,7 +38,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
  * 
  */
 @Visitor
-public class QLNodeCreator implements StatementVisitor<Node> {
+public class QLNodeVisitor implements StatementVisitor<Node> {
 
 	private static final String INPUT_STYLE = "input";
 	private static final String QUESTION_STYLE = "question";
@@ -50,7 +50,7 @@ public class QLNodeCreator implements StatementVisitor<Node> {
 	 * @param model
 	 *            (not null)
 	 */
-	public QLNodeCreator(final Model model) {
+	public QLNodeVisitor(final Model model) {
 		this.model = model;
 		state.assertNotNull(this.model, "model");
 
@@ -94,7 +94,6 @@ public class QLNodeCreator implements StatementVisitor<Node> {
 							.getExpression());
 					valueText.setText(newVal);
 					LogPrinter.debugInfo("update recieved: " + expression);
-					return;
 				}
 			}
 		});
