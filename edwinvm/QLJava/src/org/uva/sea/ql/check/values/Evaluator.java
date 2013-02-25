@@ -62,7 +62,7 @@ public class Evaluator implements Visitor<Value> {
 	@Override
 	public Value visit(GreaterThanExpression expression)            { return new NullValue(); }
 	@Override
-	public Value visit(LessThanOrEqualToExpression expression)      { return new NullValue(); }
+	public Value visit(LessThanOrEqualToExpression expression)      { return getLeftHandSide(expression).lessThanOrEqualTo(getRightHandSide(expression)); }
 	@Override
 	public Value visit(LessThanExpression expression)               { return new NullValue(); }
 	@Override
