@@ -1,8 +1,10 @@
 package org.uva.sea.ql;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
 
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.evaluate.Error;
@@ -16,29 +18,120 @@ import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlFactory;
 import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
 public class Program {
 	private final static String SUBMIT_BUTTON_TEXT = "Save";
+	private final static String FILE_OPEN_TITLE = "Open QL file";
+	private final static String FILE_SAVE_TITLE = "Select file to save";
+	private final static String DEFAULT_FILE_DIR = System.getProperty( "user.dir" );
+	private final static String QL_FILE_DESCRIPTION = "QL files (.ql)";
+	private final static String QL_FILE_FILTER = ".ql";
+	private final static String XML_FILE_DESCRIPTION = "XML files (.xml)";
+	private final static String XML_FILE_FILTER = ".xml";
+
 	private final ControlFactory factory;
+	private final WindowControl window;
+
+	private String sourceFileName;
 
 	public static void main( String[] args ) {
-		Program program = new Program();
+		String sourceFileName = null;
+
+		if ( args.length > 0 ) {
+			sourceFileName = args[ 0 ];
+		}
+
+		Program program = new Program( sourceFileName );
 		program.run();
 	}
 
-	public Program() {
+	public Program( String sourceFileName ) {
+		this.sourceFileName = sourceFileName;
 		this.factory = new SwingControlFactory();
+		this.window = this.factory.createWindow();
 	}
 
 	public void run() {
-		String source = this.getProgramSource();
+		if ( this.sourceFileName == null ) {
+			this.showFileOpenDialog();
+		}
+
+		String source = this.getProgramSource( this.sourceFileName );
 
 		Statement astRoot = this.parse( source );
 		this.typeCheck( astRoot );
 		PanelControl panel = this.render( astRoot );
 
-		this.factory.createWindow( panel.getName(), panel ).show();
+		this.window.setTitle( panel.getName() );
+		this.window.addControl( panel );
+		this.window.show();
+	}
+
+	private void stop() {
+		System.exit( 0 );
+	}
+
+	private JFrame getWindowHandle() {
+		return (JFrame) this.window.getInnerControl();
+	}
+
+	private void showFileOpenDialog() {
+		JFileChooser fileOpen = new JFileChooser( DEFAULT_FILE_DIR );
+		fileOpen.setDialogTitle( FILE_OPEN_TITLE );
+		fileOpen.setDialogType( JFileChooser.OPEN_DIALOG );
+		fileOpen.setFileFilter(
+			new FileFilter() {
+				@Override
+				public String getDescription() {
+					return QL_FILE_DESCRIPTION;
+				}
+
+				@Override
+				public boolean accept( File f ) {
+					return f.getName().endsWith( QL_FILE_FILTER );
+				}
+			}
+		);
+
+		int result = fileOpen.showOpenDialog( this.getWindowHandle() );
+
+		if ( result == JFileChooser.APPROVE_OPTION ) {
+			File selectedFile = fileOpen.getSelectedFile();
+			this.sourceFileName = selectedFile.getAbsolutePath();
+		}
+		else {
+			this.stop();
+		}
+	}
+
+	private String showFileSaveDialog() {
+		JFileChooser fileSave = new JFileChooser( DEFAULT_FILE_DIR );
+		fileSave.setDialogTitle( FILE_SAVE_TITLE );
+		fileSave.setDialogType( JFileChooser.SAVE_DIALOG );
+		fileSave.setFileFilter(
+			new FileFilter() {
+				@Override
+				public String getDescription() {
+					return XML_FILE_DESCRIPTION;
+				}
+
+				@Override
+				public boolean accept( File f ) {
+					return f.getName().endsWith( XML_FILE_FILTER );
+				}
+			}
+		);
+
+		int result = fileSave.showSaveDialog( this.getWindowHandle() );
+
+		if ( result == JFileChooser.APPROVE_OPTION ) {
+			File selectedFile = fileSave.getSelectedFile();
+			return selectedFile.getAbsolutePath();
+		}
+
+		return null;
 	}
 
 	private Statement parse( String source ) {
@@ -76,17 +169,20 @@ public class Program {
 		form.addButton( SUBMIT_BUTTON_TEXT, new ButtonControlEventListener() {
 			@Override
 			public void buttonClicked( ControlEvent event ) {
-				DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
-				String dateString = format.format( new Date() );
+				String fileName = Program.this.showFileSaveDialog();
+
+				if ( fileName == null ) {
+					return;
+				}
 
 				Exporter exporter = new XmlExporter( form.getName(), form.getValues() );
-				exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
+				exporter.export( fileName );
 			}
 		} );
 		return form.getFormPanel();
 	}
 
-	private String getProgramSource() {
-		return TextFileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+	private String getProgramSource( String fileName ) {
+		return TextFileLoader.getFileContents( fileName );
 	}
 }

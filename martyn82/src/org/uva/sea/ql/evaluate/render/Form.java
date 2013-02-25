@@ -13,11 +13,10 @@ public class Form {
 	private final StatementRenderer renderer;
 
 	public Form( Statement root, ControlFactory factory ) {
-		this.factory = factory;
-
 		BindingEnvironment environment = new BindingEnvironment();
-		this.renderer = new StatementRenderer( factory, environment );
 
+		this.factory = factory;
+		this.renderer = new StatementRenderer( factory, environment );
 		root.accept( this.renderer );
 	}
 
