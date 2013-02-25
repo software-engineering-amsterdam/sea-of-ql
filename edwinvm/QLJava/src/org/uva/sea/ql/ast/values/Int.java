@@ -36,7 +36,12 @@ public class Int extends Value {
 	protected Value mulInt(Int value) { return new Int(value.getValue() * getValue()); }
 	@Override
 	protected Value divInt(Int value) { return new Int(value.getValue() / getValue()); }
-
+	
+	@Override
+	public Value equalsValue(Value value) { return value.equalsInt(this); }
+	@Override
+	protected Value equalsInt(Int value)  { return new Bool(value.equals(this)); }
+	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Int();

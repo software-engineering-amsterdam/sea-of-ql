@@ -68,11 +68,11 @@ public class Evaluator implements Visitor<Value> {
 		return new NullValue();
 	}
 	@Override
-	public Value visit(LogicallyEquivalentExpression expression)    { return getLeftHandSide(expression).and(getRightHandSide(expression)); }
+	public Value visit(LogicallyEquivalentExpression expression)    { return getLeftHandSide(expression).and(getRightHandSide(expression));         }
 	@Override
-	public Value visit(LogicallyNotEquivalentExpression expression) { return getLeftHandSide(expression).or(getRightHandSide(expression)); }
+	public Value visit(LogicallyNotEquivalentExpression expression) { return getLeftHandSide(expression).or(getRightHandSide(expression));          }
 	@Override
-	public Value visit(EqualToExpression expression)                { return new NullValue(); }
+	public Value visit(EqualToExpression expression)                { return getLeftHandSide(expression).equalsValue(getRightHandSide(expression)); }
 	@Override
 	public Value visit(GreaterThanOrEqualToExpression expression)   { return new NullValue(); }
 	@Override
