@@ -9,8 +9,8 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 		expressionMatchesValue("1 == 1", "true");
 		expressionMatchesValue("1 == 0", "false");
 		
-		expressionMatchesValue("true == true", "true");
-		expressionMatchesValue("true == false", "false");
+		expressionMatchesValue("true == true",   "true");
+		expressionMatchesValue("true == false",  "false");
 		expressionMatchesValue("false == false", "true");
 		
 		expressionMatchesValue("1.0 == 1.0", "true");
@@ -24,10 +24,10 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 	public void testNonEquality() throws ParseError {
 		expressionMatchesValue("1 != 2", "true");
 		expressionMatchesValue("1 != 1", "false");
-//		
-//		expressionMatchesValue("true != true", "true");
-//		expressionMatchesValue("true != false", "false");
-//		expressionMatchesValue("false != false", "true");
+		
+		expressionMatchesValue("true != false",  "true");
+		expressionMatchesValue("true != true",   "false");
+		expressionMatchesValue("false != false", "false");
 //		
 //		expressionMatchesValue("1.0 != 1.0", "true");
 //		expressionMatchesValue("1.0 != 2.0", "false");
