@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.visitors.typechecker;
 
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Division;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Multiplication;
@@ -7,19 +8,19 @@ import org.uva.sea.ql.ast.expressions.binary.arithmetic.Subtraction;
 import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.logical.LogicallyNotEquivalentExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.EqualToExpression;
-import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanExpression;
-import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
+import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
-import org.uva.sea.ql.ast.expressions.literal.Bool;
-import org.uva.sea.ql.ast.expressions.literal.Identifier;
-import org.uva.sea.ql.ast.expressions.literal.Int;
-import org.uva.sea.ql.ast.expressions.literal.Money;
-import org.uva.sea.ql.ast.expressions.literal.Str;
-import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
+import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
+import org.uva.sea.ql.ast.values.Bool;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.Money;
+import org.uva.sea.ql.ast.values.NullValue;
+import org.uva.sea.ql.ast.values.Str;
 
 public interface Visitor<T> {
 	
@@ -52,5 +53,6 @@ public interface Visitor<T> {
 	T visit(Int                              astNode);
 	T visit(Money                            astNode);
 	T visit(Str                              astNode);
+	T visit(NullValue 						 astNode);
 	
 }
