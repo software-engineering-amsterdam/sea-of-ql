@@ -99,8 +99,7 @@ public class ValidationElementVisitor implements ElementVisitor {
 
     private void checkConditionType(Question question) throws QLException {
         final AbstractType r = this.getReturnTypes(question.getExpr());
-        final AbstractType typeResult = this.registry.lookupReturnType(question
-                .getType());
+        final AbstractType typeResult = question.getType();
         if (!r.equals(typeResult)) {
             throw new AstValidationError(
                     "question condition invalid: expected "

@@ -21,7 +21,7 @@ class MathEvaluationVisitor extends AbstractEvaluationVisitor {
     @Override
     public void visit(Ident i) throws QLException {
         final QuestionPanel questionPanel = registry.getQuestionPanelByIdent(i);
-        final AbstractType result = registry.lookupReturnType(questionPanel.getQuestionType());
+        final AbstractType result = questionPanel.getQuestionType();
         if (result.equals(new IntType())) {
             final StringLiteral val = questionPanel.getStringValue();
             if (val.isEmpty()) {

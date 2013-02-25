@@ -40,101 +40,87 @@ abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public final void visit(Add add) throws QLException {
-        this.mathRet = this.evaluator.evalFloat(add.getLeft())
-                + this.evaluator.evalFloat(add.getRight());
+        this.mathRet = evalFloat(add.getLeft()) + evalFloat(add.getRight());
     }
 
     @Override
     public final void visit(Mul mul) throws QLException {
-        this.mathRet = this.evaluator.evalFloat(mul.getLeft())
-                * this.evaluator.evalFloat(mul.getRight());
+        this.mathRet = evalFloat(mul.getLeft()) * evalFloat(mul.getRight());
     }
 
     @Override
     public final void visit(Div div) throws QLException {
-        this.mathRet = this.evaluator.evalFloat(div.getLeft())
-                / this.evaluator.evalFloat(div.getRight());
+        this.mathRet = evalFloat(div.getLeft()) / evalFloat(div.getRight());
     }
 
     @Override
     public final void visit(Sub sub) throws QLException {
-        this.mathRet = this.evaluator.evalFloat(sub.getLeft())
-                - this.evaluator.evalFloat(sub.getRight());
+        this.mathRet = evalFloat(sub.getLeft()) - evalFloat(sub.getRight());
     }
 
     @Override
     public final void visit(Pos pos) throws QLException {
-        this.mathRet = this.evaluator.evalFloat(pos.getAdjacent()) * (1);
+        this.mathRet = evalFloat(pos.getAdjacent()) * (1);
     }
 
     @Override
     public final void visit(Neg neg) throws QLException {
-        this.mathRet = this.evaluator.evalFloat(neg.getAdjacent()) * (-1);
+        this.mathRet = evalFloat(neg.getAdjacent()) * (-1);
     }
 
     @Override
     public final void visit(And and) throws QLException {
-        this.boolRet = this.evaluator.evalBool(and.getLeft())
-                && this.evaluator.evalBool(and.getRight());
+        this.boolRet = evalBool(and.getLeft()) && evalBool(and.getRight());
     }
 
     @Override
     public final void visit(Or or) throws QLException {
-        this.boolRet = this.evaluator.evalBool(or.getLeft())
-                || this.evaluator.evalBool(or.getRight());
+        this.boolRet = evalBool(or.getLeft()) || evalBool(or.getRight());
     }
 
     @Override
     public final void visit(Eq eq) throws QLException {
         if (checkReturn(eq, new BooleanType())) {
-            this.boolRet = this.evaluator.evalBool(eq.getLeft()) == this.evaluator
-                    .evalBool(eq.getRight());
+            this.boolRet = evalBool(eq.getLeft()) == evalBool(eq.getRight());
         }
         if (checkReturn(eq, new IntType())) {
-            this.boolRet = this.evaluator.evalFloat(eq.getLeft()) == this.evaluator
-                    .evalFloat(eq.getRight());
+            this.boolRet = evalFloat(eq.getLeft()) == evalFloat(eq.getRight());
         }
     }
 
     @Override
     public final void visit(NEq neq) throws QLException {
         if (checkReturn(neq, new BooleanType())) {
-            this.boolRet = this.evaluator.evalBool(neq.getLeft()) != this.evaluator
-                    .evalBool(neq.getRight());
+            this.boolRet = evalBool(neq.getLeft()) != evalBool(neq.getRight());
         }
         if (checkReturn(neq, new IntType())) {
-            this.boolRet = this.evaluator.evalFloat(neq.getLeft()) != this.evaluator
-                    .evalFloat(neq.getRight());
+            this.boolRet = evalFloat(neq.getLeft()) != evalFloat(neq.getRight());
         }
     }
 
     @Override
     public final void visit(GT gt) throws QLException {
-        this.boolRet = this.evaluator.evalFloat(gt.getLeft()) > this.evaluator
-                .evalFloat(gt.getRight());
+        this.boolRet = evalFloat(gt.getLeft()) > evalFloat(gt.getRight());
     }
 
     @Override
     public final void visit(GEq geq) throws QLException {
-        this.boolRet = this.evaluator.evalFloat(geq.getLeft()) >= this.evaluator
-                .evalFloat(geq.getRight());
+        this.boolRet = evalFloat(geq.getLeft()) >= evalFloat(geq.getRight());
     }
 
     @Override
     public final void visit(LT lt) throws QLException {
-        this.boolRet = this.evaluator.evalFloat(lt.getLeft()) < this.evaluator
-                .evalFloat(lt.getRight());
+        this.boolRet = evalFloat(lt.getLeft()) < evalFloat(lt.getRight());
     }
 
     @Override
     public final void visit(LEq leq) throws QLException {
-        this.boolRet = this.evaluator.evalFloat(leq.getLeft()) <= this.evaluator
-                .evalFloat(leq.getRight());
+        this.boolRet = evalFloat(leq.getLeft()) <= evalFloat(leq.getRight());
     }
 
     @Override
     public final void visit(Not not) throws QLException {
-        this.boolRet = !this.evaluator.evalBool(not.getAdjacent());
+        this.boolRet = !evalBool(not.getAdjacent());
     }
 
     @Override
@@ -149,6 +135,14 @@ abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
 
     @Override
     public void visit(StringLiteral s) throws QLException {
+    }
+
+    private float evalFloat(Expr ex) throws QLException {
+        return this.evaluator.evalFloat(ex);
+    }
+
+    private boolean evalBool(Expr ex) throws QLException {
+        return this.evaluator.evalBool(ex);
     }
 
     private boolean checkReturn(BinaryExpr ex, AbstractType type)

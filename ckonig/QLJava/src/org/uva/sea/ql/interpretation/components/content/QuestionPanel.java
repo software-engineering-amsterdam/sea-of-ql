@@ -98,7 +98,7 @@ public final class QuestionPanel extends JPanel {
     public void setAutoValue(SwingRegistry registry) throws QLException {
         final Expr e = this.question.getExpr();
         final AbstractType returnType = registry.lookupReturnType(e);
-        Evaluator eval = new Evaluator(registry, true);
+        final Evaluator eval = new Evaluator(registry, true);
 
         if (returnType.equals(new BooleanType())) {
             final boolean result = eval.evalBool(e);

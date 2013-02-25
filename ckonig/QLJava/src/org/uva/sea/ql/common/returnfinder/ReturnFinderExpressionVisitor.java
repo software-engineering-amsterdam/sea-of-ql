@@ -22,89 +22,98 @@ import org.uva.sea.ql.ast.math.Mul;
 import org.uva.sea.ql.ast.math.Neg;
 import org.uva.sea.ql.ast.math.Pos;
 import org.uva.sea.ql.ast.math.Sub;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 
-public class ReturnFinderExpressionVisitor extends AbstractReturnFinderVisitor implements ExpressionVisitor {
+class ReturnFinderExpressionVisitor implements ExpressionVisitor {
+    protected AbstractType ret;
+    protected List<Question> questions;
+
     public ReturnFinderExpressionVisitor(List<Question> q) {
-        super(q);
+        this.questions = q;
+    }
+
+    final AbstractType getResult() {
+        return this.ret;
     }
 
     @Override
     public final void visit(Add add) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
     public final void visit(Mul mul) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
     public final void visit(Div div) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
     public final void visit(Sub sub) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
     public final void visit(And and) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(Or or) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(Eq eq) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(NEq neq) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(GT gt) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(GEq geq) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(LT lt) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(LEq leq) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(Not not) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public final void visit(Pos pos) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
     public final void visit(Neg neg) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
@@ -112,31 +121,35 @@ public class ReturnFinderExpressionVisitor extends AbstractReturnFinderVisitor i
         boolean found = false;
         for (Question question : this.questions) {
             if (question.getIdentName().equals(ident.getName())) {
-                final ReturnFinderTypeVisitor f = new ReturnFinderTypeVisitor(this.questions);
-                question.getType().accept(f);
-                this.ret = f.getResult();
+                this.ret = question.getType();
                 found = true;
             }
         }
         if (!found) {
-            throw new RuntimeException("Question not found: "
-                    + ident.getName());
+            throw new RuntimeException("Question not found: " + ident.getName());
         }
     }
 
     @Override
     public final void visit(IntLiteral i) throws QLException {
-        this.ret = new IntType();
+        returnAbstractMath();
     }
 
     @Override
     public void visit(BoolLiteral b) throws QLException {
-        this.ret = new BooleanType();
+        returnBoolean();
     }
 
     @Override
     public void visit(StringLiteral s) throws QLException {
-        // TODO Auto-generated method stub
-        
+        this.ret = new StrType();
+    }
+
+    private void returnAbstractMath() {
+        this.ret = new IntType();
+    }
+
+    private void returnBoolean() {
+        this.ret = new BooleanType();
     }
 }

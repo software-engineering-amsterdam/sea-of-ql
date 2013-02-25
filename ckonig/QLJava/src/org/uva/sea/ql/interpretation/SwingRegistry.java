@@ -121,9 +121,4 @@ public class SwingRegistry implements Registry {
 
         return ret;
     }
-
-    @Override
-    public AbstractType lookupReturnType(AbstractType type) throws QLException {
-        return ReturnFinder.getResult2(this.getQuestions(), type);
-    }
 }

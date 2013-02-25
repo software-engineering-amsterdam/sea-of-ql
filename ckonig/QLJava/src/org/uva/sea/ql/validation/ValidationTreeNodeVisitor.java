@@ -9,6 +9,8 @@ import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.AbstractType;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.Registry;
 import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
@@ -18,9 +20,8 @@ public class ValidationTreeNodeVisitor implements RecursiveIdentVisitor {
     private final ValidationExpressionVisitor expressionVisitor;
     private final AbstractType type;
     private final Registry registry;
-    private boolean result; 
+    private boolean result;
     private List<String> errors;
-    
 
     public ValidationTreeNodeVisitor(ValidationExpressionVisitor visitor,
             AbstractType t, Registry reg) {
@@ -61,14 +62,12 @@ public class ValidationTreeNodeVisitor implements RecursiveIdentVisitor {
 
     @Override
     public void visit(IntLiteral intLiteral) {
-        // TODO Auto-generated method stub
-
+        this.result = type.equals(new IntType());
     }
 
     @Override
     public void visit(BoolLiteral boolLiteral) {
-        // TODO Auto-generated method stub
-
+        this.result = type.equals(new BooleanType());
     }
 
     public boolean getResult() {
