@@ -8,16 +8,16 @@ import org.uva.sea.ql.core.dom.statements.*;
 import org.uva.sea.ql.core.dom.types.declarations.*;
 import org.uva.sea.ql.core.dom.types.primitive.IntLiteral;
 import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
-import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckVariableDefinitions;
+import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckIdentifierDefinitions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class StatementVisitorToCheckVariableDefinitionsTests {
 	
-	private StatementVisitorToCheckVariableDefinitions target;
+	private StatementVisitorToCheckIdentifierDefinitions target;
 	
 	@Before
     public void setUp() {
-		this.target = new StatementVisitorToCheckVariableDefinitions();
+		this.target = new StatementVisitorToCheckIdentifierDefinitions();
     }
 	
 	@Test

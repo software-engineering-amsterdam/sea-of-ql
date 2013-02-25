@@ -1,7 +1,9 @@
 package org.uva.sea.ql.ast.values;
 
-public abstract class Value {
-	
+import org.uva.sea.ql.ast.expressions.Expression;
+
+public abstract class Value extends Expression {
+
 	public Value add(Value value)     { throw new UnsupportedOperationException(); }
 	
 	public Value pos()                { throw new UnsupportedOperationException(); }

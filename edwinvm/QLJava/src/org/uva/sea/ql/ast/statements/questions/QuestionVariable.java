@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statements.questions;
 
-import org.uva.sea.ql.ast.expressions.literal.Identifier;
+import org.uva.sea.ql.ast.expressions.Identifier;
 
 public class QuestionVariable {
 	private final Identifier _variable;
