@@ -152,7 +152,7 @@ abstract class AbstractEvaluationVisitor implements ExpressionVisitor {
     }
 
     private boolean checkReturn(Expr ex, AbstractType type) throws QLException {
-        return registry.lookupReturnType(ex).equals(type);
+        return registry.returnTypeEquals(ex, type);
     }
 
 }

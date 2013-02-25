@@ -13,6 +13,7 @@ public class NullType extends AbstractType {
        v.visit(this);
     }
     
+    @Override
     public boolean equals(Object o){
         return o instanceof NullType;
     }

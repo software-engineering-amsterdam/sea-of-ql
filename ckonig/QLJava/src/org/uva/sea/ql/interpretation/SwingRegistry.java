@@ -76,7 +76,7 @@ public class SwingRegistry implements Registry {
                 return qp;
             }
         }
-        
+
         return null;
     }
 
@@ -108,8 +108,9 @@ public class SwingRegistry implements Registry {
     }
 
     @Override
-    public final AbstractType lookupReturnType(Expr e) throws QLException {
-        return ReturnFinder.getResult(this.getQuestions(), e);
+    public final boolean returnTypeEquals(Expr e, AbstractType type)
+            throws QLException {
+        return ReturnFinder.getResult(this.getQuestions(), e).equals(type);
     }
 
     @Override

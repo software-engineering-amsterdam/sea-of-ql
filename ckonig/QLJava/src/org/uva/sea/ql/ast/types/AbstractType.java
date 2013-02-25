@@ -10,6 +10,7 @@ public abstract class AbstractType {
 
     public abstract void accept(TypeVisitor v);
     
+    @Override
     public boolean equals(Object o){
         return o instanceof AbstractType;
     }

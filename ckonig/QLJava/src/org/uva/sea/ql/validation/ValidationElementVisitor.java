@@ -35,37 +35,53 @@ public class ValidationElementVisitor implements ElementVisitor {
     }
 
     @Override
-    public final void visit(Form form) throws QLException {
-        form.getBlock().accept(this);
-    }
-
-    @Override
-    public final void visit(Block block) throws QLException {
-        for (AbstractBlockElement expr : block.getContent()) {
-            expr.accept(this);
+    public final void visit(Form form) {
+        try {
+            form.getBlock().accept(this);
+        } catch (QLException ex) {
+            this.errors.add(ex.getMessage());
         }
     }
 
     @Override
-    public final void visit(Question question) throws QLException {
-        this.checkDuplicateIdentName(question);
-        if (question.hasAutoValue()) {
-            this.checkSelfReference(question);
-            this.checkConditionType(question);
+    public final void visit(Block block) {
+        try {
+            for (AbstractBlockElement expr : block.getContent()) {
+                expr.accept(this);
+            }
+        } catch (QLException ex) {
+            this.errors.add(ex.getMessage());
         }
-
-        this.registry.addQuestion(question);
     }
 
     @Override
-    public final void visit(IfStatement ifStatement) throws QLException {
-        final Expr condition = ifStatement.getCondition();
-        final AbstractType r = this.getReturnTypes(condition);
-        if (!new BooleanType().equals(r)) {
-            throwInvalidConditionError(ifStatement.getCondition());
-        }
+    public final void visit(Question question) {
+        try {
+            this.checkDuplicateIdentName(question);
+            if (question.hasAutoValue()) {
+                this.checkSelfReference(question);
+                this.checkConditionType(question);
+            }
 
-        ifStatement.getContent().accept(this);
+            this.registry.addQuestion(question);
+        } catch (QLException ex) {
+            this.errors.add(ex.getMessage());
+        }
+    }
+
+    @Override
+    public final void visit(IfStatement ifStatement) {
+        try {
+            this.visit(ifStatement.getCondition());
+            if (!this.registry.returnTypeEquals(ifStatement.getCondition(),
+                    new BooleanType())) {
+                throwInvalidConditionError(ifStatement.getCondition());
+            }
+
+            ifStatement.getContent().accept(this);
+        } catch (QLException ex) {
+            this.errors.add(ex.getMessage());
+        }
 
     }
 
@@ -81,11 +97,6 @@ public class ValidationElementVisitor implements ElementVisitor {
         this.errors.addAll(visitor.getErrors());
     }
 
-    private AbstractType getReturnTypes(Expr e) throws QLException {
-        this.visit(e);
-        return this.registry.lookupReturnType(e);
-    }
-
     private void checkDuplicateIdentName(Question question)
             throws AstValidationError {
         for (Question q : this.registry.getQuestions()) {
@@ -98,13 +109,13 @@ public class ValidationElementVisitor implements ElementVisitor {
     }
 
     private void checkConditionType(Question question) throws QLException {
-        final AbstractType r = this.getReturnTypes(question.getExpr());
-        final AbstractType typeResult = question.getType();
-        if (!r.equals(typeResult)) {
-            throw new AstValidationError(
-                    "question condition invalid: expected "
-                            + question.getType().getClass().toString()
-                            + " , got: " + r.toString());
+        this.visit(question.getExpr());
+        if (!this.registry.returnTypeEquals(question.getExpr(),
+                question.getType())) {
+
+            this.errors.add("question condition invalid: expected "
+                    + question.getType().getClass().toString() + " , got: "
+                    + question.getExpr().getClass().toString());
         }
     }
 
@@ -114,8 +125,8 @@ public class ValidationElementVisitor implements ElementVisitor {
                 .getExpr());
         for (Ident ident : idents) {
             if (ident.getName().equals(question.getIdentName())) {
-                throw new AstValidationError(
-                        "Question may not reference itself: " + ident.getName());
+                this.errors.add("Question may not reference itself: "
+                        + ident.getName());
             }
         }
     }

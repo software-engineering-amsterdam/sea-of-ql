@@ -97,15 +97,14 @@ public final class QuestionPanel extends JPanel {
 
     public void setAutoValue(SwingRegistry registry) throws QLException {
         final Expr e = this.question.getExpr();
-        final AbstractType returnType = registry.lookupReturnType(e);
         final Evaluator eval = new Evaluator(registry, true);
 
-        if (returnType.equals(new BooleanType())) {
+        if (registry.returnTypeEquals(e, new BooleanType())) {
             final boolean result = eval.evalBool(e);
             this.input.setBoolean(result);
         }
 
-        if (returnType.equals(new IntType())) {
+        if (registry.returnTypeEquals(e, new IntType())) {
             try {
                 final float result = eval.evalFloat(e);
                 this.input.setStringValue(new StringLiteral(Float
@@ -116,5 +115,4 @@ public final class QuestionPanel extends JPanel {
         }
 
     }
-
 }

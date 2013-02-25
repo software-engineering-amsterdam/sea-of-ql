@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.expressions.UnaryExpr;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
@@ -41,9 +40,11 @@ public class ValidationTreeNodeVisitor implements RecursiveIdentVisitor {
         try {
             b.getLeft().accept(expressionVisitor);
             b.getRight().accept(expressionVisitor);
-            final AbstractType left = this.getReturnTypes(b.getLeft());
-            final AbstractType right = this.getReturnTypes(b.getRight());
-            this.result = type.equals(left) && type.equals(right);
+            final boolean left = this.registry.returnTypeEquals(b.getLeft(),
+                    type);
+            final boolean right = this.registry.returnTypeEquals(b.getRight(),
+                    type);
+            this.result = left && right;
         } catch (QLException ex) {
             this.errors.add(ex.getMessage());
         }
@@ -53,8 +54,7 @@ public class ValidationTreeNodeVisitor implements RecursiveIdentVisitor {
     public void visit(UnaryExpr u) {
         try {
             u.getAdjacent().accept(expressionVisitor);
-            final AbstractType adjacent = this.getReturnTypes(u.getAdjacent());
-            this.result = adjacent.equals(type);
+            this.result = this.registry.returnTypeEquals(u.getAdjacent(), type);
         } catch (QLException ex) {
             this.errors.add(ex.getMessage());
         }
@@ -72,10 +72,6 @@ public class ValidationTreeNodeVisitor implements RecursiveIdentVisitor {
 
     public boolean getResult() {
         return result;
-    }
-
-    private AbstractType getReturnTypes(Expr ex) throws QLException {
-        return this.registry.lookupReturnType(ex);
     }
 
 }
