@@ -95,7 +95,7 @@ public class SwingRegistry {
     public final Map<String, Object> getInput() {
         final Map<String, Object> ret = new HashMap<String, Object>();
         for (QuestionPanel q : this.getQuestions()) {
-            ret.put(q.getIdentName(), q.getUserInput());
+            ret.put(q.getIdentName().getValue(), q.getUserInput());
         }
         return ret;
     }

@@ -17,8 +17,8 @@ public class Ident extends Expr implements Expression, TreeNode {
         this.name = new StringLiteral(id);
     }
 
-    public final String getName() {
-        return this.name.getValue();
+    public final StringLiteral getName() {
+        return this.name;
     }
 
     @Override

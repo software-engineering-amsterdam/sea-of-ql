@@ -27,7 +27,7 @@ public class Question extends AbstractBlockElement {
         return this.content;
     }
 
-    public final String getIdentName() {
+    public final StringLiteral getIdentName() {
         return this.ident.getName();
     }
 

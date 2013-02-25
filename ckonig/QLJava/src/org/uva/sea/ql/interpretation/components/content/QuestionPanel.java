@@ -39,7 +39,7 @@ public final class QuestionPanel extends JPanel {
         this.original = this.getBackground();
     }
 
-    public final String getIdentName() {
+    public final StringLiteral getIdentName() {
         return this.question.getIdentName();
     }
 
