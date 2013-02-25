@@ -13,7 +13,7 @@ public class StrType extends AbstractType {
     }
 
     @Override
-    public boolean equals(Object o){
+    public final boolean equals(Object o) {
         return o instanceof StrType;
     }
 }

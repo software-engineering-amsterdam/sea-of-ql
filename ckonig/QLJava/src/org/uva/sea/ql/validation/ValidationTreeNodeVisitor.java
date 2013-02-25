@@ -26,7 +26,7 @@ public class ValidationTreeNodeVisitor extends AbstractValidationVisitor
     }
 
     @Override
-    public void visit(Ident i) {
+    public final void visit(Ident i) {
         try {
             this.result = this.registry.returnTypeEquals(i, type);
         } catch (QLException ex) {
@@ -35,7 +35,7 @@ public class ValidationTreeNodeVisitor extends AbstractValidationVisitor
     }
 
     @Override
-    public void visit(BinaryExpr b) {
+    public final void visit(BinaryExpr b) {
         try {
             b.getLeft().accept(expressionVisitor);
             b.getRight().accept(expressionVisitor);
@@ -50,7 +50,7 @@ public class ValidationTreeNodeVisitor extends AbstractValidationVisitor
     }
 
     @Override
-    public void visit(UnaryExpr u) {
+    public final void visit(UnaryExpr u) {
         try {
             u.getAdjacent().accept(expressionVisitor);
             this.result = this.registry.returnTypeEquals(u.getAdjacent(), type);
@@ -60,16 +60,16 @@ public class ValidationTreeNodeVisitor extends AbstractValidationVisitor
     }
 
     @Override
-    public void visit(IntLiteral intLiteral) {
+    public final void visit(IntLiteral intLiteral) {
         this.result = type.equals(new IntType());
     }
 
     @Override
-    public void visit(BoolLiteral boolLiteral) {
+    public final void visit(BoolLiteral boolLiteral) {
         this.result = type.equals(new BooleanType());
     }
 
-    public boolean getResult() {
+    public final boolean getResult() {
         return result;
     }
 

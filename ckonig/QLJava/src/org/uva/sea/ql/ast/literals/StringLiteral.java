@@ -23,12 +23,18 @@ public class StringLiteral extends Expr {
 
     @Override
     public final boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+
         if (o instanceof String) {
             return this.getValue().equals((String) o);
         }
+
         if (o instanceof StringLiteral) {
             return this.getValue().equals(((StringLiteral) o).getValue());
         }
+
         return false;
     }
 

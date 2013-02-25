@@ -3,9 +3,4 @@ package org.uva.sea.ql.ast.types;
 
 public abstract class AbstractMathType extends AbstractType {
 
-    @Override
-    public boolean equals(Object o){
-        return o instanceof AbstractMathType;
-    }
-
 }

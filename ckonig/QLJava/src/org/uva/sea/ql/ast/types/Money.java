@@ -12,7 +12,7 @@ public class Money extends AbstractMathType {
     }
     
     @Override
-    public boolean equals(Object o){
+    public final boolean equals(Object o){
         return o instanceof AbstractMathType;
     }
 

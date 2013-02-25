@@ -27,12 +27,12 @@ import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 
-class ValidationExpressionVisitor extends AbstractValidationVisitor implements ExpressionVisitor {
+class ValidationExpressionVisitor extends AbstractValidationVisitor implements
+        ExpressionVisitor {
 
-   public ValidationExpressionVisitor(ValidationRegistry reg) {
+    public ValidationExpressionVisitor(ValidationRegistry reg) {
         super(reg);
     }
-
 
     @Override
     public final void visit(Add add) throws QLException {
@@ -140,11 +140,11 @@ class ValidationExpressionVisitor extends AbstractValidationVisitor implements E
             throwError(operator, "boolean");
         }
     }
-    
-    private boolean acceptsBool(Expr operator) throws QLException{
+
+    private boolean acceptsBool(Expr operator) throws QLException {
         return bothhaveEqualReturnType(operator, new BooleanType());
     }
-    
+
     private boolean acceptsMath(Expr operator) throws QLException {
         return bothhaveEqualReturnType(operator, new IntType());
     }
@@ -161,17 +161,16 @@ class ValidationExpressionVisitor extends AbstractValidationVisitor implements E
 
     private boolean bothhaveEqualReturnType(Expr r, AbstractType type)
             throws QLException {
-        ValidationTreeNodeVisitor v = new ValidationTreeNodeVisitor(this, type, this.registry);
+        final ValidationTreeNodeVisitor v = new ValidationTreeNodeVisitor(this, type,
+                this.registry);
         ((TreeNode) r).accept(v);
         return v.getResult();
     }
 
     private void throwError(Expr r, String msg) throws AstValidationError {
-        final String err = "childs of " + r.getClass() + " must return "
+        final String err = "children of " + r.getClass() + " must return "
                 + msg + " operands ";
         this.errors.add(err);
     }
-
-   
 
 }
