@@ -1,6 +1,7 @@
 package org.uva.sea.ql.output;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
@@ -15,8 +16,9 @@ public class XMLWriter {
 	
 	private final State state;
 	
-	private static final String XML_FILE = "/home/rene/workspace/sea-of-ql/renetassy/QLJava/src/org/uva/sea/ql/test/results.xml";
+	private static final String XML_FILE = "src/org/uva/sea/ql/test/results.xml";
 	
+	private final File xmlFile = new File(XML_FILE); 
 	public XMLWriter(Renderer r) {
 		
 		this.state = r.getState();
@@ -25,7 +27,7 @@ public class XMLWriter {
 		
 		FileWriter fstream = null;
 		try {
-			fstream = new FileWriter(XML_FILE);
+			fstream = new FileWriter(xmlFile.getAbsoluteFile());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

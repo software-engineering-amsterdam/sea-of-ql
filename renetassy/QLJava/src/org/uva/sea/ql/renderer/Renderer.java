@@ -32,7 +32,7 @@ public class Renderer implements IStatementVisitor<Void> {
 	public Renderer(State state) {
 		
 		this.state = state;
-		this.panel = new JPanel(new MigLayout());
+		this.panel = new JPanel(new MigLayout("hidemode 1"));
 	}
 	
 	public Renderer(State state, JPanel customPanel) {
@@ -102,7 +102,7 @@ public class Renderer implements IStatementVisitor<Void> {
 			
 		Expr expr = ifStatement.getExpr();
 		
-		JPanel tempPanel = new JPanel(new MigLayout());
+		JPanel tempPanel = new JPanel(new MigLayout("hidemode 1"));
 		
 		registerConditionObserver(expr, tempPanel);
 		
