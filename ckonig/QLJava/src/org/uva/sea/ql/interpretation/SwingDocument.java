@@ -1,6 +1,5 @@
 package org.uva.sea.ql.interpretation;
 
-import java.awt.Font;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
@@ -35,7 +34,7 @@ public class SwingDocument implements QLDocument {
     @Override
     public final void setHeading(String content) {
         final JLabel lbl = new JLabel(content);
-        lbl.setFont(new Font("Times New Roman", 0, PanelDimensions.HEADING_FONT_SIZE));
+        lbl.setFont(PanelDimensions.getFont());
         this.panelStack.peek().add(lbl);
     }
 
@@ -64,7 +63,6 @@ public class SwingDocument implements QLDocument {
     @Override
     public final void create() {        
         for (QuestionPanel questionPanel : this.registry.getQuestions()) {
-            System.out.println("CREATE: " + questionPanel.getIdentName());
             ListenerService.createListeners(questionPanel, this.registry);
         }
     }

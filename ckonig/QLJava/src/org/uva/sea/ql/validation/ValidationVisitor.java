@@ -71,9 +71,8 @@ public class ValidationVisitor implements ElementVisitor {
     @Override
     public final void visit(IfStatement ifStatement) throws QLException {
         final Expr condition = ifStatement.getCondition();
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
-                ((Expression) condition));
-        final Class<?> r = f.getResult();
+        final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
+                (Expression) condition);
         if (r.equals(BooleanType.class)) {
             this.visit(ifStatement.getCondition());
         } else {
@@ -140,9 +139,8 @@ public class ValidationVisitor implements ElementVisitor {
 
     private Class<?> getReturnTypes(Expr e) throws QLException {
         this.visit(e);
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
-                ((Expression) e));
-        return f.getResult();
+        return ReturnFinder.getResult(this.registry.getQuestions(),
+                (Expression) e);
     }
 
     private void checkDuplicateIdentName(Question question)
@@ -162,12 +160,10 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void checkValidCondition(Question question) throws QLException {
         this.visit(question.getExpr());
-        final ReturnFinder typeRet = new ReturnFinder(
-                this.registry.getQuestions(), question.getType());
-        final ReturnFinder f = new ReturnFinder(this.registry.getQuestions(),
+        final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
                 (Expression) question.getExpr());
-        final Class<?> r = f.getResult();
-        final Class<?> typeResult = typeRet.getResult();
+        final Class<?> typeResult = ReturnFinder.getResult(
+                this.registry.getQuestions(), question.getType());
         if (!typeResult.equals(r)) {
             throw new AstValidationError(
                     "question condition invalid: expected "
@@ -178,7 +174,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void checkSelfReference(Question question)
             throws AstValidationError {
-        IdentFinder finder = new IdentFinder((TreeNode) question.getExpr());
+        final IdentFinder finder = new IdentFinder((TreeNode) question.getExpr());
         List<Ident> idents = finder.getIdents();
         for (Ident ident : idents) {
             if (ident.getName().equals(question.getIdentName())) {

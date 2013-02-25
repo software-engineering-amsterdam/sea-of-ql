@@ -9,10 +9,10 @@ import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
- class MathEvaluationVisitor extends EvaluationVisitor {
+class MathEvaluationVisitor extends EvaluationVisitor {
     private boolean replaceEmtyWithZero;
 
-     public MathEvaluationVisitor(boolean replaceEmptyWithZero,
+    public MathEvaluationVisitor(boolean replaceEmptyWithZero,
             SwingRegistry reg, Evaluator eval) {
         super(reg, eval);
     }
@@ -20,10 +20,8 @@ import org.uva.sea.ql.interpretation.exception.EvaluationException;
     @Override
     public void visit(Ident i) throws QLException {
         final QuestionPanel questionPanel = registry.getQuestionPanelByIdent(i);
-        final ReturnFinder finder = new ReturnFinder(
-                registry.getQuestionsAst(), questionPanel.getQuestion()
-                        .getType());
-        final Class<?> result = finder.getResult();
+        final Class<?> result = ReturnFinder.getResult(
+                registry.getQuestionsAst(), questionPanel.getQuestionType());
         if (result.equals(AbstractMathType.class)) {
             final String val = questionPanel.getStringValue();
             if (val.trim().equals("")) {
