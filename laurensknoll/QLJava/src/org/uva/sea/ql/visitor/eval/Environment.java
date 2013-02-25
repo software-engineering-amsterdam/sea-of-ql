@@ -31,14 +31,11 @@ public class Environment extends Observable implements Observer {
 
 		public void setValue(AbstractValue value) {
 			this.value = value;
-
-			// Update GUI (This will trigger the observer pattern).
 			this.widget.setValue(value);
 		}
 
 		@Override
 		public void update(Observable observerable, Object arg) {
-			// Read value from GUI
 			this.value = this.widget.getValue();
 
 			this.setChanged();
@@ -76,7 +73,6 @@ public class Environment extends Observable implements Observer {
 	}
 
 	public void declare(Ident ident, Widget widget) {
-		// A new variable gets the default value: Undefined.
 		this.bindings.put(ident, new Binding(widget, Undefined.UNDEFINED));
 		this.addObserver(ident, this);
 	}
@@ -91,13 +87,8 @@ public class Environment extends Observable implements Observer {
 	}
 
 	public AbstractValue getValue(Ident ident) {
-		// Semantic validator guarantees that ident is defined.
-		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			return binding.getValue();
-		} else {
-			return this.parent.getValue(ident);
-		}
+		Binding binding = this.getBinding(ident);
+		return binding.getValue();
 	}
 
 	public Map<Ident, AbstractValue> getValues() {
@@ -111,12 +102,15 @@ public class Environment extends Observable implements Observer {
 	}
 
 	public void setValue(Ident ident, AbstractValue value) {
-		// Semantic validator guarantees that ident is defined.
+		Binding binding = this.getBinding(ident);
+		binding.setValue(value);
+	}
+
+	private Binding getBinding(Ident ident) {
 		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			binding.setValue(value);
+			return this.bindings.get(ident);
 		} else {
-			this.parent.setValue(ident, value);
+			return this.parent.getBinding(ident);
 		}
 	}
 
@@ -127,7 +121,6 @@ public class Environment extends Observable implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		if (this.isCompleted()) {
-			// Persist results
 			this.setChanged();
 			this.notifyObservers();
 		}
