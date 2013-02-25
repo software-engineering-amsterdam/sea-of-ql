@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
 public class ExpressoinEvaluatorTest {
@@ -159,18 +160,18 @@ public class ExpressoinEvaluatorTest {
 
 	@Test
 	public void testVisitStringValue() {
-		StringValue value = evaluator.visit(new StringValue(
+		StringValue value = (StringValue) evaluator.visit(new StringValue(
 				"Software Construction"));
 
 		assertTrue(value instanceof StringValue);
 		assertEquals("Software Construction", value.getValue());
 	}
 
-	private void assertAsInteger(final int value, final NumericValue exp) {
-		assertEquals(value, exp.getValue(), 0);
+	private void assertAsInteger(final int value, final Value exp) {
+		assertEquals(value, ((NumericValue) exp).getValue(), 0);
 	}
 
-	private void assertAsBoolean(final boolean value, final BooleanValue exp) {
-		assertEquals(value, exp.getValue());
+	private void assertAsBoolean(final boolean value, final Value exp) {
+		assertEquals(value, ((BooleanValue) exp).getValue());
 	}
 }

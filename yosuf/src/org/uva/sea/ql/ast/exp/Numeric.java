@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.exp;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.value.NumericValue;
+import org.uva.sea.ql.ast.value.Value;
 
 public class Numeric extends Nature {
 
@@ -47,7 +48,7 @@ public class Numeric extends Nature {
 	}
 
 	@Override
-	public Expression<?> createValue(final String value) {
+	public Value createValue(final String value) {
 		state.assertNotNull(value, "value");
 		if (value.isEmpty()) {
 			return new NumericValue(0);

@@ -88,7 +88,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		model.addListener(identifier, new ModelChangeListener() {
 
 			@Override
-			public void changed(final Expression<?> expression) {
+			public void changed(final Expression expression) {
 				if (isExpressionEvaluatable(computed)) {
 					String newVal = evaluateAndGetValue(computed
 							.getExpression());
@@ -120,12 +120,12 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 	public Node visit(final IfStatement ifStatement) {
 		final Node drawable = ifStatement.getIfCompound().accept(this);
 		final Group holder = new Group();
-		final Expression<?> exp = ifStatement.getExpression();
+		final Expression exp = ifStatement.getExpression();
 
 		model.addListener(exp, new ModelChangeListener() {
 
 			@Override
-			public void changed(final Expression<?> expression) {
+			public void changed(final Expression expression) {
 				if (exp.equals(expression)) {
 					handleVisibility(holder, drawable, isTrueInModel(exp));
 				}
@@ -146,7 +146,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		}
 	}
 
-	private boolean isTrueInModel(final Expression<?> expression) {
+	private boolean isTrueInModel(final Expression expression) {
 		Computed comp = model.getComputed(expression);
 		if (comp != null
 				&& ((BooleanValue) comp.getExpression().accept(
@@ -163,12 +163,12 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		final Node ifNode = ifElse.getIfCompound().accept(this);
 		final Node elseNode = ifElse.getElseCompound().accept(this);
 
-		final Expression<?> exp = ifElse.getExpression();
+		final Expression exp = ifElse.getExpression();
 
 		model.addListener(exp, new ModelChangeListener() {
 
 			@Override
-			public void changed(final Expression<?> expression) {
+			public void changed(final Expression expression) {
 				if (exp.equals(expression)) {
 					handleIfElseVisibility(exp, holder, ifNode, elseNode);
 				}
@@ -180,7 +180,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		return holder;
 	}
 
-	private void handleIfElseVisibility(final Expression<?> exp,
+	private void handleIfElseVisibility(final Expression exp,
 			final Group holder, final Node ifNode, final Node elseNode) {
 		if (isTrueInModel(exp)) {
 			handleVisibility(holder, ifNode, true);
@@ -278,8 +278,8 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 	 * @param expression
 	 * @return
 	 */
-	private String evaluateAndGetValue(final Expression<?> expression) {
-		Value<?> value = (Value<?>) expression.accept(expressionEvaluator);
+	private String evaluateAndGetValue(final Expression expression) {
+		Value value = expression.accept(expressionEvaluator);
 		state.assertNotNull(value, "Value does not exist yet.");
 
 		return value.getAsString();

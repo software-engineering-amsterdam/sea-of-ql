@@ -6,7 +6,6 @@ import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
-import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
@@ -23,6 +22,7 @@ import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
 /**
@@ -45,64 +45,66 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 
 	@Override
 	public NumericValue visit(final Add add) {
-		NumericValue leftVal = add.getLeft().accept(this);
-		NumericValue rightVal = add.getRight().accept(this);
+		NumericValue leftVal = (NumericValue) add.getLeft().accept(this);
+		NumericValue rightVal = (NumericValue) add.getRight().accept(this);
 
 		return new NumericValue(leftVal.getValue() + rightVal.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final And and) {
-		BooleanValue leftVal = and.getLeft().accept(this);
-		BooleanValue rightVal = and.getRight().accept(this);
+		BooleanValue leftVal = (BooleanValue) and.getLeft().accept(this);
+		BooleanValue rightVal = (BooleanValue) and.getRight().accept(this);
 
 		return new BooleanValue(leftVal.getValue() && rightVal.getValue());
 	}
 
 	@Override
 	public NumericValue visit(final Divide divide) {
-		NumericValue left = divide.getLeft().accept(this);
-		NumericValue right = divide.getRight().accept(this);
+		NumericValue left = (NumericValue) divide.getLeft().accept(this);
+		NumericValue right = (NumericValue) divide.getRight().accept(this);
 
 		return new NumericValue(left.getValue() / right.getValue());
 	}
 
 	@Override
 	public NumericValue visit(final Multiply multiply) {
-		NumericValue left = multiply.getLeft().accept(this);
-		NumericValue right = multiply.getRight().accept(this);
+		NumericValue left = (NumericValue) multiply.getLeft().accept(this);
+		NumericValue right = (NumericValue) multiply.getRight().accept(this);
 
 		return new NumericValue(left.getValue() * right.getValue());
 	}
 
 	@Override
 	public NumericValue visit(final Substitute substitute) {
-		NumericValue left = substitute.getLeft().accept(this);
-		NumericValue right = substitute.getRight().accept(this);
+		NumericValue left = (NumericValue) substitute.getLeft().accept(this);
+		NumericValue right = (NumericValue) substitute.getRight().accept(this);
 
 		return new NumericValue(left.getValue() - right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final Equals equals) {
-		NumericValue left = equals.getLeft().accept(this);
-		NumericValue right = equals.getRight().accept(this);
+		NumericValue left = (NumericValue) equals.getLeft().accept(this);
+		NumericValue right = (NumericValue) equals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() == right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final GreaterOrEquals greaterOrEquals) {
-		NumericValue left = greaterOrEquals.getLeft().accept(this);
-		NumericValue right = greaterOrEquals.getRight().accept(this);
+		NumericValue left = (NumericValue) greaterOrEquals.getLeft().accept(
+				this);
+		NumericValue right = (NumericValue) greaterOrEquals.getRight().accept(
+				this);
 
 		return new BooleanValue(left.getValue() >= right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final GreaterThan greaterThan) {
-		NumericValue left = greaterThan.getLeft().accept(this);
-		NumericValue right = greaterThan.getRight().accept(this);
+		NumericValue left = (NumericValue) greaterThan.getLeft().accept(this);
+		NumericValue right = (NumericValue) greaterThan.getRight().accept(this);
 		return new BooleanValue(left.getValue() > right.getValue());
 	}
 
@@ -112,10 +114,10 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 	 * @return (maybe null if the expression referenced by identifier is not present)
 	 */
 	@Override
-	public Expression<?> visit(final Identifier identifier) {
+	public Value visit(final Identifier identifier) {
 		Computed computed = model.getComputed(identifier);
 		if (computed != null) {
-			return (Expression<?>) computed.getExpression().accept(this);
+			return computed.getExpression().accept(this);
 		} else {
 			throw new UnmodifiedException("The value for " + identifier
 					+ " not present");
@@ -124,50 +126,54 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 
 	@Override
 	public NumericValue visit(final Negative negative) {
-		NumericValue value = negative.getOperation().accept(this);
+		NumericValue value = (NumericValue) negative.getOperation()
+				.accept(this);
 		return new NumericValue(value.getValue() - 1);
 	}
 
 	@Override
 	public BooleanValue visit(final Not not) {
-		BooleanValue value = not.getOperation().accept(this);
+		BooleanValue value = (BooleanValue) not.getOperation().accept(this);
 		return new BooleanValue(!value.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final NotEquals notEquals) {
-		NumericValue left = notEquals.getLeft().accept(this);
-		NumericValue right = notEquals.getRight().accept(this);
+		NumericValue left = (NumericValue) notEquals.getLeft().accept(this);
+		NumericValue right = (NumericValue) notEquals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() != right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final Or or) {
-		BooleanValue left = or.getLeft().accept(this);
-		BooleanValue right = or.getRight().accept(this);
+		BooleanValue left = (BooleanValue) or.getLeft().accept(this);
+		BooleanValue right = (BooleanValue) or.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() || right.getValue());
 	}
 
 	@Override
 	public NumericValue visit(final Positive positive) {
-		NumericValue value = positive.getOperation().accept(this);
+		NumericValue value = (NumericValue) positive.getOperation()
+				.accept(this);
 		return new NumericValue(value.getValue() + 1);
 	}
 
 	@Override
 	public BooleanValue visit(final SmallerOrEquals smallerOrEquals) {
-		NumericValue left = smallerOrEquals.getLeft().accept(this);
-		NumericValue right = smallerOrEquals.getRight().accept(this);
+		NumericValue left = (NumericValue) smallerOrEquals.getLeft().accept(
+				this);
+		NumericValue right = (NumericValue) smallerOrEquals.getRight().accept(
+				this);
 
 		return new BooleanValue(left.getValue() <= right.getValue());
 	}
 
 	@Override
 	public BooleanValue visit(final SmallerThan smallerThan) {
-		NumericValue left = smallerThan.getLeft().accept(this);
-		NumericValue right = smallerThan.getRight().accept(this);
+		NumericValue left = (NumericValue) smallerThan.getLeft().accept(this);
+		NumericValue right = (NumericValue) smallerThan.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() < right.getValue());
 	}
