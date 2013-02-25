@@ -13,13 +13,13 @@ import org.uva.sea.ql.visitor.eval.observer.DependencySet;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.uva.sea.ql.visitor.eval.value.Bool;
 
-public class ConditionalPanel extends Panel implements Observer {
+public class Conditional extends Panel implements Observer {
 
 	private static final long serialVersionUID = -439191048556369910L;
 	private final AbstractExpr expression;
 	private final Panel truePanel;
 
-	public ConditionalPanel(Environment environment, AbstractExpr expr,
+	public Conditional(Environment environment, AbstractExpr expr,
 			Panel truePanel) {
 		super(environment);
 		this.add(truePanel);

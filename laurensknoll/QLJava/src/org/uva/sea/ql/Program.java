@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
@@ -56,12 +53,6 @@ public class Program {
 			String resultPath = args[Program.ResultPath];
 			SaveBehaviour saveBehaviour = new Xml(resultPath);
 			application.addObserver(saveBehaviour);
-
-			// Get created form and define close-behaviour.
-			JFrame frame = application.getGui();
-			frame.setSize(700, 300);
-			frame.setVisible(true);
-			frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		}
 	}
 

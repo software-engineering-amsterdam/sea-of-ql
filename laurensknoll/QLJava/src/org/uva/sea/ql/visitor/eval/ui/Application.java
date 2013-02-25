@@ -5,6 +5,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.eval.Environment;
@@ -16,14 +18,13 @@ public class Application extends Observable implements Observer {
 	private final JFrame gui;
 	private final Environment environment;
 
-	public Application() {
-		this.gui = new JFrame();
+	public Application(Ident id) {
+		this.gui = new JFrame(id.getName());
+		this.gui.setVisible(true);
+		this.gui.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
 		this.environment = new Environment();
 		this.environment.addObserver(this);
-	}
-
-	public JFrame getGui() {
-		return this.gui;
 	}
 
 	public Environment getEnvironment() {
@@ -51,6 +52,12 @@ public class Application extends Observable implements Observer {
 		// Persist results
 		this.setChanged();
 		this.notifyObservers();
+	}
+
+	public void addScrollablePanel(Panel panel) {
+		JScrollPane scrollable = new JScrollPane(panel);
+		this.gui.add(scrollable);
+		this.gui.pack();
 	}
 
 }
