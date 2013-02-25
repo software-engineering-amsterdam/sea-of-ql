@@ -17,4 +17,15 @@ public class StringLiteral extends Expr {
     public final String toString() {
         return this.value;
     }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof String){
+            return this.getValue().equals((String)o);
+        }
+        if(o instanceof StringLiteral){
+            return this.getValue().equals(((StringLiteral)o).getValue());
+        }
+        return false;
+    }
 }

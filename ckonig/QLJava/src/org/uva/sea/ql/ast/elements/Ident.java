@@ -3,20 +3,22 @@ package org.uva.sea.ql.ast.elements;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.identfinder.RecursiveIdentVisitor;
 
+
 public class Ident extends Expr implements Expression, TreeNode {
 
-    private final String name;
+    private final StringLiteral name;
 
     public Ident(String id) {
-        this.name = id;
+        this.name = new StringLiteral(id);
     }
 
     public final String getName() {
-        return this.name;
+        return this.name.getValue();
     }
 
     @Override
@@ -31,7 +33,7 @@ public class Ident extends Expr implements Expression, TreeNode {
     
     @Override
     public final String toString(){
-        return this.name;
+        return this.name.getValue();
     }
 
 }
