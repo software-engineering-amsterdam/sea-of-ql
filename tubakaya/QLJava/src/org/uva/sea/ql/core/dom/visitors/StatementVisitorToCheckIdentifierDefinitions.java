@@ -6,12 +6,12 @@ import org.uva.sea.ql.core.dom.*;
 import org.uva.sea.ql.core.dom.statements.*;
 import org.uva.sea.ql.parsers.exceptions.StatementNotValidException;
 
-public class StatementVisitorToCheckVariableDefinitions implements StatementVisitor{
+public class StatementVisitorToCheckIdentifierDefinitions implements StatementVisitor{
 
 	private List<Identifier> identifierList;
 	private List<StatementNotValidException> exceptions;
 	
-	public StatementVisitorToCheckVariableDefinitions()	{
+	public StatementVisitorToCheckIdentifierDefinitions()	{
 		this.identifierList = new ArrayList<Identifier>();
 		this.exceptions = new ArrayList<StatementNotValidException>();
 	}
@@ -49,6 +49,7 @@ public class StatementVisitorToCheckVariableDefinitions implements StatementVisi
 
 	@Override
 	public void visit(IfStatement ifStatement) {
+
 		for(Statement statement : ifStatement.getStatements())	{
 			statement.accept(this);
 		}
