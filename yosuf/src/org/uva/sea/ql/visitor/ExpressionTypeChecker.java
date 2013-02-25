@@ -34,7 +34,7 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 @Visitor
@@ -62,7 +62,7 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	}
 
 	@Override
-	public Natural visit(final IntegerValue integerValue) {
+	public Natural visit(final NumericValue integerValue) {
 		return integerValue;
 	}
 

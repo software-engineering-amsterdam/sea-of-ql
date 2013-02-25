@@ -15,7 +15,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 public class StatementTypeCheckerTest {
@@ -29,7 +29,7 @@ public class StatementTypeCheckerTest {
 		statementChecker = new StatementTypeChecker();
 
 		computed = new Computed(new IntegerType(), new Identifier("1"),
-				new IntegerValue(5));
+				new NumericValue(5));
 
 		compound = new CompoundStatement(computed);
 	}
@@ -44,7 +44,7 @@ public class StatementTypeCheckerTest {
 	@Test
 	public void testVisitInValidForm() {
 		Computed errorneous = new Computed(new BooleanType(), new Identifier(
-				"3"), new IntegerValue(5));
+				"3"), new NumericValue(5));
 		CompoundStatement body = new CompoundStatement(errorneous);
 
 		statementChecker.visit(new Form(new Identifier("4"), body));
@@ -63,7 +63,7 @@ public class StatementTypeCheckerTest {
 		assertErrors(0);
 
 		statementChecker.visit(new Computed(new BooleanType(), new Identifier(
-				"5"), new IntegerValue(5)));
+				"5"), new NumericValue(5)));
 		assertErrors(1);
 	}
 
@@ -74,9 +74,9 @@ public class StatementTypeCheckerTest {
 				compound));
 		assertErrors(0);
 
-		statementChecker.visit(new IfStatement(new IntegerValue(0),
+		statementChecker.visit(new IfStatement(new NumericValue(0),
 				new CompoundStatement(new Computed(new IntegerType(),
-						new Identifier("9"), new IntegerValue(7)))));
+						new Identifier("9"), new NumericValue(7)))));
 		assertErrors(1);
 	}
 
@@ -84,12 +84,12 @@ public class StatementTypeCheckerTest {
 	public void testVisitIfElseStatement() {
 		statementChecker.visit(new IfElseStatement(new BooleanValue(true),
 				compound, new CompoundStatement(new Computed(new IntegerType(),
-						new Identifier("9"), new IntegerValue(7)))));
+						new Identifier("9"), new NumericValue(7)))));
 		assertErrors(0);
 
 		statementChecker.visit(new IfElseStatement(new StringValue("val"),
 				compound, new CompoundStatement(new Computed(new IntegerType(),
-						new Identifier("20"), new IntegerValue(7)))));
+						new Identifier("20"), new NumericValue(7)))));
 		assertErrors(2);
 	}
 

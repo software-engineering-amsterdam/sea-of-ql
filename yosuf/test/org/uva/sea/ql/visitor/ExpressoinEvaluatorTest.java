@@ -24,14 +24,14 @@ import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.Model;
 
 public class ExpressoinEvaluatorTest {
 
-	private final IntegerValue one = new IntegerValue(1);
-	private final IntegerValue two = new IntegerValue(2);
+	private final NumericValue one = new NumericValue(1);
+	private final NumericValue two = new NumericValue(2);
 
 	private final BooleanValue trueVal = new BooleanValue(true);
 	private final BooleanValue falseVal = new BooleanValue(false);
@@ -166,8 +166,8 @@ public class ExpressoinEvaluatorTest {
 		assertEquals("Software Construction", value.getValue());
 	}
 
-	private void assertAsInteger(final int value, final IntegerValue exp) {
-		assertEquals(value, exp.getValue());
+	private void assertAsInteger(final int value, final NumericValue exp) {
+		assertEquals(value, exp.getValue(), 0);
 	}
 
 	private void assertAsBoolean(final boolean value, final BooleanValue exp) {
