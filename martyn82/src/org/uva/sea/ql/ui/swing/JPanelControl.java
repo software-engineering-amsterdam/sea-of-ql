@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ui.swing;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -15,7 +14,6 @@ public class JPanelControl extends PanelControl {
 		this.control = new JPanel();
 		this.control.setName( name );
 		this.control.setLayout( new BoxLayout( this.control, BoxLayout.PAGE_AXIS ) );
-		this.control.add( Box.createVerticalGlue() );
 	}
 
 	public JPanelControl() {
