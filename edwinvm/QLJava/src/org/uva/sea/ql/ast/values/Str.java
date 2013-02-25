@@ -20,6 +20,11 @@ public class Str extends Value {
 	public Value add(Value value)        { return value.addString(this); }
 	@Override
 	protected Value addString(Str value) { return new Str(value.getValue()+ " " + getValue()); }
+	
+	@Override
+	public Value equalsValue(Value value) { return value.equalsString(this); }
+	@Override
+	protected Value equalsString(Str value) { return new Bool(value.equals(this)); }
 
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
