@@ -61,7 +61,7 @@ public class Environment extends Observable implements Observer {
 		this.visible = true;
 	}
 
-	public Environment getChildEnvironment() {
+	public Environment createChild() {
 		Environment child = new Environment(this);
 		child.addObserver(this);
 		this.children.add(child);
@@ -78,12 +78,8 @@ public class Environment extends Observable implements Observer {
 	}
 
 	public void addObserver(Ident ident, Observer observer) {
-		if (this.bindings.containsKey(ident)) {
-			Binding binding = this.bindings.get(ident);
-			binding.addObserver(observer);
-		} else {
-			this.parent.addObserver(ident, observer);
-		}
+		Binding binding = this.getBinding(ident);
+		binding.addObserver(observer);
 	}
 
 	public AbstractValue getValue(Ident ident) {

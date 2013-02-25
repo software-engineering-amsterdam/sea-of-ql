@@ -1,7 +1,7 @@
 package org.uva.sea.ql.check.statements;
 
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.expressions.literal.Identifier;
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.statements.conditions.ConditionBlock;

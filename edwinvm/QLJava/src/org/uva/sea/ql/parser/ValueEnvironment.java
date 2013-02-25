@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expressions.literal.Identifier;
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.values.Value;
 
 public class ValueEnvironment {

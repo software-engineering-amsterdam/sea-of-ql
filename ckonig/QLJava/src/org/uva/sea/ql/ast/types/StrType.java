@@ -12,4 +12,8 @@ public class StrType extends AbstractType {
         v.visit(this);
     }
 
+    @Override
+    public final boolean equals(Object o) {
+        return o instanceof StrType;
+    }
 }

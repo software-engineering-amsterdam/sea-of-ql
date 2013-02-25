@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.forms;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.expressions.literal.Identifier;
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.statements.StatementBody;
 
 public class Form implements ASTNode {

@@ -16,7 +16,7 @@ public class TopPanel extends JPanel {
     private final SaveResultPanel saveResultPanel;
 
     public TopPanel(SwingHelper helper) {
-        this.setSize(PanelDimensions.WINDOW_WIDTH, PanelDimensions.TOP_HEIGHT);
+        this.setSize(PanelDimensions.getTopDimension());
         this.fileOpenPanel = new FileOpenPanel(helper);
         this.add(this.fileOpenPanel);
         this.saveResultPanel = new SaveResultPanel(helper);

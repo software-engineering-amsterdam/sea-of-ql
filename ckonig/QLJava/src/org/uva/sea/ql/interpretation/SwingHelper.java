@@ -60,7 +60,7 @@ public class SwingHelper {
     }
 
     private void validateAst() {
-        final Validator validator = new Validator(false);
+        final Validator validator = new Validator();
         try {
             validator.validate(this.ast);
             if (validator.hasErrors()) {

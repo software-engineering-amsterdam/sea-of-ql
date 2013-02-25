@@ -5,19 +5,20 @@ import java.util.List;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
 
-public class IdentFinder {
+public final class IdentFinder {
     private IdentFinderVisitor visitor;
 
-    public IdentFinder(TreeNode t) {
+    private IdentFinder(TreeNode t) {
         this.visitor = new IdentFinderVisitor();
         t.accept(this.visitor);
     }
 
-    public final void reset() {
-        this.visitor.reset();
-    }
-
-    public final List<Ident> getIdents() {
+    private final List<Ident> getIdents() {
         return this.visitor.getIdents();
     }
+
+    public static final List<Ident> getIdents(TreeNode t) {
+        return new IdentFinder(t).getIdents();
+    }
+
 }

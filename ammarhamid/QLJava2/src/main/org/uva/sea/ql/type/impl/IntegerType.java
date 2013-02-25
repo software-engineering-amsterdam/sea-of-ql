@@ -1,8 +1,8 @@
 package org.uva.sea.ql.type.impl;
 
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.visitor.impl.TypeWidgetVisitor;
-import org.uva.sea.ql.visitor.widget.CustomWidget;
+import org.uva.sea.ql.visitor.render.TypeWidgetVisitor;
+import org.uva.sea.ql.widget.CustomWidget;
 
 public class IntegerType extends NumericType
 {

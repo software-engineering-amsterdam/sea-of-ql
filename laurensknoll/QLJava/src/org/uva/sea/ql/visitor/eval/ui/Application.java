@@ -15,13 +15,13 @@ import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Application extends Observable implements Observer {
 
-	private final JFrame gui;
+	private final JFrame window;
 	private final Environment environment;
 
 	public Application(Ident id) {
-		this.gui = new JFrame(id.getName());
-		this.gui.setVisible(true);
-		this.gui.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		this.window = new JFrame(id.getName());
+		this.window.setVisible(true);
+		this.window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		this.environment = new Environment();
 		this.environment.addObserver(this);
@@ -42,22 +42,21 @@ public class Application extends Observable implements Observer {
 
 	private void constructData(Data parent, Environment environment) {
 		for (Environment child : environment.getChildren()) {
-			Data data = parent.getChildFormData(child.getValues());
+			Data data = parent.createChild(child.getValues());
 			this.constructData(data, child);
 		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// Persist results
 		this.setChanged();
 		this.notifyObservers();
 	}
 
 	public void addScrollablePanel(Panel panel) {
 		JScrollPane scrollable = new JScrollPane(panel);
-		this.gui.add(scrollable);
-		this.gui.pack();
+		this.window.add(scrollable);
+		this.window.pack();
 	}
 
 }

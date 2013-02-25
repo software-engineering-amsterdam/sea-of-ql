@@ -3,6 +3,9 @@ package org.uva.sea.ql.visitor.eval.ui.statement;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.IExpression;
@@ -39,7 +42,11 @@ public class Conditional extends Panel implements Observer {
 		IExpression<AbstractValue> evaluator = new Expression(
 				this.getEnvironment());
 		Bool result = (Bool) this.expression.accept(evaluator);
+
 		this.truePanel.setVisible(result.getValue());
+
+		JFrame window = (JFrame) SwingUtilities.getRoot(this.truePanel);
+		window.pack();
 	}
 
 	private void observeDependencies() {

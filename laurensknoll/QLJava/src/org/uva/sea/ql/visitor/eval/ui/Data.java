@@ -24,7 +24,7 @@ public class Data {
 		this.children = new ArrayList<Data>();
 	}
 
-	public Data getChildFormData(Map<Ident, AbstractValue> values) {
+	public Data createChild(Map<Ident, AbstractValue> values) {
 		Data child = new Data(this, values);
 		this.children.add(child);
 		return child;

@@ -24,35 +24,32 @@ public class Program {
 					"Example use: Program form.ql resultPath.xml");
 		}
 
-		String formText = Program
-				.readResourceContent(args[Program.FormLocation]);
+		String form = Program.readResourceContent(args[Program.FormLocation]);
 
 		Question questionForm = null;
-
 		try {
-			Parser formParser = new Parser();
-			questionForm = formParser.parseQuestionForm(formText);
+			Parser parser = new Parser();
+			questionForm = parser.parseQuestionForm(form);
 		} catch (ParseError e) {
 			System.out.println("Parsing has failed:");
 			e.printStackTrace();
 			return;
 		}
 
-		IForm<ValidationResult> semanticFormVistor = new org.uva.sea.ql.visitor.semantic.Form();
-		ValidationResult result = questionForm.accept(semanticFormVistor);
+		IForm<ValidationResult> formChecker = new org.uva.sea.ql.visitor.semantic.Form();
+		ValidationResult result = questionForm.accept(formChecker);
 		if (!result.isValid()) {
 			System.out.println("Form is invalid:");
 			for (String error : result.getErrors()) {
 				System.out.println(error);
 			}
 		} else {
-			IForm<Application> swingVisitor = new org.uva.sea.ql.visitor.eval.Form();
-			Application application = questionForm.accept(swingVisitor);
+			IForm<Application> formEvaluator = new org.uva.sea.ql.visitor.eval.Form();
+			Application application = questionForm.accept(formEvaluator);
 
-			// Save application results to xml.
 			String resultPath = args[Program.ResultPath];
-			AbstractAutoSave saveBehaviour = new Xml(resultPath);
-			application.addObserver(saveBehaviour);
+			AbstractAutoSave autoSaveBehaviour = new Xml(resultPath);
+			application.addObserver(autoSaveBehaviour);
 		}
 	}
 

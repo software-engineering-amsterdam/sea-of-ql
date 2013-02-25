@@ -1,13 +1,12 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class Multiply extends Binary<IntegerValue, IntegerValue> {
+public class Multiply extends Binary {
 
-	public Multiply(final Expression<IntegerValue> left,
-			final Expression<IntegerValue> right) {
+	public Multiply(final Expression left, final Expression right) {
 		super(left, right);
 	}
 
@@ -22,7 +21,7 @@ public class Multiply extends Binary<IntegerValue, IntegerValue> {
 	}
 
 	@Override
-	public IntegerValue accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

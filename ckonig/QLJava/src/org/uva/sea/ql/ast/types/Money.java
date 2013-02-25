@@ -10,6 +10,11 @@ public class Money extends AbstractMathType {
     public final void accept(TypeVisitor v) {
         v.visit(this);
     }
+    
+    @Override
+    public final boolean equals(Object o){
+        return o instanceof AbstractMathType;
+    }
 
 
 }

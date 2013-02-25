@@ -9,9 +9,9 @@ import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
 import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.StatementVisitor;
-import org.uva.sea.ql.visitor.impl.StatementCheckVisitor;
-import org.uva.sea.ql.visitor.impl.StatementDependencyVisitor;
-import org.uva.sea.ql.visitor.impl.StatementWidgetVisitor;
+import org.uva.sea.ql.visitor.check.StatementCheckVisitor;
+import org.uva.sea.ql.visitor.dependency.StatementDependencyVisitor;
+import org.uva.sea.ql.visitor.render.StatementWidgetVisitor;
 
 import javax.swing.*;
 import java.io.IOException;

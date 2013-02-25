@@ -28,6 +28,7 @@ public class TypeVisitorForRendering implements TypeVisitor{
 	public void visit(IntDeclaration intDeclaration) {
 		
 		JTextField textField = new JTextField();
+		textField.setSize(100,20);
 		parentPanel.add(textField);
 
 		PlainDocument doc = (PlainDocument) textField.getDocument();
@@ -37,6 +38,7 @@ public class TypeVisitorForRendering implements TypeVisitor{
 	@Override
 	public void visit(StringDeclaration stringDeclaration) {
 		JTextField textField = new JTextField();
+		textField.setSize(100,20);
 		parentPanel.add(textField);
 	}
 

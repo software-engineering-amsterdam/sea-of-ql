@@ -27,9 +27,4 @@ public class Mul extends Binary {
 		return new IntType();
 	}
 	
-	@Override
-	public Type getAllowedType() {
-		return new IntType();
-	}
-	
 }

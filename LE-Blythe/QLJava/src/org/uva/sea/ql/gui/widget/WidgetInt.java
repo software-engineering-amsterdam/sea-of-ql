@@ -1,22 +1,21 @@
 package org.uva.sea.ql.gui.widget;
 
-import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Undefined;
+import org.uva.sea.ql.gui.control.Control;
+import org.uva.sea.ql.gui.control.TextField;
 
 public class WidgetInt extends Widget implements KeyListener{
 
-	private JTextField txtfield;
+	private TextField txtfield;
 	
 	public WidgetInt(){
 		super();
-		txtfield = new JTextField();
+		txtfield = new TextField();
 		txtfield.addKeyListener(this);
 	}
 	
@@ -56,7 +55,7 @@ public class WidgetInt extends Widget implements KeyListener{
 	}
 	
 	@Override
-	public Component getComponent() {
+	public Control getControl() {
 		return txtfield;
 	}	
 	

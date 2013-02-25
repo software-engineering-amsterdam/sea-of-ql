@@ -4,7 +4,6 @@ import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
-import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
@@ -18,47 +17,55 @@ import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.ast.value.Value;
 
 public interface ExpressionVisitor {
 
-	IntegerValue visit(Add add);
+	Value visit(Add add);
 
-	BooleanValue visit(And and);
+	Value visit(And and);
 
-	IntegerValue visit(Divide divide);
+	Value visit(Divide divide);
 
-	BooleanValue visit(Equals equals);
+	Value visit(Equals equals);
 
-	BooleanValue visit(GreaterOrEquals greaterOrEquals);
+	Value visit(GreaterOrEquals greaterOrEquals);
 
-	BooleanValue visit(GreaterThan greaterThan);
+	Value visit(GreaterThan greaterThan);
 
-	Expression<?> visit(Identifier identifier);
+	/**
+	 * 
+	 * @param identifier
+	 * @return
+	 * @throws UnmodifiedException
+	 *             if the value is not known yet
+	 */
+	Value visit(Identifier identifier) throws UnmodifiedException;
 
-	IntegerValue visit(Multiply multiply);
+	Value visit(Multiply multiply);
 
-	IntegerValue visit(Negative negative);
+	Value visit(Negative negative);
 
-	BooleanValue visit(Not not);
+	Value visit(Not not);
 
-	BooleanValue visit(NotEquals notEquals);
+	Value visit(NotEquals notEquals);
 
-	BooleanValue visit(Or or);
+	Value visit(Or or);
 
-	IntegerValue visit(Positive positive);
+	Value visit(Positive positive);
 
-	BooleanValue visit(SmallerOrEquals smallerOrEquals);
+	Value visit(SmallerOrEquals smallerOrEquals);
 
-	BooleanValue visit(SmallerThan smallerThan);
+	Value visit(SmallerThan smallerThan);
 
-	IntegerValue visit(Substitute substitute);
+	Value visit(Substitute substitute);
 
-	BooleanValue visit(BooleanValue booleanValue);
+	Value visit(BooleanValue booleanValue);
 
-	IntegerValue visit(IntegerValue integerValue);
+	Value visit(NumericValue integerValue);
 
-	StringValue visit(StringValue stringValue);
+	Value visit(StringValue stringValue);
 
 }

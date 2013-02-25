@@ -1,12 +1,12 @@
 package org.uva.sea.ql.export;
 
-import java.util.Map;
+import org.uva.sea.ql.evaluate.render.ValueMap;
 
 abstract public class Exporter {
 	private final String name;
-	private final Map<String, Object> values;
+	private final ValueMap values;
 
-	public Exporter( String formName, Map<String, Object> values ) {
+	public Exporter( String formName, ValueMap values ) {
 		this.name = formName;
 		this.values = values;
 	}
@@ -15,7 +15,7 @@ abstract public class Exporter {
 		return this.name;
 	}
 
-	protected Map<String, Object> getValues() {
+	protected ValueMap getValues() {
 		return this.values;
 	}
 

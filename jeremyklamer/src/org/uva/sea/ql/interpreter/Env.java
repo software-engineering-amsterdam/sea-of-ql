@@ -56,7 +56,6 @@ public class Env {
 	
 	public void putValue(Ident name, Value value){
 		valueEnv.put(name, value);
-		//observables.get(name).notifyObservers();
 	}
 	
 	public Value getValue(Ident name){
