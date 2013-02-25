@@ -11,6 +11,7 @@ import template::JavaScript;
 import template::CSS;
 import template::EvaluateExpression;
 import template::PHP;
+import template::StringTemplateHelper;
 
 
 /** Method to generate the JavaScript code for a question label
@@ -181,14 +182,17 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 
 /**
 */
-str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart), list[Body] complete){
+str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart), list[Body] body){
 	println("EXP is : <exp>");
-	str evaluate = evaluateExp(exp, money());	
+	list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
+	println("TP IS <idAndType[0]>");
+	str evaluate = evaluateExp(exp, idAndType[0].tp);	
 	str checkBoxId = toString(getChildren(exp)[0]);
+	println("checkbox ID IS : <checkBoxId>");
 	list[str] children = [];
 	list[str] thenPartString = [];
 	for(s <- thenPart){
-		thenPartString += generateBody(formId, s, complete);
+		thenPartString += generateBody(formId, s, body);
 		visit (s) {			// visiting s to get the childrens id of the then part
 			case Question q : { children += q.id; }
 		}		
@@ -213,43 +217,26 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
 	println("in generate if else <exp>");
 	if(size(getChildren(exp)) > 1){
 		println("More than one child");
-	}
+	}else{			// for boolean
 	list[Type] tp = getExpressionTypeGenerate(exp, body);
 	str check = evaluateExp(exp, tp[0]);		// hardcoded need to change that !!!!!!!!!!!!!!
 	println("CHECK IS : <check>");
     if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
     else{
-    	//env0 = checkExp(exp, tp[0], env);  
+    	env0 = evaluateExp(exp, tp[0]);
+    	str checkBoxId = toString(getChildren(exp)[0]);
+    	javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
+		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");
+				'";  
+    	println(env0);
     	//env1 = checkBodyJustStatements(thenpart, env0);
     	//env2 = checkBodyJustStatements(elsepart, env1);
-    	return env2;
+    	return env0;
+    	}
 	}	
 }
 
-list[Type] getExpressionTypeGenerate(Expression exp,list[Body] body){
-	println("Body is <body>");
-	list[Type] types = [];
-	for(b <- body){
-		visit(b){
-			case Question q : {				
-				if(toString(getChildren(q)[0]) == id){	//matching
-					println("WE HAVE A MATCH");
-					types += getTypeFromQuestion(q);
-				}
-			}
-		}		
-	}
-	println("TYPESSS : <types>");
-	return types;
-}
 
-Type getTypeFromQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
-	return tp;
-}
-
-str getTypeFromQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	return tp;
-}
 
 /** Method to get the names of childrens from an expression
 * @param exp the Expression
