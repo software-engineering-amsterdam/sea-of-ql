@@ -26,4 +26,8 @@ public class ValueEnvironment {
 	public Value get(Identifier identifier) {
 		return _valueEnvironment.get(identifier);
 	}
+	
+	public Map<Identifier, Value> getEnvironment() {
+		return _valueEnvironment;
+	}
 }

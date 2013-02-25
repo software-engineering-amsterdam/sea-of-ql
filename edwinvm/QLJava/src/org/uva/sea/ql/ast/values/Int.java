@@ -12,6 +12,8 @@ public class Int extends Value {
 		return _value;
 	}
 	
+	// NB: below the arguments are reversed because of double dispatch.
+	
 	@Override
 	public Value add(Value value) { return value.addInt(this); }
 	@Override
@@ -20,8 +22,6 @@ public class Int extends Value {
 	public Value div(Value value) { return value.divInt(this); }
 	@Override
 	public Value mul(Value value) { return value.mulInt(this); }
-	
-	// NB: below the arguments are reversed because of double dispatch.
 
 	@Override
 	protected Value addInt(Int value) { return new Int(value.getValue() + getValue()); }
