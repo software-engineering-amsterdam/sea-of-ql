@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ast.expressions.literals;
 
 import java.util.Map;
-
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.AType;
 import org.uva.sea.ql.ast.types.IntType;
-import org.uva.sea.ql.semanticCheck.ExprVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class IntLiteral extends ALiteral {
 	private final int value;
@@ -24,7 +23,7 @@ public class IntLiteral extends ALiteral {
 	}
 	
 	@Override
-	public <T> T accept(ExprVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

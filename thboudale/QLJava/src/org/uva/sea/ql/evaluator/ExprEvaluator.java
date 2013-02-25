@@ -28,9 +28,9 @@ import org.uva.sea.ql.evaluator.values.BoolValue;
 import org.uva.sea.ql.evaluator.values.IntValue;
 import org.uva.sea.ql.evaluator.values.StrValue;
 import org.uva.sea.ql.evaluator.values.UndefinedValue;
-import org.uva.sea.ql.semanticCheck.ExprVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
-public class ExprEvaluator implements ExprVisitor<AValue> {
+public class ExprEvaluator implements IExprVisitor<AValue> {
 	private final Map<Ident, AValue> valEnv;
 	
 	public ExprEvaluator(Map<Ident, AValue> valEnv) {
