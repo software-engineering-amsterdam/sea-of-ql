@@ -24,5 +24,8 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 	public void testGreaterThanOrEqualTos() throws ParseError {
 		expressionMatchesValue("2 >= 1", "true");
 		expressionMatchesValue("1 >= 2", "false");
+		
+		expressionMatchesValue("2.0 >= 1.0", "true");
+		expressionMatchesValue("1.0 >= 2.0", "false");
 	}
 }

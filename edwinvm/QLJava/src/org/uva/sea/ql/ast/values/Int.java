@@ -41,7 +41,6 @@ public class Int extends Value {
 	public Value equalsValue(Value value) { return value.equalsInt(this); }
 	@Override
 	protected Value equalsInt(Int value)  { return new Bool(value.equals(this)); }
-	
 	@Override
 	public Value greaterThanOrEqualTo(Value value) { return value.greaterThanOrEqualToInt(this); }
 	@Override
