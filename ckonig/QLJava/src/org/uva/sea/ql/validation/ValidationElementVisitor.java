@@ -75,7 +75,7 @@ public class ValidationElementVisitor implements ElementVisitor {
     }
 
     private void visit(Expr operator) throws QLException {
-        ValidationExpressionVisitor visitor = new ValidationExpressionVisitor(
+        final ValidationExpressionVisitor visitor = new ValidationExpressionVisitor(
                 this.registry);
         operator.accept(visitor);
         this.errors.addAll(visitor.getErrors());

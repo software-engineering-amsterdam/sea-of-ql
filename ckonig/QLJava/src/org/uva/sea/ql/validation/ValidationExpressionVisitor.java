@@ -15,6 +15,7 @@ import org.uva.sea.ql.ast.bool.Or;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 import org.uva.sea.ql.ast.literals.StringLiteral;
@@ -170,22 +171,17 @@ class ValidationExpressionVisitor implements ExpressionVisitor {
 
     private boolean bothhaveEqualReturnType(Expr r, Class<?> type)
             throws QLException {
-        final BinaryExpr b = (BinaryExpr) r;
-        final Class<?> left = this.getReturnTypes(b.getLeft());
-        final Class<?> right = this.getReturnTypes(b.getRight());
-        return left.equals(type) && right.equals(type);
+        ValidationTreeNodeVisitor v = new ValidationTreeNodeVisitor(this, type, this.registry);
+        ((TreeNode) r).accept(v);
+        return v.getResult();
     }
 
     private void throwError(Expr r, String msg) throws AstValidationError {
-        final BinaryExpr b = (BinaryExpr) r;
-        final String err = "BOTH childs of " + r.getClass() + " must return "
-                + msg + " operands: " + b.getLeft().getClass() + ", "
-                + b.getRight().getClass();
+        final String err = "childs of " + r.getClass() + " must return "
+                + msg + " operands ";
         this.errors.add(err);
     }
 
-    private Class<?> getReturnTypes(Expr ex) throws QLException {
-        return this.registry.lookupReturnType(ex);
-    }
+   
 
 }
