@@ -5,16 +5,15 @@ import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.values.String_lit;
 import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
-
 public class SimpleQuestion extends QuestionElement {
-	
-	public SimpleQuestion(Ident ident, String_lit string, Type bool){
-		super(ident,string,bool);
+
+	public SimpleQuestion(Ident ident, String_lit string, Type bool) {
+		super(ident, string, bool);
 	}
-	
+
 	@Override
 	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 }
