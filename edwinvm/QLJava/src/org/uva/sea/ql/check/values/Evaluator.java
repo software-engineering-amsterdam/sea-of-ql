@@ -22,7 +22,7 @@ import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
-import org.uva.sea.ql.ast.values.Null;
+import org.uva.sea.ql.ast.values.NullValue;
 import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.ValueEnvironment;
@@ -51,34 +51,34 @@ public class Evaluator implements Visitor<Value> {
 		if (_valueEnvironment.contains(indentifier)) {
 			return _valueEnvironment.get(indentifier);
 		}
-		return new Null();
+		return new NullValue();
 	}
 	@Override
-	public Value visit(LogicallyEquivalentExpression expression)    { return new Null(); }
+	public Value visit(LogicallyEquivalentExpression expression)    { return new NullValue(); }
 	@Override
-	public Value visit(LogicallyNotEquivalentExpression expression) { return new Null(); }
+	public Value visit(LogicallyNotEquivalentExpression expression) { return new NullValue(); }
 	@Override
-	public Value visit(EqualToExpression expression)                { return new Null(); }
+	public Value visit(EqualToExpression expression)                { return new NullValue(); }
 	@Override
-	public Value visit(GreaterThanOrEqualToExpression expression)   { return new Null(); }
+	public Value visit(GreaterThanOrEqualToExpression expression)   { return new NullValue(); }
 	@Override
-	public Value visit(GreaterThanExpression expression)            { return new Null(); }
+	public Value visit(GreaterThanExpression expression)            { return new NullValue(); }
 	@Override
-	public Value visit(LessThanOrEqualToExpression expression)      { return new Null(); }
+	public Value visit(LessThanOrEqualToExpression expression)      { return new NullValue(); }
 	@Override
-	public Value visit(LessThanExpression expression)               { return new Null(); }
+	public Value visit(LessThanExpression expression)               { return new NullValue(); }
 	@Override
-	public Value visit(NotEqualToExpression expression)             { return new Null(); }
+	public Value visit(NotEqualToExpression expression)             { return new NullValue(); }
 	@Override
-	public Value visit(NegativeExpression expression)               { return new Null(); }
+	public Value visit(NegativeExpression expression)               { return new NullValue(); }
 	@Override
-	public Value visit(NegationalExpression expression)             { return new Null(); }
+	public Value visit(NegationalExpression expression)             { return new NullValue(); }
 	@Override
-	public Value visit(PositiveExpression expression)               { return new Null(); }
+	public Value visit(PositiveExpression expression)               { return new NullValue(); }
 	
 	@Override
 	public Value visit(Bool expression) { 
-		return new Null(); 
+		return new NullValue(); 
 	}
 
 	@Override
