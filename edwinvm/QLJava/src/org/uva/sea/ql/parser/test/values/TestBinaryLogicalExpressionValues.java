@@ -8,4 +8,9 @@ public class TestBinaryLogicalExpressionValues extends ExpressionValueChecker {
 	public void testAnds() throws ParseError {
 		expressionMatchesValue("true && true", "true");
 	}
+	
+	@Test
+	public void testOrs() throws ParseError {
+		expressionMatchesValue("true || true", "true");
+	}
 }

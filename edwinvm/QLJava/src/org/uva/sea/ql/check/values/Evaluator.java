@@ -70,7 +70,7 @@ public class Evaluator implements Visitor<Value> {
 	@Override
 	public Value visit(LogicallyEquivalentExpression expression)    { return getLeftHandSide(expression).and(getRightHandSide(expression)); }
 	@Override
-	public Value visit(LogicallyNotEquivalentExpression expression) { return new NullValue(); }
+	public Value visit(LogicallyNotEquivalentExpression expression) { return getLeftHandSide(expression).or(getRightHandSide(expression)); }
 	@Override
 	public Value visit(EqualToExpression expression)                { return new NullValue(); }
 	@Override

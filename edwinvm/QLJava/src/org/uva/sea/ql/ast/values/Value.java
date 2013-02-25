@@ -7,6 +7,7 @@ public abstract class Value extends Expression {
 	public Value pos()                    { throw new UnsupportedOperationException(); }
 	
 	public Value and(Value value)         { throw new UnsupportedOperationException(); }
+	public Value or(Value value)          { throw new UnsupportedOperationException(); }
 	
 	public Value add(Value value)         { throw new UnsupportedOperationException(); }
 	public Value div(Value value)         { throw new UnsupportedOperationException(); }
