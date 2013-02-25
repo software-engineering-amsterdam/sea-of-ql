@@ -10,7 +10,7 @@ import org.uva.sea.ql.parser.test.ParseError;
 import org.uva.sea.ql.parser.test.form.Parser;
 import org.uva.sea.ql.visitor.IForm;
 import org.uva.sea.ql.visitor.eval.ui.Application;
-import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.AutoSave;
+import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.AbstractAutoSave;
 import org.uva.sea.ql.visitor.eval.ui.behaviour.autosave.Xml;
 import org.uva.sea.ql.visitor.semantic.ValidationResult;
 
@@ -51,7 +51,7 @@ public class Program {
 
 			// Save application results to xml.
 			String resultPath = args[Program.ResultPath];
-			AutoSave saveBehaviour = new Xml(resultPath);
+			AbstractAutoSave saveBehaviour = new Xml(resultPath);
 			application.addObserver(saveBehaviour);
 		}
 	}

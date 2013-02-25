@@ -16,14 +16,14 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
-import org.uva.sea.ql.visitor.eval.FormData;
 import org.uva.sea.ql.visitor.eval.ui.Application;
+import org.uva.sea.ql.visitor.eval.ui.Data;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
-public class Xml extends AutoSave {
+public class Xml extends AbstractAutoSave {
 
 	private final String path;
 
@@ -39,12 +39,12 @@ public class Xml extends AutoSave {
 		}
 
 		Application app = (Application) o;
-		FormData data = app.getFormData();
+		Data data = app.getData();
 		DOMSource xml = this.createXmlFromData(data);
 		this.writeXmlToFile(xml, this.path);
 	}
 
-	private DOMSource createXmlFromData(FormData data) {
+	private DOMSource createXmlFromData(Data data) {
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
 				.newInstance();
 
@@ -63,7 +63,7 @@ public class Xml extends AutoSave {
 		return new DOMSource(document);
 	}
 
-	private Element createElement(Document document, FormData data) {
+	private Element createElement(Document document, Data data) {
 		Element root = document.createElement("data");
 
 		Map<Ident, AbstractValue> values = data.getValues();
@@ -75,8 +75,8 @@ public class Xml extends AutoSave {
 			root.appendChild(element);
 		}
 
-		List<FormData> childData = data.getChildren();
-		for (FormData child : childData) {
+		List<Data> childData = data.getChildren();
+		for (Data child : childData) {
 			Element element = this.createElement(document, child);
 			root.appendChild(element);
 		}

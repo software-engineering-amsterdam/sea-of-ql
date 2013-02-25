@@ -10,7 +10,6 @@ import javax.swing.WindowConstants;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.eval.Environment;
-import org.uva.sea.ql.visitor.eval.FormData;
 import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
@@ -32,19 +31,19 @@ public class Application extends Observable implements Observer {
 		return this.environment;
 	}
 
-	public FormData getFormData() {
+	public Data getData() {
 		Map<Ident, AbstractValue> values = this.environment.getValues();
-		FormData data = new FormData(values);
+		Data data = new Data(values);
 
-		this.constructFormData(data, environment);
+		this.constructData(data, environment);
 
 		return data;
 	}
 
-	public void constructFormData(FormData parent, Environment environment) {
+	private void constructData(Data parent, Environment environment) {
 		for (Environment child : environment.getChildren()) {
-			FormData data = parent.getChildFormData(child.getValues());
-			this.constructFormData(data, child);
+			Data data = parent.getChildFormData(child.getValues());
+			this.constructData(data, child);
 		}
 	}
 

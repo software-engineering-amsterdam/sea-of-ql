@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.eval;
+package org.uva.sea.ql.visitor.eval.ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,34 +7,34 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
-public class FormData {
+public class Data {
 
-	private final FormData parent;
-	private final List<FormData> children;
+	private final Data parent;
+	private final List<Data> children;
 	private final Map<Ident, AbstractValue> values;
 
-	public FormData(Map<Ident, AbstractValue> values) {
+	public Data(Map<Ident, AbstractValue> values) {
 		this(null, values);
 	}
 
-	private FormData(FormData parent, Map<Ident, AbstractValue> values) {
+	private Data(Data parent, Map<Ident, AbstractValue> values) {
 		this.parent = parent;
 
 		this.values = values;
-		this.children = new ArrayList<FormData>();
+		this.children = new ArrayList<Data>();
 	}
 
-	public FormData getChildFormData(Map<Ident, AbstractValue> values) {
-		FormData child = new FormData(this, values);
+	public Data getChildFormData(Map<Ident, AbstractValue> values) {
+		Data child = new Data(this, values);
 		this.children.add(child);
 		return child;
 	}
 
-	public FormData getParent() {
+	public Data getParent() {
 		return this.parent;
 	}
 
-	public List<FormData> getChildren() {
+	public List<Data> getChildren() {
 		return this.children;
 	}
 
