@@ -47,9 +47,8 @@ public final class ListenerService {
         private void tryToAddListeners() {
             this.helper.addListeners(this.questionPanel);
             if (this.questionPanel.getCondition() != null) {
-                final IdentFinder finder = new IdentFinder(
-                        (TreeNode) this.questionPanel.getCondition());
-                final List<Ident> idents = finder.getIdents();
+                final List<Ident> idents = IdentFinder
+                        .getIdents((TreeNode) this.questionPanel.getCondition());
                 for (Ident i : idents) {
                     final QuestionPanel qp = this.registry
                             .getQuestionPanelByIdent(i);

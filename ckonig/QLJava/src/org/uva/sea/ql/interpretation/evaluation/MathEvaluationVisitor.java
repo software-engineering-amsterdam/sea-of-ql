@@ -10,10 +10,9 @@ import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.exception.EvaluationException;
 
 class MathEvaluationVisitor extends EvaluationVisitor {
-    private boolean replaceEmtyWithZero;
+    private boolean replaceEmtyWithZero = true;
 
-    public MathEvaluationVisitor(boolean replaceEmptyWithZero,
-            SwingRegistry reg, Evaluator eval) {
+    public MathEvaluationVisitor(SwingRegistry reg, Evaluator eval, boolean replaceEmptyWithZero) {
         super(reg, eval);
     }
 
@@ -33,7 +32,7 @@ class MathEvaluationVisitor extends EvaluationVisitor {
     }
 
     private void tryToReplaceEmptyInput() throws EmptyInputException {
-        if (replaceEmtyWithZero) {
+        if (this.replaceEmtyWithZero) {
             mathRet = 0;
         } else {
             throw new EmptyInputException();

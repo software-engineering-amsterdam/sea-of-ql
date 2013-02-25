@@ -99,12 +99,11 @@ public final class QuestionPanel extends JPanel {
         final Expr e = this.question.getExpr();
         final Class<?> returnType = ReturnFinder.getResult(
                 registry.getQuestionsAst(), (Expression) e);
-        Evaluator eval = new Evaluator(registry);
+        Evaluator eval = new Evaluator(registry, true);
 
         if (returnType.equals(BooleanType.class)) {
             final boolean result = eval.evalBool(e);
             this.input.setBoolean(result);
-            return;
         }
 
         if (returnType.equals(AbstractMathType.class)) {
@@ -114,12 +113,7 @@ public final class QuestionPanel extends JPanel {
             } catch (EmptyInputException ex) {
                 // no input? no output!
             }
-
-            return;
         }
-
-        throw new RuntimeException(
-                "conditions for if statements must be boolean");
 
     }
 

@@ -10,7 +10,7 @@ import org.uva.sea.ql.ast.interfaces.TreeNode;
 import org.uva.sea.ql.ast.literals.BoolLiteral;
 import org.uva.sea.ql.ast.literals.IntLiteral;
 
- class IdentFinderVisitor implements RecursiveIdentVisitor {
+class IdentFinderVisitor implements RecursiveIdentVisitor {
     private List<Ident> idents;
 
     public IdentFinderVisitor() {
@@ -42,15 +42,14 @@ import org.uva.sea.ql.ast.literals.IntLiteral;
     }
 
     private void addAllIdents(TreeNode n) {
-        final IdentFinder finder = new IdentFinder(n);
-        this.idents.addAll(finder.getIdents());
+        this.idents.addAll(IdentFinder.getIdents(n));
     }
 
     @Override
     public void visit(BoolLiteral boolLiteral) {
-        //do nothing
+        // do nothing
     }
-    
+
     @Override
     public void visit(IntLiteral intLiteral) {
         // do nothing

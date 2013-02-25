@@ -21,7 +21,7 @@ public class IfStatementPanel extends JPanel {
     public final void updateVisibility(SwingRegistry registry)
             throws QLException {
         final Expr e = this.ifStatement.getCondition();
-        final boolean result = new Evaluator(registry).evalBool(e);
+        final boolean result = new Evaluator(registry, false).evalBool(e);
         this.setVisible(result);
     }
 }

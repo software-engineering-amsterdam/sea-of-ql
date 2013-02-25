@@ -10,8 +10,8 @@ public class Evaluator {
     private MathEvaluationVisitor mathEvaluator;    
     private BoolEvaluationVisitor boolEvaluator;
 
-     public Evaluator(SwingRegistry reg) {
-       this.mathEvaluator = new MathEvaluationVisitor(true, reg, this);
+     public Evaluator(SwingRegistry reg, boolean replaceEmptyWithZero) {
+       this.mathEvaluator = new MathEvaluationVisitor(reg, this, replaceEmptyWithZero);
        this.boolEvaluator = new BoolEvaluationVisitor(reg, this);
     }
      
