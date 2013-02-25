@@ -1,13 +1,19 @@
-package org.uva.sea.ql.ast.expressions.literal;
+package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 
-public class Money extends LiteralExpression {
+public class Money extends Value {
 
+	private final double _value;
+	
 	public Money(double value) {
-		super(value);
+		_value = value;
+	}
+	
+	public double getValue() {
+		return _value;
 	}
 
 	@Override
