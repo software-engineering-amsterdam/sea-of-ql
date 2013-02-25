@@ -5,52 +5,58 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.visitor.eval.Environment;
-import org.uva.sea.ql.visitor.eval.FormData;
+import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
 import org.uva.sea.ql.visitor.eval.value.AbstractValue;
 
 public class Application extends Observable implements Observer {
 
-	private final JFrame gui;
+	private final JFrame window;
 	private final Environment environment;
 
-	public Application() {
-		this.gui = new JFrame();
+	public Application(Ident id) {
+		this.window = new JFrame(id.getName());
+		this.window.setVisible(true);
+		this.window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
 		this.environment = new Environment();
 		this.environment.addObserver(this);
-	}
-
-	public JFrame getGui() {
-		return this.gui;
 	}
 
 	public Environment getEnvironment() {
 		return this.environment;
 	}
 
-	public FormData getFormData() {
+	public Data getData() {
 		Map<Ident, AbstractValue> values = this.environment.getValues();
-		FormData data = new FormData(values);
+		Data data = new Data(values);
 
-		this.constructFormData(data, environment);
+		this.constructData(data, environment);
 
 		return data;
 	}
 
-	public void constructFormData(FormData parent, Environment environment) {
+	private void constructData(Data parent, Environment environment) {
 		for (Environment child : environment.getChildren()) {
-			FormData data = parent.getChildFormData(child.getValues());
-			this.constructFormData(data, child);
+			Data data = parent.createChild(child.getValues());
+			this.constructData(data, child);
 		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// Persist results
 		this.setChanged();
 		this.notifyObservers();
+	}
+
+	public void addScrollablePanel(Panel panel) {
+		JScrollPane scrollable = new JScrollPane(panel);
+		this.window.add(scrollable);
+		this.window.pack();
 	}
 
 }

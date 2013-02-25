@@ -19,7 +19,7 @@ public class UserInputReader {
 
     public UserInputReader(QuestionPanel qp) {
         this.visitor = new UserInputReaderVisitor(qp);
-        qp.getQuestion().getType().accept(this.visitor);
+        qp.getQuestionType().accept(this.visitor);
     }
 
     public final Object getUserInput() {

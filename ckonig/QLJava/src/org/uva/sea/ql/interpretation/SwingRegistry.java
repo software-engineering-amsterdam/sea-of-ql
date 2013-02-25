@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.interpretation.components.content.IfStatementPanel;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
@@ -42,7 +43,7 @@ public class SwingRegistry {
         try {
             for (IfStatementPanel isp : this.ifStatements) {
                 try {
-                    isp.eval(this);
+                    isp.updateVisibility(this);
                 } catch (EvaluationException ex) {
                     isp.setVisible(false);
                 }

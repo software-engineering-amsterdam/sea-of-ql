@@ -11,7 +11,7 @@ public class Evaluator {
     private BoolEvaluationVisitor boolEvaluator;
 
      public Evaluator(SwingRegistry reg, boolean replaceEmptyWithZero) {
-       this.mathEvaluator = new MathEvaluationVisitor(replaceEmptyWithZero, reg, this);
+       this.mathEvaluator = new MathEvaluationVisitor(reg, this, replaceEmptyWithZero);
        this.boolEvaluator = new BoolEvaluationVisitor(reg, this);
     }
      

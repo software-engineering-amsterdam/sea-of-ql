@@ -154,9 +154,8 @@ public abstract class EvaluationVisitor implements ExpressionVisitor {
     }
 
     private boolean checkReturn(Expr ex, Class<?> type) throws QLException {
-        final ReturnFinder r = new ReturnFinder(
-                this.registry.getQuestionsAst(), (Expression) ex);
-        return r.getResult().equals(type);
+        return ReturnFinder.getResult(this.registry.getQuestionsAst(),
+                (Expression) ex).equals(type);
     }
 
 }

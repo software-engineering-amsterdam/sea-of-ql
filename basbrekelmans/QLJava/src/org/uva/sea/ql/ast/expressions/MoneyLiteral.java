@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.expressions;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.IExpressionVisitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class MoneyLiteral extends NumberLiteral {
 
 	private double value;
-	
+
 	public MoneyLiteral(ICodeLocationInformation codeLocation, double value) {
 		super(codeLocation);
 		this.value = value;
@@ -15,9 +15,8 @@ public class MoneyLiteral extends NumberLiteral {
 	public double getValue() {
 		return value;
 	}
-	
-	public <T> T accept(IExpressionVisitor<T> visitor)
-	{
+
+	public <T> T accept(IExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

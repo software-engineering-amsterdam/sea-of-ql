@@ -26,9 +26,4 @@ public class Add extends Binary{
 		return new IntType();
 	}
 
-	@Override
-	public Type getAllowedType() {
-		return new IntType();
-	}
-	
 }

@@ -7,6 +7,7 @@ public class StrValue extends AValue {
 		this.value = value;
 	}
 	
+	@Override
 	public String getValue() {
 		return value;
 	}

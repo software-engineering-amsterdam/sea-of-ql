@@ -17,9 +17,8 @@ public class BoolEvaluationVisitor extends EvaluationVisitor {
     @Override
     public final void visit(Ident ident) throws QLException {
         final QuestionPanel q = registry.getQuestionPanelByIdent(ident);
-        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
+        final Class<?> r = ReturnFinder.getResult(registry.getQuestionsAst(),
                 ident);
-        final Class<?> r = f.getResult();
         if (r.equals(BooleanType.class)) {
             boolRet = q.getBoolValue();
         }

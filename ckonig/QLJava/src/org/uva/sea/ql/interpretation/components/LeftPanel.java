@@ -14,12 +14,11 @@ public class LeftPanel extends JPanel {
 
     public LeftPanel() {
         this.log = new JTextArea();
-        this.log.setSize(PanelDimensions.LEFT_WIDTH, PanelDimensions.CENTER_HEIGHT);
+        this.log.setSize(PanelDimensions.getLeftDimension());
         this.log.setText("");
         this.log.setLineWrap(true);
         this.add(this.log);
         this.setBackground(Color.red);
-        this.setSize(PanelDimensions.LEFT_WIDTH, PanelDimensions.CENTER_HEIGHT);
     }
 
     public final JTextArea getLog() {

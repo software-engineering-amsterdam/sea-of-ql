@@ -11,9 +11,7 @@ import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.output.opencsv.CSVWriter;
 
 public class CSVCreator {
-	
-	private final static String extension = ".csv";
-	
+		
 	public static void writeForm(String formName, Env env, File location) {
 		try {		
 			CSVWriter writer = new CSVWriter(

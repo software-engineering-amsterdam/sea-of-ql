@@ -1,6 +1,7 @@
 package org.uva.sea.ql.check.expressions;
 
 import org.uva.sea.ql.ast.expressions.Expression;
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.expressions.binary.BinaryExpression;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.Addition;
 import org.uva.sea.ql.ast.expressions.binary.arithmetic.BinaryArithmeticExpression;
@@ -17,17 +18,16 @@ import org.uva.sea.ql.ast.expressions.binary.relational.GreaterThanOrEqualToExpr
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.LessThanOrEqualToExpression;
 import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
-import org.uva.sea.ql.ast.expressions.literal.Bool;
-import org.uva.sea.ql.ast.expressions.literal.Ident;
-import org.uva.sea.ql.ast.expressions.literal.Int;
-import org.uva.sea.ql.ast.expressions.literal.LiteralExpression;
-import org.uva.sea.ql.ast.expressions.literal.Money;
-import org.uva.sea.ql.ast.expressions.literal.Str;
 import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
 import org.uva.sea.ql.ast.expressions.unary.UnaryExpression;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.values.Bool;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.Money;
+import org.uva.sea.ql.ast.values.NullValue;
+import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
 import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.errors.ErrorMessages;
@@ -43,8 +43,8 @@ public class TypeChecker implements Visitor<Boolean> {
 		_errorMessages = messages;
 	}
 	
-	public static boolean check(Expression expression, TypeEnvironment supportedTypes, ErrorMessages errors) {
-		TypeChecker expressionChecker = new TypeChecker(supportedTypes, errors);
+	public static boolean check(Expression expression, TypeEnvironment typeEnvironment, ErrorMessages errors) {
+		TypeChecker expressionChecker = new TypeChecker(typeEnvironment, errors);
 		return expression.accept(expressionChecker);
 	}
 	
@@ -85,13 +85,15 @@ public class TypeChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(Bool astNode)                             { return checkLiteralExpression(astNode, Bool.class.toString());  }
 	@Override
-	public Boolean visit(Ident astNode)                            { return checkLiteralExpression(astNode, Ident.class.toString()); }
+	public Boolean visit(Identifier astNode)                       { return checkLiteralExpression(astNode, Identifier.class.toString()); }
 	@Override
 	public Boolean visit(Int astNode)                              { return checkLiteralExpression(astNode, Int.class.toString());   }
 	@Override
 	public Boolean visit(Money astNode)                            { return checkLiteralExpression(astNode, Money.class.toString()); }
 	@Override
 	public Boolean visit(Str astNode)                              { return checkLiteralExpression(astNode, Str.class.toString());   }
+	@Override
+	public Boolean visit(NullValue astNode) 					   { return false; }
 	
 	private Boolean checkArithmeticExpression(BinaryArithmeticExpression expression, String binarySymbol) {
 		return isAValidExpression(expression) && isCompatibleToNumeric(expression, binarySymbol);
@@ -113,7 +115,7 @@ public class TypeChecker implements Visitor<Boolean> {
 		return isCompatibleToBool(expression, binarySymbol);
 	}
 	
-	private Boolean checkLiteralExpression(LiteralExpression expression, String className) {
+	private Boolean checkLiteralExpression(Expression expression, String className) {
 		return isCompatibleTo(expression, className);
 	}
 	
@@ -159,7 +161,7 @@ public class TypeChecker implements Visitor<Boolean> {
 		return checkTypes(expression, binarySymbol, isCompatible);
 	}
 	
-	private boolean isCompatibleTo(LiteralExpression expression, String binarySymbol) {
+	private boolean isCompatibleTo(Expression expression, String binarySymbol) {
 		boolean isCompatible = getTypeFor(expression).isCompatibleTo(getTypeFor(expression));
 		return checkTypes(expression, binarySymbol, isCompatible);
 	}
@@ -174,4 +176,5 @@ public class TypeChecker implements Visitor<Boolean> {
 	private void addError(Expression expression, String errorMessage) {
 		_errorMessages.add(new Message("Type error for expr " + expression + ": " + errorMessage));
 	}
+	
 }

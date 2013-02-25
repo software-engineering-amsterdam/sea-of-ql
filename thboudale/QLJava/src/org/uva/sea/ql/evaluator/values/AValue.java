@@ -2,6 +2,8 @@ package org.uva.sea.ql.evaluator.values;
 
 public abstract class AValue {
 
+	public abstract Object getValue();
+	
 	public AValue add(AValue arg) {
 		throw new UnsupportedOperationException();
 	}

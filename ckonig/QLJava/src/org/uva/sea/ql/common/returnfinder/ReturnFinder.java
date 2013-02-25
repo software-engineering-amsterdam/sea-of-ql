@@ -13,17 +13,28 @@ public class ReturnFinder {
 
     private AbstractReturnFinderVisitor visitor;
 
-    public ReturnFinder(List<Question> q, Expression e) throws QLException {
+    private ReturnFinder(List<Question> q, Expression e) throws QLException {
         this.visitor = new ReturnFinderExpressionVisitor(q);
         e.accept((ExpressionVisitor) this.visitor);
     }
 
-    public ReturnFinder(List<Question> q, AbstractType t) {
+    private ReturnFinder(List<Question> q, AbstractType t) {
         this.visitor = new ReturnFinderTypeVisitor(q);
         t.accept((TypeVisitor) this.visitor);
     }
 
-    public final Class<?> getResult() {
+    private final Class<?> getResult() {
         return this.visitor.getResult();
+    }
+
+    public static Class<?> getResult(List<Question> q, AbstractType t) {
+        final ReturnFinder finder = new ReturnFinder(q, t);
+        return finder.getResult();
+    }
+
+    public static Class<?> getResult(List<Question> q, Expression e)
+            throws QLException {
+        final ReturnFinder finder = new ReturnFinder(q, e);
+        return finder.getResult();
     }
 }

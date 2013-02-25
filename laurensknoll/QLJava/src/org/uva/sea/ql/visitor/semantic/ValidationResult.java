@@ -22,7 +22,7 @@ public class ValidationResult {
 		this.errors.add(error);
 	}
 
-	public void addValidationResult(ValidationResult validationResult) {
+	public void add(ValidationResult validationResult) {
 		this.errors.addAll(validationResult.getErrors());
 	}
 

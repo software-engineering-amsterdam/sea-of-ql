@@ -74,7 +74,8 @@ primary returns [Expr result]
   : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
   | Ident { $result = new Ident($Ident.text); }
   | String { $result = new StringLiteral($String.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
+  | '(' x=orExpr ')'{ $result = $x.result; }  
+  //| BoolLit { $result = new BooleanLiteral(true); }
   ;
     
 unExpr returns [Expr result]
@@ -151,7 +152,7 @@ COMMENT
     ;
     
 WS  :		(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; } ;
-
+//BoolLit :	('true' | 'TRUE' | 'false' | 'FALSE');
 Form 	:	'form';
 FormIdent:	'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')*;
 Ident	:   	('a'..'z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
