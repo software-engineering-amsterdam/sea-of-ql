@@ -1,14 +1,12 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.NumericValue;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class GreaterThan extends Binary<BooleanValue, NumericValue> {
+public class GreaterThan extends Binary {
 
-	public GreaterThan(final Expression<NumericValue> left,
-			final Expression<NumericValue> right) {
+	public GreaterThan(final Expression left, final Expression right) {
 		super(left, right);
 	}
 
@@ -23,7 +21,7 @@ public class GreaterThan extends Binary<BooleanValue, NumericValue> {
 	}
 
 	@Override
-	public BooleanValue accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

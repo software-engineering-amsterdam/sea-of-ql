@@ -9,7 +9,7 @@ public class IfElseStatement extends IfStatement {
 
 	private final CompoundStatement elseCompound;
 
-	public IfElseStatement(final Expression<?> expression,
+	public IfElseStatement(final Expression expression,
 			final CompoundStatement ifCompound,
 			final CompoundStatement elseCompound) {
 		super(expression, ifCompound);

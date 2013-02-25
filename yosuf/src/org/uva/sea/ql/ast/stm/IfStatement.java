@@ -7,7 +7,7 @@ import org.uva.sea.ql.visitor.StatementVisitor;
 
 public class IfStatement extends Block {
 
-	private final Expression<?> expression;
+	private final Expression expression;
 
 	private final CompoundStatement ifCompound;
 
@@ -18,7 +18,7 @@ public class IfStatement extends Block {
 	 * @param compound
 	 *            (not null)
 	 */
-	public IfStatement(final Expression<?> expression,
+	public IfStatement(final Expression expression,
 			final CompoundStatement compound) {
 
 		this.expression = expression;
@@ -28,7 +28,7 @@ public class IfStatement extends Block {
 		state.assertNotNull(ifCompound, "IfStatement.compound");
 	}
 
-	public Expression<?> getExpression() {
+	public Expression getExpression() {
 		return expression;
 	}
 
