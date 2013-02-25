@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.uva.sea.ql.value.Value;
+
 public class ValueMap {
-	private final Map<String, Object> values;
+	private final Map<String, Value> values;
 
 	public ValueMap() {
-		this.values = new HashMap<String, Object>();
+		this.values = new HashMap<String, Value>();
 	}
 
-	public void add( String name, Object value ) {
+	public void add( String name, Value value ) {
 		this.values.put( name, value );
 	}
 
-	public Set<Map.Entry<String, Object>> entrySet() {
+	public Set<Map.Entry<String, Value>> entrySet() {
 		return this.values.entrySet();
 	}
 }

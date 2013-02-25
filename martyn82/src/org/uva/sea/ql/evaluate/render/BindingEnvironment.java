@@ -43,13 +43,10 @@ public class BindingEnvironment extends Environment<Value> {
 	public ValueMap getValueMap() {
 		ValueMap values = new ValueMap();
 		Binding binding;
-		Value value;
 
 		for ( Map.Entry<IdentifierExpression, Binding> each : this.bindings.entrySet() ) {
 			binding = each.getValue();
-			value = binding.getValue();
-
-			values.add( each.getKey().getName(), value.getValue() );
+			values.add( each.getKey().getName(), binding.getValue() );
 		}
 
 		return values;
