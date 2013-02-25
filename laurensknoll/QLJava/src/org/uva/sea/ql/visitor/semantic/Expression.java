@@ -36,12 +36,12 @@ public class Expression implements IExpression<ValidationResult> {
 
 	private Boolean isOfBooleanType(AbstractExpr expr) {
 		AbstractType type = expr.typeOf(this.environment);
-		return type.accept(new BooleanType());
+		return type.accept(new Bool());
 	}
 
 	private Boolean isOfNumericType(AbstractExpr expr) {
 		AbstractType type = expr.typeOf(this.environment);
-		return type.accept(new NumericType());
+		return type.accept(new Numeric());
 	}
 
 	private Boolean isOfSameType(AbstractExpr left, AbstractExpr right) {

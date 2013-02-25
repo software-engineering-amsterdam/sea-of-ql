@@ -1,16 +1,15 @@
 package org.uva.sea.ql.visitor.semantic;
 
-import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Money;
 import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.String;
 import org.uva.sea.ql.visitor.IType;
 
-public class BooleanType implements IType<Boolean> {
+public class Bool implements IType<Boolean> {
 
 	@Override
-	public Boolean visit(Bool bool) {
+	public Boolean visit(org.uva.sea.ql.ast.type.Bool bool) {
 		return true;
 	}
 
