@@ -38,14 +38,9 @@ public abstract class Value extends Expression {
 	protected Value equalsMoney(Money value)               { throw new UnsupportedOperationException(); }
 	protected Value equalsString(Str value)                { throw new UnsupportedOperationException(); }
 	
-	protected Value greaterThanOrEqualToBool(Bool value)   { throw new UnsupportedOperationException(); }
 	protected Value greaterThanOrEqualToInt(Int value)     { throw new UnsupportedOperationException(); }
 	protected Value greaterThanOrEqualToMoney(Money value) { throw new UnsupportedOperationException(); }
-	protected Value greaterThanOrEqualToString(Str value)  { throw new UnsupportedOperationException(); }
-	
-	protected Value lessThanOrEqualToBool(Bool value)      { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToInt(Int value)        { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToMoney(Money value)    { throw new UnsupportedOperationException(); }
-	protected Value lessThanOrEqualToString(Str value)     { throw new UnsupportedOperationException(); }
 	
 }
