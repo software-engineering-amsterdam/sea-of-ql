@@ -60,6 +60,10 @@ public class Money extends Value {
 	@Override
 	protected Value greaterThanOrEqualToMoney(Money value) { return new Bool(value.getValue() >= getValue()); }
 	@Override
+	public Value lessThan(Value value) { return value.lessThanMoney(this); }
+	@Override
+	protected Value lessThanMoney(Money value) { return new Bool(value.getValue() < getValue()); }
+	@Override
 	public Value lessThanOrEqualTo(Value value) { return value.lessThanOrEqualToMoney(this); }
 	@Override
 	protected Value lessThanOrEqualToMoney(Money value) { return new Bool(value.getValue() <= getValue()); }

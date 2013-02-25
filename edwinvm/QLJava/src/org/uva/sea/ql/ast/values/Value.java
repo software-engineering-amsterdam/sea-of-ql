@@ -14,6 +14,7 @@ public abstract class Value extends Expression {
 	public Value equalsValue(Value value)                  { throw new UnsupportedOperationException(); }
 	public Value greaterThan(Value value)                  { throw new UnsupportedOperationException(); }
 	public Value greaterThanOrEqualTo(Value value)         { throw new UnsupportedOperationException(); }
+	public Value lessThan(Value value)                     { throw new UnsupportedOperationException(); }
 	public Value lessThanOrEqualTo(Value value)            { throw new UnsupportedOperationException(); }
 	
 	// Arithmetical operations
@@ -43,6 +44,8 @@ public abstract class Value extends Expression {
 	protected Value greaterThanMoney(Money value)          { throw new UnsupportedOperationException(); }
 	protected Value greaterThanOrEqualToInt(Int value)     { throw new UnsupportedOperationException(); }
 	protected Value greaterThanOrEqualToMoney(Money value) { throw new UnsupportedOperationException(); }
+	protected Value lessThanInt(Int value)                 { throw new UnsupportedOperationException(); }
+	protected Value lessThanMoney(Money value)             { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToInt(Int value)        { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToMoney(Money value)    { throw new UnsupportedOperationException(); }
 	
