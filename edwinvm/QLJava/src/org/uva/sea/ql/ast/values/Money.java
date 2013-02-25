@@ -67,6 +67,10 @@ public class Money extends Value {
 	public Value lessThanOrEqualTo(Value value) { return value.lessThanOrEqualToMoney(this); }
 	@Override
 	protected Value lessThanOrEqualToMoney(Money value) { return new Bool(value.getValue() <= getValue()); }
+	@Override
+	public Value notEqualsValue(Value value) { return value.notEqualsMoney(this); }
+	@Override
+	protected Value notEqualsMoney(Money value) { return new Bool(!value.equals(this)); }
 	
 	@Override
 	public int hashCode() {

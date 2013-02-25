@@ -28,10 +28,10 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 		expressionMatchesValue("true != false",  "true");
 		expressionMatchesValue("true != true",   "false");
 		expressionMatchesValue("false != false", "false");
-//		
-//		expressionMatchesValue("1.0 != 1.0", "true");
-//		expressionMatchesValue("1.0 != 2.0", "false");
-//		
+		
+		expressionMatchesValue("1.0 != 1.0", "false");
+		expressionMatchesValue("1.0 != 2.0", "true");
+		
 //		expressionMatchesValue("\"a\" != \"a\"", "true");
 //		expressionMatchesValue("\"a\" != \"b\"", "false");
 	}
