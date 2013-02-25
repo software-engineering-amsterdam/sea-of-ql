@@ -21,6 +21,22 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 	}
 	
 	@Test
+	public void testNonEquality() throws ParseError {
+		expressionMatchesValue("1 != 2", "true");
+		expressionMatchesValue("1 != 1", "false");
+//		
+//		expressionMatchesValue("true != true", "true");
+//		expressionMatchesValue("true != false", "false");
+//		expressionMatchesValue("false != false", "true");
+//		
+//		expressionMatchesValue("1.0 != 1.0", "true");
+//		expressionMatchesValue("1.0 != 2.0", "false");
+//		
+//		expressionMatchesValue("\"a\" != \"a\"", "true");
+//		expressionMatchesValue("\"a\" != \"b\"", "false");
+	}
+	
+	@Test
 	public void testGreaterThan() throws ParseError {
 		expressionMatchesValue("2 > 1", "true");
 		expressionMatchesValue("1 > 2", "false");

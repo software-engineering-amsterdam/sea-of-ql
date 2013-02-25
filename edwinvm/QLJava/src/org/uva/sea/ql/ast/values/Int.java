@@ -57,6 +57,10 @@ public class Int extends Value {
 	public Value lessThanOrEqualTo(Value value) { return value.lessThanOrEqualToInt(this); }
 	@Override
 	protected Value lessThanOrEqualToInt(Int value) { return new Bool(value.getValue() <= getValue()); }
+	@Override
+	public Value notEqualsValue(Value value) { return value.notEqualsInt(this); }
+	@Override
+	protected Value notEqualsInt(Int value)  { return new Bool(!value.equals(this)); }
 	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
