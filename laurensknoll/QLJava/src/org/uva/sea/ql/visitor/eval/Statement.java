@@ -33,7 +33,7 @@ public class Statement implements IStatement<Panel> {
 		Panel panel = new Panel(this.environment);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		Environment innerEnvironment = this.environment.getChildEnvironment();
+		Environment innerEnvironment = this.environment.createChild();
 		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
 		for (AbstractStatement statement : block.getStatements()) {
 			Panel inner = statement.accept(statementVisitor);
@@ -60,7 +60,7 @@ public class Statement implements IStatement<Panel> {
 
 	@Override
 	public Panel visit(If ifStatement) {
-		Environment innerEnvironment = this.environment.getChildEnvironment();
+		Environment innerEnvironment = this.environment.createChild();
 		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
 
 		AbstractStatement trueStatement = ifStatement.getTruePath();

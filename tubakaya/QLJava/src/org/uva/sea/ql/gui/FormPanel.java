@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import org.uva.sea.ql.core.dom.Identifier;
 import org.uva.sea.ql.core.dom.statements.Form;
 import org.uva.sea.ql.core.dom.visitors.ExpressionVisitorToSetTypeOfIdentifiers;
@@ -35,6 +37,14 @@ public class FormPanel extends JFrame {
 			AddFormOnRootPanel(rootPanel,rootNode);
 			
 			rootFrame.add(rootPanel);
+			
+			JScrollPane scrollPane = new JScrollPane(rootPanel);
+			rootFrame.add(scrollPane);
+			rootFrame.setSize(825, 5 * 60);
+			rootFrame.setVisible(true);
+			rootFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			rootFrame.show();
 			
 		} catch (ParseException parseException) {
 			return;
