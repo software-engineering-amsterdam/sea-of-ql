@@ -1,9 +1,5 @@
 package org.uva.sea.ql.evaluate.render;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.FormDeclaration;
@@ -36,17 +32,8 @@ class StatementRenderer implements StatementVisitor<Void> {
 		return renderer.builder.getResult();
 	}
 
-	protected Map<String, Object> getValues() {
-		Map<String, Object> values = new HashMap<String, Object>();
-		Map<IdentifierExpression, Binding> bindings = this.environment.getBindings();
-		Value value;
-
-		for ( Map.Entry<IdentifierExpression, Binding> each : bindings.entrySet() ) {
-			value = each.getValue().getValue();
-			values.put( each.getKey().getName(), value.getValue() );
-		}
-
-		return values;
+	protected ValueMap getValues() {
+		return this.environment.getValueMap();
 	}
 
 	public PanelControl getPanel() {
