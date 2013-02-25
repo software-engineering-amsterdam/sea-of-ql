@@ -1,85 +1,39 @@
 package org.uva.sea.ql.runtime;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
-import org.uva.sea.ql.ast.expressions.Identifier;
+import org.uva.sea.ql.runtime.values.Value;
 
-public class Variable implements IPropertyChangeListener<Variable>, IObservable<IPropertyChangeListener<Variable>> {
-	
-	private final Identifier identifier;
-	private List<Variable> dependencies = new ArrayList<Variable>();
-	private List<Variable> dependsOn = new ArrayList<Variable>();
-	private final ArrayList<IPropertyChangeListener<Variable>> listeners = new ArrayList<IPropertyChangeListener<Variable>>();
-	private Value value;
-	
-	public Variable(Identifier identifier) {
-		this.identifier = identifier;
-	}
-	
-	public Variable() {
-		this.identifier = null;
-	}
-	
-	public void addDependency(Variable value) {
-		value.dependsOn.add(this);
-		value.listeners.add(this);
-		this.dependencies.add(value);
-	}
-	
-	/**
-	 * @return Variables that this value depends on.
-	 */
-	public Iterable<Variable> getDependsOn() {
-		return dependsOn;
-	}
-	
-	/**
-	 * @return Variables that depend on this value.
-	 */
-	public Iterable<Variable> getDependencies() {
-		return dependencies;
-	}
-	
-	public void addValueChangedListener(IPropertyChangeListener<Variable> observer) {
-		listeners.add(observer);
-	}
-	public void removeValueChangedListener(IPropertyChangeListener<Variable> observer) {
-		if (listeners.contains(observer)) {
-			listeners.remove(observer);
-		}
-	}
+public class Variable extends Observable implements Observer {
 
-	public boolean hasIdentifier() {
-		return identifier != null;
-	}
-	
-	public Identifier getIdentifier() {
-		return identifier;
-	}
+	private Value value = Value.UNSET_VALUE;
+	protected Observer valueSetter;
 
 	public Value getValue() {
-		return value;
+		return this.value;
 	}
 
-	public void setValue(Value value) {
+	public boolean hasValue() {
+		return this.value != Value.UNSET_VALUE;
+	}
+
+	public boolean isComputed() {
+		return false;
+	}
+
+	public void setValue(final Value value) {
 		this.value = value;
-		onValueChanged(this);
+		this.setChanged();
+		this.notifyObservers();
 	}
 
-	/*
-	 * Occurs when a dependant value changes.
-	 */
+	public void setValueSetter(final Observer observer) {
+		this.valueSetter = observer;
+	}
+
 	@Override
-	public void onValueChanged(Variable value) {
-		for(IPropertyChangeListener<Variable> listener : listeners) {
-			listener.onValueChanged(this);
-		}
-	}	
-	
-	@Override
-	public String toString() {
-		String ident = this.identifier == null ? "unnamed" : this.identifier.getName();
-		return "var: '" + ident + "'";
+	public void update(final Observable o, final Object arg) {
+
 	}
 }
