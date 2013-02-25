@@ -9,7 +9,7 @@ import org.uva.sea.ql.common.ExpressionVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.TypeVisitor;
 
-public class ReturnFinder {
+public final class ReturnFinder {
 
     private AbstractReturnFinderVisitor visitor;
 

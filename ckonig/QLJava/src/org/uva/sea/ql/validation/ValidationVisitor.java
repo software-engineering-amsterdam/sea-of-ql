@@ -174,7 +174,7 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void checkSelfReference(Question question)
             throws AstValidationError {
-        List<Ident> idents = IdentFinder.getIdents((TreeNode) question
+        final List<Ident> idents = IdentFinder.getIdents((TreeNode) question
                 .getExpr());
         for (Ident ident : idents) {
             if (ident.getName().equals(question.getIdentName())) {

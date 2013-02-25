@@ -25,7 +25,7 @@ formDefinition returns [Form result]
 	:	 Form formDeclaration {$result = $formDeclaration.result;};
 	
 formDeclaration returns [Form result]
-: 	FormIdent LEFTCBR blockContent RIGHTCBR {$result = new Form($FormIdent.text, $blockContent.result);};
+: 	FormIdent LEFTCBR blockContent RIGHTCBR {$result = new Form(new StringLiteral($FormIdent.text), $blockContent.result);};
 
 blockContent returns [Block result]
 @init 

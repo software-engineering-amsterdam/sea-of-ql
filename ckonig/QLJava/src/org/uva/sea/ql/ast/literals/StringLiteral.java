@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.literals;
 import org.uva.sea.ql.ast.expressions.Expr;
 
 public class StringLiteral extends Expr {
+
     private final String value;
 
     public StringLiteral(String s) {
@@ -17,14 +18,14 @@ public class StringLiteral extends Expr {
     public final String toString() {
         return this.value;
     }
-    
+
     @Override
-    public boolean equals(Object o){
-        if(o instanceof String){
-            return this.getValue().equals((String)o);
+    public final boolean equals(Object o) {
+        if (o instanceof String) {
+            return this.getValue().equals((String) o);
         }
-        if(o instanceof StringLiteral){
-            return this.getValue().equals(((StringLiteral)o).getValue());
+        if (o instanceof StringLiteral) {
+            return this.getValue().equals(((StringLiteral) o).getValue());
         }
         return false;
     }

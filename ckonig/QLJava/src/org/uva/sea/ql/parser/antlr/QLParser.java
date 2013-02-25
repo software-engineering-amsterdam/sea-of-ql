@@ -1,4 +1,4 @@
-// $ANTLR 3.5 C:\\Users\\don\\workspace\\sea-of-ql-repo-3\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-25 14:15:57
+// $ANTLR 3.5 C:\\Users\\don\\workspace\\sea-of-ql-repo-3\\ckonig\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-25 14:19:06
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -182,7 +182,7 @@ public class QLParser extends Parser {
 			state._fsp--;
 			if (state.failed) return result;
 			match(input,RIGHTCBR,FOLLOW_RIGHTCBR_in_formDeclaration87); if (state.failed) return result;
-			if ( state.backtracking==0 ) {result = new Form((FormIdent3!=null?FormIdent3.getText():null), blockContent4);}
+			if ( state.backtracking==0 ) {result = new Form(new StringLiteral((FormIdent3!=null?FormIdent3.getText():null)), blockContent4);}
 			}
 
 		}

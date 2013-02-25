@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.interpretation.components.PanelDimensions;
 import org.uva.sea.ql.interpretation.components.content.IfStatementPanel;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
@@ -32,8 +33,8 @@ public class SwingDocument implements QLDocument {
     }
 
     @Override
-    public final void setHeading(String content) {
-        final JLabel lbl = new JLabel(content);
+    public final void setHeading(StringLiteral content) {
+        final JLabel lbl = new JLabel(content.getValue());
         lbl.setFont(PanelDimensions.getFont());
         this.panelStack.peek().add(lbl);
     }
