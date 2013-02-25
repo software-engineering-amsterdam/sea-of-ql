@@ -81,7 +81,7 @@ public class Evaluator implements Visitor<Value> {
 	
 	@Override
 	public Value visit(Bool value) { 
-		return new NullValue(); 
+		return value; 
 	}
 
 	@Override
@@ -91,12 +91,12 @@ public class Evaluator implements Visitor<Value> {
 
 	@Override
 	public Value visit(Money value) {
-		return null;
+		return value;
 	}
 
 	@Override
 	public Value visit(Str value) {
-		return null;
+		return value;
 	}
 	
 	@Override
