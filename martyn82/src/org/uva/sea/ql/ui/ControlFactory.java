@@ -17,5 +17,5 @@ abstract public class ControlFactory {
 	abstract public NumberFieldControl createNumberBox();
 	abstract public PanelControl createPanel();
 	abstract public TextFieldControl createTextBox();
-	abstract public WindowControl createWindow( String title, PanelControl panel );
+	abstract public WindowControl createWindow();
 }

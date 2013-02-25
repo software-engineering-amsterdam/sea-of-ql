@@ -9,21 +9,26 @@ import org.uva.sea.ql.ui.control.WindowControl;
 public class SwingWindow extends WindowControl {
 	private final JFrame frame;
 
-	public SwingWindow( String title, PanelControl panel ) {
-		super( panel );
-
+	public SwingWindow() {
 		this.frame = new JFrame();
-		this.frame.setTitle( title );
-
-		this.initComponents();
-	}
-
-	private void initComponents() {
 		this.frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.frame.setLocation( 100, 100 );
 		this.frame.setSize( 500, 500 );
+	}
 
-		this.frame.add( (JPanel) this.getPanel().getInnerControl() );
+	@Override
+	public JFrame getInnerControl() {
+		return this.frame;
+	}
+
+	@Override
+	public void setTitle( String title ) {
+		this.frame.setName( title );
+	}
+
+	@Override
+	public void addControl( PanelControl panel ) {
+		this.frame.add( (JPanel) panel.getInnerControl() );
 	}
 
 	@Override
@@ -39,5 +44,10 @@ public class SwingWindow extends WindowControl {
 	@Override
 	public void hide() {
 		this.frame.setVisible( false );
+	}
+
+	@Override
+	public void close() {
+		this.frame.dispose();
 	}
 }
