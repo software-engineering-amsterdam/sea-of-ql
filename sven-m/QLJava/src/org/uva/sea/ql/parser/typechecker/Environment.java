@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.form.types.Type;
@@ -19,7 +20,7 @@ public class Environment {
 	}
 	
 	public void setType(Ident ident, Type type) {
-		types.put(ident,	type);
+		types.put(ident, type);
 	}
 	
 	public Type getType(Ident id) {
@@ -31,7 +32,20 @@ public class Environment {
 	}
 
 	public Map<Ident, Type> getTypeEnvironment() {
-		return new HashMap<>(types);
+		return Collections.unmodifiableMap(types);
+	}
+
+	public String getErrorsString() {
+		String errorsString = "";
+		for (SemanticError error : errors) {
+			errorsString += error.toString() + "\n";
+		}
+		
+		return errorsString;
+	}
+	
+	public List<SemanticError> getErrors() {
+		return new ArrayList<>(errors);
 	}
 	
 }

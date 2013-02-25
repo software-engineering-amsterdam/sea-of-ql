@@ -12,5 +12,5 @@ public class Neg extends Unary {
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

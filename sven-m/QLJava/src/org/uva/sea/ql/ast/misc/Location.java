@@ -69,4 +69,8 @@ public class Location {
 		return endColumn;
 	}
 	
+	public String toString() {
+		return "line " + getStartLine() + ", column " + getStartColumn();
+	}
+	
 }

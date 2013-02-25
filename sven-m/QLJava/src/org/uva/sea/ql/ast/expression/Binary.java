@@ -18,7 +18,7 @@ public abstract class Binary extends Expr {
 	public Expr getRhs() {
 		return rhs;
 	}
-	
+
 	public Location getLocation() {
 		return new Location(lhs.getLocation(), rhs.getLocation());
 	}

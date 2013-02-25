@@ -24,6 +24,7 @@ import org.uva.sea.ql.ast.expression.Unary;
 import org.uva.sea.ql.ast.form.types.BoolType;
 import org.uva.sea.ql.ast.form.types.IntType;
 import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.ast.form.types.UndefinedType;
 import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 import org.uva.sea.ql.parser.typechecker.error.OperatorTypeMismatchError;
 import org.uva.sea.ql.parser.typechecker.error.VariableUndefinedError;
@@ -35,6 +36,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	
 	private final IntType intType = new IntType(null);
 	private final BoolType boolType = new BoolType(null);
+	private final UndefinedType undefinedType = new UndefinedType(null);
 	
 	public ExpressionTypeChecker(Environment environment)
 	{
@@ -51,8 +53,8 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	private void addTypeMismatch(Binary ast) {
 		OperatorTypeMismatchError error =
 				new OperatorTypeMismatchError(ast.getClass().getSimpleName(),
-						ast.getLhs().getClass().getSimpleName(),
-						ast.getRhs().getClass().getSimpleName(),
+						ast.getLhs().accept(typeEval).toString(),
+						ast.getRhs().accept(typeEval).toString(),
 						ast);
 		
 		environment.reportError(error);
@@ -61,7 +63,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	private void addTypeMismatch(Unary ast) {
 		OperatorTypeMismatchError error =
 				new OperatorTypeMismatchError(ast.getClass().getSimpleName(),
-						ast.getClass().getSimpleName(), ast);
+						ast.getOp().accept(typeEval).toString(), ast);
 		environment.reportError(error);
 	}
 	
@@ -95,7 +97,8 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 		Type lhsType = ast.getLhs().accept(typeEval);
 		Type rhsType = ast.getRhs().accept(typeEval);
 		
-		if (!lhsType.equals(rhsType)) {
+		if (!lhsType.equals(undefinedType) && !rhsType.equals(undefinedType)
+				&& !lhsType.equals(rhsType)) {
 			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
@@ -104,17 +107,46 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	}
 	
 	private Boolean assertChildrenType(Binary ast, Type type) {
+		return assertChildrenType(ast, type, false);
+	}
+	
+	private Boolean assertChildrenNotType(Binary ast, Type type) {
+		return assertChildrenType(ast, type, true);
+	}
+	
+	private Boolean assertChildrenType(Binary ast, Type type, boolean unEqual)
+	{
 		boolean typeCorrect = traverse(ast);
 		
 		Type lhsType = ast.getLhs().accept(typeEval);
 		Type rhsType = ast.getRhs().accept(typeEval);
 		
-		if (!lhsType.equals(type)) {
+		/* check for undefined, to prevent errors from bubbling up along the
+		 * AST
+		 */
+		boolean lhsUndefined = lhsType.equals(undefinedType);
+		boolean rhsUndefined = rhsType.equals(undefinedType);
+		
+		/* if unEqual == true, lhs/rhs should NOT be of the specified type */
+		boolean lhsIsAllowedType =
+				unEqual
+				? !lhsType.equals(type)
+				: lhsType.equals(type);
+				
+		boolean rhsIsAllowedType =
+				unEqual
+				? !rhsType.equals(type)
+				: rhsType.equals(type);
+		
+		if (!lhsUndefined && !lhsIsAllowedType) {
 			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
 		
-		if (!(rhsType.equals(type))) {
+		/* only check rhs if lhs was OK, in orderr to prevent duplicate error
+		 * reporting.
+		 */
+		if (typeCorrect && !rhsUndefined && !rhsIsAllowedType) {
 			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
@@ -127,7 +159,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 		
 		Type opType = ast.getOp().accept(typeEval);
 		
-		if (!opType.equals(type)) {
+		if (!opType.equals(undefinedType) && !opType.equals(type)) {
 			addTypeMismatch(ast);
 			typeCorrect = false;
 		}
@@ -147,7 +179,8 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	
 	@Override
 	public Boolean visit(Add ast) {
-		return assertChildrenEqualType(ast);
+		return assertChildrenNotType(ast, boolType)
+				&& assertChildrenEqualType(ast);
 	}
 	
 	@Override

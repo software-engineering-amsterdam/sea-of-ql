@@ -10,6 +10,8 @@ import org.uva.sea.ql.ast.form.IfElseStatement;
 import org.uva.sea.ql.ast.form.IfStatement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.Computed;
+import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.parser.typechecker.error.FormTypeMismatchError;
 import org.uva.sea.ql.parser.typechecker.error.VariableRedefinitionError;
 
 public class FormTypeChecker implements FormVisitor<Boolean> {
@@ -76,9 +78,17 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 		boolean typeCorrect = ast.getExpression().accept(exprTypeChecker);
 		Ident ident = ast.getIdent();
 		
-		typeCorrect &=
-				ast.getExpression().accept(exprTypeEval).equals(ast.getType());
+		Type exprType = ast.getExpression().accept(exprTypeEval);
 		
+		if (!exprType.equals(ast.getType())) {
+			typeCorrect = false;
+			environment.reportError(new FormTypeMismatchError(
+					ident.getName(),
+					ast.getType().toString(),
+					exprType.toString(),
+					ast)
+			);
+		}
 		
 		if (environment.getType(ident) == null) {
 			environment.setType(ident, ast.getType());
@@ -90,6 +100,5 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 		
 		return typeCorrect;
 	}
-
-
+	
 }

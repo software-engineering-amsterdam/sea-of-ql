@@ -5,21 +5,22 @@ import org.uva.sea.ql.parser.evaluator.result.IntValue;
 import org.uva.sea.ql.parser.evaluator.result.StrValue;
 import org.uva.sea.ql.parser.evaluator.result.UndefinedValue;
 import org.uva.sea.ql.parser.evaluator.result.Value;
-import org.uva.sea.ql.parser.evaluator.result.ValueVisitor;
+import org.uva.sea.ql.parser.evaluator.result.visitor.ValueVisitor;
 
 public class StringProducer implements ValueVisitor<String> {
 	private static StringProducer instance;
-	
-	private StringProducer() {	}
-	
+
+	private StringProducer() {
+	}
+
 	public static String toString(Value value) {
 		if (instance == null) {
 			instance = new StringProducer();
 		}
-		
+
 		return value.accept(instance);
 	}
-	
+
 	@Override
 	public String visit(BoolValue value) {
 		return value.getValue() ? "Yes" : "No";

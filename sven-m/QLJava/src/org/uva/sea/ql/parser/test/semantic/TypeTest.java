@@ -10,19 +10,19 @@ import org.uva.sea.ql.parser.typechecker.Environment;
 
 public abstract class TypeTest extends AbstractTest {
 	private Environment environment;
-	
-	protected abstract boolean typeCheck(String src) throws ParseError;
-	
+
 	public TypeTest() {
 		environment = new Environment();
-		
+
 		environment.setType(new Ident("intA", null), new IntType(null));
 		environment.setType(new Ident("boolB", null), new BoolType(null));
 		environment.setType(new Ident("strC", null), new StrType(null));
 	}
-	
+
+	protected abstract boolean typeCheck(String src) throws ParseError;
+
 	protected Environment getEnvironment() {
 		return environment;
 	}
-	
+
 }

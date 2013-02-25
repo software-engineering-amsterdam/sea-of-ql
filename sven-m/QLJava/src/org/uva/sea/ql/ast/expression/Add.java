@@ -12,5 +12,5 @@ public class Add extends Binary {
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

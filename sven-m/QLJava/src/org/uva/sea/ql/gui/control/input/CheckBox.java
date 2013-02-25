@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
-import org.uva.sea.ql.gui.InputSourceDelegate;
+import org.uva.sea.ql.gui.misc.InputSourceDelegate;
 import org.uva.sea.ql.parser.evaluator.result.BoolValue;
 
 public class CheckBox extends InputControl {
 	private final JCheckBox checkBox;
 	private ActionListener actionListener;
-	
+
 	public CheckBox() {
 		checkBox = new JCheckBox();
 		actionListener = null;
@@ -22,20 +22,20 @@ public class CheckBox extends InputControl {
 	public BoolValue getValue() {
 		return new BoolValue(checkBox.isSelected());
 	}
-	
-	@Override 
+
+	@Override
 	public void setDelegate(InputSourceDelegate delegate) {
 		super.setDelegate(delegate);
-		
+
 		checkBox.removeActionListener(actionListener);
-		
+
 		actionListener = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				signalDelegate();				
+				signalDelegate();
 			}
 		};
-		
+
 		checkBox.addActionListener(actionListener);
 	}
 

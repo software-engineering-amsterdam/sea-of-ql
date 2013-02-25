@@ -21,5 +21,6 @@ public abstract class Type implements ASTNode {
 	}
 	
 	public abstract <T> T accept(TypeVisitor<T> visitor);
+	public abstract String toString();
 	
 }

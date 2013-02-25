@@ -27,6 +27,7 @@ import org.uva.sea.ql.ast.form.types.BoolType;
 import org.uva.sea.ql.ast.form.types.IntType;
 import org.uva.sea.ql.ast.form.types.StrType;
 import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.ast.form.types.UndefinedType;
 
 
 public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
@@ -113,7 +114,13 @@ public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 
 	@Override
 	public Type visit(Ident ast) {
-		return environment.get(ast.getName());
+		Type type = environment.get(ast);
+				
+		if (type == null) {
+			type = new UndefinedType(null);
+		}
+		
+		return type;
 	}
 
 	@Override

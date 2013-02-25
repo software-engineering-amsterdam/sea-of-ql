@@ -1,13 +1,13 @@
-package org.uva.sea.ql.gui.dependencies;
+package org.uva.sea.ql.gui.propagation;
 
 import java.util.Observable;
 import java.util.Observer;
 
 import org.uva.sea.ql.ast.form.Computed;
-import org.uva.sea.ql.gui.InputSource;
-import org.uva.sea.ql.gui.InputSourceDelegate;
-import org.uva.sea.ql.gui.State;
 import org.uva.sea.ql.gui.control.display.DisplayControl;
+import org.uva.sea.ql.gui.misc.InputSource;
+import org.uva.sea.ql.gui.misc.InputSourceDelegate;
+import org.uva.sea.ql.gui.misc.State;
 import org.uva.sea.ql.parser.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.parser.evaluator.result.Value;
 
@@ -17,8 +17,7 @@ public class ComputedObserver implements Observer, InputSource {
 	private final State state;
 	private Value value;
 	private InputSourceDelegate delegate;
-	
-	
+
 	public ComputedObserver(Computed question, DisplayControl control,
 			State state)
 	{
@@ -34,14 +33,14 @@ public class ComputedObserver implements Observer, InputSource {
 	@Override
 	public void update(Observable o, Object arg) {
 		/* (Re-)Evaluate expression */
-		ExpressionEvaluator eval =
-				new ExpressionEvaluator(getState().getSymbolTable());
-		
+		ExpressionEvaluator eval = new ExpressionEvaluator(getState()
+				.getSymbolTable());
+
 		value = question.getExpression().accept(eval);
-		
+
 		/* signal delegate that value has changed */
 		signalDelegate();
-		
+
 		/* update UI */
 		control.setValue(value);
 	}

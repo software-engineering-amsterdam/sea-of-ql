@@ -1,11 +1,12 @@
 package org.uva.sea.ql.ast.form.types;
 
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.misc.Location;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
 
-public class IntType extends Type {
+public class UndefinedType extends Type implements ASTNode {
 	
-	public IntType(Location location) {
+	public UndefinedType(Location location) {
 		super(location);
 	}
 	
@@ -13,8 +14,8 @@ public class IntType extends Type {
 	public <T> T accept(TypeVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-
+	
 	public String toString() {
-		return "integer";
+		return "undefined";
 	}
 }

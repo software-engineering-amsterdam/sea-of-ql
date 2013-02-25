@@ -12,15 +12,15 @@ public class DisplayControl extends Control {
 	public DisplayControl() {
 		label = new JLabel();
 	}
-	
+
 	public void setValue(Value value) {
 		label.setText(StringProducer.toString(value));
 	}
-	
+
 	protected JLabel getLabel() {
 		return label;
 	}
-	
+
 	public JComponent getWidget() {
 		return label;
 	}
