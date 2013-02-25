@@ -11,10 +11,8 @@ public class Form {
 	private final StatementRenderer renderer;
 
 	public Form( Statement root, ControlFactory factory ) {
-		BindingEnvironment environment = new BindingEnvironment();
-
 		this.factory = factory;
-		this.renderer = new StatementRenderer( factory, environment );
+		this.renderer = new StatementRenderer( factory, new BindingEnvironment() );
 		root.accept( this.renderer );
 	}
 
