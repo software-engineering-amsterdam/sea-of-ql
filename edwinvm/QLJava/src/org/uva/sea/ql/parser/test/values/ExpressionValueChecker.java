@@ -19,10 +19,9 @@ public class ExpressionValueChecker {
 	
 	public void expressionMatchesValue(String input, String result) throws ParseError { assertEquals(computeValue(input), computeValue(result)); }
 	
-	private Value computeValue(String input)           throws ParseError { 
-		Value x = evaluateExpression(input);
-		return evaluateExpression(input); 
-	}
+	public void expressionMatchesValue(Value input, Value result)                     { assertEquals(input, result); }
+	
+	private Value computeValue(String input)           throws ParseError { return evaluateExpression(input); }
 	
 	private Value evaluateExpression(String input)     throws ParseError { return getValueFor(parseExpression(input)); }
 	

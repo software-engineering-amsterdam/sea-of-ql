@@ -3,7 +3,9 @@ package org.uva.sea.ql.ast.types;
 import org.uva.sea.ql.visitor.IParametrizedTypeVisitor;
 import org.uva.sea.ql.visitor.ITypeVisitor;
 
-public class IntegerType extends Type {
+public final class IntegerType extends Type {
+	IntegerType() {
+	}
 
 	@Override
 	public <TParameter, TResult> TResult accept(

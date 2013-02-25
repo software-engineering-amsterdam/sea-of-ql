@@ -29,135 +29,148 @@ import org.uva.sea.ql.ast.expressions.UnaryPlus;
 import org.uva.sea.ql.ast.expressions.Xor;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-class IdentifierFinder implements IExpressionVisitor<Set<Identifier>> {
+class IdentifierFinder implements IExpressionVisitor<Void> {
 
-	Set<Identifier> getDependency(final Expression expression) {
-		return expression.accept(this);
+	private HashSet<Identifier> identifiers;
+
+	Set<Identifier> findDependencies(final Expression expression) {
+		this.identifiers = new HashSet<Identifier>();
+		expression.accept(this);
+		return this.identifiers;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Addition element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final And element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final BooleanLiteral element) {
+	public Void visit(final Addition element) {
+		this.visitBinary(element);
 		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Division element) {
-		return this.visitBinary(element);
+	public Void visit(final And element) {
+		this.visitBinary(element);
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Equals element) {
-		return this.visitBinary(element);
+	public Void visit(final BooleanLiteral element) {
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final GreaterThan element) {
-		return this.visitBinary(element);
+	public Void visit(final Division element) {
+		this.visitBinary(element);
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final GreaterThanOrEquals element) {
-		return this.visitBinary(element);
+	public Void visit(final Equals element) {
+		this.visitBinary(element);
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Identifier element) {
+	public Void visit(final GreaterThan element) {
+		this.visitBinary(element);
+		return null;
+	}
+
+	@Override
+	public Void visit(final GreaterThanOrEquals element) {
+		this.visitBinary(element);
+		return null;
+	}
+
+	@Override
+	public Void visit(final Identifier element) {
 		// Set removes duplicates since Identifier overrides
 		// getHashCode and equals to match on name;
-		final Set<Identifier> result = new HashSet<Identifier>();
-		result.add(element);
-		return result;
-	}
-
-	@Override
-	public Set<Identifier> visit(final IntegerLiteral element) {
+		this.identifiers.add(element);
 		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final LessThan element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final LessThanOrEquals element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final MoneyLiteral element) {
+	public Void visit(final IntegerLiteral element) {
 		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Multiplication element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final NotEquals element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final Or element) {
-		return this.visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(final StringLiteral element) {
+	public Void visit(final LessThan element) {
+		this.visitBinary(element);
 		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Subtraction element) {
-		return this.visitBinary(element);
+	public Void visit(final LessThanOrEquals element) {
+		this.visitBinary(element);
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final UnaryMinus element) {
-		return this.visitUnary(element);
+	public Void visit(final MoneyLiteral element) {
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final UnaryNot element) {
-		return this.visitUnary(element);
+	public Void visit(final Multiplication element) {
+		this.visitBinary(element);
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final UnaryPlus element) {
-		return this.visitUnary(element);
+	public Void visit(final NotEquals element) {
+		this.visitBinary(element);
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(final Xor element) {
-		return this.visitBinary(element);
+	public Void visit(final Or element) {
+		this.visitBinary(element);
+		return null;
 	}
 
-	private Set<Identifier> visitBinary(final Binary element) {
-		final Set<Identifier> left = element.getLeft().accept(this);
-		final Set<Identifier> right = element.getRight().accept(this);
-		if (left == null) {
-			return right;
-		} else if (right == null) {
-			return left;
-		} else {
-			left.addAll(right);
-			return left;
-		}
+	@Override
+	public Void visit(final StringLiteral element) {
+		return null;
 	}
 
-	private Set<Identifier> visitUnary(final Unary element) {
-		return element.getOperand().accept(this);
+	@Override
+	public Void visit(final Subtraction element) {
+		this.visitBinary(element);
+		return null;
+	}
+
+	@Override
+	public Void visit(final UnaryMinus element) {
+		this.visitUnary(element);
+		return null;
+	}
+
+	@Override
+	public Void visit(final UnaryNot element) {
+		this.visitUnary(element);
+		return null;
+	}
+
+	@Override
+	public Void visit(final UnaryPlus element) {
+		this.visitUnary(element);
+		return null;
+	}
+
+	@Override
+	public Void visit(final Xor element) {
+		this.visitBinary(element);
+		return null;
+	}
+
+	private void visitBinary(final Binary element) {
+		element.getLeft().accept(this);
+		element.getRight().accept(this);
+
+	}
+
+	private Void visitUnary(final Unary element) {
+		element.getOperand().accept(this);
+		return null;
 	}
 }

@@ -18,6 +18,6 @@ public class TestDependencies {
 				+ "\"Q5\" e : money\n" + "\"Q6\" f = e > d && c\n" + "}",
 				"test");
 		final IVariableResolver variableResolver = new VariableResolver();
-		variableResolver.getVariables(form);
+		variableResolver.getRuntimeValues(form);
 	}
 }

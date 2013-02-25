@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.IOHelper;
 import org.uva.sea.ql.interpretation.SwingHelper;
 

@@ -55,7 +55,7 @@ conditionBlock returns [ConditionBlock result]
     ;
 
 statementBody returns [StatementBody result]
-	@init  { StatementBody statements = new StatementBody(); }
+	  @init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
     :   '{' (statement=formStatement { statements.add(statement); })+ '}'
     |       (statement=formStatement { statements.add(statement); })+

@@ -19,7 +19,7 @@ import org.uva.sea.ql.ast.exp.Positive;
 import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
@@ -103,9 +103,9 @@ public class ExpressionsTest {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(IntegerValue.class, parser.parse("0").getClass());
-		assertEquals(IntegerValue.class, parser.parse("1223").getClass());
-		assertEquals(IntegerValue.class, parser.parse("234234234").getClass());
+		assertEquals(NumericValue.class, parser.parse("0").getClass());
+		assertEquals(NumericValue.class, parser.parse("1223").getClass());
+		assertEquals(NumericValue.class, parser.parse("234234234").getClass());
 	}
 
 	@Test

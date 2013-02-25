@@ -23,6 +23,21 @@ public class TestOperators {
 	}
 
 	@Test
+	public void testComparisons() {
+		final Value one = new MoneyValue(1.0);
+		final Value two = new IntegerValue(2);
+
+		assertEquals(true, one.lessThan(two).getValue());
+		assertEquals(true, one.lessThanOrEquals(two).getValue());
+		assertEquals(false, one.greaterThan(two).getValue());
+		assertEquals(false, one.greaterThanOrEquals(two).getValue());
+		assertEquals(false, two.lessThan(two).getValue());
+		assertEquals(false, two.greaterThan(two).getValue());
+		assertEquals(true, two.greaterThanOrEquals(two).getValue());
+		assertEquals(true, two.lessThanOrEquals(two).getValue());
+	}
+
+	@Test
 	public void testNumerics() {
 		final Value one = new MoneyValue(1.0);
 		final Value two = new IntegerValue(2);

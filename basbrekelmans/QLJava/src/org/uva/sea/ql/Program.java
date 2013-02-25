@@ -12,53 +12,46 @@ import org.uva.sea.ql.dependencies.IVariableResolver;
 import org.uva.sea.ql.dependencies.VariableResolver;
 import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.JACCParser;
-import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.runtime.ExpressionEvaluator;
-import org.uva.sea.ql.runtime.IExpressionEvaluator;
-import org.uva.sea.ql.runtime.RuntimeEnvironment;
-import org.uva.sea.ql.runtime.Variables;
+import org.uva.sea.ql.parser.QLError;
+import org.uva.sea.ql.runtime.RuntimeValues;
 import org.uva.sea.ql.runtime.ui.IUserInterfaceFactory;
 import org.uva.sea.ql.runtime.ui.IWindow;
 import org.uva.sea.ql.runtime.ui.swing.SwingUserInterfaceFactory;
 import org.uva.sea.ql.typechecking.ITypeChecker;
-import org.uva.sea.ql.typechecking.ITypeResolver;
-import org.uva.sea.ql.typechecking.TypeCheckerFactory;
+import org.uva.sea.ql.typechecking.TypeChecker;
 
 public class Program {
 
 	public static void main(final String[] args) throws IOException {
+		if (args.length == 0) {
+			System.err.println("Please provide a file name as argument.");
+		}
 		final String fileName = args[0];
 		final InputStream fileStream = new FileInputStream(new File(fileName));
 		final IParser parser = new JACCParser();
 		final Form root = (Form) parser.parse(readStream(fileStream), fileName);
-
-		final ITypeChecker checker = TypeCheckerFactory.createTypeChecker();
+		final ITypeChecker checker = new TypeChecker();
 		checker.checkTypes(root);
 
-		for (final ParseError error : checker.getContext().getErrors()) {
-			System.out.println(error.getMessage());
+		for (final QLError error : checker.getErrors()) {
+			System.err.println(error.getMessage());
 		}
-		if (checker.getContext().hasErrors()) {
+		if (checker.hasErrors()) {
 			System.in.read();
 			return;
 		}
 
 		final IVariableResolver varResolver = new VariableResolver();
-		final Variables variables = varResolver.getVariables(root);
-		for (final ParseError error : varResolver.getErrors()) {
-			System.out.println(error.getMessage());
+		final RuntimeValues variables = varResolver.getRuntimeValues(root);
+		for (final QLError error : varResolver.getErrors()) {
+			System.err.println(error.getMessage());
 		}
 		if (varResolver.hasErrors()) {
 			System.in.read();
 			return;
 		}
-		final IExpressionEvaluator evaluator = new ExpressionEvaluator(
-				variables);
-		final RuntimeEnvironment runtime = new RuntimeEnvironment(variables,
-				evaluator);
-		final ITypeResolver resolver = checker.getResolver();
 		final IUserInterfaceFactory var = new SwingUserInterfaceFactory(
-				resolver, variables);
+				checker.getSymbolTable(), variables);
 		final IWindow window = var.create(root);
 		window.show();
 	}

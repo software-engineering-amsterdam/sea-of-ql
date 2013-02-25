@@ -26,16 +26,15 @@ import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.LogPrinter;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ExpressionTypeCheckerTest {
 
 	private ExpressionTypeChecker typeCheck;
 
-	private final Expression intValue = new IntegerValue(0);
+	private final Expression intValue = new NumericValue(0);
 	private final Expression boolValue = new BooleanValue(true);
 	private final Expression stringValue = new StringValue("someString");
 
@@ -83,7 +82,7 @@ public class ExpressionTypeCheckerTest {
 
 	@Test
 	public void testVisitIntegerValue() {
-		typeCheck.visit((IntegerValue) intValue);
+		typeCheck.visit((NumericValue) intValue);
 		assertErrors(0);
 	}
 

@@ -13,28 +13,35 @@ import org.uva.sea.ql.ast.statements.IfElse;
 import org.uva.sea.ql.ast.statements.InputQuestion;
 import org.uva.sea.ql.ast.statements.Statement;
 import org.uva.sea.ql.ast.statements.Statements;
-import org.uva.sea.ql.parser.ParseError;
-import org.uva.sea.ql.runtime.ComputedVariable;
-import org.uva.sea.ql.runtime.Variable;
-import org.uva.sea.ql.runtime.Variables;
+import org.uva.sea.ql.parser.QLError;
+import org.uva.sea.ql.runtime.ComputedRuntimeValue;
+import org.uva.sea.ql.runtime.ExpressionEvaluator;
+import org.uva.sea.ql.runtime.IExpressionEvaluator;
+import org.uva.sea.ql.runtime.RuntimeValue;
+import org.uva.sea.ql.runtime.RuntimeValues;
+import org.uva.sea.ql.runtime.UserInputRuntimeValue;
 import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class VariableResolver implements IVariableResolver, IStatementVisitor {
 
 	private final IdentifierFinder identifierFinder = new IdentifierFinder();
-	private Variables variables;
-	private final List<ParseError> errors = new ArrayList<ParseError>();
+	private RuntimeValues variables;
+	private final List<QLError> errors = new ArrayList<QLError>();
+
+	private IExpressionEvaluator eval;
 
 	private void addVariableForIfStatement(final If element) {
-		final Variable variable = new ComputedVariable();
-		this.resolveDependencies(element.getExpression(), variable);
+		final Expression condition = element.getCondition();
+		final RuntimeValue variable = new ComputedRuntimeValue(this.eval,
+				condition);
+		this.resolveDependencies(condition, variable);
 		this.variables.add(element, variable);
 	}
 
 	private void addVariableFromExpression(final Statement element,
 			final Expression expr, final Identifier identifier) {
 		this.checkDuplicateVariableError(element, identifier);
-		final Variable variable = new ComputedVariable();
+		final RuntimeValue variable = new ComputedRuntimeValue(this.eval, expr);
 		this.resolveDependencies(expr, variable, identifier);
 		this.variables.add(element, variable, identifier);
 	}
@@ -42,20 +49,21 @@ public class VariableResolver implements IVariableResolver, IStatementVisitor {
 	private void checkDuplicateVariableError(
 			final ICodeLocationInformation location, final Identifier identifier) {
 		if (this.variables.containsIdentifier(identifier)) {
-			this.errors.add(new ParseError(location, String.format(
+			this.errors.add(new QLError(location, String.format(
 					"Duplicate variable definition for '%s'",
 					identifier.getName())));
 		}
 	}
 
 	@Override
-	public Iterable<ParseError> getErrors() {
+	public Iterable<QLError> getErrors() {
 		return this.errors;
 	}
 
 	@Override
-	public Variables getVariables(final Form root) {
-		this.variables = new Variables();
+	public RuntimeValues getRuntimeValues(final Form root) {
+		this.variables = new RuntimeValues();
+		this.eval = new ExpressionEvaluator(this.variables);
 		root.getBody().accept(this);
 		return this.variables;
 	}
@@ -66,15 +74,16 @@ public class VariableResolver implements IVariableResolver, IStatementVisitor {
 	}
 
 	private void resolveDependencies(final Expression expr,
-			final Variable variable) {
+			final RuntimeValue variable) {
 		this.resolveDependencies(expr, variable, null);
 	}
 
 	private void resolveDependencies(final Expression expr,
-			final Variable variable, final Identifier identifier) {
+			final RuntimeValue variable, final Identifier identifier) {
 		for (final Identifier dependency : this.identifierFinder
-				.getDependency(expr)) {
-			final Variable dependantVariable = this.variables.get(dependency);
+				.findDependencies(expr)) {
+			final RuntimeValue dependantVariable = this.variables
+					.get(dependency);
 			if (dependantVariable == null) {
 				String name;
 				if (identifier == null) {
@@ -82,18 +91,18 @@ public class VariableResolver implements IVariableResolver, IStatementVisitor {
 				} else {
 					name = "Variable '" + identifier.getName() + "'";
 				}
-				this.errors.add(new ParseError(expr, String.format(
+				this.errors.add(new QLError(expr, String.format(
 						"%s depends on undeclared variable '%s'", name,
 						dependency.getName())));
-			} else {
-				dependantVariable.addObserver(variable);
+			} else if (variable.isComputed()) {
+				dependantVariable.addObserver((ComputedRuntimeValue) variable);
 			}
 		}
 	}
 
 	@Override
 	public void visit(final ComputedQuestion element) {
-		this.addVariableFromExpression(element, element.getExpression(),
+		this.addVariableFromExpression(element, element.getComputation(),
 				element.getIdentifier());
 	}
 
@@ -114,7 +123,7 @@ public class VariableResolver implements IVariableResolver, IStatementVisitor {
 	public void visit(final InputQuestion element) {
 		final Identifier identifier = element.getIdentifier();
 		this.checkDuplicateVariableError(element, identifier);
-		final Variable variable = new Variable();
+		final RuntimeValue variable = new UserInputRuntimeValue();
 		this.variables.add(element, variable, identifier);
 	}
 

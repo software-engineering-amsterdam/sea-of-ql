@@ -30,8 +30,7 @@ import org.uva.sea.ql.ast.expressions.Xor;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-/* internal */class TypeResolver implements IExpressionVisitor<Type>,
-		ITypeResolver {
+public class TypeResolver implements IExpressionVisitor<Type>, ITypeResolver {
 
 	private final TypeContext context;
 

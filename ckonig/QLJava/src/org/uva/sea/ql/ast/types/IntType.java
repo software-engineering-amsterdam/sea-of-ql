@@ -13,5 +13,9 @@ public class IntType extends AbstractMathType {
         v.visit(this);
     }
 
+    @Override
+    public final boolean equals(Object o){
+        return o instanceof AbstractMathType;
+    }
 
 }
