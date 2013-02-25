@@ -42,7 +42,7 @@ public class StringLiteral extends Expr {
     }
 
     @Override
-    public void accept(ExpressionVisitor visitor) throws QLException {
+    public final void accept(ExpressionVisitor visitor) throws QLException {
          visitor.visit(this); 
     }
 }

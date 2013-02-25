@@ -9,31 +9,21 @@ import org.uva.sea.ql.ast.elements.Form;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.TreeNode;
-import org.uva.sea.ql.ast.types.AbstractMathType;
-import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.common.identfinder.IdentFinder;
 import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 
-public class ValidationVisitor implements ElementVisitor {
-    private Registry registry;
-    private boolean throwExceptions;
+public class ValidationElementVisitor implements ElementVisitor {
+    private ValidationRegistry registry;
     private List<String> errors;
 
-    public ValidationVisitor() {
-        this.registry = new Registry();
+    public ValidationElementVisitor() {
+        this.registry = new ValidationRegistry();
         this.errors = new ArrayList<String>();
-        this.throwExceptions = true;
-    }
-
-    public ValidationVisitor(boolean throwErrors) {
-        this();
-        this.throwExceptions = throwErrors;
     }
 
     public final List<String> getErrors() {
@@ -61,7 +51,7 @@ public class ValidationVisitor implements ElementVisitor {
         this.checkDuplicateIdentName(question);
         if (question.hasAutoValue()) {
             this.checkSelfReference(question);
-            this.checkValidCondition(question);
+            this.checkConditionType(question);
         }
 
         this.registry.addQuestion(question);
@@ -70,11 +60,8 @@ public class ValidationVisitor implements ElementVisitor {
     @Override
     public final void visit(IfStatement ifStatement) throws QLException {
         final Expr condition = ifStatement.getCondition();
-        final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
-                condition);
-        if (r.equals(BooleanType.class)) {
-            this.visit(ifStatement.getCondition());
-        } else {
+        final Class<?> r = this.getReturnTypes(condition);
+        if (!r.equals(BooleanType.class)) {
             throwInvalidConditionError(ifStatement.getCondition());
         }
 
@@ -84,61 +71,19 @@ public class ValidationVisitor implements ElementVisitor {
 
     private void throwInvalidConditionError(Expr e) throws AstValidationError {
         final String err = "not a valid condition: " + e.getClass().toString();
-        if (this.throwExceptions) {
-            throw new AstValidationError(err);
-        } else {
-            this.errors.add(err);
-        }
+        this.errors.add(err);
     }
 
     private void visit(Expr operator) throws QLException {
-        final AcceptFinder f = new AcceptFinder();
-        operator.accept(f);
-        if (f.getResult().equals(BooleanType.class)) {
-            if (!(bothhaveEqualReturnType(operator, BooleanType.class))) {
-                throwError(operator, "boolean");
-            }
-        }
-
-        if (f.getResult().equals(AbstractMathType.class)) {
-            if (!(bothhaveEqualReturnType(operator, AbstractMathType.class))) {
-                throwError(operator, "math ( " + f.getResult().toString()
-                        + ") ");
-            }
-        }
-
-        if (f.getResult().equals(AbstractType.class)) {
-            if (!((bothhaveEqualReturnType(operator, AbstractMathType.class)) || (bothhaveEqualReturnType(
-                    operator, BooleanType.class)))) {
-                throwError(operator, "either math OR bool");
-            }
-        }
-    }
-
-    private void throwError(Expr r, String msg) throws AstValidationError {
-        final BinaryExpr b = (BinaryExpr) r;
-        final String err = "BOTH childs of " + r.getClass() + " must return "
-                + msg + " operands: " + b.getLeft().getClass() + ", "
-                + b.getRight().getClass();
-        if (this.throwExceptions) {
-            throw new AstValidationError(err);
-        } else {
-            this.errors.add(err);
-        }
-    }
-
-    private boolean bothhaveEqualReturnType(Expr r, Class<?> type)
-            throws QLException {
-        final BinaryExpr b = (BinaryExpr) r;
-        final Class<?> left = this.getReturnTypes(b.getLeft());
-        final Class<?> right = this.getReturnTypes(b.getRight());
-        System.out.println(left + " - " + right);
-        return left.equals(type) && right.equals(type);
+        ValidationExpressionVisitor visitor = new ValidationExpressionVisitor(
+                this.registry);
+        operator.accept(visitor);
+        this.errors.addAll(visitor.getErrors());
     }
 
     private Class<?> getReturnTypes(Expr e) throws QLException {
         this.visit(e);
-        return ReturnFinder.getResult(this.registry.getQuestions(), e);
+        return this.registry.lookupReturnType(e);
     }
 
     private void checkDuplicateIdentName(Question question)
@@ -147,21 +92,14 @@ public class ValidationVisitor implements ElementVisitor {
             if (q.getIdentName().equals(question.getIdentName())) {
                 final String err = "duplicate question Identifier:"
                         + question.getIdentName();
-                if (this.throwExceptions) {
-                    throw new AstValidationError(err);
-                } else {
-                    this.errors.add(err);
-                }
+                this.errors.add(err);
             }
         }
     }
 
-    private void checkValidCondition(Question question) throws QLException {
-        this.visit(question.getExpr());
-        final Class<?> r = ReturnFinder.getResult(this.registry.getQuestions(),
-                question.getExpr());
-        final Class<?> typeResult = ReturnFinder.getResult(
-                this.registry.getQuestions(), question.getType());
+    private void checkConditionType(Question question) throws QLException {
+        final Class<?> r = this.getReturnTypes(question.getExpr());
+        final Class<?> typeResult = this.registry.lookupReturnType(question.getType());
         if (!typeResult.equals(r)) {
             throw new AstValidationError(
                     "question condition invalid: expected "

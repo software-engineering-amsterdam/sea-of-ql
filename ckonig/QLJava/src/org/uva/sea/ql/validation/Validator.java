@@ -7,16 +7,9 @@ import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.parser.ParseError;
 
 public class Validator {
-    private boolean throwExceptions;
     private List<String> errors;
 
     public Validator() {
-        this.throwExceptions = false;
-    }
-
-    public Validator(boolean throwErrors) {
-        this();
-        this.throwExceptions = throwErrors;
     }
 
     public final List<String> getErrors() {
@@ -31,8 +24,7 @@ public class Validator {
         try {
             if (e != null) {
                 final Form f = (Form) e;
-                final ValidationVisitor validator = new ValidationVisitor(
-                        this.throwExceptions);
+                final ValidationElementVisitor validator = new ValidationElementVisitor();
                 f.accept(validator);
                 this.errors = validator.getErrors();
             } else {

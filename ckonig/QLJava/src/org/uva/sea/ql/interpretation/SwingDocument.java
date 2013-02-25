@@ -43,7 +43,7 @@ public class SwingDocument implements QLDocument {
     public final void appendQuestion(Question question) {
         final QuestionPanel p = new QuestionPanel(question);
         this.panelStack.peek().add(p);
-        this.registry.addQuestion(p);
+        this.registry.addQuestionPanel(p);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SwingDocument implements QLDocument {
         p.setVisible(false);
         this.panelStack.peek().add(p);
         this.panelStack.push(p);
-        this.registry.addIfStatement(p);
+        this.registry.addIfStatementPanel(p);
 
     }
 
@@ -63,7 +63,7 @@ public class SwingDocument implements QLDocument {
 
     @Override
     public final void create() {        
-        for (QuestionPanel questionPanel : this.registry.getQuestions()) {
+        for (QuestionPanel questionPanel : this.registry.getQuestionPanels()) {
             ListenerService.createListeners(questionPanel, this.registry);
         }
     }

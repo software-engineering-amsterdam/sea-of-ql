@@ -27,7 +27,7 @@ public final class ReturnFinder {
         return this.visitor.getResult();
     }
 
-    public static Class<?> getResult(List<Question> q, AbstractType t) {
+    public static Class<?> getResult2(List<Question> q, AbstractType t) {
         final ReturnFinder finder = new ReturnFinder(q, t);
         return finder.getResult();
     }

@@ -6,8 +6,8 @@ import org.uva.sea.ql.interpretation.SwingRegistry;
 
 public class Evaluator {
 
-    private AbstractEvaluationVisitor mathEvaluator;
-    private AbstractEvaluationVisitor boolEvaluator;
+    private final AbstractEvaluationVisitor mathEvaluator;
+    private final AbstractEvaluationVisitor boolEvaluator;
 
     public Evaluator(SwingRegistry reg, boolean replaceEmptyWithZero) {
         this.mathEvaluator = new MathEvaluationVisitor(reg, this,
