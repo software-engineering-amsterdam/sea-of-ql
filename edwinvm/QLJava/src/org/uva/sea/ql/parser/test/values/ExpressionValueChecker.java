@@ -19,6 +19,10 @@ public class ExpressionValueChecker {
 	
 	public void expressionMatchesValue(String input, String result) throws ParseError { assertEquals(computeValue(input), computeValue(result)); }
 	
+	public void expressionMatchesValue(Value leftHandSide, Value rightHandSide, Value result) { 
+		assertEquals(leftHandSide.add(rightHandSide), result); 
+	}
+	
 	private Value computeValue(String input)           throws ParseError { return evaluateExpression(input); }
 	
 	private Value evaluateExpression(String input)     throws ParseError { return getValueFor(parseExpression(input)); }

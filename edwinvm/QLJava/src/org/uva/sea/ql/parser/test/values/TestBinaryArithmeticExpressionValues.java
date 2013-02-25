@@ -1,6 +1,7 @@
 package org.uva.sea.ql.parser.test.values;
 
 import org.junit.Test;
+import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestBinaryArithmeticExpressionValues extends ExpressionValueChecker {
@@ -9,6 +10,7 @@ public class TestBinaryArithmeticExpressionValues extends ExpressionValueChecker
 		expressionMatchesValue("1 + 1", "2");
 		expressionMatchesValue("1 + (2 + 3)", "6");
 		expressionMatchesValue("2.0 + 3.0", "5.0");
+		expressionMatchesValue(new Str("a"), new Str("b"), new Str("a b"));
 	}
 	
 	@Test

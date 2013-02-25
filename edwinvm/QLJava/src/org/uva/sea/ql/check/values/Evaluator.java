@@ -50,6 +50,17 @@ public class Evaluator implements Visitor<Value> {
 	@Override
 	public Value visit(Multiplication expression) { return getLeftHandSide(expression).mul(getRightHandSide(expression)); }
 	@Override
+	public Value visit(Bool value)                { return value; }
+	@Override
+	public Value visit(Int value)                 { return value; }
+	@Override
+	public Value visit(Money value)               { return value; }
+	@Override
+	public Value visit(Str value)                 { return value; }
+	@Override
+	public Value visit(NullValue astNode)         { return new NullValue(); }
+	
+	@Override
 	public Value visit(Identifier indentifier) {
 		if (_valueEnvironment.contains(indentifier)) {
 			return _valueEnvironment.get(indentifier);
@@ -78,29 +89,6 @@ public class Evaluator implements Visitor<Value> {
 	public Value visit(NegationalExpression expression)             { return new NullValue(); }
 	@Override
 	public Value visit(PositiveExpression expression)               { return new NullValue(); }
-	
-	@Override
-	public Value visit(Bool value) { 
-		return value; 
-	}
-
-	@Override
-	public Value visit(Int value) {
-		return value;
-	}
-
-	@Override
-	public Value visit(Money value) {
-		return value;
-	}
-
-	@Override
-	public Value visit(Str value) {
-		return value;
-	}
-	
-	@Override
-	public Value visit(NullValue astNode) { return new NullValue(); }
 	
 	private Value getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide().accept(this); }
 	private Value getRightHandSide(BinaryExpression expression) { return expression.getRightHandSide().accept(this); }
