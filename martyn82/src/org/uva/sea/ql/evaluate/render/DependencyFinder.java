@@ -1,7 +1,5 @@
 package org.uva.sea.ql.evaluate.render;
 
-import java.util.Set;
-
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.ast.expression.binary.BinaryExpression;
@@ -29,14 +27,14 @@ import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 class DependencyFinder implements ExpressionVisitor<Void> {
-	private final Set<IdentifierExpression> dependencies;
+	private final DependencySet dependencies;
 
-	public static void findDependencies( Expression expression, Set<IdentifierExpression> dependencies ) {
+	public static void findDependencies( Expression expression, DependencySet dependencies ) {
 		DependencyFinder finder = new DependencyFinder( dependencies );
 		expression.accept( finder );
 	}
 
-	private DependencyFinder( Set<IdentifierExpression> dependencies ) {
+	private DependencyFinder( DependencySet dependencies ) {
 		this.dependencies = dependencies;
 	}
 

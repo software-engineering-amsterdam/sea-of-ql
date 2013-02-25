@@ -1,7 +1,5 @@
 package org.uva.sea.ql.evaluate.render;
 
-import java.util.Map;
-
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlFactory;
@@ -31,7 +29,7 @@ public class Form {
 		this.getFormPanel().addControl( button );
 	}
 
-	public Map<String, Object> getValues() {
+	public ValueMap getValues() {
 		return this.renderer.getValues();
 	}
 
