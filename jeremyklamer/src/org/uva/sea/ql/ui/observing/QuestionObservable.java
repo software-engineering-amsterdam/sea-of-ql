@@ -22,7 +22,6 @@ public class QuestionObservable extends Observable implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//TODO remove double dots
 		env.putValue(question.getName(), component.getValue());
 		setChanged();
 		notifyObservers();			

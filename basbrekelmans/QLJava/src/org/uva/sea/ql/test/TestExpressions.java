@@ -19,12 +19,11 @@ import org.uva.sea.ql.parser.ParseError;
 public class TestExpressions {
 
 	private IParser parser;
-	
+
 	public TestExpressions() {
 		this.parser = new JACCParser();
 	}
 
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Addition.class);
@@ -37,7 +36,7 @@ public class TestExpressions {
 		assertEquals(parser.parse("a * b + c").getClass(), Addition.class);
 		assertEquals(parser.parse("1+1").getClass(), Addition.class);
 	}
-	
+
 	@Test
 	public void testSubs() throws ParseError {
 		assertEquals(parser.parse("a - b").getClass(), Subtraction.class);
@@ -50,41 +49,49 @@ public class TestExpressions {
 		assertEquals(parser.parse("a * b - c").getClass(), Subtraction.class);
 		assertEquals(parser.parse("1-1").getClass(), Subtraction.class);
 	}
-	
+
 	@Test
 	public void testNumbers() throws ParseError {
 		assertEquals(parser.parse("3.14E10").getClass(), MoneyLiteral.class);
 		assertEquals(parser.parse("3.44E-10").getClass(), MoneyLiteral.class);
 		assertEquals(parser.parse("5.14E+20").getClass(), MoneyLiteral.class);
-		assertEquals(parser.parse("3511111111111111111111111111111111111111111111111111112222211111111111111111111111111111111111111111").getClass(), MoneyLiteral.class);
+		assertEquals(
+				parser.parse(
+						"3511111111111111111111111111111111111111111111111111112222211111111111111111111111111111111111111111")
+						.getClass(), MoneyLiteral.class);
 		assertEquals(parser.parse("5.0").getClass(), MoneyLiteral.class);
-		assertEquals(parser.parse(new Long(Long.MAX_VALUE).toString() + "1").getClass(), MoneyLiteral.class);
+		assertEquals(parser.parse(new Long(Long.MAX_VALUE).toString() + "1")
+				.getClass(), MoneyLiteral.class);
 		assertEquals(parser.parse("5").getClass(), IntegerLiteral.class);
-		assertEquals(parser.parse("4123213").getClass(), IntegerLiteral.class);		
+		assertEquals(parser.parse("4123213").getClass(), IntegerLiteral.class);
 	}
-	
+
 	@Test
 	public void testMuls() throws ParseError {
 		assertEquals(parser.parse("a * b").getClass(), Multiplication.class);
 		assertEquals(parser.parse("a * b * c").getClass(), Multiplication.class);
-		assertEquals(parser.parse("a * (b * c)").getClass(), Multiplication.class);
-		assertEquals(parser.parse("(a * b) * c").getClass(), Multiplication.class);
+		assertEquals(parser.parse("a * (b * c)").getClass(),
+				Multiplication.class);
+		assertEquals(parser.parse("(a * b) * c").getClass(),
+				Multiplication.class);
 		assertEquals(parser.parse("(a * b)").getClass(), Multiplication.class);
-		assertEquals(parser.parse("(a + b) * c").getClass(), Multiplication.class);
-		assertEquals(parser.parse("a * (b + c)").getClass(), Multiplication.class);
+		assertEquals(parser.parse("(a + b) * c").getClass(),
+				Multiplication.class);
+		assertEquals(parser.parse("a * (b + c)").getClass(),
+				Multiplication.class);
 	}
-	
+
 	@Test
 	public void testRels() throws ParseError {
 		assertEquals(parser.parse("a < b").getClass(), LessThan.class);
 		assertEquals(parser.parse("a < b + c").getClass(), LessThan.class);
 		assertEquals(parser.parse("a < (b * c)").getClass(), LessThan.class);
 		assertEquals(parser.parse("(a * b) < c").getClass(), LessThan.class);
-		assertEquals(parser.parse("(a <= b)").getClass(), LessThanOrEquals.class);
+		assertEquals(parser.parse("(a <= b)").getClass(),
+				LessThanOrEquals.class);
 		assertEquals(parser.parse("a + b > c").getClass(), GreaterThan.class);
 		assertEquals(parser.parse("a > b + c").getClass(), GreaterThan.class);
 	}
-
 
 	@Test
 	public void testIds() throws ParseError {
@@ -107,5 +114,5 @@ public class TestExpressions {
 		assertEquals(parser.parse("1223").getClass(), IntegerLiteral.class);
 		assertEquals(parser.parse("234234234").getClass(), IntegerLiteral.class);
 	}
-	
+
 }

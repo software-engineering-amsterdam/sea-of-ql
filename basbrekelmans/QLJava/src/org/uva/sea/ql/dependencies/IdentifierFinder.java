@@ -3,7 +3,6 @@ package org.uva.sea.ql.dependencies;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.uva.sea.ql.ast.IExpressionVisitor;
 import org.uva.sea.ql.ast.expressions.Addition;
 import org.uva.sea.ql.ast.expressions.And;
 import org.uva.sea.ql.ast.expressions.Binary;
@@ -28,125 +27,126 @@ import org.uva.sea.ql.ast.expressions.UnaryMinus;
 import org.uva.sea.ql.ast.expressions.UnaryNot;
 import org.uva.sea.ql.ast.expressions.UnaryPlus;
 import org.uva.sea.ql.ast.expressions.Xor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class IdentifierFinder implements IExpressionVisitor<Set<Identifier>> {
+class IdentifierFinder implements IExpressionVisitor<Set<Identifier>> {
 
-	@Override
-	public Set<Identifier> visit(Addition element) {
-		return visitBinary(element);
+	Set<Identifier> getDependency(final Expression expression) {
+		return expression.accept(this);
 	}
 
 	@Override
-	public Set<Identifier> visit(Division element) {
-		return visitBinary(element);
+	public Set<Identifier> visit(final Addition element) {
+		return this.visitBinary(element);
 	}
 
 	@Override
-	public Set<Identifier> visit(Multiplication element) {
-		return visitBinary(element);
+	public Set<Identifier> visit(final And element) {
+		return this.visitBinary(element);
 	}
 
 	@Override
-	public Set<Identifier> visit(Subtraction element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(Equals element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(GreaterThan element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(GreaterThanOrEquals element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(LessThan element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(LessThanOrEquals element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(NotEquals element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(And element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(Or element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(Xor element) {
-		return visitBinary(element);
-	}
-
-	@Override
-	public Set<Identifier> visit(BooleanLiteral element) {
+	public Set<Identifier> visit(final BooleanLiteral element) {
 		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(IntegerLiteral element) {
-		return null;
+	public Set<Identifier> visit(final Division element) {
+		return this.visitBinary(element);
 	}
 
 	@Override
-	public Set<Identifier> visit(MoneyLiteral element) {
-		return null;
+	public Set<Identifier> visit(final Equals element) {
+		return this.visitBinary(element);
 	}
 
 	@Override
-	public Set<Identifier> visit(StringLiteral element) {
-		return null;
+	public Set<Identifier> visit(final GreaterThan element) {
+		return this.visitBinary(element);
 	}
 
 	@Override
-	public Set<Identifier> visit(Identifier element) {
+	public Set<Identifier> visit(final GreaterThanOrEquals element) {
+		return this.visitBinary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final Identifier element) {
 		// Set removes duplicates since Identifier overrides
 		// getHashCode and equals to match on name;
-		Set<Identifier> result = new HashSet<Identifier>();
+		final Set<Identifier> result = new HashSet<Identifier>();
 		result.add(element);
 		return result;
 	}
 
 	@Override
-	public Set<Identifier> visit(UnaryNot element) {
-		return visitUnary(element);
-	}
-	
-	@Override
-	public Set<Identifier> visit(UnaryMinus element) {
-		return visitUnary(element);
+	public Set<Identifier> visit(final IntegerLiteral element) {
+		return null;
 	}
 
 	@Override
-	public Set<Identifier> visit(UnaryPlus element) {
-		return visitUnary(element);
+	public Set<Identifier> visit(final LessThan element) {
+		return this.visitBinary(element);
 	}
-	
-	private Set<Identifier> visitUnary(Unary element) {
-		return element.getOperand().accept(this);
+
+	@Override
+	public Set<Identifier> visit(final LessThanOrEquals element) {
+		return this.visitBinary(element);
 	}
-	
-	private Set<Identifier> visitBinary(Binary element) {
-		Set<Identifier> left = element.getLeft().accept(this);
-		Set<Identifier> right = element.getRight().accept(this);
+
+	@Override
+	public Set<Identifier> visit(final MoneyLiteral element) {
+		return null;
+	}
+
+	@Override
+	public Set<Identifier> visit(final Multiplication element) {
+		return this.visitBinary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final NotEquals element) {
+		return this.visitBinary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final Or element) {
+		return this.visitBinary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final StringLiteral element) {
+		return null;
+	}
+
+	@Override
+	public Set<Identifier> visit(final Subtraction element) {
+		return this.visitBinary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final UnaryMinus element) {
+		return this.visitUnary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final UnaryNot element) {
+		return this.visitUnary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final UnaryPlus element) {
+		return this.visitUnary(element);
+	}
+
+	@Override
+	public Set<Identifier> visit(final Xor element) {
+		return this.visitBinary(element);
+	}
+
+	private Set<Identifier> visitBinary(final Binary element) {
+		final Set<Identifier> left = element.getLeft().accept(this);
+		final Set<Identifier> right = element.getRight().accept(this);
 		if (left == null) {
 			return right;
 		} else if (right == null) {
@@ -155,9 +155,9 @@ public class IdentifierFinder implements IExpressionVisitor<Set<Identifier>> {
 			left.addAll(right);
 			return left;
 		}
- 	}
+	}
 
-	public Set<Identifier> getDependency(Expression expression) {
-		return expression.accept(this);
+	private Set<Identifier> visitUnary(final Unary element) {
+		return element.getOperand().accept(this);
 	}
 }
