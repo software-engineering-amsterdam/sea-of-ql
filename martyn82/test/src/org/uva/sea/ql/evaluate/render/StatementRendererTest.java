@@ -26,10 +26,10 @@ import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
-public class RendererTest extends EvaluatorTest implements StatementTest {
+public class StatementRendererTest extends EvaluatorTest implements StatementTest {
 	private final FormBuilder builder;
 
-	public RendererTest() {
+	public StatementRendererTest() {
 		super( new BindingEnvironment() );
 		this.builder = new FormBuilder( new SwingControlFactory(), this.environment );
 	}
