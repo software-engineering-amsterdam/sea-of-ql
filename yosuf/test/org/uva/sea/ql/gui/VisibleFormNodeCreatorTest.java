@@ -10,25 +10,25 @@ import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.lead.Model;
 
 public class VisibleFormNodeCreatorTest {
 
 	private Model model;
-	VisibleFormNodeCreator creator;
+	QLNodeCreator creator;
 
 	@Before
 	public void setUp() {
 		model = new Model();
-		creator = new VisibleFormNodeCreator(model);
+		creator = new QLNodeCreator(model);
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void testVisitIfStatementExpressionNotRegistred() {
 
 		Computed computed = new Computed(new IntegerType(), new Identifier(
-				"cash"), new IntegerValue(900));
+				"cash"), new NumericValue(900));
 
 		IfStatement ifStm = new IfStatement(new BooleanValue(true),
 				new CompoundStatement(computed));
