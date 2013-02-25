@@ -13,13 +13,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.uva.sea.ql.evaluate.render.ValueMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class XmlExporter extends Exporter {
-	public XmlExporter( String formName, Map<String, Object> bindings ) {
-		super( formName, bindings );
+	public XmlExporter( String formName, ValueMap values ) {
+		super( formName, values );
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class XmlExporter extends Exporter {
 	}
 
 	private void addQuestions( Document document, Node parent ) {
-		Map<String, Object> values = this.getValues();
+		ValueMap values = this.getValues();
 
 		for ( Map.Entry<String, Object> each : values.entrySet() ) {
 			this.addQuestion( document, parent, each.getKey(), each.getValue() );

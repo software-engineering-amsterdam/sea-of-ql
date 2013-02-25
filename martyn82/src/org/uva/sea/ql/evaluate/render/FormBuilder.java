@@ -1,8 +1,6 @@
 package org.uva.sea.ql.evaluate.render;
 
-import java.util.HashSet;
 import java.util.Observer;
-import java.util.Set;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
@@ -91,7 +89,7 @@ class FormBuilder implements TypeVisitor<InputControl> {
 	}
 
 	public void registerDependencies( Observer observer, Expression expression ) {
-		Set<IdentifierExpression> dependencies = new HashSet<IdentifierExpression>();
+		DependencySet dependencies = new DependencySet();
 		DependencyFinder.findDependencies( expression, dependencies );
 
 		for ( IdentifierExpression identifier : dependencies ) {
