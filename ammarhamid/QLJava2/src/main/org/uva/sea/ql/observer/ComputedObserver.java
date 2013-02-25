@@ -1,9 +1,9 @@
-package org.uva.sea.ql.visitor.observer;
+package org.uva.sea.ql.observer;
 
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.widget.CustomWidget;
+import org.uva.sea.ql.widget.CustomWidget;
 
 import java.util.Map;
 import java.util.Observable;

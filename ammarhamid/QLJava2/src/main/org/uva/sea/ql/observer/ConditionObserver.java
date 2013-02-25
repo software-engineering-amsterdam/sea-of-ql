@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.observer;
+package org.uva.sea.ql.observer;
 
 import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.ast.statement.impl.IfNode;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.impl;
+package org.uva.sea.ql.visitor.render;
 
 import org.uva.sea.ql.ast.expression.impl.IdentifierNode;
 import org.uva.sea.ql.type.impl.BooleanType;
@@ -11,9 +11,9 @@ import org.uva.sea.ql.value.impl.MoneyValue;
 import org.uva.sea.ql.value.impl.StringValue;
 import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.TypeVisitor;
-import org.uva.sea.ql.visitor.widget.CustomWidget;
-import org.uva.sea.ql.visitor.widget.impl.CustomJCheckBox;
-import org.uva.sea.ql.visitor.widget.impl.CustomJTextField;
+import org.uva.sea.ql.widget.CustomWidget;
+import org.uva.sea.ql.widget.impl.CustomJCheckBox;
+import org.uva.sea.ql.widget.impl.CustomJTextField;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;

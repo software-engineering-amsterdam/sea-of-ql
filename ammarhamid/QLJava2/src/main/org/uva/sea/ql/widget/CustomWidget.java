@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.widget;
+package org.uva.sea.ql.widget;
 
 public interface CustomWidget
 {
