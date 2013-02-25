@@ -42,13 +42,38 @@ public class Evaluator implements Visitor<Value> {
 	}
 
 	@Override
-	public Value visit(Addition expression)       { return getLeftHandSide(expression).add(getRightHandSide(expression)); }
+	public Value visit(Addition expression)                         { return getLeftHandSide(expression).add(getRightHandSide(expression)); }
 	@Override
-	public Value visit(Division expression)       { return getLeftHandSide(expression).div(getRightHandSide(expression)); }
+	public Value visit(Division expression)                         { return getLeftHandSide(expression).div(getRightHandSide(expression)); }
 	@Override
-	public Value visit(Subtraction expression)    { return getLeftHandSide(expression).sub(getRightHandSide(expression)); }
+	public Value visit(Subtraction expression)                      { return getLeftHandSide(expression).sub(getRightHandSide(expression)); }
 	@Override
-	public Value visit(Multiplication expression) { return getLeftHandSide(expression).mul(getRightHandSide(expression)); }
+	public Value visit(Multiplication expression)                   { return getLeftHandSide(expression).mul(getRightHandSide(expression)); }
+	
+	@Override
+	public Value visit(LogicallyEquivalentExpression expression)    { return getLeftHandSide(expression).and(getRightHandSide(expression)); }
+	@Override
+	public Value visit(LogicallyNotEquivalentExpression expression) { return getLeftHandSide(expression).or(getRightHandSide(expression));  }
+	
+	@Override
+	public Value visit(EqualToExpression expression)                { return getLeftHandSide(expression).equalsValue(getRightHandSide(expression)); }
+	@Override
+	public Value visit(GreaterThanOrEqualToExpression expression)   { return getLeftHandSide(expression).greaterThanOrEqualTo(getRightHandSide(expression)); }
+	@Override
+	public Value visit(GreaterThanExpression expression)            { return new NullValue(); }
+	@Override
+	public Value visit(LessThanOrEqualToExpression expression)      { return new NullValue(); }
+	@Override
+	public Value visit(LessThanExpression expression)               { return new NullValue(); }
+	@Override
+	public Value visit(NotEqualToExpression expression)             { return new NullValue(); }
+	@Override
+	public Value visit(NegativeExpression expression)               { return new NullValue(); }
+	@Override
+	public Value visit(NegationalExpression expression)             { return new NullValue(); }
+	@Override
+	public Value visit(PositiveExpression expression)               { return new NullValue(); }
+	
 	@Override
 	public Value visit(Bool value)                { return value; }
 	@Override
@@ -67,28 +92,6 @@ public class Evaluator implements Visitor<Value> {
 		}
 		return new NullValue();
 	}
-	@Override
-	public Value visit(LogicallyEquivalentExpression expression)    { return getLeftHandSide(expression).and(getRightHandSide(expression)); }
-	@Override
-	public Value visit(LogicallyNotEquivalentExpression expression) { return getLeftHandSide(expression).or(getRightHandSide(expression)); }
-	@Override
-	public Value visit(EqualToExpression expression)                { return new NullValue(); }
-	@Override
-	public Value visit(GreaterThanOrEqualToExpression expression)   { return new NullValue(); }
-	@Override
-	public Value visit(GreaterThanExpression expression)            { return new NullValue(); }
-	@Override
-	public Value visit(LessThanOrEqualToExpression expression)      { return new NullValue(); }
-	@Override
-	public Value visit(LessThanExpression expression)               { return new NullValue(); }
-	@Override
-	public Value visit(NotEqualToExpression expression)             { return new NullValue(); }
-	@Override
-	public Value visit(NegativeExpression expression)               { return new NullValue(); }
-	@Override
-	public Value visit(NegationalExpression expression)             { return new NullValue(); }
-	@Override
-	public Value visit(PositiveExpression expression)               { return new NullValue(); }
 	
 	private Value getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide().accept(this); }
 	private Value getRightHandSide(BinaryExpression expression) { return expression.getRightHandSide().accept(this); }

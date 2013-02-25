@@ -34,7 +34,7 @@ class StatementRenderer implements StatementVisitor<Void> {
 		return renderer.builder.getResult();
 	}
 
-	protected ValueMap getValues() {
+	public ValueMap getValues() {
 		return this.environment.getValueMap();
 	}
 

@@ -14,6 +14,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.uva.sea.ql.evaluate.render.ValueMap;
+import org.uva.sea.ql.value.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -54,16 +55,16 @@ public class XmlExporter extends Exporter {
 	private void addQuestions( Document document, Node parent ) {
 		ValueMap values = this.getValues();
 
-		for ( Map.Entry<String, Object> each : values.entrySet() ) {
+		for ( Map.Entry<String, Value> each : values.entrySet() ) {
 			this.addQuestion( document, parent, each.getKey(), each.getValue() );
 		}
 	}
 
-	private void addQuestion( Document document, Node parent, String name, Object value ) {
+	private void addQuestion( Document document, Node parent, String name, Value value ) {
 		Element question = document.createElement( "question" );
 
 		question.setAttribute( "label", name );
-		question.setTextContent( value.toString() );
+		question.setTextContent( value.getValue().toString() );
 
 		parent.appendChild( question );
 	}
