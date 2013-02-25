@@ -8,6 +8,7 @@ import javax.swing.filechooser.FileFilter;
 
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.evaluate.Error;
+import org.uva.sea.ql.evaluate.ErrorList;
 import org.uva.sea.ql.evaluate.render.Form;
 import org.uva.sea.ql.evaluate.typecheck.TypeChecker;
 import org.uva.sea.ql.export.Exporter;
@@ -150,7 +151,9 @@ public class Program {
 		checker.check( root );
 
 		if ( checker.hasErrors() ) {
-			for ( Error each : checker.getErrors() ) {
+			ErrorList errors = checker.getErrorList();
+
+			for ( Error each : errors ) {
 				System.err.println( each.toString() );
 			}
 

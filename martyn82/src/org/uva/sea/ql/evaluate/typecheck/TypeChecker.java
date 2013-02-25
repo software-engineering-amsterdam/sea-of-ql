@@ -1,16 +1,16 @@
 package org.uva.sea.ql.evaluate.typecheck;
 
-import java.util.List;
-
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.evaluate.Error;
+import org.uva.sea.ql.evaluate.ErrorList;
 
 public class TypeChecker {
 	private final TypeEnvironment environment;
 	private final StatementTypeChecker typeChecker;
+	private final ErrorList errors;
 
 	public TypeChecker() {
 		this.environment = new TypeEnvironment();
+		this.errors = this.environment.getErrorList();
 		this.typeChecker = new StatementTypeChecker( this.environment );
 	}
 
@@ -19,10 +19,10 @@ public class TypeChecker {
 	}
 
 	public boolean hasErrors() {
-		return this.environment.getErrors().size() > 0;
+		return this.errors.size() > 0;
 	}
 
-	public List<Error> getErrors() {
-		return this.environment.getErrors();
+	public ErrorList getErrorList() {
+		return this.errors;
 	}
 }

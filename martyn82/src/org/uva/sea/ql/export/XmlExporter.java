@@ -46,16 +46,14 @@ public class XmlExporter extends Exporter {
 		Document document = builder.newDocument();
 		Element root = document.createElement( "form" );
 
-		root.setAttribute( "name", this.getName() );
+		root.setAttribute( "name", this.formName );
 		document.appendChild( root );
 
 		return document;
 	}
 
 	private void addQuestions( Document document, Node parent ) {
-		ValueMap values = this.getValues();
-
-		for ( Map.Entry<String, Value> each : values.entrySet() ) {
+		for ( Map.Entry<String, Value> each : this.values.entrySet() ) {
 			this.addQuestion( document, parent, each.getKey(), each.getValue() );
 		}
 	}
