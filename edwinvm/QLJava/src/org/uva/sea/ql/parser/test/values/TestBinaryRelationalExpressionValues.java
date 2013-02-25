@@ -19,4 +19,10 @@ public class TestBinaryRelationalExpressionValues extends ExpressionValueChecker
 		expressionMatchesValue("\"a\" == \"a\"", "true");
 		expressionMatchesValue("\"a\" == \"b\"", "false");
 	}
+	
+	@Test
+	public void testGreaterThanOrEqualTos() throws ParseError {
+		expressionMatchesValue("2 >= 1", "true");
+		expressionMatchesValue("1 >= 2", "false");
+	}
 }

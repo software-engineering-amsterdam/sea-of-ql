@@ -43,6 +43,11 @@ public class Int extends Value {
 	protected Value equalsInt(Int value)  { return new Bool(value.equals(this)); }
 	
 	@Override
+	public Value greaterThanOrEqualTo(Value value) { return value.greaterThanOrEqualToInt(this); }
+	@Override
+	protected Value greaterThanOrEqualToInt(Int value) { return new Bool(value.getValue() >= getValue()); }
+	
+	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Int();
 	}	
