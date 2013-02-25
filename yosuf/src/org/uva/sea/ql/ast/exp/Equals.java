@@ -1,14 +1,14 @@
 package org.uva.sea.ql.ast.exp;
 
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class Equals extends Binary<BooleanValue, IntegerValue> {
+public class Equals extends Binary<BooleanValue, NumericValue> {
 
-	public Equals(final Expression<IntegerValue> left,
-			final Expression<IntegerValue> right) {
+	public Equals(final Expression<NumericValue> left,
+			final Expression<NumericValue> right) {
 		super(left, right);
 	}
 

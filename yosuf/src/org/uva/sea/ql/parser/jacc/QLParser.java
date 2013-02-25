@@ -2409,7 +2409,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr16() { // expr : INT_VAL
-        { yyrv = ((IntegerValue)yysv[yysp-1]); }
+        { yyrv = ((NumericValue)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }

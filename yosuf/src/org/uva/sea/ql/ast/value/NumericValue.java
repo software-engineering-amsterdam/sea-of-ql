@@ -7,22 +7,22 @@ import org.uva.sea.ql.ast.exp.Numeric;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class IntegerValue extends Value<IntegerValue> {
+public class NumericValue extends Value<NumericValue> {
 
-	private final int value;
+	private final double value;
 
 	/**
 	 * 
 	 * @param value
 	 *            (not null)
 	 */
-	public IntegerValue(final int value) {
+	public NumericValue(final double value) {
 		super();
 		this.value = value;
-		state.assertNotNull(this.value, "Integer.value");
+		state.assertNotNull(this.value, "NumericValue.value");
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
@@ -32,7 +32,7 @@ public class IntegerValue extends Value<IntegerValue> {
 	}
 
 	@Override
-	public IntegerValue accept(final ExpressionVisitor visitor) {
+	public NumericValue accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

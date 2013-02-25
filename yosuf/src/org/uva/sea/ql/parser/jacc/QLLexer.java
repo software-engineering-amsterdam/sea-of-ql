@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 public class QLLexer implements QLTokens {
@@ -194,7 +194,7 @@ public class QLLexer implements QLTokens {
 						n = 10 * n + (c - '0');
 						nextChar();
 					} while (Character.isDigit(c));
-					yylval = new IntegerValue(n);
+					yylval = new NumericValue(n);
 					return token = INT_VAL;
 				}
 
