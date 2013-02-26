@@ -9,11 +9,7 @@ package org.uva.sea.ql.value;
  */
 public abstract class Value {
 
-    // TODO bikin abstract
-    public Object getValue()
-    {
-        throw new UnsupportedOperationException("unsupported operation");
-    }
+    public abstract Object getValue();
 
     public Value add(Value value)
     {
@@ -39,11 +35,5 @@ public abstract class Value {
     {
         throw new UnsupportedOperationException("unsupported operation");
     }
-
-
-
-
-
-
 
 }

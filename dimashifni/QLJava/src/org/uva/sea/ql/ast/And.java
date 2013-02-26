@@ -16,7 +16,8 @@ public class And extends Expr {
     @Override
     public Value evaluate()
     {
-        // TODO
-        return null;
+        Value lhs = this.lhs.evaluate();
+        Value rhs = this.rhs.evaluate();
+        return lhs.and(rhs);
     }
 }

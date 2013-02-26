@@ -16,7 +16,7 @@ public class BooleanValue extends Value{
 
     @Override
     public Value and(Value value) {
-        return value.and(this);
+        return value.andBoolean(this);
     }
 
     @Override
