@@ -1,15 +1,15 @@
-package org.uva.sea.ql.ast.types.declarations;
+package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.TypeVisitor;
 
-public class StringDeclaration extends TypeDeclaration {
+public class StringType extends Type {
 
-	public StringDeclaration() {
+	public StringType() {
 		super("string");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDeclaration typeDeclaration) {
+	public boolean isCompatibleTo(Type typeDeclaration) {
 		return typeDeclaration.isCompatibleToString();
 	}
 

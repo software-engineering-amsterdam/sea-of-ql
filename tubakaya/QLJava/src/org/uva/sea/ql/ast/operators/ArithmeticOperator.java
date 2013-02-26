@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.operators;
 
 import org.uva.sea.ql.ast.Expression;
-import org.uva.sea.ql.ast.types.declarations.IntDeclaration;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
 
 public abstract class ArithmeticOperator extends BinaryOperator {
 
@@ -11,7 +11,7 @@ public abstract class ArithmeticOperator extends BinaryOperator {
 	}
 
 	@Override
-	public TypeDeclaration getType() {
-		return new IntDeclaration();
+	public Type getType() {
+		return new IntType();
 	}
 }

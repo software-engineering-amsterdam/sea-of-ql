@@ -14,10 +14,10 @@ import org.uva.sea.ql.ast.operators.relational.NEq;
 import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.types.primitive.BooleanLiteral;
-import org.uva.sea.ql.ast.types.primitive.IntLiteral;
-import org.uva.sea.ql.ast.types.primitive.MoneyLiteral;
-import org.uva.sea.ql.ast.types.primitive.StringLiteral;
+import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public interface ExpressionVisitor {
 	

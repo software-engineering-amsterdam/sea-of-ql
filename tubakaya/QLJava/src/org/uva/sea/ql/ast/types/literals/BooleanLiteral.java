@@ -1,9 +1,9 @@
-package org.uva.sea.ql.ast.types.primitive;
+package org.uva.sea.ql.ast.types.literals;
 
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
-import org.uva.sea.ql.ast.types.declarations.BooleanDeclaration;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class BooleanLiteral extends Expression {
 
@@ -19,7 +19,7 @@ public class BooleanLiteral extends Expression {
 	}
 
 	@Override
-	public TypeDeclaration getType() {
-		return new BooleanDeclaration();
+	public Type getType() {
+		return new BooleanType();
 	}
 }

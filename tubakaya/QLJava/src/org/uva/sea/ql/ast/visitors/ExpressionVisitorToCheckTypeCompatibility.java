@@ -9,8 +9,8 @@ import org.uva.sea.ql.ast.operators.arithmetic.*;
 import org.uva.sea.ql.ast.operators.conditional.*;
 import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.operators.unary.*;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
-import org.uva.sea.ql.ast.types.primitive.*;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.literals.*;
 import org.uva.sea.ql.parsers.exceptions.ExpressionTypeNotCompatibleException;
 
 public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisitor{
@@ -109,7 +109,7 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 	public void visit(Neg neg) {
 		neg.getExpression().accept(this);
 		
-		TypeDeclaration typeLhs = neg.getExpression().getType();
+		Type typeLhs = neg.getExpression().getType();
 		
 		if(!typeLhs.isCompatibleToInteger()){
 			addExceptionToList(neg.getExpression());
@@ -120,7 +120,7 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 	public void visit(Not not) {
 		not.getExpression().accept(this);
 		
-		TypeDeclaration typeLhs = not.getExpression().getType();
+		Type typeLhs = not.getExpression().getType();
 		
 		if(!typeLhs.isCompatibleToBoolean()){
 			addExceptionToList(not.getExpression());
@@ -131,7 +131,7 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 	public void visit(Pos pos) {
 		pos.getExpression().accept(this);
 		
-		TypeDeclaration typeLhs = pos.getExpression().getType();
+		Type typeLhs = pos.getExpression().getType();
 		
 		if(!typeLhs.isCompatibleToInteger()){
 			addExceptionToList(pos.getExpression());
@@ -142,13 +142,13 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 		arithmeticOperator.getLhs().accept(this);
 		arithmeticOperator.getRhs().accept(this);
 		
-		TypeDeclaration typeLhs = arithmeticOperator.getLhs().getType();
+		Type typeLhs = arithmeticOperator.getLhs().getType();
 		
 		if(!typeLhs.isCompatibleToInteger()){
 			addExceptionToList(arithmeticOperator.getLhs());
 		}
 		
-		TypeDeclaration typeRhs = arithmeticOperator.getRhs().getType();
+		Type typeRhs = arithmeticOperator.getRhs().getType();
 		
 		if(!typeRhs.isCompatibleToInteger()){
 			addExceptionToList(arithmeticOperator.getRhs());
@@ -159,13 +159,13 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 		conditionalOperator.getLhs().accept(this);
 		conditionalOperator.getRhs().accept(this);
 		
-		TypeDeclaration typeLhs = conditionalOperator.getLhs().getType();
+		Type typeLhs = conditionalOperator.getLhs().getType();
 		
 		if(!typeLhs.isCompatibleToBoolean()){
 			addExceptionToList(conditionalOperator.getLhs());
 		}
 		
-		TypeDeclaration typeRhs = conditionalOperator.getRhs().getType();
+		Type typeRhs = conditionalOperator.getRhs().getType();
 		
 		if(!typeRhs.isCompatibleToBoolean()){
 			addExceptionToList(conditionalOperator.getRhs());
@@ -176,8 +176,8 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 		relationalOperator.getLhs().accept(this);
 		relationalOperator.getRhs().accept(this);
 		
-		TypeDeclaration typeLhs = relationalOperator.getLhs().getType();
-		TypeDeclaration typeRhs = relationalOperator.getRhs().getType();	
+		Type typeLhs = relationalOperator.getLhs().getType();
+		Type typeRhs = relationalOperator.getRhs().getType();	
 		
 		if(!(typeLhs.isCompatibleToInteger() && typeRhs.isCompatibleToInteger())){
 			if(!(typeLhs.isCompatibleToBoolean() && typeRhs.isCompatibleToBoolean())){

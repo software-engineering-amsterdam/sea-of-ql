@@ -1,9 +1,9 @@
-package org.uva.sea.ql.ast.types.primitive;
+package org.uva.sea.ql.ast.types.literals;
 
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
-import org.uva.sea.ql.ast.types.declarations.IntDeclaration;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class IntLiteral extends Expression {
 
@@ -19,7 +19,7 @@ public class IntLiteral extends Expression {
 	}
 
 	@Override
-	public TypeDeclaration getType() {
-		return new IntDeclaration();
+	public Type getType() {
+		return new IntType();
 	}
 }

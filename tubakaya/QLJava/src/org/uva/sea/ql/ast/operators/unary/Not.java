@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast.operators.unary;
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.operators.UnaryOperator;
-import org.uva.sea.ql.ast.types.declarations.BooleanDeclaration;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Not extends UnaryOperator {
 
@@ -18,7 +18,7 @@ public class Not extends UnaryOperator {
 	}
 
 	@Override
-	public TypeDeclaration getType() {
-		return new BooleanDeclaration();
+	public Type getType() {
+		return new BooleanType();
 	}
 }

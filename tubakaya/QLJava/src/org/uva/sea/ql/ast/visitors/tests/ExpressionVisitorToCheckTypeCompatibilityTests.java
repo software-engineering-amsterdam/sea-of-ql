@@ -9,9 +9,9 @@ import org.uva.sea.ql.ast.operators.conditional.And;
 import org.uva.sea.ql.ast.operators.relational.Eq;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.types.declarations.BooleanDeclaration;
-import org.uva.sea.ql.ast.types.declarations.IntDeclaration;
-import org.uva.sea.ql.ast.types.primitive.IntLiteral;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.visitors.ExpressionVisitorToCheckTypeCompatibility;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 

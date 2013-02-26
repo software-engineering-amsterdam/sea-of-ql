@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.ast.types.Type;
 
 public class Identifier extends Expression {
 
@@ -20,7 +20,7 @@ public class Identifier extends Expression {
 	}
 
 	@Override
-	public TypeDeclaration getType() {
+	public Type getType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

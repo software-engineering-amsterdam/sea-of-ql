@@ -3,17 +3,17 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StatementVisitor;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
-import org.uva.sea.ql.ast.types.primitive.StringLiteral;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class Question extends Statement {
 
 	private Identifier identifier;
 	private StringLiteral text;
-	private TypeDeclaration type;
+	private Type type;
 
 	public Question(Identifier identifier, StringLiteral text,
-			TypeDeclaration type) {
+			Type type) {
 		this.identifier = identifier;
 		this.text = text;
 		this.type = type;
@@ -32,7 +32,7 @@ public class Question extends Statement {
 		return text;
 	}
 
-	public TypeDeclaration getType() {
+	public Type getType() {
 		return type;
 	}
 }

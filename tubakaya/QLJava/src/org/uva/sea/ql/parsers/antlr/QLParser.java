@@ -8,8 +8,8 @@ import org.uva.sea.ql.ast.operators.conditional.*;
 import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.ast.types.declarations.*;
-import org.uva.sea.ql.ast.types.primitive.*;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.types.literals.*;
 
 
 import org.antlr.runtime.*;
@@ -452,7 +452,7 @@ public class QLParser extends Parser {
 		Token IDENT4=null;
 		Token STRING5=null;
 		Expression x =null;
-		TypeDeclaration type6 =null;
+		Type type6 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
@@ -501,7 +501,7 @@ public class QLParser extends Parser {
 
 		Token IDENT7=null;
 		Token STRING8=null;
-		TypeDeclaration type9 =null;
+		Type type9 =null;
 
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
@@ -537,8 +537,8 @@ public class QLParser extends Parser {
 
 	// $ANTLR start "type"
 	// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:50:1: type returns [TypeDeclaration result] : (x= 'boolean' |x= 'integer' |x= 'string' );
-	public final TypeDeclaration type() throws RecognitionException {
-		TypeDeclaration result = null;
+	public final Type type() throws RecognitionException {
+		Type result = null;
 
 		int type_StartIndex = input.index();
 
@@ -576,21 +576,21 @@ public class QLParser extends Parser {
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:51:5: x= 'boolean'
 					{
 					x=(Token)match(input,26,FOLLOW_26_in_type245); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result = new BooleanDeclaration(); }
+					if ( state.backtracking==0 ) {result = new BooleanType(); }
 					}
 					break;
 				case 2 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:52:5: x= 'integer'
 					{
 					x=(Token)match(input,28,FOLLOW_28_in_type255); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result =new IntDeclaration();}
+					if ( state.backtracking==0 ) {result =new IntType();}
 					}
 					break;
 				case 3 :
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:53:5: x= 'string'
 					{
 					x=(Token)match(input,29,FOLLOW_29_in_type265); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result =new StringDeclaration();}
+					if ( state.backtracking==0 ) {result =new StringType();}
 					}
 					break;
 

@@ -6,9 +6,9 @@ import javax.swing.JTextField;
 import javax.swing.text.PlainDocument;
 
 import org.uva.sea.ql.ast.TypeVisitor;
-import org.uva.sea.ql.ast.types.declarations.BooleanDeclaration;
-import org.uva.sea.ql.ast.types.declarations.IntDeclaration;
-import org.uva.sea.ql.ast.types.declarations.StringDeclaration;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.gui.filters.IntFilter;
 
 public class TypeVisitorForRendering implements TypeVisitor{
@@ -20,12 +20,12 @@ public class TypeVisitorForRendering implements TypeVisitor{
 	}
 	
 	@Override
-	public void visit(BooleanDeclaration booleanDeclaration) {
+	public void visit(BooleanType booleanDeclaration) {
 		parentPanel.add(new JCheckBox());
 	}
 
 	@Override
-	public void visit(IntDeclaration intDeclaration) {
+	public void visit(IntType intDeclaration) {
 		
 		JTextField textField = new JTextField();
 		textField.setSize(100,20);
@@ -36,7 +36,7 @@ public class TypeVisitorForRendering implements TypeVisitor{
 	}
 
 	@Override
-	public void visit(StringDeclaration stringDeclaration) {
+	public void visit(StringType stringDeclaration) {
 		JTextField textField = new JTextField();
 		textField.setSize(100,20);
 		parentPanel.add(textField);

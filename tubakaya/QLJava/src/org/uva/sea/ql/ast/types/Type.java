@@ -1,13 +1,13 @@
-package org.uva.sea.ql.ast.types.declarations;
+package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.TypeVisitor;
 
-public abstract class TypeDeclaration extends ASTNode {
+public abstract class Type extends ASTNode {
 
 	private String typeName;
 
-	public TypeDeclaration(String typeName) {
+	public Type(String typeName) {
 		this.typeName = typeName;
 	}
 
@@ -15,7 +15,7 @@ public abstract class TypeDeclaration extends ASTNode {
 		return typeName;
 	}
 
-	public abstract boolean isCompatibleTo(TypeDeclaration t);
+	public abstract boolean isCompatibleTo(Type t);
 
 	public boolean isCompatibleToInteger() {
 		return false;

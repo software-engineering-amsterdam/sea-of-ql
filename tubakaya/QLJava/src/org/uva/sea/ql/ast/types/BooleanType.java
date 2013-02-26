@@ -1,15 +1,15 @@
-package org.uva.sea.ql.ast.types.declarations;
+package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.TypeVisitor;
 
-public class BooleanDeclaration extends TypeDeclaration {
+public class BooleanType extends Type {
 
-	public BooleanDeclaration() {
+	public BooleanType() {
 		super("boolean");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDeclaration typeDeclaration) {
+	public boolean isCompatibleTo(Type typeDeclaration) {
 		return typeDeclaration.isCompatibleToBoolean();
 	}
 

@@ -5,9 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.statements.*;
-import org.uva.sea.ql.ast.types.declarations.*;
-import org.uva.sea.ql.ast.types.primitive.IntLiteral;
-import org.uva.sea.ql.ast.types.primitive.StringLiteral;
+import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.StringLiteral;
 import org.uva.sea.ql.ast.visitors.StatementVisitorToCheckIdentifierDefinitions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 

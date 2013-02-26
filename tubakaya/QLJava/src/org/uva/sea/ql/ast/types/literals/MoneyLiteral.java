@@ -1,8 +1,8 @@
-package org.uva.sea.ql.ast.types.primitive;
+package org.uva.sea.ql.ast.types.literals;
 
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
-import org.uva.sea.ql.ast.types.declarations.TypeDeclaration;
+import org.uva.sea.ql.ast.types.Type;
 
 public class MoneyLiteral extends Expression {
 
@@ -18,7 +18,7 @@ public class MoneyLiteral extends Expression {
 	}
 
 	@Override
-	public TypeDeclaration getType() {
+	public Type getType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

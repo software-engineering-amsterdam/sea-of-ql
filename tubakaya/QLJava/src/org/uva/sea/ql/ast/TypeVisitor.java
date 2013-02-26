@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.types.declarations.BooleanDeclaration;
-import org.uva.sea.ql.ast.types.declarations.IntDeclaration;
-import org.uva.sea.ql.ast.types.declarations.StringDeclaration;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.StringType;
 
 public interface TypeVisitor {
 
-	void visit(BooleanDeclaration booleanDeclaration);
-	void visit(IntDeclaration intDeclaration);
-	void visit(StringDeclaration stringDeclaration);
+	void visit(BooleanType booleanDeclaration);
+	void visit(IntType intDeclaration);
+	void visit(StringType stringDeclaration);
 }

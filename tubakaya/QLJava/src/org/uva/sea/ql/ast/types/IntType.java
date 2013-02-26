@@ -1,15 +1,15 @@
-package org.uva.sea.ql.ast.types.declarations;
+package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.TypeVisitor;
 
-public class IntDeclaration extends TypeDeclaration {
+public class IntType extends Type {
 
-	public IntDeclaration() {
+	public IntType() {
 		super("int");
 	}
 
 	@Override
-	public boolean isCompatibleTo(TypeDeclaration typeDeclaration) {
+	public boolean isCompatibleTo(Type typeDeclaration) {
 		return typeDeclaration.isCompatibleToInteger();
 	}
 
