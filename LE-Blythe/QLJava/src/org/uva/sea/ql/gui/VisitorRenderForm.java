@@ -7,12 +7,12 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IVisitorStatement;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.visitor.IVisitorStatement;
-import org.uva.sea.ql.ast.visitor.IVisitorType;
+import org.uva.sea.ql.ast.types.IVisitorType;
 import org.uva.sea.ql.gui.control.Applet;
 import org.uva.sea.ql.gui.control.Button;
 import org.uva.sea.ql.gui.control.Control;
@@ -28,25 +28,26 @@ import org.uva.sea.ql.gui.widget.WidgetObserverConditionIf;
 import org.uva.sea.ql.gui.widget.WidgetObserverConditionIfElse;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorRenderStatement implements IVisitorStatement<Control> {
+public class VisitorRenderForm implements IVisitorStatement<Control> {
 
 	private Environment environment;
 	
-	private VisitorRenderStatement(Environment environment){
+	private VisitorRenderForm(Environment environment){
 		this.environment= environment;
 	}
 	
 	
-	private Panel panel(){
+	private Panel createPanel(){
 		return new Panel("hidemode 2, fillx");
 	}
 	
 	
-	private Button submitButton(String formName){
+	private Button createSubmitButton(String formName){
 		Button button = new Button("Submit");
 		button.addActionListener(new FormSubmissionHandler(formName, environment));
 		return button;
 	}
+	
 	
 	private void registerObservers(Expr expr, WidgetObserver observer){
 		
@@ -68,8 +69,8 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	@Override
 	public Control visit(Form form) {
 
-		Panel panel = panel();
-		Button button = submitButton(form.getName());
+		Panel panel = createPanel();
+		Button button = createSubmitButton(form.getName());
 		
 		panel.add(form.getBlock().accept(this), "wrap");	
 		panel.add(button);
@@ -81,9 +82,9 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	public Control visit(Block block) {
 		Environment subEnvironment = environment.branchEnvironment();
 		
-		VisitorRenderStatement renderer = new VisitorRenderStatement(subEnvironment);
+		VisitorRenderForm renderer = new VisitorRenderForm(subEnvironment);
 		
-		Panel panel = panel();
+		Panel panel = createPanel();
 		
 		for(Statement s: block.getStatements())
 			panel.add(s.accept(renderer), "wrap");
@@ -94,7 +95,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	@Override
 	public Control visit(IfThen branch) {
 		
-		Panel panel = panel();
+		Panel panel = createPanel();
 		
 		Control ifBlock = branch.getIfBlock().accept(this);
 		
@@ -111,7 +112,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	@Override
 	public Control visit(IfThenElse branch) {
 		
-		Panel panel = panel();
+		Panel panel = createPanel();
 		
 		Control ifBlock = branch.getIfBlock().accept(this);
 		Control elseBlock = branch.getElseBlock().accept(this);
@@ -129,10 +130,10 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	
 	@Override
 	public Control visit(QuestionAnswerable question) {
-		Panel panel = panel();
+		Panel panel = createPanel();
 		
-		IVisitorType<Widget> visitor = new VisitorRenderType(); 
-		Widget widget = question.typeOf(environment).accept(visitor);
+		IVisitorType<Widget> typeToWidget = new VisitorTypeToWidget(); 
+		Widget widget = question.typeOf(environment).accept(typeToWidget);
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
@@ -144,7 +145,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	
 	@Override
 	public Control visit(QuestionComputed question) {
-		Panel panel = panel();
+		Panel panel = createPanel();
 		
 		WidgetComputed widget = new WidgetComputed();
 		
@@ -161,7 +162,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	
 	
 	public static void Render(final Form form, final int width, final int height){
-		final VisitorRenderStatement renderer = new VisitorRenderStatement(new Environment());
+		final VisitorRenderForm renderer = new VisitorRenderForm(new Environment());
 		final Control ctrl = renderer.visit(form);
 
 		new Applet(ctrl, form.getName(), width, height);

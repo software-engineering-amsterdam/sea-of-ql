@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.primitive;
 
+import org.uva.sea.ql.ast.IVisitorExpr;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
 
 public class Int extends Primitive {
