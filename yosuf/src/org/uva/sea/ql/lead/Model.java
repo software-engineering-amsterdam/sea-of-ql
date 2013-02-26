@@ -2,6 +2,8 @@ package org.uva.sea.ql.lead;
 
 import static julius.validation.Assertions.state;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,8 +76,7 @@ public class Model {
 	 * @param listener
 	 *            (not null)
 	 */
-	public void addListener(final Expression expression,
-			final ModelChangeListener listener) {
+	public void addListener(final Expression expression, final ModelChangeListener listener) {
 		listeners.addForKey(expression, listener);
 	}
 
@@ -88,10 +89,12 @@ public class Model {
 	}
 
 	private void notifyListeners(final Expression expression) {
-		// TODO: listeners.getOrEmpty(expression) might be used to propagate the change only to the
-		// right listeners. but since some values might refer to other ones, we now propagate to all
 		for (ModelChangeListener listener : listeners.mergedValues()) {
 			listener.changed(expression);
 		}
+	}
+
+	public Collection<Computed> getComputeds() {
+		return new ArrayList<Computed>(computeds.values());
 	}
 }

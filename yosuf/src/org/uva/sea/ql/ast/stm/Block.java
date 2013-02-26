@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
- * A block represents single or multiple lines.
+ * A block is a combination of single or multipe lines.
  */
 public abstract class Block implements ASTNode {
 

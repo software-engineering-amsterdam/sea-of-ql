@@ -26,8 +26,8 @@ import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.lead.Model;
 
 /**
- * Visitor representing the expression evaluator.
- * 
+ * Visitor representing the expression evaluator. Expression which does not have a known value will
+ * throw {@link UnmodifiedException}.
  */
 public class ExpressionEvaluator implements ExpressionVisitor {
 
@@ -93,10 +93,8 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 
 	@Override
 	public BooleanValue visit(final GreaterOrEquals greaterOrEquals) {
-		NumericValue left = (NumericValue) greaterOrEquals.getLeft().accept(
-				this);
-		NumericValue right = (NumericValue) greaterOrEquals.getRight().accept(
-				this);
+		NumericValue left = (NumericValue) greaterOrEquals.getLeft().accept(this);
+		NumericValue right = (NumericValue) greaterOrEquals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() >= right.getValue());
 	}
@@ -108,26 +106,19 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 		return new BooleanValue(left.getValue() > right.getValue());
 	}
 
-	/**
-	 * 
-	 * @param identifier
-	 * @return (maybe null if the expression referenced by identifier is not present)
-	 */
 	@Override
 	public Value visit(final Identifier identifier) {
 		Computed computed = model.getComputed(identifier);
 		if (computed != null) {
 			return computed.getExpression().accept(this);
 		} else {
-			throw new UnmodifiedException("The value for " + identifier
-					+ " not present");
+			throw new UnmodifiedException("The value for " + identifier + " not present");
 		}
 	}
 
 	@Override
 	public NumericValue visit(final Negative negative) {
-		NumericValue value = (NumericValue) negative.getOperation()
-				.accept(this);
+		NumericValue value = (NumericValue) negative.getOperation().accept(this);
 		return new NumericValue(value.getValue() - 1);
 	}
 
@@ -155,17 +146,14 @@ public class ExpressionEvaluator implements ExpressionVisitor {
 
 	@Override
 	public NumericValue visit(final Positive positive) {
-		NumericValue value = (NumericValue) positive.getOperation()
-				.accept(this);
+		NumericValue value = (NumericValue) positive.getOperation().accept(this);
 		return new NumericValue(value.getValue() + 1);
 	}
 
 	@Override
 	public BooleanValue visit(final SmallerOrEquals smallerOrEquals) {
-		NumericValue left = (NumericValue) smallerOrEquals.getLeft().accept(
-				this);
-		NumericValue right = (NumericValue) smallerOrEquals.getRight().accept(
-				this);
+		NumericValue left = (NumericValue) smallerOrEquals.getLeft().accept(this);
+		NumericValue right = (NumericValue) smallerOrEquals.getRight().accept(this);
 
 		return new BooleanValue(left.getValue() <= right.getValue());
 	}

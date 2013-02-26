@@ -26,7 +26,6 @@ public class QLForm extends Application {
 
 	private final Model model;
 	private final Form form;
-	private Stage mainStage;
 
 	/**
 	 * 
@@ -45,7 +44,6 @@ public class QLForm extends Application {
 
 	@Override
 	public void start(final Stage stage) throws Exception {
-		mainStage = stage;
 		VBox root = createRootWithMenu();
 
 		Scene scene = createScene(root, WIDTH, HEIGHT);
@@ -58,8 +56,7 @@ public class QLForm extends Application {
 		stage.show();
 	}
 
-	private void addScrollPane(final VBox root, final Scene scene,
-			final Node formParts) {
+	private void addScrollPane(final VBox root, final Scene scene, final Node formParts) {
 		ScrollPane scrollable = new ScrollPane();
 		scrollable.prefHeightProperty().bind(scene.heightProperty());
 		scrollable.prefWidthProperty().bind(scene.widthProperty());
@@ -76,15 +73,14 @@ public class QLForm extends Application {
 
 	private VBox createRootWithMenu() {
 		VBox root = new VBox();
-		root.getChildren().add(new QLMenuBar(model, mainStage).create());
+		root.getChildren().add(new QLMenuBar(model).create());
 
 		return root;
 	}
 
 	private Scene createScene(final VBox root, final int width, final int height) {
 		Scene scene = new Scene(root, width, height);
-		scene.getStylesheets().add(
-				ASTNode.class.getResource(RESOURCE_STYLE_CSS).toExternalForm());
+		scene.getStylesheets().add(ASTNode.class.getResource(RESOURCE_STYLE_CSS).toExternalForm());
 
 		return scene;
 	}
