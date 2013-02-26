@@ -1,6 +1,7 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.value.Value;
 
 public class Add extends Expr {
 
@@ -14,7 +15,9 @@ public class Add extends Expr {
 	}
 
     @Override
-    public int evaluate() {
-        return this.lhs.evaluate() + this.rhs.evaluate();
+    public Value evaluate() {
+        Value lhs = this.lhs.evaluate();
+        Value rhs = this.rhs.evaluate();
+        return lhs.add(rhs);
     }
 }

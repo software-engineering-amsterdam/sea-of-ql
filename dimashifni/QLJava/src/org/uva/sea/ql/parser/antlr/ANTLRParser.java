@@ -104,7 +104,7 @@ public class ANTLRParser {//implements IParse {
 	
 	public static void testMultiplyExpression()
 	{
-		ANTLRStringStream stream = new ANTLRStringStream("3*2");
+		ANTLRStringStream stream = new ANTLRStringStream("3 * 2");
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);

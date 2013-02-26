@@ -1,6 +1,7 @@
-package org.uva.sea.ql.parser.antlr;
+package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.value.Value;
 
 public class Mul extends Expr {
 
@@ -14,8 +15,10 @@ public class Mul extends Expr {
     }
 
     @Override
-    public int evaluate() {
-        return this.lhs.evaluate() * this.rhs.evaluate();
+    public Value evaluate()
+    {
+        // TODO
+        return null;
     }
 
 }

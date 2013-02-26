@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.parser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,9 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.parser.antlr.*;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;

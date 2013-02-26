@@ -75,30 +75,30 @@ unaryExpression returns [Expr result]
 : '+'^ x=unaryExpression { $result = new Pos($x.result); }
 | '-'^ x=unaryExpression { $result = new Neg($x.result); }
 | '!'^ x=unaryExpression { $result = new Not($x.result); }
-| y=primary    { $result = $y.result; }
+| y=primary { $result = $y.result; }
 ;
    
 multiplyExpression returns [Expr result]
 : lhs=unaryExpression { $result=$lhs.result; }
-  (('*'^ {$result = new Mul($result, $rhs.result);}
-  | '/'^ {$result = new Div($result, $rhs.result);})
-  rhs=unaryExpression)*
+  (('*'^ rhs=unaryExpression {$result = new Mul($result, $rhs.result);}
+  | '/'^ rhs=unaryExpression {$result = new Div($result, $rhs.result);})
+  )*
 ;
 
 addExpression returns [Expr result]
 : lhs=multiplyExpression { $result=$lhs.result; }
-  (('+'^ { $result = new Add($result, $rhs.result); }
-  | '-'^ {$result = new Sub($result, $rhs.result); }) rhs=multiplyExpression)*
+  (('+'^ rhs=multiplyExpression { $result = new Add($result, $rhs.result); }
+  | '-'^ rhs=multiplyExpression {$result = new Sub($result, $rhs.result); }))*
 ;
   
 relExpression returns [Expr result]
 : lhs=addExpression { $result=$lhs.result; }
-  (('<'^  {$result = new LT($result, $rhs.result);}
-  |'<='^ {$result = new LEq($result, $rhs.result);}
-  |'>'^  {$result = new GT($result, $rhs.result);}
-  |'>='^ {$result = new GEq($result, $rhs.result);}
-  |'=='^ {$result = new Eq($result, $rhs.result);}
-  |'!='^ {$result = new NEq($result, $rhs.result);}) rhs=addExpression)*
+  (('<'^ rhs=addExpression {$result = new LT($result, $rhs.result);}
+  |'<='^ rhs=addExpression {$result = new LEq($result, $rhs.result);}
+  |'>'^  rhs=addExpression {$result = new GT($result, $rhs.result);}
+  |'>='^ rhs=addExpression {$result = new GEq($result, $rhs.result);}
+  |'=='^ rhs=addExpression {$result = new Eq($result, $rhs.result);}
+  |'!='^ rhs=addExpression {$result = new NEq($result, $rhs.result);}))*
 ;
     
 andExpression returns [Expr result]

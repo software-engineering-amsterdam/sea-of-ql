@@ -3,25 +3,24 @@
  */
 package org.uva.sea.ql.ast;
 
+import junit.framework.Assert;
+import org.junit.Test;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.Value;
+
 /**
  * @author dimashifni
  *
  */
 public class ASTNodeTest {
 
-	/**
-	 * 
-	 */
-	public ASTNodeTest() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+    @Test
+    public void testAdd()
+    {
+        IntegerValue value1 = new IntegerValue(5);
+        IntegerValue value2 = new IntegerValue(15);
+        Value result = value1.add(value2);
+        Assert.assertEquals("20", result.getValue().toString());
+    }
 
 }
