@@ -47,7 +47,11 @@ public class Money extends Value {
 	
 	@Override
 	public void setValue(Object value) {
-		this.value = new BigDecimal(value.toString());
+		if(!value.toString().equals("")) {
+			this.value = new BigDecimal(value.toString());
+		} else {
+			this.value = new BigDecimal(0);
+		}
 	}
 
 	@Override
