@@ -1,13 +1,8 @@
-form Box1HouseOwning2 {
-   hasSoldHouse: "Did you sell a house in 2010?" boolean
-   hasBoughtHouse: "Did you by a house in 2010?" boolean
-   hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-   if (hasSoldHouse) {
-     sellingPrice: "Price the house was sold for:" money
-     privateDebt: "Private debts for the sold house:" money
-     valueResidue: "Value residue:" sellingPrice - privateDebt
+form form4 {
+   question1: "What is your favorite colour?" string
+   question2: "What is your age?" integer
+   question3: "Do you want to go to sleep?" boolean
+   if(question3) {
+    question4: "When do you want to go to sleep?" string
    }
-   stringTest: "Enter your name:" string
-   intTest: "Enter your age:" integer
-   intValue: "in 5 years, your age will be:" intTest + 5
 }

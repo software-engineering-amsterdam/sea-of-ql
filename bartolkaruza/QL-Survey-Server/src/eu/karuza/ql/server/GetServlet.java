@@ -21,11 +21,11 @@ public class GetServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		InputStream stream = getServletContext().getResourceAsStream("/WEB-INF/QL");
 		String formString = readForm(stream);
-		ParserContext context = parseForm(formString.toString());
+		ParserContext context = parseForm(formString);
 		reportErrors(context);
 		resp.setContentType(Constants.CONTENT_TYPE_PLAIN + Constants.ENCODING);
 		resp.setContentLength(formString.getBytes(Constants.ENCODING).length);
-		resp.getWriter().write(formString.toString());
+		resp.getWriter().write(formString);
 	}
 	
 	private String readForm(InputStream stream) throws IOException {

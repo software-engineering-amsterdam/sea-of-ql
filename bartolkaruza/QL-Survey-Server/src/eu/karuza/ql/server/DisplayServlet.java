@@ -32,7 +32,7 @@ public class DisplayServlet extends HttpServlet {
 		String formName = req.getParameter(Constants.DATA_FORM_NAME);
 		PreparedQuery preparedQuery = prepareQuery(formName);
 		PrintWriter writer = resp.getWriter();
-		printResults(preparedQuery, writer);
+		printResults(preparedQuery, writer); 
 	}
 
 	private PreparedQuery prepareQuery(String formName) {
