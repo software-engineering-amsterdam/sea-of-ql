@@ -28,11 +28,11 @@ import org.uva.sea.ql.gui.widget.WidgetObserverConditionIf;
 import org.uva.sea.ql.gui.widget.WidgetObserverConditionIfElse;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorRenderStatement implements IVisitorStatement<Control> {
+public class VisitorRenderForm implements IVisitorStatement<Control> {
 
 	private Environment environment;
 	
-	private VisitorRenderStatement(Environment environment){
+	private VisitorRenderForm(Environment environment){
 		this.environment= environment;
 	}
 	
@@ -82,7 +82,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	public Control visit(Block block) {
 		Environment subEnvironment = environment.branchEnvironment();
 		
-		VisitorRenderStatement renderer = new VisitorRenderStatement(subEnvironment);
+		VisitorRenderForm renderer = new VisitorRenderForm(subEnvironment);
 		
 		Panel panel = createPanel();
 		
@@ -132,8 +132,8 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	public Control visit(QuestionAnswerable question) {
 		Panel panel = createPanel();
 		
-		IVisitorType<Widget> visitor = new VisitorTypeToWidget(); 
-		Widget widget = question.typeOf(environment).accept(visitor);
+		IVisitorType<Widget> typeToWidget = new VisitorTypeToWidget(); 
+		Widget widget = question.typeOf(environment).accept(typeToWidget);
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
@@ -162,7 +162,7 @@ public class VisitorRenderStatement implements IVisitorStatement<Control> {
 	
 	
 	public static void Render(final Form form, final int width, final int height){
-		final VisitorRenderStatement renderer = new VisitorRenderStatement(new Environment());
+		final VisitorRenderForm renderer = new VisitorRenderForm(new Environment());
 		final Control ctrl = renderer.visit(form);
 
 		new Applet(ctrl, form.getName(), width, height);

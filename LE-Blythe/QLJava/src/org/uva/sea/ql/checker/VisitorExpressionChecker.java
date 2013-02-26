@@ -36,7 +36,6 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 	private Environment environment;
 	private List<Error> errors;
 	
-	
 	public VisitorExpressionChecker(){
 		environment = new Environment();
 		errors = new ArrayList<Error>();
@@ -49,10 +48,12 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 	}
 	
 	
-	private boolean checkType(Expr expr, Type type){
+	private boolean checkOperandCompatibility(Expr lhs, Expr rhs){
+		Type leftType = lhs.typeOf(environment);
+		Type rightType = rhs.typeOf(environment);
 		
-		if(!expr.typeOf(environment).isCompatibleTo(type)){
-			errors.add(new ErrorExpressionType(expr, type));
+		if(!leftType.isCompatibleTo(rightType)){
+			errors.add(new ErrorExpressionType(lhs, rightType));
 			return false;
 		}
 		
@@ -60,26 +61,39 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 	}
 	
 	
-	private boolean checkExpression(Expr expression, Type type){
+	private boolean checkType(Expr expr, Type expectedType){
 		
-		if(!expression.accept(this))
+		if(!expr.typeOf(environment).isCompatibleTo(expectedType)){
+			errors.add(new ErrorExpressionType(expr, expectedType));
 			return false;
+		}
 		
-		return checkType(expression, type);
+		return true;
 	}
 	
 	
-	private boolean checkOperatorBinary(OperatorBinary operator, Type operandType){
+	private boolean checkExpression(Expr expression, Type expectedType){
+		
+		if(!checkType(expression, expectedType))
+			return false;
+		
+		return expression.accept(this);
+	}
+	
+	
+	private boolean checkOperatorBinary(OperatorBinary operator, Type expectedType){
 		Expr lhs = operator.getLeftHandOperand();
 		Expr rhs = operator.getRightHandOperand();
 		
-		return checkExpression(lhs, operandType) & checkExpression(rhs, operandType);
+		return 	checkOperandCompatibility(lhs, rhs) & 
+				checkExpression(lhs, expectedType) & 
+				checkExpression(rhs, expectedType);
 	}
 	
 	
-	private boolean checkOperatorUnary(OperatorUnary operator, Type operandType){
+	private boolean checkOperatorUnary(OperatorUnary operator, Type expectedType){
 		Expr op = operator.getOperand();
-		return checkExpression(op, operandType);
+		return checkExpression(op, expectedType);
 	}
 	
 	
@@ -88,11 +102,11 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 		Expr lhs = operator.getLeftHandOperand();
 		Expr rhs = operator.getRightHandOperand();
 		
-		//check mutual compatibility
-		return 	checkExpression(lhs, rhs.typeOf(environment)) & 
-				checkExpression(rhs, lhs.typeOf(environment));
+		if(!checkOperandCompatibility(lhs,rhs))
+			return false;
+		
+		return lhs.accept(this) & rhs.accept(this);
 	}
-	
 	
 	@Override
 	public Boolean visit(Ident ident) {
@@ -104,105 +118,80 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 		return true;
 	}
 
-	
-	public boolean errorsFound(){
-		return errors.size() > 0;
-	}
-	
-	
-	public List<Error> getErrors(){
-		return errors;
-	}
-	
 	@Override
 	public Boolean visit(Add operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
-
 
 	@Override
 	public Boolean visit(And operator) {
 		return checkOperatorBinary(operator, new Bool() );
 	}
 
-
 	@Override
 	public Boolean visit(Div operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
-
 
 	@Override
 	public Boolean visit(Eq operator) {
 		return checkEqual(operator);
 	}
 
-
 	@Override
 	public Boolean visit(GEq operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
-
 
 	@Override
 	public Boolean visit(GT operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
 
-
 	@Override
 	public Boolean visit(LEq operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
-
 
 	@Override
 	public Boolean visit(LT operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
 
-
 	@Override
 	public Boolean visit(Mul operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
-
 
 	@Override
 	public Boolean visit(Neg operator) {
 		return checkOperatorUnary(operator, new Numeric() );
 	}
 
-
 	@Override
 	public Boolean visit(NEq operator) {
 		return checkEqual(operator);
 	}
-
 
 	@Override
 	public Boolean visit(Not operator) {
 		return checkOperatorUnary(operator, new Bool() );
 	}
 
-
 	@Override
 	public Boolean visit(Or operator) {
 		return checkOperatorBinary(operator, new Bool() );
 	}
-
 
 	@Override
 	public Boolean visit(Pos operator) {
 		return checkOperatorUnary(operator, new Numeric() );
 	}
 
-
 	@Override
 	public Boolean visit(Sub operator) {
 		return checkOperatorBinary(operator, new Numeric() );
 	}
-
 
 	@Override
 	public Boolean visit(Int ast) {
@@ -210,13 +199,11 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 		return true;
 	}
 
-
 	@Override
 	public Boolean visit(org.uva.sea.ql.ast.primitive.Bool ast) {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
 
 	@Override
 	public Boolean visit(Str ast) {
@@ -230,4 +217,14 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 		return true;
 	}
 
+	
+	public boolean errorsFound(){
+		return errors.size() > 0;
+	}
+	
+	
+	public List<Error> getErrors(){
+		return errors;
+	}
+	
 }
