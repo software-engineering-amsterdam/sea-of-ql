@@ -34,8 +34,8 @@ public class StatementVisitorForRendering implements StatementVisitor{
 
 	@Override
 	public void visit(ComputedValue computedValue) {
-		addLabelInParentPanel(computedValue.text.value);
-		computedValue.identifier.getType().accept(typeVisitor);
+		addLabelInParentPanel(computedValue.getText().value);
+		computedValue.getIdentifier().getType().accept(typeVisitor);
 	}
 
 	@Override

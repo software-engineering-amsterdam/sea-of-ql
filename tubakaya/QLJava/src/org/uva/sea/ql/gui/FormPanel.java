@@ -9,10 +9,13 @@ import javax.swing.JScrollPane;
 
 import org.uva.sea.ql.core.dom.Identifier;
 import org.uva.sea.ql.core.dom.statements.Form;
-import org.uva.sea.ql.core.dom.visitors.ExpressionVisitorToSetTypeOfIdentifiers;
 import org.uva.sea.ql.core.dom.visitors.StatementVisitorForRendering;
+<<<<<<< HEAD
 import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckIdentifierDefinitions;
 import org.uva.sea.ql.core.dom.visitors.StatementVisitorToSetTypesOfIdentifiers;
+=======
+import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckVariableDefinitions;
+>>>>>>> All classes aligned. Type field is removed from Identifier. 
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 import org.uva.sea.ql.parsers.exceptions.QLException;
@@ -66,10 +69,10 @@ public class FormPanel extends JFrame {
 	}
 	
 	private static void FillTypesOfIdentifiers(Form form, List<Identifier> identifiers){
-		ExpressionVisitorToSetTypeOfIdentifiers expressionVisitor=new ExpressionVisitorToSetTypeOfIdentifiers(identifiers);
+		/*ExpressionVisitorToSetTypeOfIdentifiers expressionVisitor=new ExpressionVisitorToSetTypeOfIdentifiers(identifiers);
 		StatementVisitorToSetTypesOfIdentifiers statementVisitor = new StatementVisitorToSetTypesOfIdentifiers(expressionVisitor);
 		
-		form.accept(statementVisitor);
+		form.accept(statementVisitor);*/
 	}
 
 	private static void AddFormOnRootPanel(JPanel rootPanel,Form rootNode){

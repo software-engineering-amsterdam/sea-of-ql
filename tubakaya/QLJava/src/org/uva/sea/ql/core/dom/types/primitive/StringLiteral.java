@@ -8,16 +8,16 @@ import org.uva.sea.ql.core.dom.types.declarations.TypeDeclaration;
 public class StringLiteral extends Expression {
 
 	public final String value;
-	
+
 	public StringLiteral(String string) {
-		this.value=string;
+		this.value = string;
 	}
-	
+
 	@Override
 	public void accept(ExpressionVisitor visitor) {
-		visitor.visit(this);		
+		visitor.visit(this);
 	}
-	
+
 	@Override
 	public TypeDeclaration getType() {
 		return new StringDeclaration();

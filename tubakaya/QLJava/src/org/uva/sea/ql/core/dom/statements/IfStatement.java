@@ -7,7 +7,7 @@ import org.uva.sea.ql.core.dom.Statement;
 import org.uva.sea.ql.core.dom.StatementVisitor;
 
 public class IfStatement extends Statement {
-	
+
 	private final Expression expression;
 	private final List<Statement> statements;
 
@@ -15,16 +15,16 @@ public class IfStatement extends Statement {
 		this.expression = expression;
 		this.statements = statements;
 	}
-	
+
 	@Override
 	public void accept(StatementVisitor visitor) {
 		visitor.visit(this);
 	}
-	
+
 	public Expression getExpression() {
 		return expression;
 	}
-	
+
 	public List<Statement> getStatements() {
 		return statements;
 	}

@@ -7,11 +7,11 @@ import org.uva.sea.ql.core.dom.operators.ConditionalOperator;
 public class And extends ConditionalOperator {
 
 	public And(Expression lhs, Expression rhs) {
-	super(lhs,rhs);
+		super(lhs, rhs);
 	}
 
 	@Override
 	public void accept(ExpressionVisitor visitor) {
-		visitor.visit(this);		
+		visitor.visit(this);
 	}
 }

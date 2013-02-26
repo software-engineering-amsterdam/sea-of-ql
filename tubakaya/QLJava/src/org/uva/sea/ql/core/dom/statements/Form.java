@@ -4,7 +4,7 @@ import java.util.List;
 import org.uva.sea.ql.core.dom.Statement;
 import org.uva.sea.ql.core.dom.StatementVisitor;
 
-public class Form extends Statement{
+public class Form extends Statement {
 
 	private List<Statement> statements;
 

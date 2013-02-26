@@ -3,8 +3,8 @@ package org.uva.sea.ql.core.dom.types.declarations;
 import org.uva.sea.ql.core.dom.ASTNode;
 import org.uva.sea.ql.core.dom.TypeVisitor;
 
-public abstract class TypeDeclaration extends ASTNode{
-	
+public abstract class TypeDeclaration extends ASTNode {
+
 	private String typeName;
 
 	public TypeDeclaration(String typeName) {
@@ -28,6 +28,6 @@ public abstract class TypeDeclaration extends ASTNode{
 	public boolean isCompatibleToString() {
 		return false;
 	}
-	
-	public abstract void accept(TypeVisitor visitor);	
+
+	public abstract void accept(TypeVisitor visitor);
 }

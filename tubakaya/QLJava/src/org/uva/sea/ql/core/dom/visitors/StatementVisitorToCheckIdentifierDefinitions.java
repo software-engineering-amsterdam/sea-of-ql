@@ -41,10 +41,10 @@ public class StatementVisitorToCheckIdentifierDefinitions implements StatementVi
 
 	@Override
 	public void visit(ComputedValue computedValue) {
-		if(identifierWithSameNameAndTypeAlreadyDefined(computedValue.identifier)){
+		if(identifierWithSameNameAndTypeAlreadyDefined(computedValue.getIdentifier())){
 			addExceptionInExceptionsList(computedValue);
 		}
-		addIdentifierInIdentifiersList(computedValue.identifier);
+		addIdentifierInIdentifiersList(computedValue.getIdentifier());
 	}
 
 	@Override

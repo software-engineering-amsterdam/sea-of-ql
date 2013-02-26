@@ -12,7 +12,7 @@ public class BooleanDeclaration extends TypeDeclaration {
 	public boolean isCompatibleTo(TypeDeclaration typeDeclaration) {
 		return typeDeclaration.isCompatibleToBoolean();
 	}
-	
+
 	@Override
 	public boolean isCompatibleToBoolean() {
 		return true;

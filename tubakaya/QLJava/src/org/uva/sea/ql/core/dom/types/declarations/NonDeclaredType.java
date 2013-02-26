@@ -2,7 +2,7 @@ package org.uva.sea.ql.core.dom.types.declarations;
 
 import org.uva.sea.ql.core.dom.TypeVisitor;
 
-public class NonDeclaredType extends TypeDeclaration{
+public class NonDeclaredType extends TypeDeclaration {
 
 	public NonDeclaredType() {
 		super("Non-declared type");
