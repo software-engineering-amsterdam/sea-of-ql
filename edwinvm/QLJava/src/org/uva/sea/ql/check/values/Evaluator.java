@@ -42,36 +42,31 @@ public class Evaluator implements Visitor<Value> {
 	}
 
 	@Override
-	public Value visit(Addition expression)       { return getLeftHandSide(expression).add(getRightHandSide(expression)); }
+	public Value visit(Addition expression)                         { return getLeftHandSide(expression).add(getRightHandSide(expression)); }
 	@Override
-	public Value visit(Division expression)       { return getLeftHandSide(expression).div(getRightHandSide(expression)); }
+	public Value visit(Division expression)                         { return getLeftHandSide(expression).div(getRightHandSide(expression)); }
 	@Override
-	public Value visit(Subtraction expression)    { return getLeftHandSide(expression).sub(getRightHandSide(expression)); }
+	public Value visit(Subtraction expression)                      { return getLeftHandSide(expression).sub(getRightHandSide(expression)); }
 	@Override
-	public Value visit(Multiplication expression) { return getLeftHandSide(expression).mul(getRightHandSide(expression)); }
+	public Value visit(Multiplication expression)                   { return getLeftHandSide(expression).mul(getRightHandSide(expression)); }
+	
 	@Override
-	public Value visit(Identifier indentifier) {
-		if (_valueEnvironment.contains(indentifier)) {
-			return _valueEnvironment.get(indentifier);
-		}
-		return new NullValue();
-	}
+	public Value visit(LogicallyEquivalentExpression expression)    { return getLeftHandSide(expression).and(getRightHandSide(expression)); }
 	@Override
-	public Value visit(LogicallyEquivalentExpression expression)    { return new NullValue(); }
+	public Value visit(LogicallyNotEquivalentExpression expression) { return getLeftHandSide(expression).or(getRightHandSide(expression));  }
+	
 	@Override
-	public Value visit(LogicallyNotEquivalentExpression expression) { return new NullValue(); }
+	public Value visit(EqualToExpression expression)                { return getLeftHandSide(expression).equalsValue(getRightHandSide(expression)); }
 	@Override
-	public Value visit(EqualToExpression expression)                { return new NullValue(); }
+	public Value visit(GreaterThanOrEqualToExpression expression)   { return getLeftHandSide(expression).greaterThanOrEqualTo(getRightHandSide(expression)); }
 	@Override
-	public Value visit(GreaterThanOrEqualToExpression expression)   { return new NullValue(); }
+	public Value visit(GreaterThanExpression expression)            { return getLeftHandSide(expression).greaterThan(getRightHandSide(expression)); }
 	@Override
-	public Value visit(GreaterThanExpression expression)            { return new NullValue(); }
+	public Value visit(LessThanOrEqualToExpression expression)      { return getLeftHandSide(expression).lessThanOrEqualTo(getRightHandSide(expression)); }
 	@Override
-	public Value visit(LessThanOrEqualToExpression expression)      { return new NullValue(); }
+	public Value visit(LessThanExpression expression)               { return getLeftHandSide(expression).lessThan(getRightHandSide(expression)); }
 	@Override
-	public Value visit(LessThanExpression expression)               { return new NullValue(); }
-	@Override
-	public Value visit(NotEqualToExpression expression)             { return new NullValue(); }
+	public Value visit(NotEqualToExpression expression)             { return getLeftHandSide(expression).notEqualsValue(getRightHandSide(expression)); }
 	@Override
 	public Value visit(NegativeExpression expression)               { return new NullValue(); }
 	@Override
@@ -80,27 +75,23 @@ public class Evaluator implements Visitor<Value> {
 	public Value visit(PositiveExpression expression)               { return new NullValue(); }
 	
 	@Override
-	public Value visit(Bool value) { 
-		return new NullValue(); 
-	}
-
+	public Value visit(Bool value)                { return value; }
 	@Override
-	public Value visit(Int value) {
-		return value;
-	}
-
+	public Value visit(Int value)                 { return value; }
 	@Override
-	public Value visit(Money value) {
-		return null;
-	}
-
+	public Value visit(Money value)               { return value; }
 	@Override
-	public Value visit(Str value) {
-		return null;
-	}
+	public Value visit(Str value)                 { return value; }
+	@Override
+	public Value visit(NullValue astNode)         { return new NullValue(); }
 	
 	@Override
-	public Value visit(NullValue astNode) { return new NullValue(); }
+	public Value visit(Identifier indentifier) {
+		if (_valueEnvironment.contains(indentifier)) {
+			return _valueEnvironment.get(indentifier);
+		}
+		return new NullValue();
+	}
 	
 	private Value getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide().accept(this); }
 	private Value getRightHandSide(BinaryExpression expression) { return expression.getRightHandSide().accept(this); }

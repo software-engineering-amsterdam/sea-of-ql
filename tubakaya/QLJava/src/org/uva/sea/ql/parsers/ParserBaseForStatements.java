@@ -2,7 +2,7 @@ package org.uva.sea.ql.parsers;
 
 import java.io.IOException;
 
-import org.uva.sea.ql.core.dom.Statement;
+import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.parsers.antlr.QLLexer;
 import org.uva.sea.ql.parsers.antlr.QLParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;

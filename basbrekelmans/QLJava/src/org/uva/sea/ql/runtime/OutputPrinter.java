@@ -7,10 +7,10 @@ import org.uva.sea.ql.ast.form.Form;
 
 public abstract class OutputPrinter {
 
-	private final Variables variables;
+	private final RuntimeValues variables;
 	private final String formName;
 
-	public OutputPrinter(final Form form, final Variables variables) {
+	public OutputPrinter(final Form form, final RuntimeValues variables) {
 		this.variables = variables;
 		this.formName = form.getName();
 	}
@@ -19,7 +19,7 @@ public abstract class OutputPrinter {
 		return this.formName;
 	}
 
-	protected Variables getVariables() {
+	protected RuntimeValues getVariables() {
 		return this.variables;
 	}
 

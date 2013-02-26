@@ -5,19 +5,20 @@ import org.uva.sea.ql.ast.statements.Block;
 import org.uva.sea.ql.ast.statements.ComQuestion;
 import org.uva.sea.ql.ast.statements.IfThen;
 import org.uva.sea.ql.ast.statements.IfThenElse;
-import org.uva.sea.ql.ast.statements.QuestionElement;
 import org.uva.sea.ql.ast.statements.SimpleQuestion;
-import org.uva.sea.ql.ast.statements.StatementElement;
 
 public interface IStatementVisitor {
-	
-		public void visit (Form form);
-		public void visit (ComQuestion comQuestion);
-		public void visit (IfThen ifThen);
-		public void visit (IfThenElse ifThenElse);
-		public void visit (SimpleQuestion simpleQuestion);
-		public void visit (QuestionElement questionElement);
-		public void visit(Block block);
-		public void visit(StatementElement statementElement);
+
+	public void visit(Form form);
+
+	public void visit(ComQuestion comQuestion);
+
+	public void visit(IfThen ifThen);
+
+	public void visit(IfThenElse ifThenElse);
+
+	public void visit(SimpleQuestion simpleQuestion);
+
+	public void visit(Block block);
 
 }

@@ -40,12 +40,12 @@ ifStatement returns [IfStatement result]
   ;  
   
 computedValue returns [ComputedValue result]
-  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text,$type.result), new StringLiteral($STRING.text), $x.result);}
+  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text), new StringLiteral($STRING.text), $x.result,$type.result);}
   ;
 
 question returns [Question result]
-  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text,$type.result), new StringLiteral($STRING.text));}
-  ;
+  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
+  ; 
 
 type returns [TypeDeclaration result]
   : x='boolean' {$result = new BooleanDeclaration(); }

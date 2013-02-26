@@ -27,13 +27,14 @@ import org.uva.sea.ql.ast.form.types.BoolType;
 import org.uva.sea.ql.ast.form.types.IntType;
 import org.uva.sea.ql.ast.form.types.StrType;
 import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.ast.form.types.UndefinedType;
 
 
 public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
-	private Map<Ident, Type> environment;
+	private Map<Ident, Type> typeState;
 	
-	public ExpressionTypeEvaluator(Map<Ident, Type> environment) {
-		this.environment = environment;
+	public ExpressionTypeEvaluator(Map<Ident, Type> typeState) {
+		this.typeState = typeState;
 	}
 	
 	@Override
@@ -113,7 +114,13 @@ public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 
 	@Override
 	public Type visit(Ident ast) {
-		return environment.get(ast.getName());
+		Type type = typeState.get(ast);
+				
+		if (type == null) {
+			type = new UndefinedType(null);
+		}
+		
+		return type;
 	}
 
 	@Override

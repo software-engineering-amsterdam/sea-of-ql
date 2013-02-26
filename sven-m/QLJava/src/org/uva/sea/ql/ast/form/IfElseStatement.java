@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.visitor.FormVisitor;
 
 public class IfElseStatement extends AbstractConditional {
 	private final Body elseBody;
-	
+
 	public IfElseStatement(Expr condition, Body body, Body elseBody,
 			Location startLocation) {
 		super(condition, body, startLocation);
@@ -15,14 +15,14 @@ public class IfElseStatement extends AbstractConditional {
 
 	@Override
 	public Location getLocation() {
-		return new Location(getStartLocation(), elseBody.getLocation());
+		return new Location(getStartLocation(), getElse().getLocation());
 	}
 
 	@Override
 	public <T> T accept(FormVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 	public Body getElse() {
 		return elseBody;
 	}

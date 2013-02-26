@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 import org.uva.sea.ql.runtime.values.Value;
 
 /*
@@ -15,9 +15,9 @@ import org.uva.sea.ql.runtime.values.Value;
 class BoundJLabel extends JLabel {
 
 	private static final long serialVersionUID = 1L;
-	private final Variable variable;
+	private final RuntimeValue variable;
 
-	public BoundJLabel(final Variable variable) {
+	public BoundJLabel(final RuntimeValue variable) {
 		this.variable = variable;
 		this.onValueChanged();
 		this.variable.addObserver(new Observer() {

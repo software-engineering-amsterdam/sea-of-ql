@@ -26,15 +26,16 @@ import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 import org.uva.sea.ql.parser.evaluator.result.BoolValue;
 import org.uva.sea.ql.parser.evaluator.result.IntValue;
 import org.uva.sea.ql.parser.evaluator.result.StrValue;
+import org.uva.sea.ql.parser.evaluator.result.UndefinedValue;
 import org.uva.sea.ql.parser.evaluator.result.Value;
 
 public class ExpressionEvaluator implements ExpressionVisitor<Value> {
 	private final Map<Ident, Value> symbolTable;
-	
+
 	public ExpressionEvaluator(Map<Ident, Value> symbolTable) {
 		this.symbolTable = new HashMap<>(symbolTable);
 	}
-	
+
 	@Override
 	public Value visit(Add ast) {
 		return ast.getLhs().accept(this).add(ast.getRhs().accept(this));
@@ -112,7 +113,12 @@ public class ExpressionEvaluator implements ExpressionVisitor<Value> {
 
 	@Override
 	public Value visit(Ident ast) {
-		return symbolTable.get(ast);
+		if (symbolTable.containsKey(ast)) {
+			assert symbolTable.get(ast) != null: "Null in sytmboltable";
+			return symbolTable.get(ast);
+		}
+
+		return new UndefinedValue();
 	}
 
 	@Override

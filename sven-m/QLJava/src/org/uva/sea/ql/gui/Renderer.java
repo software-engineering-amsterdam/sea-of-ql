@@ -19,63 +19,90 @@ import org.uva.sea.ql.ast.form.types.BoolType;
 import org.uva.sea.ql.ast.form.types.IntType;
 import org.uva.sea.ql.ast.form.types.StrType;
 import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.ast.form.types.UndefinedType;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
 import org.uva.sea.ql.gui.control.display.DisplayControl;
-import org.uva.sea.ql.gui.control.input.CheckBox;
 import org.uva.sea.ql.gui.control.input.InputControl;
+import org.uva.sea.ql.gui.control.input.NumberField;
+import org.uva.sea.ql.gui.control.input.BooleanField;
 import org.uva.sea.ql.gui.control.input.TextField;
-import org.uva.sea.ql.gui.dependencies.ComputedObserver;
-import org.uva.sea.ql.gui.dependencies.ConditionObserver;
-import org.uva.sea.ql.gui.dependencies.ObservableQuestion;
+import org.uva.sea.ql.gui.misc.ValueState;
+import org.uva.sea.ql.gui.propagation.ComputedObserver;
+import org.uva.sea.ql.gui.propagation.ConditionObserver;
+import org.uva.sea.ql.gui.propagation.ObservableQuestion;
 
 public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 	private JPanel mainPanel;
 	private Stack<JPanel> panelStack;
-	private State state;
-	
-	private Renderer(State state) {
+	private ValueState state;
+
+	private Renderer(ValueState state) {
 		this.panelStack = new Stack<>();
 		this.mainPanel = pushPanel();
 		this.state = state;
 	}
 	
-	public State getState() {
+	private JPanel getMainPanel() {
+		return mainPanel;
+	}
+
+	private Stack<JPanel> getPanelStack() {
+		return panelStack;
+	}
+
+	public ValueState getState() {
 		return state;
 	}
-	
+
 	/* Panels */
-	private JPanel pushPanel() {
-		JPanel newPanel = new JPanel(new MigLayout());
-		if (getCurrentPanel() != null) {
-			addPanel(newPanel);
-		}
-		
-		return panelStack.push(newPanel);
+
+	private JPanel createPanel(boolean visible) {
+		JPanel panel = new JPanel(new MigLayout("hidemode 3"));
+		panel.setVisible(visible);
+
+		return panel;
+
 	}
-	
-	private void addPanel(JPanel newPanel) {
-		getCurrentPanel().add(newPanel);
-		
+
+	private JPanel pushPanel() {
+		return pushPanel(null);
+	}
+
+	private JPanel pushPanel(JPanel newPanel) {
+		if (newPanel == null) {
+			newPanel = createPanel(true);
+		}
+
+		insertPanel(newPanel);
+
+		return getPanelStack().push(newPanel);
+	}
+
+	private void insertPanel(JPanel newPanel) {
+		if (getCurrentPanel() != null) {
+			getCurrentPanel().add(newPanel, "span");
+		}
 	}
 
 	private JPanel popPanel() {
-		return panelStack.pop();
+		return getPanelStack().pop();
 	}
-	
+
 	private JPanel getCurrentPanel() {
-		return panelStack.empty() ? null : panelStack.peek();
+		return getPanelStack().empty() ? null : panelStack.peek();
 	}
-	
+
 	private JPanel getPanel() {
-		return mainPanel;
+		return getMainPanel();
 	}
-	
+
 	/* Controls */
+
 	private InputControl createControl(Type type) {
 		return type.accept(this);
 	}
-	
+
 	private void addControl(JComponent widget) {
 		getCurrentPanel().add(widget, "wrap");
 	}
@@ -84,17 +111,17 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 		getCurrentPanel().add(new JLabel(text));
 	}
 
-
 	/* Static entry */
-	public static JPanel render(Form form, State state) {
+	
+	public static JPanel render(Form form, ValueState state) {
 		Renderer renderer = new Renderer(state);
 		form.accept(renderer);
+		
 		return renderer.getPanel();
 	}
-	
-	
+
 	/* Form visitor */
-	
+
 	@Override
 	public Void visit(Form ast) {
 		return ast.getBody().accept(this);
@@ -102,89 +129,91 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 
 	@Override
 	public Void visit(Body ast) {
-		
+
 		for (FormElement formElement : ast.getElements()) {
 			formElement.accept(this);
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public Void visit(IfStatement ast) {
-		JPanel ifTrue = pushPanel();
+		JPanel ifTrue = createPanel(false);
+
+		ConditionObserver conditionObserver = new ConditionObserver(
+				ast.getCondition(), ifTrue, getState());
+		getState().addObserverToAll(conditionObserver);
+
+		pushPanel(ifTrue);
 		ast.getBody().accept(this);
 		popPanel();
-		
-		ConditionObserver conditionObserver =
-				new ConditionObserver(ast.getCondition(), ifTrue, getState());
-		
-		getState().addObserverToAll(conditionObserver);
-		
+
 		return null;
 	}
 
 	@Override
 	public Void visit(IfElseStatement ast) {
-		JPanel ifTrue = pushPanel();
+		JPanel ifTrue = createPanel(false);
+		JPanel ifFalse = createPanel(false);
+
+		ConditionObserver conditionObserver = new ConditionObserver(
+				ast.getCondition(), ifTrue, ifFalse, getState());
+
+		pushPanel(ifTrue);
 		ast.getBody().accept(this);
 		popPanel();
-		
-		JPanel ifFalse = pushPanel();
+
+		pushPanel(ifFalse);
 		ast.getElse().accept(this);
 		popPanel();
-		
-		ConditionObserver conditionObserver =
-				new ConditionObserver(ast.getCondition(), ifTrue, ifFalse,
-						getState());
-		
+
 		getState().addObserverToAll(conditionObserver);
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public Void visit(Question ast) {
 		addLabel(ast.getLabel());
 		InputControl control = createControl(ast.getType());
-		
+
 		addControl(control.getWidget());
-		
-		ObservableQuestion observableQuestion =
-				new ObservableQuestion(ast, getState(), control);
-		
+
+		ObservableQuestion observableQuestion = new ObservableQuestion(ast,
+				getState(), control);
+
 		getState().putObservable(ast.getIdent(), observableQuestion);
-		
+
 		return null;
 	}
 
-		@Override
+	@Override
 	public Void visit(Computed ast) {
 		addLabel(ast.getLabel());
-		
+
 		DisplayControl control = new DisplayControl();
-		
+
 		addControl(control.getWidget());
-		
-		ComputedObserver computedObserver =
-				new ComputedObserver(ast, control, getState());
-		
+
+		ComputedObserver computedObserver = new ComputedObserver(ast, control,
+				getState());
+
 		getState().addObserverToAll(computedObserver);
-		
-		ObservableQuestion observableQuestion =
-				new ObservableQuestion(ast, getState(), computedObserver);
-		
+
+		ObservableQuestion observableQuestion = new ObservableQuestion(ast,
+				getState(), computedObserver);
+
 		getState().putObservable(ast.getIdent(), observableQuestion);
-		
+
 		return null;
 	}
 
-		
 	/* Type visitor */
-		
+
 	@Override
 	public InputControl visit(BoolType type) {
-		return new CheckBox();
+		return new BooleanField();
 	}
 
 	@Override
@@ -194,7 +223,12 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 
 	@Override
 	public InputControl visit(IntType type) {
-		return new TextField();
+		return new NumberField();
 	}
-	
+
+	@Override
+	public InputControl visit(UndefinedType type) {
+		return null;
+	}
+
 }

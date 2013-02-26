@@ -23,7 +23,7 @@ public class SwingWindow extends WindowControl {
 
 	@Override
 	public void setTitle( String title ) {
-		this.frame.setName( title );
+		this.frame.setTitle( title );
 	}
 
 	@Override

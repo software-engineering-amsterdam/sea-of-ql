@@ -3,7 +3,10 @@ package org.uva.sea.ql.ast.types;
 import org.uva.sea.ql.visitor.IParametrizedTypeVisitor;
 import org.uva.sea.ql.visitor.ITypeVisitor;
 
-public class BooleanType extends Type {
+public final class BooleanType extends Type {
+
+	BooleanType() {
+	}
 
 	@Override
 	public <TParameter, TResult> TResult accept(

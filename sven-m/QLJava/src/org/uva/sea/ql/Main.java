@@ -6,10 +6,10 @@ import org.uva.sea.ql.gui.MainWindow;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                MainWindow mainWindow = new MainWindow();
+                MainWindow mainWindow = new MainWindow(args[0], args[1]);
                 mainWindow.setVisible(true);
             }
         });

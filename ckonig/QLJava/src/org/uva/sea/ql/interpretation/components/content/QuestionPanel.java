@@ -9,13 +9,11 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Expression;
 import org.uva.sea.ql.ast.literals.StringLiteral;
-import org.uva.sea.ql.ast.types.AbstractMathType;
 import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 import org.uva.sea.ql.interpretation.components.input.QLInput;
 import org.uva.sea.ql.interpretation.evaluation.Evaluator;
@@ -39,7 +37,7 @@ public final class QuestionPanel extends JPanel {
         this.original = this.getBackground();
     }
 
-    public final String getIdentName() {
+    public final StringLiteral getIdentName() {
         return this.question.getIdentName();
     }
 
@@ -52,7 +50,7 @@ public final class QuestionPanel extends JPanel {
     }
 
     public final Expr getCondition() {
-        return this.question.getExpr();
+        return this.question.getCondition();
     }
 
     public final QLInput getInput() {
@@ -68,7 +66,7 @@ public final class QuestionPanel extends JPanel {
         return this.input.getBoolValue();
     }
 
-    public final String getStringValue() {
+    public final StringLiteral getStringValue() {
         return this.input.getStringValue();
     }
 
@@ -96,25 +94,23 @@ public final class QuestionPanel extends JPanel {
     }
 
     public void setAutoValue(SwingRegistry registry) throws QLException {
-        final Expr e = this.question.getExpr();
-        final Class<?> returnType = ReturnFinder.getResult(
-                registry.getQuestionsAst(), (Expression) e);
-        Evaluator eval = new Evaluator(registry, true);
+        final Expr e = this.question.getCondition();
+        final Evaluator eval = new Evaluator(registry, true);
 
-        if (returnType.equals(BooleanType.class)) {
+        if (registry.returnTypeEquals(e, new BooleanType())) {
             final boolean result = eval.evalBool(e);
             this.input.setBoolean(result);
         }
 
-        if (returnType.equals(AbstractMathType.class)) {
+        if (registry.returnTypeEquals(e, new IntType())) {
             try {
                 final float result = eval.evalFloat(e);
-                this.input.setStringValue(Float.toString(result));
+                this.input.setStringValue(new StringLiteral(Float
+                        .toString(result)));
             } catch (EmptyInputException ex) {
                 // no input? no output!
             }
         }
 
     }
-
 }

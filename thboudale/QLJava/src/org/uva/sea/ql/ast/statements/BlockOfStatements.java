@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.statements;
 
 import java.util.List;
-
-import org.uva.sea.ql.semanticCheck.FormStmtVisitor;
+import org.uva.sea.ql.visitor.IFormStmtVisitor;
 
 public class BlockOfStatements extends AStatement {
 	private final List<AStatement> blStmts; 
@@ -16,7 +15,7 @@ public class BlockOfStatements extends AStatement {
 	}
 	
 	@Override
-	public <T> T accept(FormStmtVisitor<T> visitor) {
+	public <T> T accept(IFormStmtVisitor<T> visitor) {
 		return visitor.visit(this);		
 	}
 }

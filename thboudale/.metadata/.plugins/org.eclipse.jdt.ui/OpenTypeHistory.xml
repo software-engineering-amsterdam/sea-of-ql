@@ -2,4 +2,6 @@
 <typeInfoHistroy>
 <typeInfo handle="=QLJava/C:\/Program Files\/Java\/jdk1.7.0_09\/jre\/lib\/rt.jar&lt;sun.org.mozilla.javascript.internal.ast(AstNode.class[AstNode" modifiers="1057" timestamp="1351973096555"/>
 <typeInfo handle="=QLJava/src&lt;org.uva.sea.ql.ast{ASTNode.java[ASTNode" modifiers="513" timestamp="1361468677400"/>
+<typeInfo handle="=QLJava/src&lt;org.uva.sea.ql.semanticCheck{ExprVisitor.java[ExprVisitor" modifiers="513" timestamp="1361659028981"/>
+<typeInfo handle="=QLJava/src&lt;org.uva.sea.ql.evaluator.values{AValue.java[AValue" modifiers="1025" timestamp="1361709669102"/>
 </typeInfoHistroy>

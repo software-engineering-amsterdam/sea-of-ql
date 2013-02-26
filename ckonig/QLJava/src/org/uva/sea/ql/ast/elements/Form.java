@@ -1,19 +1,20 @@
 package org.uva.sea.ql.ast.elements;
 
 import org.uva.sea.ql.ast.interfaces.ASTElement;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 
 public class Form implements ASTElement {
 	private Block content;
-	private String name;
+	private StringLiteral name;
 
-	public Form(String title, Block block) {
+	public Form(StringLiteral title, Block block) {
 		this.name = title;
 		this.content = block;
 	}
 
-	public final String getName() {
+	public final StringLiteral getName() {
 		return this.name;
 	}
 

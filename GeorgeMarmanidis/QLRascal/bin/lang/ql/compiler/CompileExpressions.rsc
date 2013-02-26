@@ -6,7 +6,7 @@ import lang::ql::compiler::ExtractDependencies;
 import IO;
 
 alias BDITS=list[FormBodyItem];
-//1. change switch, make functions
+
 public str generateJavaScriptExpr(ident(str name),BDITS bodyItems)=
 	generateJavaScriptExpr(name,getVariableType(name,bodyItems));
 

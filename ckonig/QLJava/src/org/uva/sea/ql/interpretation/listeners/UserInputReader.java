@@ -1,8 +1,5 @@
 package org.uva.sea.ql.interpretation.listeners;
 
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
-
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
@@ -40,22 +37,22 @@ public class UserInputReader {
 
         @Override
         public final void visit(BooleanType b) {
-            this.ret = ((JCheckBox) this.questionPanel.getInput()).isSelected();
+            this.ret = this.questionPanel.getInput().getBoolValue();
         }
 
         @Override
         public final void visit(Money m) {
-            this.ret = ((JTextField) this.questionPanel.getInput()).getText();
+            this.ret = this.questionPanel.getInput().getStringValue();
         }
 
         @Override
         public final void visit(StrType s) {
-            this.ret = ((JTextField) this.questionPanel.getInput()).getText();
+            this.ret = this.questionPanel.getInput().getStringValue();
         }
 
         @Override
         public final void visit(IntType i) {
-            this.ret = ((JTextField) this.questionPanel.getInput()).getText();
+            this.ret = this.questionPanel.getInput().getStringValue();
         }
 
         @Override

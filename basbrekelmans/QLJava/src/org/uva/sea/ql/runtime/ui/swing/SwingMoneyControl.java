@@ -2,7 +2,7 @@ package org.uva.sea.ql.runtime.ui.swing;
 
 import java.text.NumberFormat;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 import org.uva.sea.ql.runtime.values.MoneyValue;
 import org.uva.sea.ql.runtime.values.Value;
 
@@ -16,7 +16,7 @@ public class SwingMoneyControl extends SwingNumericControl {
 		MONEY_FORMAT.setMinimumFractionDigits(2);
 	}
 
-	protected SwingMoneyControl(final Variable variable) {
+	protected SwingMoneyControl(final RuntimeValue variable) {
 		super(variable, MONEY_FORMAT);
 	}
 

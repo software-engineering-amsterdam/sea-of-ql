@@ -1,5 +1,6 @@
 package org.uva.sea.ql.util;
 
+import org.uva.sea.ql.ast.IVisitorExpr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
@@ -22,7 +23,6 @@ import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
 import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.ast.visitor.IVisitorExpr;
 
 public class VisitorExprPrint implements IVisitorExpr<String>{
 	

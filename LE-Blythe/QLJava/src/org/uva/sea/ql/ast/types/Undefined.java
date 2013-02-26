@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.visitor.IVisitorType;
 
 public class Undefined extends Type{
 	
@@ -18,5 +17,11 @@ public class Undefined extends Type{
 	
 	public <T> T accept(IVisitorType<T> visitor){
 		return visitor.visit(this);
+	}
+
+
+	@Override
+	public boolean isCompatibleTo(Type t) {
+		return false;
 	}
 }

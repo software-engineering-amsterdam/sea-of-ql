@@ -18,8 +18,7 @@ public final class IdentFinder {
     }
 
     public static final List<Ident> getIdents(TreeNode t) {
-        IdentFinder finder = new IdentFinder(t);
-        return finder.getIdents();
+        return new IdentFinder(t).getIdents();
     }
 
 }

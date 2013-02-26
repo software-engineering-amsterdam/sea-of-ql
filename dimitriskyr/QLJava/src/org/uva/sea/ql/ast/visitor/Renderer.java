@@ -1,14 +1,15 @@
 package org.uva.sea.ql.ast.visitor;
 
-import java.awt.Checkbox;
-import java.awt.Component;
+import java.util.Map.Entry;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statements.Block;
@@ -17,74 +18,39 @@ import org.uva.sea.ql.ast.statements.IfThen;
 import org.uva.sea.ql.ast.statements.IfThenElse;
 import org.uva.sea.ql.ast.statements.QuestionElement;
 import org.uva.sea.ql.ast.statements.SimpleQuestion;
-import org.uva.sea.ql.ast.statements.StatementElement;
-import org.uva.sea.ql.ast.gui.State;
+import org.uva.sea.ql.ast.values.Bool;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.ast.values.Int;
+import org.uva.sea.ql.ast.values.Money;
+import org.uva.sea.ql.ast.values.String_lit;
+import org.uva.sea.ql.ast.gui.*;
 
 public class Renderer implements IStatementVisitor {
 
 	private final JPanel panel;
 	private final State state;
-	
+	JFrame frame;
+
+	public Renderer(State state) {
+		this.state = state;
+		this.frame = new JFrame("QL Language");
+		this.panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+	}
+
 	public static JPanel render(Statement statement, State state) {
 		Renderer r = new Renderer(state);
 		statement.accept(r);
 		return r.getPanel();
-		}
-	
-	private JPanel getPanel(){
+	}
+
+	private JPanel getPanel() {
 		return panel;
 	}
-	
-	private Renderer(State state) {
-		this.state = state;
-		this.panel = new JPanel();
-		}
-	
+
 	@Override
 	public void visit(Form form) {
-		JPanel formPanel = render(form.getBlock(), state);
-		panel.add(formPanel);
-		panel.setName(form.getName().toString());
-	}
-
-
-	@Override
-	public void visit(final IfThen ifThen) {
-		JPanel ifblock = render(ifThen.getIfBlock(), state);
-		//registerConditionDeps(ifThen.getCondition(), ifblock);
-		ifblock.setVisible(false);
-		panel.add(ifblock);
-	}
-	
-	@Override
-	public void visit(final IfThenElse ifThenElse) {
-		JPanel tru = render(ifThenElse.getIfBlock(), state);
-		JPanel fls = render(ifThenElse.getElseBlock(), state);
-		//registerConditionDeps(ifThenElse.getCondition(), tru, fls);
-		tru.setVisible(false);
-		fls.setVisible(false);
-		panel.add(tru);
-		panel.add(fls);
-	}
-
-	@Override
-	public void visit(SimpleQuestion simpleQuestion) {
-		JLabel graphlabel = new JLabel(simpleQuestion.getString().getValue());
-		Component ctl = typeToWidget(simpleQuestion, true);
-		//registerHandler(simpleQuestion, ctl);
-		panel.add(graphlabel);
-		panel.add(ctl);
-	}
-	
-	@Override
-	public void visit(ComQuestion comQuestion) {
-		JLabel graphlabel = new JLabel(comQuestion.getString().getValue());
-		Component ctl = typeToWidget(comQuestion, true);
-		/*registerComputedDeps(comQuestion, ctl);
-		registerPropagator(comQuestion);
-		initValue(comQuestion, ctl); */
-		panel.add(graphlabel);
-		panel.add(ctl);
+		render(form.getBlock(), state);
 	}
 
 	@Override
@@ -93,38 +59,116 @@ public class Renderer implements IStatementVisitor {
 			blockbody.accept(this);
 		}
 	}
-	
+
 	@Override
-	public void visit(QuestionElement questionElement) {
-		// TODO Auto-generated method stub
+	public void visit(IfThen ifThen) {
+		JPanel ifblock = render(ifThen.getIfBlock(), state);
+		System.out.println(ifThen.getCondition());
+		registerConditionDeps(ifThen.getCondition(), ifblock);
+		ifblock.setVisible(false);
+		panel.add(ifblock);
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	@Override
+	public void visit(IfThenElse ifThenElse) {
+		JPanel tru = render(ifThenElse.getIfBlock(), state);
+		JPanel fls = render(ifThenElse.getElseBlock(), state);
+		registerConditionDeps(ifThenElse.getCondition(), tru, fls);
+		tru.setVisible(false);
+		fls.setVisible(false);
+		panel.add(tru);
+		panel.add(fls);
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
+	}
+
+	@Override
+	public void visit(SimpleQuestion simpleQuestion) {
+		JLabel graphlabel = new JLabel(simpleQuestion.getString().getValue());
+		Control ctl = typeToWidget(simpleQuestion);
+		registerHandler(simpleQuestion, ctl);
+		panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		panel.add(graphlabel);
+		panel.add(ctl.getComponent());
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
 
 	}
 
 	@Override
-	public void visit(StatementElement statementElement) {
-		// TODO Auto-generated method stub
-
+	public void visit(ComQuestion comQuestion) {
+		JLabel graphlabel = new JLabel(comQuestion.getString().getValue());
+		Control ctl = typeToWidget(comQuestion);
+		registerHandler(comQuestion, ctl);
+		registerComputedDeps(comQuestion, state, ctl);
+		panel.add(graphlabel);
+		panel.add(ctl.getComponent());
+		frame.setContentPane(panel);
+		frame.pack();
+		frame.setVisible(true);
 	}
-	
-	private Component typeToWidget(QuestionElement question, boolean enabled) {
 
+	private void registerHandler(QuestionElement question, Control control) {
+		ObservableQuestion obQuestion = new ObservableQuestion(question, state,
+				control);
+		state.putObservable(question.getIdent(), obQuestion);
+		control.Listener(obQuestion);
+	}
+
+	private void registerComputedDeps(QuestionElement question, State state,
+			Control control) {
+		ComputedObserver computedObserver = new ComputedObserver(control,
+				state, question);
+		addObserver(computedObserver);
+	}
+
+	private void addObserver(Observer observer) {
+		for (Entry<Ident, Observable> observable : state.getObservables()
+				.entrySet())
+			state.addObserver(observable.getKey(), observer);
+	}
+
+	private void registerConditionDeps(Expr condition, JPanel conditionTrue,
+			JPanel conditionFalse) {
+		IfConditionObserver conditionObserver = new IfConditionObserver(
+				condition, conditionTrue, conditionFalse, state);
+		addObserver(conditionObserver);
+	}
+
+	private void registerConditionDeps(Expr condition, JPanel ifbody) {
+		IfConditionObserver conditionObserver = new IfConditionObserver(
+				condition, ifbody, state);
+		addObserver(conditionObserver);
+	}
+
+	private Control typeToWidget(QuestionElement question) {
+		Ident ident = question.getIdent();
 		if (question.getType().isCompatibleToBoolean()) {
-			Component input = new Checkbox();
-			input.setEnabled(enabled);
-			return input;
+			state.putValue(ident.getValue(), new Bool(false));
+			System.out.println(state.getEnv());
+			return new BooleanToWidget();
 		}
-		else if (question.getType().isCompatibleToMoney()) {
-			JComponent input = new JTextField(5);
-			input.setEnabled(enabled);
-			return input;
-		}
-		if (question.getType().isCompatibleToInteger()) {
-			JComponent input = new JTextField(5);
-			input.setEnabled(enabled);
-			return input;
-		}
-		return null;
-	}	
-	
 
+		else if (question.getType().isCompatibleToMoney()) {
+			state.putValue(ident.getValue(), new Money(0));
+			return new MoneyToWidget();
+		}
+
+		else if (question.getType().isCompatibleToInteger()) {
+			state.putValue(ident.getValue(), new Int(0));
+			return new IntegerToWidget();
+		}
+
+		else if (question.getType().isCompatibleToString()) {
+			state.putValue(ident.getValue(), new String_lit(null));
+			return new StringToWidget();
+		} else
+			return null;
+
+	}
 }

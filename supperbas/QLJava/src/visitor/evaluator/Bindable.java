@@ -30,6 +30,10 @@ public class Bindable extends Observable {
 	public Value getValue() {
 		return this.value;
 	}
+	
+	public String getValueToString(){
+		return this.value.getValue().toString();
+	}
 
 	public boolean isDefined() {
 		return defined;

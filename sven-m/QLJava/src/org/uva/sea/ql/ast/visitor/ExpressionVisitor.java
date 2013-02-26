@@ -21,6 +21,7 @@ import org.uva.sea.ql.ast.expression.StrLiteral;
 import org.uva.sea.ql.ast.expression.Sub;
 
 public interface ExpressionVisitor<T> {
+
 	/* binary operators */
 	T visit(Add ast);
 	T visit(Sub ast);
@@ -34,15 +35,16 @@ public interface ExpressionVisitor<T> {
 	T visit(NEq ast);
 	T visit(GEq ast);
 	T visit(GT ast);
-	
+
 	/* unary operators */
 	T visit(Pos ast);
 	T visit(Neg ast);
 	T visit(Not ast);
-	
+
 	/* leaf nodes */
 	T visit(Ident ast);
 	T visit(IntLiteral ast);
 	T visit(StrLiteral ast);
 	T visit(BoolLiteral ast);
+
 }

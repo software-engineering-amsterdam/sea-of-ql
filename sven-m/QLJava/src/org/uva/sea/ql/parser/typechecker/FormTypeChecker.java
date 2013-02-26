@@ -10,24 +10,37 @@ import org.uva.sea.ql.ast.form.IfElseStatement;
 import org.uva.sea.ql.ast.form.IfStatement;
 import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.Computed;
+import org.uva.sea.ql.ast.form.types.Type;
+import org.uva.sea.ql.parser.typechecker.error.FormTypeMismatchError;
 import org.uva.sea.ql.parser.typechecker.error.VariableRedefinitionError;
 
 public class FormTypeChecker implements FormVisitor<Boolean> {
-	
-	private Environment environment;
+
+	private TypeCheckerState state;
 	private ExpressionTypeChecker exprTypeChecker;
 	private ExpressionTypeEvaluator exprTypeEval;
-	
-	public FormTypeChecker(Environment environment) {
-		this.environment = environment;
-		this.exprTypeChecker = new ExpressionTypeChecker(environment);
-		this.exprTypeEval = new ExpressionTypeEvaluator(
-				environment.getTypeEnvironment());
+
+	public FormTypeChecker(TypeCheckerState state) {
+		this.state = state;
+		this.exprTypeChecker = new ExpressionTypeChecker(state);
+		this.exprTypeEval = new ExpressionTypeEvaluator(state.getTypeState());
 	}
-	
+
+	private TypeCheckerState getState() {
+		return state;
+	}
+
+	private ExpressionTypeChecker getExprTypeChecker() {
+		return exprTypeChecker;
+	}
+
+	private ExpressionTypeEvaluator getExprTypeEval() {
+		return exprTypeEval;
+	}
+
 	private boolean checkConditional(AbstractConditional conditional) {
-		return conditional.getBody().accept(this) 
-				&& conditional.getCondition().accept(exprTypeChecker);
+		return conditional.getBody().accept(this)
+				&& conditional.getCondition().accept(getExprTypeChecker());
 	}
 
 	@Override
@@ -38,11 +51,11 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 	@Override
 	public Boolean visit(Body ast) {
 		boolean typeCorrect = true;
-		
+
 		for (FormElement formElement : ast.getElements()) {
 			typeCorrect &= formElement.accept(this);
 		}
-		
+
 		return typeCorrect;
 	}
 
@@ -58,38 +71,44 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Question ast) {
-		boolean typeCorrect = environment.getType(ast.getIdent()) == null;
+		boolean typeCorrect = getState().getType(ast.getIdent()) == null;
 		Ident ident = ast.getIdent();
-		
+
 		if (typeCorrect) {
-			environment.setType(ident, ast.getType());
+			getState().setType(ident, ast.getType());
 		} else {
-			environment.reportError(
+			getState().reportError(
 					new VariableRedefinitionError(ident.getName(), ident));
 		}
-		
+
 		return typeCorrect;
 	}
 
 	@Override
 	public Boolean visit(Computed ast) {
-		boolean typeCorrect = ast.getExpression().accept(exprTypeChecker);
+		boolean typeCorrect = ast.getExpression().accept(getExprTypeChecker());
+		
 		Ident ident = ast.getIdent();
-		
-		typeCorrect &=
-				ast.getExpression().accept(exprTypeEval).equals(ast.getType());
-		
-		
-		if (environment.getType(ident) == null) {
-			environment.setType(ident, ast.getType());
+
+		Type exprType = ast.getExpression().accept(getExprTypeEval());
+
+		if (!exprType.equals(ast.getType())) {
+			typeCorrect = false;
+			getState().reportError(
+					new FormTypeMismatchError(ident.getName(),
+							ast.getType().toString(), exprType.toString(),
+							ast));
+		}
+
+		if (getState().getType(ident) == null) {
+			getState().setType(ident, ast.getType());
 		} else {
 			typeCorrect = false;
-			environment.reportError(
+			getState().reportError(
 					new VariableRedefinitionError(ident.getName(), ident));
 		}
-		
+
 		return typeCorrect;
 	}
-
 
 }

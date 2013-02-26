@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.expressions;
 import java.util.Map;
 import org.uva.sea.ql.ast.types.AType;
 import org.uva.sea.ql.ast.types.ErrorType;
-import org.uva.sea.ql.semanticCheck.ExprVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class Ident extends AExpr {
 	private final String name;
@@ -28,7 +28,7 @@ public class Ident extends AExpr {
 	}
 	
 	@Override
-	public <T> T accept(ExprVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

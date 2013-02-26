@@ -20,7 +20,7 @@ public class JsonOutputPrinter extends OutputPrinter implements
 	private int indent;
 	private Writer outputBuilder;
 
-	public JsonOutputPrinter(final Form form, final Variables variables) {
+	public JsonOutputPrinter(final Form form, final RuntimeValues variables) {
 		super(form, variables);
 		this.indent = 0;
 	}
@@ -66,7 +66,7 @@ public class JsonOutputPrinter extends OutputPrinter implements
 		this.stringLiteral("results");
 		this.outputBuilder.write(": ");
 		this.bracket();
-		final Variables variables = this.getVariables();
+		final RuntimeValues variables = this.getVariables();
 		boolean first = true;
 		for (final Identifier identifier : variables.getIdentifiers()) {
 			if (first) {
@@ -75,7 +75,7 @@ public class JsonOutputPrinter extends OutputPrinter implements
 				this.commaNewLine();
 			}
 
-			final Variable variable = variables.get(identifier);
+			final RuntimeValue variable = variables.get(identifier);
 			final Value value = variable.getValue();
 			final Type type = value.getType();
 			this.variableWithValue(identifier.getName(),
@@ -108,7 +108,7 @@ public class JsonOutputPrinter extends OutputPrinter implements
 
 	@Override
 	public String visit(final IntegerType element, final Value arg) {
-		return String.format("\"%s\"", arg.getValue().toString());
+		return arg.getValue().toString();
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class JsonOutputPrinter extends OutputPrinter implements
 
 	@Override
 	public String visit(final StringType element, final Value arg) {
-		return arg.getValue().toString();
+		return String.format("\"%s\"", arg.getValue().toString());
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public abstract class Type implements ASTNode {
 	}
 	
 	public boolean equals(Type type) {
-		return this.getClass() == type.getClass();
+		return getClass() == type.getClass();
 	}
 	
 	@Override
@@ -21,5 +21,6 @@ public abstract class Type implements ASTNode {
 	}
 	
 	public abstract <T> T accept(TypeVisitor<T> visitor);
+	public abstract String toString();
 	
 }

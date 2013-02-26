@@ -4,7 +4,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.AType;
 import org.uva.sea.ql.ast.types.BoolType;
-import org.uva.sea.ql.semanticCheck.ExprVisitor;
+import org.uva.sea.ql.visitor.IExprVisitor;
 
 public class BoolLiteral extends ALiteral {
 	private final boolean value;
@@ -23,7 +23,7 @@ public class BoolLiteral extends ALiteral {
 	}
 	
 	@Override
-	public <T> T accept(ExprVisitor<T> visitor) {
+	public <T> T accept(IExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

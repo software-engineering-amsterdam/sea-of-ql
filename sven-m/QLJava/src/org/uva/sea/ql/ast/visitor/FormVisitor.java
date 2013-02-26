@@ -8,10 +8,12 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.Computed;
 
 public interface FormVisitor<T> {
+
 	T visit(Form ast);
 	T visit(Body ast);
 	T visit(IfStatement ast);
 	T visit(IfElseStatement ast);
 	T visit(Question ast);
 	T visit(Computed ast);
+
 }

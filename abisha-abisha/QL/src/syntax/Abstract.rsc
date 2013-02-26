@@ -1,26 +1,25 @@
+//@abisha
+
 module syntax::Abstract
 
-
-alias QuestionId=str;
-
-public data Type = string() | integer() | boolean() | money() | money();//money(Expression)
+public data Type = string() | integer() | boolean() | money() | money(Expression);
 
 // Data of a QL Program	
-public data Form = form(str questionName, list[Statement] body);
+public data Form = form(str name, list[Body] stats);
+
+public data Body=question(Question question)
+				|statement (Statement statement)
+				;
 	
-// Data of a Statements Rule 	
 public data Statement =
-       ifStat(Expression cond, list[Statement] thenPart) 
-     | ifElseStat(Expression exp, list[Statement] thenpart, list[Statement] elsepart)
-     | question(Question question)
+       ifStat(Expression exp, list[Body] stats) 
+     | ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart)
      ;
 
-// Data of a Question   
 public data Question = uncomputedQuestion(str id, str labelQuestion, Type tp)
 	 | computedQuestion(str id, str labelQuestion, Type tp,Expression exp )
 	 ;
 
-// Data of a Expression Rule   
 public data Expression =
 	  id (str name)
 	| \int(int ivalue)
@@ -47,6 +46,7 @@ anno loc Type@location;
 anno loc Form@location;
 anno loc Expression@location;
 anno loc Statement@location;
+anno loc Body@location;
 anno loc Question@location;
 
 public alias Occurrence = tuple[loc location, str name, Question questions];

@@ -54,7 +54,8 @@ class Lexer implements Tokens {
 	}
 
 	private void error(final String msg) {
-		throw new ParseError(this.line, this.column, this.fileName, msg);
+		System.err.println(new QLError(this.line, this.column, this.fileName,
+				msg).getMessage());
 	}
 
 	private char getEscapedChar(final int c) {
@@ -162,7 +163,7 @@ class Lexer implements Tokens {
 	 * @return An immutable object containing line number, column and file name
 	 *         information.
 	 */
-	public ICodeLocationInformation location() {
+	ICodeLocationInformation location() {
 		return new CodeLocationInformationImpl(this.line, this.column,
 				this.fileName);
 	}

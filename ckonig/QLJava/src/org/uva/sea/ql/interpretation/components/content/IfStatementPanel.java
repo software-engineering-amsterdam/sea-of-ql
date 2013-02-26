@@ -24,4 +24,8 @@ public class IfStatementPanel extends JPanel {
         final boolean result = new Evaluator(registry, false).evalBool(e);
         this.setVisible(result);
     }
+
+    public final IfStatement getIfStatement() {
+        return this.ifStatement;
+    }
 }

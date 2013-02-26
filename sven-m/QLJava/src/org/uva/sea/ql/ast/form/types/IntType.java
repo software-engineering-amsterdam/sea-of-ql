@@ -4,6 +4,7 @@ import org.uva.sea.ql.ast.misc.Location;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
 
 public class IntType extends Type {
+	
 	public IntType(Location location) {
 		super(location);
 	}
@@ -12,5 +13,8 @@ public class IntType extends Type {
 	public <T> T accept(TypeVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
+	public String toString() {
+		return "integer";
+	}
 }

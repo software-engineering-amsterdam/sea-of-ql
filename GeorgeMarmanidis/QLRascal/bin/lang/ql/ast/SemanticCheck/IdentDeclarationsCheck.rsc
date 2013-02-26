@@ -1,5 +1,4 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-
 module lang::ql::ast::semanticcheck::IdentDeclarationsCheck
 
 import lang::ql::ast::semanticcheck::TypeEnvUtils;
@@ -7,8 +6,7 @@ import lang::ql::ast::AST;
 
 public TENV getIdentDeclarations(list[FormBodyItem] formBodyItems,TENV env){
 	visit(formBodyItems){
-		case q:simpleQuestion(_,_,_) : env=getIdentDeclarations(q,env);
-		case q:computedQuestion(_,_,_,_) : env=getIdentDeclarations(q,env);
+		case Question q : env=getIdentDeclarations(q,env);
 	}
 	return env;	
 }

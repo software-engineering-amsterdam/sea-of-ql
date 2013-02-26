@@ -10,12 +10,12 @@ import javax.swing.JFormattedTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 import org.uva.sea.ql.runtime.ui.INumericControl;
 import org.uva.sea.ql.runtime.values.Value;
 
 abstract class SwingNumericControl implements INumericControl {
-	private final Variable variable;
+	private final RuntimeValue variable;
 
 	private final NumberFormat format;
 
@@ -23,7 +23,7 @@ abstract class SwingNumericControl implements INumericControl {
 
 	private Box container;
 
-	protected SwingNumericControl(final Variable variable,
+	protected SwingNumericControl(final RuntimeValue variable,
 			final NumberFormat format) {
 		this.variable = variable;
 		this.format = format;
@@ -36,7 +36,7 @@ abstract class SwingNumericControl implements INumericControl {
 		return this.container;
 	}
 
-	protected Variable getVariable() {
+	protected RuntimeValue getVariable() {
 		return this.variable;
 	}
 

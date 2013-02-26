@@ -9,4 +9,5 @@ public abstract class AbstractType {
     }
 
     public abstract void accept(TypeVisitor v);
+    
 }

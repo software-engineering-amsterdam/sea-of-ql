@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.operative;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.visitor.IVisitorExpr;
+import org.uva.sea.ql.ast.IVisitorExpr;
 
 public class GT extends OperatorBinaryComparative{
 	

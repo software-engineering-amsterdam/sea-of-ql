@@ -39,7 +39,7 @@ class FormBuilder implements TypeVisitor<InputControl> {
 		return this.panel;
 	}
 
-	protected void addControl( Control control ) {
+	public void addControl( Control control ) {
 		this.panel.addControl( control );
 	}
 

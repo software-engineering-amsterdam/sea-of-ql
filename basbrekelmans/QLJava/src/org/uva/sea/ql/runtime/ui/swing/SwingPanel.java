@@ -6,16 +6,16 @@ import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.runtime.Variable;
+import org.uva.sea.ql.runtime.RuntimeValue;
 import org.uva.sea.ql.runtime.ui.IControl;
 import org.uva.sea.ql.runtime.values.BooleanValue;
 import org.uva.sea.ql.runtime.values.Value;
 
 abstract class SwingPanel implements IControl {
-	private final Variable variable;
+	private final RuntimeValue variable;
 	private final JPanel panel;
 
-	public SwingPanel(final Variable variable) {
+	public SwingPanel(final RuntimeValue variable) {
 		this.variable = variable;
 		this.panel = new JPanel();
 		this.panel.setLayout(new BoxLayout(this.panel, BoxLayout.PAGE_AXIS));
