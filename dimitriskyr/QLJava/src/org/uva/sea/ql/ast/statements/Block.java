@@ -6,7 +6,7 @@ import java.util.List;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.visitor.IStatementVisitor;
 
-public class Block extends Statement{
+public class Block extends Statement {
 	private final List<Statement> block = new ArrayList<Statement>();
 
 	public void addBody(Statement bodyPart) {
@@ -22,4 +22,3 @@ public class Block extends Statement{
 		visitor.visit(this);
 	}
 }
-

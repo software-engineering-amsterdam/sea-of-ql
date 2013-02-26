@@ -12,4 +12,5 @@ public class GEq extends Binary {
 	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
 }

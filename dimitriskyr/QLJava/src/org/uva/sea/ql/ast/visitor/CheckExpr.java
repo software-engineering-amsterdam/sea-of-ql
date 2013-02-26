@@ -27,20 +27,21 @@ import org.uva.sea.ql.ast.values.Money;
 import org.uva.sea.ql.ast.values.String_lit;
 
 public class CheckExpr implements ICheckExprVisitor<Boolean> {
-	
-	private final Map<Ident, Type> typeEnv;
+
+	private final Map<String, Type> typeEnv;
 	private final List<String> errormessages;
-	
-    public CheckExpr(Map<Ident, Type> tenv, List<String> messages) {
-	this.typeEnv = tenv;
-	this.errormessages = messages;
-	} 
-	
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, List<String> errors) {
-	CheckExpr check = new CheckExpr(typeEnv, errors);
-	return expr.accept(check);
+
+	public CheckExpr(Map<String, Type> tenv, List<String> messages) {
+		this.typeEnv = tenv;
+		this.errormessages = messages;
 	}
-	
+
+	public static boolean check(Expr expr, Map<String, Type> typeEnv,
+			List<String> errors) {
+		CheckExpr check = new CheckExpr(typeEnv, errors);
+		return expr.accept(check);
+	}
+
 	public void getErrormessages(String errors) {
 		this.errormessages.add(errors);
 	}
@@ -54,10 +55,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = add.getLhs().typeOf(typeEnv);
 		Type rhsType = add.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
 			getErrormessages("invalid type for '+' . The operands of the two sides should both be of type Numeric");
-			System.out.println("invalid type for '+' . The operands of the two sides should both be of type Numeric");
-			return false; 
+			return false;
 		}
 		return true;
 	}
@@ -71,9 +72,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = and.getLhs().typeOf(typeEnv);
 		Type rhsType = and.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean())){
-			errormessages.add("invalid type for '&&' . The operands of the two sides should both be of type Boolean.");
-			System.out.println("invalid type for '&&' . The operands of the two sides should both be of type Boolean.");
+		if (!(lhsType.isCompatibleToBoolean() && rhsType
+				.isCompatibleToBoolean())) {
+			errormessages
+					.add("invalid type for '&&' . The operands of the two sides should both be of type Boolean.");
 			return false;
 		}
 		return true;
@@ -88,9 +90,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = div.getLhs().typeOf(typeEnv);
 		Type rhsType = div.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '/' . The operands of the two sides should both be of type Numeric.");
-			System.out.println("invalid type for '/' . The operands of the two sides should both be of type Numeric.");
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '/' . The operands of the two sides should both be of type Numeric.");
 			return false;
 		}
 		return true;
@@ -105,10 +108,9 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = eq.getLhs().typeOf(typeEnv);
 		Type rhsType = eq.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleTo(rhsType))){
-			errormessages.add("invalid type for '=='. The operands of the two sides should both be of the same type.");
-			System.out.println("invalid type for '=='. The operands of the two sides should both be of the same type.");
-
+		if (!(lhsType.isCompatibleTo(rhsType))) {
+			errormessages
+					.add("invalid type for '=='. The operands of the two sides should both be of the same type.");
 			return false;
 		}
 		return true;
@@ -123,13 +125,15 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = geq.getLhs().typeOf(typeEnv);
 		Type rhsType = geq.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '>='. The operands of the two sides should both be of type Numeric.");
-			System.out.println("invalid type for '>='. The operands of the two sides should both be of type Numeric.");
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '>='. The operands of the two sides should both be of type Numeric.");
 			return false;
 		}
 		return true;
 	}
+
 	@Override
 	public Boolean visit(GT gt) {
 		boolean checkLhs = gt.getLhs().accept(this);
@@ -139,9 +143,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = gt.getLhs().typeOf(typeEnv);
 		Type rhsType = gt.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '>'. The operands of the two sides should both be of type Numeric.");
-			System.out.println("invalid type for '>'. The operands of the two sides should both be of type Numeric.");
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '>'. The operands of the two sides should both be of type Numeric.");
 			return false;
 		}
 		return true;
@@ -156,9 +161,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = leq.getLhs().typeOf(typeEnv);
 		Type rhsType = leq.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '<='. The operands of the two sides should both be of type Numeric.");
-			System.out.println("invalid type for '<='. The operands of the two sides should both be of type Numeric.");
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '<='. The operands of the two sides should both be of type Numeric.");
 			return false;
 		}
 		return true;
@@ -173,9 +179,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = lt.getLhs().typeOf(typeEnv);
 		Type rhsType = lt.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '<'. The operands of the two sides should both be of type Numeric.");
-			System.out.println("invalid type for '<'. The operands of the two sides should both be of type Numeric.");
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '<'. The operands of the two sides should both be of type Numeric.");
 			return false;
 		}
 		return true;
@@ -190,12 +197,13 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = mul.getLhs().typeOf(typeEnv);
 		Type rhsType = mul.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())) {
-			errormessages.add("invalid type for '*' . The operands of the two sides should both be of type Numeric");
-			System.out.println("invalid type for '*' . The operands of the two sides should both be of type Numeric");
-			return false; 
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '*' . The operands of the two sides should both be of type Numeric");
+			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -207,11 +215,11 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type valueType = neg.getValue().typeOf(typeEnv);
 		if (!(valueType.isCompatibleToNumeric())) {
-			errormessages.add("invalid type for '-' . The operand should be of type Numeric");
-			System.out.println("invalid type for '-' . The operand should be of type Numeric");
-			return false; 
+			errormessages
+					.add("invalid type for '-' . The operand should be of type Numeric");
+			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -224,14 +232,13 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = neq.getLhs().typeOf(typeEnv);
 		Type rhsType = neq.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleTo(rhsType))){
-			errormessages.add("invalid type for '!='. The operands of the two sides should both be of the same type.");
-			System.out.println("invalid type for '!='. The operands of the two sides should both be of the same type.");
+		if (!(lhsType.isCompatibleTo(rhsType))) {
+			errormessages
+					.add("invalid type for '!='. The operands of the two sides should both be of the same type.");
 			return false;
 		}
 		return true;
 	}
-
 
 	@Override
 	public Boolean visit(Not not) {
@@ -241,11 +248,11 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type valueType = not.getValue().typeOf(typeEnv);
 		if (!(valueType.isCompatibleToBoolean())) {
-			errormessages.add("invalid type for '!' . The operand should be of type Boolean");
-			System.out.println("invalid type for '!' . The operand should be of type Boolean");
-			return false; 
+			errormessages
+					.add("invalid type for '!' . The operand should be of type Boolean");
+			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -258,9 +265,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = or.getLhs().typeOf(typeEnv);
 		Type rhsType = or.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean())){
-			errormessages.add("invalid type for '||' . The operands of the two sides should both be of type Boolean.");
-			System.out.println("invalid type for '||' . The operands of the two sides should both be of type Boolean.");
+		if (!(lhsType.isCompatibleToBoolean() && rhsType
+				.isCompatibleToBoolean())) {
+			errormessages
+					.add("invalid type for '||' . The operands of the two sides should both be of type Boolean.");
 			return false;
 		}
 		return true;
@@ -273,9 +281,9 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 			return false;
 		}
 		Type valueType = pos.getValue().typeOf(typeEnv);
-		if (!(valueType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '+' . The operand should be of type Numeric.");
-			System.out.println("invalid type for '+' . The operand should be of type Numeric.");
+		if (!(valueType.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '+' . The operand should be of type Numeric.");
 			return false;
 		}
 		return true;
@@ -290,9 +298,10 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 		}
 		Type lhsType = sub.getLhs().typeOf(typeEnv);
 		Type rhsType = sub.getRhs().typeOf(typeEnv);
-		if (!(lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric())){
-			errormessages.add("invalid type for '-' . The operands of the two sides should both be of type Numeric.");
-			System.out.println("invalid type for '-' . The operands of the two sides should both be of type Numeric.");
+		if (!(lhsType.isCompatibleToNumeric() && rhsType
+				.isCompatibleToNumeric())) {
+			errormessages
+					.add("invalid type for '-' . The operands of the two sides should both be of type Numeric.");
 			return false;
 		}
 		return true;
@@ -315,9 +324,8 @@ public class CheckExpr implements ICheckExprVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident ident) {
-		if(typeEnv.get(ident.getValue()) == null)	{
+		if (typeEnv.get(ident.getValue()) == null) {
 			getErrormessages("Ident " + ident.getValue() + " is not declared.");
-			System.out.println("Ident " + ident.getValue() + " is not declared.");
 		}
 		return true;
 	}

@@ -1,5 +1,5 @@
 @contributor{George Marmanidis -geo.marmani@gmail.com}
-//Maybe split it
+
 module lang::ql::compiler::GenerateHTMLForm
 
 import lang::ql::ast::AST;

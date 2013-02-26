@@ -4,23 +4,22 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 
-public class GEq extends BinaryExpression{
+public class GEq extends BinaryExpression {
 
-	public GEq (Expr lhs, Expr rhs){
-		super(lhs,rhs);
+	public GEq(Expr lhs, Expr rhs) {
+		super(lhs, rhs);
 	}
-	
+
 	@Override
 	public <T> T accept(ICheckExprVisitor<T> visitor) {
-		return  visitor.visit(this);
+		return visitor.visit(this);
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new BooleanType();
 	}
-	
+
 }

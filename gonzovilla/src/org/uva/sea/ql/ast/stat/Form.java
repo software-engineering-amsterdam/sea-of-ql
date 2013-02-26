@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.stat;
 
-import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.visitor.VisitorStatements;
 
-public class Form implements ASTNode {
+public class Form extends FormUnit {
 
 	private final Ident name;
 	private final Block body;
@@ -21,4 +21,9 @@ public class Form implements ASTNode {
 		return body;
 	}
 
+	@Override
+	public <T> T accept(VisitorStatements<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 }

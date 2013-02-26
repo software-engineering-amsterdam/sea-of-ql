@@ -6,22 +6,22 @@ import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 import java.lang.String;
 import java.util.Map;
 
-public class String_lit extends Value{
+public class String_lit extends Value {
 	private final String value;
-	
-	public String_lit(String value){
-		this.value=value;
+
+	public String_lit(String value) {
+		this.value = value;
 	}
 
 	public String getValue() {
 		return value;
 	}
-	
-	public <T> T accept(ICheckExprVisitor <T> visitor) {
+
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new StringType();
 	}
 }

@@ -8,7 +8,6 @@ import IO;
 public TENV checkCyclicDepen(list[FormBodyItem] formBodyItems,TENV env) =
   ( env | checkCyclicIdent(name, X@location, it) | /X:ident(str name) := formBodyItems );
 
-//9. should start with false, because if env.symbols is empty, then it says that is cycclic ;)
 TENV checkCyclicIdent(str identName, loc exprLocation,TENV env){
 	bool isCyclic=false;
 	bool foundNotCyclic=false;

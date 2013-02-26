@@ -27,15 +27,15 @@ import org.uva.sea.ql.ast.values.StringValue;
 
 public class CheckExpr implements VisitorExpressions<Boolean> {
 
-	private final Map<Ident, Type> typeEnv;
+	private final Map<String, Type> typeEnv;
 	private final List<String> messages;
 
-	private CheckExpr(Map<Ident, Type> tenv, List<String> messages) {
+	public CheckExpr(Map<String, Type> tenv, List<String> messages) {
 		this.typeEnv = tenv;
 		this.messages = messages;
 	}
 
-	public static boolean check(Expr expr, Map<Ident, Type> typeEnv, List<String> errs) {
+	public boolean check(Expr expr, Map<String, Type> typeEnv, List<String> errs) {
 		CheckExpr check = new CheckExpr(typeEnv, errs);
 		return expr.accept(check);
 	}
@@ -56,7 +56,7 @@ public class CheckExpr implements VisitorExpressions<Boolean> {
 		Type leftType = add.getLeft().typeOf(typeEnv);
 		Type rightType = add.getRight().typeOf(typeEnv);
 		if (!(leftType.isCompatibleToTypeInt() && rightType.isCompatibleToTypeInt())) {
-			addError("Invalid type for +");
+			addError("Invalid type for + (add)");
 			return false;
 		}
 		
@@ -225,7 +225,7 @@ public class CheckExpr implements VisitorExpressions<Boolean> {
 		
 		Type expressionType = neg.getExpression().typeOf(typeEnv);
 		if (!(expressionType.isCompatibleToTypeInt())) {
-			addError("Invalid type for -");
+			addError("Invalid type for - (neg)");
 			return false;
 		}
 		
@@ -297,7 +297,7 @@ public class CheckExpr implements VisitorExpressions<Boolean> {
 		
 		Type expressionType = pos.getExpression().typeOf(typeEnv);
 		if (!(expressionType.isCompatibleToTypeInt())) {
-			addError("Invalid type for +");
+			addError("Invalid type for + (pos)");
 			return false;
 		}
 		
@@ -316,7 +316,7 @@ public class CheckExpr implements VisitorExpressions<Boolean> {
 		Type leftType = sub.getLeft().typeOf(typeEnv);
 		Type rightType = sub.getRight().typeOf(typeEnv);
 		if (!(leftType.isCompatibleToTypeInt() && rightType.isCompatibleToTypeInt())) {
-			addError("Invalid type for -");
+			addError("Invalid type for - (sub)");
 			return false;
 		}
 		

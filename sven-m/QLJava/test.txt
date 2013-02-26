@@ -1,0 +1,7 @@
+form form_5000 {
+  has_cat: "Do you have a cat?" boolean
+  haz_cheeseburger: "Can it haz cheeseburgers?" boolean
+  if (has_cat) {
+    orly: "ORLY?" boolean(has_cat && haz_cheeseburger)
+  }
+}

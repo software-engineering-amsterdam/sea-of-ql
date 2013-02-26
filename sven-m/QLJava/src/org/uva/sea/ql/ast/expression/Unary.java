@@ -12,7 +12,7 @@ public abstract class Unary extends Expr {
 	public Expr getOp() {
 		return op;
 	}
-	
+
 	public Location getLocation() {
 		return op.getLocation();
 	}

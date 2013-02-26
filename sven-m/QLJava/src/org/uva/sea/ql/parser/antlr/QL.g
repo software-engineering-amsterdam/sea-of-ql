@@ -19,6 +19,7 @@ package org.uva.sea.ql.parser.antlr;
 @parser::members {
   @Override
   public void reportError(RecognitionException e) {
+    displayRecognitionError(this.getTokenNames(), e);
     throw new RuntimeException(e);
   }
 }
@@ -59,14 +60,15 @@ question returns [Question result]
       $result = new Question(
         new Ident($id.text, new Location($id.line, $id.pos, $id.line,
           $id.pos + $id.text.length())),
-        $lbl.text, $type.result);
+        $lbl.text.substring(1, $lbl.text.length() - 1), $type.result);
     }
   | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression close=')'
     {
       $result = new Computed(
         new Ident($id.text, new Location($id.line, $id.pos, $id.line,
           $id.pos + $id.text.length())),
-        $lbl.text, $type.result, $cond.result, new Location(null, $close.line,
+        $lbl.text.substring(1, $lbl.text.length() - 1), $type.result,
+          $cond.result, new Location(null, $close.line,
           $close.pos + $close.text.length()));
     }
   ;
@@ -96,6 +98,9 @@ ifStatement returns [AbstractConditional result]
   : ifTok='if' '(' cond=expression ')' ifTrue=body
     (
       elseTok='else' ifFalse=body
+      {
+        elseBody = $ifFalse.result;
+      }
     )?
     {
       if (elseBody == null) {
@@ -122,23 +127,23 @@ primary returns [Expr result]
       $result = new IntLiteral(Integer.parseInt($INT.text), new Location($INT.line,
         $INT.pos, $INT.line, $INT.pos + $INT.text.length()));
     }
-  | BOOL_LITERAL
+  | bool=BOOL_LITERAL
     {
-      $result = new BoolLiteral($BOOL_LITERAL.text.equals("true"), new Location(
-        $BOOL_LITERAL.line, $BOOL_LITERAL.pos, $BOOL_LITERAL.line,
-          $BOOL_LITERAL.pos + $BOOL_LITERAL.text.length()));
+      $result = new BoolLiteral($bool.text.equals("true"), new Location(
+        $bool.line, $bool.pos, $bool.line,
+          $bool.pos + $bool.text.length()));
     }
-  | IDENT
+  | id=IDENT
     {
-      $result = new Ident($IDENT.text, new Location($IDENT.line, $IDENT.pos,
-          $IDENT.line, $IDENT.pos + $IDENT.text.length()));
+      $result = new Ident($id.text, new Location($id.line, $id.pos,
+          $id.line, $id.pos + $id.text.length()));
     }
-  | STRING_LITERAL
+  | str=STRING_LITERAL
     {
-      $result = new StrLiteral($STRING_LITERAL.text,
-        new Location($STRING_LITERAL.line, $STRING_LITERAL.pos,
-          $STRING_LITERAL.line,
-          $STRING_LITERAL.pos + $STRING_LITERAL.text.length()));
+      $result = new StrLiteral($str.text.substring(1, $str.text.length() - 1),
+        new Location($str.line, $str.pos,
+          $str.line,
+          $str.pos + $str.text.length()));
     }
   | '(' orExpr ')' { $result = $orExpr.result; }
   ;

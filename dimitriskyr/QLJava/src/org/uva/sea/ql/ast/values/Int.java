@@ -8,23 +8,23 @@ import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 
 public class Int extends Value {
 	private final int value;
-	
-	public Int (int value){
-		this.value=value;
+
+	public Int(int value) {
+		this.value = value;
 	}
-	
+
 	public int getValue() {
 		return value;
 	}
-	
-	public <T> T accept(ICheckExprVisitor <T> visitor) {
+
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new IntegerType();
 	}
-	
+
 	@Override
 	public Value add(Value arg) {
 		return arg.addInt(this);
@@ -34,7 +34,7 @@ public class Int extends Value {
 	public Value addInt(Int value) {
 		return new Int(value.getValue() + getValue());
 	}
-	
+
 	@Override
 	public Value div(Value arg) {
 		return arg.divInt(this);
@@ -44,7 +44,7 @@ public class Int extends Value {
 	public Value divInt(Int arg) {
 		return new Int(arg.getValue() / getValue());
 	}
-	
+
 	@Override
 	public Value eq(Value arg) {
 		return arg.eqInt(this);
@@ -54,7 +54,7 @@ public class Int extends Value {
 	public Value eqInt(Int arg) {
 		return new Bool(arg.getValue() == getValue());
 	}
-	
+
 	@Override
 	public Value geq(Value arg) {
 		return arg.geqInt(this);
@@ -64,7 +64,7 @@ public class Int extends Value {
 	public Value geqInt(Int arg) {
 		return new Bool(arg.getValue() >= getValue());
 	}
-	
+
 	@Override
 	public Value gt(Value arg) {
 		return arg.gtInt(this);
@@ -74,7 +74,7 @@ public class Int extends Value {
 	public Value gtInt(Int arg) {
 		return new Bool(arg.getValue() > getValue());
 	}
-	
+
 	@Override
 	public Value leq(Value arg) {
 		return arg.leqInt(this);
@@ -84,7 +84,7 @@ public class Int extends Value {
 	public Value leqInt(Int arg) {
 		return new Bool(arg.getValue() <= getValue());
 	}
-	
+
 	@Override
 	public Value lt(Value arg) {
 		return arg.ltInt(this);
@@ -94,7 +94,7 @@ public class Int extends Value {
 	public Value ltInt(Int arg) {
 		return new Bool(arg.getValue() < getValue());
 	}
-	
+
 	@Override
 	public Value mul(Value arg) {
 		return arg.mulInt(this);
@@ -104,12 +104,12 @@ public class Int extends Value {
 	public Value mulInt(Int arg) {
 		return new Int(arg.getValue() * getValue());
 	}
-	
+
 	@Override
 	public Value neg() {
 		return new Int(-this.value);
 	}
-	
+
 	@Override
 	public Value neq(Value arg) {
 		return arg.neqInt(this);
@@ -119,7 +119,7 @@ public class Int extends Value {
 	public Value neqInt(Int arg) {
 		return new Bool(arg.getValue() != getValue());
 	}
-	
+
 	@Override
 	public Value pos() {
 		return new Int(+this.value);
@@ -134,4 +134,4 @@ public class Int extends Value {
 	public Value subInt(Int arg) {
 		return new Int(arg.getValue() - getValue());
 	}
-} 
+}

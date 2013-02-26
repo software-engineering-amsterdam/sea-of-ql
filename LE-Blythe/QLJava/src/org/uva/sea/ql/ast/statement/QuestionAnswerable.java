@@ -4,7 +4,6 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.primitive.Undefined;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.util.Environment;
 
 

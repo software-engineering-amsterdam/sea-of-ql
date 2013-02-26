@@ -20,5 +20,4 @@ public class Block extends FormUnit{
 		public <T> T accept(VisitorStatements<T> visitor) {
 			return visitor.visit(this);
 		}
-
 }

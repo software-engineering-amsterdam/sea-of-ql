@@ -8,10 +8,8 @@ import lang::ql::compiler::CompileExpressions;
 public list[str] getVariableDependencies(Expr exp)
   = [ n | /ident(str n) := exp ];
 
-
-//7. use set instead of list..i don't want order, and i don't care for duplicates
-public map[str,list[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
-	map[str,list[str]] dependenciesMap=();
+public map[str,set[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
+	map[str,set[str]] dependenciesMap=();
 	
 	visit(bodyItems){
 		case q:computedQuestion(str questionId,_,_, Expr exp) : dependenciesMap+=resolveVariableDependencies(exp,questionId,dependenciesMap);
@@ -24,21 +22,28 @@ public map[str,list[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
 	return dependenciesMap;
 }
 
-map[str,list[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,list[str] dependVars] dependenciesMap){
+map[str,set[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,set[str] dependVars] dependenciesMap){
 	vars=getVariableDependencies(exp);
-	//14 tijs code has problem? ha
+	//14 tijs code has problem
 	for(x<-vars){
-	 dependenciesMap[x]? ["a"] += [depended];
+		if(x in dependenciesMap){
+			dependenciesMap[x]+={depended};
+		}else
+		{
+			dependenciesMap+=("<x>":{depended});
+		}
+	
+	 //dependenciesMap[x]? {} += {depended};
 	}
 	
 	return dependenciesMap;
 }
-//8. Tijs provided better way..apply it..needs just return
-public Type getVariableType(str variableName,list[FormBodyItem] bodyItems){
 
-		visit(bodyItems){
-			case simpleQuestion(variableName,_,Type qtype) : return qtype;
-			case computedQuestion(variableName,_,Type qtype,_) : return qtype;
-		}
+public Type getVariableType(str variableName,list[FormBodyItem] bodyItems)=
 
-}
+	visit(bodyItems){
+		case simpleQuestion(variableName,_,Type qtype) : return qtype;
+		case computedQuestion(variableName,_,Type qtype,_) : return qtype;
+	};
+
+

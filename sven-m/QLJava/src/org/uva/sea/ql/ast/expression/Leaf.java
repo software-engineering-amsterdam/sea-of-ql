@@ -4,11 +4,11 @@ import org.uva.sea.ql.ast.misc.Location;
 
 public abstract class Leaf extends Expr {
 	private Location location;
-	
+
 	public Leaf(Location location) {
 		this.location = location;
 	}
-	
+
 	@Override
 	public Location getLocation() {
 		return location;

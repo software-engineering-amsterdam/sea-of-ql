@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.core.dom.operators.relational.Eq;
-import org.uva.sea.ql.core.dom.operators.relational.GEq;
-import org.uva.sea.ql.core.dom.operators.relational.GT;
-import org.uva.sea.ql.core.dom.operators.relational.LEq;
-import org.uva.sea.ql.core.dom.operators.relational.LT;
-import org.uva.sea.ql.core.dom.operators.relational.NEq;
+import org.uva.sea.ql.ast.operators.relational.Eq;
+import org.uva.sea.ql.ast.operators.relational.GEq;
+import org.uva.sea.ql.ast.operators.relational.GT;
+import org.uva.sea.ql.ast.operators.relational.LEq;
+import org.uva.sea.ql.ast.operators.relational.LT;
+import org.uva.sea.ql.ast.operators.relational.NEq;
 import org.uva.sea.ql.parsers.RelExprParser;
 import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;

@@ -8,7 +8,7 @@ public class ErrorType extends Type {
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToError();
 	}
-	
+
 	@Override
 	public boolean isCompatibleToError() {
 		return true;
