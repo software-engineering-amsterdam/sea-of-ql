@@ -7,7 +7,7 @@ import lang::ql::compiler::ExtractDependencies;
 import List;
 import String;
 
-public str generateJSTriggerFunctions(map[str var,list[str] dependVars] dependenciesMap){
+public str generateJSTriggerFunctions(map[str var,set[str] dependVars] dependenciesMap){
 	str code="";
 	
 	for(variable<-dependenciesMap){
@@ -31,7 +31,7 @@ str generateUpdateFunction(str variable){
 			: "<variable>Update();";
 }
 
-str generateTriggerFunction(str variable,map[str,list[str]] dependenciesMap){
+str generateTriggerFunction(str variable,map[str,set[str]] dependenciesMap){
 	return startsWith(variable,"Cond")? 
 			" " 
 			: variable in dependenciesMap?"<variable>Trigger();":" ";
