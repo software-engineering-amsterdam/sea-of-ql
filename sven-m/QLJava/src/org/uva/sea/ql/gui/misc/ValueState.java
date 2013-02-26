@@ -10,11 +10,11 @@ import java.util.Observer;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.parser.evaluator.result.Value;
 
-public class State {
+public class ValueState {
 	private final Map<Ident, Value> symbolTable;
 	private final Map<Ident, Observable> observables;
 
-	public State() {
+	public ValueState() {
 		symbolTable = new HashMap<>();
 		observables = new HashMap<>();
 	}

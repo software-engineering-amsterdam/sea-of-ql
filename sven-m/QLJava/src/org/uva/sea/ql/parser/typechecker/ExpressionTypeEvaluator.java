@@ -31,10 +31,10 @@ import org.uva.sea.ql.ast.form.types.UndefinedType;
 
 
 public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
-	private Map<Ident, Type> environment;
+	private Map<Ident, Type> typeState;
 	
-	public ExpressionTypeEvaluator(Map<Ident, Type> environment) {
-		this.environment = environment;
+	public ExpressionTypeEvaluator(Map<Ident, Type> typeState) {
+		this.typeState = typeState;
 	}
 	
 	@Override
@@ -114,7 +114,7 @@ public class ExpressionTypeEvaluator implements ExpressionVisitor<Type> {
 
 	@Override
 	public Type visit(Ident ast) {
-		Type type = environment.get(ast);
+		Type type = typeState.get(ast);
 				
 		if (type == null) {
 			type = new UndefinedType(null);

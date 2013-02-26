@@ -15,20 +15,20 @@ import org.uva.sea.ql.parser.typechecker.error.FormTypeMismatchError;
 import org.uva.sea.ql.parser.typechecker.error.VariableRedefinitionError;
 
 public class FormTypeChecker implements FormVisitor<Boolean> {
-	
-	private Environment environment;
+
+	private TypeCheckerState state;
 	private ExpressionTypeChecker exprTypeChecker;
 	private ExpressionTypeEvaluator exprTypeEval;
-	
-	public FormTypeChecker(Environment environment) {
-		this.environment = environment;
-		this.exprTypeChecker = new ExpressionTypeChecker(environment);
+
+	public FormTypeChecker(TypeCheckerState state) {
+		this.state = state;
+		this.exprTypeChecker = new ExpressionTypeChecker(state);
 		this.exprTypeEval = new ExpressionTypeEvaluator(
-				environment.getTypeEnvironment());
+				state.getTypeState());
 	}
-	
+
 	private boolean checkConditional(AbstractConditional conditional) {
-		return conditional.getBody().accept(this) 
+		return conditional.getBody().accept(this)
 				&& conditional.getCondition().accept(exprTypeChecker);
 	}
 
@@ -40,11 +40,11 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 	@Override
 	public Boolean visit(Body ast) {
 		boolean typeCorrect = true;
-		
+
 		for (FormElement formElement : ast.getElements()) {
 			typeCorrect &= formElement.accept(this);
 		}
-		
+
 		return typeCorrect;
 	}
 
@@ -60,16 +60,16 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Question ast) {
-		boolean typeCorrect = environment.getType(ast.getIdent()) == null;
+		boolean typeCorrect = state.getType(ast.getIdent()) == null;
 		Ident ident = ast.getIdent();
-		
+
 		if (typeCorrect) {
-			environment.setType(ident, ast.getType());
+			state.setType(ident, ast.getType());
 		} else {
-			environment.reportError(
-					new VariableRedefinitionError(ident.getName(), ident));
+			state.reportError(new VariableRedefinitionError(
+					ident.getName(), ident));
 		}
-		
+
 		return typeCorrect;
 	}
 
@@ -77,28 +77,24 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 	public Boolean visit(Computed ast) {
 		boolean typeCorrect = ast.getExpression().accept(exprTypeChecker);
 		Ident ident = ast.getIdent();
-		
+
 		Type exprType = ast.getExpression().accept(exprTypeEval);
-		
+
 		if (!exprType.equals(ast.getType())) {
 			typeCorrect = false;
-			environment.reportError(new FormTypeMismatchError(
-					ident.getName(),
-					ast.getType().toString(),
-					exprType.toString(),
-					ast)
-			);
+			state.reportError(new FormTypeMismatchError(ident.getName(),
+					ast.getType().toString(), exprType.toString(), ast));
 		}
-		
-		if (environment.getType(ident) == null) {
-			environment.setType(ident, ast.getType());
+
+		if (state.getType(ident) == null) {
+			state.setType(ident, ast.getType());
 		} else {
 			typeCorrect = false;
-			environment.reportError(
-					new VariableRedefinitionError(ident.getName(), ident));
+			state.reportError(new VariableRedefinitionError(
+					ident.getName(), ident));
 		}
-		
+
 		return typeCorrect;
 	}
-	
+
 }

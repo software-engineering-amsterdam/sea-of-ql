@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.form.Form;
-import org.uva.sea.ql.gui.misc.State;
+import org.uva.sea.ql.gui.misc.ValueState;
 import org.uva.sea.ql.parser.antlr.FormParser;
 import org.uva.sea.ql.parser.antlr.ParseError;
-import org.uva.sea.ql.parser.typechecker.Environment;
+import org.uva.sea.ql.parser.typechecker.TypeCheckerState;
 import org.uva.sea.ql.parser.typechecker.FormTypeChecker;
 
 public class MainWindow extends JFrame {
@@ -36,7 +36,7 @@ public class MainWindow extends JFrame {
 
 	private void render(String fileName) {
 		FormParser formParser = new FormParser();
-		Environment environment = new Environment();
+		TypeCheckerState environment = new TypeCheckerState();
 		FormTypeChecker typeChecker = new FormTypeChecker(environment);
 		String syntaxErrorsString = "";
 
@@ -54,7 +54,7 @@ public class MainWindow extends JFrame {
 				syntaxErrorsString = errorStream.toString();
 
 				if (form.accept(typeChecker)) {
-					JPanel mainPanel = Renderer.render(form, new State());
+					JPanel mainPanel = Renderer.render(form, new ValueState());
 					this.add(mainPanel);
 				} else {
 					typeErrors(environment.getErrorsString());

@@ -7,26 +7,26 @@ import org.uva.sea.ql.ast.form.Computed;
 import org.uva.sea.ql.gui.control.display.DisplayControl;
 import org.uva.sea.ql.gui.misc.InputSource;
 import org.uva.sea.ql.gui.misc.InputSourceDelegate;
-import org.uva.sea.ql.gui.misc.State;
+import org.uva.sea.ql.gui.misc.ValueState;
 import org.uva.sea.ql.parser.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.parser.evaluator.result.Value;
 
 public class ComputedObserver implements Observer, InputSource {
 	private final Computed question;
 	private final DisplayControl control;
-	private final State state;
+	private final ValueState state;
 	private Value value;
 	private InputSourceDelegate delegate;
 
 	public ComputedObserver(Computed question, DisplayControl control,
-			State state)
+			ValueState state)
 	{
 		this.question = question;
 		this.control = control;
 		this.state = state;
 	}
 
-	private State getState() {
+	private ValueState getState() {
 		return state;
 	}
 

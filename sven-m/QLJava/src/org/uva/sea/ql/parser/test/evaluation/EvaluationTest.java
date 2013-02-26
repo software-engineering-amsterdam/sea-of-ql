@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 import org.uva.sea.ql.ast.expression.Ident;
@@ -13,6 +15,7 @@ import org.uva.sea.ql.parser.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.parser.evaluator.result.BoolValue;
 import org.uva.sea.ql.parser.evaluator.result.IntValue;
 import org.uva.sea.ql.parser.evaluator.result.StrValue;
+import org.uva.sea.ql.parser.evaluator.result.UndefinedValue;
 import org.uva.sea.ql.parser.evaluator.result.Value;
 import org.uva.sea.ql.parser.test.AbstractTest;
 
@@ -211,5 +214,5 @@ public class EvaluationTest extends AbstractTest {
 		assertEquals(new BoolValue(false), evaluate("!true"));
 		assertEquals(new BoolValue(true), evaluate("!false"));
 	}
-	
+
 }

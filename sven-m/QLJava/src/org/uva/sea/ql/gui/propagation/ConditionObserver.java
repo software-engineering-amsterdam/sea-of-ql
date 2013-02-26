@@ -6,7 +6,7 @@ import java.util.Observer;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expression.Expr;
-import org.uva.sea.ql.gui.misc.State;
+import org.uva.sea.ql.gui.misc.ValueState;
 import org.uva.sea.ql.parser.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.parser.evaluator.result.Value;
 
@@ -14,10 +14,10 @@ public class ConditionObserver implements Observer {
 	private final Expr condition;
 	private final JPanel ifTrue;
 	private final JPanel ifFalse;
-	private final State state;
+	private final ValueState state;
 
 	public ConditionObserver(Expr condition, JPanel ifTrue, JPanel ifFalse,
-			State state)
+			ValueState state)
 	{
 		this.condition = condition;
 		this.ifTrue = ifTrue;
@@ -25,7 +25,7 @@ public class ConditionObserver implements Observer {
 		this.state = state;
 	}
 
-	public ConditionObserver(Expr condition, JPanel ifTrue, State state) {
+	public ConditionObserver(Expr condition, JPanel ifTrue, ValueState state) {
 		this.condition = condition;
 		this.ifTrue = ifTrue;
 		this.ifFalse = null;
@@ -44,7 +44,7 @@ public class ConditionObserver implements Observer {
 		return condition;
 	}
 
-	private State getState() {
+	private ValueState getState() {
 		return state;
 	}
 

@@ -32,17 +32,17 @@ import org.uva.sea.ql.parser.typechecker.error.VariableUndefinedError;
 public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 {
 	private ExpressionTypeEvaluator typeEval;
-	private Environment environment;
+	private TypeCheckerState environment;
 	
 	private final IntType intType = new IntType(null);
 	private final BoolType boolType = new BoolType(null);
 	private final UndefinedType undefinedType = new UndefinedType(null);
 	
-	public ExpressionTypeChecker(Environment environment)
+	public ExpressionTypeChecker(TypeCheckerState environment)
 	{
 		this.environment = environment;
 		typeEval = new ExpressionTypeEvaluator(
-				environment.getTypeEnvironment());
+				environment.getTypeState());
 	}
 	
 	

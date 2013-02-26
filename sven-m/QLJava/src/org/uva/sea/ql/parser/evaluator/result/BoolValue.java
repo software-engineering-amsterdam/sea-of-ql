@@ -78,7 +78,7 @@ public class BoolValue extends Value {
 
 	@Override
 	public Value andBool(BoolValue val) {
-		return new BoolValue(val.getValue() && this.getValue());
+		return new BoolValue(val.getValue() && getValue());
 	}
 
 	@Override
@@ -88,6 +88,6 @@ public class BoolValue extends Value {
 
 	@Override
 	public Value orBool(BoolValue val) {
-		return new BoolValue(val.getValue() || this.getValue());
+		return new BoolValue(val.getValue() || getValue());
 	}
 }

@@ -1,17 +1,7 @@
-form a {
-  q1: "1:" boolean
-  q2: "2: show block?:" boolean
-  if (q2) {
-    q3: "3: opposite of 1:" boolean(!q1)
-    q4: "4: opposite of 3:" boolean(!q3)
-    q5: "5: opposite of 4:" boolean(!q4)
+form form_5000 {
+  has_cat: "Do you have a cat?" boolean
+  haz_cheeseburger: "Can it haz cheeseburgers?" boolean
+  if (has_cat) {
+    orly: "ORLY?" boolean(has_cat && haz_cheeseburger)
   }
-  q6: "6: same as 3:" boolean(q4)
-  q7: "7: string1:" string
-  q8: "8: string2:" string
-  q9: "9: string1+2:" string(q7 + q8)
-  
-  q10: "7: int1:" integer
-  q11: "8: int2:" integer
-  q12: "9: int1-2:" integer(q10-q11)
 }

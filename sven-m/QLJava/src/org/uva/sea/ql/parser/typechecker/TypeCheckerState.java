@@ -10,11 +10,11 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.form.types.Type;
 import org.uva.sea.ql.parser.typechecker.error.SemanticError;
 
-public class Environment {
+public class TypeCheckerState {
 	Map<Ident, Type> types;
 	List<SemanticError> errors;
 	
-	public Environment() {
+	public TypeCheckerState() {
 		types = new HashMap<>();
 		errors = new ArrayList<>();
 	}
@@ -31,7 +31,7 @@ public class Environment {
 		errors.add(error);
 	}
 
-	public Map<Ident, Type> getTypeEnvironment() {
+	public Map<Ident, Type> getTypeState() {
 		return Collections.unmodifiableMap(types);
 	}
 

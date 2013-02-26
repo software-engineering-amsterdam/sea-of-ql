@@ -172,9 +172,20 @@ public class UndefinedValue extends Value {
 	public Value and(Value val) {
 		return this;
 	}
+	
+	@Override
+	public Value andBool(BoolValue val) {
+		return this;
+	}
 
 	@Override
 	public Value or(Value val) {
+		return this;
+	}
+	
+
+	@Override
+	public Value orBool(BoolValue val) {
 		return this;
 	}
 

@@ -26,8 +26,9 @@ import org.uva.sea.ql.gui.control.display.DisplayControl;
 import org.uva.sea.ql.gui.control.input.CheckBox;
 import org.uva.sea.ql.gui.control.input.InputControl;
 import org.uva.sea.ql.gui.control.input.NumberField;
+import org.uva.sea.ql.gui.control.input.RadioBox;
 import org.uva.sea.ql.gui.control.input.TextField;
-import org.uva.sea.ql.gui.misc.State;
+import org.uva.sea.ql.gui.misc.ValueState;
 import org.uva.sea.ql.gui.propagation.ComputedObserver;
 import org.uva.sea.ql.gui.propagation.ConditionObserver;
 import org.uva.sea.ql.gui.propagation.ObservableQuestion;
@@ -35,15 +36,15 @@ import org.uva.sea.ql.gui.propagation.ObservableQuestion;
 public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 	private JPanel mainPanel;
 	private Stack<JPanel> panelStack;
-	private State state;
+	private ValueState state;
 
-	private Renderer(State state) {
+	private Renderer(ValueState state) {
 		this.panelStack = new Stack<>();
 		this.mainPanel = pushPanel();
 		this.state = state;
 	}
 
-	public State getState() {
+	public ValueState getState() {
 		return state;
 	}
 
@@ -102,7 +103,7 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 	}
 
 	/* Static entry */
-	public static JPanel render(Form form, State state) {
+	public static JPanel render(Form form, ValueState state) {
 		Renderer renderer = new Renderer(state);
 		form.accept(renderer);
 		return renderer.getPanel();
@@ -201,7 +202,7 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 
 	@Override
 	public InputControl visit(BoolType type) {
-		return new CheckBox();
+		return new RadioBox(); //CheckBox();
 	}
 
 	@Override
