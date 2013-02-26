@@ -19,9 +19,14 @@ public class FormPrinter implements IStmtVisitor<Void>{
 
 	private final Env env;
 	
-	public FormPrinter(Env env){
+	private FormPrinter(Env env){
 		this.env = env;
 	}	
+	
+	public static void interpret(Stmt stmt, Env env) {
+		FormPrinter interpreter = new FormPrinter(env);
+		stmt.accept(interpreter);
+	}
 	
 	@Override
 	public Void visit(Assign stmt) {

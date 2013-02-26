@@ -27,7 +27,7 @@ public class Statement implements IStatement<ValidationResult> {
 
 		ValidationResult result = new ValidationResult();
 		for (AbstractStatement statement : block.getStatements()) {
-			result.addValidationResult(statement.accept(statementVisitor));
+			result.add(statement.accept(statementVisitor));
 		}
 
 		return result;
@@ -39,7 +39,7 @@ public class Statement implements IStatement<ValidationResult> {
 
 		IExpression<ValidationResult> expressionVisitor = new Expression(
 				this.environment);
-		result.addValidationResult(computedQuestion.getComputation().accept(
+		result.add(computedQuestion.getComputation().accept(
 				expressionVisitor));
 
 		return result;
@@ -52,7 +52,7 @@ public class Statement implements IStatement<ValidationResult> {
 		ValidationResult result = ifStatement.getCondition().accept(
 				expressionVisitor);
 
-		result.addValidationResult(ifStatement.getTruePath().accept(this));
+		result.add(ifStatement.getTruePath().accept(this));
 
 		return result;
 	}
@@ -74,12 +74,12 @@ public class Statement implements IStatement<ValidationResult> {
 
 		IExpression<ValidationResult> expressionVisitor = new Expression(
 				this.environment);
-		result.addValidationResult(id.accept(expressionVisitor));
+		result.add(id.accept(expressionVisitor));
 
 		IType<ValidationResult> typeVisitor = new Type();
-		result.addValidationResult(type.accept(typeVisitor));
+		result.add(type.accept(typeVisitor));
 
-		result.addValidationResult(question.getQuestion().accept(
+		result.add(question.getQuestion().accept(
 				expressionVisitor));
 
 		return result;

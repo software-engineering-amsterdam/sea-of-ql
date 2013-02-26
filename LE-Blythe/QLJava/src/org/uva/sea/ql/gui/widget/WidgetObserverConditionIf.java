@@ -1,20 +1,19 @@
 package org.uva.sea.ql.gui.widget;
 
-import java.awt.Component;
-
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.eval.VisitorEvalExpr;
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Primitive;
+import org.uva.sea.ql.gui.control.Control;
 import org.uva.sea.ql.util.Environment;
 
 public class WidgetObserverConditionIf extends WidgetObserver {
 	
 	protected Expr expression;
-	protected Component ifPanel;
+	protected Control ifPanel;
 	protected Environment environment;
 	
-	public WidgetObserverConditionIf(Expr expression, Component ifPanel, Environment environment){
+	public WidgetObserverConditionIf(Expr expression, Control ifPanel, Environment environment){
 		super();
 		
 		this.expression = expression;

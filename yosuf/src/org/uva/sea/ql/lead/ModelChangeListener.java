@@ -4,5 +4,5 @@ import org.uva.sea.ql.ast.exp.Expression;
 
 public interface ModelChangeListener {
 
-	void changed(Expression<?> expression);
+	void changed(Expression expression);
 }

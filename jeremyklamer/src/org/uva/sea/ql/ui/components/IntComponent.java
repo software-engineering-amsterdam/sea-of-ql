@@ -3,8 +3,10 @@ package org.uva.sea.ql.ui.components;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import org.uva.sea.ql.ast.type.IntType;
 import org.uva.sea.ql.interpreter.IntVal;
 import org.uva.sea.ql.interpreter.Value;
 
@@ -25,7 +27,14 @@ public class IntComponent extends ActiveComponent{
 	
 	@Override
 	public Value getValue() {
-		return new IntVal(Integer.parseInt(answerField.getText()));
+		try {
+			return new IntVal(Integer.parseInt(answerField.getText()));
+		}
+		catch(NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null, "Please enter a valid integer value.");
+			return new IntType().getDefaultValue();
+		}
+		
 	}
 
 	@Override

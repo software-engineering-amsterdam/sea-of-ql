@@ -1,10 +1,10 @@
 package eu.karuza.ql.visitor;
 
-import eu.karuza.ql.ast.AnswerableQuestion;
-import eu.karuza.ql.ast.ComputedQuestion;
-import eu.karuza.ql.ast.IfConditionalStatement;
-import eu.karuza.ql.ast.IfElseConditionalStatement;
 import eu.karuza.ql.ast.Form;
+import eu.karuza.ql.ast.statement.AnswerableQuestion;
+import eu.karuza.ql.ast.statement.ComputedQuestion;
+import eu.karuza.ql.ast.statement.IfConditionalStatement;
+import eu.karuza.ql.ast.statement.IfElseConditionalStatement;
 
 public interface StatementVisitor<T> extends NodeVisitor<T> {
 	

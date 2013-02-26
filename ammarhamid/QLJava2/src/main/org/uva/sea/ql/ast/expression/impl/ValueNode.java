@@ -1,11 +1,14 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ErrorMessage;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.value.impl.UndefinedValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class ValueNode extends ExprNode
 {
@@ -23,19 +26,32 @@ public class ValueNode extends ExprNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
         return this.value;
     }
 
     @Override
-    public boolean validate(Collection<ErrorMessage> errorMessages)
+    public Type getType()
     {
-        return true;
+        return this.value.getType();
     }
 
-    public ExprNode getExprNode()
+    @Override
+    public boolean validate(Collection<Message> errors)
     {
-        return this;
+        final boolean validate = !this.value.equals(new UndefinedValue());
+        if(!validate)
+        {
+            throw new UnsupportedOperationException("Undefined default value: " + this);
+        }
+
+        return validate;
+    }
+
+    @Override
+    public String toString()
+    {
+        return value.toString();
     }
 }

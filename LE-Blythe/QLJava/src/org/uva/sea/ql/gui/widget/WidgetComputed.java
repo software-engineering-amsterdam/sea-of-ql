@@ -1,20 +1,19 @@
 package org.uva.sea.ql.gui.widget;
 
-import java.awt.Component;
-
-import javax.swing.JLabel;
 
 import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Undefined;
+import org.uva.sea.ql.gui.control.Control;
+import org.uva.sea.ql.gui.control.Label;
 
 public class WidgetComputed extends Widget {
 	
-	private JLabel label;
+	private Label label;
 	private Primitive value;
 	
 	public WidgetComputed(){
 		super();
-		this.label = new JLabel();
+		this.label = new Label();
 		this.value = new Undefined();
 	}
 	
@@ -27,7 +26,7 @@ public class WidgetComputed extends Widget {
 	}
 
 	@Override
-	public Component getComponent() {
+	public Control getControl() {
 		return label;
 	}
 

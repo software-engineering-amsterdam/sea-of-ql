@@ -4,5 +4,11 @@ import java.util.Observable;
 
 public abstract class ObservableStatement extends Observable implements Statement
 {
-    public abstract void notifyObs();
+
+    public void notifyObs()
+    {
+        setChanged();
+        this.notifyObservers();
+    }
+
 }

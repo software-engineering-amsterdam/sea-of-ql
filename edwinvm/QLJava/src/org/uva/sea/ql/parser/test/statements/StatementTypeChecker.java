@@ -2,14 +2,14 @@ package org.uva.sea.ql.parser.test.statements;
 
 import static org.junit.Assert.assertTrue;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.check.statements.StatementChecker;
-import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class StatementTypeChecker {
 	
@@ -37,8 +37,8 @@ public class StatementTypeChecker {
 		return !_errorMessages.hasErrors();
 	}
 	
-	public Type getTypeOf(Expr expr) { 
-		return expr.typeOf(_typeEnvironment); 
+	public Type getTypeOf(Expression expression) { 
+		return expression.typeOf(_typeEnvironment); 
 	}
 	
 }

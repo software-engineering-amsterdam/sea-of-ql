@@ -17,7 +17,7 @@ public class And extends BinaryBooleanOperator {
     }
 
     @Override
-    public void accept(ExpressionVisitor visitor) throws QLException {
+    public final void accept(ExpressionVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 }

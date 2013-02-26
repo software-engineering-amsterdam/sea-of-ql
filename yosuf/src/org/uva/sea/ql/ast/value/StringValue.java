@@ -7,7 +7,7 @@ import org.uva.sea.ql.ast.exp.Textual;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class StringValue extends Value<StringValue> {
+public class StringValue extends Value {
 
 	private final String value;
 
@@ -32,7 +32,7 @@ public class StringValue extends Value<StringValue> {
 	}
 
 	@Override
-	public StringValue accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 

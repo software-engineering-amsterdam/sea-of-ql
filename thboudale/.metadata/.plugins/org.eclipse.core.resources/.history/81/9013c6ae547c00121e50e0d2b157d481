@@ -1,0 +1,7 @@
+package org.uva.sea.ql.ast.expressions.values;
+
+import org.uva.sea.ql.ast.expressions.Expr;
+
+public abstract class AValue extends Expr {
+
+}

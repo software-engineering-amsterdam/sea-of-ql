@@ -8,17 +8,17 @@ public class NumericType extends Type {
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToNumeric();
 	}
-	
+
 	@Override
 	public boolean isCompatibleToInteger() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isCompatibleToMoney() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isCompatibleToNumeric() {
 		return true;

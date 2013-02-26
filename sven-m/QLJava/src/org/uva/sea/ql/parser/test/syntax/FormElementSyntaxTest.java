@@ -4,9 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.form.Computed;
+import org.uva.sea.ql.ast.form.IfElseStatement;
 import org.uva.sea.ql.ast.form.IfStatement;
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.antlr.ParseError;
 
 public class FormElementSyntaxTest extends SyntaxTest {
 
@@ -37,16 +38,8 @@ public class FormElementSyntaxTest extends SyntaxTest {
 		assertEquals(IfStatement.class, parseClass(
 				"if (a == b) { } "));
 		
-		assertEquals(IfStatement.class, parseClass(
-				"if (d < e) { q1: \" \" integer } else if (a) { }"));
-		assertEquals(IfStatement.class, parseClass(
-				"if (a == b) { } else if (1+1) { }"));
-		
-		assertEquals(IfStatement.class, parseClass(
+		assertEquals(IfElseStatement.class, parseClass(
 				"if (d < e) { q1: \" \" integer } else { q2: \" \" string }"));
-		assertEquals(IfStatement.class, parseClass(
-				"if (a == b) { } else if (r == 4) {} else {} "));
 	}
-
-
+	
 }

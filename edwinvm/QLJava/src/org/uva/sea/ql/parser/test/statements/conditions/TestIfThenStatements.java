@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.test.statements.conditions;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestIfThenStatements extends ConditionTypeChecker {
 	@Test
@@ -13,31 +13,19 @@ public class TestIfThenStatements extends ConditionTypeChecker {
 	}
 	
 	@Test
-	public void testIfBlockWithoutCurlyBrackets() throws ParseError {
+	public void testIfThenBlockWithoutCurlyBrackets() throws ParseError {
 		// Single If-Then condition block without curly brackets
 		isAValidStatementBlock("if (true) \"Did you sell a house in 2010?\" hasSoldHouse: boolean");
 	}
 	
 	@Test
-	public void testElseBlock() throws ParseError {
-		// Single If-Then-Else condition block with Question as body
-		isAValidStatementBlock("if (true) { \"Age?\" age: integer } else { \"Gender?\" gender: string }");
-	}
-	
-	@Test
-	public void testElseBlockWithoutCurlyBrackets() throws ParseError {
-		// Single If-Then-Else condition block without curly brackets
-		isAValidStatementBlock("if (true) \"Age?\" age: integer else \"Gender?\" gender: string");
-	}
-	
-	@Test
-	public void testIfBlockWithMultipleBodyLines() throws ParseError {
+	public void testIfThenBlockWithMultipleBodyLines() throws ParseError {
 		// Single If-Then condition block with multiple lines as body
 		isAValidStatementBlock("if (true) { \"Age?\" age: integer \n \"Name?\" name: string }");
 	}
 	
 	@Test
-	public void testInnerIfConditionBlocks() throws ParseError {
+	public void testInnerIfThenConditionBlocks() throws ParseError {
 		// First we need a AnswerableQuestion to store the identifier used in the IfThen condition
 		isAValidStatementBlock(
 			"if (true) { " +
@@ -45,11 +33,12 @@ public class TestIfThenStatements extends ConditionTypeChecker {
 				"if (wantsToBuyHouse) { " + 
 					"\"Did you sell a house in 2010?\" hasSoldHouse: boolean " +
 				"}" +
-			"}");
+			"}"
+		);
 	}
 	
 	@Test
-	public void testInnerIfConditionBlocksWithMultipleBodyLines() throws ParseError {
+	public void testInnerIfThenConditionBlocksWithMultipleBodyLines() throws ParseError {
 		// First we need a AnswerableQuestion to store the identifier used in the IfThen condition
 		isAValidStatementBlock(
 			"if (true) { " +
@@ -58,11 +47,12 @@ public class TestIfThenStatements extends ConditionTypeChecker {
 					"\"Did you sell a house in 2010?\" hasSoldHouse: boolean " +
 					"\"Did you sell a car in 2010?\" hasSoldCar: boolean" +
 				"}" +
-			"}");
+			"}"
+		);
 	}
 	
 	@Test
-	public void testInnerIfConditionBlocksWithComputedQuestions() throws ParseError {
+	public void testInnerIfThenConditionBlocksWithComputedQuestions() throws ParseError {
 		// First we need a AnswerableQuestion to store the identifier used in the IfThen condition
 		isAValidStatementBlock(
 			"if (true) { " +
@@ -71,6 +61,7 @@ public class TestIfThenStatements extends ConditionTypeChecker {
 					"\"Did you sell a house in 2010?\" hasSoldHouse: boolean " +
 					"\"Qualifies for large insurance:\" insuranceProspect = wantsToBuyHouse && hasSoldHouse" +
 				"}" +
-			"}");
+			"}"
+		);
 	}
 }

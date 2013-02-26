@@ -15,7 +15,7 @@ public class InputVerifier implements IControlVisitor<Boolean> {
 	}
 	
 	@Override
-	public Boolean visit(IntWidget widget) {
+	public Boolean visit(IntControl widget) {
 		if(IntVal.tryParse(widget.getInput()) == null){
 			widget.setBorder(Color.red);
 			return false;
@@ -25,7 +25,7 @@ public class InputVerifier implements IControlVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(MoneyWidget widget) {
+	public Boolean visit(MoneyControl widget) {
 		if(MoneyVal.tryParse(widget.getInput()) == null){
 			widget.setBorder(Color.red);
 			return false;
@@ -35,13 +35,13 @@ public class InputVerifier implements IControlVisitor<Boolean> {
 	}
 
 	@Override
-	public Boolean visit(StringWidget widget) {
+	public Boolean visit(StringControl widget) {
 		widget.setBorder(Color.green);
 		return true;
 	}
 
 	@Override
-	public Boolean visit(BoolWidget widget) {
+	public Boolean visit(BoolControl widget) {
 		return true;
 	}
 

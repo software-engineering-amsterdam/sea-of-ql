@@ -8,7 +8,7 @@ import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.values.Value;
 
-public class Env implements Iterable<TypeValuePair> {
+public class Env implements Iterable<Ident> {
 	private final Map<Ident, TypeValuePair> symbolTable;
 	
 	public Env() {
@@ -48,7 +48,7 @@ public class Env implements Iterable<TypeValuePair> {
 	}
 
 	@Override
-	public Iterator<TypeValuePair> iterator() {		
-		return symbolTable.values().iterator();
+	public Iterator<Ident> iterator() {		
+		return symbolTable.keySet().iterator();
 	}
 }

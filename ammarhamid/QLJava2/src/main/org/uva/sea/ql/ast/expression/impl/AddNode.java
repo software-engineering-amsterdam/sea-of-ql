@@ -1,11 +1,13 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.expression.BinaryNode;
+import org.uva.sea.ql.ast.expression.ArithmeticOperation;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class AddNode extends BinaryNode
+import java.util.Map;
+
+public class AddNode extends ArithmeticOperation
 {
 
     public AddNode(final ExprNode lhs, final ExprNode rhs)
@@ -20,10 +22,10 @@ public class AddNode extends BinaryNode
     }
 
     @Override
-    public Value evaluate()
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        final Value value1 = this.lhs.evaluate();
-        final Value value2 = this.rhs.evaluate();
+        final Value value1 = this.lhs.evaluate(variables);
+        final Value value2 = this.rhs.evaluate(variables);
         return value1.add(value2);
     }
 

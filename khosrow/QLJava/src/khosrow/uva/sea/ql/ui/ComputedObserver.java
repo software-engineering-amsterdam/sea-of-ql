@@ -13,7 +13,7 @@ public class ComputedObserver implements Observer {
 	private final State state;
 	private final Control control;
 	
-	public ComputedObserver(Label stmt, State state,Control control) {
+	public ComputedObserver(Label stmt, State state, Control control) {
 		this.stmt = stmt;
 		this.state = state;
 		this.control = control;		
@@ -22,7 +22,7 @@ public class ComputedObserver implements Observer {
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		Value value = ExprEvaluator.Evaluate(stmt.getExpr(), state.getEnv());
-		state.putValue(stmt.getIdent(), value);
+		state.assignValue(stmt.getIdent(), value);
 		control.setValue(value);		
 	}
 

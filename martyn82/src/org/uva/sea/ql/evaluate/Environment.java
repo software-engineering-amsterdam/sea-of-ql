@@ -1,23 +1,20 @@
 package org.uva.sea.ql.evaluate;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.uva.sea.ql.ast.expression.IdentifierExpression;
 
 abstract public class Environment<T> {
-	private final List<Error> errors;
+	private final ErrorList errors;
 
 	public Environment() {
-		this.errors = new LinkedList<Error>();
+		this.errors = new ErrorList();
 	}
 
-	public List<Error> getErrors() {
+	public ErrorList getErrorList() {
 		return this.errors;
 	}
 
 	public void addError( Error error ) {
-		this.errors.add( error );
+		this.errors.addError( error );
 	}
 
 	abstract public boolean isDeclared( IdentifierExpression identifier );

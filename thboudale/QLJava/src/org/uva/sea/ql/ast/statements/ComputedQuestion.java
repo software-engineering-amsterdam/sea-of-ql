@@ -1,25 +1,24 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
+import org.uva.sea.ql.ast.expressions.AExpr;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.Str;
-import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.StmtVisitor;
+import org.uva.sea.ql.ast.types.AType;
+import org.uva.sea.ql.visitor.IFormStmtVisitor;
 
 public class ComputedQuestion extends Question {
-	private final Expr orExpr;
+	private final AExpr orExpr;
 
-	public ComputedQuestion(Ident ident, Str strLtr, Type type, Expr orExpr) {
-		super(ident, strLtr, type);
+	public ComputedQuestion(Ident ident, String label, AType type, AExpr orExpr) {
+		super(ident, label, type);
 		this.orExpr = orExpr;
 	}
 		
-	public Expr getExpr() {
+	public AExpr getExpr() {
 		return orExpr;
 	}
 	
 	@Override
-	public void accept(StmtVisitor visitor) {
-		visitor.visit(this);		
+	public <T> T accept(IFormStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
 	}
 }

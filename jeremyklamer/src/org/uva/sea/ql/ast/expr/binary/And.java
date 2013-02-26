@@ -26,10 +26,5 @@ public class And extends Binary {
 	public Type typeOf(Env env) {
 		return new BoolType();
 	}
-	
-	@Override
-	public Type getAllowedType() {
-		return new BoolType();
-	}
-	
+
 }

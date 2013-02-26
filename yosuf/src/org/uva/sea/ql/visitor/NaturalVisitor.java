@@ -21,14 +21,14 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
 public interface NaturalVisitor<T> {
 
 	T visit(Add add);
 
-	T visit(IntegerValue integerValue);
+	T visit(NumericValue integerValue);
 
 	T visit(And and);
 

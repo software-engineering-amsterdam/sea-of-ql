@@ -4,7 +4,8 @@ import org.uva.sea.ql.ICodeLocationInformation;
 
 public abstract class UnaryNumeric extends Unary {
 
-	public UnaryNumeric(ICodeLocationInformation codeLocation, Expression operand) {
+	UnaryNumeric(final ICodeLocationInformation codeLocation,
+			final Expression operand) {
 		super(codeLocation, operand);
 	}
 }

@@ -8,12 +8,12 @@ import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 
 public class ComputedValue extends Statement{
 
-	public Identifier name;
+	public Identifier identifier;
 	public StringLiteral text;
 	public Expression expression;
 	
-	public ComputedValue(Identifier name,StringLiteral text, Expression expression) {
-		this.name=name;
+	public ComputedValue(Identifier identifier, StringLiteral text, Expression expression) {
+		this.identifier=identifier;
 		this.text=text;
 		this.expression=expression;
 	}

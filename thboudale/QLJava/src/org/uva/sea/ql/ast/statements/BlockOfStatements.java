@@ -1,22 +1,21 @@
 package org.uva.sea.ql.ast.statements;
 
-import java.util.ArrayList;
+import java.util.List;
+import org.uva.sea.ql.visitor.IFormStmtVisitor;
 
-import org.uva.sea.ql.visitor.StmtVisitor;
-
-public class BlockOfStatements extends Statement {
-	private final ArrayList<Statement> blStms = new ArrayList<Statement>();
+public class BlockOfStatements extends AStatement {
+	private final List<AStatement> blStmts; 
 	
-	public void addStatement(Statement stm) {
-		blStms.add(stm);
+	public BlockOfStatements(List<AStatement> stmts) {
+		this.blStmts = stmts;
 	}
 	
-	public ArrayList<Statement> getStmts() {
-		return blStms;
+	public List<AStatement> getBlStmt() {
+		return blStmts;
 	}
 	
 	@Override
-	public void accept(StmtVisitor visitor) {
-		visitor.visit(this);		
+	public <T> T accept(IFormStmtVisitor<T> visitor) {
+		return visitor.visit(this);		
 	}
 }

@@ -4,14 +4,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.expr.type.BoolType;
+import eu.karuza.ql.ast.type.BoolType;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.parser.IParse;
 import eu.karuza.ql.parser.ParserContext;
 import eu.karuza.ql.parser.antlr.ANTLRParser;
 import eu.karuza.ql.symbol.DefinitionCollector;
-import eu.karuza.ql.visitor.ExpressionPrinter;
-import eu.karuza.ql.visitor.StatementPrinter;
+import eu.karuza.ql.visitor.impl.ExpressionPrinter;
+import eu.karuza.ql.visitor.impl.StatementPrinter;
 
 public class TestVisitors {
 

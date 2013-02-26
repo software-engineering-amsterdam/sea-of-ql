@@ -1,30 +1,18 @@
 package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestStatements {
 
 	private IParse parser;
-
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  return Arrays.asList( 
-			  new Object[][] {{new ANTLRParser()}}
-			 );
-	}
-
 	
-	public TestStatements(IParse parser) {
-		this.parser = parser;
+	public TestStatements() {
+		this.parser = new ANTLRParser();
 	}
 
 	
@@ -45,6 +33,6 @@ public class TestStatements {
 	 	
 	 	assertEquals(parser.parseStatement("if (a>b) { privateDebt: \"Private debts for the sold house:\" int}" +
 	 			"else {hasSoldHouse: \"Did you sell a house in 2010?\" boolean} ").getClass(),
-	 			ifStatement.class);
+	 			ifElseStatement.class);
 	}
 }

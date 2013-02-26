@@ -1,18 +1,18 @@
 package visitor.ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observer;
 
 import javax.swing.*;
 
 import visitor.Environment;
-import visitor.checker.ExpressionChecker;
-import visitor.ui.wrapper.JCheckBoxWrap;
-import visitor.ui.wrapper.JTextFieldWrap;
-import visitor.ui.wrapper.Wrapper;
-import visitor.ui.wrapper.WrapperEvent;
-import visitor.ui.wrapper.WrapperEventListener;
+import visitor.evaluator.ExpressionEvaluator;
+import visitor.ui.wrapper.*;
 import ast.Form;
 import ast.Statement;
 import ast.expression.Ident;
@@ -23,26 +23,47 @@ import ast.type.Int;
 import ast.type.Str;
 
 @SuppressWarnings("serial")
-public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type.Visitor {
-	private static Environment environment;
-	private static JPanel panel = new JPanel();
+public class UIVisitor extends JFrame implements ast.statement.Visitor<Object>, ast.type.Visitor<Wrapper> {
+	private Environment environment;
+	private JPanel panel;
 
 	public UIVisitor(Environment environment) {
-		UIVisitor.environment = environment;
+		this.environment = environment;
+		panel = new JPanel();
 	}
 
-	public UIVisitor(Environment environment, Statement stat) {
-		UIVisitor.environment = environment;
-		stat.accept(this);
+	public UIVisitor(Environment environment, Block ast) {
+		panel = new JPanel();
+		GridLayout flo = new GridLayout(0, 2);
+		panel.setLayout(flo);
+		this.environment = environment;
+		
+		// we reverse the list here so we get a properly generated UI
+		ArrayList<Statement> statements = reverseList(ast.getStatements());
+		for (Statement i : statements)
+			i.accept(this);
 	}
 
 	public JPanel getPanel() {
+		this.pack();
 		return panel;
 	}
 
 	public void generate() {
-		GridLayout flo = new GridLayout(0, 2);
+		GridLayout flo = new GridLayout(0, 1);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JButton button = new JButton();
+		button.setText("Generate JSON");
+		button.setSize(50, 20);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				environment.printVariablesJSON();
+			}
+		});
+		add(button);
 		setLayout(flo);
 		pack();
 		setVisible(true);
@@ -55,21 +76,31 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	@Override
 	public Object visit(Form ast) {
-		ast.getContent().accept(this);
+		JPanel panel = new UIVisitor(environment, ast.getContent()).getPanel();
 		this.setName(ast.getIdent().getValue());
+		panel.setVisible(true);
+		add(panel);
+
 		generate();
 		return null;
 	}
 
 	@Override
 	public Object visit(If ast) {
-		boolean cond = ast.getCondition().accept(new ExpressionChecker(environment));
+		ast.expression.value.Bool value = (ast.expression.value.Bool) ast.getCondition().accept(new ExpressionEvaluator(environment));
+		boolean visible = value.isDefined() && value.getValue();
 		JPanel tru = new UIVisitor(environment, ast.getTrueBlock()).getPanel();
+		tru.setVisible(visible);
+		panel.add(tru);
+		
 		JPanel fls = new UIVisitor(environment, ast.getFalseBlock()).getPanel();
-		tru.setVisible(cond);
-		fls.setVisible(!cond);
-		add(tru);
-		add(fls);
+		// resolve issues when falseblock is empty
+		if (ast.getFalseBlock().getStatements().size() == 0)
+			fls = new JPanel();
+
+		fls.setVisible(!visible);
+		panel.add(fls);
+
 		Observer ob = new ConditionalObserver(tru, fls, environment, ast);
 		for (Iterator<Ident> i = ast.getCondition().getIdents().iterator(); i.hasNext();)
 			environment.addObserver(i.next(), ob);
@@ -79,40 +110,41 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 	@Override
 	public Object visit(final QuestionVar ast) {
 		ast.getVar().accept(this);
+		
 		Wrapper wrap = environment.getIdent(ast.getIdent()).getType().accept(this);
 		wrap.setLabel(ast.getLabel().getValue());
 		wrap.setVisible(true);
-		System.out.println(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
-		wrap.setValue(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
+		wrap.setValue(environment.getIdent(ast.getIdent()).getValueToString());
 		WrapperEventListener listener = new WrapperEventListener() {
 			@Override
 			public void change(WrapperEvent event) {
-				System.out.println(event.getWrap().getEnv().getValEnv());
-				System.out.println(event.getWrap().getValue());
-				System.out.println(castValue(ast.getType(), event.getWrap().getValue()));
-				System.out.println(UIVisitor.environment.getValEnv());
-				System.exit(0);
 				environment.setVal(ast.getIdent(), castValue(ast.getType(), event.getWrap().getValue()));
 				environment.notifyObservers(ast.getIdent());
 			}
 		};
 		wrap.addListener(listener);
 
-		add(wrap.getLabel());
-		add(wrap.getComponent());
+		panel.add(wrap.getLabel());
+		panel.add(wrap.getComponent());
 		return null;
 	}
 
 	@Override
 	public Object visit(QuestionComputed ast) {
 		ast.getAssignment().accept(this);
+		
 		Wrapper wrap = environment.getIdent(ast.getIdent()).getType().accept(this);
 		wrap.setEnabled(false);
 		wrap.setLabel(ast.getLabel().getValue());
 		wrap.setVisible(true);
-		wrap.setValue(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
-		add(wrap.getLabel());
-		add(wrap.getComponent());
+		wrap.setValue(environment.getIdent(ast.getIdent()).getValueToString());
+		
+		ComputedObserver ob = new ComputedObserver(wrap, environment, ast);
+		for (Iterator<Ident> i = ast.getAssignment().getExpression().getIdents().iterator(); i.hasNext();)
+			environment.addObserver(i.next(), ob);
+		
+		panel.add(wrap.getLabel());
+		panel.add(wrap.getComponent());
 		return null;
 	}
 
@@ -123,8 +155,8 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	@Override
 	public Object visit(Block ast) {
-		for (Iterator<Statement> i = ast.iterator(); i.hasNext();)
-			i.next().accept(this);
+		for (Statement i : ast.getStatements())
+			i.accept(this);
 		return null;
 	}
 
@@ -132,7 +164,7 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 		if (type instanceof ast.type.Str)
 			return new ast.expression.value.Str(str);
 		if (type instanceof ast.type.Int)
-			return new ast.expression.value.Int(Integer.getInteger(str));
+			return new ast.expression.value.Int(Integer.parseInt(str));
 		if (type instanceof ast.type.Bool)
 			return new ast.expression.value.Bool(Boolean.parseBoolean(str));
 		return null;
@@ -140,16 +172,23 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	@Override
 	public Wrapper visit(Bool ast) {
-		return new JCheckBoxWrap(environment);
+		return new JCheckBoxWrap();
 	}
 
 	@Override
 	public Wrapper visit(Str ast) {
-		return new JTextFieldWrap(environment);
+		return new JTextFieldWrap();
 	}
 
 	@Override
 	public Wrapper visit(Int ast) {
-		return new JTextFieldWrap(environment);
+		return new JTextFieldWrap();
+	}
+	
+	public ArrayList<Statement> reverseList(List<Statement> list){
+		ArrayList<Statement> reversedList = new ArrayList<Statement>();
+		for (int i = list.size() - 1; i >= 0; i--)
+			reversedList.add(list.get(i));
+		return reversedList;
 	}
 }

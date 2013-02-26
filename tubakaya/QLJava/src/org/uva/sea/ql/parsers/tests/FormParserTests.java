@@ -33,7 +33,7 @@ public class FormParserTests {
 		
 		String text="form Box1HouseOwning { hasSoldHouse: \"Did you sell a house in 2010?\" boolean hasBoughtHouse: \"Did you by a house in 2010?\" boolean}";
 		Form actual=(Form)parser.parse(text);
-		assertEquals(2, actual.statements.size());		
+		assertEquals(2, actual.getStatements().size());		
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class FormParserTests {
 		
 		String text="form Box1HouseOwning {}";
 		Form actual=(Form)parser.parse(text);
-		assertEquals(0, actual.statements.size());		
+		assertEquals(0, actual.getStatements().size());		
 	}
 	
 	@Test
@@ -49,9 +49,9 @@ public class FormParserTests {
 		
 		String text="form Box1HouseOwning {hasSoldHouse: \"Did you sell a house in 2010?\" boolean valueResidue: \"Value residue:\" integer(2)}";
 		Form actual=(Form)parser.parse(text);
-		assertEquals(2, actual.statements.size());		
-		assertEquals(Question.class, actual.statements.get(0).getClass());	
-		assertEquals(ComputedValue.class, actual.statements.get(1).getClass());	
+		assertEquals(2, actual.getStatements().size());		
+		assertEquals(Question.class, actual.getStatements().get(0).getClass());	
+		assertEquals(ComputedValue.class, actual.getStatements().get(1).getClass());	
 	}
 	
 	@Test
@@ -59,8 +59,8 @@ public class FormParserTests {
 		
 		String text="form Box1HouseOwning {if (true) { hasSoldHouse: \"Did you sell a house in 2010?\" boolean valueResidue: \"Value residue:\" integer(5-3)}}";
 		Form actual=(Form)parser.parse(text);
-		assertEquals(1, actual.statements.size());		
-		assertEquals(IfStatement.class, actual.statements.get(0).getClass());
+		assertEquals(1, actual.getStatements().size());		
+		assertEquals(IfStatement.class, actual.getStatements().get(0).getClass());
 	}
 	
 	@Test
@@ -73,8 +73,8 @@ public class FormParserTests {
 				"}" +
 				"}";
 		Form actual=(Form)parser.parse(text);
-		assertEquals(2, actual.statements.size());		
-		assertEquals(Question.class, actual.statements.get(0).getClass());
-		assertEquals(IfStatement.class, actual.statements.get(1).getClass());
+		assertEquals(2, actual.getStatements().size());		
+		assertEquals(Question.class, actual.getStatements().get(0).getClass());
+		assertEquals(IfStatement.class, actual.getStatements().get(1).getClass());
 	}
 }

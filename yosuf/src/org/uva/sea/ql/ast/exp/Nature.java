@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.value.Value;
 
 public abstract class Nature {
 
@@ -17,5 +18,5 @@ public abstract class Nature {
 	 * @param value
 	 * @return
 	 */
-	public abstract Expression<?> createValue(String value);
+	public abstract Value createValue(String value);
 }

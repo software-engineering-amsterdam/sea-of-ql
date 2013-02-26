@@ -5,23 +5,22 @@ import java.util.Observable;
 import ast.Type;
 import ast.expression.Value;
 
-
 public class Bindable extends Observable {
 
 	private Type type;
 	private Value value;
 	private boolean defined = false;
-	private boolean changed = false; // used for updating
 
-	public Bindable( Type type) {
+	public Bindable(Type type) {
 		this.type = type;
 		this.value = type.accept(new TypeEvaluator());
+		this.setChanged();
 	}
 
-	public void setValue( Value value ) {
+	public void setValue(Value value) {
 		this.value = value;
-		this.changed = true;
 		this.defined = true;
+		this.setChanged();
 	}
 
 	public Type getType() {
@@ -31,17 +30,17 @@ public class Bindable extends Observable {
 	public Value getValue() {
 		return this.value;
 	}
+	
+	public String getValueToString(){
+		return this.value.getValue().toString();
+	}
 
 	public boolean isDefined() {
 		return defined;
 	}
 
-	public boolean isChanged() {
-		return changed;
-	}
-
 	public void setType(Type type) {
 		this.type = type;
-		this.changed = true;		
+		this.setChanged();
 	}
 }

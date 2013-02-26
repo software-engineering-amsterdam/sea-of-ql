@@ -13,5 +13,5 @@ public class Sub extends ArithmeticOperator {
 	@Override
 	public void accept(ExpressionVisitor visitor) {
 		visitor.visit(this);		
-	}		
+	}	
 }

@@ -3,7 +3,6 @@ package khosrow.uva.sea.ql.visitor.eval;
 import java.util.List;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
-import khosrow.uva.sea.ql.ast.decl.Form;
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.stmt.*;
 import khosrow.uva.sea.ql.env.Env;
@@ -19,9 +18,9 @@ public class DeclEvaluator implements IStmtVisitor<Boolean> {
 		this.declarationErros = declarationErros;
 	}
 	
-	public static boolean Evaluate(Form form, Env env, List<QlDeclarationError> declarationErros) {
+	public static boolean Evaluate(Stmt stmt, Env env, List<QlDeclarationError> declarationErros) {
 		DeclEvaluator evaluator = new DeclEvaluator(env, declarationErros);
-		return form.getStmts().accept(evaluator);
+		return stmt.accept(evaluator);
 	
 	}
 	@Override

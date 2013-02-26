@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.uva.sea.ql.parser.IParser;
-import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public abstract class ANTLRParser implements IParser {
 	public Object parseInput(String input, String methodName) throws ParseError {

@@ -9,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import eu.karuza.ql.R;
 import eu.karuza.ql.parser.ParserContext;
-import eu.karuza.ql.service.ParserService;
-import eu.karuza.ql.widget.RowWrapper;
+import eu.karuza.ql.service.IParserService;
+import eu.karuza.ql.service.ServiceFactory;
+import eu.karuza.ql.ui.widget.RowWrapper;
 
 public class QuestionListFragment extends ListFragment implements FormAdapter.Callbacks {
 
 	private ParserContext context;
 	private FormAdapter adapter = null;
+	private IParserService service = ServiceFactory.getParserService();
 
 	public QuestionListFragment() {
 
@@ -26,19 +28,9 @@ public class QuestionListFragment extends ListFragment implements FormAdapter.Ca
 		return inflater.inflate(R.layout.fragment_question, null);
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	}
-
 	public void updateContext(ParserContext context) {
 		this.context = context;
-		List<RowWrapper> data = new ParserService().getDisplayableData(context);
+		List<RowWrapper> data = service.getDisplayableData(context);
 		setupAdapter(data);
 	}
 
@@ -53,7 +45,6 @@ public class QuestionListFragment extends ListFragment implements FormAdapter.Ca
 
 	@Override
 	public void valueChanged() {
-		ParserService service = new ParserService();
 		setupAdapter(service.getDisplayableData(context));
 	}
 }

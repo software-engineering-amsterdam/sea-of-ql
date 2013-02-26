@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import eu.karuza.ql.R;
-import eu.karuza.ql.widget.RowWrapper;
+import eu.karuza.ql.ui.widget.RowWrapper;
 
 public class FormAdapter extends BaseAdapter {
 	

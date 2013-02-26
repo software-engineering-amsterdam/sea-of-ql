@@ -14,6 +14,7 @@ tokens
     NOT;
     NEGATION;
     EXPRESSION;
+    COMPUTED;
     ASSIGNMENT;
     IF;
     STATEMENT;
@@ -53,6 +54,7 @@ block
 statement
 	:	ifStatement
 		| assignmentStatement
+		| computedStatement
 	;
 
 ifStatement
@@ -74,6 +76,10 @@ elseStat
 assignmentStatement
 	:	StringLiteral Identifier ':' type -> ^(ASSIGNMENT StringLiteral Identifier type)
 	;
+
+computedStatement
+    : StringLiteral Identifier ':' type '(' expression ')' -> ^(COMPUTED StringLiteral Identifier type expression)
+    ;
 
 type
 	:	'boolean'

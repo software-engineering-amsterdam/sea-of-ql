@@ -17,7 +17,7 @@ public class Pos extends UnaryMathOperator {
     }
 
     @Override
-    public void accept(ExpressionVisitor visitor) throws QLException {
+    public final void accept(ExpressionVisitor visitor) throws QLException {
         visitor.visit(this);
     }
 
