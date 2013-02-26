@@ -73,13 +73,8 @@ public class ParserService implements IParserService{
 		return context;
 	}
 
-	public ParserContext evaluateValues(ParserContext context) {
-		return context;
-	}
-
 	public List<RowWrapper> getDisplayableData(ParserContext context) {
 		Form form = context.getForm();
-		form.accept(new Evaluator());
 		List<RowWrapper> resultList = new ArrayList<RowWrapper>();
 		form.accept(new RowWrapperGenerator(resultList));
 		return resultList;
