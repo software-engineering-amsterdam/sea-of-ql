@@ -1,3 +1,4 @@
+//check for uninitialized variables in the Form program
 module IDE::Uninit
 
 

@@ -1,3 +1,4 @@
+//@abisha
 module syntax::Concrete
 
 import Prelude;
@@ -21,20 +22,22 @@ lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u
   
 layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
 
-start syntax Form = form: "form" Id qName "{" Statement* stats "}" ;
+start syntax Form = form: "form" Id qName "{" Body* stats "}" ;
 
-start syntax Question
-   = uncomputedQuestion: Id id ":" String label Type tp
-   | computedQuestion: Id id ":" String label Type tp Expression exp
+start syntax Question = 
+	uncomputedQuestion: Id id ":" String label Type tp
+   | computedQuestion: Id id ":" String label Type tp Expression exp 
    ;
    
-//question id and question type
+syntax Body=  question: Question question
+				|statement:Statement statement;
+				
+//question id and type
 syntax QuestionType = result: Id id ":" Type tp;
    
-start syntax Statement = asgStat: Id var ":" Type tp
-   | ifStat: "if" Expression cond "{" Statement* stats "}"
-   | ifElseStat: "if" Expression cond "{" Statement* stats "}" "else" "{" Statement* stats "}"
-   | question: Question question
+start syntax Statement = asgStat: Id var ":" Type tp 
+   | ifStat: "if" Expression cond "{" Body* stats "}"
+   | ifElseStat: "if" Expression cond "{" Body* stats "}" "else" "{" Body* stats "}"
    ;
    
 start syntax Type 
