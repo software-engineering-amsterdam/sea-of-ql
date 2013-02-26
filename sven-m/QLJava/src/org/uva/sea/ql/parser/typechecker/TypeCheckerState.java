@@ -19,16 +19,24 @@ public class TypeCheckerState {
 		errors = new ArrayList<>();
 	}
 	
+	private Map<Ident, Type> getTypes() {
+		return types;
+	}
+	
+	public List<SemanticError> getErrors() {
+		return errors;
+	}
+	
 	public void setType(Ident ident, Type type) {
-		types.put(ident, type);
+		getTypes().put(ident, type);
 	}
 	
 	public Type getType(Ident id) {
-		return types.get(id);
+		return getTypes().get(id);
 	}
 	
 	public void reportError(SemanticError error) {
-		errors.add(error);
+		getErrors().add(error);
 	}
 
 	public Map<Ident, Type> getTypeState() {
@@ -37,15 +45,13 @@ public class TypeCheckerState {
 
 	public String getErrorsString() {
 		String errorsString = "";
-		for (SemanticError error : errors) {
+		for (SemanticError error : getErrors()) {
 			errorsString += error.toString() + "\n";
 		}
 		
 		return errorsString;
 	}
 	
-	public List<SemanticError> getErrors() {
-		return new ArrayList<>(errors);
-	}
+	
 	
 }

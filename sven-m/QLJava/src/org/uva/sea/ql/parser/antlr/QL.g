@@ -141,17 +141,19 @@ primary returns [Expr result]
   | str=STRING_LITERAL
     {
       $result = new StrLiteral($str.text.substring(1, $str.text.length() - 1),
-        new Location($str.line, $str.pos,
-          $str.line,
+        new Location($str.line, $str.pos, $str.line,
           $str.pos + $str.text.length()));
     }
   | '(' orExpr ')' { $result = $orExpr.result; }
   ;
     
 unExpr returns [Expr result]
-  : '+' x=unExpr { $result = new Pos($x.result); }
-  | '-' x=unExpr { $result = new Neg($x.result); }
-  | '!' x=unExpr { $result = new Not($x.result); }
+  : pos='+' x=unExpr { $result = new Pos($x.result, new Location($pos.line,
+      $pos.pos, null)); }
+  | neg='-' x=unExpr { $result = new Neg($x.result, new Location($neg.line,
+      $neg.pos, null)); }
+  | not='!' x=unExpr { $result = new Not($x.result, new Location($not.line,
+      $not.pos, null)); }
   | x=primary    { $result = $x.result; }
   ;    
     

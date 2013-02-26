@@ -21,23 +21,13 @@ public class StrValue extends Value {
 
 	@Override
 	public boolean equals(Object obj) {
-		boolean equal;
-
-		if (obj instanceof StrValue) {
-			equal = equals((StrValue) obj);
-			// TODO: add test for instanceof Value, and throw exception maybe?
-			// or should I do it with overloaded methods in the Value class
-			// which then throw an UnsupportedOperationException?
-		} else {
-			equal = super.equals(obj);
+		if (!(obj instanceof StrValue)) {
+			return false;
 		}
-
-		return equal;
+		
+		return getValue().equals(((StrValue)obj).getValue());
 	}
 
-	public boolean equals(StrValue value) {
-		return getValue().equals(value.getValue());
-	}
 
 	/*
 	 * Adding

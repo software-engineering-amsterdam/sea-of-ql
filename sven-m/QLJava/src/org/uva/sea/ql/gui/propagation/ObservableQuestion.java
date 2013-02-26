@@ -10,23 +10,30 @@ import org.uva.sea.ql.gui.misc.ValueState;
 public class ObservableQuestion extends Observable implements
 		InputSourceDelegate
 {
-
 	private final Question question;
 	private final ValueState state;
-	private final InputSource source;
 
-	public ObservableQuestion(Question question, ValueState state, InputSource source) {
+	public ObservableQuestion(Question question, ValueState state,
+			InputSource source)
+	{
 		this.question = question;
 		this.state = state;
-		this.source = source;
 
-		this.source.setDelegate(this);
+		source.setDelegate(this);
+	}
+	
+	private Question getQuestion() {
+		return question;
+	}
+
+	private ValueState getState() {
+		return state;
 	}
 
 	@Override
 	public void valueChanged(InputSource source) {
 		setChanged();
-		state.putValue(question.getIdent(), source.getValue());
+		getState().putValue(getQuestion().getIdent(), source.getValue());
 		notifyObservers();
 		clearChanged();
 	}
