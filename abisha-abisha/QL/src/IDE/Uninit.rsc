@@ -1,18 +1,20 @@
+//check for uninitialized variables in the Form program
 module IDE::Uninit
 
+
 import Prelude;
-import syntax::abstractSyntax;
+import syntax::Abstract;
 import load::Load;
 
 import Visualization::UseDef;
 import Visualization::ControlFlow;
 
-public set[CFNode] defNodes(QuestionId Id, set[Occurrence]Defs)={statement(Occ.stat@location,occ.stat)|Occurrence occ<-Defs,occ.name==id};
+public set[CFNode] defNodes(str Id, set[Occurrence]Defs)={statement(Occ.stat@location,occ.stat)|Occurrence occ<-Defs,occ.name==id};
 
-public set[Occurrence] uninitProgram(PROGRAM)
+public set[Occurrence] uninitForm(Form F)
 {
-	d=Defs(P);
-	CFG=cflowProgram(P);
+	D=defs(F);
+	CFG=cflowForm(F);
 	return
 		{
 		occ|occ <-uses(P),any(CFNode N<-reachX(CFG.grapgh,CFG,entry, defNodes(occ.name, D)),
@@ -20,4 +22,5 @@ public set[Occurrence] uninitProgram(PROGRAM)
 		};
 }
 	
-public set[Occurrence] uninitProgram(str txt)=uninitProgram(load(txt));
+public set[Occurrence] uninitForm(str txt)=uninitForm(load(txt));
+

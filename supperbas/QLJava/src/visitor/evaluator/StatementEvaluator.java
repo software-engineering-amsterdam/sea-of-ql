@@ -57,10 +57,12 @@ public class StatementEvaluator implements Visitor<Boolean> {
 	public Boolean visit(QuestionComputed ast) {
 		if (!environment.hasIdent(ast.getIdent()))
 			environment.setVar(new Var(ast.getIdent(), new Undefined()));
+
 		Bindable bind = environment.getIdent(ast.getIdent());
-		ast.getAssignment().accept(new StatementEvaluator(environment));
+		Assignment assingment = ast.getAssignment();
+		assingment.accept(new StatementEvaluator(environment));
 		ast.getIdent().accept(new ExpressionEvaluator(environment));
-		bind.setType(ast.getAssignment().getExpression().typeOf(environment.getTypeEnv()));
+		bind.setType(assingment.getExpression().typeOf(environment.getTypeEnv()));
 		return true;
 	}
 
@@ -68,7 +70,6 @@ public class StatementEvaluator implements Visitor<Boolean> {
 	public Boolean visit(Var ast) {
 		if (!environment.hasIdent(ast.getIdent()))
 			environment.setVar(ast);
-		Bindable bind = environment.getIdent(ast.getIdent());
 		ast.getIdent().accept(new ExpressionEvaluator(environment));
 		return true;
 	}

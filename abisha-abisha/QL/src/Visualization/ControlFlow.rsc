@@ -2,7 +2,7 @@ module Visualization::ControlFlow
 
 import Prelude;
 import analysis::graphs::Graph;
-import syntax::abstractSyntax;
+import syntax::Abstract;
 import load::Load;
 
 public data CFNode                                                                
@@ -15,12 +15,7 @@ public data CFNode
 
 alias CFGraph = tuple[set[CFNode] entry, Graph[CFNode] graph, set[CFNode] exit];  
 
-/*CFGraph cflowStat(s:asgStat(QuestionireId Id, EXP Exp)) {                                
-   S = statement(s@location, s);
-   return <{Q}, {}, {Q}>;
-}*/
-
-CFGraph cflowStat(statement:ifStat(Expression exp, list[Statement]Stats ))
+CFGraph cflowStat(statement:ifStat(Expression exp, list[Body]Stats ))
 {
 	CF1 = cflowCompleteBody(body);
 	E = 
@@ -30,10 +25,10 @@ CFGraph cflowStat(statement:ifStat(Expression exp, list[Statement]Stats ))
 	return < E, (E * CF1.entry) + CF1.graph , CF1.exit >; 
 }
 
-CFGraph cflowStat(ifElseStat(Expression exp, list[Statement] thenpart, list[Statement] elsepart))
+CFGraph cflowStat(ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart))
 {
-   	CF1 = cflowStatement(thenpart); 
-   	CF2 = cflowStatement(elsepart); 
+   	CF1 = cflowStat(thenpart); 
+   	CF2 = cflowStat(elsepart); 
    	E = 
    	{
    		choice(exp@location, exp)
@@ -41,7 +36,7 @@ CFGraph cflowStat(ifElseStat(Expression exp, list[Statement] thenpart, list[Stat
    return < E, (E * CF1.entry) + (E * CF2.entry) + CF1.graph + CF2.graph, CF1.exit + CF2.exit >;
 }
 
-CFGraph cflowStats(list[Statement] Stats)
+CFGraph cflowStats(list[Body] Stats)
 {                                        
   if(size(Stats) == 1)
      return cflowStat(Stats[0]);
@@ -62,16 +57,16 @@ CFGraph cflowQuestion(question:computedQuestion(str id, str labelQuestion, Type 
 	 return <{Q}, {}, {Q}>;
 }
 
-public CFGraph cflowProgram(Program P)
+public CFGraph cflowForm(Form F)
 {                                           
-	if(program(str id, list[Statement] Stat) := P)
+	if(form(str id, list[Body] Stat) := F)
 	{  
-    	CF = cflowStatement(Series);
-     	Entry = entry(P@location);
+    	CF = cflowStat(Stat);
+     	Entry = entry(F@location);
      	Exit  = exit();
      	return <{Entry}, ({Entry} * CF.entry) + CF.graph + (CF.exit * {Exit}), {Exit}>;
   	}
   	else
     throw "Cannot happen";
 }
-public CFGraph cflowProgram(str txt) = cflowProgram(load(txt));  
+public CFGraph cflowForm(str txt) = cflowForm(load(txt));  

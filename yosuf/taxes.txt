@@ -15,5 +15,12 @@ form Taxes {
 	Integer presentCapital = "How much cash do you have?";
 	
 	Integer difference = presentCapital - previousCapital;
+	String YourName = name;
 	
+	Boolean moreMoneyNow = previousCapital<presentCapital;
+	
+	Integer someNumber = "Which number?" ;
+	Integer someNumberPlus = someNumber + someNumber;
+	Integer someNumberTimes = someNumber * someNumber;
+	Integer someNumberDividesByTwo = someNumber / 2;
 }

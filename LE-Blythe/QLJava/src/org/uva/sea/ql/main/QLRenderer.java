@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.checker.Error;
 import org.uva.sea.ql.checker.VisitorStatementChecker;
-import org.uva.sea.ql.gui.VisitorRenderStatement;
+import org.uva.sea.ql.gui.VisitorRenderForm;
 
 public class QLRenderer extends QLProgramBase {
 
@@ -21,7 +21,7 @@ public class QLRenderer extends QLProgramBase {
 		boolean succeeded = form.accept(checker);
 		
 		if(succeeded){
-			VisitorRenderStatement.Render(form, 500, 500);
+			VisitorRenderForm.Render(form, 500, 500);
 		}
 		else{
 			for(Error e: checker.getErrors()){

@@ -1,8 +1,8 @@
 package org.uva.sea.ql.parser.test.ast.statements;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserConditionBlocks;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestConditionBlocks extends StatementParserChecker {
 	

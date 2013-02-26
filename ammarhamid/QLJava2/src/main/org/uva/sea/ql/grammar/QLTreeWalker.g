@@ -13,9 +13,10 @@ options
 	import org.uva.sea.ql.ast.Node;
 	import org.uva.sea.ql.ast.FormNode;
 	import org.uva.sea.ql.ast.statement.Statement;
+	import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
+	import org.uva.sea.ql.ast.statement.impl.ComputedNode;
 	import org.uva.sea.ql.ast.statement.impl.IfNode;
 	import org.uva.sea.ql.ast.statement.BlockNode;
-	import org.uva.sea.ql.ast.statement.impl.AssignmentNode;
 	import org.uva.sea.ql.ast.expression.ExprNode;
 	import org.uva.sea.ql.ast.expression.impl.ValueNode;
 	import org.uva.sea.ql.ast.expression.impl.AddNode;
@@ -51,7 +52,7 @@ options
 
 @members
 {
-    private Map<String, IdentifierNode> variables = new HashMap<>();
+    private final Map<IdentifierNode, Value> variables = new HashMap<>();
 }
 
 walk returns [FormNode node]
@@ -59,7 +60,7 @@ walk returns [FormNode node]
     ;   
    
 form returns [FormNode node]
-	:	^(FORM Identifier ^(BLOCK block)) { $node = new FormNode($Identifier.text, $block.node); }
+	:	^(FORM Identifier ^(BLOCK block)) { $node = new FormNode($Identifier.text, $block.node, variables); }
 	;
 
 block returns [BlockNode node]
@@ -74,6 +75,7 @@ block returns [BlockNode node]
 statement returns [Statement node]
 	:	ifStatement { $node = $ifStatement.node; }
 		| assignmentStatement { $node = $assignmentStatement.node; }
+		| computedStatement { $node = $computedStatement.node; }
 	;
 
 ifStatement returns [IfNode node]
@@ -91,11 +93,22 @@ ifStatement returns [IfNode node]
 assignmentStatement returns [AssignmentNode node]
 	:	^(ASSIGNMENT StringLiteral Identifier type)
 	    {
-	        final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, $type.defaultValue);
-	        variables.put($Identifier.text, identifierNode);
+	        final Value defaultValue = $type.defaultValue;
+	        final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, defaultValue);
+	        variables.put(identifierNode, defaultValue);
 	        $node = new AssignmentNode($StringLiteral.text, identifierNode);
 	    }
 	;
+
+computedStatement returns [ComputedNode node]
+    :   ^(COMPUTED StringLiteral Identifier type expression)
+        {
+            final Value defaultValue = $type.defaultValue;
+            final IdentifierNode identifierNode = new IdentifierNode($Identifier.text, defaultValue);
+            variables.put(identifierNode, defaultValue);
+            $node = new ComputedNode($StringLiteral.text, identifierNode, $expression.node);
+        }
+    ;
 
 type returns [Value defaultValue]
 	:	'boolean'   { $defaultValue = new BooleanValue("false"); }
@@ -125,11 +138,16 @@ expression returns [ExprNode node]
     |   StringLiteral { $node = new ValueNode(new StringValue($StringLiteral.text)); }
     |   Identifier
         {
-            $node = variables.get($Identifier.text);
-            // variable is undefined
-            if($node == null)
+            final Value defaultValue = variables.get(new IdentifierNode($Identifier.text, null));
+
+            if(defaultValue == null)
             {
-                $node = new UndefinedIdentifierNode($Identifier.text, new UndefinedValue());
+                // variable is undefined
+                $node = new UndefinedIdentifierNode($Identifier.text);
+            }
+            else
+            {
+                $node = new IdentifierNode($Identifier.text, defaultValue);
             }
         }
     ;

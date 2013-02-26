@@ -14,33 +14,37 @@ public class TestStatements {
 	private final String form = "form ident { name: \"body\" boolean }";
 	private final String simplequestion = "bye : \"body\" money ";
 	private final String comquestion = "hello : \"body\" integer (43-30)";
-	private final String ifBlock="if (expression) {"+simplequestion+""+comquestion+"}";
-	private final String elseBlock="else {"+simplequestion+"}";
-	ANTLRParser parser= new ANTLRParser();
-	
-	@Test	 
+	private final String ifBlock = "if (expression) {" + simplequestion + ""
+			+ comquestion + "}";
+	private final String elseBlock = "else {" + simplequestion + "}";
+	ANTLRParser parser = new ANTLRParser();
+
+	@Test
 	public void testForm() throws ParseError {
 		assertEquals(Form.class, parser.parseForm(form).getClass());
 	}
-	
-	@Test	
-	public void testSimpeQuestion() throws ParseError{
-		assertEquals(SimpleQuestion.class, parser.parseSimpleQuestion(simplequestion).getClass());
+
+	@Test
+	public void testSimpeQuestion() throws ParseError {
+		assertEquals(SimpleQuestion.class,
+				parser.parseSimpleQuestion(simplequestion).getClass());
 	}
-	
-	@Test	
-	public void testIfThen() throws ParseError{
+
+	@Test
+	public void testIfThen() throws ParseError {
 		assertEquals(IfThen.class, parser.parseIfThen(ifBlock).getClass());
 	}
-	
-	@Test	
-	public void testIfThenElse() throws ParseError{
-		assertEquals(IfThenElse.class, parser.parseIfThenElse(ifBlock + elseBlock).getClass());
+
+	@Test
+	public void testIfThenElse() throws ParseError {
+		assertEquals(IfThenElse.class,
+				parser.parseIfThenElse(ifBlock + elseBlock).getClass());
 	}
-	
-	@Test	
-	public void testComQuestion() throws ParseError{
-		assertEquals(ComQuestion.class, parser.parseComQuestion(comquestion).getClass());
+
+	@Test
+	public void testComQuestion() throws ParseError {
+		assertEquals(ComQuestion.class, parser.parseComQuestion(comquestion)
+				.getClass());
 	}
 
 }

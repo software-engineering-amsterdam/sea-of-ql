@@ -1,4 +1,4 @@
-// $ANTLR 3.5 /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-23 04:05:50
+// $ANTLR 3.5 /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-25 13:34:57
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -475,10 +475,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__31;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( 'block' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: 'block'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( 'else' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: 'else'
 			{
-			match("block"); 
+			match("else"); 
 
 			}
 
@@ -496,10 +496,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__32;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:27:7: ( 'else' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:27:9: 'else'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:27:7: ( 'endif' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:27:9: 'endif'
 			{
-			match("else"); 
+			match("endif"); 
 
 			}
 
@@ -517,10 +517,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__33;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:28:7: ( 'endblock' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:28:9: 'endblock'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:28:7: ( 'form' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:28:9: 'form'
 			{
-			match("endblock"); 
+			match("form"); 
 
 			}
 
@@ -538,10 +538,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__34;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:7: ( 'endif' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:9: 'endif'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:7: ( 'if' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:29:9: 'if'
 			{
-			match("endif"); 
+			match("if"); 
 
 			}
 
@@ -559,10 +559,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__35;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:30:7: ( 'form' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:30:9: 'form'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:30:7: ( 'then' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:30:9: 'then'
 			{
-			match("form"); 
+			match("then"); 
 
 			}
 
@@ -580,11 +580,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__36;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:31:7: ( 'if' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:31:9: 'if'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:31:7: ( '{' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:31:9: '{'
 			{
-			match("if"); 
-
+			match('{'); 
 			}
 
 			state.type = _type;
@@ -601,10 +600,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__37;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:32:7: ( 'then' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:32:9: 'then'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:32:7: ( '||' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:32:9: '||'
 			{
-			match("then"); 
+			match("||"); 
 
 			}
 
@@ -622,11 +621,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = T__38;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:33:7: ( '||' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:33:9: '||'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:33:7: ( '}' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:33:9: '}'
 			{
-			match("||"); 
-
+			match('}'); 
 			}
 
 			state.type = _type;
@@ -643,10 +641,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = WS;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:128:5: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:128:7: ( ' ' | '\\t' | '\\n' | '\\r' )+
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:133:5: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:133:7: ( ' ' | '\\t' | '\\n' | '\\r' )+
 			{
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:128:7: ( ' ' | '\\t' | '\\n' | '\\r' )+
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:133:7: ( ' ' | '\\t' | '\\n' | '\\r' )+
 			int cnt1=0;
 			loop1:
 			while (true) {
@@ -696,12 +694,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = SINGLECOMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:131:15: ( '//' ( . )* ( '\\n' | '\\r' ) )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:131:17: '//' ( . )* ( '\\n' | '\\r' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:15: ( '//' ( . )* ( '\\n' | '\\r' ) )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:17: '//' ( . )* ( '\\n' | '\\r' )
 			{
 			match("//"); 
 
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:131:22: ( . )*
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:22: ( . )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -715,7 +713,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt2) {
 				case 1 :
-					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:131:22: .
+					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:22: .
 					{
 					matchAny(); 
 					}
@@ -751,12 +749,12 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = COMMENT;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:134:5: ( '/*' ( . )* '*/' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:134:7: '/*' ( . )* '*/'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:139:5: ( '/*' ( . )* '*/' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:139:7: '/*' ( . )* '*/'
 			{
 			match("/*"); 
 
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:134:12: ( . )*
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:139:12: ( . )*
 			loop3:
 			while (true) {
 				int alt3=2;
@@ -777,7 +775,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt3) {
 				case 1 :
-					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:134:12: .
+					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:139:12: .
 					{
 					matchAny(); 
 					}
@@ -807,10 +805,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Bool;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:5: ( ( 'true' | 'false' ) )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:7: ( 'true' | 'false' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:141:5: ( ( 'true' | 'false' ) )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:141:7: ( 'true' | 'false' )
 			{
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:7: ( 'true' | 'false' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:141:7: ( 'true' | 'false' )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0=='t') ) {
@@ -828,14 +826,14 @@ public class QLLexer extends Lexer {
 
 			switch (alt4) {
 				case 1 :
-					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:8: 'true'
+					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:141:8: 'true'
 					{
 					match("true"); 
 
 					}
 					break;
 				case 2 :
-					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:136:17: 'false'
+					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:141:17: 'false'
 					{
 					match("false"); 
 
@@ -860,8 +858,8 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Ident;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:138:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:138:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:143:6: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:143:10: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			{
 			if ( (input.LA(1) >= 'A' && input.LA(1) <= 'Z')||(input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
 				input.consume();
@@ -871,7 +869,7 @@ public class QLLexer extends Lexer {
 				recover(mse);
 				throw mse;
 			}
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:138:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:143:29: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
 			loop5:
 			while (true) {
 				int alt5=2;
@@ -916,10 +914,10 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = Int;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:140:4: ( ( '0' .. '9' )+ )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:140:6: ( '0' .. '9' )+
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:145:4: ( ( '0' .. '9' )+ )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:145:6: ( '0' .. '9' )+
 			{
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:140:6: ( '0' .. '9' )+
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:145:6: ( '0' .. '9' )+
 			int cnt6=0;
 			loop6:
 			while (true) {
@@ -968,14 +966,14 @@ public class QLLexer extends Lexer {
 		try {
 			int _type = String;
 			int _channel = DEFAULT_TOKEN_CHANNEL;
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:142:7: ( ( '\"' ( . )* '\"' ) )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:142:9: ( '\"' ( . )* '\"' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:147:7: ( ( '\"' ( . )* '\"' ) )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:147:9: ( '\"' ( . )* '\"' )
 			{
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:142:9: ( '\"' ( . )* '\"' )
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:142:10: '\"' ( . )* '\"'
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:147:9: ( '\"' ( . )* '\"' )
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:147:10: '\"' ( . )* '\"'
 			{
 			match('\"'); 
-			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:142:14: ( . )*
+			// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:147:14: ( . )*
 			loop7:
 			while (true) {
 				int alt7=2;
@@ -989,7 +987,7 @@ public class QLLexer extends Lexer {
 
 				switch (alt7) {
 				case 1 :
-					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:142:14: .
+					// /Users/gonzovilla89/Documents/workspace/sea-of-ql/gonzovilla/src/org/uva/sea/ql/parser/antlr/QL.g:147:14: .
 					{
 					matchAny(); 
 					}
@@ -1272,61 +1270,59 @@ public class QLLexer extends Lexer {
 
 	protected DFA8 dfa8 = new DFA8(this);
 	static final String DFA8_eotS =
-		"\1\uffff\1\35\6\uffff\1\40\1\uffff\1\42\1\uffff\1\44\3\31\2\uffff\5\31"+
-		"\16\uffff\10\31\1\70\3\31\1\74\6\31\1\uffff\2\31\1\106\1\uffff\2\31\1"+
-		"\111\2\31\1\114\1\31\1\116\1\117\1\uffff\1\31\1\121\1\uffff\1\31\1\123"+
-		"\1\uffff\1\117\2\uffff\1\124\1\uffff\1\31\2\uffff\1\31\1\127\1\uffff";
+		"\1\uffff\1\36\6\uffff\1\41\1\uffff\1\43\1\uffff\1\45\3\32\2\uffff\4\32"+
+		"\20\uffff\7\32\1\67\3\32\1\73\5\32\1\uffff\2\32\1\103\1\uffff\1\32\1\105"+
+		"\1\32\1\107\1\32\1\111\1\112\1\uffff\1\32\1\uffff\1\114\1\uffff\1\112"+
+		"\2\uffff\1\115\2\uffff";
 	static final String DFA8_eofS =
-		"\130\uffff";
+		"\116\uffff";
 	static final String DFA8_minS =
 		"\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\157\1\156\1\164\2"+
-		"\uffff\2\154\1\141\1\146\1\150\16\uffff\1\157\1\164\1\162\1\157\1\163"+
-		"\1\144\1\162\1\154\1\60\1\145\1\165\1\154\1\60\1\151\1\143\1\145\1\142"+
-		"\1\155\1\163\1\uffff\1\156\1\145\1\60\1\uffff\1\156\1\153\1\60\1\154\1"+
-		"\146\1\60\1\145\2\60\1\uffff\1\147\1\60\1\uffff\1\157\1\60\1\uffff\1\60"+
-		"\2\uffff\1\60\1\uffff\1\143\2\uffff\1\153\1\60\1\uffff";
+		"\uffff\1\154\1\141\1\146\1\150\20\uffff\1\157\1\164\1\162\1\163\1\144"+
+		"\1\162\1\154\1\60\1\145\1\165\1\154\1\60\1\151\1\145\1\151\1\155\1\163"+
+		"\1\uffff\1\156\1\145\1\60\1\uffff\1\156\1\60\1\146\1\60\1\145\2\60\1\uffff"+
+		"\1\147\1\uffff\1\60\1\uffff\1\60\2\uffff\1\60\2\uffff";
 	static final String DFA8_maxS =
-		"\1\174\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\157\1\156\1\164\2"+
-		"\uffff\1\154\1\156\1\157\1\146\1\162\16\uffff\1\157\1\164\1\162\1\157"+
-		"\1\163\1\144\1\162\1\154\1\172\1\145\1\165\1\154\1\172\1\151\1\143\1\145"+
-		"\1\151\1\155\1\163\1\uffff\1\156\1\145\1\172\1\uffff\1\156\1\153\1\172"+
-		"\1\154\1\146\1\172\1\145\2\172\1\uffff\1\147\1\172\1\uffff\1\157\1\172"+
-		"\1\uffff\1\172\2\uffff\1\172\1\uffff\1\143\2\uffff\1\153\1\172\1\uffff";
+		"\1\175\1\75\6\uffff\1\57\1\uffff\1\75\1\uffff\1\75\1\157\1\156\1\164\2"+
+		"\uffff\1\156\1\157\1\146\1\162\20\uffff\1\157\1\164\1\162\1\163\1\144"+
+		"\1\162\1\154\1\172\1\145\1\165\1\154\1\172\1\151\1\145\1\151\1\155\1\163"+
+		"\1\uffff\1\156\1\145\1\172\1\uffff\1\156\1\172\1\146\1\172\1\145\2\172"+
+		"\1\uffff\1\147\1\uffff\1\172\1\uffff\1\172\2\uffff\1\172\2\uffff";
 	static final String DFA8_acceptS =
 		"\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\4\uffff\1"+
-		"\23\1\24\5\uffff\1\34\1\35\1\41\1\42\1\43\1\2\1\1\1\36\1\37\1\11\1\14"+
-		"\1\13\1\17\1\16\23\uffff\1\32\3\uffff\1\21\11\uffff\1\20\2\uffff\1\26"+
-		"\2\uffff\1\31\1\uffff\1\33\1\40\1\uffff\1\25\1\uffff\1\30\1\22\2\uffff"+
-		"\1\27";
+		"\23\1\24\4\uffff\1\32\1\33\1\34\1\35\1\41\1\42\1\43\1\2\1\1\1\36\1\37"+
+		"\1\11\1\14\1\13\1\17\1\16\21\uffff\1\30\3\uffff\1\21\7\uffff\1\20\1\uffff"+
+		"\1\25\1\uffff\1\27\1\uffff\1\31\1\40\1\uffff\1\26\1\22";
 	static final String DFA8_specialS =
-		"\130\uffff}>";
+		"\116\uffff}>";
 	static final String[] DFA8_transitionS = {
-			"\2\30\2\uffff\1\30\22\uffff\1\30\1\1\1\33\3\uffff\1\2\1\uffff\1\3\1\4"+
-			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\32\1\11\1\uffff\1\12\1\13\1\14\2"+
-			"\uffff\1\31\1\15\6\31\1\16\11\31\1\17\7\31\1\20\1\uffff\1\21\3\uffff"+
-			"\1\31\1\22\2\31\1\23\1\24\2\31\1\25\12\31\1\26\6\31\1\uffff\1\27",
-			"\1\34",
+			"\2\31\2\uffff\1\31\22\uffff\1\31\1\1\1\34\3\uffff\1\2\1\uffff\1\3\1\4"+
+			"\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\33\1\11\1\uffff\1\12\1\13\1\14\2"+
+			"\uffff\1\32\1\15\6\32\1\16\11\32\1\17\7\32\1\20\1\uffff\1\21\3\uffff"+
+			"\4\32\1\22\1\23\2\32\1\24\12\32\1\25\6\32\1\26\1\27\1\30",
+			"\1\35",
 			"",
 			"",
 			"",
 			"",
 			"",
 			"",
-			"\1\37\4\uffff\1\36",
+			"\1\40\4\uffff\1\37",
 			"",
-			"\1\41",
+			"\1\42",
 			"",
-			"\1\43",
-			"\1\45",
+			"\1\44",
 			"\1\46",
 			"\1\47",
-			"",
-			"",
 			"\1\50",
+			"",
+			"",
 			"\1\51\1\uffff\1\52",
 			"\1\54\15\uffff\1\53",
 			"\1\55",
 			"\1\56\11\uffff\1\57",
+			"",
+			"",
 			"",
 			"",
 			"",
@@ -1348,49 +1344,38 @@ public class QLLexer extends Lexer {
 			"\1\64",
 			"\1\65",
 			"\1\66",
-			"\1\67",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+			"\1\70",
 			"\1\71",
 			"\1\72",
-			"\1\73",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+			"\1\74",
 			"\1\75",
 			"\1\76",
 			"\1\77",
-			"\1\100\6\uffff\1\101",
+			"\1\100",
+			"",
+			"\1\101",
 			"\1\102",
-			"\1\103",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
 			"",
 			"\1\104",
-			"\1\105",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-			"",
-			"\1\107",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+			"\1\106",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
 			"\1\110",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-			"\1\112",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+			"",
 			"\1\113",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-			"\1\115",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
 			"",
-			"\1\120",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
 			"",
-			"\1\122",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-			"",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
 			"",
 			"",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+			"\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
 			"",
-			"\1\125",
-			"",
-			"",
-			"\1\126",
-			"\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
 			""
 	};
 

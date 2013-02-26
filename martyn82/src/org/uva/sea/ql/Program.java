@@ -1,57 +1,189 @@
 package org.uva.sea.ql;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.File;
 
-import org.uva.sea.ql.evaluate.render.FormBuilder;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
+
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.evaluate.Error;
+import org.uva.sea.ql.evaluate.ErrorList;
+import org.uva.sea.ql.evaluate.render.Form;
+import org.uva.sea.ql.evaluate.typecheck.TypeChecker;
 import org.uva.sea.ql.export.Exporter;
 import org.uva.sea.ql.export.XmlExporter;
+import org.uva.sea.ql.parser.ParseError;
+import org.uva.sea.ql.parser.jacc.QLParser;
 import org.uva.sea.ql.ui.ButtonControlEventListener;
 import org.uva.sea.ql.ui.ControlEvent;
 import org.uva.sea.ql.ui.ControlFactory;
-import org.uva.sea.ql.ui.control.PanelControl;
+import org.uva.sea.ql.ui.control.WindowControl;
 import org.uva.sea.ql.ui.swing.SwingControlFactory;
 
-public class Program implements ButtonControlEventListener {
+public class Program {
 	private final static String SUBMIT_BUTTON_TEXT = "Save";
+	private final static String FILE_OPEN_TITLE = "Open QL file";
+	private final static String FILE_SAVE_TITLE = "Select file to save";
+	private final static String DEFAULT_FILE_DIR = System.getProperty( "user.dir" );
+	private final static String QL_FILE_DESCRIPTION = "QL files (.ql)";
+	private final static String QL_FILE_FILTER = ".ql";
+	private final static String XML_FILE_DESCRIPTION = "XML files (.xml)";
+	private final static String XML_FILE_FILTER = ".xml";
 
 	private final ControlFactory factory;
-
-	private PanelControl panel;
-	private QLForm form;
+	private final WindowControl window;
 
 	public static void main( String[] args ) {
+		String sourceFileName = null;
+
+		if ( args.length > 0 ) {
+			sourceFileName = args[ 0 ];
+		}
+
 		Program program = new Program();
-		program.run();
+		program.run( sourceFileName );
 	}
 
 	public Program() {
 		this.factory = new SwingControlFactory();
+		this.window = this.factory.createWindow();
 	}
 
-	public void run() {
-		String source = this.getProgramSource();
+	public void run( String sourceFileName ) {
+		if ( sourceFileName == null ) {
+			sourceFileName = this.getFileToOpen();
+		}
 
-		this.form = new QLForm( source, this.factory );
+		String source = this.getProgramSource( sourceFileName );
 
-		FormBuilder builder = this.form.getBuilder();
-		builder.addButton( SUBMIT_BUTTON_TEXT, this );
-		this.panel = builder.getFormPanel();
+		Statement astRoot = this.parse( source );
+		this.typeCheck( astRoot );
+		Form form = this.render( astRoot );
 
-		this.factory.createWindow( this.panel.getName(), this.panel ).show();
+		this.window.setTitle( form.getName() );
+		this.window.addControl( form.getPanel() );
+		this.window.show();
 	}
 
-	private String getProgramSource() {
-		return TextFileLoader.getFileContents( System.getProperty( "user.dir" ) + "/assets/sample.ql" );
+	private void stop() {
+		System.exit( 0 );
 	}
 
-	@Override
-	public void buttonClicked( ControlEvent event ) {
-		DateFormat format = new SimpleDateFormat( "yyyyMMdd_HHmmss" );
-		String dateString = format.format( new Date() );
+	private JFrame getWindowHandle() {
+		return (JFrame) this.window.getInnerControl();
+	}
 
-		Exporter exporter = new XmlExporter( this.panel.getName(), this.form.getValues() );
-		exporter.export( System.getProperty( "user.dir" ) + "/formdata/" + dateString + ".xml" );
+	private String getFileToOpen() {
+		JFileChooser fileOpen = new JFileChooser( DEFAULT_FILE_DIR );
+		fileOpen.setDialogTitle( FILE_OPEN_TITLE );
+		fileOpen.setDialogType( JFileChooser.OPEN_DIALOG );
+		fileOpen.setFileFilter(
+			new FileFilter() {
+				@Override
+				public String getDescription() {
+					return QL_FILE_DESCRIPTION;
+				}
+
+				@Override
+				public boolean accept( File f ) {
+					return f.getName().endsWith( QL_FILE_FILTER );
+				}
+			}
+		);
+
+		int result = fileOpen.showOpenDialog( this.getWindowHandle() );
+
+		if ( result == JFileChooser.APPROVE_OPTION ) {
+			File selectedFile = fileOpen.getSelectedFile();
+			return selectedFile.getAbsolutePath();
+		}
+
+		this.stop();
+		return null;
+	}
+
+	private String getFileToSave() {
+		JFileChooser fileSave = new JFileChooser( DEFAULT_FILE_DIR );
+		fileSave.setDialogTitle( FILE_SAVE_TITLE );
+		fileSave.setDialogType( JFileChooser.SAVE_DIALOG );
+		fileSave.setFileFilter(
+			new FileFilter() {
+				@Override
+				public String getDescription() {
+					return XML_FILE_DESCRIPTION;
+				}
+
+				@Override
+				public boolean accept( File f ) {
+					return f.getName().endsWith( XML_FILE_FILTER );
+				}
+			}
+		);
+
+		int result = fileSave.showSaveDialog( this.getWindowHandle() );
+
+		if ( result == JFileChooser.APPROVE_OPTION ) {
+			File selectedFile = fileSave.getSelectedFile();
+			return selectedFile.getAbsolutePath();
+		}
+
+		return null;
+	}
+
+	private Statement parse( String source ) {
+		QLParser parser = new QLParser();
+		Statement ast;
+
+		try {
+			ast = parser.parse( source );
+		}
+		catch ( ParseError e ) {
+			e.printStackTrace();
+			throw new RuntimeException( e );
+		}
+
+		return ast;
+	}
+
+	private boolean typeCheck( Statement root ) {
+		TypeChecker checker = new TypeChecker();
+		checker.check( root );
+
+		if ( checker.hasErrors() ) {
+			ErrorList errors = checker.getErrorList();
+
+			for ( Error each : errors ) {
+				System.err.println( each.toString() );
+			}
+
+			return false;
+		}
+
+		return true;
+	}
+
+	private Form render( Statement root ) {
+		final Form form = new Form( root, this.factory );
+
+		form.addButton( SUBMIT_BUTTON_TEXT, new ButtonControlEventListener() {
+			@Override
+			public void buttonClicked( ControlEvent event ) {
+				String fileName = Program.this.getFileToSave();
+
+				if ( fileName == null ) {
+					return;
+				}
+
+				Exporter exporter = new XmlExporter( form.getName(), form.getValues() );
+				exporter.export( fileName );
+			}
+		} );
+
+		return form;
+	}
+
+	private String getProgramSource( String fileName ) {
+		return TextFileLoader.getFileContents( fileName );
 	}
 }

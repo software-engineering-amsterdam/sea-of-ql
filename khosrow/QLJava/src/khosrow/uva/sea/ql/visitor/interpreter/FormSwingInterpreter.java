@@ -2,7 +2,6 @@ package khosrow.uva.sea.ql.visitor.interpreter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import khosrow.uva.sea.ql.ast.expr.Expr;
 import khosrow.uva.sea.ql.ast.expr.Ident;
@@ -42,10 +41,10 @@ public class FormSwingInterpreter implements IStmtVisitor<Void> {
 
 	@Override
 	public Void visit(If stmt) {
-		PanelControl tru = interpret(stmt, state);
+		PanelControl tru = interpret(stmt.getBody(), state);
 		registerConditionDeps(stmt.getCond(), tru);		
-		tru.setVisible(false);	
-		addControl(tru);
+		tru.setVisible(false);		
+		addSubPanel(tru);
 		return null;
 	}
 
@@ -56,28 +55,28 @@ public class FormSwingInterpreter implements IStmtVisitor<Void> {
 		Control ctr = getWidget(stmt.getType(), false);
 		registerConditionDeps(stmt.getExpr(), label);
 		registerConditionDeps(stmt.getExpr(), ctr);
-		registerHandler(stmt, ctr);
-		addLabel(label);
-		addControl(ctr);
+		registerHandler(stmt, ctr);		
+		add(label, ctr);
 		return null;
 	}
 
 	@Override
 	public Void visit(SimpleQuestion stmt) {
-		addLabel(new LabelControl(stmt.getText()));
 		Control ctr = getWidget(stmt.getType(), true);
-		registerHandler(stmt, ctr);
-		addControl(ctr);
+		registerHandler(stmt, ctr);		
+		add(new LabelControl(stmt.getText()), ctr);
 		return null;
 	}
 
 	@Override
-	public Void visit(Label stmt) {
-		addLabel(new LabelControl(stmt.getText()));
+	public Void visit(Label stmt) {		
 		Control ctr = getWidget(stmt.getType(), true);
-		ctr.setEnabled(false);
 		registerComputedDeps(stmt, ctr);
-		addControl(ctr);
+		Value valToAssign = evaluateExpression(stmt.getExpr());
+		state.assignValue(stmt.getIdent(), valToAssign);
+		ctr.setValue(valToAssign);
+		ctr.setEnabled(false);		
+		add(new LabelControl(stmt.getText()), ctr);
 		return null;
 	}
 
@@ -101,14 +100,17 @@ public class FormSwingInterpreter implements IStmtVisitor<Void> {
 		return ExprEvaluator.Evaluate(expr, state.getEnv());
 	}
 	
-	private void addControl(Control ctr) {
-		panel.addControl(ctr);
+	private void add(LabelControl label, Control ctr) {
+		PanelControl subPanel = new PanelControl();
+		subPanel.addLabel(label);
+		subPanel.addControl(ctr);
+		panel.addSubPanel(subPanel);
 	}
 	
-	private void addLabel(LabelControl ctr) {
-		panel.addLabel(ctr);
+	private void addSubPanel(PanelControl ctr) {
+		panel.addSubPanel(ctr);
 	}
-	
+		
 	private Control getWidget(Type type, boolean isVisible) {
 		Control ctr = TypeToSwingWidget.convert(type);
 		ctr.setVisible(isVisible);
@@ -116,12 +118,13 @@ public class FormSwingInterpreter implements IStmtVisitor<Void> {
 	}
 	
 	private void registerHandler(Question stmt, Control ctr) {
-		state.putObservable(stmt.getIdent(), new Observable());
+		state.putObservable(stmt.getIdent(), new QlObservable());
 		ctr.addListener(stmt.getIdent(),  state);
 	}
 	
 	private void registerComputedDeps(Label stmt, Control ctr) {
 		List<Ident> dependencies = new ArrayList<Ident>();
+		state.putObservable(stmt.getIdent(), new QlObservable());
 		DependencyTracer.getDependencies(stmt.getExpr(), dependencies);
 		for(Ident ident:dependencies)
 			state.addObserver(ident, new ComputedObserver(stmt, state, ctr));		

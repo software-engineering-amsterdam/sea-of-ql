@@ -5,15 +5,15 @@ import org.uva.sea.ql.ast.Node;
 
 public class TypeNode extends Node {
 
-	public Type type;
-	
-	public TypeNode(ICodeLocationInformation info, Type type) {
+	private final Type type;
+
+	public TypeNode(final ICodeLocationInformation info, final Type type) {
 		super(info);
 		this.type = type;
 	}
-	
+
 	public Type getType() {
-		return type;
+		return this.type;
 	}
 
 }

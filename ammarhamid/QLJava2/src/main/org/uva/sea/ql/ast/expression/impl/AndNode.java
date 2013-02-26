@@ -3,7 +3,6 @@ package org.uva.sea.ql.ast.expression.impl;
 import org.uva.sea.ql.ast.expression.BooleanOperation;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.value.impl.BooleanValue;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Map;
@@ -27,7 +26,7 @@ public class AndNode extends BooleanOperation
     {
         final Value value1 = this.lhs.evaluate(variables);
         final Value value2 = this.rhs.evaluate(variables);
-        return (value1==null || value2==null) ? new BooleanValue(false) : value1.and(value2);
+        return value1.and(value2);
     }
 
     @Override

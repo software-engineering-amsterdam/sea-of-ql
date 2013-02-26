@@ -48,17 +48,19 @@ str generateCondStatUpdate(q:ifCond(Expr ifCondition,_,_),list[FormBodyItem] bod
 	
 	code+="function Cond<q@ref>Update(){
 	'<deps.dependsSet>
-	'\t <generateObjAssignbyId("obj1","ifStats<q@ref>")>
-	'\t <generateObjAssignbyId("obj2","elseStats<q@ref>")>
-	'\t if(<generateJavaScriptExpr(ifCondition,bodyItems)>){
-	'\t\t <generateObjShow("obj1")>
-	'\t\t <generateObjHide("obj2")>
-	'\t\t}
-	'\t else{
-	'\t\t <generateObjShow("obj2")>
-	'\t\t <generateObjHide("obj1")>
-	'\t}\n<deps.dependsCloseBrackets>
-	'}\n";
+	'   <generateObjAssignbyId("obj1","ifStats<q@ref>")>
+	'   <generateObjAssignbyId("obj2","elseStats<q@ref>")>
+	'   if(<generateJavaScriptExpr(ifCondition,bodyItems)>){
+	'     <generateObjShow("obj1")>
+	'     <generateObjHide("obj2")>
+	'   }
+	'   else{
+	'     <generateObjShow("obj2")>
+	'     <generateObjHide("obj1")>
+	'   }
+	'<deps.dependsCloseBrackets>
+	'}
+	";
 	
 	return code;
 }
@@ -68,15 +70,17 @@ str generateCondStatUpdate(q:simpleIfCond(Expr ifCondition,_),list[FormBodyItem]
 	tuple[str dependsSet,str dependsCloseBrackets] deps=generateIsValuesSet(ifCondition,bodyItems);
 	
 	code+="function Cond<q@ref>Update(){
-	'<deps.dependsSet>
-	'\t <generateObjAssignbyId("obj1","ifStats<q@ref>")>
-	'\t if(<generateJavaScriptExpr(ifCondition,bodyItems)>){
-	'\t\t <generateObjShow("obj1")>
-	'\t\t}
-	'\t else{
-	'\t\t <generateObjHide("obj1")>
-	'\t}\n<deps.dependsCloseBrackets>
-	'}\n";
+	'  <deps.dependsSet>
+	'   <generateObjAssignbyId("obj1","ifStats<q@ref>")>
+	'    if(<generateJavaScriptExpr(ifCondition,bodyItems)>){
+	'       <generateObjShow("obj1")>
+	'    }
+	'    else{
+	'       <generateObjHide("obj1")>
+	'    }
+	'  <deps.dependsCloseBrackets>
+	'}
+	";
 	
 	return code;
 }
@@ -86,25 +90,27 @@ str generateCondStatUpdate(q:ifElseIfCond(Expr ifCondition,_,list[ElseIf] elseif
 	tuple[str dependsSet,str dependsCloseBrackets] deps=generateIsValuesSet(ifCondition,bodyItems);
 	
 	code+="function Cond<q@ref>Update(){
-	'<deps.dependsSet>
-	'\t <generateObjAssignbyId("obj1","ifStats<q@ref>")>
-	'\t <generateObjAssignbyId("obj2","elseStats<q@ref>")>
+	'   <deps.dependsSet>
+	'   <generateObjAssignbyId("obj1","ifStats<q@ref>")>
+	'   <generateObjAssignbyId("obj2","elseStats<q@ref>")>
 	<for(elif<-elseifBranch){> 
-	'\t <generateObjAssignbyId("obj<indexOf(elseifBranch,elif)+3>","elseIfStats<elif@ref>")><}>
-	'\t if(<generateJavaScriptExpr(ifCondition,bodyItems)>){
-	'\t\t <generateObjShow("obj1")>
-	'\t\t <generateObjHide("obj2")>
+	'   <generateObjAssignbyId("obj<indexOf(elseifBranch,elif)+3>","elseIfStats<elif@ref>")><}>
+	'   if(<generateJavaScriptExpr(ifCondition,bodyItems)>){
+	'      <generateObjShow("obj1")>
+	'      <generateObjHide("obj2")>
 	<for(elif<-elseifBranch){ >	 obj<indexOf(elseifBranch,elif)+3>.style.display=\'none\';
 	<}>
-	'\t\t}
+	'     }
 	'<generateElseIfStat(elseifBranch,bodyItems)>
-	'\t else{
-	'\t\t <generateObjShow("obj2")>
-	'\t\t <generateObjHide("obj1")>
+	'   else{
+	'     <generateObjShow("obj2")>
+	'     <generateObjHide("obj1")>
 	<for(elif<-elseifBranch){ ><generateObjHide("obj<indexOf(elseifBranch,elif)+3>")>	 
 	<}>
-	'\t}\n<deps.dependsCloseBrackets>
-	'}\n";
+	'   }
+	'<deps.dependsCloseBrackets>
+	'}
+	";
 	
 	return code;
 }
@@ -117,12 +123,13 @@ str generateElseIfStat(list[ElseIf] elseifBranch,list[FormBodyItem] bodyItems){
 		if(elseif(Expr ifExpression,_) := elseifCurrent) currentExp=ifExpression;
 		int index=indexOf(elseifBranch,elseifCurrent);
 		
-		code+="\telse if(<generateJavaScriptExpr(currentExp,bodyItems)>){
-		'\t\t <generateObjShow("obj<index+3>")>
-		'\t\t <generateObjHide("obj2")>
-		'\t\t <generateObjHide("obj1")>
+		code+="   else if(<generateJavaScriptExpr(currentExp,bodyItems)>){
+		'      <generateObjShow("obj<index+3>")>
+		'      <generateObjHide("obj2")>
+		'      <generateObjHide("obj1")>
 		<for(elseif<-elseifBranch) {><generateElseIfStatObjects(index,indexOf(elseifBranch,elseif))><}>
-		}\n"
+		}
+		"
 		;
 	}
 	

@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.interpretation.TypeVisitor;
+import org.uva.sea.ql.common.TypeVisitor;
 
 public class StrType extends AbstractType {
     public StrType() {
@@ -12,4 +12,8 @@ public class StrType extends AbstractType {
         v.visit(this);
     }
 
+    @Override
+    public final boolean equals(Object o) {
+        return o instanceof StrType;
+    }
 }

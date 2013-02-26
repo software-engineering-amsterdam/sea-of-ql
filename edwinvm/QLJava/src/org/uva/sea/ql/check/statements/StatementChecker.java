@@ -1,20 +1,22 @@
 package org.uva.sea.ql.check.statements;
 
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.expressions.literal.Ident;
-import org.uva.sea.ql.ast.statements.ConditionBlock;
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.statements.FormStatement;
-import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.statements.StatementBody;
-import org.uva.sea.ql.ast.statements.conditions.IfThen;
-import org.uva.sea.ql.ast.statements.conditions.IfThenElse;
+import org.uva.sea.ql.ast.statements.conditions.ConditionBlock;
+import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
+import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.questions.Question;
+import org.uva.sea.ql.ast.statements.questions.QuestionVariable;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 import org.uva.sea.ql.check.expressions.TypeChecker;
-import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.Message;
 
 public class StatementChecker implements Visitor {
 	
@@ -26,18 +28,18 @@ public class StatementChecker implements Visitor {
 		_errorMessages = messages;
 	}
 	
-	public void check(FormStatement statement) {
-		statement.accept(this);
+	public void check(FormStatement statement) { 
+		statement.accept(this); 
 	}
 
 	@Override
-	public void visit(IfThen statement) {
+	public void visit(IfThenStatement statement) {
 		checkCondition(statement);
 		checkBody(statement.getBody());
 	}
 	
 	@Override
-	public void visit(IfThenElse statement) {
+	public void visit(IfThenElseStatement statement) {
 		checkCondition(statement);
 		checkBody(statement.getBody());
 		checkBody(statement.getElseBody());
@@ -54,18 +56,14 @@ public class StatementChecker implements Visitor {
 		checkExpression(statement.getExpression());
 	}
 	
-	private void checkCondition(ConditionBlock statement) {
-		checkExpression(statement.getCondition());
-	}
-
+	private void checkCondition(ConditionBlock statement) { checkExpression(statement.getCondition()); }
 	private void checkExpression(Expression expression) {
 		// Run expression through TypeChecker
 		TypeChecker.check(expression, _typeEnvironment, _errorMessages);
 	}
 	
 	private void checkName(Question statement, Type type) {
-		Ident questionVariable = statement.getVariable();
-		checkQuestionCompatibility(questionVariable, type);
+		checkQuestionCompatibility(statement.getQuestionVariable(), type);
 	}
 	
 	private void checkBody(StatementBody body) {
@@ -74,19 +72,24 @@ public class StatementChecker implements Visitor {
 		}
 	}
 	
-	private void checkQuestionCompatibility(Ident questionVariable, Type type) {
+	private void checkQuestionCompatibility(QuestionVariable questionVariable, Type type) {
 		storeQuestionVariable(questionVariable, type);
-		if (!type.isCompatibleTo(questionVariable.typeOf(_typeEnvironment))) {
-			addError(questionVariable);
+		Type questionVariableType = getVariableTypeFor(questionVariable.getVariable());
+		if (!type.isCompatibleTo(questionVariableType)) {
+			addError(questionVariable.getVariable());
 		}
 	}
+	
+	private Type getVariableTypeFor(Identifier variable) {
+		return variable.typeOf(_typeEnvironment);
+	}
 
-	private void storeQuestionVariable(Ident questionVariable, Type type) {
-		_typeEnvironment.add(questionVariable, type);
+	private void storeQuestionVariable(QuestionVariable variable, Type type) {
+		_typeEnvironment.add(variable.getVariable(), type);
 	}
 	
-	private void addError(Ident ident) {
-		_errorMessages.add("Invalid type for identifier " + ident.getValue().toString());
+	private void addError(Identifier identifier) {
+		_errorMessages.add(new Message("Invalid type for identifier " + identifier.getValue()));
 	}
 	
 }

@@ -2,6 +2,8 @@ package org.uva.sea.ql.lead;
 
 import static julius.validation.Assertions.state;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class Model {
 
 	private final Map<Identifier, Computed> computeds = new HashMap<Identifier, Computed>();
 	private final Map<Identifier, Question> qustions = new HashMap<Identifier, Question>();
-	private final MultiMap<Expression<?>, ModelChangeListener> listeners = new MultiHashMap<Expression<?>, ModelChangeListener>();
+	private final MultiMap<Expression, ModelChangeListener> listeners = new MultiHashMap<Expression, ModelChangeListener>();
 
 	public Model() {
 		super();
@@ -34,7 +36,7 @@ public class Model {
 	 *            (not null)
 	 * @return (maybe null)
 	 */
-	public Computed getComputed(final Expression<?> expression) {
+	public Computed getComputed(final Expression expression) {
 		state.assertNotNull(expression, "expression");
 		return computeds.get(expression);
 	}
@@ -74,8 +76,7 @@ public class Model {
 	 * @param listener
 	 *            (not null)
 	 */
-	public void addListener(final Expression<?> expression,
-			final ModelChangeListener listener) {
+	public void addListener(final Expression expression, final ModelChangeListener listener) {
 		listeners.addForKey(expression, listener);
 	}
 
@@ -87,11 +88,13 @@ public class Model {
 		listeners.remove(listener);
 	}
 
-	private void notifyListeners(final Expression<?> expression) {
-		// TODO: listeners.getOrEmpty(expression) might be used to propagate the change only to the
-		// right listeners. but since some values might refer to other ones, we now propagate to all
+	private void notifyListeners(final Expression expression) {
 		for (ModelChangeListener listener : listeners.mergedValues()) {
 			listener.changed(expression);
 		}
+	}
+
+	public Collection<Computed> getComputeds() {
+		return new ArrayList<Computed>(computeds.values());
 	}
 }

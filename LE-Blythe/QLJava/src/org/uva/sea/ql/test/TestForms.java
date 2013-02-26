@@ -11,7 +11,7 @@ import org.uva.sea.ql.checker.ErrorExpressionType;
 import org.uva.sea.ql.checker.ErrorIdentifierExists;
 import org.uva.sea.ql.checker.ErrorIdentifierScope;
 import org.uva.sea.ql.checker.VisitorStatementChecker;
-import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.rats.IParse;
 import org.uva.sea.ql.parser.rats.RatsParser;
 import org.uva.sea.ql.util.FormStringBuilder;
 

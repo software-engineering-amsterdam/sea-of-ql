@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.interpretation.TypeVisitor;
+import org.uva.sea.ql.common.TypeVisitor;
 
 public class IntType extends AbstractMathType {
    
@@ -13,5 +13,9 @@ public class IntType extends AbstractMathType {
         v.visit(this);
     }
 
+    @Override
+    public final boolean equals(Object o){
+        return o instanceof AbstractMathType;
+    }
 
 }

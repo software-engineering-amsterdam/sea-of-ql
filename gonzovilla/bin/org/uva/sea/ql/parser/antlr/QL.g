@@ -22,7 +22,7 @@ form returns [Form result]
 	
 block returns [Block result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
-	: 'block' (formUnit {formUnits.add($formUnit.result);})* 'endblock' { $result = new Block(formUnits); }
+	: '{' (formUnit {formUnits.add($formUnit.result);})* '}' { $result = new Block(formUnits); }
 	; 
 	
 formUnit returns [FormUnit result]
@@ -41,7 +41,12 @@ computedQuestion returns [ComputedQuestion result]
 	
 ifStatement returns [IfStatement result]
 	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
-	: 'if' '(' orExpr ')' 'then' ifBody=block 'else' elseBody=block 'endif' { $result = new IfStatement($orExpr.result, ifBody, elseBody); }
+	: 'if' '(' orExpr ')' 'then' ifBody=block 'endif' { $result = new IfStatement($orExpr.result, ifBody); }
+	; 
+	
+ifElseStatement returns [IfElseStatement result]
+	@init { List<FormUnit> formUnits = new ArrayList<FormUnit>();}
+	: 'if' '(' orExpr ')' 'then' ifBody=block 'else' elseBody=block 'endif' { $result = new IfElseStatement($orExpr.result, ifBody, elseBody); }
 	;  
 	 
 type returns [Type result]

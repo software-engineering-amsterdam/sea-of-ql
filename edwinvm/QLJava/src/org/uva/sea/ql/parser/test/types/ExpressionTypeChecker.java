@@ -4,15 +4,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.uva.sea.ql.ast.expressions.Expression;
-import org.uva.sea.ql.ast.expressions.literal.LiteralExpression;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.check.expressions.TypeChecker;
-import org.uva.sea.ql.parser.ErrorMessages;
 import org.uva.sea.ql.parser.IParser;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserTypes;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
+import org.uva.sea.ql.parser.errors.ParseError;
 
 public class ExpressionTypeChecker {
 	
@@ -44,7 +43,7 @@ public class ExpressionTypeChecker {
 	private Type getTypeFor(String input)            throws ParseError { return getTypeForLiteralExpression(input); }
 	
 	private Type getTypeForLiteralExpression(String input) throws ParseError {
-		LiteralExpression expression = (LiteralExpression) parseExpression(input);
+		Expression expression = (Expression) parseExpression(input);
 		return expression.typeOf(_typeEnvironment);
 	}
 	

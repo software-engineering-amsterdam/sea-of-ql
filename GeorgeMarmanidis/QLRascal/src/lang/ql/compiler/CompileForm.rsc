@@ -8,10 +8,16 @@ import lang::ql::compiler::GenerateJavaScript;
 
 public void compileForm(f:form(ident,formBody),loc target){
 	formRefrnced=setConditionalReference(formBody);
+	
 	loc htmlFile=target.parent+"<ident>.html";
 	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
+	
 	loc jsFile=target.parent+"<ident>.js";
-	writeFile(jsFile,generateJavaScipt(formRefrnced));	   
+	writeFile(jsFile,generateJavaScipt(formRefrnced));
+	
+	loc jsExtFile=target.parent+"extFuncs.js";
+	str extFile=readFile(|project://SofConstr/src/extFuncs.js|);
+	writeFile(jsExtFile,extFile);	   
 }
 	
 //Sets a reference variable to conditional statements to refer to them

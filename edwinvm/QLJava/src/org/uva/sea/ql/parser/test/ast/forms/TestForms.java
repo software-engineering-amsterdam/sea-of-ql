@@ -1,8 +1,8 @@
 package org.uva.sea.ql.parser.test.ast.forms;
 
 import org.junit.Test;
-import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserForms;
+import org.uva.sea.ql.parser.errors.ParseError;
 import org.uva.sea.ql.parser.test.ast.ASTNodeChecker;
 
 public class TestForms extends ASTNodeChecker {

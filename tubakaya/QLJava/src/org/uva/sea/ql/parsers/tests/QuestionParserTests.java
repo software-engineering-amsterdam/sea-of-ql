@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.core.dom.statements.Question;
+import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.parsers.QuestionParser;
 import org.uva.sea.ql.parsers.ParserBaseForStatements;
 import org.uva.sea.ql.parsers.exceptions.ParseException;

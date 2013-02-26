@@ -3,6 +3,7 @@ package org.uva.sea.ql.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.uva.sea.ql.ast.IVisitorExpr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
@@ -25,14 +26,11 @@ import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
 import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.ast.visitor.IVisitorExpr;
 
+/** @description Return a List of identifiers encountered in a given expression
+ */
 public class VisitorExpressionIdentifiers implements IVisitorExpr<List<Ident>>{
 
-	public VisitorExpressionIdentifiers(){
-	}
-	
-	
 	private <T> List<T> emptyList(){
 		return new ArrayList<T>();
 	}
@@ -58,7 +56,6 @@ public class VisitorExpressionIdentifiers implements IVisitorExpr<List<Ident>>{
 	private List<Ident> getIdentifiersInUnaryOperator(OperatorUnary ast){
 		return ast.getOperand().accept(this);
 	}
-	
 	
 	@Override
 	public List<Ident> visit(Int ast) {

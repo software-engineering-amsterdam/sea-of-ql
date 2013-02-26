@@ -2,10 +2,10 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.Type;
 
-public class BooleanType extends Type{
+public class BooleanType extends Type {
 	boolean value;
-	
-	public boolean getValue(){
+
+	public boolean getValue() {
 		return value;
 	}
 
@@ -13,10 +13,10 @@ public class BooleanType extends Type{
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToBoolean();
 	}
-	
+
 	@Override
 	public boolean isCompatibleToBoolean() {
 		return true;
 	}
-	
+
 }

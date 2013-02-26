@@ -87,7 +87,6 @@ public abstract class AbstractTestHelper<T> {
 
     protected final void testBinary(Class<?> c, String in, Class<?> left,
             Class<?> right) throws ParseError {
-        System.out.println(in);
         final Expr e = this.parser.parse(in);
         Assert.assertNotNull("result was null", e);
         Assert.assertEquals(c, e.getClass());
@@ -102,7 +101,6 @@ public abstract class AbstractTestHelper<T> {
 
     protected final String getBracket(String left, AbstractTestHelper<?> op, String right) {
         final String ret = BROPEN + left + op.asString + right + BRCLOSE;
-        System.out.println(ret);
         return ret;
     }
 

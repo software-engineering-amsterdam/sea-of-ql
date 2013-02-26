@@ -10,16 +10,16 @@ public str generateJSValidateFunctions(list[FormBodyItem] bodyItems){
 	
 	for(/Question q := bodyItems){
 		code+=generateVarValidate(q.questionId,  q.questionType,q.questionLabel);
-		formValCode+="\tisValid=<q.questionId>Validate();
-					 '\tif(!isValid) {return false;}\n";
+		formValCode+="   isValid=<q.questionId>Validate();
+					 '   if(!isValid) {return false;}\n";
 	}
 	
-	formValCode+="\texportToCsv(form);
+	formValCode+="   exportToCsv(form);
 	             '}
 				 ";	
 	return formValCode+code;
 }
-//3. output source Code as writen bellow
+
 str generateVarValidate(str questionId,Type questionType,str questionLabel){
 	return "function <questionId>Validate(){
 		   '  if(<generateTypeValidation(questionId,questionType)>){

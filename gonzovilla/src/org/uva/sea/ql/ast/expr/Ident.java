@@ -19,9 +19,9 @@ public class Ident extends Expr {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
-		if (typeEnv.containsKey(this)) {
-			return typeEnv.get(this);
+	public Type typeOf(Map<String, Type> typeEnv) {
+		if (typeEnv.containsKey(getName())) {
+			return typeEnv.get(getName());
 			}
 			return new TypeError();
 	}

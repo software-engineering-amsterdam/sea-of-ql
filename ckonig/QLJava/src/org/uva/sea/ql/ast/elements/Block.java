@@ -2,12 +2,11 @@ package org.uva.sea.ql.ast.elements;
 
 import java.util.List;
 
-import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.interfaces.ASTElement;
 import org.uva.sea.ql.common.ElementVisitor;
 import org.uva.sea.ql.common.QLException;
 
-public class Block extends Expr implements ASTElement {
+public class Block implements ASTElement {
 	private List<AbstractBlockElement> content;
 
 	public Block(List<AbstractBlockElement> ex) {

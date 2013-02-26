@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor;
 import static julius.validation.Assertions.checked;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -34,23 +35,21 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
+/**
+ * Use {@link #isValid()} and {@link #getTypeErrors()} to validate at the end.
+ */
 @Visitor
 public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	private final List<TypeCheckException> typeErrors;
-
 	private final Map<Natural, Natural> environment;
 
 	public ExpressionTypeChecker(final Map<Natural, Natural> environment) {
 		typeErrors = new ArrayList<TypeCheckException>();
 		this.environment = environment;
-	}
-
-	public List<TypeCheckException> getTypeErrors() {
-		return typeErrors;
 	}
 
 	@Override
@@ -62,7 +61,7 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	}
 
 	@Override
-	public Natural visit(final IntegerValue integerValue) {
+	public Natural visit(final NumericValue integerValue) {
 		return integerValue;
 	}
 
@@ -209,11 +208,11 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	private void assertNature(final Natural natural, final Nature nature) {
 		try {
-			checked.assertTrue(nature.equals(natural.getNature()), "A "
-					+ nature + " is incompatible with " + natural);
+			checked.assertTrue(nature.equals(natural.getNature()), "A " + nature
+					+ " is incompatible with " + natural);
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException("A " + nature
-					+ " is incompatible with " + natural, e));
+			typeErrors.add(new TypeCheckException("A " + nature + " is incompatible with "
+					+ natural, e));
 		}
 	}
 
@@ -235,6 +234,23 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	@Override
 	public Natural visit(final StringType stringType) {
 		return stringType;
+	}
+
+	/**
+	 * 
+	 * @return type errors
+	 */
+	public Collection<TypeCheckException> getTypeErrors() {
+		return new ArrayList<TypeCheckException>(typeErrors);
+	}
+
+	/**
+	 * 
+	 * @return true if no errors were found after the checking. It is otherwise always true if
+	 *         checking has not started yet.
+	 */
+	public boolean isValid() {
+		return typeErrors.isEmpty();
 	}
 
 }
