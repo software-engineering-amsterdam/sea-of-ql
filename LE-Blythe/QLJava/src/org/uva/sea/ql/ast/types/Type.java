@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.visitor.IVisitorType;
 
 
 public abstract class Type {

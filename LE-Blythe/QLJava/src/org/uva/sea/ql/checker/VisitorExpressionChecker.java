@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.IVisitorExpr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
@@ -28,22 +29,21 @@ import org.uva.sea.ql.ast.primitive.Undefined;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
 
-public class VisitorExprChecker implements IVisitorExpr<Boolean> {
+public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 
 	private Environment environment;
 	private List<Error> errors;
 	
 	
-	public VisitorExprChecker(){
+	public VisitorExpressionChecker(){
 		environment = new Environment();
 		errors = new ArrayList<Error>();
 	}
 
 	
-	public VisitorExprChecker(Environment env, List<Error> errors){
+	public VisitorExpressionChecker(Environment env, List<Error> errors){
 		this.environment = env;
 		this.errors = errors;
 	}

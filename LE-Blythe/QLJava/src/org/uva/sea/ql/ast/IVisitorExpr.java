@@ -1,6 +1,5 @@
-package org.uva.sea.ql.ast.visitor;
+package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
