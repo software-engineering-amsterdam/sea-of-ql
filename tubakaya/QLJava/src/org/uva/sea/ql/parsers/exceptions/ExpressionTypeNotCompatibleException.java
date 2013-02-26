@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parsers.exceptions;
 
-import org.uva.sea.ql.core.dom.Expression;
+import org.uva.sea.ql.ast.Expression;
 
 public class ExpressionTypeNotCompatibleException extends QLException {
 	

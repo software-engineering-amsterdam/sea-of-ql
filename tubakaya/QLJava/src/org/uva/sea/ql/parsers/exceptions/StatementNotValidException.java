@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parsers.exceptions;
 
-import org.uva.sea.ql.core.dom.Statement;
+import org.uva.sea.ql.ast.Statement;
 
 public class StatementNotValidException extends QLException {
 	

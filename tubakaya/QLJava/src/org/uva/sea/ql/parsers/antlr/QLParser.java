@@ -1,15 +1,15 @@
 // $ANTLR 3.5 C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g 2013-02-26 14:45:16
 
 package org.uva.sea.ql.parsers.antlr;
-import org.uva.sea.ql.core.dom.*; 
-import org.uva.sea.ql.core.dom.operators.*;
-import org.uva.sea.ql.core.dom.operators.arithmetic.*;
-import org.uva.sea.ql.core.dom.operators.conditional.*;
-import org.uva.sea.ql.core.dom.operators.relational.*;
-import org.uva.sea.ql.core.dom.operators.unary.*;
-import org.uva.sea.ql.core.dom.statements.*;
-import org.uva.sea.ql.core.dom.types.declarations.*;
-import org.uva.sea.ql.core.dom.types.primitive.*;
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.operators.*;
+import org.uva.sea.ql.ast.operators.arithmetic.*;
+import org.uva.sea.ql.ast.operators.conditional.*;
+import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.ast.types.declarations.*;
+import org.uva.sea.ql.ast.types.primitive.*;
 
 
 import org.antlr.runtime.*;

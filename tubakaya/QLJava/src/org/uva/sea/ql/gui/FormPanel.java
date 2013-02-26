@@ -6,10 +6,11 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import org.uva.sea.ql.core.dom.Identifier;
-import org.uva.sea.ql.core.dom.statements.Form;
-import org.uva.sea.ql.core.dom.visitors.StatementVisitorForRendering;
-import org.uva.sea.ql.core.dom.visitors.StatementVisitorToCheckIdentifierDefinitions;
+
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.statements.Form;
+import org.uva.sea.ql.ast.visitors.StatementVisitorForRendering;
+import org.uva.sea.ql.ast.visitors.StatementVisitorToCheckIdentifierDefinitions;
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 import org.uva.sea.ql.parsers.exceptions.QLException;

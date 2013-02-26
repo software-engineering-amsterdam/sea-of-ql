@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.core.dom.Identifier;
-import org.uva.sea.ql.core.dom.operators.conditional.*;
-import org.uva.sea.ql.core.dom.types.primitive.BooleanLiteral;
-import org.uva.sea.ql.core.dom.types.primitive.IntLiteral;
-import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.operators.conditional.*;
+import org.uva.sea.ql.ast.types.primitive.BooleanLiteral;
+import org.uva.sea.ql.ast.types.primitive.IntLiteral;
+import org.uva.sea.ql.ast.types.primitive.StringLiteral;
 import org.uva.sea.ql.parsers.PrimaryParser;
 import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
