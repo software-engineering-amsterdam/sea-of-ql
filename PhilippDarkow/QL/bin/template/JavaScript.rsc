@@ -98,6 +98,31 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
+public str javaScriptaddIfElseStatement(str formId, str varId, list[str] thenPart, list[str] elsePart, list[str] children, list[str] childrenElse){
+	println("IN JAVASCRIPT IF ELSE");
+	str ifTruePart = "";
+	str elsePartString = "";
+	for(i <- thenPart) ifTruePart += i;
+	for(j <- elsePart) elsePartString += j;
+	str check = "function <varId>IfElseStatement(cb) {
+					'	if(cb.checked) {
+					'	<formId>.removeChild(<formId>Submit);
+					'	<for(i <- childrenElse){> <formId>.removeChild(<i>Paragraph); <}>
+					'	<ifTruePart>
+					'	<formId>.appendChild(<formId>Submit);
+					'	}else {
+					'	<formId>.removeChild(<formId>Submit);
+					'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
+					'	<for(i <- childrenElse){> <formId>.appendChild(<i>Paragraph); <}>
+					'	<formId>.appendChild(<formId>Submit);
+					'	}
+					'}";   
+					//'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
+					// '	<elsePartString>
+	appendToJavaScriptFile(formId, "\n <check>");
+	return elsePartString;
+}
+
 /** Method to create a javascript function to evaluate a expression
 * @param formId the name of the questionaire
 * @param exp the expression to evaluate

@@ -147,6 +147,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 	}else if(tp == string()){
 		str attributes = specifyAttributesTextField(id);
 		str paragraph = generateParagraph(id, label, formId);
+		cssEndLabels(formId, id);
 		return "<attributes>
 				'<label>
 				'<paragraph>
@@ -213,20 +214,41 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 	}
 }
 
-str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), list[Body] body){
+str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body] thenPart, list[Body] elsePart), list[Body] body){
 	println("in generate if else <exp>");
 	if(size(getChildren(exp)) > 1){
 		println("More than one child");
 	}else{			// for boolean
-	list[Type] tp = getExpressionTypeGenerate(exp, body);
-	str check = evaluateExp(exp, tp[0]);		// hardcoded need to change that !!!!!!!!!!!!!!
+	list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
+	str check = evaluateExp(exp, idAndType[0].tp);		// hardcoded need to change that !!!!!!!!!!!!!!
 	println("CHECK IS : <check>");
-    if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    if(idAndType[0].tp == integer()) return checkIntExp(exp,idAndType[0].tp,env);
     else{
-    	env0 = evaluateExp(exp, tp[0]);
     	str checkBoxId = toString(getChildren(exp)[0]);
-    	javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
-		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");
+    	list[str] children = [];
+    	list[str] childrenElse = [];
+	list[str] thenPartString = [];
+	list[str] elsePartString = [];
+	for(s <- thenPart){
+		thenPartString += generateBody(formId, s, body);
+		visit (s) {			// visiting s to get the childrens id of the then part
+			case Question q : { children += q.id; }
+		}		
+	}
+	for(j <- elsePart){
+		elsePartString += generateBody(formId, j, body);
+		visit (j) {			// visiting s to get the childrens id of the then part
+			case Question q : { childrenElse += q.id; }
+		}		
+	}
+	println("children : <children>");
+	println("thenPartString : <thenPartString>");
+	println("elsePartString : <elsePartString>");
+	
+    	str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxId, thenPartString, elsePartString, children, childrenElse);
+    	//javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
+		return "<elseOneString>
+				'	<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>IfElseStatement(this)\");
 				'";  
     	println(env0);
     	//env1 = checkBodyJustStatements(thenpart, env0);

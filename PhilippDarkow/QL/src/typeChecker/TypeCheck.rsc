@@ -19,6 +19,7 @@ QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV 
     if(size(getChildren(exp)) == 1) return checkExp(exp,boolean() ,env);
     else{
     	list[Type] tp = getExpressionType(exp,env);
+    	println("TYPE LIST IS : <tp>");
     	if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
     	else{
     		set[Type] s = toSet(tp);

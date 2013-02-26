@@ -42,14 +42,12 @@ public void visualizeQLProgram(Tree x, loc selection) {
 	
 //  Register the QL tools
 public void registerQL() {
-	println("in main");
   registerLanguage(QL_NAME, QL_EXT, Tree(str src, loc l) {
      return parseProgram(src, l);
   });
 
   registerContributions(QL_NAME, {
     	outliner(node (Tree t) {
-    		println("t is :<t>");
 			return outline(implodeProgram(t));
 			}
 		),
@@ -67,6 +65,5 @@ public void registerQL() {
 }
 
 public void generateQL(Tree x, loc selection) {
-	println("tree : <x>");
 	generateQLForm(implodeProgram(x));
 }

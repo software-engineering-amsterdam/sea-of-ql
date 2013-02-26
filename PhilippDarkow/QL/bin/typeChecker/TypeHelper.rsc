@@ -13,14 +13,23 @@ import Prelude;
 */
 Type findExpressionType(Expression exp, QLTENV env){
 	str s = "";
+	println("exp is : <exp>");
+	if(getName(exp) == "id"){
 	if(arity(exp) > 1){	
 		list [value id] k = getChildren(exp);	
 		list[Type] t = getExpressionType(exp, env);
 		s = toString(t[0]);
 		return t[0];
 	}else s = toString(getChildren(exp)[0]);
+	println("SSSSS : <s>");
 	for(b <- env.question){		//matching
 		if(b.id == s) return b.tp;
+	}
+	}else{
+		println("EXP IS NO ID : <exp>");
+		
+		return integer()[@location=|file://-|(43,2,<1,43>,<1,45>)];
+		
 	}
 }
 
@@ -33,9 +42,12 @@ Type findExpressionType(Expression exp, QLTENV env){
 public list[Type] getExpressionType(Expression exp, QLTENV env){
 	list[Type] types = [];
 	for(s <- getChildren(exp)){
+		println("EXP TYPE : <s>");
+		
 		Type tp = findExpressionType(s, env);
 		//if(tp notin types) types += tp;
 		types += tp;
+		
 	}
 	return types;
 }
