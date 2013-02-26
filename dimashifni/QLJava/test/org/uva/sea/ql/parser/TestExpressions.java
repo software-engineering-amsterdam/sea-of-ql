@@ -14,24 +14,14 @@ import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  final List<Object[]> list = new ArrayList<Object[]>();
-	  list.add(new Object[] {new ANTLRParser()});
-	  return list;
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 
-	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
-	}
-
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);

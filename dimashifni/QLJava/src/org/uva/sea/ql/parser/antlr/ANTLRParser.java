@@ -7,20 +7,20 @@ import org.antlr.runtime.tree.CommonTree;
 import org.uva.sea.ql.ast.Expr;
 // import org.uva.sea.ql.ast.Expr;
 
-public class ANTLRParser {//implements IParse {
+public class ANTLRParser implements IParse {
 
-//	@Override
-//	public Expr parse(String src) throws ParseError {
-//		ANTLRStringStream stream = new ANTLRStringStream(src);
-//		CommonTokenStream tokens = new CommonTokenStream();
-//		tokens.setTokenSource(new QLLexer(stream));
-//		QLParser parser = new QLParser(tokens);
-//		try {
-//			return parser.orExpr();
-//		} catch (RecognitionException e) {
-//			throw new ParseError(e.getMessage());
-//		}
-//	}
+	@Override
+	public Expr parse(String src) throws ParseError {
+		ANTLRStringStream stream = new ANTLRStringStream(src);
+		CommonTokenStream tokens = new CommonTokenStream();
+		tokens.setTokenSource(new QLLexer(stream));
+		QLParser parser = new QLParser(tokens);
+		try {
+			return parser.orExpression().result;
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
 	
 	public static void main(String[] args) throws RecognitionException
 	{
