@@ -3,7 +3,7 @@ package eu.karuza.ql.service;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import eu.karuza.ql.QuestionResult;
 import eu.karuza.ql.ast.Form;
 import eu.karuza.ql.ast.Statement;
 import eu.karuza.ql.ast.statement.AnswerableQuestion;
@@ -14,9 +14,9 @@ import eu.karuza.ql.visitor.StatementVisitor;
 
 public class StoreListGenerator implements StatementVisitor<Void> {
 
-	private List<AnswerableQuestion> questions = new ArrayList<AnswerableQuestion>();
+	private List<QuestionResult> questions = new ArrayList<QuestionResult>();
 	
-	public List<AnswerableQuestion> getQuestions() {
+	public List<QuestionResult> getQuestions() {
 		return questions;
 	}
 	
@@ -42,7 +42,10 @@ public class StoreListGenerator implements StatementVisitor<Void> {
 
 	@Override
 	public Void visit(AnswerableQuestion node) {
-		questions.add(node);
+		QuestionResult questionResult = new QuestionResult();
+		questionResult.setName(node.getName());
+		questionResult.setValue(node.getRawValue().toString());
+		questions.add(questionResult);
 		return null;
 	}
 
