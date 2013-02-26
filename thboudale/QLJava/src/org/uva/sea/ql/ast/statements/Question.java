@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.AType;
-import org.uva.sea.ql.semanticCheck.FormStmtVisitor;
+import org.uva.sea.ql.visitor.IFormStmtVisitor;
 
 public class Question extends AStatement {
 	private final Ident ident;
@@ -28,7 +28,7 @@ public class Question extends AStatement {
 	}
 
 	@Override
-	public <T> T accept(FormStmtVisitor<T> visitor) {
+	public <T> T accept(IFormStmtVisitor<T> visitor) {
 		return visitor.visit(this);		
 	}
 }

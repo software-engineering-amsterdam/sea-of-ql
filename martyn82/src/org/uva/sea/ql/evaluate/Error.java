@@ -7,7 +7,7 @@ abstract public class Error {
 	private final Node node;
 	private final int code;
 
-	protected Error( int code, String message, Node node ) {
+	public Error( int code, String message, Node node ) {
 		this.code = code;
 		this.message = message;
 		this.node = node;

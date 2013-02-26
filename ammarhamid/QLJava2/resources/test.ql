@@ -8,9 +8,9 @@ form TestQL
     {
         "The house price when you sold it" houseSoldPrice: money
         "The house price when you bought it" houseBoughtPrice: money
-        "Price residue " valueResidue: money(houseSoldPrice-houseBoughtPrice)
         "Villa price " villaPrice: money
-        "Total money residue + villaPrice" total: money(valueResidue+villaPrice)
+        "Price residue (sold - bought)" valueResidue: money(houseSoldPrice-houseBoughtPrice)
+        "Total money (residue + villaPrice)" total: money(valueResidue+villaPrice)
     }
     else
     {

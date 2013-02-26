@@ -1,6 +1,5 @@
 package org.uva.sea.ql.interpretation;
 
-import java.awt.Font;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
@@ -9,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.elements.IfStatement;
 import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.common.QLDocument;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.interpretation.components.PanelDimensions;
 import org.uva.sea.ql.interpretation.components.content.IfStatementPanel;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
@@ -34,9 +33,9 @@ public class SwingDocument implements QLDocument {
     }
 
     @Override
-    public final void setHeading(String content) {
-        final JLabel lbl = new JLabel(content);
-        lbl.setFont(new Font("Times New Roman", 0, PanelDimensions.HEADING_FONT_SIZE));
+    public final void setHeading(StringLiteral content) {
+        final JLabel lbl = new JLabel(content.getValue());
+        lbl.setFont(PanelDimensions.getFont());
         this.panelStack.peek().add(lbl);
     }
 
@@ -44,7 +43,7 @@ public class SwingDocument implements QLDocument {
     public final void appendQuestion(Question question) {
         final QuestionPanel p = new QuestionPanel(question);
         this.panelStack.peek().add(p);
-        this.registry.addQuestion(p);
+        this.registry.addQuestionPanel(p);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class SwingDocument implements QLDocument {
         p.setVisible(false);
         this.panelStack.peek().add(p);
         this.panelStack.push(p);
-        this.registry.addIfStatement(p);
+        this.registry.addIfStatementPanel(p);
 
     }
 
@@ -64,8 +63,7 @@ public class SwingDocument implements QLDocument {
 
     @Override
     public final void create() {        
-        for (QuestionPanel questionPanel : this.registry.getQuestions()) {
-            System.out.println("CREATE: " + questionPanel.getIdentName());
+        for (QuestionPanel questionPanel : this.registry.getQuestionPanels()) {
             ListenerService.createListeners(questionPanel, this.registry);
         }
     }

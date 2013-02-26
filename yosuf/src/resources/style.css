@@ -7,14 +7,14 @@
 }
 
 .question {
-	-fx-spacing: 2;
+	-fx-spacing: 10;
 	-fx-border-color: lightgray;
 	-fx-stroke: 1;
-	-fx-margin-left: 6;
-	-fx-vpos: right;
-	-fx-background-color: linear-gradient(to bottom, white, darkgray); /**radial-gradient(radius 100%, white, darkgray) */
+	-fx-hgap: 20;
+	-fx-padding: 5 10 5 20;
+	-fx-background-color: linear-gradient(to bottom, white, darkgray);
 }
 
 .input {
-	-fx-vpos: right;
+	-fx-graphic-text-gap: 50;
 }

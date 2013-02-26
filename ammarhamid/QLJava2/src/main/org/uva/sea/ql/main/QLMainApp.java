@@ -9,8 +9,9 @@ import org.uva.sea.ql.parser.IParser;
 import org.uva.sea.ql.parser.impl.ANTLRParser;
 import org.uva.sea.ql.variable.VariableState;
 import org.uva.sea.ql.visitor.StatementVisitor;
-import org.uva.sea.ql.visitor.impl.StatementCheckVisitor;
-import org.uva.sea.ql.visitor.impl.StatementWidgetVisitor;
+import org.uva.sea.ql.visitor.check.StatementCheckVisitor;
+import org.uva.sea.ql.visitor.dependency.StatementDependencyVisitor;
+import org.uva.sea.ql.visitor.render.StatementWidgetVisitor;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -24,6 +25,7 @@ public class QLMainApp
 
     public static void main(String[] args) throws IOException
     {
+        // parsing QL program
         final IParser parser = new ANTLRParser();
         final FormNode formNode = parser.parseFormFromFile(QL_FILENAME);
         final BlockNode blockNode = formNode.getBlockNode();
@@ -35,28 +37,11 @@ public class QLMainApp
         // statement validation check
         validateStatement(statements, errors);
 
-        SwingUtilities.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                try
-                {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                }
-                catch(Exception ex)
-                {
-                    ex.printStackTrace();
-                }
+        // statement dependency analysis
+        analyzeStatementDependency(statements, variableState);
 
-                final JFrame frame = new JFrame(formNode.getFormName());
-                final JPanel mainPanel = new JPanel(new MigLayout(LAYOUT_CONSTRAINTS));
-                renderWidget(frame, mainPanel, statements, variableState);
-                frame.getContentPane().add(mainPanel);
-                frame.pack();
-                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                frame.setVisible(true);
-            }
-        });
+        // render GUI
+        renderGUI(formNode.getFormName(), statements, variableState);
     }
 
     private static void renderWidget(final JFrame frame, final JPanel mainPanel, final Collection<Statement> statements, final VariableState variableState)
@@ -90,6 +75,41 @@ public class QLMainApp
             // there is no point going forward, exit the application
             System.exit(1);
         }
+    }
+
+    private static void analyzeStatementDependency(final Collection<Statement> statements, final VariableState variableState)
+    {
+        final StatementVisitor statementVisitor = new StatementDependencyVisitor(variableState);
+        for(final Statement statement : statements)
+        {
+            statement.accept(statementVisitor);
+        }
+    }
+
+    private static void renderGUI(final String formName, final Collection<Statement> statements, final VariableState variableState)
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                try
+                {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                }
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                }
+
+                final JFrame frame = new JFrame(formName);
+                final JPanel mainPanel = new JPanel(new MigLayout(LAYOUT_CONSTRAINTS));
+                renderWidget(frame, mainPanel, statements, variableState);
+                frame.getContentPane().add(mainPanel);
+                frame.pack();
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                frame.setVisible(true);
+            }
+        });
     }
 
 }

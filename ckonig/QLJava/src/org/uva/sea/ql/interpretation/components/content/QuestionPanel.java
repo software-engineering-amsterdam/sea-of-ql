@@ -3,21 +3,19 @@ package org.uva.sea.ql.interpretation.components.content;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-import javax.swing.AbstractButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.elements.Question;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.Expression;
-import org.uva.sea.ql.ast.types.AbstractMathType;
+import org.uva.sea.ql.ast.literals.StringLiteral;
+import org.uva.sea.ql.ast.types.AbstractType;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
+import org.uva.sea.ql.interpretation.components.input.QLInput;
 import org.uva.sea.ql.interpretation.evaluation.Evaluator;
 import org.uva.sea.ql.interpretation.exception.EmptyInputException;
 import org.uva.sea.ql.interpretation.listeners.UserInputReader;
@@ -25,7 +23,7 @@ import org.uva.sea.ql.interpretation.listeners.UserInputReader;
 public final class QuestionPanel extends JPanel {
     private static final long serialVersionUID = -8537987318519877345L;
     private Question question;
-    private JComponent input;
+    private QLInput input;
     private boolean invalid;
     private Color original;
 
@@ -39,7 +37,7 @@ public final class QuestionPanel extends JPanel {
         this.original = this.getBackground();
     }
 
-    public final String getIdentName() {
+    public final StringLiteral getIdentName() {
         return this.question.getIdentName();
     }
 
@@ -47,7 +45,15 @@ public final class QuestionPanel extends JPanel {
         return this.question;
     }
 
-    public final JComponent getInput() {
+    public final AbstractType getQuestionType() {
+        return this.question.getType();
+    }
+
+    public final Expr getCondition() {
+        return this.question.getCondition();
+    }
+
+    public final QLInput getInput() {
         return this.input;
     }
 
@@ -57,12 +63,11 @@ public final class QuestionPanel extends JPanel {
     }
 
     public final boolean getBoolValue() {
-        return ((AbstractButton) this.input).getModel().isSelected();
+        return this.input.getBoolValue();
     }
 
-    public final String getStringValue() {
-        final JTextField t = (JTextField) this.input;
-        return t.getText();
+    public final StringLiteral getStringValue() {
+        return this.input.getStringValue();
     }
 
     public final void setValid(boolean val) {
@@ -81,34 +86,31 @@ public final class QuestionPanel extends JPanel {
 
     private void createInputElement() {
         this.input = SwingInputComponentFactory.getInputComponent(this);
-        this.add(this.input, BorderLayout.LINE_END);
+        this.add((JComponent) this.input, BorderLayout.LINE_END);
     }
 
     public boolean hasAutoValue() {
-        return this.question.getExpr() != null;
+        return this.question.hasAutoValue();
     }
 
     public void setAutoValue(SwingRegistry registry) throws QLException {
-        final Expr e = this.question.getExpr();
-        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
-                (Expression) e);
-        if (f.getResult().equals(BooleanType.class)) {
-            final boolean result = new Evaluator(registry, true).evalBool(e);
-            ((JCheckBox) this.input).setSelected(result);
-            return;
+        final Expr e = this.question.getCondition();
+        final Evaluator eval = new Evaluator(registry, true);
+
+        if (registry.returnTypeEquals(e, new BooleanType())) {
+            final boolean result = eval.evalBool(e);
+            this.input.setBoolean(result);
         }
-        if (f.getResult().equals(AbstractMathType.class)) {
+
+        if (registry.returnTypeEquals(e, new IntType())) {
             try {
-                final float result = new Evaluator(registry, true).evalFloat(e);
-                ((JTextField) this.input).setText(Float.toString(result));
+                final float result = eval.evalFloat(e);
+                this.input.setStringValue(new StringLiteral(Float
+                        .toString(result)));
             } catch (EmptyInputException ex) {
                 // no input? no output!
             }
-            return;
         }
-        throw new RuntimeException(
-                "conditions for if statements must be boolean");
 
     }
-
 }

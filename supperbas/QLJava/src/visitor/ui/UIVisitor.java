@@ -1,18 +1,18 @@
 package visitor.ui;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Observer;
 
 import javax.swing.*;
 
 import visitor.Environment;
 import visitor.evaluator.ExpressionEvaluator;
-import visitor.ui.wrapper.JCheckBoxWrap;
-import visitor.ui.wrapper.JTextFieldWrap;
-import visitor.ui.wrapper.Wrapper;
-import visitor.ui.wrapper.WrapperEvent;
-import visitor.ui.wrapper.WrapperEventListener;
+import visitor.ui.wrapper.*;
 import ast.Form;
 import ast.Statement;
 import ast.expression.Ident;
@@ -23,7 +23,7 @@ import ast.type.Int;
 import ast.type.Str;
 
 @SuppressWarnings("serial")
-public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type.Visitor {
+public class UIVisitor extends JFrame implements ast.statement.Visitor<Object>, ast.type.Visitor<Wrapper> {
 	private Environment environment;
 	private JPanel panel;
 
@@ -34,20 +34,36 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 
 	public UIVisitor(Environment environment, Block ast) {
 		panel = new JPanel();
-		GridLayout flo = new GridLayout(0, 1);
+		GridLayout flo = new GridLayout(0, 2);
 		panel.setLayout(flo);
 		this.environment = environment;
-		for (Statement i : ast.getStatements())
+		
+		// we reverse the list here so we get a properly generated UI
+		ArrayList<Statement> statements = reverseList(ast.getStatements());
+		for (Statement i : statements)
 			i.accept(this);
 	}
 
 	public JPanel getPanel() {
+		this.pack();
 		return panel;
 	}
 
 	public void generate() {
 		GridLayout flo = new GridLayout(0, 1);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JButton button = new JButton();
+		button.setText("Generate JSON");
+		button.setSize(50, 20);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				environment.printVariablesJSON();
+			}
+		});
+		add(button);
 		setLayout(flo);
 		pack();
 		setVisible(true);
@@ -64,25 +80,27 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 		this.setName(ast.getIdent().getValue());
 		panel.setVisible(true);
 		add(panel);
+
 		generate();
 		return null;
 	}
 
 	@Override
 	public Object visit(If ast) {
-		System.out.println("AA"+environment);
-		ast.expression.value.Bool value = ast.getCondition().accept(new ExpressionEvaluator(environment));
+		ast.expression.value.Bool value = (ast.expression.value.Bool) ast.getCondition().accept(new ExpressionEvaluator(environment));
 		boolean visible = value.isDefined() && value.getValue();
 		JPanel tru = new UIVisitor(environment, ast.getTrueBlock()).getPanel();
-		JPanel fls = new UIVisitor(environment, ast.getFalseBlock()).getPanel();
 		tru.setVisible(visible);
-		
 		panel.add(tru);
-		if(ast.getFalseBlock().getStatements().size()==0)
+		
+		JPanel fls = new UIVisitor(environment, ast.getFalseBlock()).getPanel();
+		// resolve issues when falseblock is empty
+		if (ast.getFalseBlock().getStatements().size() == 0)
 			fls = new JPanel();
-		
+
 		fls.setVisible(!visible);
-		
+		panel.add(fls);
+
 		Observer ob = new ConditionalObserver(tru, fls, environment, ast);
 		for (Iterator<Ident> i = ast.getCondition().getIdents().iterator(); i.hasNext();)
 			environment.addObserver(i.next(), ob);
@@ -92,10 +110,11 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 	@Override
 	public Object visit(final QuestionVar ast) {
 		ast.getVar().accept(this);
+		
 		Wrapper wrap = environment.getIdent(ast.getIdent()).getType().accept(this);
 		wrap.setLabel(ast.getLabel().getValue());
 		wrap.setVisible(true);
-		wrap.setValue(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
+		wrap.setValue(environment.getIdent(ast.getIdent()).getValueToString());
 		WrapperEventListener listener = new WrapperEventListener() {
 			@Override
 			public void change(WrapperEvent event) {
@@ -103,23 +122,29 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 				environment.notifyObservers(ast.getIdent());
 			}
 		};
-		// listener.setEnv(environment);
 		wrap.addListener(listener);
 
 		panel.add(wrap.getLabel());
-		panel.add(wrap.getComponent()); System.out.println(wrap.getClass());
+		panel.add(wrap.getComponent());
 		return null;
 	}
 
 	@Override
 	public Object visit(QuestionComputed ast) {
+		ast.getAssignment().accept(this);
+		
 		Wrapper wrap = environment.getIdent(ast.getIdent()).getType().accept(this);
 		wrap.setEnabled(false);
 		wrap.setLabel(ast.getLabel().getValue());
 		wrap.setVisible(true);
-		wrap.setValue(environment.getIdent(ast.getIdent()).getValue().getValue().toString());
+		wrap.setValue(environment.getIdent(ast.getIdent()).getValueToString());
+		
+		ComputedObserver ob = new ComputedObserver(wrap, environment, ast);
+		for (Iterator<Ident> i = ast.getAssignment().getExpression().getIdents().iterator(); i.hasNext();)
+			environment.addObserver(i.next(), ob);
+		
 		panel.add(wrap.getLabel());
-		panel.add(wrap.getComponent()); System.out.println(wrap.getClass());
+		panel.add(wrap.getComponent());
 		return null;
 	}
 
@@ -139,7 +164,7 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 		if (type instanceof ast.type.Str)
 			return new ast.expression.value.Str(str);
 		if (type instanceof ast.type.Int)
-			return new ast.expression.value.Int(Integer.getInteger(str));
+			return new ast.expression.value.Int(Integer.parseInt(str));
 		if (type instanceof ast.type.Bool)
 			return new ast.expression.value.Bool(Boolean.parseBoolean(str));
 		return null;
@@ -158,5 +183,12 @@ public class UIVisitor extends JFrame implements ast.statement.Visitor, ast.type
 	@Override
 	public Wrapper visit(Int ast) {
 		return new JTextFieldWrap();
+	}
+	
+	public ArrayList<Statement> reverseList(List<Statement> list){
+		ArrayList<Statement> reversedList = new ArrayList<Statement>();
+		for (int i = list.size() - 1; i >= 0; i--)
+			reversedList.add(list.get(i));
+		return reversedList;
 	}
 }

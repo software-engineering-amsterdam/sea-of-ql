@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Question1"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Question"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Ident"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.ast.Expr"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.ComputedQuestion"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.StringLiteral"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.types.Type"/>
@@ -34,11 +30,8 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.statements.Statement"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.visitor.ExprChecker"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Int"/>
-<fullyQualifiedTypeName name="java.util.Map"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.types.Type"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Ident"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.Str"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.parser.antlr.ANTLRParser"/>
@@ -50,7 +43,21 @@
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.types.BoolType"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.ast.types.IntType"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.parser.test.IParse"/>
-<fullyQualifiedTypeName name="org.uva.sea.ql.parser.test.ParseError"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.visitor.ExprVisitor"/>
 <fullyQualifiedTypeName name="org.uva.sea.ql.semanticCheck.ExprVisitor"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.form.Form"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Collections"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.evaluator.values.UndefinedValue"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.ast.expressions.AExpr"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.evaluator.ExprEvaluator"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.evaluator.values.AValue"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.evaluator.values.IntValue"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.evaluator.values.StrValue"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.evaluator.values.BoolValue"/>
+<fullyQualifiedTypeName name="org.uva.sea.ql.parser.test.ParseError"/>
+<fullyQualifiedTypeName name="org.junit.Test"/>
 </qualifiedTypeNameHistroy>

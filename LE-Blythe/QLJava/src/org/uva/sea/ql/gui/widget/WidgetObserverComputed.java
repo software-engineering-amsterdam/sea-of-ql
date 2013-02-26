@@ -26,7 +26,7 @@ public class WidgetObserverComputed extends WidgetObserver{
 		widget.setValue(value);
 		
 		//only show the value if it is defined
-		widget.getComponent().setVisible(value.isDefined());
+		widget.getControl().setVisible(value.isDefined());
 	}
 	
 }

@@ -25,13 +25,13 @@ public class SwingInterpreter extends JFrame {
         createComponents();
         setSizes();
         setLayout();
-        setSize(PanelDimensions.WINDOW_WIDTH, PanelDimensions.WINDOW_HEIGHT);
+        setSize(PanelDimensions.getWindowDimension());
         setVisible(true);
     }
 
     private void setSizes() {
         this.centerPanel.setBackground(Color.green);
-        this.centerPanel.setSize(PanelDimensions.CENTER_WIDTH, PanelDimensions.CENTER_HEIGHT);
+        this.centerPanel.setSize(PanelDimensions.getContentDimension());
     }
 
     private void createComponents() {

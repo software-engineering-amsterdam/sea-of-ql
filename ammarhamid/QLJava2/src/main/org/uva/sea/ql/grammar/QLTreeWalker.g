@@ -52,7 +52,7 @@ options
 
 @members
 {
-    private Map<IdentifierNode, Value> variables = new HashMap<>();
+    private final Map<IdentifierNode, Value> variables = new HashMap<>();
 }
 
 walk returns [FormNode node]
@@ -140,9 +140,9 @@ expression returns [ExprNode node]
         {
             final Value defaultValue = variables.get(new IdentifierNode($Identifier.text, null));
 
-            // variable is undefined
             if(defaultValue == null)
             {
+                // variable is undefined
                 $node = new UndefinedIdentifierNode($Identifier.text);
             }
             else

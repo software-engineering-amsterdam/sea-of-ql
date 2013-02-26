@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.uva.sea.ql.core.dom.ExpressionVisitor;
 import org.uva.sea.ql.core.dom.Identifier;
-import org.uva.sea.ql.core.dom.Variable;
 import org.uva.sea.ql.core.dom.operators.ArithmeticOperator;
 import org.uva.sea.ql.core.dom.operators.ConditionalOperator;
 import org.uva.sea.ql.core.dom.operators.RelationalOperator;
@@ -31,10 +30,10 @@ import org.uva.sea.ql.core.dom.types.primitive.StringLiteral;
 
 public class ExpressionVisitorToSetTypeOfIdentifiers implements ExpressionVisitor {
 
-	private List<Variable> variableList;
+	private List<Identifier> identifierList;
 	
-	public ExpressionVisitorToSetTypeOfIdentifiers(List<Variable> variableList){
-		this.variableList = variableList;
+	public ExpressionVisitorToSetTypeOfIdentifiers(List<Identifier> identifierList){
+		this.identifierList = identifierList;
 	}
 	
 	@Override
@@ -43,9 +42,9 @@ public class ExpressionVisitorToSetTypeOfIdentifiers implements ExpressionVisito
 
 	@Override
 	public void visit(Identifier identifier) {
-		for(Variable variable:variableList){
-			if(variable.getIdentifier().getName()==identifier.getName()){
-				identifier.setType(variable.getTypeDeclaration());
+		for(Identifier definedIdentifier:identifierList){
+			if(definedIdentifier.getName()==definedIdentifier.getName()){
+				definedIdentifier.setType(definedIdentifier.getType());
 			}
 		}
 	}

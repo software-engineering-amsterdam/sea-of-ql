@@ -3,11 +3,10 @@ package org.uva.sea.ql.interpretation.evaluation;
 import org.uva.sea.ql.ast.elements.Ident;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.common.QLException;
-import org.uva.sea.ql.common.returnfinder.ReturnFinder;
 import org.uva.sea.ql.interpretation.SwingRegistry;
 import org.uva.sea.ql.interpretation.components.content.QuestionPanel;
 
-public class BoolEvaluationVisitor extends EvaluationVisitor {
+class BoolEvaluationVisitor extends AbstractEvaluationVisitor {
 
     public BoolEvaluationVisitor(SwingRegistry reg, Evaluator eval) {
         super(reg, eval);
@@ -17,10 +16,7 @@ public class BoolEvaluationVisitor extends EvaluationVisitor {
     @Override
     public final void visit(Ident ident) throws QLException {
         final QuestionPanel q = registry.getQuestionPanelByIdent(ident);
-        final ReturnFinder f = new ReturnFinder(registry.getQuestionsAst(),
-                ident);
-        final Class<?> r = f.getResult();
-        if (r.equals(BooleanType.class)) {
+        if (registry.returnTypeEquals(ident, new BooleanType())) {
             boolRet = q.getBoolValue();
         }
     }

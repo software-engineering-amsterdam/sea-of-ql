@@ -2,7 +2,8 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
+import org.uva.sea.ql.ast.value.Value;
 
 public class Numeric extends Nature {
 
@@ -40,16 +41,19 @@ public class Numeric extends Nature {
 	public boolean isValidInput(final String input) {
 		try {
 			// the following throws a number format exception if the value is not convertable
-			return Integer.valueOf(input) != null;
+			return input.isEmpty() || Double.valueOf(input) != null;
 		} catch (NumberFormatException e) {
 			return false;
 		}
 	}
 
 	@Override
-	public Expression<?> createValue(final String value) {
+	public Value createValue(final String value) {
 		state.assertNotNull(value, "value");
-		return new IntegerValue(Integer.valueOf(value));
+		if (value.isEmpty()) {
+			return new NumericValue(0);
+		}
+		return new NumericValue(Double.valueOf(value));
 	}
 
 }

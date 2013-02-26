@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 import org.uva.sea.ql.interpretation.SwingRegistry;
 
-public class QuestionListenerFactory extends ListenerFactory {
+ class QuestionListenerFactory extends AbstractListenerFactory {
 
     private SwingRegistry registry;
 

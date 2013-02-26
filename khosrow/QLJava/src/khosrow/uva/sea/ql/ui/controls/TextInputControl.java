@@ -18,7 +18,7 @@ public abstract class TextInputControl extends Control {
 	protected abstract Value getValue();
 
 	public TextInputControl(){
-		this.component = new JTextField();
+		this.component = new JTextField("", 10);		
 	}
 	
 	public String getInput() {
@@ -57,8 +57,7 @@ public abstract class TextInputControl extends Control {
 				if(!InputVerifier.Verify(getControl())){					
 					return;
 				}
-				state.assignValue(name, getValue());
-				state.notifyObervers(name);
+				state.assignValue(name, getValue());				
 			}			
 		});			
 	}

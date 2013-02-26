@@ -1,15 +1,14 @@
 package org.uva.sea.ql.interpretation.components.content;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
-import javax.swing.JTextField;
-
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Money;
 import org.uva.sea.ql.ast.types.NullType;
 import org.uva.sea.ql.ast.types.StrType;
 import org.uva.sea.ql.common.TypeVisitor;
+import org.uva.sea.ql.interpretation.components.input.CheckBox;
+import org.uva.sea.ql.interpretation.components.input.QLInput;
+import org.uva.sea.ql.interpretation.components.input.TextBox;
 
 public final class SwingInputComponentFactory {
 
@@ -18,33 +17,33 @@ public final class SwingInputComponentFactory {
 
     private SwingInputComponentFactory(QuestionPanel q) {
         this.visitor = new SwingInputComponentFactoryVisitor(q);
-        q.getQuestion().getType().accept(this.visitor);
+        q.getQuestionType().accept(this.visitor);
     }
 
-    public static final JComponent getInputComponent(QuestionPanel q) {
+    public static final QLInput getInputComponent(QuestionPanel q) {
         return new SwingInputComponentFactory(q).getComponent();
     }
 
-    private JComponent getComponent() {
+    private QLInput getComponent() {
         return this.visitor.getInputComponent();
     }
 
     private class SwingInputComponentFactoryVisitor implements TypeVisitor {
-        private JComponent input;
+        private QLInput input;
         private QuestionPanel questionPanel;
 
         public SwingInputComponentFactoryVisitor(QuestionPanel q) {
             this.questionPanel = q;
         }
 
-        final JComponent getInputComponent() {
+        final QLInput getInputComponent() {
+            this.input.setInputPossible(!this.questionPanel.hasAutoValue());
             return this.input;
         }
 
         @Override
         public final void visit(BooleanType b) {
-            this.input = new JCheckBox();
-            this.input.setEnabled(!this.questionPanel.hasAutoValue());
+            this.input = new CheckBox();
         }
 
         @Override
@@ -68,9 +67,7 @@ public final class SwingInputComponentFactory {
         }
 
         private void setInputAsTextField() {
-            this.input = new JTextField(LENGTH);
-            ((JTextField) this.input).setEditable(!this.questionPanel
-                    .hasAutoValue());
+            this.input = new TextBox(LENGTH);
         }
 
     }

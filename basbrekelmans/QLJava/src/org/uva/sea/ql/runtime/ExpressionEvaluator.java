@@ -1,6 +1,5 @@
 package org.uva.sea.ql.runtime;
 
-import org.uva.sea.ql.ast.IExpressionVisitor;
 import org.uva.sea.ql.ast.expressions.Addition;
 import org.uva.sea.ql.ast.expressions.And;
 import org.uva.sea.ql.ast.expressions.BooleanLiteral;
@@ -23,155 +22,163 @@ import org.uva.sea.ql.ast.expressions.UnaryMinus;
 import org.uva.sea.ql.ast.expressions.UnaryNot;
 import org.uva.sea.ql.ast.expressions.UnaryPlus;
 import org.uva.sea.ql.ast.expressions.Xor;
+import org.uva.sea.ql.runtime.values.BooleanValue;
+import org.uva.sea.ql.runtime.values.IntegerValue;
+import org.uva.sea.ql.runtime.values.MoneyValue;
+import org.uva.sea.ql.runtime.values.StringValue;
+import org.uva.sea.ql.runtime.values.Value;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public class ExpressionEvaluator implements IExpressionEvaluator, IExpressionVisitor<Value> {
+public class ExpressionEvaluator implements IExpressionEvaluator,
+		IExpressionVisitor<Value> {
 
-	private final RuntimeContext context;
+	private final RuntimeValues variables;
 
-	public ExpressionEvaluator(RuntimeContext context) {
-		this.context = context;
+	public ExpressionEvaluator(final RuntimeValues variables) {
+		this.variables = variables;
 	}
-	
+
 	@Override
-	public Value getValue(Expression expr) {
+	public Value eval(final Expression expr) {
 		return expr.accept(this);
 	}
 
 	@Override
-	public Value visit(Addition element) {
+	public Value visit(final Addition element) {
 
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
 		return leftValue.add(rightValue);
 	}
 
 	@Override
-	public Value visit(Division element) {
-
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.divide(rightValue);
-	}
-
-	@Override
-	public Value visit(Multiplication element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.multiply(rightValue);
-	}
-
-	@Override
-	public Value visit(Subtraction element) {
-
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.subtract(rightValue);
-	}
-
-	@Override
-	public Value visit(Equals element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.equals(rightValue);
-	}
-
-	@Override
-	public Value visit(GreaterThan element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.greaterThan(rightValue);
-	}
-
-	@Override
-	public Value visit(GreaterThanOrEquals element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.greaterThanOrEquals(rightValue);
-	}
-
-	@Override
-	public Value visit(LessThan element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.lessThan(rightValue);
-	}
-
-	@Override
-	public Value visit(LessThanOrEquals element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.lessThanOrEquals(rightValue);
-	}
-
-	@Override
-	public Value visit(NotEquals element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.notEquals(rightValue);
-	}
-
-	@Override
-	public Value visit(And element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
+	public Value visit(final And element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
 		return leftValue.and(rightValue);
 	}
 
 	@Override
-	public Value visit(Or element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.or(rightValue);
-	}
-
-	@Override
-	public Value visit(Xor element) {
-		Value leftValue = element.getLeft().accept(this);
-		Value rightValue = element.getRight().accept(this);
-		return leftValue.xor(rightValue);
-	}
-
-	@Override
-	public Value visit(BooleanLiteral element) {
+	public Value visit(final BooleanLiteral element) {
 		return new BooleanValue(element.getValue());
 	}
 
 	@Override
-	public Value visit(IntegerLiteral element) {
+	public Value visit(final Division element) {
+
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.divide(rightValue);
+	}
+
+	@Override
+	public Value visit(final Equals element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.equals(rightValue);
+	}
+
+	@Override
+	public Value visit(final GreaterThan element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.greaterThan(rightValue);
+	}
+
+	@Override
+	public Value visit(final GreaterThanOrEquals element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.greaterThanOrEquals(rightValue);
+	}
+
+	@Override
+	public Value visit(final Identifier element) {
+		final RuntimeValue variable = this.variables.get(element);
+		return variable.getValue();
+	}
+
+	@Override
+	public Value visit(final IntegerLiteral element) {
 		return new IntegerValue(element.getValue());
 	}
 
 	@Override
-	public Value visit(MoneyLiteral element) {
+	public Value visit(final LessThan element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.lessThan(rightValue);
+	}
+
+	@Override
+	public Value visit(final LessThanOrEquals element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.lessThanOrEquals(rightValue);
+	}
+
+	@Override
+	public Value visit(final MoneyLiteral element) {
 		return new MoneyValue(element.getValue());
 	}
 
 	@Override
-	public Value visit(StringLiteral element) {
+	public Value visit(final Multiplication element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.multiply(rightValue);
+	}
+
+	@Override
+	public Value visit(final NotEquals element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.notEquals(rightValue);
+	}
+
+	@Override
+	public Value visit(final Or element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.or(rightValue);
+	}
+
+	@Override
+	public Value visit(final StringLiteral element) {
 		return new StringValue(element.getValue());
 	}
 
 	@Override
-	public Value visit(Identifier element) {
-		return context.getValue(element);
+	public Value visit(final Subtraction element) {
+
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.subtract(rightValue);
 	}
 
 	@Override
-	public Value visit(UnaryNot element) {
-		Value operand = element.getOperand().accept(this);
-		return operand.not();
-	}
-
-	@Override
-	public Value visit(UnaryMinus element) {
-		Value operand = element.getOperand().accept(this);
+	public Value visit(final UnaryMinus element) {
+		final Value operand = element.getOperand().accept(this);
 		return operand.negate();
 	}
 
 	@Override
-	public Value visit(UnaryPlus element) {
-		Value operand = element.getOperand().accept(this);
+	public Value visit(final UnaryNot element) {
+		final Value operand = element.getOperand().accept(this);
+		return operand.not();
+	}
+
+	@Override
+	public Value visit(final UnaryPlus element) {
+		final Value operand = element.getOperand().accept(this);
 		return operand.positive();
+	}
+
+	@Override
+	public Value visit(final Xor element) {
+		final Value leftValue = element.getLeft().accept(this);
+		final Value rightValue = element.getRight().accept(this);
+		return leftValue.xor(rightValue);
 	}
 
 }

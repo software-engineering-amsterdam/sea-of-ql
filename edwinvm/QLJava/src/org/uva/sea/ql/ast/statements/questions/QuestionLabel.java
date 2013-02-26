@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statements.questions;
 
-import org.uva.sea.ql.ast.expressions.literal.Str;
+import org.uva.sea.ql.ast.values.Str;
 
 public class QuestionLabel {
 	private final Str _label;

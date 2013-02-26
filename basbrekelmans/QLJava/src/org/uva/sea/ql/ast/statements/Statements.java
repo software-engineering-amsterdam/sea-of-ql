@@ -1,40 +1,36 @@
 package org.uva.sea.ql.ast.statements;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.IStatementVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class Statements extends Statement implements Iterable<Statement> {
 
-	private List<Statement> children;
-	
-	public Statements(ICodeLocationInformation info) {
+	private final List<Statement> children;
+
+	public Statements(final ICodeLocationInformation info,
+			final Statement statement) {
 		super(info);
-		children = new ArrayList<Statement>();
+		this.children = new LinkedList<Statement>();
+		this.children.add(statement);
 	}
-	
-	public Statements(ICodeLocationInformation info, Iterable<Statement> statements) {
-		super(info);
-		children = new ArrayList<Statement>();
-		for (Statement s : statements) {
-			addChild(s);
-		}
+
+	public Statements(final ICodeLocationInformation info,
+			final Statement statement, final Statements statements) {
+		this(info, statement);
+		this.children.addAll(statements.children);
 	}
-	
-	public void addChild(Statement child) {
-		children.add(child);
-	}
-	
+
 	@Override
-	public void accept(IStatementVisitor visitor)  {
+	public void accept(final IStatementVisitor visitor) {
 		visitor.visit(this);
 	}
 
 	@Override
 	public Iterator<Statement> iterator() {
-		return children.iterator();
+		return this.children.iterator();
 	}
 }

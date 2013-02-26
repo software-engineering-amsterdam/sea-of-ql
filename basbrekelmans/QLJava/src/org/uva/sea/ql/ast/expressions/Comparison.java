@@ -3,13 +3,12 @@ package org.uva.sea.ql.ast.expressions;
 import org.uva.sea.ql.ICodeLocationInformation;
 
 /**
- * Comparison (<, <=, >=, >, !=, ==) expressions
- * inherit from this type.
+ * Comparison (<, <=, >=, >, !=, ==) expressions inherit from this type.
  */
 public abstract class Comparison extends Binary {
 
-	public Comparison(ICodeLocationInformation codeLocation,
-			Expression left, Expression right) {
+	Comparison(final ICodeLocationInformation codeLocation,
+			final Expression left, final Expression right) {
 		super(codeLocation, left, right);
 	}
 }

@@ -20,13 +20,6 @@ public class IfNode extends ObservableStatement
         this.branches = new ArrayList<>();
     }
 
-    @Override
-    public void notifyObs()
-    {
-        setChanged();
-        this.notifyObservers();
-    }
-
     public void addBranch(final ExprNode exprNode, final BlockNode block)
     {
         this.branches.add(new Branch(exprNode, block));

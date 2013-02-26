@@ -1,10 +1,10 @@
 package khosrow.uva.sea.ql.ui.controls;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JCheckBox;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ui.State;
@@ -41,13 +41,13 @@ public class BoolControl extends Control{
 
 	@Override
 	public void addListener(final Ident name, final State state) {
-		component.addChangeListener(new ChangeListener() {
+		component.addActionListener(new ActionListener() {
 			@Override
-			public void stateChanged(ChangeEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				state.assignValue(name, getBoolVal());	
-				state.notifyObervers(name);
+				//state.notifyObervers(name);			
 			}			
-		});		
+		});	
 	}
 	
 	private BoolVal getBoolVal() {

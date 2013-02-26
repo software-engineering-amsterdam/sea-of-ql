@@ -1,16 +1,15 @@
 package org.uva.sea.ql.ast.expressions;
+
 import org.uva.sea.ql.ICodeLocationInformation;
-import org.uva.sea.ql.ast.IExpressionVisitor;
 import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 /**
- * Base class for expressions. 
- * Ability to determine/infer result type.
+ * Base class for expressions. Ability to determine/infer result type.
  */
 public abstract class Expression extends Node {
-	
-	public Expression(ICodeLocationInformation codeLocation)
-	{
+
+	Expression(final ICodeLocationInformation codeLocation) {
 		super(codeLocation);
 	}
 

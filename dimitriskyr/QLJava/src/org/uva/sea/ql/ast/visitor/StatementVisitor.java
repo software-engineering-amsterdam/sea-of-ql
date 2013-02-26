@@ -18,95 +18,83 @@ import org.uva.sea.ql.ast.values.Ident;
 
 public class StatementVisitor implements IStatementVisitor {
 
-	private final Map<Ident, Type> typeEnv;
+	private final Map<String, Type> typeEnv;
 	private final List<String> errormessages;
-	
-	public StatementVisitor(Map<Ident, Type> tenv, List<String> messages) {
-	this.typeEnv = tenv;
-	this.errormessages = messages;
+
+	public StatementVisitor(Map<String, Type> tenv, List<String> messages) {
+		this.typeEnv = tenv;
+		this.errormessages = messages;
 	}
-	
-	public List<String> getErrormessages() {
-		return errormessages;
+
+	public void getErrormessages(String errors) {
+		this.errormessages.add(errors);
 	}
-	
+
 	@Override
 	public void visit(Form form) {
-		
+
 		form.getBlock().accept(this);
 	}
-	
+
 	@Override
 	public void visit(Block block) {
-		for(Statement BodyPart : block.getBody()){
+		for (Statement BodyPart : block.getBody()) {
 			BodyPart.accept(this);
 		}
 	}
 
 	@Override
-	public void visit(QuestionElement questionElement) {
-	// TODO Auto-generated method stub
-	
-	}
-
-	@Override
-	public void visit(StatementElement statementElement) {
-		// TODO Auto-generated method stub
-	
-	}
-
-	@Override
 	public void visit(IfThen ifThen) {
-	checkCondition(ifThen);
-	ifThen.getIfBlock().accept(this);
-	}  
+		checkCondition(ifThen);
+		ifThen.getIfBlock().accept(this);
+	}
 
 	@Override
 	public void visit(IfThenElse ifThenElse) {
-	checkCondition(ifThenElse);
-	ifThenElse.getIfBlock().accept(this);
-	ifThenElse.getElseBlock().accept(this);
+		checkCondition(ifThenElse);
+		ifThenElse.getIfBlock().accept(this);
+		ifThenElse.getElseBlock().accept(this);
 	}
-	
+
 	@Override
 	public void visit(SimpleQuestion simpleQuestion) {
-	checkName(simpleQuestion, simpleQuestion.getType());
+		checkName(simpleQuestion, simpleQuestion.getType());
 	}
 
 	@Override
 	public void visit(ComQuestion comQuestion) {
-	checkName(comQuestion, comQuestion.getExpression().typeOf(typeEnv));
-	checkExpr(comQuestion, comQuestion.getExpression());
+		checkName(comQuestion, comQuestion.getExpression().typeOf(typeEnv));
+		checkExpr(comQuestion, comQuestion.getExpression());
 	}
 
-private void checkName(QuestionElement question, Type type) {
-	Ident questionId= question.getIdent();
-	Type questionType= type;
-	if(typeEnv.containsKey(questionId)){
-		errormessages.add("The name" + questionId + "is invalid because it has already been declared");
-		System.out.println("The name" + questionId + "is invalid because it has already been declared");
+	private void checkName(QuestionElement question, Type type) {
+		Ident questionId = question.getIdent();
+		Type questionType = type;
+		if (typeEnv.containsKey(questionId)) {
+			errormessages.add("The name" + questionId
+					+ "is invalid because it has already been declared");
+		}
+		typeEnv.put(questionId.getValue(), questionType);
 	}
-	typeEnv.put(questionId, questionType);
-}
 
-private void checkExpr(QuestionElement comQuestions, Expr expression) {
-	Type questionType = comQuestions.getType();
-	Type expressionType = expression.typeOf(typeEnv);
-	CheckExpr.check(expression,typeEnv,errormessages);
-	
-	if (!(questionType.isCompatibleTo(expressionType))){
-		errormessages.add("Error. The type of the question("+ questionType +") is different than the type of the expression("+ expressionType +")");
-		System.out.println("Error. The type of the question("+ questionType +") is different than the type of the expression("+ expressionType +")");
+	private void checkExpr(QuestionElement comQuestions, Expr expression) {
+		Type questionType = comQuestions.getType();
+		Type expressionType = expression.typeOf(typeEnv);
+		CheckExpr.check(expression, typeEnv, errormessages);
+
+		if (!(questionType.isCompatibleTo(expressionType))) {
+			errormessages.add("Error. The type of the question(" + questionType
+					+ ") is different than the type of the expression("
+					+ expressionType + ")");
 		}
 	}
-	
+
 	private void checkCondition(StatementElement statement) {
-		Expr expr= statement.getCondition();
-		CheckExpr.check(expr,typeEnv,errormessages);
-		if(!(expr.typeOf(typeEnv).isCompatibleToBoolean())){
-			errormessages.add("Wrong type (" + expr.typeOf(typeEnv) + "). The condition should be of type Boolean" );
-			System.out.println("Wrong type (" + expr.typeOf(typeEnv) + "). The condition should be of type Boolean" );
+		Expr expr = statement.getCondition();
+		CheckExpr.check(expr, typeEnv, errormessages);
+		if (!(expr.typeOf(typeEnv).isCompatibleToBoolean())) {
+			errormessages.add("Wrong type (" + expr.typeOf(typeEnv)
+					+ "). The condition should be of type Boolean");
 		}
 	}
 }
-	

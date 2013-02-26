@@ -7,7 +7,7 @@ import ast.expression.Ident;
 import ast.expression.Value;
 import ast.expression.Visitor;
 
-public class Int extends Value<Integer> {
+public class Int extends Value {
 
 	private final int value;
 

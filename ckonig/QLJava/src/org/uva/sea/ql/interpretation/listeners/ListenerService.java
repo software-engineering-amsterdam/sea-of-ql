@@ -30,7 +30,7 @@ public final class ListenerService {
     }
 
     private void create(QuestionPanel qp, SwingRegistry reg) {
-        qp.getQuestion().getType().accept(new ListenerFactoryVisitor(qp, reg));
+        qp.getQuestionType().accept(new ListenerFactoryVisitor(qp, reg));
     }
 
     private class ListenerFactoryVisitor implements TypeVisitor {
@@ -46,10 +46,9 @@ public final class ListenerService {
 
         private void tryToAddListeners() {
             this.helper.addListeners(this.questionPanel);
-            if (this.questionPanel.getQuestion().getExpr() != null) {
-                final IdentFinder finder = new IdentFinder(
-                        (TreeNode) this.questionPanel.getQuestion().getExpr());
-                final List<Ident> idents = finder.getIdents();
+            if (this.questionPanel.getCondition() != null) {
+                final List<Ident> idents = IdentFinder
+                        .getIdents((TreeNode) this.questionPanel.getCondition());
                 for (Ident i : idents) {
                     final QuestionPanel qp = this.registry
                             .getQuestionPanelByIdent(i);
@@ -99,7 +98,7 @@ public final class ListenerService {
 
             @Override
             void addListeners(QuestionPanel panel) {
-                final ListenerFactory factory = new QuestionListenerFactory(
+                final AbstractListenerFactory factory = new QuestionListenerFactory(
                         registry);
                 final JCheckBox c = (JCheckBox) panel.getInput();
                 c.addActionListener(factory.getActionListener());
@@ -114,7 +113,7 @@ public final class ListenerService {
 
             @Override
             void addListeners(QuestionPanel panel) {
-                final ListenerFactory factory = new QuestionListenerFactory(
+                final AbstractListenerFactory factory = new QuestionListenerFactory(
                         registry);
                 final JTextField t = (JTextField) panel.getInput();
                 t.addActionListener(factory.getActionListener());
