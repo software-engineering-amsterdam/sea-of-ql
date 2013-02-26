@@ -7,30 +7,23 @@ import org.uva.sea.ql.ast.visitor.VisitorStatements;
 public class IfStatement extends FormUnit {
 
 	private final Expr condition;
-	private final Block ifBody;
-	private final Block elseBody;
+	private final Block body;
 	
-	public IfStatement(Expr condition, Block ifBody, Block elseBody) {
+	public IfStatement(Expr condition, Block body) {
 		this.condition = condition;
-		this.ifBody = ifBody;
-		this.elseBody = elseBody;
+		this.body = body;
 	}
 
 	public Expr getCondition() {
 		return condition;
 	}
 
-	public Block getIfBody() {
-		return ifBody;
-	}
-	
-	public Block getElseBody() {
-		return elseBody;
+	public Block getBody() {
+		return body;
 	}
 
 	@Override
 	public <T> T accept(VisitorStatements<T> visitor) {
 		return visitor.visit(this);
 	}
-
 }

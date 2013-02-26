@@ -7,6 +7,7 @@ import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Eq;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.GEq;
 import org.uva.sea.ql.ast.expr.GT;
 import org.uva.sea.ql.ast.expr.Ident;
@@ -23,10 +24,14 @@ import org.uva.sea.ql.ast.visitor.VisitorExpressions;
 
 public class Evaluator implements VisitorExpressions<Value> {
 	
-	private final Map<Ident, Value> env;
+	private final Map<String, Value> env;
 	
-	public Evaluator(Map<Ident, Value> env) {
+	public Evaluator(Map<String, Value> env) {
 		this.env = Collections.unmodifiableMap(env);
+	}
+	
+	public Value evaluate(Expr expr, Map<String, Value> env) {
+		return expr.accept(this);
 	}
 
 	@Override

@@ -7,6 +7,8 @@ import TypeCheck::QuestionChecker;
 str required(Type t, str got) = "Required <getName(t)>, got <got>";                 
 str required(Type t1, Type t2) = required(t1, getName(t2));
 
+public alias FORMTENV = tuple[ rel[str id,str label, Type tp, bool isComputed] question, list[tuple[loc l, str msg]] errors];
+
 // compile Expressions.
 public FORMTENV checkExp(exp:boolCon(bool B), Type req, FORMTENV env) =
   	req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
@@ -67,8 +69,7 @@ public FORMTENV checkBoolExp(exp:neq(Expression Exp1, Expression Exp2), Type req
                    : addError(env, exp@location, required(req, "must be same type"));
                    
                   
-// CHECK INTEGER EXPRESSIONS                 
-
+// CHECK INTEGER EXPRESSIONS
 public FORMTENV checkIntExp(exp:add(Expression Exp1, Expression Exp2), Type req, FORMTENV env) =                        
   	req == integer()||req == String() ? checkExp(Exp1, integer(), checkExp(Exp2, integer(), env))
                    : addError(env, exp@location, required(req, "integer"));

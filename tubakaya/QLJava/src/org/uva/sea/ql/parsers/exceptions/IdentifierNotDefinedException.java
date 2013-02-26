@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parsers.exceptions;
 
-import org.uva.sea.ql.core.dom.Identifier;
+import org.uva.sea.ql.ast.Identifier;
 
 public class IdentifierNotDefinedException extends QLException {
 	

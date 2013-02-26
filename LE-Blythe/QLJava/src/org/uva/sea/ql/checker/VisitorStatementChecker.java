@@ -8,13 +8,13 @@ import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IVisitorStatement;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.IVisitorStatement;
 import org.uva.sea.ql.util.Environment;
 
 public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
@@ -47,7 +47,7 @@ public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 	
 	
 	private boolean checkExpression(Expr expression, Type type){
-		return 	expression.accept(new VisitorExprChecker(environment, errors)) 
+		return 	expression.accept(new VisitorExpressionChecker(environment, errors)) 
 				&
 				checkType(expression, type);
 	}

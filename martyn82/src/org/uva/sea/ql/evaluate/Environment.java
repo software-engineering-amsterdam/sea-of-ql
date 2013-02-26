@@ -17,6 +17,10 @@ abstract public class Environment<T> {
 		this.errors.addError( error );
 	}
 
+	public void clearErrors() {
+		this.errors.clear();
+	}
+
 	abstract public boolean isDeclared( IdentifierExpression identifier );
 	abstract public void declare( IdentifierExpression identifier, T definition );
 	abstract public T lookup( IdentifierExpression identifier );

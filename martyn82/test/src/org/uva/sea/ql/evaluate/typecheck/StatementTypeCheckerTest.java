@@ -27,6 +27,8 @@ import org.uva.sea.ql.ast.statement.VariableDeclaration;
 import org.uva.sea.ql.ast.statement.VariableQuestion;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.evaluate.Error;
+import org.uva.sea.ql.evaluate.ErrorList;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements StatementTest {
@@ -43,7 +45,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 	}
 
 	private Boolean typeCheck( Statement statement ) {
-		this.environment.getErrors().clear();
+		this.environment.clearErrors();
 
 		if ( !statement.accept( this.statementChecker ) ) {
 			return false;
@@ -60,6 +62,14 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		return true;
 	}
 
+	private ErrorList getErrorList() {
+		return this.environment.getErrorList();
+	}
+
+	private Error getFirstError() {
+		return this.getErrorList().iterator().next();
+	}
+
 	@Test
 	@Override
 	public void testVarDeclaration() {
@@ -70,7 +80,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		assertTrue( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IntegerLiteral( 23 ) ) ) );
 
 		assertFalse( typeCheck( new Assignment( new IdentifierExpression( "x" ), new IdentifierExpression( "y" ) ) ) );
-		assertEquals( TypeError.TYPE_UNDEFINED, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_UNDEFINED, this.getFirstError().getCode() );
 
 		assertFalse(
 			typeCheck(
@@ -81,7 +91,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 				)
 			)
 		);
-		assertEquals( TypeError.TYPE_UNDEFINED, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_UNDEFINED, this.getFirstError().getCode() );
 
 		/*
 		 * if ( true ) {
@@ -103,7 +113,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 			)
 		);
 
-		assertEquals( TypeError.TYPE_ERROR, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_ERROR, this.getFirstError().getCode() );
 	}
 
 	@Test
@@ -112,7 +122,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		assertTrue( typeCheck( new IfThen( new BooleanLiteral( true ), new Statements() ) ) );
 
 		assertFalse( typeCheck( new IfThen( new IntegerLiteral( 1 ), new Statements() ) ) );
-		assertEquals( TypeError.TYPE_INVALID, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_INVALID, this.getFirstError().getCode() );
 
 		/*
 		 * if ( true ) {
@@ -136,7 +146,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 				)
 			)
 		);
-		assertEquals( TypeError.TYPE_MISMATCH, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_MISMATCH, this.getFirstError().getCode() );
 	}
 
 	@Test
@@ -158,7 +168,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 		);
 
 		assertFalse( typeCheck( new IfThenElse( new IntegerLiteral( 1 ), new Statements(), new Statements() ) ) );
-		assertEquals( TypeError.TYPE_INVALID, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_INVALID, this.getFirstError().getCode() );
 
 		/*
 		 * if ( true ) {
@@ -183,7 +193,7 @@ public class StatementTypeCheckerTest extends VisitorTest<Boolean> implements St
 				)
 			)
 		);
-		assertEquals( TypeError.TYPE_MISMATCH, this.environment.getErrors().get( 0 ).getCode() );
+		assertEquals( TypeError.TYPE_MISMATCH, this.getFirstError().getCode() );
 
 	}
 

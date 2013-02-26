@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.core.dom.statements.ComputedValue;
-import org.uva.sea.ql.core.dom.statements.Form;
-import org.uva.sea.ql.core.dom.statements.IfStatement;
-import org.uva.sea.ql.core.dom.statements.Question;
+import org.uva.sea.ql.ast.statements.ComputedValue;
+import org.uva.sea.ql.ast.statements.Form;
+import org.uva.sea.ql.ast.statements.IfStatement;
+import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.ParserBaseForStatements;
 import org.uva.sea.ql.parsers.exceptions.ParseException;

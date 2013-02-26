@@ -4,7 +4,7 @@ import Prelude;
 import syntax::Abstract;
 import Visualization::ControlFlow;
 
-set[Occurrence] usesExp(Expression e, Statement s) = 
+set[Occurrence] usesExp(Expression e, Body s) = 
   u:id(QuestionireId Id) := e ? {< u@location, Id, s>}
                        : {< u@location, Id, s> | /u:id(QuestionireId Id) <- e };
      
@@ -14,13 +14,13 @@ set[Occurrence] usesStat(s: ifStat(Expression e, list[Body] s1))
 	usesExp(e, s);
 }
 
-set[Occurrence] usesStat(s: ifElseStat(Expression e,list[Statement] s1,list[Statement] s2)) = usesExp(e, s) + usesStats(s1) + usesStats(s2);
+set[Occurrence] usesStat(s: ifElseStat(Expression e,list[Body] s1,list[Body] s2)) = usesExp(e, s) + usesStats(s1) + usesStats(s2);
 
-set[Occurrence] usesStats(list[Statement] stats) = {*usesStat(s) | s <- stats};
+set[Occurrence] usesStats(list[Body] stats) = {*usesStat(s) | s <- stats};
 
 
 public set[Occurrence] uses(Form p) 
-{println("IN USES : <p.questionnaireName>");
+{println("IN USES : <p.questionaireName>");
 	usesStats(p.stats);
 }
 

@@ -19,6 +19,10 @@ public class ErrorList implements Iterable<Error> {
 		return this.errors.size();
 	}
 
+	public void clear() {
+		this.errors.clear();
+	}
+
 	@Override
 	public Iterator<Error> iterator() {
 		return this.errors.iterator();
