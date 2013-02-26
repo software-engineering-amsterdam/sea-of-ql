@@ -24,7 +24,7 @@ public map[str,set[str]] getDependenciesMap(list[FormBodyItem] bodyItems){
 
 map[str,set[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,set[str] dependVars] dependenciesMap){
 	vars=getVariableDependencies(exp);
-	//14 tijs code has problem? ha
+	//14 tijs code has problem
 	for(x<-vars){
 		if(x in dependenciesMap){
 			dependenciesMap[x]+={depended};
@@ -33,7 +33,7 @@ map[str,set[str]] resolveVariableDependencies(Expr exp,str depended,map[str var,
 			dependenciesMap+=("<x>":{depended});
 		}
 	
-	 //dependenciesMap[x]?  dependenciesMap+= <depended>;
+	 //dependenciesMap[x]? {} += {depended};
 	}
 	
 	return dependenciesMap;
