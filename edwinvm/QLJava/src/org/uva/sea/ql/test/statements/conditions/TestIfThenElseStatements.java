@@ -24,7 +24,7 @@ public class TestIfThenElseStatements extends ConditionTypeChecker {
 				"\"Do you want to buy a house in 2013?\" wantsToBuyHouse: boolean " +
 				"if (wantsToBuyHouse) { " + 
 					"\"Did you sell a house in 2010?\" hasSoldHouse: boolean " +
-				"} else { " +
+				"} else if (true) { " +
 					"\"Did you buy a car in 2010?\" hasBoughtCar: boolean " +
 				"}" +
 			"}"
