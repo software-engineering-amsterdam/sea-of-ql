@@ -20,11 +20,14 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 
 	private Map<Identifier, Type> identifierTypeMap;
 	private List<QLException> exceptions;
+	private ExpressionTypeCheckingVisitor expressionTypeCheckingVisitor;
 
 	public ExpressionCheckingVisitor(Map<Identifier, Type> identifierTypeMap,
 			List<QLException> exceptions) {
 		this.identifierTypeMap = identifierTypeMap;
 		this.exceptions = exceptions;
+		this.expressionTypeCheckingVisitor = new ExpressionTypeCheckingVisitor(
+				identifierTypeMap);
 	}
 
 	@Override
@@ -130,45 +133,51 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 	}
 
 	private void visitBase(ArithmeticOperator arithmeticOperator) {
-		arithmeticOperator.getLhs().accept(this);
-		arithmeticOperator.getRhs().accept(this);
 
-		Type typeLhs = arithmeticOperator.getLhs().getType();
+		Expression lhs = arithmeticOperator.getLhs();
+		Expression rhs = arithmeticOperator.getRhs();
 
-		if (!typeLhs.isCompatibleToInteger()) {
-			addExceptionInExceptionsList(arithmeticOperator.getLhs());
-		}
+		lhs.accept(this);
+		rhs.accept(this);
 
-		Type typeRhs = arithmeticOperator.getRhs().getType();
+		Type compatibleType = new IntegerType();
+		checkExpressionTypeCompatibility(lhs, compatibleType);
+		checkExpressionTypeCompatibility(rhs, compatibleType);
+	}
 
-		if (!typeRhs.isCompatibleToInteger()) {
-			addExceptionInExceptionsList(arithmeticOperator.getRhs());
+	private void checkExpressionTypeCompatibility(Expression lhs,
+			Type compatibleType) {
+		
+		Type typeLhs = lhs.accept(expressionTypeCheckingVisitor);
+
+		if (!typeLhs.isCompatibleTo(compatibleType)) {
+			addExceptionInExceptionsList(lhs);
 		}
 	}
 
 	private void visitBase(ConditionalOperator conditionalOperator) {
-		conditionalOperator.getLhs().accept(this);
-		conditionalOperator.getRhs().accept(this);
 
-		Type typeLhs = conditionalOperator.getLhs().getType();
+		Expression lhs = conditionalOperator.getLhs();
+		Expression rhs = conditionalOperator.getRhs();
 
-		if (!typeLhs.isCompatibleToBoolean()) {
-			addExceptionInExceptionsList(conditionalOperator.getLhs());
-		}
+		lhs.accept(this);
+		rhs.accept(this);
 
-		Type typeRhs = conditionalOperator.getRhs().getType();
-
-		if (!typeRhs.isCompatibleToBoolean()) {
-			addExceptionInExceptionsList(conditionalOperator.getRhs());
-		}
+		Type compatibleType = new BooleanType();
+		checkExpressionTypeCompatibility(lhs, compatibleType);
+		checkExpressionTypeCompatibility(rhs, compatibleType);
 	}
 
 	private void visitBase(RelationalOperator relationalOperator) {
-		relationalOperator.getLhs().accept(this);
-		relationalOperator.getRhs().accept(this);
 
-		Type typeLhs = relationalOperator.getLhs().getType();
-		Type typeRhs = relationalOperator.getRhs().getType();
+		Expression lhs = relationalOperator.getLhs();
+		Expression rhs = relationalOperator.getRhs();
+
+		lhs.accept(this);
+		rhs.accept(this);
+
+		Type typeLhs = lhs.accept(expressionTypeCheckingVisitor);
+		Type typeRhs = rhs.accept(expressionTypeCheckingVisitor);
 
 		if (!(typeLhs.isCompatibleToInteger() && typeRhs
 				.isCompatibleToInteger())) {
@@ -188,11 +197,12 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 		visitBase(unaryLogicalOperator, new BooleanType());
 	}
 
-	private void visitBase(UnaryOperator unaryLogicalOperator, Type compatibleType) {
+	private void visitBase(UnaryOperator unaryLogicalOperator,
+			Type compatibleType) {
 		Expression expression = unaryLogicalOperator.getExpression();
 		expression.accept(this);
 
-		Type type = expression.getType();
+		Type type = expression.accept(expressionTypeCheckingVisitor);
 
 		if (!type.isCompatibleTo(compatibleType)) {
 			addExceptionInExceptionsList(expression);

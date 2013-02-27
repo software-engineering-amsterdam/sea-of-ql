@@ -18,6 +18,6 @@ public class ExpressionTypeNotCompatibleException extends QLException {
 
 	@Override
 	public String ToString() {
-		return String.format("Expression type is not compatible to operate. Expression type : {0}",expression.getType());
+		return String.format("Expression type is not compatible to operate. Expression class : {0}",expression.getClass());
 	}
 }

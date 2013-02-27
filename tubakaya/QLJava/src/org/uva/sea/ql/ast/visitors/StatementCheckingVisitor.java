@@ -22,10 +22,13 @@ public class StatementCheckingVisitor implements StatementVisitor {
 
 	private Map<Identifier, Type> identifierTypeMap;
 	private List<QLException> exceptions;
-
+	private ExpressionTypeCheckingVisitor expressionTypeCheckingVisitor;
+	
 	public StatementCheckingVisitor() {
 		identifierTypeMap = new HashMap<Identifier, Type>();
 		exceptions = new ArrayList<QLException>();
+		this.expressionTypeCheckingVisitor = new ExpressionTypeCheckingVisitor(
+				identifierTypeMap);
 	}
 
 	public List<QLException> getExceptions() {
@@ -80,7 +83,7 @@ public class StatementCheckingVisitor implements StatementVisitor {
 
 	private void checkExpressionValidation(Expression expression, Type type) {
 		expression.accept(getExpressionCheckingVisitor());
-
+	
 		if (!typeOfExpressionIsCompatible(expression, type)) {
 			addExceptionInExceptionsList(expression);
 		}
@@ -114,7 +117,10 @@ public class StatementCheckingVisitor implements StatementVisitor {
 	}
 
 	private boolean typeOfExpressionIsCompatible(Expression expression,
-			Type type) {
-		return expression.getType().isCompatibleTo(type);
+			Type compatibleType) {
+		
+		Type type = expression.accept(expressionTypeCheckingVisitor);
+
+		return type.isCompatibleTo(compatibleType);
 	}
 }
