@@ -10,7 +10,10 @@ ASTLabelType= CommonTree;
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.type.*;
+import org.uva.sea.ql.value.*;
 }
 
 @lexer::header
@@ -22,48 +25,32 @@ form
 : 'form'! Ident^ '{'! block '}'!
 ;
 
-block
+// TODO Bart's BlockNode
+block returns [Block node]
 : statement*
 ;
 
-statement
-: ifStatement | assignment
+statement returns [Statement statement]
+: ifStatement {$statement = $ifStatement.node;}
+| assignment {$statement = $assignment.node;}
 ;
 
-assignment
-: Ident ':'^ StringLiteral type
+// TODO check Bart's IfNode
+ifStatement returns [IfStatement node]
+: 'if'^ orExpression '{'! block '}'! //{$node =  new IfStatement();}
+  ('else'^ '{'! block '}'! {$node = null;} )?
 ;
 
-
-ifStatement
-: ifStat elseIfStat* elseStat?
+assignment returns [Assignment node]
+: Ident ':'^ StringLiteral type { $node = new Assignment(new Ident($Ident.text), $StringLiteral.text, $type.type); }
 ;
 
-ifStat
-: 'if'^ orExpression '{'! block '}'!
+type returns [Type type]
+: 'integer' {$type = new IntType();}
+| 'boolean'
+| 'string'
+| 'money'
 ;
-
-elseIfStat
-: ('else' 'if')^ orExpression '{'! block '}'!
-;
-
-elseStat
-: 'else'^ '{'! block '}'!
-;
-
-
-type
-: 'Integer'
-| 'Boolean'
-| 'StringLiteral'
-;
-
-/*term
-: Ident
-| Int
-| StringLiteral
-| Bool
-;*/
 
 primary returns [Expr result]
 : Int   { $result = new Int(Integer.parseInt($Int.text)); } 

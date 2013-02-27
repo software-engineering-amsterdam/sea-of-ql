@@ -1,6 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
 import java.util.Map;
 
@@ -18,6 +19,11 @@ public class Neg extends Expr {
     {
         Value value = this.expr.evaluate(variables);
         return value.neg();
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
 }

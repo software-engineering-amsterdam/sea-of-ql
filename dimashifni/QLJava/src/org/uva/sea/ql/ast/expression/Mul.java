@@ -1,14 +1,15 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
 import java.util.Map;
 
-public class LEq extends Expr {
+public class Mul extends Expr {
     private final Expr rhs;
     private final Expr lhs;
 
-    public LEq(Expr rhs, Expr lhs)
+    public Mul(Expr rhs, Expr lhs)
     {
         this.rhs = rhs;
         this.lhs = lhs;
@@ -19,7 +20,12 @@ public class LEq extends Expr {
     {
         Value rhs = this.rhs.evaluate(variables);
         Value lhs = this.lhs.evaluate(variables);
-        return rhs.lEq(rhs);
+        return rhs.mul(rhs);
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
 }

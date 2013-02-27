@@ -52,4 +52,9 @@ public class BooleanValue extends Value{
     public Boolean getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

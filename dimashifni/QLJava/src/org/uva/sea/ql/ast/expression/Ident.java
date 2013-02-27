@@ -1,6 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
 import java.util.Map;
 
@@ -20,6 +21,11 @@ public class Ident extends Expr {
     public Value evaluate(Map<Ident, Value> variables)
     {
         return variables.get(this);
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 
     @Override

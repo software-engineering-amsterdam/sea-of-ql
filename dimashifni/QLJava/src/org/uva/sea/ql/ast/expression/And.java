@@ -1,6 +1,7 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
 import java.util.Map;
 
@@ -19,5 +20,10 @@ public class And extends Expr {
         Value lhs = this.lhs.evaluate(variables);
         Value rhs = this.rhs.evaluate(variables);
         return lhs.and(rhs);
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

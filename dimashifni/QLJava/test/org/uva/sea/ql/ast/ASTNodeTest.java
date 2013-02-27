@@ -5,6 +5,7 @@ package org.uva.sea.ql.ast;
 
 import junit.framework.Assert;
 import org.junit.Test;
+import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.MoneyValue;

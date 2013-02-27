@@ -2,14 +2,8 @@ package org.uva.sea.ql.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
