@@ -4,16 +4,20 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
 
 public class Div extends Expr {
-	
-	public Div (Expr result, Expr rhs)
+    private final Expr rhs;
+    private final Expr lhs;
+
+	public Div (Expr rhs, Expr lhs)
 	{
-		
+        this.rhs = rhs;
+        this.lhs = lhs;
 	}
 
     @Override
     public Value evaluate()
     {
-        // TODO
-        return null;
+        Value rhs = this.rhs.evaluate();
+        Value lhs = this.lhs.evaluate();
+        return rhs.div(lhs);
     }
 }

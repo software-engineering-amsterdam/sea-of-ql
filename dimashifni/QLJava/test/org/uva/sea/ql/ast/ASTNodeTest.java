@@ -7,6 +7,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
 
 /**
@@ -32,5 +33,87 @@ public class ASTNodeTest {
         Value result = value1.and(value2);
         Assert.assertEquals("false", result.getValue().toString());
     }
+
+    @Test
+    public void testOr()
+    {
+        BooleanValue value1 = new BooleanValue(1 > 2);
+        BooleanValue value2 = new BooleanValue(false);
+        Value result = value1.or(value2);
+        Assert.assertEquals("false", result.getValue().toString());
+    }
+
+    @Test
+    public void testDiv()
+    {
+        IntegerValue value1 = new IntegerValue(1);
+        IntegerValue value2 = new IntegerValue(2);
+        Value result = value1.div(value2);
+        Assert.assertEquals("0", result.getValue().toString());
+    }
+
+    @Test
+    public void testEq()
+    {
+        BooleanValue value1 = new BooleanValue(true);
+        BooleanValue value2 = new BooleanValue(false);
+        Value result = value1.eq(value2);
+        Assert.assertEquals("false", result.getValue().toString());
+    }
+
+    @Test
+    public void testGeq()
+    {
+        IntegerValue value1 = new IntegerValue(1);
+        IntegerValue value2 = new IntegerValue(1);
+        Value result = value1.gEq(value2);
+        Assert.assertEquals("true", result.getValue().toString());
+    }
+
+    @Test
+    public void testGT()
+    {
+        MoneyValue value1 = new MoneyValue(1.00);
+        MoneyValue value2 = new MoneyValue(0.00);
+        Value result = value1.gT(value2);
+        Assert.assertEquals("true", result.getValue().toString());
+    }
+
+    @Test
+    public void testLEq()
+    {
+        IntegerValue value1 = new IntegerValue(1);
+        IntegerValue value2 = new IntegerValue(1);
+        Value result = value1.lEq(value2);
+        Assert.assertEquals("true", result.getValue().toString());
+    }
+
+    @Test
+    public void testLT()
+    {
+        IntegerValue value1 = new IntegerValue(1);
+        IntegerValue value2 = new IntegerValue(1);
+        Value result = value1.lT(value2);
+        Assert.assertEquals("false", result.getValue().toString());
+    }
+
+    @Test
+    public void testMul()
+    {
+        MoneyValue value1 = new MoneyValue(1.00);
+        MoneyValue value2 = new MoneyValue(1.00);
+        Value result = value1.mul(value2);
+        Assert.assertEquals("1.0", result.getValue().toString());
+    }
+
+    @Test
+    public void testNeq()
+    {
+        MoneyValue value1 = new MoneyValue(1.00);
+        MoneyValue value2 = new MoneyValue(1.00);
+        Value result = value1.nEq(value2);
+        Assert.assertEquals("true", result.getValue().toString());
+    }
+
 
 }

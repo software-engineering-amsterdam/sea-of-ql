@@ -4,21 +4,21 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
 
 public class Mul extends Expr {
+    private final Expr rhs;
+    private final Expr lhs;
 
-    private Expr lhs;
-    private Expr rhs;
-
-    public Mul (Expr lhs, Expr rhs)
+    public Mul(Expr rhs, Expr lhs)
     {
-        this.lhs = lhs;
         this.rhs = rhs;
+        this.lhs = lhs;
     }
 
     @Override
     public Value evaluate()
     {
-        // TODO
-        return null;
+        Value rhs = this.rhs.evaluate();
+        Value lhs = this.lhs.evaluate();
+        return rhs.mul(rhs);
     }
 
 }

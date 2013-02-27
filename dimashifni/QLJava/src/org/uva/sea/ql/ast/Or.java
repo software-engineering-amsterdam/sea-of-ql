@@ -4,17 +4,21 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
 
 public class Or extends Expr {
-	
-	public Or(Expr result, Expr rhs)
+    private final Expr lhs;
+    private final Expr rhs;
+
+	public Or(Expr lhs, Expr rhs)
 	{
-		
+		this.rhs  = rhs;
+        this.lhs = lhs;
 	}
 
     @Override
     public Value evaluate()
     {
-        // TODO
-        return null;
+        Value rhs = this.rhs.evaluate();
+        Value lhs = this.lhs.evaluate();
+        return lhs .or(rhs);
     }
 
 }

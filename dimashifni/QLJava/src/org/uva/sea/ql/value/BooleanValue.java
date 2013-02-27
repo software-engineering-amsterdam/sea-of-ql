@@ -24,6 +24,26 @@ public class BooleanValue extends Value{
         return new BooleanValue(booleanValue.getValue() && getValue());
     }
 
+    @Override
+    public Value eq(Value value) {
+        return value.eqBoolean(this);
+    }
+
+    @Override
+    public Value eqBoolean(BooleanValue booleanValue) {
+        return new BooleanValue(booleanValue.getValue() == getValue());
+    }
+
+    @Override
+    public Value or(Value value) {
+        return value.orBoolean(this);
+    }
+
+    @Override
+    public Value orBoolean(BooleanValue booleanValue) {
+        return new BooleanValue(booleanValue.getValue() || getValue());
+    }
+
     public Boolean getValue() {
         return value;
     }

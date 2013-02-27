@@ -4,7 +4,6 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
 
 public class And extends Expr {
-
     private final Expr lhs;
     private final Expr rhs;
 
