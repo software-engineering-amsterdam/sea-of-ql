@@ -2,9 +2,9 @@ package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.TypeVisitor;
 
-public class IntType extends Type {
+public class IntegerType extends Type {
 
-	public IntType() {
+	public IntegerType() {
 		super("int");
 	}
 

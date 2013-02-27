@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.types.literals;
 
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
-import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.Type;
 
 public class IntLiteral extends Expression {
@@ -20,6 +20,6 @@ public class IntLiteral extends Expression {
 
 	@Override
 	public Type getType() {
-		return new IntType();
+		return new IntegerType();
 	}
 }

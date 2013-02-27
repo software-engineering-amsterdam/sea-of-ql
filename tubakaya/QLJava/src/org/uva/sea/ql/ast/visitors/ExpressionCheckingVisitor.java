@@ -181,7 +181,7 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 	}
 
 	private void visitBase(UnaryArithmeticOperator unaryArithmeticOperator) {
-		visitBase(unaryArithmeticOperator, new IntType());
+		visitBase(unaryArithmeticOperator, new IntegerType());
 	}
 
 	private void visitBase(UnaryLogicalOperator unaryLogicalOperator) {

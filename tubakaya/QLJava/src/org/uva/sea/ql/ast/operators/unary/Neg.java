@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.operators.unary;
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.operators.UnaryArithmeticOperator;
-import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.Type;
 
 public class Neg extends UnaryArithmeticOperator {
@@ -19,6 +19,6 @@ public class Neg extends UnaryArithmeticOperator {
 
 	@Override
 	public Type getType() {
-		return new IntType();
+		return new IntegerType();
 	}
 }

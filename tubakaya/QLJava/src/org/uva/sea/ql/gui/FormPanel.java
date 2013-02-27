@@ -9,8 +9,8 @@ import javax.swing.JScrollPane;
 
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.statements.Form;
+import org.uva.sea.ql.ast.visitors.StatementCheckingVisitor;
 import org.uva.sea.ql.ast.visitors.StatementVisitorForRendering;
-import org.uva.sea.ql.ast.visitors.StatementVisitorToCheckIdentifierDefinitions;
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 import org.uva.sea.ql.parsers.exceptions.QLException;
@@ -28,8 +28,7 @@ public class FormPanel extends JFrame {
 			String filePath = "C:\\Tubis\\School\\Software Construction\\QLTest.txt";
 			FormParser parser = new FormParser();
 			Form rootNode = (Form)parser.parseFromFile(filePath);			
-			List<Identifier> identifiers = ValidateIdentifierDefinitions(rootNode);
-			FillTypesOfIdentifiers(rootNode, identifiers);
+			ValidateIdentifierDefinitions(rootNode);
 			
 			JPanel rootPanel=new JPanel();
 			AddFormOnRootPanel(rootPanel,rootNode);
@@ -47,27 +46,18 @@ public class FormPanel extends JFrame {
 		}
 	}
 
-	private static List<Identifier> ValidateIdentifierDefinitions(Form form){
-		StatementVisitorToCheckIdentifierDefinitions statementVisitor = new StatementVisitorToCheckIdentifierDefinitions();
+	private static void ValidateIdentifierDefinitions(Form form){
+		StatementCheckingVisitor statementVisitor = new StatementCheckingVisitor();
 		form.accept(statementVisitor);		
 		
 		List<QLException> statementExceptions= new ArrayList<QLException>(statementVisitor.getExceptions());
 		printException(statementExceptions);
-		
-		return statementVisitor.getIdentifierList();
 	}	
 	
 	private static void printException(List<QLException> exceptions) {		
 		for(QLException exception: exceptions){
 			System.out.println(exception.ToString());
 		}		
-	}
-	
-	private static void FillTypesOfIdentifiers(Form form, List<Identifier> identifiers){
-		/*ExpressionVisitorToSetTypeOfIdentifiers expressionVisitor=new ExpressionVisitorToSetTypeOfIdentifiers(identifiers);
-		StatementVisitorToSetTypesOfIdentifiers statementVisitor = new StatementVisitorToSetTypesOfIdentifiers(expressionVisitor);
-		
-		form.accept(statementVisitor);*/
 	}
 
 	private static void AddFormOnRootPanel(JPanel rootPanel,Form rootNode){

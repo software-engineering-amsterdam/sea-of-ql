@@ -583,7 +583,7 @@ public class QLParser extends Parser {
 					// C:\\Tubis\\School\\Software Construction\\WorkSpace\\sea-of-ql\\tubakaya\\QLJava\\src\\org\\uva\\sea\\ql\\parsers\\antlr\\QL.g:52:5: x= 'integer'
 					{
 					x=(Token)match(input,28,FOLLOW_28_in_type255); if (state.failed) return result;
-					if ( state.backtracking==0 ) {result =new IntType();}
+					if ( state.backtracking==0 ) {result =new IntegerType();}
 					}
 					break;
 				case 3 :
