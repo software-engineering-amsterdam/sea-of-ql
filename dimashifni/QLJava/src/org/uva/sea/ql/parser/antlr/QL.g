@@ -67,7 +67,9 @@ type
 
 primary returns [Expr result]
 : Int   { $result = new Int(Integer.parseInt($Int.text)); } 
-| Ident { $result = new Ident($Ident.text); } 
+| Money   { $result = new Money(Double.parseDouble($Money.text)); }
+// TODO add Bool, StringLiteral
+| Ident { $result = new Ident($Ident.text); }
 | '('! x=orExpression ')'! { $result = $x.result; }
 ;
     
@@ -137,3 +139,5 @@ Bool
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+Money: Int '.' Int;

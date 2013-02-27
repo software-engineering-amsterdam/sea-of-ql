@@ -1,23 +1,24 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
 
+// TODO Bool, Str, Money
 public class Int extends Expr {
 
-	private final int value;
+	private final IntegerValue value;
 
 	public Int(int n) {
-		this.value = n;
+		this.value = new IntegerValue(n);
 	}
 
-	public int getValue() {
+	public IntegerValue getValue() {
 		return value;
 	}
 
     @Override
     public Value evaluate()
     {
-        // TODO
-        return null;
+        return value;
     }
 }
