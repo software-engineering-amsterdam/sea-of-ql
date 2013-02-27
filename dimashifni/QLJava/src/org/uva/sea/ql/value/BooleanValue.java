@@ -44,6 +44,11 @@ public class BooleanValue extends Value{
         return new BooleanValue(booleanValue.getValue() || getValue());
     }
 
+    @Override
+    public Value not() {
+        return new BooleanValue(!getValue());
+    }
+
     public Boolean getValue() {
         return value;
     }

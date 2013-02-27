@@ -28,6 +28,16 @@ public class MoneyValue extends Value{
     }
 
     @Override
+    public Value sub(Value value) {
+        return value.subMoney(this);
+    }
+
+    @Override
+    public Value subMoney(MoneyValue moneyValue) {
+        return new MoneyValue(moneyValue.getValue() - getValue());
+    }
+
+    @Override
     public Value div(Value value) {
         return value.divMoney(this);
     }
@@ -105,6 +115,16 @@ public class MoneyValue extends Value{
     @Override
     public Value nEqMoney(MoneyValue value) {
         return new BooleanValue(value.getValue() != this.getValue());
+    }
+
+    @Override
+    public Value neg() {
+        return new MoneyValue(-1D * getValue());
+    }
+
+    @Override
+    public Value pos() {
+        return new MoneyValue(getValue());
     }
 
     public Double getValue() {

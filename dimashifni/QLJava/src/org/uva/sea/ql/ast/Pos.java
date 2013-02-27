@@ -5,18 +5,18 @@ import org.uva.sea.ql.value.Value;
 
 public class Pos extends Expr {
 
-    private final Expr x;
+    private final Expr expr;
 
-	public Pos(Expr x)
+	public Pos(Expr expr)
 	{
-        this.x = x;
+        this.expr = expr;
 	}
 
     @Override
     public Value evaluate()
     {
-        // TODO
-        return null;
+        Value value = expr.evaluate();
+        return value.pos();
     }
 
 }

@@ -56,7 +56,37 @@ public abstract class Value {
         throw new UnsupportedOperationException("unsupported operation");
     }
 
+    public Value neg()
+    {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
+
+    public Value not()
+    {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
+
+    public Value pos()
+    {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
+
     public Value nEq(Value value)
+    {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
+
+    public Value sub(Value value)
+    {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
+
+    public Value subInt(IntegerValue integerValue)
+    {
+        throw new UnsupportedOperationException("unsupported operation");
+    }
+
+    public Value subMoney(MoneyValue moneyValue)
     {
         throw new UnsupportedOperationException("unsupported operation");
     }

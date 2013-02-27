@@ -115,5 +115,38 @@ public class ASTNodeTest {
         Assert.assertEquals("true", result.getValue().toString());
     }
 
+    @Test
+    public void testNeg()
+    {
+        IntegerValue value1 = new IntegerValue(1);
+        Value result = value1.neg();
+        Assert.assertEquals("-1", result.getValue().toString());
+    }
+
+    @Test
+    public void testPos()
+    {
+        MoneyValue value1 = new MoneyValue(1.00);
+        Value result = value1.pos();
+        Assert.assertEquals("1.0", result.getValue().toString());
+    }
+
+    @Test
+    public void testNot()
+    {
+        BooleanValue value1 = new BooleanValue(true);
+        Value result = value1.not();
+        Assert.assertEquals("false", result.getValue().toString());
+    }
+
+    @Test
+    public void testSub()
+    {
+        MoneyValue value1 = new MoneyValue(2.00);
+        MoneyValue value2 = new MoneyValue(1.00);
+        Value result = value1.sub(value2);
+        Assert.assertEquals("1.0", result.getValue().toString());
+    }
+
 
 }

@@ -26,6 +26,16 @@ public class IntegerValue extends Value {
     }
 
     @Override
+    public Value sub(Value value) {
+        return value.subInt(this);
+    }
+
+    @Override
+    public Value subInt(IntegerValue integerValue) {
+        return new IntegerValue(integerValue.getValue() - getValue());
+    }
+
+    @Override
     public Value div(Value value) {
         return value.divInt(this);
     }
@@ -93,6 +103,16 @@ public class IntegerValue extends Value {
     @Override
     public Value mulInt(IntegerValue value) {
         return new BooleanValue(value.getValue() != this.getValue());
+    }
+
+    @Override
+    public Value neg() {
+        return new IntegerValue(-1 * getValue());
+    }
+
+    @Override
+    public Value pos() {
+        return new IntegerValue(getValue());
     }
 
     public Integer getValue() {
