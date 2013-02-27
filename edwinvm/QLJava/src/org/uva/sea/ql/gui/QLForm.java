@@ -14,23 +14,34 @@ public class QLForm {
 
 	private JFrame _qlFrame;
 	
+	public static void main(String[] args) { new QLForm(); }
+	
 	public QLForm() {
-		initializeFormLayout();
-		
+		renderQLForm();
+	}
+	
+	private void renderQLForm() {
+		initializeForm();
+		renderQLStatements(getFormBody());
+		setFormLayout();
+	}
+	
+	private StatementBody getFormBody() {
 		Form qlForm = QLHandler.getFormAST();
-		StatementBody qlBody = qlForm.getBody();
-		
-		for (FormStatement statement: qlBody.getStatements()) {
+		return qlForm.getBody();
+	}
+	
+	private void renderQLStatements(StatementBody body) {
+		for (FormStatement statement: body.getStatements()) {
 			_qlFrame.add(GUIRenderer.render(statement, new State()));
 		}
 	}
 	
-	public static void main(String[] args) {
-		new QLForm();
+	private void initializeForm() {
+		_qlFrame = new JFrame("QL Form");
 	}
 	
-	private void initializeFormLayout() {
-		_qlFrame = new JFrame("QL Form");
+	private void setFormLayout() {
 		_qlFrame.setSize(850,550);
 		_qlFrame.setLayout(new FlowLayout());
 		_qlFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
