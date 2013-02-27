@@ -3,6 +3,8 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
 
+import java.util.Map;
+
 // TODO Bool, Str, Money
 public class Int extends Expr {
 
@@ -17,7 +19,7 @@ public class Int extends Expr {
 	}
 
     @Override
-    public Value evaluate()
+    public Value evaluate(Map<Ident, Value> variables)
     {
         return value;
     }

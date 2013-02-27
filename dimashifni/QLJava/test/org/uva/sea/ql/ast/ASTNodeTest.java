@@ -10,6 +10,9 @@ import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author dimashifni
  *
@@ -148,5 +151,15 @@ public class ASTNodeTest {
         Assert.assertEquals("1.0", result.getValue().toString());
     }
 
-
+    @Test
+    public void testIdent()
+    {
+        Ident variable1 = new Ident("variable1");
+        Ident variable2 = new Ident("variable2");
+        Map<Ident, Value> variables = new HashMap<Ident, Value>();
+        variables.put(variable1, new IntegerValue(10));
+        variables.put(variable2, new BooleanValue(true));
+        Assert.assertEquals("10", variable1.evaluate(variables).getValue().toString());
+        Assert.assertEquals("true", variable2.evaluate(variables).getValue().toString());
+    }
 }

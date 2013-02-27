@@ -3,6 +3,8 @@ package org.uva.sea.ql.ast;
 import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
 
+import java.util.Map;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
@@ -23,7 +25,7 @@ public class Money extends Expr {
     }
 
     @Override
-    public Value evaluate() {
+    public Value evaluate(Map<Ident, Value> variables) {
         return value;
     }
 }

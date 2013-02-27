@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
+
+import java.util.Map;
 
 public class Neg extends Expr {
 
@@ -13,9 +14,9 @@ public class Neg extends Expr {
 	}
 
     @Override
-    public Value evaluate()
+    public Value evaluate(Map<Ident, Value> variables)
     {
-        Value value = this.expr.evaluate();
+        Value value = this.expr.evaluate(variables);
         return value.neg();
     }
 

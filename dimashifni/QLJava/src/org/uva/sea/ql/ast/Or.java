@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
+
+import java.util.Map;
 
 public class Or extends Expr {
     private final Expr lhs;
@@ -14,10 +15,10 @@ public class Or extends Expr {
 	}
 
     @Override
-    public Value evaluate()
+    public Value evaluate(Map<Ident, Value> variables)
     {
-        Value rhs = this.rhs.evaluate();
-        Value lhs = this.lhs.evaluate();
+        Value rhs = this.rhs.evaluate(variables);
+        Value lhs = this.lhs.evaluate(variables);
         return lhs .or(rhs);
     }
 

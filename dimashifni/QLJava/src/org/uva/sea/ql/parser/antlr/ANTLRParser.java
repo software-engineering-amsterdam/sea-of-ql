@@ -5,6 +5,10 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.value.Value;
+
+import java.util.HashMap;
 // import org.uva.sea.ql.ast.Expr;
 
 public class ANTLRParser implements IParse {
@@ -112,7 +116,7 @@ public class ANTLRParser implements IParse {
 //            CommonTree commonTree = parser.multiplyExpression().tree;
 //            System.out.println(commonTree.toStringTree());
             Expr result = parser.multiplyExpression().result;
-            System.out.println(result.evaluate());
+            System.out.println(result.evaluate(new HashMap<Ident, Value>()));
             System.out.println("OK multiply");
         } catch (RecognitionException e) {
 			// TODO Auto-generated catch block

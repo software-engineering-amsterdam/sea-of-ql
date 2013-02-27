@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.value.Value;
+
+import java.util.Map;
 
 public class Pos extends Expr {
 
@@ -13,9 +14,9 @@ public class Pos extends Expr {
 	}
 
     @Override
-    public Value evaluate()
+    public Value evaluate(Map<Ident, Value> variables)
     {
-        Value value = expr.evaluate();
+        Value value = expr.evaluate(variables);
         return value.pos();
     }
 
