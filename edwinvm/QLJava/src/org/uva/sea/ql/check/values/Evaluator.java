@@ -36,7 +36,7 @@ public class Evaluator implements Visitor<Value> {
 		_valueEnvironment = valueEnvironment;
 	}
 
-	public static Value eval(Expression expression, ValueEnvironment valueEnvironment) {
+	public static Value evaluate(Expression expression, ValueEnvironment valueEnvironment) {
 		Evaluator evaluator = new Evaluator(valueEnvironment);
 		return expression.accept(evaluator);
 	}

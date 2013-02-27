@@ -25,7 +25,7 @@ public class ExpressionValueChecker {
 	
 	private Value evaluateExpression(String input)     throws ParseError { return getValueFor(parseExpression(input)); }
 	
-	private Value getValueFor(Expression expression) { return Evaluator.eval(expression, _valueEnvironment); }
+	private Value getValueFor(Expression expression) { return Evaluator.evaluate(expression, _valueEnvironment); }
 	
 	private Expression parseExpression(String input)   throws ParseError { return new ANTLRParserExpressions().parse(input); }
 	
