@@ -75,15 +75,15 @@ public class Evaluator implements Visitor<Value> {
 	public Value visit(PositiveExpression expression)               { return new NullValue(); }
 	
 	@Override
-	public Value visit(Bool value)                { return value; }
+	public Value visit(Bool value)                                  { return value; }
 	@Override
-	public Value visit(Int value)                 { return value; }
+	public Value visit(Int value)                                   { return value; }
 	@Override
-	public Value visit(Money value)               { return value; }
+	public Value visit(Money value)                                 { return value; }
 	@Override
-	public Value visit(Str value)                 { return value; }
+	public Value visit(Str value)                                   { return value; }
 	@Override
-	public Value visit(NullValue astNode)         { return new NullValue(); }
+	public Value visit(NullValue astNode)                           { return new NullValue(); }
 	
 	@Override
 	public Value visit(Identifier indentifier) {
