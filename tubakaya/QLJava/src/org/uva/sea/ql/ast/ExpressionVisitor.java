@@ -1,23 +1,10 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.operators.arithmetic.Add;
-import org.uva.sea.ql.ast.operators.arithmetic.Div;
-import org.uva.sea.ql.ast.operators.arithmetic.Mul;
-import org.uva.sea.ql.ast.operators.arithmetic.Sub;
+import org.uva.sea.ql.ast.operators.arithmetic.*;
 import org.uva.sea.ql.ast.operators.conditional.*;
-import org.uva.sea.ql.ast.operators.relational.Eq;
-import org.uva.sea.ql.ast.operators.relational.GEq;
-import org.uva.sea.ql.ast.operators.relational.GT;
-import org.uva.sea.ql.ast.operators.relational.LEq;
-import org.uva.sea.ql.ast.operators.relational.LT;
-import org.uva.sea.ql.ast.operators.relational.NEq;
-import org.uva.sea.ql.ast.operators.unary.Neg;
-import org.uva.sea.ql.ast.operators.unary.Not;
-import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.MoneyLiteral;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
+import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.operators.unary.*;
+import org.uva.sea.ql.ast.types.literals.*;
 
 public interface ExpressionVisitor {
 	
@@ -25,7 +12,6 @@ public interface ExpressionVisitor {
 	void visit(BooleanLiteral booleanLiteral);
 	void visit(Identifier identifier);
 	void visit(IntLiteral integerLiteral);
-	void visit(MoneyLiteral moneyLiteral);
 	void visit(StringLiteral stringLiteral);
 
 	// Arithmetic operators

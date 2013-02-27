@@ -38,10 +38,6 @@ public class ExpressionVisitorToCheckTypeCompatibility implements ExpressionVisi
 	}
 
 	@Override
-	public void visit(MoneyLiteral moneyLiteral) {
-	}
-
-	@Override
 	public void visit(StringLiteral stringLiteral) {
 	}
 

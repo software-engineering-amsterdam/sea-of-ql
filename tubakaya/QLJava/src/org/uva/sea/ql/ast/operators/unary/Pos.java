@@ -2,11 +2,11 @@ package org.uva.sea.ql.ast.operators.unary;
 
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
-import org.uva.sea.ql.ast.operators.UnaryOperator;
+import org.uva.sea.ql.ast.operators.UnaryArithmeticOperator;
 import org.uva.sea.ql.ast.types.IntType;
 import org.uva.sea.ql.ast.types.Type;
 
-public class Pos extends UnaryOperator {
+public class Pos extends UnaryArithmeticOperator {
 
 	public Pos(Expression expr) {
 		super(expr);
