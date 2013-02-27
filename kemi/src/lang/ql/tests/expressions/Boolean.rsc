@@ -10,7 +10,7 @@
 
 module lang::ql::tests::expressions::Boolean
 
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import lang::ql::util::ParseHelper;
 
 public test bool testBool1() = 

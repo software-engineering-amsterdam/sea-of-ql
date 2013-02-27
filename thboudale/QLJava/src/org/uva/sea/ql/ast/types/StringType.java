@@ -1,13 +1,14 @@
 package org.uva.sea.ql.ast.types;
 
-public class StringType extends Type {
-	private final String sType;
-	
-	public StringType() {
-		this.sType = "string";
+public class StringType extends AType {
+
+	@Override
+	public boolean isCompatibleTo(AType t) {
+		return t.isCompatibleToStr();
 	}
 	
-	public String getSType() {
-		return sType;
+	@Override
+	public boolean isCompatibleToStr() {
+		return true;
 	}
 }

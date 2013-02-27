@@ -1,13 +1,19 @@
 grammar QL;
 
-
 options {backtrack=true; memoize=true;}
 
 @parser::header
 {
 package org.uva.sea.ql.parsers.antlr;
-import org.uva.sea.ql.ast.types.*; 
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.core.dom.*; 
+import org.uva.sea.ql.core.dom.operators.*;
+import org.uva.sea.ql.core.dom.operators.arithmetic.*;
+import org.uva.sea.ql.core.dom.operators.conditional.*;
+import org.uva.sea.ql.core.dom.operators.relational.*;
+import org.uva.sea.ql.core.dom.operators.unary.*;
+import org.uva.sea.ql.core.dom.statements.*;
+import org.uva.sea.ql.core.dom.types.declarations.*;
+import org.uva.sea.ql.core.dom.types.primitive.*;
 }
 
 @lexer::header
@@ -16,39 +22,53 @@ package org.uva.sea.ql.parsers.antlr;
 }
 
 form returns [Form result] 
-  : FORM IDENT '{' elements=formElementList '}' { $result = new Form($elements.result); }
+  : FORM IDENT '{' elements=statementList '}' { $result = new Form($elements.result); }
   ;
 
-formElementList returns [List<FormElement> result]
-  : {$result = new ArrayList<FormElement>();} (element=formElement {$result.add($element.result);})*
+statementList returns [List<Statement> result]
+  : {$result = new ArrayList<Statement>();} (element=statement {$result.add($element.result);})*
   ;
-  
-formElement returns [FormElement result]
-  : IDENT COLON STRING type { $result = new FormElement(new Ident($IDENT.text), new StringLiteral($STRING.text), $type.result); }
-  ;
-  
-type returns [TypeDefinition result]
-  : x='boolean' {$result = new BooleanDefinition(); }
-  | x='integer' {$result=new IntDefinition();}
-  | x='string'  {$result=new StringDefinition();}
+    
+statement returns [Statement result]
+  : question { $result = $question.result; }
+  | computedValue  { $result = $computedValue.result; }
+  | ifStatement { $result = $ifStatement.result; }
   ;
 
-primary returns [Expr result] 
+ifStatement returns [IfStatement result]
+  :'if' '(' x=orExpr ')' '{' statements = statementList '}' {$result = new IfStatement($x.result,statements);} 
+  ;  
+  
+computedValue returns [ComputedValue result]
+  : IDENT COLON STRING type '(' x=orExpr ')' { $result = new ComputedValue(new Identifier($IDENT.text), new StringLiteral($STRING.text), $x.result,$type.result);}
+  ;
+
+question returns [Question result]
+  : IDENT COLON STRING type { $result = new Question(new Identifier($IDENT.text), new StringLiteral($STRING.text), $type.result);}
+  ; 
+
+type returns [TypeDeclaration result]
+  : x='boolean' {$result = new BooleanDeclaration(); }
+  | x='integer' {$result=new IntDeclaration();}
+  | x='string'  {$result=new StringDeclaration();}
+  ;
+
+primary returns [Expression result] 
   : INT   { $result = new IntLiteral($INT.text); }
   | BOOL  { $result = new BooleanLiteral($BOOL.text); } 
   | STRING {$result = new StringLiteral($STRING.text);}
-  | IDENT { $result = new Ident($IDENT.text); }
+  | IDENT { $result = new Identifier($IDENT.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
-unExpr returns [Expr result]
+unExpr returns [Expression result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
     |  '!' x=unExpr { $result = new Not($x.result); } 
     |  x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [Expr result]
+mulExpr returns [Expression result]
     :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
@@ -61,7 +81,7 @@ mulExpr returns [Expr result]
     ; 
     
   
-addExpr returns [Expr result]
+addExpr returns [Expression result]
     :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
@@ -73,7 +93,7 @@ addExpr returns [Expr result]
     })*
     ;
   
-relExpr returns [Expr result]
+relExpr returns [Expression result]
     :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
@@ -97,12 +117,12 @@ relExpr returns [Expr result]
     })*
     ;
     
-andExpr returns [Expr result]
+andExpr returns [Expression result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [Expr result]
+orExpr returns [Expression result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
 

@@ -41,10 +41,11 @@
 // Statements that get put after the package declaration in XParser.java
 %{
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.literal.*;
-import org.uva.sea.ql.ast.operators.logical.*;
-import org.uva.sea.ql.ast.operators.numeric.*;
-import org.uva.sea.ql.ast.operators.relational.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.expression.operators.logical.*;
+import org.uva.sea.ql.ast.expression.operators.numeric.*;
+import org.uva.sea.ql.ast.expression.operators.relational.*;
 import org.uva.sea.ql.ast.type.*;
 %}
 
@@ -75,7 +76,7 @@ statement   : question
             ;
 			
 question    : IDENTIFIER ':' STRINGLITERAL type                    { $$ = new Question($1, $3, $4); }
-            | IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new ComputedQuestion($1, $3, $6); }
+            | IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new ComputedQuestion($1, $3, $4, $6); }
             ;
             
 type        : INTEGER { $$ = new Int(); }

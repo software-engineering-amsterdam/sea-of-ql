@@ -1,17 +1,19 @@
 package org.uva.sea.ql.ast.types;
 
-import java.util.List;
+import org.uva.sea.ql.common.TypeVisitor;
 
-import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+public class StrType extends AbstractType {
+    public StrType() {
 
-public class StrType extends Type {
-    public StrType(){
-        
     }
 
     @Override
-    public ReturnTypes getReturnType(List<Question> questions) {
-       return ReturnTypes.OTHER;
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        return o instanceof StrType;
     }
 }

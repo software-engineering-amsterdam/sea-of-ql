@@ -11,6 +11,20 @@ public class IntVal extends NumericVal {
 		return value;
 	}
 	
+	public static IntVal tryParse(String s) {
+		try{
+			return new IntVal(Integer.parseInt(s));			
+		}
+		catch(NumberFormatException ex){
+			return null;
+		}
+	}
+	
+	@Override
+	public String toString(){
+		return getValue().toString();
+	}
+	
 	@Override
 	public Value add(Value arg) {
 		return arg.addInt(this);

@@ -1,6 +1,5 @@
 package org.uva.sea.ql.parser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -11,17 +10,18 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stmt.Statement;
 import org.uva.sea.ql.message.Message;
 import org.uva.sea.ql.parser.error.ParseError;
-import org.uva.sea.ql.tests.IParse;
 
 public class ANTLRParser implements IParse {
-	private List<Message> errors = new ArrayList<Message>();
 
 	@Override
 	public Expr parseExpression(String src) throws ParseError {
 		QLParser parser = getQLParser(src);
 		try {
 			Expr expr = parser.orExpr();
-			setErrors(parser.getErrors());
+			if (parser.hasErrors()) {
+				String err = getErrorString(parser.getErrors());
+				throw new ParseError(err);
+			}
 			return expr;
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
@@ -33,7 +33,10 @@ public class ANTLRParser implements IParse {
 		QLParser parser = getQLParser(src);
 		try {
 			Form form = parser.form();
-			setErrors(parser.getErrors());
+			if (parser.hasErrors()) {
+				String err = getErrorString(parser.getErrors());
+				throw new ParseError(err);
+			}
 			return form;
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
@@ -45,7 +48,10 @@ public class ANTLRParser implements IParse {
 		QLParser parser = getQLParser(src);
 		try {
 			Statement stmt = parser.statement();
-			setErrors(parser.getErrors());
+			if (parser.hasErrors()) {
+				String err = getErrorString(parser.getErrors());
+				throw new ParseError(err);
+			}
 			return stmt;
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
@@ -60,18 +66,11 @@ public class ANTLRParser implements IParse {
 		return parser;
 	}
 
-	private void setErrors(List<Message> errors) {
-		this.errors = errors;
+	private String getErrorString(List<Message> errors) {
+		StringBuilder errorString = new StringBuilder();
+		for(Message error : errors) {
+			errorString.append(error.getMessage());
+		}
+		return errorString.toString();
 	}
-
-	@Override
-	public boolean hasErrors() {
-		return !(errors.isEmpty());
-	}
-
-	@Override
-	public List<Message> getErrors() {
-		return errors;
-	}
-
 }

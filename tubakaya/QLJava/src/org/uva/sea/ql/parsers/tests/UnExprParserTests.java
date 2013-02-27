@@ -4,14 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.ast.operators.unary.Neg;
+import org.uva.sea.ql.ast.operators.unary.Not;
+import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.parsers.UnExprParser;
-import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class UnExprParserTests {
 
-	private ParserBase parser;
+	private ParserBaseForExpressions parser;
 	
 	@Before
     public void setUp() {

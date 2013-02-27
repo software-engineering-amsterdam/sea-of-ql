@@ -1,34 +1,25 @@
 package org.uva.sea.ql.visitor.eval;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.uva.sea.ql.ast.expr.atom.Ident;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.visitor.IForm;
+import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.eval.ui.Application;
+import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
 
-public class Form implements IForm<JFrame> {
-
-	private final Environment environment;
-
-	public Form() {
-		this.environment = new Environment();
-	}
+public class Form implements IForm<Application> {
 
 	@Override
-	public JFrame visit(Question questionForm) {
-		JFrame frame = new JFrame();
+	public Application visit(Question form) {
+		Application application = new Application(form.getIdent());
 
-		Ident id = questionForm.getIdent();
+		Block statements = form.getStatements();
+		IStatement<Panel> statementVisitor = new Statement(
+				application.getEnvironment());
+		Panel container = statements.accept(statementVisitor);
+		application.addScrollablePanel(container);
 
-		// TODO: Create a container that holds the type and value.
-		this.environment.declare(id, null);
-
-		Statement statementVisitor = new Statement(this.environment);
-		JPanel panel = questionForm.getStatements().accept(statementVisitor);
-		frame.add(panel);
-
-		return frame;
+		return application;
 	}
 
 }

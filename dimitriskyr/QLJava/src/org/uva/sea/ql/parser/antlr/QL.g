@@ -18,18 +18,16 @@ import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.values.*;
 }
  
-//form  
+//rules
 
 form returns[Form result]   
   :  'form' ident '{' block '}'  {$result = new Form (new Ident($ident.text), $block.result);}
 ; 
-
  
-//form end
 
 block returns [Block result]
 @init{ Block block = new Block(); }
-  : (body {block.addBody($block.result);})* {$result=block;}
+  : (body {block.addBody($body.result);})* {$result=block;}
   ; 
  
 
@@ -40,24 +38,15 @@ body returns [Statement result]
   //| ifthenelse { $result= $ifthenelse.result; } 
   ; 
 
-
-//if-then statement
   
 ifthen returns [Statement result]
   : 'if' expression '{' b=block '}' {$result = new IfThen($expression.result , $b.result);}
 ;
                                      
-//if-then end
-                                          
-//if-then-else
 
 ifthenelse returns [Statement result]
   : 'if' expression '{' b1=block '}' 'else' '{' b2=block '}' {$result = new IfThenElse($expression.result , $b1.result, $b2.result);}
 ;
-
-//if-then-else end  
-
-//questions 
  
 simplequestion returns [Statement result]
   : ident ':' string type {$result = new SimpleQuestion(new Ident($ident.text) , new String_lit($string.text) , $type.result);}
@@ -66,8 +55,7 @@ simplequestion returns [Statement result]
 comquestion returns [Statement result]
   : ident ':' string type expression  {$result = new ComQuestion(new Ident($ident.text) , new String_lit($string.text) , $type.result , $expression.result);}
 ;                                           
-
-//end of questions 
+ 
                                            
 expression returns [Expr result] 
   : integer {$result = new Int(Integer.parseInt($integer.text));}
@@ -143,9 +131,6 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
   : lhs=andExpr {$result = $lhs.result;}  ( '||' rhs=andExpr {$result = new Or($result,rhs); } )* ;
 
-//end of expressions
- 
-//types
 
 type returns [Type result]
  :  ( whattype =('integer'|'boolean'|'string'|'money')
@@ -170,7 +155,6 @@ string : String_literal ;
 bool : Bool ;
 ident : Ident ;
 money : Money ;
-//end of values 
   
 // Tokens
 

@@ -1,23 +1,19 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::GenerateJavaScript
 
-import ParseTree;
 import lang::ql::ast::AST;
-
-import IO;
+import lang::ql::compiler::ExtractDependencies;
+import lang::ql::compiler::GenerateJSUpdate;
+import lang::ql::compiler::GenerateJSTrigger;
+import lang::ql::compiler::GenerateJSOnLoad;
+import lang::ql::compiler::GenerateJSValidate;
 
 public str generateJavaScipt(list[FormBodyItem] bodyItems){
 	str code="";
-	
-	code+=generateCondQuestionStat(bodyItems);
-	
-	return code;
-}
-
-str generateCondQuestionStat(list[FormBodyItem] bodyItems){
-	str code="";
-	visit(bodyItems){
-		case computedQuestion(_, str questionLabel,_,_) : print("<questionLabel>\n");
-	}
-	
+	dep=getDependenciesMap(bodyItems);
+	code+=generateOnLoadFunction(bodyItems);
+	code+=generateJSTriggerFunctions(dep);
+	code+=generateJSUpdateFunctions(bodyItems);
+	code+= generateJSValidateFunctions(bodyItems);
 	return code;
 }

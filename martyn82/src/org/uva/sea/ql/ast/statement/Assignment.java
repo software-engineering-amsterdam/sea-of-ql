@@ -9,6 +9,8 @@ public class Assignment extends Statement {
 	private final Expression expression;
 
 	public Assignment( IdentifierExpression identifier, Expression expression ) {
+		assert ( identifier != null ) && ( expression != null );
+
 		this.identifier = identifier;
 		this.expression = expression;
 	}

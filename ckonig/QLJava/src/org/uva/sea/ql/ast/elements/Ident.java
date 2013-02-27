@@ -1,46 +1,37 @@
 package org.uva.sea.ql.ast.elements;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.uva.sea.ql.ast.expressions.BinaryExpr;
 import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
-import org.uva.sea.ql.ast.interfaces.Returns;
+import org.uva.sea.ql.ast.interfaces.TreeNode;
+import org.uva.sea.ql.ast.literals.StringLiteral;
+import org.uva.sea.ql.common.ExpressionVisitor;
+import org.uva.sea.ql.common.QLException;
+import org.uva.sea.ql.common.TreeVisitor;
 
-public class Ident extends Expr implements Returns {
+public class Ident extends Expr implements TreeNode {
 
-    private final String name;
+    private final StringLiteral name;
 
-    public Ident(String id) {
+    public Ident(StringLiteral id) {
         this.name = id;
     }
 
-    public final String getName() {
+    public final StringLiteral getName() {
         return this.name;
     }
 
-    public static List<Ident> getIdents(Expr e) {
-        final List<Ident> idents = new ArrayList<>();
-        if (e.getClass().equals(Ident.class)) {
-            idents.add((Ident) e);
-        }
-        if (e instanceof BinaryExpr) {
-            final BinaryExpr b = (BinaryExpr) e;
-            idents.addAll(getIdents(b.getLeft()));
-            idents.addAll(getIdents(b.getRight()));
-        }
-        return idents;
+    @Override
+    public final void accept(ExpressionVisitor visitor) throws QLException {
+        visitor.visit(this);
     }
 
     @Override
-    public ReturnTypes getReturnType(List<Question> questions) {
-        for (Question question : questions) {
-            if (question.getIdentName().equals(this.name)) {
-                return question.getType().getReturnType(questions);
-            }
-        }
-        throw new RuntimeException("Question not found: " + this.name);
+    public final void accept(TreeVisitor v) {
+        v.visit(this);
+    }
+
+    @Override
+    public final String toString() {
+        return this.name.getValue();
     }
 
 }

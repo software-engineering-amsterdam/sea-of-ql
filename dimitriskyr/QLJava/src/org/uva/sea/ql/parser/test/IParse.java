@@ -7,9 +7,18 @@ import org.uva.sea.ql.ast.Type;
 
 public interface IParse {
 	Expr parseExpression(String src) throws ParseError;
+
 	Type parseType(String src) throws ParseError;
+
 	Form parseForm(String src) throws ParseError;
-	Statement parseSimpleQuestion(String src) throws ParseError ; 
+
+	Statement parseStatement(String src) throws ParseError;
+
 	Statement parseIfThen(String src) throws ParseError;
+
+	Statement parseSimpleQuestion(String simplequestion) throws ParseError;
+
 	Statement parseIfThenElse(String src) throws ParseError;
+
+	Statement parseComQuestion(String src) throws ParseError;
 }

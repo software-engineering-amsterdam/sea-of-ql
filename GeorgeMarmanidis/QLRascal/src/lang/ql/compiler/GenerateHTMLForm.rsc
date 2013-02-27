@@ -1,17 +1,26 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
+
 module lang::ql::compiler::GenerateHTMLForm
 
 import lang::ql::ast::AST;
-
-anno str ConditionalStatement@ref;
-anno str ElseIf@ref;
-anno str FormBodyItem@ref;
+import lang::ql::compiler::ExtractDependencies;
 
 public str generateHTMLForm(str ident,list[FormBodyItem] bodyItems){
-			   
+	
 	return
-	   "\<form name=\"<ident>\" method=\"POST\" \>
-	   ' <generateHTMLFormBody(bodyItems,"stats0")>
-	   '\</form\>";
+	   "\<html\>
+	   '   \<head\> \<title\> <ident> \</title\>
+	   '      \<script type=\"text/javascript\" src=\"<ident>.js\"\>\</script\>
+	   '      \<script type=\"text/javascript\" src=\"extFuncs.js\"\>\</script\>
+	   '   \</head\>
+	   '
+	   '   \<body onload=\"onLoad()\"\>
+	   '      \<form name=\"<ident>\" method=\"POST\" onsubmit=\"return formValidate(this)\"\>
+	   '        <generateHTMLFormBody(bodyItems,"stats0")>
+	   '        \<input type=\"submit\"\>
+	   '      \</form\>
+	   '   \</body\>
+	   '\</html\>";
 }
 
 str generateHTMLFormBody(list[FormBodyItem] formItems,str refID){
@@ -21,10 +30,10 @@ str generateHTMLFormBody(list[FormBodyItem] formItems,str refID){
     
     for(x <-formItems){
    	   if(question(Question itemQuestion) := x){
-   	   	    code+=generateHTMLQuestion(itemQuestion,refID);
+   	   	    code+="   <generateHTMLQuestion(itemQuestion,refID)>";
    	   }
    	   else if(conditionalStatement(ConditionalStatement itemCondStatement):=x){
-	   	        code+=generateHTMLCondBody(itemCondStatement);
+	   	        code+="   <generateHTMLCondBody(itemCondStatement)>";
      	   }
     	}
     	
@@ -34,42 +43,28 @@ str generateHTMLFormBody(list[FormBodyItem] formItems,str refID){
 
 str generateHTMLCondBody(x:ifCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[FormBodyItem] elseQuestions)){
     str code="";
-    //expression
-	    
     code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
     code+=generateHTMLFormBody(elseQuestions,"elseStats<x@ref>");
     return code;
 }
 
-str generateHTMLCondBody(x:simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions)){
-    str code="";
-	 
-    //expression
-    code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
-    return code;
-}
-
+str generateHTMLCondBody(x:simpleIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions))=
+	generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
+    
 str generateHTMLCondBody(x:ifElseIfCond(Expr ifCondition,list[FormBodyItem] ifQuestions,list[ElseIf] elseifBranch,list[FormBodyItem] elseQuestions)){
     str code="";
-    int elseCount=1;
-    
     code+=generateHTMLFormBody(ifQuestions,"ifStats<x@ref>");
     
     for(elseBranch <- elseifBranch){
-        code+=generateHTMLCondBody(elseBranch,"elseIfStats<x@ref>e<elseCount>");
-        elseCount+=1;
+        code+=generateHTMLCondBody(elseBranch,"elseIfStats<elseBranch@ref>");
     }
-	   
+	 
     code+=generateHTMLFormBody(elseQuestions,"elseStats<x@ref>");
     return code;
 }
 
-str generateHTMLCondBody(x:elseif(Expr ifExpression,list[FormBodyItem] elseQuestions),str refID){
-    str code="";
-	    
-    code+=generateHTMLFormBody(elseQuestions,refID);
-    return code;
-}
+str generateHTMLCondBody(x:elseif(Expr ifExpression,list[FormBodyItem] elseQuestions),str refID)=
+    generateHTMLFormBody(elseQuestions,refID);
 
 str generateHTMLQuestion(simpleQuestion(str questionId,str questionLabel,Type questionType),str refID){
     return questionType==boolean()
@@ -78,16 +73,23 @@ str generateHTMLQuestion(simpleQuestion(str questionId,str questionLabel,Type qu
 }
 	
 str generateHTMLQuestion(computedQuestion(str questionId, str questionLabel, Type questionType, Expr questionComputation),str refID){
-    return generateHTMLTextInputComputed(questionLabel,questionId,refID);
+    return questionType==boolean()
+    	   ? generateHTMLBooleanInputComputed(questionLabel,questionId,refID)
+           : generateHTMLTextInputComputed(questionLabel,questionId,refID);
 }
 
 str generateHTMLTextInput(str label,str varName,str id)=
-    "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" \> \<br\>\n";
+    "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" onchange=\"<varName>Trigger()\" \> \<br\>\n";
 		   
 str generateHTMLBooleanInput(str label,str varName,str id)=
-    "<label> : True\<INPUT type=\"radio\" name=\"<varName>\" id=\"<id>\" value=\"true\"\> 
-	           False\<INPUT type=\"radio\" name=\"<varName>\" id=\"<id>\" value=\"false\"\>\<br\>\n";
+    "<label> : True\<INPUT type=\"radio\" name=\"<varName>\" id=\"<varName>\" value=\"true\" onchange=\"<varName>Trigger()\"\> 
+	           False\<INPUT type=\"radio\" name=\"<varName>\" id=\"<varName>\" value=\"false\" onchange=\"<varName>Trigger()\"\>\<br\>\n";
 	
 str generateHTMLTextInputComputed(str label,str varName,str id)=
     "<label> : \<INPUT type=\"text\" name=\"<varName>\" id=\"<varName>\" 
-    			value=\"dwdw\" readonly=\"readonly\" \> \<br\>\n";	
+    			value=\"\" readonly=\"readonly\"  \> \<br\>\n";
+
+str generateHTMLBooleanInputComputed(str label,str varName,str id)=
+    "<label> : True\<INPUT type=\"radio\" name=\"<varName>\" id=\"<varName>\" value=\"true\" readonly=\"readonly\"\> 
+	           False\<INPUT type=\"radio\" name=\"<varName>\" id=\"<varName>\" value=\"false\" readonly=\"readonly\"\>\<br\>\n";
+		

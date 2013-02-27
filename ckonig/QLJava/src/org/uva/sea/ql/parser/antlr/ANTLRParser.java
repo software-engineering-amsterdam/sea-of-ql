@@ -13,48 +13,53 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 
 public class ANTLRParser implements IParse {
-	private static final String DEFAULT_FILENAME = "example.ql";
-	
-	@Override
-	public Form parseForm(String src) throws ParseError {
-		return parse(new ANTLRStringStream(src));
-	}
 
-	@Override
-	public Form parseDefaultFile() throws ParseError {
-		return parseFile(DEFAULT_FILENAME);
-	}
+    private static final String DEFAULT_FILENAME = "example.ql";
 
-	@Override
-	public Expr parseExpression(String src) throws ParseError {
-		QLParser parser = getParser(new ANTLRStringStream(src));
-		try {
-			return parser.orExpr();
-		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-		}
-	}
+    public ANTLRParser() {
 
-	private Form parseFile(String filename) throws ParseError {
-		try {
-			return parse(new ANTLRFileStream(filename));
-		} catch (IOException ex) {
-			throw new ParseError("File not found");
-		}
-	}
+    }
 
-	private Form parse(CharStream stream) throws ParseError {
-		QLParser parser = getParser(stream);
-		try {
-			return parser.parse();
-		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-		}
-	}
+    @Override
+    public final Form parseForm(String src) throws ParseError {
+        return parse(new ANTLRStringStream(src));
+    }
 
-	private QLParser getParser(CharStream stream) {
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		return new QLParser(tokens);
-	}
+    @Override
+    public final Form parseDefaultFile() throws ParseError {
+        return parseFile(DEFAULT_FILENAME);
+    }
+
+    @Override
+    public final Expr parseExpression(String src) throws ParseError {
+        final QLParser parser = getParser(new ANTLRStringStream(src));
+        try {
+            return parser.orExpr();
+        } catch (RecognitionException e) {
+            throw new ParseError(e.getMessage());
+        }
+    }
+
+    private Form parseFile(String filename) throws ParseError {
+        try {
+            return parse(new ANTLRFileStream(filename));
+        } catch (IOException ex) {
+            throw new ParseError("File not found");
+        }
+    }
+
+    private Form parse(CharStream stream) throws ParseError {
+        final QLParser parser = getParser(stream);
+        try {
+            return parser.parse();
+        } catch (RecognitionException e) {
+            throw new ParseError(e.getMessage());
+        }
+    }
+
+    private QLParser getParser(CharStream stream) {
+        final CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        return new QLParser(tokens);
+    }
 }

@@ -10,6 +10,8 @@ public class ComputedQuestion extends QuestionDeclaration {
 
 	public ComputedQuestion( StringLiteral label, Assignment assignment ) {
 		super( label );
+		assert ( assignment != null );
+
 		this.assignment = assignment;
 	}
 

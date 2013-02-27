@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.exp.Expression.Nature;
+import org.uva.sea.ql.ast.exp.Bools;
+import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class BooleanType extends DataType {
@@ -12,7 +13,7 @@ public class BooleanType extends DataType {
 
 	@Override
 	public Nature getNature() {
-		return Nature.BOOLEAN;
+		return new Bools();
 	}
 
 }

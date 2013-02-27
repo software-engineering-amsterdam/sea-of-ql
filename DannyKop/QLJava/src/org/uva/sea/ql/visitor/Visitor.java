@@ -46,6 +46,7 @@ public interface Visitor <T> {
 	public T visit(Expr e);
 	public T visit(Type t);
 	
+	// 'operations'
 	public T visit(Add a);
 	public T visit(And a);
 	public T visit(Div d);

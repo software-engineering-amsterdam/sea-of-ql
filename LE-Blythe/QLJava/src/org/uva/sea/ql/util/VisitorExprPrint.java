@@ -1,8 +1,7 @@
 package org.uva.sea.ql.util;
 
+import org.uva.sea.ql.ast.IVisitorExpr;
 import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.OperatorBinary;
-import org.uva.sea.ql.ast.OperatorUnary;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -15,6 +14,8 @@ import org.uva.sea.ql.ast.operative.Mul;
 import org.uva.sea.ql.ast.operative.NEq;
 import org.uva.sea.ql.ast.operative.Neg;
 import org.uva.sea.ql.ast.operative.Not;
+import org.uva.sea.ql.ast.operative.OperatorBinary;
+import org.uva.sea.ql.ast.operative.OperatorUnary;
 import org.uva.sea.ql.ast.operative.Or;
 import org.uva.sea.ql.ast.operative.Pos;
 import org.uva.sea.ql.ast.operative.Sub;
@@ -22,11 +23,8 @@ import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
 import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.interfaces.IVisitorExpr;
 
 public class VisitorExprPrint implements IVisitorExpr<String>{
-
-	private static final String UNDEFINED = "undefined";
 	
 	private String printOperatorBinary(OperatorBinary op, String symbol){
 		return 	"(" + op.getLeftHandOperand().accept(this) + symbol + 
@@ -121,36 +119,23 @@ public class VisitorExprPrint implements IVisitorExpr<String>{
 	
 	@Override
 	public String visit(Int ast) {
-		
-		if(ast.isDefined())
-			return Integer.toString(ast.getValue());
-		
-		return UNDEFINED;
+		return ast.toString();
 	}
 
 	@Override
 	public String visit(Bool ast) {
-		
-		if(ast.isDefined())
-			return Boolean.toString(ast.getValue());
-		
-		return UNDEFINED;
+		return ast.toString();
 	}
 
 	@Override
 	public String visit(Str ast) {
-		
-		if(ast.isDefined())
-			return ast.getValue();
-		
-		return UNDEFINED;
+		return ast.toString();
 	}
 
 
 	@Override
 	public String visit(Undefined ast) {
-		// TODO Auto-generated method stub
-		return null;
+		return ast.toString();
 	}
 
 

@@ -3,7 +3,8 @@ package org.uva.sea.ql.ast.ql;
 import org.uva.sea.ql.ast.Block;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.expr.Expr;
-import org.uva.sea.ql.semanticchecker.StatementSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public class ConditionalQuestion extends Statement {
 	
@@ -24,8 +25,8 @@ public class ConditionalQuestion extends Statement {
 	}
 
 	@Override
-	public void accept(StatementSemanticVisitor visitor) {
-		visitor.visit(this);
+	public ReturnType accept(StatementVisitor visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-15 12:56:57
+// $ANTLR 3.4 /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-02-18 15:27:13
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -11,6 +11,8 @@ import java.util.ArrayList;
 @SuppressWarnings({"all", "warnings", "unchecked"})
 public class QLLexer extends Lexer {
     public static final int EOF=-1;
+    public static final int T__14=14;
+    public static final int T__15=15;
     public static final int T__16=16;
     public static final int T__17=17;
     public static final int T__18=18;
@@ -30,20 +32,16 @@ public class QLLexer extends Lexer {
     public static final int T__32=32;
     public static final int T__33=33;
     public static final int T__34=34;
-    public static final int T__35=35;
-    public static final int T__36=36;
     public static final int BOOLEAN=4;
     public static final int Bool=5;
     public static final int COMMENT=6;
-    public static final int DECIMAL=7;
-    public static final int Decimal=8;
-    public static final int INTEGER=9;
-    public static final int Ident=10;
-    public static final int Int=11;
-    public static final int MONEY=12;
-    public static final int STRING=13;
-    public static final int StringLit=14;
-    public static final int WS=15;
+    public static final int Decimal=7;
+    public static final int INTEGER=8;
+    public static final int Ident=9;
+    public static final int Int=10;
+    public static final int STRING=11;
+    public static final int StringLit=12;
+    public static final int WS=13;
 
     // delegates
     // delegators
@@ -60,10 +58,10 @@ public class QLLexer extends Lexer {
     }
     public String getGrammarFileName() { return "/home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"; }
 
-    // $ANTLR start "T__16"
-    public final void mT__16() throws RecognitionException {
+    // $ANTLR start "T__14"
+    public final void mT__14() throws RecognitionException {
         try {
-            int _type = T__16;
+            int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:7: ( '!' )
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:6:9: '!'
@@ -79,12 +77,12 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__16"
+    // $ANTLR end "T__14"
 
-    // $ANTLR start "T__17"
-    public final void mT__17() throws RecognitionException {
+    // $ANTLR start "T__15"
+    public final void mT__15() throws RecognitionException {
         try {
-            int _type = T__17;
+            int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:7: ( '!=' )
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:7:9: '!='
@@ -102,12 +100,12 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__17"
+    // $ANTLR end "T__15"
 
-    // $ANTLR start "T__18"
-    public final void mT__18() throws RecognitionException {
+    // $ANTLR start "T__16"
+    public final void mT__16() throws RecognitionException {
         try {
-            int _type = T__18;
+            int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:7: ( '&&' )
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:8:9: '&&'
@@ -125,6 +123,48 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
+    // $ANTLR end "T__16"
+
+    // $ANTLR start "T__17"
+    public final void mT__17() throws RecognitionException {
+        try {
+            int _type = T__17;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
+            {
+            match('('); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
+    // $ANTLR end "T__17"
+
+    // $ANTLR start "T__18"
+    public final void mT__18() throws RecognitionException {
+        try {
+            int _type = T__18;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
+            {
+            match(')'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        	// do for sure before leaving
+        }
+    }
     // $ANTLR end "T__18"
 
     // $ANTLR start "T__19"
@@ -132,10 +172,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:7: ( '(' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:9:9: '('
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
             {
-            match('('); 
+            match('*'); 
 
             }
 
@@ -153,10 +193,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:7: ( ')' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:10:9: ')'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
             {
-            match(')'); 
+            match('+'); 
 
             }
 
@@ -174,10 +214,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:7: ( '*' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:11:9: '*'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
             {
-            match('*'); 
+            match('-'); 
 
             }
 
@@ -195,10 +235,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:7: ( '+' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:12:9: '+'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
             {
-            match('+'); 
+            match('/'); 
 
             }
 
@@ -216,10 +256,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:7: ( '-' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:13:9: '-'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( ':' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: ':'
             {
-            match('-'); 
+            match(':'); 
 
             }
 
@@ -237,10 +277,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:7: ( '/' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:14:9: '/'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<'
             {
-            match('/'); 
+            match('<'); 
 
             }
 
@@ -258,10 +298,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:7: ( ':' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:15:9: ':'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '<=' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '<='
             {
-            match(':'); 
+            match("<="); 
+
+
 
             }
 
@@ -279,10 +321,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:7: ( '<' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:16:9: '<'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '==' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '=='
             {
-            match('<'); 
+            match("=="); 
+
+
 
             }
 
@@ -300,12 +344,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:7: ( '<=' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:17:9: '<='
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '>' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '>'
             {
-            match("<="); 
-
-
+            match('>'); 
 
             }
 
@@ -323,10 +365,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:7: ( '==' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:18:9: '=='
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '>=' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '>='
             {
-            match("=="); 
+            match(">="); 
 
 
 
@@ -346,10 +388,12 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:7: ( '>' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:19:9: '>'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'else' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'else'
             {
-            match('>'); 
+            match("else"); 
+
+
 
             }
 
@@ -367,10 +411,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:7: ( '>=' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:20:9: '>='
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'form' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'form'
             {
-            match(">="); 
+            match("form"); 
 
 
 
@@ -390,10 +434,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:7: ( 'else' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:21:9: 'else'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'if' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'if'
             {
-            match("else"); 
+            match("if"); 
 
 
 
@@ -413,12 +457,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:7: ( 'form' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:22:9: 'form'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( '{' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: '{'
             {
-            match("form"); 
-
-
+            match('{'); 
 
             }
 
@@ -436,10 +478,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:7: ( 'if' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:23:9: 'if'
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( '||' )
+            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: '||'
             {
-            match("if"); 
+            match("||"); 
 
 
 
@@ -459,50 +501,6 @@ public class QLLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:7: ( '{' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:24:9: '{'
-            {
-            match('{'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__34"
-
-    // $ANTLR start "T__35"
-    public final void mT__35() throws RecognitionException {
-        try {
-            int _type = T__35;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:7: ( '||' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:25:9: '||'
-            {
-            match("||"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "T__35"
-
-    // $ANTLR start "T__36"
-    public final void mT__36() throws RecognitionException {
-        try {
-            int _type = T__36;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:7: ( '}' )
             // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:26:9: '}'
             {
@@ -517,7 +515,7 @@ public class QLLexer extends Lexer {
         	// do for sure before leaving
         }
     }
-    // $ANTLR end "T__36"
+    // $ANTLR end "T__34"
 
     // $ANTLR start "BOOLEAN"
     public final void mBOOLEAN() throws RecognitionException {
@@ -564,52 +562,6 @@ public class QLLexer extends Lexer {
         }
     }
     // $ANTLR end "INTEGER"
-
-    // $ANTLR start "MONEY"
-    public final void mMONEY() throws RecognitionException {
-        try {
-            int _type = MONEY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:6: ( 'money' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:132:8: 'money'
-            {
-            match("money"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "MONEY"
-
-    // $ANTLR start "DECIMAL"
-    public final void mDECIMAL() throws RecognitionException {
-        try {
-            int _type = DECIMAL;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:8: ( 'decimal' )
-            // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:133:10: 'decimal'
-            {
-            match("decimal"); 
-
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        	// do for sure before leaving
-        }
-    }
-    // $ANTLR end "DECIMAL"
 
     // $ANTLR start "STRING"
     public final void mSTRING() throws RecognitionException {
@@ -985,174 +937,174 @@ public class QLLexer extends Lexer {
     // $ANTLR end "StringLit"
 
     public void mTokens() throws RecognitionException {
-        // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | BOOLEAN | INTEGER | MONEY | DECIMAL | STRING | WS | COMMENT | Bool | Ident | Int | Decimal | StringLit )
-        int alt6=33;
+        // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:8: ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | BOOLEAN | INTEGER | STRING | WS | COMMENT | Bool | Ident | Int | Decimal | StringLit )
+        int alt6=31;
         alt6 = dfa6.predict(input);
         switch (alt6) {
             case 1 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__16
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:10: T__14
+                {
+                mT__14(); 
+
+
+                }
+                break;
+            case 2 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:16: T__15
+                {
+                mT__15(); 
+
+
+                }
+                break;
+            case 3 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:22: T__16
                 {
                 mT__16(); 
 
 
                 }
                 break;
-            case 2 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:16: T__17
+            case 4 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:28: T__17
                 {
                 mT__17(); 
 
 
                 }
                 break;
-            case 3 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:22: T__18
+            case 5 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:34: T__18
                 {
                 mT__18(); 
 
 
                 }
                 break;
-            case 4 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:28: T__19
+            case 6 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:40: T__19
                 {
                 mT__19(); 
 
 
                 }
                 break;
-            case 5 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:34: T__20
+            case 7 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:46: T__20
                 {
                 mT__20(); 
 
 
                 }
                 break;
-            case 6 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:40: T__21
+            case 8 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:52: T__21
                 {
                 mT__21(); 
 
 
                 }
                 break;
-            case 7 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:46: T__22
+            case 9 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:58: T__22
                 {
                 mT__22(); 
 
 
                 }
                 break;
-            case 8 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:52: T__23
+            case 10 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:64: T__23
                 {
                 mT__23(); 
 
 
                 }
                 break;
-            case 9 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:58: T__24
+            case 11 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:70: T__24
                 {
                 mT__24(); 
 
 
                 }
                 break;
-            case 10 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:64: T__25
+            case 12 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:76: T__25
                 {
                 mT__25(); 
 
 
                 }
                 break;
-            case 11 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:70: T__26
+            case 13 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:82: T__26
                 {
                 mT__26(); 
 
 
                 }
                 break;
-            case 12 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:76: T__27
+            case 14 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:88: T__27
                 {
                 mT__27(); 
 
 
                 }
                 break;
-            case 13 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:82: T__28
+            case 15 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:94: T__28
                 {
                 mT__28(); 
 
 
                 }
                 break;
-            case 14 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:88: T__29
+            case 16 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:100: T__29
                 {
                 mT__29(); 
 
 
                 }
                 break;
-            case 15 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:94: T__30
+            case 17 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__30
                 {
                 mT__30(); 
 
 
                 }
                 break;
-            case 16 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:100: T__31
+            case 18 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:112: T__31
                 {
                 mT__31(); 
 
 
                 }
                 break;
-            case 17 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:106: T__32
+            case 19 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:118: T__32
                 {
                 mT__32(); 
 
 
                 }
                 break;
-            case 18 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:112: T__33
+            case 20 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:124: T__33
                 {
                 mT__33(); 
 
 
                 }
                 break;
-            case 19 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:118: T__34
+            case 21 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: T__34
                 {
                 mT__34(); 
-
-
-                }
-                break;
-            case 20 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:124: T__35
-                {
-                mT__35(); 
-
-
-                }
-                break;
-            case 21 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:130: T__36
-                {
-                mT__36(); 
 
 
                 }
@@ -1174,79 +1126,63 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 24 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:152: MONEY
-                {
-                mMONEY(); 
-
-
-                }
-                break;
-            case 25 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:158: DECIMAL
-                {
-                mDECIMAL(); 
-
-
-                }
-                break;
-            case 26 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:166: STRING
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:152: STRING
                 {
                 mSTRING(); 
 
 
                 }
                 break;
-            case 27 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:173: WS
+            case 25 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:159: WS
                 {
                 mWS(); 
 
 
                 }
                 break;
-            case 28 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:176: COMMENT
+            case 26 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:162: COMMENT
                 {
                 mCOMMENT(); 
 
 
                 }
                 break;
-            case 29 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:184: Bool
+            case 27 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:170: Bool
                 {
                 mBool(); 
 
 
                 }
                 break;
-            case 30 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:189: Ident
+            case 28 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:175: Ident
                 {
                 mIdent(); 
 
 
                 }
                 break;
-            case 31 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:195: Int
+            case 29 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:181: Int
                 {
                 mInt(); 
 
 
                 }
                 break;
-            case 32 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:199: Decimal
+            case 30 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:185: Decimal
                 {
                 mDecimal(); 
 
 
                 }
                 break;
-            case 33 :
-                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:207: StringLit
+            case 31 :
+                // /home/ioana/workspace/Construction/sea-of-ql/ioanarucareanu/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g:1:193: StringLit
                 {
                 mStringLit(); 
 
@@ -1261,64 +1197,59 @@ public class QLLexer extends Lexer {
 
     protected DFA6 dfa6 = new DFA6(this);
     static final String DFA6_eotS =
-        "\1\uffff\1\34\6\uffff\1\36\1\uffff\1\40\1\uffff\1\42\3\30\3\uffff"+
-        "\4\30\2\uffff\1\55\11\uffff\3\30\1\62\6\30\2\uffff\3\30\1\uffff"+
-        "\1\74\5\30\1\102\1\103\1\30\1\uffff\3\30\1\110\1\111\2\uffff\1\111"+
-        "\1\30\1\113\1\30\2\uffff\1\30\1\uffff\1\30\1\117\1\120\2\uffff";
+        "\1\uffff\1\32\6\uffff\1\34\1\uffff\1\36\1\uffff\1\40\3\26\3\uffff"+
+        "\2\26\2\uffff\1\51\11\uffff\3\26\1\56\4\26\2\uffff\3\26\1\uffff"+
+        "\1\66\3\26\1\72\1\73\1\26\1\uffff\1\26\1\76\1\77\2\uffff\1\77\1"+
+        "\26\2\uffff\1\26\1\102\1\uffff";
     static final String DFA6_eofS =
-        "\121\uffff";
+        "\103\uffff";
     static final String DFA6_minS =
         "\1\11\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\154\1\141\1"+
-        "\146\3\uffff\2\157\2\145\2\uffff\1\56\11\uffff\1\163\1\162\1\154"+
-        "\1\60\1\164\1\157\1\156\1\143\1\170\1\165\2\uffff\1\145\1\155\1"+
-        "\163\1\uffff\1\60\1\154\1\145\1\151\1\164\1\145\2\60\1\145\1\uffff"+
-        "\1\145\1\171\1\155\2\60\2\uffff\1\60\1\141\1\60\1\141\2\uffff\1"+
-        "\156\1\uffff\1\154\2\60\2\uffff";
+        "\146\3\uffff\1\157\1\145\2\uffff\1\56\11\uffff\1\163\1\162\1\154"+
+        "\1\60\1\164\1\157\1\170\1\165\2\uffff\1\145\1\155\1\163\1\uffff"+
+        "\1\60\1\154\1\164\1\145\2\60\1\145\1\uffff\1\145\2\60\2\uffff\1"+
+        "\60\1\141\2\uffff\1\156\1\60\1\uffff";
     static final String DFA6_maxS =
         "\1\175\1\75\6\uffff\1\52\1\uffff\1\75\1\uffff\1\75\1\154\1\157\1"+
-        "\156\3\uffff\2\157\1\145\1\162\2\uffff\1\71\11\uffff\1\163\1\162"+
-        "\1\154\1\172\1\164\1\157\1\156\1\143\1\170\1\165\2\uffff\1\145\1"+
-        "\155\1\163\1\uffff\1\172\1\154\1\145\1\151\1\164\1\145\2\172\1\145"+
-        "\1\uffff\1\145\1\171\1\155\2\172\2\uffff\1\172\1\141\1\172\1\141"+
-        "\2\uffff\1\156\1\uffff\1\154\2\172\2\uffff";
+        "\156\3\uffff\1\157\1\162\2\uffff\1\71\11\uffff\1\163\1\162\1\154"+
+        "\1\172\1\164\1\157\1\170\1\165\2\uffff\1\145\1\155\1\163\1\uffff"+
+        "\1\172\1\154\1\164\1\145\2\172\1\145\1\uffff\1\145\2\172\2\uffff"+
+        "\1\172\1\141\2\uffff\1\156\1\172\1\uffff";
     static final String DFA6_acceptS =
         "\2\uffff\1\3\1\4\1\5\1\6\1\7\1\10\1\uffff\1\12\1\uffff\1\15\4\uffff"+
-        "\1\23\1\24\1\25\4\uffff\1\33\1\36\1\uffff\1\41\1\2\1\1\1\34\1\11"+
-        "\1\14\1\13\1\17\1\16\12\uffff\1\37\1\40\3\uffff\1\22\11\uffff\1"+
-        "\27\5\uffff\1\20\1\21\4\uffff\1\32\1\35\1\uffff\1\30\3\uffff\1\26"+
-        "\1\31";
+        "\1\23\1\24\1\25\2\uffff\1\31\1\34\1\uffff\1\37\1\2\1\1\1\32\1\11"+
+        "\1\14\1\13\1\17\1\16\10\uffff\1\35\1\36\3\uffff\1\22\7\uffff\1\27"+
+        "\3\uffff\1\20\1\21\2\uffff\1\30\1\33\2\uffff\1\26";
     static final String DFA6_specialS =
-        "\121\uffff}>";
+        "\103\uffff}>";
     static final String[] DFA6_transitionS = {
-            "\2\27\2\uffff\1\27\22\uffff\1\27\1\1\1\32\3\uffff\1\2\1\uffff"+
-            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\31\1\11\1\uffff"+
-            "\1\12\1\13\1\14\2\uffff\32\30\6\uffff\1\30\1\23\1\30\1\25\1"+
-            "\15\1\16\2\30\1\17\3\30\1\24\6\30\1\26\6\30\1\20\1\21\1\22",
+            "\2\25\2\uffff\1\25\22\uffff\1\25\1\1\1\30\3\uffff\1\2\1\uffff"+
+            "\1\3\1\4\1\5\1\6\1\uffff\1\7\1\uffff\1\10\12\27\1\11\1\uffff"+
+            "\1\12\1\13\1\14\2\uffff\32\26\6\uffff\1\26\1\23\2\26\1\15\1"+
+            "\16\2\26\1\17\12\26\1\24\6\26\1\20\1\21\1\22",
+            "\1\31",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\33",
-            "",
-            "",
-            "",
-            "",
-            "",
             "",
             "\1\35",
             "",
             "\1\37",
-            "",
             "\1\41",
-            "\1\43",
-            "\1\45\15\uffff\1\44",
-            "\1\46\7\uffff\1\47",
+            "\1\43\15\uffff\1\42",
+            "\1\44\7\uffff\1\45",
             "",
             "",
             "",
-            "\1\50",
-            "\1\51",
-            "\1\52",
-            "\1\53\14\uffff\1\54",
+            "\1\46",
+            "\1\47\14\uffff\1\50",
             "",
             "",
-            "\1\56\1\uffff\12\31",
+            "\1\52\1\uffff\12\27",
             "",
             "",
             "",
@@ -1328,51 +1259,39 @@ public class QLLexer extends Lexer {
             "",
             "",
             "",
+            "\1\53",
+            "\1\54",
+            "\1\55",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\57",
             "\1\60",
             "\1\61",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
+            "\1\62",
+            "",
+            "",
             "\1\63",
             "\1\64",
             "\1\65",
-            "\1\66",
+            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\67",
             "\1\70",
-            "",
-            "",
             "\1\71",
-            "\1\72",
-            "\1\73",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\1\74",
             "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
             "\1\75",
-            "\1\76",
-            "\1\77",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
+            "",
+            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             "\1\100",
+            "",
+            "",
             "\1\101",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\104",
-            "",
-            "\1\105",
-            "\1\106",
-            "\1\107",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
-            "",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\112",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\1\114",
-            "",
-            "",
-            "\1\115",
-            "",
-            "\1\116",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "\12\30\7\uffff\32\30\4\uffff\1\30\1\uffff\32\30",
-            "",
+            "\12\26\7\uffff\32\26\4\uffff\1\26\1\uffff\32\26",
             ""
     };
 
@@ -1406,7 +1325,7 @@ public class QLLexer extends Lexer {
             this.transition = DFA6_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | BOOLEAN | INTEGER | MONEY | DECIMAL | STRING | WS | COMMENT | Bool | Ident | Int | Decimal | StringLit );";
+            return "1:1: Tokens : ( T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | BOOLEAN | INTEGER | STRING | WS | COMMENT | Bool | Ident | Int | Decimal | StringLit );";
         }
     }
  

@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ui.swing;
 
 import org.uva.sea.ql.ui.ControlFactory;
+import org.uva.sea.ql.ui.control.ButtonControl;
 import org.uva.sea.ql.ui.control.CheckBoxControl;
 import org.uva.sea.ql.ui.control.LabelControl;
 import org.uva.sea.ql.ui.control.MoneyFieldControl;
@@ -36,12 +37,17 @@ public class SwingControlFactory extends ControlFactory {
 	}
 
 	@Override
-	public WindowControl createWindow( String title, PanelControl panel ) {
-		return new Window( title, panel );
+	public WindowControl createWindow() {
+		return new SwingWindow();
 	}
 
 	@Override
 	public LabelControl createLabel( String text ) {
 		return new JLabelControl( text );
+	}
+
+	@Override
+	public ButtonControl createButton( String text ) {
+		return new JButtonControl( text );
 	}
 }

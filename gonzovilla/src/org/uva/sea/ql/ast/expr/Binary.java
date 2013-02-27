@@ -1,20 +1,20 @@
 package org.uva.sea.ql.ast.expr;
 
 public abstract class Binary extends Expr {
-	private final Expr lhs;
-	private final Expr rhs;
+	private final Expr left;
+	private final Expr right;
 
-	public Binary(Expr lhs, Expr rhs) {
-		this.lhs = lhs;
-		this.rhs = rhs;
+	public Binary(Expr left, Expr right) {
+		this.left = left;
+		this.right = right;
 	}
 
 	public Expr getLeft() {
-		return lhs;
+		return left;
 	}
 
 	public Expr getRight() {
-		return rhs;
+		return right;
 	}
 	
 }

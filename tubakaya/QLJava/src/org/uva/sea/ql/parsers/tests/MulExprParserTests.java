@@ -4,14 +4,15 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.ast.operators.arithmetic.Div;
+import org.uva.sea.ql.ast.operators.arithmetic.Mul;
 import org.uva.sea.ql.parsers.MulExprParser;
-import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class MulExprParserTests {
 
-	private ParserBase parser;
+	private ParserBaseForExpressions parser;
 	
 	@Before
     public void setUp() {

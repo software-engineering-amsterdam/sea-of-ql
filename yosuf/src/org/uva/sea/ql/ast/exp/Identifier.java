@@ -2,10 +2,11 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.ast.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class Identifier extends Expression<Expression<?>> {
+public class Identifier extends Expression {
 
 	private final String name;
 
@@ -30,17 +31,17 @@ public class Identifier extends Expression<Expression<?>> {
 
 	@Override
 	public Nature getNature() {
-		return Nature.TEXTUAL;
+		return new Textual();
 	}
 
 	@Override
-	public Expression<?> accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 
 	@Override
 	public String toString() {
-		return "Identifier [name=" + name + "]";
+		return "Identifier [" + name + "]";
 	}
 
 	@Override
@@ -63,13 +64,7 @@ public class Identifier extends Expression<Expression<?>> {
 			return false;
 		}
 		Identifier other = (Identifier) obj;
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		return true;
+
+		return name.equals(other.name);
 	}
 }

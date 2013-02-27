@@ -14,5 +14,4 @@ public class NormalQuestion extends Question {
 	public void accept(IFormVisitor visitor) {
 		visitor.visit(this);		
 	}
-
 }

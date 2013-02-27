@@ -1,14 +1,10 @@
 package org.uva.sea.ql.ast.expression.impl;
 
 import junit.framework.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.uva.sea.ql.ErrorMessage;
-import org.uva.sea.ql.VariableScope;
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.statement.AssignmentNode;
-import org.uva.sea.ql.ast.statement.IfNode;
+import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.value.impl.BooleanValue;
 import org.uva.sea.ql.value.impl.IntegerValue;
 import org.uva.sea.ql.value.impl.MoneyValue;
@@ -17,6 +13,8 @@ import org.uva.sea.ql.value.impl.StringValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,40 +26,41 @@ public class ExpressionTest
     {
         final ExprNode intValueNode1 = new ValueNode(new IntegerValue(6));
         final ExprNode intValueNode2 = new ValueNode(new IntegerValue(3));
+        final Map<IdentifierNode, Value> variables = new HashMap<>();
 
         ExprNode exprNode;
         exprNode = new AddNode(intValueNode1, intValueNode2);
-        assertEquals("Add(+) operation on number", new IntegerValue(9), exprNode.evaluate());
+        assertEquals("Add(+) operation on number", new IntegerValue(9), exprNode.evaluate(variables));
 
         exprNode = new SubtractNode(intValueNode1, intValueNode2);
-        assertEquals("Subtract(-) operation on number", new IntegerValue(3), exprNode.evaluate());
+        assertEquals("Subtract(-) operation on number", new IntegerValue(3), exprNode.evaluate(variables));
 
         exprNode = new MultiplyNode(intValueNode1, intValueNode2);
-        assertEquals("Multiply(*) operation on number", new IntegerValue(18), exprNode.evaluate());
+        assertEquals("Multiply(*) operation on number", new IntegerValue(18), exprNode.evaluate(variables));
 
         exprNode = new DivideNode(intValueNode1, intValueNode2);
-        assertEquals("Divide(/) operation on number", new IntegerValue(2), exprNode.evaluate());
+        assertEquals("Divide(/) operation on number", new IntegerValue(2), exprNode.evaluate(variables));
 
         exprNode = new NotEqualNode(intValueNode1, intValueNode2);
-        assertEquals("NotEqual(!=) operation on number", new BooleanValue(true), exprNode.evaluate());
+        assertEquals("NotEqual(!=) operation on number", new BooleanValue(true), exprNode.evaluate(variables));
 
         exprNode = new EqualNode(intValueNode1, intValueNode2);
-        assertEquals("Equal(==) operation on number", new BooleanValue(false), exprNode.evaluate());
+        assertEquals("Equal(==) operation on number", new BooleanValue(false), exprNode.evaluate(variables));
 
         exprNode = new GreaterEqualNode(intValueNode1, intValueNode2);
-        assertEquals("GreaterEqual(>=) operation on number", new BooleanValue(true), exprNode.evaluate());
+        assertEquals("GreaterEqual(>=) operation on number", new BooleanValue(true), exprNode.evaluate(variables));
 
         exprNode = new GreaterThanNode(intValueNode1, intValueNode2);
-        assertEquals("GreaterThan(>) operation on number", new BooleanValue(true), exprNode.evaluate());
+        assertEquals("GreaterThan(>) operation on number", new BooleanValue(true), exprNode.evaluate(variables));
 
         exprNode = new LessEqualNode(intValueNode1, intValueNode2);
-        assertEquals("LessEqual(<=) operation on number", new BooleanValue(false), exprNode.evaluate());
+        assertEquals("LessEqual(<=) operation on number", new BooleanValue(false), exprNode.evaluate(variables));
 
         exprNode = new LessThanNode(intValueNode1, intValueNode2);
-        assertEquals("LessThan(<) operation on number", new BooleanValue(false), exprNode.evaluate());
+        assertEquals("LessThan(<) operation on number", new BooleanValue(false), exprNode.evaluate(variables));
 
         exprNode = new NegateNode(intValueNode1);
-        assertEquals("Negate(-) operation on number", intValueNode1.evaluate().negate(), exprNode.evaluate());
+        assertEquals("Negate(-) operation on number", intValueNode1.evaluate(variables).negate(), exprNode.evaluate(variables));
     }
 
     @Test
@@ -69,40 +68,41 @@ public class ExpressionTest
     {
         final ExprNode moneyValueNode1 = new ValueNode(new MoneyValue("10000.00"));
         final ExprNode moneyValueNode2 = new ValueNode(new MoneyValue("250.00"));
+        final Map<IdentifierNode, Value> variables = new HashMap<>();
 
         ExprNode exprNode;
         exprNode = new AddNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("Add(+) operation on money", new MoneyValue(new BigDecimal("10250.00")), exprNode.evaluate());
+        assertEquals("Add(+) operation on money", new MoneyValue(new BigDecimal("10250.00")), exprNode.evaluate(variables));
 
         exprNode = new SubtractNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("Subtract(-) operation on money", new MoneyValue(new BigDecimal("9750.00")), exprNode.evaluate());
+        assertEquals("Subtract(-) operation on money", new MoneyValue(new BigDecimal("9750.00")), exprNode.evaluate(variables));
 
         exprNode = new MultiplyNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("Multiply(*) operation on money", new MoneyValue(new BigDecimal("2500000.0000")), exprNode.evaluate());
+        assertEquals("Multiply(*) operation on money", new MoneyValue(new BigDecimal("2500000.0000")), exprNode.evaluate(variables));
 
         exprNode = new DivideNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("Divide(/) operation on money", new MoneyValue(new BigDecimal("40")), exprNode.evaluate());
+        assertEquals("Divide(/) operation on money", new MoneyValue(new BigDecimal("40")), exprNode.evaluate(variables));
 
         exprNode = new NotEqualNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("NotEqual(!=) operation on money", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
+        assertEquals("NotEqual(!=) operation on money", new BooleanValue(Boolean.TRUE), exprNode.evaluate(variables));
 
         exprNode = new EqualNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("Equal(==) operation on money", new BooleanValue(Boolean.FALSE), exprNode.evaluate());
+        assertEquals("Equal(==) operation on money", new BooleanValue(Boolean.FALSE), exprNode.evaluate(variables));
 
         exprNode = new GreaterEqualNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("GreaterEqual(>=) operation on money", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
+        assertEquals("GreaterEqual(>=) operation on money", new BooleanValue(Boolean.TRUE), exprNode.evaluate(variables));
 
         exprNode = new GreaterThanNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("GreaterThan(>) operation on money", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
+        assertEquals("GreaterThan(>) operation on money", new BooleanValue(Boolean.TRUE), exprNode.evaluate(variables));
 
         exprNode = new LessEqualNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("LessEqual(<=) operation on money", new BooleanValue(Boolean.FALSE), exprNode.evaluate());
+        assertEquals("LessEqual(<=) operation on money", new BooleanValue(Boolean.FALSE), exprNode.evaluate(variables));
 
         exprNode = new LessThanNode(moneyValueNode1, moneyValueNode2);
-        assertEquals("LessThan(<) operation on money", new BooleanValue(Boolean.FALSE), exprNode.evaluate());
+        assertEquals("LessThan(<) operation on money", new BooleanValue(Boolean.FALSE), exprNode.evaluate(variables));
 
         exprNode = new NegateNode(moneyValueNode1);
-        assertEquals("Negate(-) operation on money", moneyValueNode1.evaluate().negate(), exprNode.evaluate());
+        assertEquals("Negate(-) operation on money", moneyValueNode1.evaluate(variables).negate(), exprNode.evaluate(variables));
     }
 
     @Test
@@ -110,13 +110,14 @@ public class ExpressionTest
     {
         final ExprNode stringValueNode = new ValueNode(new StringValue("No."));
         final ExprNode intValueNode = new ValueNode(new IntegerValue(5));
+        final Map<IdentifierNode, Value> variables = new HashMap<>();
 
         ExprNode exprNode;
         exprNode = new NotEqualNode(stringValueNode, intValueNode);
-        assertEquals("NotEqual(!=) operation on string", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
+        assertEquals("NotEqual(!=) operation on string", new BooleanValue(Boolean.TRUE), exprNode.evaluate(variables));
 
         exprNode = new EqualNode(stringValueNode, intValueNode);
-        assertEquals("Equal(==) operation on string", new BooleanValue(Boolean.FALSE), exprNode.evaluate());
+        assertEquals("Equal(==) operation on string", new BooleanValue(Boolean.FALSE), exprNode.evaluate(variables));
     }
 
     @Test
@@ -125,15 +126,16 @@ public class ExpressionTest
         ExprNode exprNode;
         final ExprNode booleanValueNode1 = new ValueNode(new BooleanValue(Boolean.FALSE));
         final ExprNode booleanValueNode2 = new ValueNode(new BooleanValue(Boolean.TRUE));
+        final Map<IdentifierNode, Value> variables = new HashMap<>();
 
         exprNode = new NotNode(booleanValueNode1);
-        assertEquals("Not(!) operation on boolean", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
+        assertEquals("Not(!) operation on boolean", new BooleanValue(Boolean.TRUE), exprNode.evaluate(variables));
 
         exprNode = new AndNode(booleanValueNode1, booleanValueNode2);
-        assertEquals("And(&&) operation on boolean", new BooleanValue(Boolean.FALSE), exprNode.evaluate());
+        assertEquals("And(&&) operation on boolean", new BooleanValue(Boolean.FALSE), exprNode.evaluate(variables));
 
         exprNode = new OrNode(booleanValueNode1, booleanValueNode2);
-        assertEquals("Or(||) operation on boolean", new BooleanValue(Boolean.TRUE), exprNode.evaluate());
+        assertEquals("Or(||) operation on boolean", new BooleanValue(Boolean.TRUE), exprNode.evaluate(variables));
     }
 
     @Test
@@ -182,31 +184,9 @@ public class ExpressionTest
 
     private void invalidTypeTest(final ExprNode exprNode)
     {
-        Collection<ErrorMessage> errorMessages = new ArrayList<>();
-        exprNode.validate(errorMessages);
-        Assert.assertTrue("Error message should be exist", errorMessages.size() > 0);
-    }
-
-    @Ignore
-    public void ifStatementTest()
-    {
-        // TODO continue test !!
-        final ExprNode integerValueNode1 = new ValueNode(new IntegerValue(5));
-        final ExprNode integerValueNode2 = new ValueNode(new IntegerValue(15));
-        final ExprNode expectedNode = new ValueNode(new IntegerValue(18));
-        final ExprNode addNode = new AddNode(integerValueNode1, integerValueNode2);
-        final VariableScope variableScope = new VariableScope();
-        String variableName = "foo";
-
-        final IfNode ifNode = new IfNode();
-        final ExprNode equalNode = new EqualNode(expectedNode, addNode);
-        final Node assignmentNode = new AssignmentNode(variableName, integerValueNode1, variableScope);
-        final Node assignmentNode2 = new AssignmentNode(variableName, integerValueNode2, variableScope);
-        ifNode.addBranch(equalNode, assignmentNode);
-        ifNode.addBranch(new ValueNode(new BooleanValue("true")), assignmentNode2);
-//        ifNode.evaluate();
-
-        assertEquals("Result should be the same", integerValueNode2.evaluate(), variableScope.resolve(variableName));
+        Collection<Message> messages = new ArrayList<>();
+        exprNode.validate(messages);
+        Assert.assertTrue("Error message should be exist", messages.size() > 0);
     }
 
 }

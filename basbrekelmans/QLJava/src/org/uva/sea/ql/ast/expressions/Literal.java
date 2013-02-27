@@ -4,7 +4,7 @@ import org.uva.sea.ql.ICodeLocationInformation;
 
 public abstract class Literal extends Simple {
 
-	public Literal(ICodeLocationInformation codeLocation) {
+	Literal(final ICodeLocationInformation codeLocation) {
 		super(codeLocation);
 	}
 }

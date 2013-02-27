@@ -161,5 +161,5 @@ public abstract class Value extends Expr {
 	public Value subMoney(Money arg) {
 		throw new UnsupportedOperationException();
 		}
-} 
+	} 
 

@@ -1,30 +1,18 @@
 package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.test.IParse;
+import org.uva.sea.ql.parser.test.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestForms {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  return Arrays.asList( 
-			  new Object[][] {{new ANTLRParser()}}
-			 );
-	}
-
-	
-	public TestForms(IParse parser) {
-		this.parser = parser;
+	public TestForms() {
+		this.parser = new ANTLRParser();
 	}
 
 	

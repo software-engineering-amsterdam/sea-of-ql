@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitors.ITypeVisitor;
+
 public class Numeric extends Type {
 
 	@Override
@@ -21,5 +23,10 @@ public class Numeric extends Type {
 	public boolean isCompatibleToNumeric() {
 		return true;
 	}
-	
+
+	@Override
+	public <T> T accept(ITypeVisitor<T> Typevisitor) {
+		return null;
+	}
+
 }

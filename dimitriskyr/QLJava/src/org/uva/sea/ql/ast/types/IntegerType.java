@@ -7,10 +7,9 @@ public class IntegerType extends NumericType {
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToInteger();
 	}
-	
+
 	public boolean isCompatibleToInteger() {
 		return true;
 	}
-	
-	
+
 }

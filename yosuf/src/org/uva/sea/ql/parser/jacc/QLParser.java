@@ -1,4 +1,4 @@
-// Output created by jacc on Tue Feb 12 21:19:01 CET 2013
+// Output created by jacc on Tue Feb 26 22:32:23 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.value.*;
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
     justification="because this class is generated.")
 
-@SuppressWarnings({"unused","rawtypes", "unchecked"})
+@SuppressWarnings("unused")
 
 class QLParser implements QLTokens {
     private int yyss = 100;
@@ -2409,7 +2409,7 @@ class QLParser implements QLTokens {
     }
 
     private int yyr16() { // expr : INT_VAL
-        { yyrv = ((IntegerValue)yysv[yysp-1]); }
+        { yyrv = ((NumericValue)yysv[yysp-1]); }
         yysv[yysp-=1] = yyrv;
         return yypexpr();
     }

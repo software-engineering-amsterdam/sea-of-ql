@@ -11,5 +11,5 @@ abstract public class PanelControl extends Control {
 		return this.name;
 	}
 
-	abstract public void add( Control control );
+	abstract public void addControl( Control control );
 }

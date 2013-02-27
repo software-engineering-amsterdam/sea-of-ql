@@ -1,17 +1,18 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ErrorMessage;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
 import org.uva.sea.ql.ast.expression.UnaryNode;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.type.impl.NumericType;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 import java.util.Collection;
+import java.util.Map;
 
 public class NegateNode extends UnaryNode
 {
-    private static final String OPERATOR = "-";
 
     public NegateNode(final ExprNode exprNode)
     {
@@ -19,30 +20,42 @@ public class NegateNode extends UnaryNode
     }
 
     @Override
-    public Value evaluate()
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
     {
-        final Value value = this.exprNode.evaluate();
+        return expressionVisitor.visit(this);
+    }
+
+    @Override
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
+    {
+        final Value value = this.exprNode.evaluate(variables);
         return value.negate();
     }
 
     @Override
-    public boolean validate(final Collection<ErrorMessage> errors)
+    public Type getType()
     {
-        final Type type = this.exprNode.evaluate().getType();
-        final boolean compatible = type.isCompatibleTo(new NumericType());
+        return new NumericType();
+    }
+
+    @Override
+    public boolean validate(final Collection<Message> errors)
+    {
+        final Type type = this.exprNode.getType();
+        final boolean compatible = type.isCompatibleToNumeric();
 
         if(!compatible)
         {
-            errors.add(new ErrorMessage(this, "Invalid type for " + OPERATOR));
+            errors.add(createErrorMessage());
         }
 
         return compatible;
     }
 
     @Override
-    public String toString()
+    protected String getOperator()
     {
-        return  OPERATOR + exprNode.toString();
+        return "-";
     }
 
 }

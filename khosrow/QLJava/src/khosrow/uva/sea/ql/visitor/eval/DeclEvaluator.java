@@ -3,7 +3,6 @@ package khosrow.uva.sea.ql.visitor.eval;
 import java.util.List;
 
 import khosrow.uva.sea.ql.ast.ASTNode;
-import khosrow.uva.sea.ql.ast.decl.Form;
 import khosrow.uva.sea.ql.ast.expr.Ident;
 import khosrow.uva.sea.ql.ast.stmt.*;
 import khosrow.uva.sea.ql.env.Env;
@@ -12,16 +11,16 @@ import khosrow.uva.sea.ql.visitor.IStmtVisitor;
 
 public class DeclEvaluator implements IStmtVisitor<Boolean> {
 	private final Env env;
-	private List<QlDeclarationError> messages;
+	private List<QlDeclarationError> declarationErros;
 
-	private DeclEvaluator(Env env, List<QlDeclarationError> messages) {
+	private DeclEvaluator(Env env, List<QlDeclarationError> declarationErros) {
 		this.env = env;
-		this.messages = messages;
+		this.declarationErros = declarationErros;
 	}
 	
-	public static boolean Evaluate(Form form, Env env, List<QlDeclarationError> messages) {
-		DeclEvaluator evaluator = new DeclEvaluator(env, messages);
-		return form.getStmts().accept(evaluator);
+	public static boolean Evaluate(Stmt stmt, Env env, List<QlDeclarationError> declarationErros) {
+		DeclEvaluator evaluator = new DeclEvaluator(env, declarationErros);
+		return stmt.accept(evaluator);
 	
 	}
 	@Override
@@ -48,9 +47,7 @@ public class DeclEvaluator implements IStmtVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Label stmt) {
-		// will be handled by 
-		// the statement evaluator
-		return true;
+		return DeclareLabel(stmt);
 	}
 
 	@Override
@@ -73,8 +70,18 @@ public class DeclEvaluator implements IStmtVisitor<Boolean> {
 		return true;
 	}
 	
+	private boolean DeclareLabel(Label stmt) {
+		Ident ident = stmt.getIdent();
+		if(env.lookUpIdent(ident)) {
+			addToErrorList(stmt, ident.getName() + " is internally in use. Define another name.");
+			return false;
+		}
+		env.declareType(ident, stmt.getType());
+		return true;
+	}
+		
 	private void addToErrorList(ASTNode ast, String message) {
-		messages.add(new QlDeclarationError("Declaration error at node " + 
+		declarationErros.add(new QlDeclarationError("Declaration error at node " + 
 			ast.getClass() + ". Message: " + message));		
 	}
 }

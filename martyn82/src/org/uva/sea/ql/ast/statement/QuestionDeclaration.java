@@ -7,6 +7,8 @@ abstract public class QuestionDeclaration extends Statement {
 	private final StringLiteral label;
 
 	public QuestionDeclaration( StringLiteral label ) {
+		assert ( label != null );
+
 		this.label = label;
 	}
 

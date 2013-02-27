@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.Set;
 
 import org.uva.sea.ql.ast.Block;
+import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.StatementVisitor;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.Div;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.expr.Mul;
+import org.uva.sea.ql.ast.expr.Not;
 import org.uva.sea.ql.ast.expr.Or;
 import org.uva.sea.ql.ast.expr.Sub;
 import org.uva.sea.ql.ast.ql.ComputedQuestion;
@@ -27,8 +30,10 @@ import org.uva.sea.ql.ast.expr.rel.GT;
 import org.uva.sea.ql.ast.expr.rel.LEq;
 import org.uva.sea.ql.ast.expr.rel.LT;
 import org.uva.sea.ql.ast.expr.rel.NEq;
+import org.uva.sea.ql.ast.expr.value.BooleanVal;
+import org.uva.sea.ql.ast.expr.value.IntegerVal;
 
-public class SemanticVisitor implements StatementSemanticVisitor, ExpressionSemanticVisitor {
+public class SemanticVisitor implements StatementVisitor, ExpressionVisitor {
 
 	private final Map<Ident, Type> symbolTable = new HashMap<Ident, Type>();
 	private final Set<String> questionLabels = new HashSet<String>();
@@ -64,34 +69,39 @@ public class SemanticVisitor implements StatementSemanticVisitor, ExpressionSema
 		return true;
 	}
 
-	public void visit(QLForm form) {
+	public ReturnType visit(QLForm form) {
 		visitBlockOfQLItems(form.getBlockOfItems());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(Question question) {
+	public ReturnType visit(Question question) {
 		tryAddSymbol(question.getId(), question.getType());
 		tryAddLabel(question.getLabel());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(ComputedQuestion question) {
+	public ReturnType visit(ComputedQuestion question) {
 		tryAddSymbol(question.getId(), question.getType());
 		tryAddLabel(question.getLabel());
 		ExpressionTypeValidatorUtil.checkExprIsOfType(question.getExpr(), question.getType(), this, validationReport);
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(ConditionalQuestion question) {
+	public ReturnType visit(ConditionalQuestion question) {
 		ExpressionTypeValidatorUtil.checkConditionalExpr(question.getCondition(), this, validationReport);
 		visitBlockOfQLItems(question.getStatements());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
-	public void visit(ConditionalElseQuestion question) {
+	public ReturnType visit(ConditionalElseQuestion question) {
 		ExpressionTypeValidatorUtil.checkConditionalExpr(question.getCondition(), this, validationReport);
 		visitBlockOfQLItems(question.getStatements());
 		visitBlockOfQLItems(question.getElseStatements());
+		return ReturnTypeHolder.getVoidType();
 	}
 
 	@Override
@@ -173,5 +183,27 @@ public class SemanticVisitor implements StatementSemanticVisitor, ExpressionSema
 	public Type visit(Or node) {
 		ExpressionTypeValidatorUtil.checkBinaryExprMembersShareGivenType(ReturnTypeHolder.getBoolType(), node, this, validationReport);
 		return ReturnTypeHolder.getBoolType();
+	}
+
+	@Override
+	public ReturnType visit(Not node) {
+		ExpressionTypeValidatorUtil.checkExprIsOfType(node, ReturnTypeHolder.getBoolType(), this, validationReport);
+		return ReturnTypeHolder.getBoolType();
+	}
+
+	public Map<Ident, Type> getSymbolTable() {
+		return symbolTable;
+	}
+
+	@Override
+	public ReturnType visit(BooleanVal node) {
+		
+		return ReturnTypeHolder.getBoolType();
+	}
+
+	@Override
+	public ReturnType visit(IntegerVal node) {
+		
+		return ReturnTypeHolder.getIntType();
 	}
 }

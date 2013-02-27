@@ -4,30 +4,25 @@ import java.math.BigDecimal;
 
 public class Money extends AbstractValue {
 
-	private final int roundingMode;
+	public static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_EVEN;
 	private final BigDecimal value;
 
 	public Money(BigDecimal value) {
 		this.value = value;
-		this.roundingMode = BigDecimal.ROUND_HALF_EVEN;
 	}
 
 	public BigDecimal getValue() {
 		return this.value;
 	}
 
-	public int getRoundingMode() {
-		return this.roundingMode;
-	}
-
 	@Override
 	public AbstractValue neg() {
-		return new Money(this.getValue().negate());
+		return new Money(this.value.negate());
 	}
 
 	@Override
 	public AbstractValue pos() {
-		return new Money(this.getValue().abs());
+		return new Money(this.value.abs());
 	}
 
 	@Override
@@ -38,12 +33,12 @@ public class Money extends AbstractValue {
 	@Override
 	protected AbstractValue addInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Money(intAsBigDecimal.add(this.getValue()));
+		return new Money(intAsBigDecimal.add(this.value));
 	}
 
 	@Override
 	protected AbstractValue addMoney(Money value) {
-		return new Money(value.getValue().add(this.getValue()));
+		return new Money(value.getValue().add(this.value));
 	}
 
 	@Override
@@ -53,15 +48,25 @@ public class Money extends AbstractValue {
 
 	@Override
 	protected AbstractValue divInt(Int value) {
-		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Money(intAsBigDecimal.divide(this.getValue(),
-				this.roundingMode));
+		if (this.value.compareTo(new BigDecimal(0)) == 0) {
+			// Prevent division by zero.
+			return new Money(this.value);
+		} else {
+			BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
+			return new Money(intAsBigDecimal.divide(this.value,
+					Money.ROUNDING_MODE));
+		}
 	}
 
 	@Override
 	protected AbstractValue divMoney(Money value) {
-		return new Money(value.getValue().divide(this.getValue(),
-				this.roundingMode));
+		if (this.value.compareTo(new BigDecimal(0)) == 0) {
+			// Prevent division by zero.
+			return new Money(this.value);
+		} else {
+			return new Money(value.getValue().divide(this.value,
+					Money.ROUNDING_MODE));
+		}
 	}
 
 	@Override
@@ -72,12 +77,12 @@ public class Money extends AbstractValue {
 	@Override
 	protected AbstractValue mulInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Money(intAsBigDecimal.multiply(this.getValue()));
+		return new Money(intAsBigDecimal.multiply(this.value));
 	}
 
 	@Override
 	protected AbstractValue mulMoney(Money value) {
-		return new Money(value.getValue().multiply(this.getValue()));
+		return new Money(value.getValue().multiply(this.value));
 	}
 
 	@Override
@@ -88,12 +93,12 @@ public class Money extends AbstractValue {
 	@Override
 	protected AbstractValue subInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Money(intAsBigDecimal.subtract(this.getValue()));
+		return new Money(intAsBigDecimal.subtract(this.value));
 	}
 
 	@Override
 	protected AbstractValue subMoney(Money value) {
-		return new Money(value.getValue().subtract(this.getValue()));
+		return new Money(value.getValue().subtract(this.value));
 	}
 
 	@Override
@@ -104,12 +109,12 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue eqInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Bool(intAsBigDecimal.compareTo(this.getValue()) == 0);
+		return new Bool(intAsBigDecimal.compareTo(this.value) == 0);
 	}
 
 	@Override
 	public AbstractValue eqMoney(Money value) {
-		return new Bool(value.getValue().compareTo(this.getValue()) == 0);
+		return new Bool(value.getValue().compareTo(this.value) == 0);
 	}
 
 	@Override
@@ -120,12 +125,12 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue neqInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Bool(intAsBigDecimal.compareTo(this.getValue()) != 0);
+		return new Bool(intAsBigDecimal.compareTo(this.value) != 0);
 	}
 
 	@Override
 	public AbstractValue neqMoney(Money value) {
-		return new Bool(value.getValue().compareTo(this.getValue()) != 0);
+		return new Bool(value.getValue().compareTo(this.value) != 0);
 	}
 
 	@Override
@@ -136,12 +141,12 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue geqInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Bool(intAsBigDecimal.compareTo(this.getValue()) >= 0);
+		return new Bool(intAsBigDecimal.compareTo(this.value) >= 0);
 	}
 
 	@Override
 	public AbstractValue geqMoney(Money value) {
-		return new Bool(value.getValue().compareTo(this.getValue()) >= 0);
+		return new Bool(value.getValue().compareTo(this.value) >= 0);
 	}
 
 	@Override
@@ -152,12 +157,12 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue gtInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Bool(intAsBigDecimal.compareTo(this.getValue()) == 1);
+		return new Bool(intAsBigDecimal.compareTo(this.value) == 1);
 	}
 
 	@Override
 	public AbstractValue gtMoney(Money value) {
-		return new Bool(value.getValue().compareTo(this.getValue()) == 1);
+		return new Bool(value.getValue().compareTo(this.value) == 1);
 	}
 
 	@Override
@@ -168,12 +173,12 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue leqInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Bool(intAsBigDecimal.compareTo(this.getValue()) <= 0);
+		return new Bool(intAsBigDecimal.compareTo(this.value) <= 0);
 	}
 
 	@Override
 	public AbstractValue leqMoney(Money value) {
-		return new Bool(value.getValue().compareTo(this.getValue()) <= 0);
+		return new Bool(value.getValue().compareTo(this.value) <= 0);
 	}
 
 	@Override
@@ -184,12 +189,32 @@ public class Money extends AbstractValue {
 	@Override
 	public AbstractValue ltInt(Int value) {
 		BigDecimal intAsBigDecimal = new BigDecimal(value.getValue());
-		return new Bool(intAsBigDecimal.compareTo(this.getValue()) == -1);
+		return new Bool(intAsBigDecimal.compareTo(this.value) == -1);
 	}
 
 	@Override
 	public AbstractValue ltMoney(Money value) {
-		return new Bool(value.getValue().compareTo(this.getValue()) == -1);
+		return new Bool(value.getValue().compareTo(this.value) == -1);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.value.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Money)) {
+			return false;
+		}
+
+		Money value = (Money) obj;
+		return this.value.compareTo(value.getValue()) == 0;
+	}
+
+	@Override
+	public java.lang.String toString() {
+		return this.value.toString();
 	}
 
 }

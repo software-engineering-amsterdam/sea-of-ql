@@ -1,12 +1,12 @@
 package org.uva.sea.ql.parsers;
 
-import org.uva.sea.ql.ast.types.Expr;
+import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.parsers.antlr.QLParser;
 import org.antlr.runtime.RecognitionException;
 
-public class OrExprParser extends ParserBase {
+public class OrExprParser extends ParserBaseForExpressions {
 
-	public Expr callExprUnderTest(QLParser parser) throws RecognitionException {
+	public Expression callExprUnderTest(QLParser parser) throws RecognitionException {
 		return parser.orExpr();
 	}
 }

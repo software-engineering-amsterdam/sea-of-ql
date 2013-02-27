@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.values.Value;
 public class IfElseStatement extends IfStatement {
 
 	private final List<FormItem> elseBody;
-	private Env elseBodyEnvironment;
 	
 	public IfElseStatement(Expr expression, List<FormItem> ifBody, List<FormItem> elseBody) {
 		super(expression, ifBody);
@@ -38,9 +37,8 @@ public class IfElseStatement extends IfStatement {
 	@Override
 	public boolean validate(Env environment) {
 		boolean valid = super.validate(environment);
-		elseBodyEnvironment = new Env(environment);
 		for (FormItem f : elseBody) {
-			if (!f.validate(elseBodyEnvironment))
+			if (!f.validate(environment.getChildScope(this)))
 				valid = false;
 		}
 		return errors.size() == 0 && valid;
@@ -50,11 +48,10 @@ public class IfElseStatement extends IfStatement {
 	public void buildForm(JPanel mainPanel, Env environment, Form form) {
 		super.buildForm(mainPanel, environment, form);
 		for (FormItem f : elseBody) {
-			f.buildForm(mainPanel, elseBodyEnvironment, form);
+			f.buildForm(mainPanel, environment.getChildScope(this), form);
 		}
 	}
 	
-	// TODO: Discuss this part with Tijs..
 	@Override
 	public void setVisible(Boolean visible) {
 		// The ifBody will be set to the same as the else. This will be overwritten by the eval if setVisible is
@@ -72,7 +69,7 @@ public class IfElseStatement extends IfStatement {
 		evalIfBody(environment);
 		if (!isExpressionValid(environment)) {
 			for (FormItem f : elseBody) {
-				f.eval(elseBodyEnvironment);
+				f.eval(environment.getChildScope(this));
 			}
 		}
 	}
@@ -81,7 +78,7 @@ public class IfElseStatement extends IfStatement {
 	public boolean isFinished(Env environment) {
 		if (!isExpressionValid(environment)) {
 			for (FormItem f : elseBody) {
-				if (!f.isFinished(elseBodyEnvironment)) {
+				if (!f.isFinished(environment.getChildScope(this))) {
 					return false;
 				}
 			}
@@ -97,7 +94,7 @@ public class IfElseStatement extends IfStatement {
 		List<Tuple<Ident, Value>> values = super.getAllValues(environment);
 		if (!isExpressionValid(environment)) {
 			for (FormItem f : elseBody) {
-				values.addAll(f.getAllValues(elseBodyEnvironment));
+				values.addAll(f.getAllValues(environment.getChildScope(this)));
 			}
 		}
 		return values;

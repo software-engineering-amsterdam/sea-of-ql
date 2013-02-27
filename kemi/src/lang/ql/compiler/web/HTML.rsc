@@ -10,12 +10,13 @@
 
 module lang::ql::compiler::web::HTML
 
+import Configuration;
 import IO;
-import lang::ql::ast::AST; 
+import lang::ql::\ast::AST; 
 import util::StringHelper;
 
-public void HTML(Form f, loc dest) {
-  dest += "index.html";
+public void html(Form f, loc dest) {
+  dest += getHTMLName();
   
   str title = "";
   list[Question] questions = [];
@@ -41,7 +42,7 @@ private str createPage(str title, list[Question] questions) =
   '    \<title\><title>\</title\>
   '    \<script type=\"text/javascript\" src=\"jquery.min.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"jquery.validate.js\"\>\</script\>
-  '    \<script type=\"text/javascript\" src=\"qls.js\"\>\</script\>
+  '    \<script type=\"text/javascript\" src=\"static.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"checking.js\"\>\</script\>
   '    \<script type=\"text/javascript\" src=\"styling.js\"\>\</script\>
   '    \<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /\>
@@ -63,32 +64,31 @@ private str createPage(str title, list[Question] questions) =
   ";
 
 private str createQuestion(str title, Question q: 
-    question(QuestionText text, Type \type, IdentDefinition ident)) {
-  if(\type.name == "boolean")
-    return 
-    "\<div id=\"<ident.ident>Block\"\>
-    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
-    '  \<select id=\"<ident.ident>\" name=\"<ident.ident>\" form=\"<title>\"\>
-    '  \<option value=\"\"\>Choose an answer\</option\>
-    '  \<option value=\"true\"\>Yes\</option\>
-    '  \<option value=\"false\"\>No\</option\>
-    '  \</select\>
-    '\</div\>
-    '";
-    
-  return 
-    "\<div id=\"<ident.ident>Block\"\>
-    '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
-    '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" /\>
-    '\</div\>
-    '";
-}
+    question(QuestionText text, Type \type, IdentDefinition ident)) =
+  "\<div id=\"<ident.ident>Block\"\>
+  '  \<label for=\"<ident.ident>\"\><unquote(text.text)>\</label\>
+  '  \<select id=\"<ident.ident>\" name=\"<ident.ident>\" form=\"<title>\"\>
+  '  \<option value=\"\"\>Choose an answer\</option\>
+  '  \<option value=\"true\"\>Yes\</option\>
+  '  \<option value=\"false\"\>No\</option\>
+  '  \</select\>
+  '\</div\>
+  '" 
+    when \type.name == "boolean";
+
+private default str createQuestion(str title, Question q: 
+    question(QuestionText text, Type \type, IdentDefinition ident)) =
+  "\<div id=\"<ident.ident>Block\"\>
+  '  \<label for=\"<ident.ident>\"\><unquote(text.text)>\</label\>
+  '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" /\>
+  '\</div\>
+  '";
 
 private str createQuestion(str title, Question q: 
     question(QuestionText text, Type \type, IdentDefinition ident, 
     calculatedField)) =
   "\<div id=\"<ident.ident>Block\"\>
-  '  \<label for=\"<ident.ident>\"\><trimQuotes(text.text)>\</label\>
+  '  \<label for=\"<ident.ident>\"\><unquote(text.text)>\</label\>
   '  \<input type=\"<\type.name>\" id=\"<ident.ident>\" name=\"<ident.ident>\" disabled=\"disabled\"/\>
   '\</div\>
   '";

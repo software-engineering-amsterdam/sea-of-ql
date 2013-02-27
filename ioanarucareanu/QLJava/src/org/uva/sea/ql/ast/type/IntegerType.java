@@ -1,15 +1,9 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.expr.value.IntegerValue;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expr.value.IntegerVal;
+import org.uva.sea.ql.ast.expr.value.Val;
 
 public class IntegerType extends Type {
-
-	@Override
-	public Value<?> createValueOfType() {
-		
-		return new IntegerValue();
-	}
 
 	@Override
 	public String toString() {
@@ -23,5 +17,11 @@ public class IntegerType extends Type {
 		}
 		return getClass().equals(obj.getClass()); 
 	}
+
+//	@Override
+//	public Val createValOfType() {
+//		
+//		return new IntegerVal();
+//	}
 
 }

@@ -1,9 +1,11 @@
 package org.uva.sea.ql.ast.value;
 
-import org.uva.sea.ql.visitor.NaturalVisitor;
+import org.uva.sea.ql.ast.exp.Bools;
+import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.NaturalVisitor;
 
-public class BooleanValue extends Value<BooleanValue> {
+public class BooleanValue extends Value {
 
 	private final boolean value;
 
@@ -17,13 +19,13 @@ public class BooleanValue extends Value<BooleanValue> {
 	}
 
 	@Override
-	public BooleanValue accept(final ExpressionVisitor visitor) {
+	public Value accept(final ExpressionVisitor visitor) {
 		return visitor.visit(this);
 	}
 
 	@Override
 	public Nature getNature() {
-		return Nature.BOOLEAN;
+		return new Bools();
 	}
 
 	public boolean getValue() {
@@ -33,5 +35,10 @@ public class BooleanValue extends Value<BooleanValue> {
 	@Override
 	public String toString() {
 		return "BooleanValue [value=" + value + ", Nature=" + getNature() + "]";
+	}
+
+	@Override
+	public String getAsString() {
+		return String.valueOf(value);
 	}
 }

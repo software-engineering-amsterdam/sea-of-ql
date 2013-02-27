@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitors.interfaces.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class StringLiteral extends Value {
 
@@ -26,16 +26,6 @@ public class StringLiteral extends Value {
 	@Override
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
 		return ExprVisitor.visit(this);
-	}
-
-	@Override
-	public boolean isOfValue(Value v) {
-		return v.isStringLiteral();
-	}
-
-	@Override
-	public boolean isStringLiteral() {
-		return true;
 	}
 
 }

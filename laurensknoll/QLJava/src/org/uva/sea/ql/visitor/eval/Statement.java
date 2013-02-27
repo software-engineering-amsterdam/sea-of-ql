@@ -2,10 +2,11 @@ package org.uva.sea.ql.visitor.eval;
 
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.BoxLayout;
 
+import org.uva.sea.ql.ast.expr.AbstractExpr;
 import org.uva.sea.ql.ast.expr.atom.Ident;
+import org.uva.sea.ql.ast.expr.atom.String;
 import org.uva.sea.ql.ast.statement.AbstractStatement;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
@@ -13,9 +14,13 @@ import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.type.AbstractType;
 import org.uva.sea.ql.visitor.IStatement;
-import org.uva.sea.ql.visitor.eval.ui.Widget;
+import org.uva.sea.ql.visitor.IType;
+import org.uva.sea.ql.visitor.eval.ui.statement.Computed;
+import org.uva.sea.ql.visitor.eval.ui.statement.Conditional;
+import org.uva.sea.ql.visitor.eval.ui.statement.Panel;
+import org.uva.sea.ql.visitor.eval.ui.type.Widget;
 
-public class Statement implements IStatement<JPanel> {
+public class Statement implements IStatement<Panel> {
 
 	private final Environment environment;
 
@@ -24,13 +29,14 @@ public class Statement implements IStatement<JPanel> {
 	}
 
 	@Override
-	public JPanel visit(Block block) {
-		JPanel panel = new JPanel(new GridLayout(0, 1));
+	public Panel visit(Block block) {
+		Panel panel = new Panel(this.environment);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		Environment newBlockContext = new Environment(this.environment);
-		Statement statementVisitor = new Statement(newBlockContext);
+		Environment innerEnvironment = this.environment.createChild();
+		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
 		for (AbstractStatement statement : block.getStatements()) {
-			JPanel inner = statement.accept(statementVisitor);
+			Panel inner = statement.accept(statementVisitor);
 			panel.add(inner);
 		}
 
@@ -38,56 +44,50 @@ public class Statement implements IStatement<JPanel> {
 	}
 
 	@Override
-	public JPanel visit(ComputedQuestion computedQuestion) {
-		JPanel panel = new JPanel();
+	public Panel visit(ComputedQuestion computed) {
+		Question question = computed.getQuestion();
+		Panel questionPanel = question.accept(this);
 
-		Question question = computedQuestion.getQuestion();
-		JPanel questionPanel = question.accept(this);
-		panel.add(questionPanel);
+		AbstractExpr computation = computed.getComputation();
+		Ident ident = question.getIdent();
+		Panel panel = new Computed(this.environment, ident, computation,
+				questionPanel);
 
-		// Get Widget of an ident; Set value.
-		/*
-		 * TODO: How to evaluate expression and show initial value in question
-		 * Expression expressionVisitor = new Expression(this.environment);
-		 * AbstractValue value = computedQuestion.getComputeExpression().accept(
-		 * expressionVisitor);
-		 */
-		return panel;
-	}
-
-	@Override
-	public JPanel visit(If ifStatement) {
-		JPanel panel = new JPanel();
-
-		/*
-		 * TODO: Add enable condition to panel. Expression expressionVisitor =
-		 * new Expression(this.environment); Boolean isConditionValid =
-		 * ifStatement.getCondition().accept(expressionVisitor);
-		 */
-		JPanel truePanel = ifStatement.getTruePath().accept(this);
-		panel.add(truePanel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
 		return panel;
 	}
 
 	@Override
-	public JPanel visit(Question question) {
-		JPanel panel = new JPanel(new GridLayout(1, 2));
+	public Panel visit(If ifStatement) {
+		Environment innerEnvironment = this.environment.createChild();
+		IStatement<Panel> statementVisitor = new Statement(innerEnvironment);
 
-		Ident id = question.getIdent();
-		this.environment.declare(id, null);
+		AbstractStatement trueStatement = ifStatement.getTruePath();
+		Panel truePanel = trueStatement.accept(statementVisitor);
 
-		/*
-		 * TODO: Create visitor that creates labels. Expression
-		 * expressionVisitor = new Expression(this.environment);
-		 */
-		JLabel description = new JLabel(question.getQuestion().getValue());
-		panel.add(description);
+		AbstractExpr condition = ifStatement.getCondition();
+		Panel panel = new Conditional(this.environment, condition, truePanel);
+
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+		return panel;
+	}
+
+	@Override
+	public Panel visit(Question question) {
+		String questionLabel = question.getQuestion();
 
 		AbstractType type = question.getType();
-		Type typeVisitor = new Type();
-		Widget inputField = type.accept(typeVisitor);
-		panel.add(inputField.getComponent());
+		IType<Widget> typeVisitor = new Type();
+		Widget widget = type.accept(typeVisitor);
+
+		Panel panel = new org.uva.sea.ql.visitor.eval.ui.statement.Question(
+				this.environment, questionLabel.getValue(), widget);
+		panel.setLayout(new GridLayout(1, 2));
+
+		Ident id = question.getIdent();
+		this.environment.declare(id, widget);
 
 		return panel;
 	}

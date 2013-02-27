@@ -20,9 +20,7 @@ import org.uva.sea.ql.ast.expr.unary.Neg;
 import org.uva.sea.ql.ast.expr.unary.Not;
 import org.uva.sea.ql.ast.expr.unary.Pos;
 
-
 public interface IExpressionVisitor<T> {
-	
 	// Binary Expressions
 	T visit(Add ast);
 	T visit(And ast);

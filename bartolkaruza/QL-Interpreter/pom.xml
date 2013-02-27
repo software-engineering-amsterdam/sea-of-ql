@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.sea.ql</groupId>
+
+	<artifactId>org.sea.ql</artifactId>
+
+	<name>QL</name>
+
+	<version>1.0</version>
+
+	<build>
+
+		<sourceDirectory>src/main/java</sourceDirectory>
+
+
+		<plugins>
+
+			<!-- <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/test/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
+			<plugin>
+
+				<groupId>org.apache.maven.plugins</groupId>
+
+				<artifactId>maven-compiler-plugin</artifactId>
+
+				<configuration>
+
+					<source>1.6</source>
+
+					<target>1.6</target>
+
+				</configuration>
+
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<dependencies>
+		<dependency>
+	      <groupId>org.antlr</groupId>
+	      <artifactId>antlr</artifactId>
+	      <version>3.5</version>
+	    </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+	    <repository>
+	      <id>repo1</id>
+	      <url>http://repo1.maven.org/maven2</url>
+	    </repository>
+	</repositories>
+
+	<properties>
+
+		<sonar.dynamicAnalysis>true</sonar.dynamicAnalysis>
+		<sonar.java.coveragePlugin>jacoco or cobertura or emma or clover</sonar.java.coveragePlugin>
+
+	</properties>
+
+</project>

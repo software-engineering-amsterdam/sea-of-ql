@@ -3,7 +3,8 @@ package org.uva.sea.ql.ast.ql;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.type.Type;
-import org.uva.sea.ql.semanticchecker.StatementSemanticVisitor;
+import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.semanticchecker.ReturnType;
 
 public class ComputedQuestion extends Question {
 
@@ -19,8 +20,8 @@ public class ComputedQuestion extends Question {
 	}
 
 	@Override
-	public void accept(StatementSemanticVisitor visitor) {
-		visitor.visit(this);
+	public ReturnType accept(StatementVisitor visitor) {
+		return visitor.visit(this);
 	}
 	
 	@Override

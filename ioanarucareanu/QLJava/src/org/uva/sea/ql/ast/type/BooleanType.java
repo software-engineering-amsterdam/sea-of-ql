@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.expr.value.BooleanValue;
-import org.uva.sea.ql.ast.expr.value.Value;
+import org.uva.sea.ql.ast.expr.value.BooleanVal;
+import org.uva.sea.ql.ast.expr.value.Val;
 
 public class BooleanType extends Type {
 
@@ -9,11 +9,11 @@ public class BooleanType extends Type {
 		
 	}
 	
-	@Override
-	public Value<?> createValueOfType() {
-
-		return new BooleanValue();
-	}
+//	@Override
+//	public Value createValueOfType() {
+//
+//		return new BooleanValue(false);
+//	}
 
 	@Override
 	public String toString() {
@@ -27,5 +27,12 @@ public class BooleanType extends Type {
 		}
 		return getClass().equals(obj.getClass()); 
 	}
+
+//	@Override
+//	public Val createValOfType() {
+//		// TODO Auto-generated method stub
+//		return new BooleanVal();
+//	}
+
 
 }

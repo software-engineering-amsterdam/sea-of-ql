@@ -10,5 +10,5 @@ public class IntegerType extends NumericType {
 	@Override
 	public String toString() {
 		return "IntegerType";
-	}
+	}	
 }

@@ -3,7 +3,9 @@ package org.uva.sea.ql.visitor;
 import static julius.validation.Assertions.checked;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import julius.validation.ValidationException;
 
@@ -11,16 +13,18 @@ import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
+import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
-import org.uva.sea.ql.ast.exp.Expression.Nature;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.exp.Multiply;
+import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.Negative;
 import org.uva.sea.ql.ast.exp.Not;
 import org.uva.sea.ql.ast.exp.NotEquals;
+import org.uva.sea.ql.ast.exp.Numeric;
 import org.uva.sea.ql.ast.exp.Or;
 import org.uva.sea.ql.ast.exp.Positive;
 import org.uva.sea.ql.ast.exp.SmallerOrEquals;
@@ -31,20 +35,21 @@ import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 
+/**
+ * Use {@link #isValid()} and {@link #getTypeErrors()} to validate at the end.
+ */
 @Visitor
 public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	private final List<TypeCheckException> typeErrors;
+	private final Map<Natural, Natural> environment;
 
-	public ExpressionTypeChecker() {
+	public ExpressionTypeChecker(final Map<Natural, Natural> environment) {
 		typeErrors = new ArrayList<TypeCheckException>();
-	}
-
-	public List<TypeCheckException> getTypeErrors() {
-		return typeErrors;
+		this.environment = environment;
 	}
 
 	@Override
@@ -56,7 +61,7 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	}
 
 	@Override
-	public Natural visit(final IntegerValue integerValue) {
+	public Natural visit(final NumericValue integerValue) {
 		return integerValue;
 	}
 
@@ -113,7 +118,11 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 
 	@Override
 	public Natural visit(final Identifier identifier) {
-		return identifier;
+		if (environment.get(identifier) == null) {
+			return identifier;
+		} else {
+			return environment.get(identifier);
+		}
 	}
 
 	@Override
@@ -190,20 +199,20 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	}
 
 	private void assertNumeric(final Natural natural) {
-		assertNature(natural, Nature.NUMERIC);
+		assertNature(natural, new Numeric());
 	}
 
 	private void assertBoolean(final Natural natural) {
-		assertNature(natural, Nature.BOOLEAN);
+		assertNature(natural, new Bools());
 	}
 
 	private void assertNature(final Natural natural, final Nature nature) {
 		try {
-			checked.assertTrue(nature == natural.getNature(), "A " + nature
+			checked.assertTrue(nature.equals(natural.getNature()), "A " + nature
 					+ " is incompatible with " + natural);
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException("A " + nature
-					+ " is incompatible with " + natural, e));
+			typeErrors.add(new TypeCheckException("A " + nature + " is incompatible with "
+					+ natural, e));
 		}
 	}
 
@@ -225,6 +234,23 @@ public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
 	@Override
 	public Natural visit(final StringType stringType) {
 		return stringType;
+	}
+
+	/**
+	 * 
+	 * @return type errors
+	 */
+	public Collection<TypeCheckException> getTypeErrors() {
+		return new ArrayList<TypeCheckException>(typeErrors);
+	}
+
+	/**
+	 * 
+	 * @return true if no errors were found after the checking. It is otherwise always true if
+	 *         checking has not started yet.
+	 */
+	public boolean isValid() {
+		return typeErrors.isEmpty();
 	}
 
 }

@@ -35,9 +35,7 @@ public class StatementTypeCheckingVisitor implements StatementVisitor<Boolean> {
 	public Boolean visit(Block block) {
 		boolean isValid = true;
 		for (Statement statement : block.getStatements()) {
-			boolean checkStatement = statement.accept(this);
-			if (!checkStatement)
-				isValid = false;
+			isValid = isValid && statement.accept(this);
 		}
 		return isValid;	
 	}

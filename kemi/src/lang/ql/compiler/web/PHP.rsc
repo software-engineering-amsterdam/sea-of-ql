@@ -10,15 +10,16 @@
 
 module lang::ql::compiler::web::PHP
 
+import Configuration;
 import IO;
 import String;
-import lang::ql::ast::AST;
-import lang::ql::compiler::PrettyPrinter;
+import lang::ql::\ast::AST;
+import lang::ql::compiler::web::PHPExpressionPrinter;
 
 private str title = "";
 
-public void PHP(Form f, loc dest) {
-  dest += "form.php";
+public void php(Form f, loc dest) {
+  dest += getPHPName();
   title = f.formName.ident;
   writeFile(dest, createPHP(f));
 }
@@ -47,13 +48,8 @@ private str createPHP(Question q:
     ";
 
 private str createPHP(Question q: 
-  question(_, answerDataType, ansIdent, calculatedField)) {
-  
-  cf = prependIdent(calculatedField, "$");
-  
-  return 
-    "<addToArray(answerDataType, ansIdent.ident, prettyPrint(cf))>";
-}
+  question(_, answerDataType, ansIdent, calculatedField)) =
+    "<addToArray(answerDataType, ansIdent.ident, phpPrint(prependIdent(calculatedField, "$")))>";
 
 private str createPHP(Statement item: 
     ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
@@ -67,17 +63,18 @@ private str createPHP(Statement item:
   '}";
 
 private str createPHP(Expr e) =
-  "<prettyPrint(prependIdent(e, "$"))>";
+  "<phpPrint(prependIdent(e, "$"))>";
 
 private str addToArray(Type answerDataType, str ident) =
   addToArray(answerDataType, ident, "$_POST[\'<ident>\']");
   
-private str addToArray(Type answerDataType: booleanType(_), str ident, str expr) =
-  "
-  '$<ident> = <expr> === \"true\";
-  '$__RES[\"<ident>\"] = $<ident>;
-  '
-  ";
+private str addToArray(Type answerDataType: booleanType(_), 
+  str ident, str expr) =
+    "
+    '$<ident> = <expr> === \"true\";
+    '$__RES[\"<ident>\"] = $<ident>;
+    '
+    ";
     
 private str addToArray(Type answerDataType, str ident, str expr) =
   "
@@ -113,7 +110,8 @@ private str validateBoolean(str ident) =
   "if(!isset($_POST[\'<ident>\'])) {
   '  // A boolean which is not set means false.
   '  $_POST[\'<ident>\'] = \"false\";
-  '} else if($_POST[\'<ident>\'] === \"true\" || $_POST[\'<ident>\'] === \"false\") {
+  '} else if($_POST[\'<ident>\'] === \"true\" || 
+  '          $_POST[\'<ident>\'] === \"false\") {
   '} else {
   '  die(\"<ident> is not a boolean!\");
   '}";

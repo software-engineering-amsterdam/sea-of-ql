@@ -2,6 +2,7 @@ package khosrow.uva.sea.ql.resources;
 
 import khosrow.uva.sea.ql.ast.type.Type;
 import khosrow.uva.sea.ql.values.Value;
+import khosrow.uva.sea.ql.visitor.ITypeVisitor;
 
 public class QlTypeError extends Type {
 	private final String message;
@@ -25,5 +26,11 @@ public class QlTypeError extends Type {
 	@Override
 	public Value initialize() {
 		return new QlValueError("No Error");
+	}
+
+	@Override
+	public <T> T accept(ITypeVisitor<T> visitor) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

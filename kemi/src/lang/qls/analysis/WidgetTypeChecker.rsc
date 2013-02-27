@@ -11,15 +11,13 @@
 module lang::qls::analysis::WidgetTypeChecker
 
 import IO;
-import util::IDE;
-
-import lang::ql::ast::AST;
+import lang::ql::analysis::State;
+import lang::ql::\ast::AST;
 import lang::qls::analysis::Messages;
-import lang::qls::analysis::SemanticChecker;
-import lang::qls::ast::AST;
+import lang::qls::\ast::AST;
 import lang::qls::util::StyleHelper;
-
-import lang::qls::util::ParseHelper;
+import util::IDE;
+import util::Math;
 
 private map[Type, list[str]] allowedWidgets = (
   booleanType("boolean"):
@@ -39,26 +37,66 @@ private bool isAllowedWidget(Type \type, str widget) =
 
 public set[Message] unallowedWidgetErrors(Stylesheet s) =
   unallowedDefaultWidgetErrors(s) +
-  unallowedQuestionWidgetErrors(s);
+  unallowedQuestionWidgetErrors(s) +
+  unallowedDefaultIntegerRangeErrors(s) +
+  unallowedQuestionIntegerRangeErrors(s);
 
 private set[Message] unallowedDefaultWidgetErrors(Stylesheet s) = 
   {
-    typeWithInvalidWidget(widget.name, d.ident.name, r@location) |
-    d <- getDefaultDefinitions(s),
-    r:widgetStyleRule(_, widget) <- d.styleRules,
-    !isAllowedWidget(d.ident, widget.name)
+    typeWithInvalidWidget(widget.name, dd.\type.name, wsr@location) |
+    dd <- getDefaultDefinitions(s),
+    wsr:widgetStyleRule(_, widget) <- dd.styleRules,
+    !isAllowedWidget(dd.\type, widget.name)
   };
 
 private set[Message] unallowedQuestionWidgetErrors(Stylesheet s) {
-  typeMap = getTypeMap(getAccompanyingForm(s));
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
   return 
     { 
-      typeWithInvalidWidget(widget.name, \type.name, r@location) |
-      d <- getQuestionDefinitions(s),
-      d.styleRules?,
-      identDefinition(d.ident) in typeMap,
-      \type := typeMap[identDefinition(d.ident)],
-      r:widgetStyleRule(_, widget) <- d.styleRules,
+      typeWithInvalidWidget(widget.name, \type.name, wsr@location) |
+      qd <- getQuestionDefinitions(s),
+      qd.styleRules?,
+      identDefinition(qd.ident.name) in typeMap,
+      \type := typeMap[identDefinition(qd.ident.name)],
+      wsr:widgetStyleRule(_, widget) <- qd.styleRules,
       !isAllowedWidget(\type, widget.name)
+    };
+}
+
+private Type integer = integerType("integer");
+
+private bool isInteger(num number) =
+  round(number) == number;
+
+private bool hasIntegerRange(WidgetStyleValue widget) =
+  isInteger(widget.min) && isInteger(widget.max) && isInteger(widget.step)
+    when widget.step?;
+
+private default bool hasIntegerRange(WidgetStyleValue widget) =
+  isInteger(widget.min) && isInteger(widget.max);
+
+private set[Message] unallowedDefaultIntegerRangeErrors(Stylesheet s) = 
+  {
+    invalidRangeType(dd.\type.name, wsr@location) |
+    dd <- getDefaultDefinitions(s),
+    dd.\type == integer,
+    wsr:widgetStyleRule(_, widget) <- dd.styleRules,
+    widget.min?,
+    !hasIntegerRange(widget)
+  };
+
+private set[Message] unallowedQuestionIntegerRangeErrors(Stylesheet s) {
+  TypeMap typeMap = getTypeMap(getAccompanyingForm(s));
+  return 
+    { 
+      invalidRangeType(\type.name, wsr@location) |
+      qd <- getQuestionDefinitions(s),
+      qd.styleRules?,
+      identDefinition(qd.ident.name) in typeMap,
+      \type := typeMap[identDefinition(qd.ident.name)],
+      \type == integer,
+      wsr:widgetStyleRule(_, widget) <- qd.styleRules,
+      widget.min?,
+      !hasIntegerRange(widget)
     };
 }

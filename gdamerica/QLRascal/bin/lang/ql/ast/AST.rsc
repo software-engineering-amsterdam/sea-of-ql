@@ -10,9 +10,9 @@ module lang::ql::ast::AST
 data Expr
   = ident(str name)
   | \int(int iValue)
-  | boolean(bool bValue)
+  | boolCon(bool bValue)
   | money(real mnValue)
-  | string(str strValue)
+  | strCon(str strValue)
   | date(str dtValue)
   | decimal(real decValue)
   | pos(Expr posValue)
@@ -48,13 +48,9 @@ data Question
 
 data Condition
   = singleIfCondition(Expr ifEval, list[Element] ifQstns)
-  | ifElseIfCondition(Expr ifEval, list[Element] ifQstns, list[ElseIf] elseifs, list[Element] elseQstns)
+  | ifElseCondition(Expr ifEval, list[Element] ifQstns, list[Element] elseQstns)
   ;
   
-data ElseIf
-  = elseifCondition(Expr elseifEval, list[Element] elseifQstns)
-  ; 
-
 data DataType
   = integer()
   | boolean()
@@ -64,16 +60,17 @@ data DataType
   | decimal()
   ;
   
-/**
-* location annotations to be used in implosion
-*/
 anno loc Question@location;
 anno loc Condition@location;
-anno loc ElseIf@location;
+anno str Question@id;
 anno loc DataType@location;
 anno loc Expr@location;
 anno loc Form@location;
 anno loc Element@location; 
+
+
+
+
   
     
   

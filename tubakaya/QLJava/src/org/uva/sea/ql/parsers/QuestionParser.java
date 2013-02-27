@@ -1,0 +1,12 @@
+package org.uva.sea.ql.parsers;
+
+import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.parsers.antlr.QLParser;
+import org.antlr.runtime.RecognitionException;
+
+public class QuestionParser extends ParserBaseForStatements {
+
+	public Statement callExprUnderTest(QLParser parser) throws RecognitionException {
+		return parser.question();
+	}
+}

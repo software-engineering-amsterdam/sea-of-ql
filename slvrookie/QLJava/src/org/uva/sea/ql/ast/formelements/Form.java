@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.formelements;
 
 import org.uva.sea.ql.ast.expr.Ident;
-import org.uva.sea.ql.visitors.interfaces.IElementVisitor;
+import org.uva.sea.ql.visitors.IElementVisitor;
 
 public class Form extends FormElement {
 
@@ -13,11 +13,11 @@ public class Form extends FormElement {
 		this.body = body;
 	}
 
-	public Ident getFormName() {
+	public Ident getName() {
 		return name;
 	}
 
-	public Block getFormBody() {
+	public Block getBody() {
 		return body;
 	}
 

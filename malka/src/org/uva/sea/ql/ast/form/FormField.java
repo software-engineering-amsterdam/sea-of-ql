@@ -1,10 +1,10 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.primitive.StringPrimitive;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.Type;
+import org.uva.sea.ql.ast.expression.string.StringPrimitive;
 
-public class FormField extends FormElement {
+public abstract class FormField extends FormElement {
 	protected Identifier id;
 	protected StringPrimitive label;
 	protected Type type;
@@ -13,5 +13,13 @@ public class FormField extends FormElement {
 		this.id    = id;
 		this.label = label;
 		this.type  = type;
+	}
+	
+	public Identifier getId() {
+		return	this.id;
+	}
+
+	public Type getType() {
+		return type;
 	}
 }

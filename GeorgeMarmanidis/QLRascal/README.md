@@ -25,8 +25,14 @@ CONTACT
 TO DO
 ======================
 Implement generator for JavaScript.
-Known Bugs:
+Need Changes:
 -----------
-   Fixed - 1. Equality must be implemented correctly..== operator must check that both expr (le,re) are of the same type.
-   Fixed - 2. Cyclic dependencies should be implemented.
-   low priority - 3. integer, float, money should be considered as numeric values
+  1. CompileExpression -change switch, make functions, because it's not open for extension
+  2. GenerateJSvalidateFunctions  -changed by tijs--save/accept the changes, and find other relevant stuff
+  3. GEnerateJSValidateFunctions - output source Code as writen bellow
+  4. GEnerateJSValidateFunctions -  Change switch to Functions
+  5. GenerateJSvalidateFunctions -  Remove stuff from here..External JS that provide these functions
+  6. GenerateJSvalidateFunctions - Check for boolean output
+  7. ExtractDependencies - use set instead of list..i don't want order, and i don't care for duplicates
+  8. ExtractDependencies -Tijs provided better way..apply it..needs just return
+  9. CyclicCheck - should start with false, because if env.symbols is empty, then it says that is cycclic ;)

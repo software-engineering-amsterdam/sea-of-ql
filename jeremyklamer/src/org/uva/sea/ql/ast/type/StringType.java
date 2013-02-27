@@ -1,12 +1,12 @@
 package org.uva.sea.ql.ast.type;
 
-import java.awt.TextField;
+import org.uva.sea.ql.interpreter.StringVal;
+import org.uva.sea.ql.interpreter.Value;
+import org.uva.sea.ql.ui.components.ActiveComponent;
+import org.uva.sea.ql.ui.components.StringComponent;
 
-import ui.UIComponent;
 
 public class StringType extends Type{
-
-	private final int UI_COMPONENT_WIDTH = 150;
 	
 	public StringType(){
 		
@@ -15,7 +15,6 @@ public class StringType extends Type{
 	@Override
 	public boolean isCompatibleTo(Type t) {
 		return t.isCompatibleToStr();   
-		//test
 	}
 	
 	@Override
@@ -24,9 +23,13 @@ public class StringType extends Type{
 	}
 
 	@Override
-	public UIComponent getAnswerComp() {
-		TextField answerField = new TextField();
-		answerField.setSize(UI_COMPONENT_WIDTH, answerField.getHeight());
-		return new UIComponent(answerField, "wrap, width :"+ UI_COMPONENT_WIDTH + ":");
+	public ActiveComponent getAnswerComponent() {
+		return new StringComponent(); 	
 	}
+
+	@Override
+	public Value getDefaultValue() {
+		return new StringVal("");
+	}
+
 }

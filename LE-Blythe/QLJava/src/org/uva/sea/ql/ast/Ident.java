@@ -1,9 +1,7 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.interfaces.IVisitorExpr;
 import org.uva.sea.ql.util.Environment;
-import org.uva.sea.ql.ast.primitive.Undefined;
 
 public class Ident extends Expr implements Comparable<Ident>{
 
@@ -39,22 +37,11 @@ public class Ident extends Expr implements Comparable<Ident>{
 	@Override
 	public Type typeOf(Environment env){
 		
-		if(env.contains(this)){
+		if(env.containsValue(this)){
 			return env.getValue(this).typeOf(env);
 		}
 		
 		return new org.uva.sea.ql.ast.types.Undefined(); //undefined type
-	}
-	
-	
-	@Override
-	public Primitive interpret(Environment env){
-		
-		if(env.contains(this)){
-			return env.getValue(this).interpret(env);
-		}
-		
-		return new Undefined(new org.uva.sea.ql.ast.types.Undefined());
 	}
 	
 	

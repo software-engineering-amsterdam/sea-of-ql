@@ -1,0 +1,31 @@
+form Box1HouseOwning {
+hasSoldHouse: "Did you sell a house in 2010?" boolean
+hasBoughtHouse: "Did you by a house in 2010?" boolean
+tester: "how much is the fish?" money
+wasLos : "wasn los hier jetzt?" money(tester * 2)
+currentTax: "What is the current tax?" money
+sellingPrice3: "Price the house was sold for:" money
+currentTax2: money(wasLos * (sellingPrice3 + 15))
+ladidadiCash: "This is your max. cash:" money(currentTax * 2)
+hasCustomerLove: "Are you in love?" boolean
+if(!hasCustomerLove){
+lovePrice: "How much would you pay for love?" money
+}
+hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
+if(currentTax<(sellingPrice3 * ladidadiCash)+ (2*3)){
+sellingPrice: "Price the house was sold for:" money
+privateDebt: "Private debts for the sold house:" money
+valueResidue: "Value residue:" money(sellingPrice - privateDebt)
+}
+if(!hasMaintLoan){
+sellingPrice2: "Price the house was sold for:" money
+privateDebt2: "Private debts for the sold house:" money
+valueResidue2: "Value residue:" money(sellingPrice - privateDebt)
+}else{
+hasYouDada: "Are you dada?" boolean
+if(hasYouDada){
+privateDebt3: "Verschachtelt:" money
+}
+currentTax1: money(19)
+}
+}

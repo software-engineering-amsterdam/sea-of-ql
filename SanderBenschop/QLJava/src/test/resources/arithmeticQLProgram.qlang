@@ -1,0 +1,7 @@
+form QLForm {
+        positiveNumber : "Positive number" integer
+        negativeNumber : "Negative version of positiveNumber" (-positiveNumber)
+        negativeNegativeNumber : "Negative negative version of positiveNumber" (--positiveNumber)
+        positiveNegativeNumber : "Positive version of negativeNumber" (+negativeNumber)
+        postiveNegativeFixedNumber : "Positive negative version of number 5" (+-5)
+}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="34" version="2.0">
+<workbench progressCount="30" version="2.0">
 <workbenchAdvisor/>
-<window height="728" maximized="true" width="1024" x="50" y="0">
+<window height="728" maximized="true" width="1024" x="158" y="14">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -19,8 +19,9 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.jdt.ui.ClassFileEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.deved.antlride.ui.antlrEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="org.deved.antlride.ui.antlrEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -31,31 +32,56 @@
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="2"/>
 <part id="0"/>
 <part id="1"/>
-<part id="2"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.deved.antlride.ui.antlrEditor" name="QL.g" partName="QL.g" path="C:/Users/Theodora/Documents/GitHub/sea-of-ql/thboudale/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" title="QL.g" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/QL.g" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BoolValue.java" partName="BoolValue.java" path="C:/Users/Theodora/Documents/GitHub/sea-of-ql/thboudale/QLJava/src/org/uva/sea/ql/evaluator/values/BoolValue.java" title="BoolValue.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/values/BoolValue.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/QLJava/src/org/uva/sea/ql/evaluator/values/BoolValue.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="188" selectionTopPixel="514"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ANTLRParser.java" partName="ANTLRParser.java" path="C:/Users/Theodora/Documents/GitHub/sea-of-ql/thboudale/QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java" title="ANTLRParser.java" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ExprEvaluator.java" partName="ExprEvaluator.java" path="C:/Users/Theodora/Documents/GitHub/sea-of-ql/thboudale/QLJava/src/org/uva/sea/ql/evaluator/ExprEvaluator.java" title="ExprEvaluator.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/ExprEvaluator.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/QLJava/src/org/uva/sea/ql/evaluator/ExprEvaluator.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="32" selectionTopPixel="0"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="QLParser.java" partName="QLParser.java" path="C:/Users/Theodora/Documents/GitHub/sea-of-ql/thboudale/QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java" title="QLParser.java" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4444" selectionTopPixel="1091"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AValue.java" partName="AValue.java" path="C:/Users/Theodora/Documents/GitHub/sea-of-ql/thboudale/QLJava/src/org/uva/sea/ql/evaluator/values/AValue.java" title="AValue.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/values/AValue.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/QLJava/src/org/uva/sea/ql/evaluator/values/AValue.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="113" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
 <view id="org.eclipse.jdt.junit.ResultView" partName="JUnit">
 <viewState failuresOnly="false" layout="1" orientation="2" ratio="500" scroll="false" time="true"/>
 </view>
+<view id="org.deved.antlride.debug.ui.AntlrDebugInputView" partName="ANTLR Debug Input"/>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
+<viewState/>
+</view>
+<view id="org.deved.antlride.debug.ui.AntlrEventView" partName="ANTLR Debug Events"/>
+<view id="org.eclipse.ui.views.TaskList" partName="Tasks"/>
+<view id="org.eclipse.debug.ui.VariableView" partName="Variables">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.BreakpointView" partName="Breakpoints">
+<viewState/>
+</view>
+<view id="org.deved.antlride.debug.ui.AntlrDebugTreeView" partName="ANTLR Debug Tree"/>
+<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
+<viewState/>
+</view>
+<view id="org.eclipse.debug.ui.ExpressionView" partName="Expressions">
+<viewState/>
+</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Errors (2 items)"/>
+<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -63,9 +89,6 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.locationField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
-</view>
-<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
-<viewState/>
 </view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="">
@@ -98,11 +121,13 @@
 </customFilters>
 </viewState>
 </view>
+<view id="org.eclipse.ui.console.ConsoleView" partName="Console">
+<viewState/>
+</view>
+<view id="org.eclipse.dltk.debug.ui.ScriptDisplayView" partName="Interactive Console"/>
 <view id="org.eclipse.mylyn.tasks.ui.views.tasks" partName="Task List">
 <viewState linkWithEditor="true" presentation="org.eclipse.mylyn.tasks.ui.categorized">
-<sorter groupBy="CATEGORY_QUERY">
-<sorter>
-<sort0 sortDirection="1" sortKey="PRIORITY"/>
+<sorter groupBy="CATEGORY_QUERY">&#x0A;<sorter>&#x0A;<sort0 sortDirection="1" sortKey="PRIORITY"/>
 <sort1 sortDirection="1" sortKey="RANK"/>
 <sort2 sortDirection="1" sortKey="DATE_CREATED"/>
 <sort3 sortDirection="1" sortKey="NONE"/>
@@ -115,13 +140,10 @@
 <filteredTreeFindHistory/>
 </viewState>
 </view>
-<view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
-<viewState/>
-</view>
 <view id="org.eclipse.jdt.ui.SourceView" partName="Declaration"/>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.jdt.ui.CompilationUnitEditor" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
+<perspectives activePart="org.eclipse.jdt.ui.PackageExplorer" activePerspective="org.eclipse.jdt.ui.JavaPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
@@ -187,9 +209,18 @@
 <view id="org.eclipse.jdt.ui.JavadocView"/>
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
-<view id="org.eclipse.mylyn.tasks.ui.views.tasks"/>
-<fastViewBars/>
+<fastViewBars>
+<fastViewBar fastViewLocation="131072" id="right" orientation="512" selectedTabId="org.eclipse.ui.views.ContentOutline" style="0">
+<fastViews>
+<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+<fastViewBar fastViewLocation="131072" id="org.eclipse.ui.internal.ViewStack@652ff6c8" orientation="512" selectedTabId="org.eclipse.mylyn.tasks.ui.views.tasks" style="0">
+<fastViews>
+<view id="org.eclipse.mylyn.tasks.ui.views.tasks" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+</fastViewBars>
 <layout>
 <mainWindow>
 <info folder="true" part="left">
@@ -215,8 +246,8 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.20516606" ratioLeft="278" ratioRight="1077" relationship="2" relative="left"/>
-<info folder="true" part="bottom" ratio="0.8016129" ratioLeft="497" ratioRight="123" relationship="4" relative="org.eclipse.ui.editorss">
+<info part="org.eclipse.ui.editorss" ratio="0.20557229" ratioLeft="273" ratioRight="1055" relationship="2" relative="left"/>
+<info folder="true" part="bottom" ratio="0.72096777" ratioLeft="447" ratioRight="173" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="org.eclipse.jdt.ui.JavadocView" label="Javadoc"/>
@@ -233,25 +264,141 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@652ff6c8" ratio="0.7493333" ratioLeft="562" ratioRight="188" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.mylyn.tasks.ui.views.tasks" appearance="2" expanded="2">
-<page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="Task List"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@652ff6c8" ratio="0.7785978" ratioLeft="844" ratioRight="240" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.mylyn.tasks.ui.views.tasks" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info folder="true" part="right" ratio="0.4989011" ratioLeft="227" ratioRight="228" relationship="4" relative="org.eclipse.ui.internal.ViewStack@652ff6c8">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
+<page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+</folder>
+</info>
+<info part="org.eclipse.egit.ui.RepositoriesView" ratio="0.5996705" ratioLeft="364" ratioRight="243" relationship="4" relative="left"/>
+</mainWindow>
+</layout>
+</perspective>
+<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<descriptor class="org.eclipse.debug.internal.ui.DebugPerspectiveFactory" id="org.eclipse.debug.ui.DebugPerspective" label="Debug"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.mylyn.tasks.ui.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
+<alwaysOnActionSet id="org.eclipse.search.searchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.annotationNavigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.navigation"/>
+<alwaysOnActionSet id="org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo"/>
+<alwaysOnActionSet id="org.eclipse.ui.externaltools.ExternalToolsSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.keyBindings"/>
+<alwaysOnActionSet id="org.eclipse.ui.actionSet.openFiles"/>
+<alwaysOnActionSet id="org.eclipse.wb.core.ui.actionset"/>
+<alwaysOnActionSet id="org.eclipse.rse.core.search.searchActionSet"/>
+<alwaysOnActionSet id="org.deved.antlride.debug.ui.AntlrDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.launchActionSet"/>
+<alwaysOnActionSet id="org.eclipse.ui.NavigateActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.breakpointActionSet"/>
+<alwaysOnActionSet id="org.eclipse.dltk.debug.ui.ScriptDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.debug.ui.JDTDebugActionSet"/>
+<alwaysOnActionSet id="org.eclipse.jdt.ui.JavaActionSet"/>
+<alwaysOnActionSet id="org.eclipse.debug.ui.debugActionSet"/>
+<show_view_action id="org.eclipse.debug.ui.DebugView"/>
+<show_view_action id="org.eclipse.debug.ui.VariableView"/>
+<show_view_action id="org.eclipse.debug.ui.BreakpointView"/>
+<show_view_action id="org.eclipse.debug.ui.ExpressionView"/>
+<show_view_action id="org.eclipse.ui.views.ContentOutline"/>
+<show_view_action id="org.eclipse.ui.console.ConsoleView"/>
+<show_view_action id="org.eclipse.ui.views.TaskList"/>
+<show_view_action id="org.eclipse.ant.ui.views.AntView"/>
+<show_view_action id="org.eclipse.pde.runtime.LogView"/>
+<show_view_action id="org.eclipse.dltk.debug.ui.ScriptDisplayView"/>
+<show_view_action id="org.eclipse.jdt.debug.ui.DisplayView"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaPerspective"/>
+<perspective_action id="org.eclipse.jdt.ui.JavaBrowsingPerspective"/>
+<perspective_action id="org.eclipse.wst.xml.ui.perspective"/>
+<hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
+<hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
+<view id="org.eclipse.ui.console.ConsoleView"/>
+<view id="org.eclipse.ui.views.TaskList"/>
+<view id="org.eclipse.debug.ui.DebugView"/>
+<view id="org.eclipse.debug.ui.VariableView"/>
+<view id="org.eclipse.debug.ui.BreakpointView"/>
+<view id="org.deved.antlride.debug.ui.AntlrEventView"/>
+<view id="org.deved.antlride.debug.ui.AntlrDebugInputView"/>
+<view id="org.deved.antlride.debug.ui.AntlrDebugTreeView"/>
+<view id="org.eclipse.debug.ui.ExpressionView"/>
+<view id="org.eclipse.dltk.debug.ui.ScriptDisplayView"/>
+<view id="org.eclipse.ui.views.ContentOutline"/>
+<fastViewBars/>
+<layout>
+<mainWindow>
+<info folder="true" part="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
+<page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
+<page content="org.eclipse.dltk.ui.ScriptExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.PackageExplorer" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.ui.TypeHierarchy" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="right" ratio="0.4989011" ratioLeft="227" ratioRight="228" relationship="4" relative="org.eclipse.ui.internal.ViewStack@652ff6c8">
+<info folder="true" part="stickyFolderRight" ratio="0.7498122" ratioLeft="998" ratioRight="333" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
+<page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
+</folder>
+</info>
+<info folder="true" part="org.eclipse.debug.internal.ui.ConsoleFolderView" ratio="0.74959874" ratioLeft="467" ratioRight="156" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
+<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
+<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.PropertySheet" label="LabelNotFound"/>
+<page content="org.eclipse.jdt.debug.ui.DisplayView" label="LabelNotFound"/>
+<page content="org.eclipse.search.SearchResultView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+</presentation>
+</folder>
+</info>
+<info part="org.eclipse.ui.editorss" ratio="0.4496788" ratioLeft="210" ratioRight="257" relationship="4" relative="org.eclipse.debug.internal.ui.NavigatorFolderView"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.OutlineFolderView" ratio="0.7498122" ratioLeft="998" ratioRight="333" relationship="2" relative="org.eclipse.ui.editorss">
 <folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
-<page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 </presentation>
 </folder>
 </info>
-<info part="org.eclipse.egit.ui.RepositoriesView" ratio="0.5996705" ratioLeft="364" ratioRight="243" relationship="4" relative="left"/>
+<info folder="true" part="org.eclipse.debug.internal.ui.ToolsFolderView" ratio="0.49962434" ratioLeft="665" ratioRight="666" relationship="2" relative="org.eclipse.debug.internal.ui.NavigatorFolderView">
+<folder activePageID="org.eclipse.debug.ui.VariableView" appearance="2" expanded="2">
+<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
+<page content="org.eclipse.debug.ui.BreakpointView" label="Breakpoints"/>
+<page content="org.deved.antlride.debug.ui.AntlrEventView" label="ANTLR Debug Events"/>
+<page content="org.deved.antlride.debug.ui.AntlrDebugInputView" label="ANTLR Debug Input"/>
+<page content="org.deved.antlride.debug.ui.AntlrDebugTreeView" label="ANTLR Debug Tree"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="Expressions"/>
+<page content="org.eclipse.dltk.debug.ui.ScriptDisplayView" label="Interactive Console"/>
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+</presentation>
+</folder>
+</info>
 </mainWindow>
 </layout>
 </perspective>
@@ -259,159 +406,165 @@
 <workingSets/>
 <navigationHistory>
 <editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/evaluator/ExprEvaluator.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/test/semantic/TestExprChecking.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/test/evaluation/TestExprEvaluation.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/evaluator/values/AValue.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/evaluator/values/BoolValue.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/evaluator/values/UndefinedValue.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/evaluator/values/IntValue.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/evaluator/values/StrValue.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpressions/And.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpressions/Add.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.deved.antlride.ui.antlrEditor" path="/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/test/ParseError.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/test/TestExpressions.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/test/IParse.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpr/Add.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpr/BinaryExpr.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/ast/expressions/Expr.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.deved.antlride.ui.antlrEditor" path="/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/test/TestExpressions.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java"/>
 </editors>
-<item historyLabel="ParseError.java" index="1">
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1210" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1278" y="99"/>
+</item>
+<item historyLabel="TestExprChecking.java" index="1">
+<position info="not_deleted" x="873" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1278" y="99"/>
+</item>
+<item historyLabel="ExprEvaluator.java" index="0">
+<position info="not_deleted" x="32" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1278" y="99"/>
+</item>
+<item historyLabel="ExprEvaluator.java" index="0">
+<position info="not_deleted" x="32" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1278" y="99"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1080" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1351" y="0"/>
+</item>
+<item historyLabel="ExprEvaluator.java" index="0">
+<position info="not_deleted" x="32" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1351" y="0"/>
+</item>
+<item historyLabel="AValue.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="962" y="0"/>
+</item>
+<item historyLabel="AValue.java" index="3">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="AValue.java" index="3">
+<position info="not_deleted" x="113" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="UndefinedValue.java" index="5">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="UndefinedValue.java" index="5">
+<position info="not_deleted" x="156" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="IntValue.java" index="6">
 <position/>
 </item>
-<item historyLabel="QL.g" index="0"/>
-<item historyLabel="TestExpressions.java" index="2">
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="StrValue.java" index="7">
+<position info="not_deleted" x="191" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="AValue.java" index="3">
+<position info="not_deleted" x="113" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1887" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1045" y="55"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="2213" y="0"/>
+</item>
+<item historyLabel="ExprEvaluator.java" index="0">
+<position info="not_deleted" x="32" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="2274" y="0"/>
+</item>
+<item historyLabel="TestExprChecking.java" index="1">
+<position info="not_deleted" x="873" y="0"/>
+</item>
+<item historyLabel="And.java" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
+<item historyLabel="TestExprChecking.java" index="1">
+<position info="not_deleted" x="873" y="0"/>
 </item>
-<item historyLabel="ParseError.java" index="1">
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="2274" y="0"/>
+</item>
+<item historyLabel="Add.java" index="9">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="TestExpressions.java" index="2">
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="2274" y="0"/>
+</item>
+<item historyLabel="QL.g" index="10"/>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="2282" y="0"/>
+</item>
+<item historyLabel="AValue.java" index="3">
+<position info="not_deleted" x="113" y="0"/>
+</item>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
+</item>
+<item historyLabel="IntValue.java" index="6">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="2920" y="0"/>
+<item historyLabel="BoolValue.java" index="4">
+<position info="not_deleted" x="188" y="0"/>
 </item>
-<item historyLabel="ParseError.java" index="1">
-<position info="not_deleted" x="0" y="0"/>
+<item historyLabel="ExprEvaluator.java" index="0">
+<position info="not_deleted" x="32" y="0"/>
 </item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="2920" y="0"/>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1779" y="0"/>
 </item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
+<item historyLabel="TestExprChecking.java" index="1">
+<position info="not_deleted" x="873" y="0"/>
 </item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="2920" y="0"/>
+<item historyLabel="TestExprEvaluation.java" index="2">
+<position info="not_deleted" x="1779" y="0"/>
 </item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="889" y="23"/>
-</item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="889" y="23"/>
-</item>
-<item historyLabel="TestExpressions.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="QLParser.java" index="5">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="TestExpressions.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="889" y="23"/>
-</item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="889" y="23"/>
-</item>
-<item historyLabel="TestExpressions.java" index="2">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="889" y="23"/>
-</item>
-<item historyLabel="IParse.java" index="3">
-<position info="not_deleted" x="419" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="4">
-<position info="not_deleted" x="889" y="23"/>
-</item>
-<item historyLabel="Add.java" index="6">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="BinaryExpr.java" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Expr.java" index="8">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="BinaryExpr.java" index="7">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="Expr.java" index="8">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="QL.g" index="9"/>
-<item historyLabel="TestExpressions.java" index="10">
-<position/>
-</item>
-<item historyLabel="QL.g" index="9"/>
-<item historyLabel="TestExpressions.java" index="10">
-<position/>
-</item>
-<item historyLabel="QL.g" index="9"/>
-<item historyLabel="ANTLRParser.java" index="11">
-<position info="not_deleted" x="1003" y="0"/>
-</item>
-<item historyLabel="QLParser.java" index="12">
-<position/>
-</item>
-<item historyLabel="ANTLRParser.java" index="11">
-<position info="not_deleted" x="1003" y="0"/>
-</item>
-<item historyLabel="QLParser.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="11">
-<position info="not_deleted" x="1003" y="0"/>
-</item>
-<item historyLabel="QLParser.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="11">
-<position info="not_deleted" x="1003" y="0"/>
-</item>
-<item historyLabel="QLParser.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="TestExpressions.java" index="10">
-<position info="not_deleted" x="5726" y="0"/>
-</item>
-<item historyLabel="QLParser.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item historyLabel="ANTLRParser.java" index="11">
-<position info="not_deleted" x="1003" y="0"/>
-</item>
-<item historyLabel="QL.g" index="9"/>
-<item historyLabel="ANTLRParser.java" index="11">
-<position info="not_deleted" x="0" y="0"/>
-</item>
-<item active="true" historyLabel="QLParser.java" index="12">
-<position info="not_deleted" x="0" y="0"/>
+<item active="true" historyLabel="ExprEvaluator.java" index="0">
+<position info="not_deleted" x="32" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -419,6 +572,10 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@652ff6c8"/>
+<trimItem IMemento.internal.id="right"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 <trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
@@ -431,50 +588,50 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="QLParser.java" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/parser/antlr/QLParser.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IntValue.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/values/IntValue.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/evaluator/values/IntValue.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ANTLRParser.java" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/parser/antlr/ANTLRParser.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.deved.antlride.ui.antlrEditor" name="QL.g" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/QL.g">
+<persistable path="/QLJava/src/org/uva/sea/ql/parser/antlr/QL.g"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Expr.java" tooltip="QLJava/src/org/uva/sea/ql/ast/expressions/Expr.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/expressions/Expr.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Add.java" tooltip="QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpressions/Add.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpressions/Add.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BinaryExpr.java" tooltip="QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpr/BinaryExpr.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpr/BinaryExpr.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="And.java" tooltip="QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpressions/And.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpressions/And.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Add.java" tooltip="QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpr/Add.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/expressions/binaryExpr/Add.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="UndefinedValue.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/values/UndefinedValue.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/evaluator/values/UndefinedValue.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ParseError.java" tooltip="QLJava/src/org/uva/sea/ql/parser/test/ParseError.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/parser/test/ParseError.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AValue.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/values/AValue.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/evaluator/values/AValue.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestExpressions.java" tooltip="QLJava/src/org/uva/sea/ql/parser/test/TestExpressions.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/parser/test/TestExpressions.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestExprChecking.java" tooltip="QLJava/src/org/uva/sea/ql/parser/test/semantic/TestExprChecking.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/parser/test/semantic/TestExprChecking.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Form.java" tooltip="QLJava/src/org/uva/sea/ql/ast/Form.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/Form.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestExprEvaluation.java" tooltip="QLJava/src/org/uva/sea/ql/parser/test/evaluation/TestExprEvaluation.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/parser/test/evaluation/TestExprEvaluation.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="IParse.java" tooltip="QLJava/src/org/uva/sea/ql/parser/test/IParse.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/parser/test/IParse.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ExprChecker.java" tooltip="QLJava/src/org/uva/sea/ql/semanticCheck/ExprChecker.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/semanticCheck/ExprChecker.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="QL.tokens" tooltip="QLJava/src/org/uva/sea/ql/parser/antlr/QL.tokens">
-<persistable path="/QLJava/src/org/uva/sea/ql/parser/antlr/QL.tokens"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FormStmtChecker.java" tooltip="QLJava/src/org/uva/sea/ql/semanticCheck/FormStmtChecker.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/semanticCheck/FormStmtChecker.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ifElseStatement.java" tooltip="QLJava/src/org/uva/sea/ql/ast/statements/ifElseStatement.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/statements/ifElseStatement.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="FormStmtVisitor.java" tooltip="QLJava/src/org/uva/sea/ql/semanticCheck/FormStmtVisitor.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/semanticCheck/FormStmtVisitor.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ComputedQuestion.java" tooltip="QLJava/src/org/uva/sea/ql/ast/statements/ComputedQuestion.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/statements/ComputedQuestion.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TestStmtChecking.java" tooltip="QLJava/src/org/uva/sea/ql/parser/test/semantic/TestStmtChecking.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/parser/test/semantic/TestStmtChecking.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Question.java" tooltip="QLJava/src/org/uva/sea/ql/ast/statements/Question.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/statements/Question.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Ident.java" tooltip="QLJava/src/org/uva/sea/ql/ast/expressions/Ident.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/ast/expressions/Ident.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="BlockOfStatements.java" tooltip="QLJava/src/org/uva/sea/ql/ast/statements/BlockOfStatements.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/statements/BlockOfStatements.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ExprEvaluator.java" tooltip="QLJava/src/org/uva/sea/ql/evaluator/ExprEvaluator.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/evaluator/ExprEvaluator.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ifStatement.java" tooltip="QLJava/src/org/uva/sea/ql/ast/statements/ifStatement.java">
-<persistable path="/QLJava/src/org/uva/sea/ql/ast/statements/ifStatement.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="AType.java" tooltip="QLJava/src/org/uva/sea/ql/ast/types/AType.java">
+<persistable path="/QLJava/src/org/uva/sea/ql/ast/types/AType.java"/>
 </file>
 </mruList>
 </workbench>

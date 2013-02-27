@@ -6,6 +6,8 @@ public class IdentifierExpression extends Expression {
 	private final String name;
 
 	public IdentifierExpression( String name ) {
+		assert ( name != null ) && ( name != "" );
+
 		this.name = name;
 	}
 

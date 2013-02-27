@@ -1,17 +1,21 @@
 package org.uva.sea.ql.ast.types;
 
-import java.util.List;
+import org.uva.sea.ql.common.TypeVisitor;
 
-import org.uva.sea.ql.ast.elements.Question;
-import org.uva.sea.ql.ast.interfaces.ReturnTypes;
+public class BooleanType extends AbstractType {
+   
+    public BooleanType() {
 
-public class BooleanType extends Type  {
+    }
 
-	public BooleanType() {
+    @Override
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+    
+    @Override
+    public final boolean equals(Object o){
+        return o instanceof BooleanType;
+    }
 
-	}
-	 @Override
-	    public ReturnTypes getReturnType(List<Question> questions) {
-	       return ReturnTypes.BOOLEAN;
-	    }
 }

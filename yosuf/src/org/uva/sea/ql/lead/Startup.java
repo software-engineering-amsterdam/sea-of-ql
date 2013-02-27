@@ -6,12 +6,11 @@ import javafx.stage.Stage;
 import julius.utilities.FileHelper;
 
 import org.uva.sea.ql.ast.stm.Form;
-import org.uva.sea.ql.gui.VisibleForm;
+import org.uva.sea.ql.gui.QLForm;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.ExpressionTypeChecker;
 import org.uva.sea.ql.visitor.StatementEvaluator;
 import org.uva.sea.ql.visitor.StatementTypeChecker;
 import org.uva.sea.ql.visitor.TypeCheckException;
@@ -23,7 +22,13 @@ import org.uva.sea.ql.visitor.TypeCheckException;
  */
 public final class Startup extends Application {
 
+	private static final String DEBUG = "-debug";
+
 	private static final String PATH_PROPERTY = "QL.formPath";
+
+	private static final String HELP_TEXT = DEBUG + " arg enables printing debug messages."
+			+ "\nUse " + PATH_PROPERTY + " system property to provide the file path. Example: -D"
+			+ PATH_PROPERTY + "=/forms/taxes.txt";
 
 	private final IParse parser;
 	private final Model model;
@@ -36,10 +41,9 @@ public final class Startup extends Application {
 	private void evaluate(final Form form) {
 		ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator(model);
 
-		StatementEvaluator statementEvaluator = new StatementEvaluator(model,
-				expressionEvaluator);
+		StatementEvaluator statementEvaluator = new StatementEvaluator(model, expressionEvaluator);
 
-		form.accept(statementEvaluator);
+		statementEvaluator.visit(form);
 	}
 
 	/**
@@ -48,8 +52,7 @@ public final class Startup extends Application {
 	 * @return true if no errors detected
 	 */
 	private boolean checkTypes(final Form form) {
-		StatementTypeChecker statementChecker = new StatementTypeChecker(
-				new ExpressionTypeChecker());
+		StatementTypeChecker statementChecker = new StatementTypeChecker();
 		statementChecker.visit(form);
 
 		for (TypeCheckException e : statementChecker.getAllTypeErrors()) {
@@ -87,17 +90,28 @@ public final class Startup extends Application {
 
 		if (form != null && checkTypes(form)) {
 			evaluate(form);
-			new VisibleForm(model, form).start(stage);
+			new QLForm(model, form).start(stage);
+		} else {
+			System.exit(0);
 		}
-
-		else {
-
-		}
-
 	}
 
 	@SuppressWarnings("static-access")
 	public static void main(final String[] args) {
+		if (args.length > 0 && args[0].contains("help")) {
+			System.out.println(HELP_TEXT);
+			System.exit(0);
+		}
+		initDebugPrinter(args);
 		new Startup().launch();
 	}
+
+	private static void initDebugPrinter(final String[] args) {
+		for (String string : args) {
+			if (string.contains(DEBUG)) {
+				LogPrinter.setDebugOn(true);
+			}
+		}
+	}
+
 }

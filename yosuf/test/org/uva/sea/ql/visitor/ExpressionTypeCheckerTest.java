@@ -2,9 +2,12 @@ package org.uva.sea.ql.visitor;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
@@ -23,22 +26,21 @@ import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
-import org.uva.sea.ql.ast.value.IntegerValue;
+import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.lead.LogPrinter;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ExpressionTypeCheckerTest {
 
 	private ExpressionTypeChecker typeCheck;
 
-	private final Expression intValue = new IntegerValue(0);
+	private final Expression intValue = new NumericValue(0);
 	private final Expression boolValue = new BooleanValue(true);
 	private final Expression stringValue = new StringValue("someString");
 
 	@Before
 	public void setUp() {
-		typeCheck = new ExpressionTypeChecker();
+		typeCheck = new ExpressionTypeChecker(new HashMap<Natural, Natural>());
 
 		LogPrinter.setDebugOn(true);
 	}
@@ -80,7 +82,7 @@ public class ExpressionTypeCheckerTest {
 
 	@Test
 	public void testVisitIntegerValue() {
-		typeCheck.visit((IntegerValue) intValue);
+		typeCheck.visit((NumericValue) intValue);
 		assertErrors(0);
 	}
 

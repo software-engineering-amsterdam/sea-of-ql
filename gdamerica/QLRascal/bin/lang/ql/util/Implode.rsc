@@ -1,6 +1,6 @@
 /**
- * This module contains implode funtion for Form 
- * A implode function Implode a parse tree according to a given ADT  
+ * This module contains implode funtion(s) for Form
+ * Implode functions implode a parse tree according to the given ADT 
  * @author  Gerson Delgado
  * @version 1.0, 21/01/2013
  */
@@ -12,11 +12,13 @@ import lang::ql::ast::AST;
 import ParseTree;
 import IO;
 
-public Form implode(Tree t) = implode(#Form, t);
+public Form implode(Tree t) 
+	= implode(#Form, t);
 
-public Form load(loc l) = implode(parseForm(readFile(l)));
+public Form load(loc l) 
+	= implode(parseForm(readFile(l)));
 
-public Expr loadE(str x) = implode(#Expr, parseExpression(x));
+
 
 
 

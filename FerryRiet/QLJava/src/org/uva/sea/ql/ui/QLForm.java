@@ -16,46 +16,39 @@ import org.uva.sea.ql.ast.visitor.QLFormCreator;
 
 public class QLForm extends JFrame implements Observer {
 	private static final long serialVersionUID = 1L;
+
 	private Map<String, Result> qlSymbols;
-	private JPanel contentPane;
-	private CompoundPanel cPanel;
-	QLFormCreator symCreator = new QLFormCreator();
+	private JPanel contentPanel;
+	private CompoundPane cPane;
+	private QLFormCreator qlFormCreator = new QLFormCreator();
 
 	public QLForm(QLProgram qlprogram) {
 
-		cPanel = (CompoundPanel) qlprogram.accept(symCreator);
+		cPane = (CompoundPane) qlprogram.accept(qlFormCreator);
 
-		qlSymbols = symCreator.getSymbols();
-
-		String formName = symCreator.getFormName();
+		qlSymbols = qlFormCreator.getSymbols();
 
 		setBounds(700, 100, 480, 600);
+		setTitle(qlFormCreator.getFormName());
 
-		setTitle(formName);
+		contentPanel = new JPanel();
+		contentPanel.setLayout(new MigLayout("gap 5px 5px", "0[]0", "0[]0"));
+		contentPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 
-		contentPane = new JPanel();
-		
-		contentPane.setLayout(new MigLayout("gap 5px 5px", "0[]0", "0[]0"));
-		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
+		setContentPane(contentPanel);
 
-
-		setContentPane(contentPane);
-
-		cPanel.registerAt(contentPane, 0);
-
-		cPanel.addObserver(this);
-
-		cPanel.updatecalculatedField(qlSymbols);
+		cPane.registerAt(contentPanel, 0);
+		cPane.addObserver(this);
+		cPane.updatecalculatedField(qlSymbols);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		LinePanel linePanel = (LinePanel) o;
+		LinePane linePanel = (LinePane) o;
 
 		if (linePanel != null) {
 			qlSymbols.put(linePanel.getFieldName(), linePanel.getFieldValue());
 		}
-
-		cPanel.updatecalculatedField(qlSymbols);
+		cPane.updatecalculatedField(qlSymbols);
 	}
 }

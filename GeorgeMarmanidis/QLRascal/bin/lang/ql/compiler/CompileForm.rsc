@@ -1,26 +1,49 @@
+@contributor{George Marmanidis -geo.marmani@gmail.com}
 module lang::ql::compiler::CompileForm
-//
-//import ParseTree;
-//import lang::ql::ast::AST;
-//import lang::ql::compiler::JavaScriptFunctions;
-//
-//import IO;
-//public alias SCD=list[str];
-//
-//public SCD addSourceCode(SCD scd, str code) = scd+code;
-//public void printSourceCode(SCD scd){
-//	for(x<-scd){
-//		print(x);
-//	}
-//}
-//
-//public str compileForm(form(ident,formBody)){
-//	SCD scd=[];
-//	
-//		scd=addSourceCode(scd,createStartFormStatmn(ident));
-//		scd=addSourceCode(scd,createBodyStatmn());
-//		scd=addSourceCode(scd,createEndFormStatmn());
-//	
-//	printSourceCode(scd);
-//	return "ok";
-//}
+
+import lang::ql::ast::AST;
+import IO;
+import lang::ql::compiler::GenerateHTMLForm;
+import lang::ql::compiler::GenerateJavaScript;
+
+public void compileForm(f:form(ident,formBody),loc target){
+	formRefrnced=setConditionalReference(formBody);
+	
+	loc htmlFile=target.parent+"<ident>.html";
+	writeFile(htmlFile,generateHTMLForm(ident,formRefrnced));
+	
+	loc jsFile=target.parent+"<ident>.js";
+	writeFile(jsFile,generateJavaScipt(formRefrnced));
+	
+	loc jsExtFile=target.parent+"extFuncs.js";
+	str extFile=readFile(|project://SofConstr/src/extFuncs.js|);
+	writeFile(jsExtFile,extFile);	   
+}
+	
+//Sets a reference variable to conditional statements to refer to them
+list[FormBodyItem] setConditionalReference(list[FormBodyItem] f){
+	int reference=0;
+		
+	list[FormBodyItem] referList= 
+		visit(f){
+			case ConditionalStatement cs=> {
+				reference+=1; 
+				cs[@ref="<reference>"];
+			}
+		};
+		
+	return visit(referList){
+		case q:ifElseIfCond(_,_,list[ElseIf] elseifBranch,_) => setConditionalReference(q,q@ref)
+	};
+}
+
+ConditionalStatement setConditionalReference(q:ifElseIfCond(_,_,list[ElseIf] elseifBranch,_),str parentRef){
+	int counter=0;
+	
+	return visit(q){
+		case ElseIf elf => {
+			counter+=1;
+			elf[@ref="<parentRef>e<counter>"];
+		}	
+	}
+}	

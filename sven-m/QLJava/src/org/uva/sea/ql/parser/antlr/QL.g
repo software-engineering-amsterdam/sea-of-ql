@@ -7,6 +7,8 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.form.types.*;
+import org.uva.sea.ql.ast.misc.*;
 }
 
 @lexer::header
@@ -14,11 +16,11 @@ import org.uva.sea.ql.ast.form.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-@rulecatch {
-  catch (RecognitionException re) {
-    reportError(re);
-    recover(input,re);
-    throw re;
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+    displayRecognitionError(this.getTokenNames(), e);
+    throw new RuntimeException(e);
   }
 }
 
@@ -32,7 +34,6 @@ form returns [Form result]
 topLevelBody returns [Body result]
   : body EOF { $result = $body.result; }
   ;
-
   
 body returns [Body result]
   @init { List<FormElement> tempList = new ArrayList<>(); }
@@ -59,14 +60,15 @@ question returns [Question result]
       $result = new Question(
         new Ident($id.text, new Location($id.line, $id.pos, $id.line,
           $id.pos + $id.text.length())),
-        $lbl.text, $type.result);
+        $lbl.text.substring(1, $lbl.text.length() - 1), $type.result);
     }
   | id=IDENT ':' lbl=STRING_LITERAL type '(' cond=expression close=')'
     {
       $result = new Computed(
         new Ident($id.text, new Location($id.line, $id.pos, $id.line,
           $id.pos + $id.text.length())),
-        $lbl.text, $type.result, $cond.result, new Location(null, $close.line,
+        $lbl.text.substring(1, $lbl.text.length() - 1), $type.result,
+          $cond.result, new Location(null, $close.line,
           $close.pos + $close.text.length()));
     }
   ;
@@ -89,29 +91,25 @@ type returns [Type result]
     }
   ;
 
-ifStatement returns [IfStatement result]
+ifStatement returns [AbstractConditional result]
   @init {
-    List<ElseIfStatement> elseIfs = new ArrayList<>();
-    ElseStatement elseStmt = null;
+    Body elseBody = null;
   }
-  : ifTok='if' '(' ic=expression ')' ib=body
+  : ifTok='if' '(' cond=expression ')' ifTrue=body
     (
-      elseIfTok='else' 'if' '(' eic=expression ')' eib=body
+      elseTok='else' ifFalse=body
       {
-        elseIfs.add(new ElseIfStatement($eic.result, $eib.result,
-          new Location($elseIfTok.line, $elseIfTok.pos, null)));
-      }
-    )*
-    (
-      elseTok='else' eb=body
-      {
-        elseStmt = new ElseStatement($eb.result, new Location($elseTok.line,
-          $elseTok.pos, null));
+        elseBody = $ifFalse.result;
       }
     )?
     {
-      $result = new IfStatement($ic.result, $ib.result, elseIfs, elseStmt,
-        new Location($ifTok.line, $ifTok.pos, null)); 
+      if (elseBody == null) {
+        $result = new IfStatement($cond.result, $ifTrue.result,
+          new Location($ifTok.line, $ifTok.pos, null)); 
+      } else {
+        $result = new IfElseStatement($cond.result, $ifTrue.result,
+          $ifFalse.result, new Location($ifTok.line, $ifTok.pos, null)); 
+      }
     }
   ;
 
@@ -126,28 +124,36 @@ expression returns [Expr result]
 primary returns [Expr result]
   : INT
     {
-      $result = new Int(Integer.parseInt($INT.text), new Location($INT.line,
+      $result = new IntLiteral(Integer.parseInt($INT.text), new Location($INT.line,
         $INT.pos, $INT.line, $INT.pos + $INT.text.length()));
     }
-  | IDENT
+  | bool=BOOL_LITERAL
     {
-      $result = new Ident($IDENT.text, new Location($IDENT.line, $IDENT.pos,
-          $IDENT.line, $IDENT.pos + $IDENT.text.length()));
+      $result = new BoolLiteral($bool.text.equals("true"), new Location(
+        $bool.line, $bool.pos, $bool.line,
+          $bool.pos + $bool.text.length()));
     }
-  | STRING_LITERAL
+  | id=IDENT
     {
-      $result = new Str($STRING_LITERAL.text,
-        new Location($STRING_LITERAL.line, $STRING_LITERAL.pos,
-          $STRING_LITERAL.line,
-          $STRING_LITERAL.pos + $STRING_LITERAL.text.length()));
+      $result = new Ident($id.text, new Location($id.line, $id.pos,
+          $id.line, $id.pos + $id.text.length()));
+    }
+  | str=STRING_LITERAL
+    {
+      $result = new StrLiteral($str.text.substring(1, $str.text.length() - 1),
+        new Location($str.line, $str.pos, $str.line,
+          $str.pos + $str.text.length()));
     }
   | '(' orExpr ')' { $result = $orExpr.result; }
   ;
     
 unExpr returns [Expr result]
-  : '+' x=unExpr { $result = new Pos($x.result); }
-  | '-' x=unExpr { $result = new Neg($x.result); }
-  | '!' x=unExpr { $result = new Not($x.result); }
+  : pos='+' x=unExpr { $result = new Pos($x.result, new Location($pos.line,
+      $pos.pos, null)); }
+  | neg='-' x=unExpr { $result = new Neg($x.result, new Location($neg.line,
+      $neg.pos, null)); }
+  | not='!' x=unExpr { $result = new Not($x.result, new Location($not.line,
+      $not.pos, null)); }
   | x=primary    { $result = $x.result; }
   ;    
     
@@ -219,6 +225,9 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel = HIDDEN; }
 
 COMMENT :  '/*' .* '*/' { $channel = HIDDEN; }
         ;
+
+BOOL_LITERAL  : 'true' | 'false'
+              ;
 
 IDENT : LETTER (LETTER | DIGIT | '_')*
       ;
