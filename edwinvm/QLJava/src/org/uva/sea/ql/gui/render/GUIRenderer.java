@@ -13,7 +13,6 @@ import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
-import org.uva.sea.ql.gui.Widget;
 
 public class GUIRenderer implements Visitor {
 
@@ -21,8 +20,8 @@ public class GUIRenderer implements Visitor {
 	private final State _state;
 
 	private GUIRenderer(State state) {
-		_state = state;
 		_panel = new JPanel();
+		_state = state;
 	}
 
 	public static JPanel render(FormStatement statement, State state) {
@@ -31,7 +30,7 @@ public class GUIRenderer implements Visitor {
 		return renderer.getPanel();
 	}
 
-	private JPanel render(StatementBody bodyStatements, State state) {
+	public static JPanel render(StatementBody bodyStatements, State state) {
 		GUIRenderer renderer = new GUIRenderer(state);
 		bodyStatements.accept(renderer);
 		return renderer.getPanel();
@@ -60,25 +59,21 @@ public class GUIRenderer implements Visitor {
 
 	@Override
 	public void visit(AnswerableQuestion statement) {
-		// "Draw" the label
 		addLabel(statement.getQuestionLabel());
-		// Get a Widget based on Type through another Visitor
-		//Control control = typeToWidget(statement.getType(), true); // True == editable, False == not enabled
-		Widget widget = typeToWidget(statement.getType());
+		Widget widget = renderWidgetFor(statement.getType());
 		// Add Event Listener
-		//registerHandler(statement, control);
-		// Draw the widget
+		//registerHandler(statement, widget);
 		add(widget);
 	}
 
 	@Override
 	public void visit(ComputedQuestion statement) {
-//		addLabel(statement.getQuestionLabel());
-//		Control control = typeToWidget(statement.getExpression().typeOf(new TypeEnvironment()), false);
+		addLabel(statement.getQuestionLabel());
+		Widget widget = renderWidgetFor(statement.getExpression().typeOf(_state.getTypeEnvironment()), false);
 //		registerComputedDeps(statement, control);
 //		registerPropagator(statement);
-//		initValue(statement, control);
-//		add(control);
+//		initValue(statement, widget);
+		add(widget);
 	}
 
 	@Override
@@ -88,8 +83,16 @@ public class GUIRenderer implements Visitor {
 		}
 	}
 	
-	private Widget typeToWidget(Type type) {
-		return WidgetRenderer.render(type);
+	private Widget renderWidgetFor(Type type) {
+		return renderWidgetFor(type, true);
+	}
+	
+	private Widget renderWidgetFor(Type type, boolean isEditableWidget) {
+		Widget widget = WidgetRenderer.render(type);
+		if (!isEditableWidget) {
+			widget.setToNotEditable();
+		}
+		return widget;
 	}
 	
 	private void addLabel(QuestionLabel questionLabel) {

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.gui;
+package org.uva.sea.ql.gui.render;
 
 import java.awt.Component;
 
@@ -8,6 +8,10 @@ public class Widget {
 	
 	public Widget(Component widget) {
 		_widget = widget;
+	}
+	
+	public void setToNotEditable() {
+		_widget.setEnabled(false);
 	}
 	
 	public Component getWidget() {

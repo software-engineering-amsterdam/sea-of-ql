@@ -31,6 +31,10 @@ public class StatementChecker implements Visitor {
 	public void check(FormStatement statement) { 
 		statement.accept(this); 
 	}
+	
+	public void check(StatementBody statements) {
+		statements.accept(this);
+	}
 
 	@Override
 	public void visit(IfThenStatement statement) {

@@ -14,7 +14,6 @@ import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typevisitor.Visitor;
-import org.uva.sea.ql.gui.Widget;
 
 public class WidgetRenderer implements Visitor<Widget> {
 	
@@ -26,34 +25,22 @@ public class WidgetRenderer implements Visitor<Widget> {
 	}
 
 	@Override
-	public Widget visit(Bool type) {
-		return renderCheckBoxWidget();
-	}
+	public Widget visit(Bool type)    { return renderCheckBoxWidget();          }
+	
+	@Override
+	public Widget visit(Int type)     { return renderNumericInputFieldWidget(); }
+	
+	@Override
+	public Widget visit(Money type)   { return renderNumericInputFieldWidget(); }
 
 	@Override
-	public Widget visit(Int type) {
-		return renderNumericInputFieldWidget();
-	}
+	public Widget visit(Numeric type) { return renderNumericInputFieldWidget(); }
 
 	@Override
-	public Widget visit(Money type) {
-		return renderNumericInputFieldWidget();
-	}
+	public Widget visit(Str type)     { return renderInputFieldWidget();        }
 
 	@Override
-	public Widget visit(Numeric type) {
-		return renderNumericInputFieldWidget();
-	}
-
-	@Override
-	public Widget visit(Str type) {
-		return renderInputFieldWidget();
-	}
-
-	@Override
-	public Widget visit(Error type) {
-		return renderDisabledCheckBoxWidget();
-	}
+	public Widget visit(Error type)   { return renderDisabledCheckBoxWidget();  }
 	
 	private Widget renderInputFieldWidget() {
 		JTextField inputFieldWidget = new JTextField(15);

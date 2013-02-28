@@ -7,11 +7,11 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.forms.Form;
-import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.gui.render.GUIRenderer;
 import org.uva.sea.ql.gui.render.State;
@@ -19,15 +19,16 @@ import org.uva.sea.ql.gui.render.State;
 public class QuestionnaireForm {
 
 	private JFrame _questionnaireFrame;
+	private State _state;
 	
 	public static void main(String[] args) { new QuestionnaireForm(); }
 	
 	public QuestionnaireForm() {
-		renderQLForm();
+		renderQuestionnaireForm();
 	}
 	
-	private void renderQLForm() {
-		renderQLStatements(getFormBody());
+	private void renderQuestionnaireForm() {
+		renderStatements(getFormBody());
 		setFormLayout();
 	}
 	
@@ -37,13 +38,21 @@ public class QuestionnaireForm {
 		return questionnaire.getBody();
 	}
 	
-	private void renderQLStatements(StatementBody body) {
-		for (FormStatement statement: body.getStatements()) {
-			renderPanel(statement);
-		}
+	private void renderStatements(StatementBody body) {
+		initializeQuestionnaireState();
+		renderPanel(body);
 	}
-	private void renderPanel(FormStatement statement) {
-		_questionnaireFrame.add(GUIRenderer.render(statement, new State()));
+	
+	private void renderPanel(StatementBody body) {
+		_questionnaireFrame.add(render(body));
+	}
+	
+	private JPanel render(StatementBody body) {
+		return GUIRenderer.render(body, _state);
+	}
+	
+	private void initializeQuestionnaireState() {
+		_state = new State(QuestionnaireHandler.getTypeEnvironment());
 	}
 	
 	private void initializeForm(Identifier formName) {
