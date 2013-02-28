@@ -5,13 +5,47 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.uva.sea.ql.ast.forms.Form;
+import org.uva.sea.ql.ast.forms.IncorrectForm;
+import org.uva.sea.ql.ast.statements.FormStatement;
+import org.uva.sea.ql.ast.statements.StatementBody;
+import org.uva.sea.ql.check.statements.StatementChecker;
 import org.uva.sea.ql.parser.IParser;
+import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserForms;
+import org.uva.sea.ql.parser.errors.ErrorMessages;
 import org.uva.sea.ql.parser.errors.ParseError;
 
 public class QLHandler {
+	
+	private static StatementChecker _statementChecker;
+	private static TypeEnvironment _typeEnvironment;
+	private static ErrorMessages _errorMessages;
 
+	private static void initializeQLHandler() {
+		_typeEnvironment  = new TypeEnvironment();
+		_errorMessages    = new ErrorMessages();
+		_statementChecker = new StatementChecker(_typeEnvironment, _errorMessages);
+	}
+	
 	public static Form getFormAST() {
+		initializeQLHandler();
+		Form questionnaire = parseForm(); 
+		boolean formIsValid = checkStatements(questionnaire.getBody());
+		return formIsValid ? questionnaire : IncorrectForm.InvalidQLForm();
+	}
+	
+	private static boolean checkStatements(StatementBody body) {
+		for (FormStatement statement: body.getStatements()) {
+			checkStatement(statement);
+		}
+		return !_errorMessages.hasErrors();
+	}
+	
+	private static void checkStatement(FormStatement statement) {
+		_statementChecker.check(statement);
+	}
+	
+	private static Form parseForm() {
 		IParser qlParser = new ANTLRParserForms();
 		String input;
 		try {
@@ -35,5 +69,4 @@ public class QLHandler {
 		reader.close();
 		return fileData.toString();
 	}
-
 }
