@@ -27,7 +27,7 @@ public class QLHandler {
 		_statementChecker = new StatementChecker(_typeEnvironment, _errorMessages);
 	}
 	
-	public static Form getFormAST() {
+	public static Form getQuestionnaire() {
 		initializeQLHandler();
 		Form questionnaire = parseForm(); 
 		boolean formIsValid = checkStatements(questionnaire.getBody());

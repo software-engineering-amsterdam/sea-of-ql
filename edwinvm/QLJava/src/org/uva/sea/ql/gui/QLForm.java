@@ -13,7 +13,7 @@ import org.uva.sea.ql.gui.render.State;
 
 public class QLForm {
 
-	private JFrame _qlFrame;
+	private JFrame _questionnaireFrame;
 	
 	public static void main(String[] args) { new QLForm(); }
 	
@@ -27,26 +27,30 @@ public class QLForm {
 	}
 	
 	private StatementBody getFormBody() {
-		Form questionnaire = QLHandler.getFormAST();
+		Form questionnaire = QLHandler.getQuestionnaire();
 		initializeForm(questionnaire.getName());
 		return questionnaire.getBody();
 	}
 	
 	private void renderQLStatements(StatementBody body) {
 		for (FormStatement statement: body.getStatements()) {
-			_qlFrame.add(GUIRenderer.render(statement, new State()));
+			renderPanel(statement);
 		}
 	}
+	private void renderPanel(FormStatement statement) {
+		_questionnaireFrame.add(GUIRenderer.render(statement, new State()));
+	}
+	
 	
 	private void initializeForm(Identifier identifier) {
-		_qlFrame = new JFrame(identifier.getValue());
+		_questionnaireFrame = new JFrame(identifier.getValue());
 	}
 	
 	private void setFormLayout() {
-		_qlFrame.setSize(850,550);
-		_qlFrame.setLayout(new FlowLayout());
-		_qlFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		_qlFrame.setVisible(true);
+		_questionnaireFrame.setSize(850,550);
+		_questionnaireFrame.setLayout(new FlowLayout());
+		_questionnaireFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		_questionnaireFrame.setVisible(true);
 	}
 	
 }
