@@ -15,7 +15,7 @@ import org.uva.sea.ql.parser.antlr.check.ANTLRParserForms;
 import org.uva.sea.ql.parser.errors.ErrorMessages;
 import org.uva.sea.ql.parser.errors.ParseError;
 
-public class QLHandler {
+public class QuestionnaireHandler {
 	
 	private static StatementChecker _statementChecker;
 	private static TypeEnvironment _typeEnvironment;

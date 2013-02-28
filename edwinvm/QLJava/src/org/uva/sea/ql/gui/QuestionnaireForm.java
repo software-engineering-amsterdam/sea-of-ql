@@ -27,7 +27,7 @@ public class QuestionnaireForm {
 	}
 	
 	private StatementBody getFormBody() {
-		Form questionnaire = QLHandler.getQuestionnaire();
+		Form questionnaire = QuestionnaireHandler.getQuestionnaire();
 		initializeForm(questionnaire.getName());
 		return questionnaire.getBody();
 	}
