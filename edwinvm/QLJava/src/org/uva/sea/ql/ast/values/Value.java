@@ -4,8 +4,6 @@ import org.uva.sea.ql.ast.expressions.Expression;
 
 public abstract class Value extends Expression {
 
-	public Value pos()                                     { throw new UnsupportedOperationException(); }
-	
 	// Logical operations
 	
 	public Value and(Value value)                          { throw new UnsupportedOperationException(); }
@@ -57,5 +55,11 @@ public abstract class Value extends Expression {
 	protected Value lessThanMoney(Money value)             { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToInt(Int value)        { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToMoney(Money value)    { throw new UnsupportedOperationException(); }
+	
+	// Unary operations
+	
+	public Value setToPositive()                           { throw new UnsupportedOperationException(); }
+	public Value setToNegative()                           { throw new UnsupportedOperationException(); }
+	public Value applyNegation()                           { throw new UnsupportedOperationException(); }
 	
 }
