@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast.types;
+package org.uva.sea.ql.ast.type;
 
 
-public class Str extends Type{
+public class StrType extends Type{
 
 	@Override
 	public String toString(){

@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast.types;
+package org.uva.sea.ql.ast.type;
 
 
-public class Bool extends Type {
+public class BoolType extends Type {
 
 	@Override
 	public String toString(){

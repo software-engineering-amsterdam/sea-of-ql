@@ -5,12 +5,13 @@ import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.operative.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.type.*;
+import org.uva.sea.ql.ast.primitive.*;
 }
 
 public Form RunParse = yyValue:Form;
 
-Statement Form = 
+Form Form = 
 	"form" Spacing f:Ident Spacing b:Block { yyValue = new Form(f, b); };
 	
 Block Block =
@@ -33,9 +34,9 @@ Question Question =
 	; 
 	
 Type Type =
-	"boolean" Spacing { yyValue = new org.uva.sea.ql.ast.types.Bool(); }
-	/ "integer" Spacing { yyValue = new org.uva.sea.ql.ast.types.Int(); }
-	/ "string" Spacing { yyValue = new org.uva.sea.ql.ast.types.Str(); }
+	"boolean" Spacing { yyValue = new BoolType(); }
+	/ "integer" Spacing { yyValue = new IntType(); }
+	/ "string" Spacing { yyValue = new StrType(); }
 	;
 
 
@@ -102,10 +103,10 @@ Expr Unary =
 	
 
 Expr Primary = 
-	s:LiteralString Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
-	/ "true" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(true); }
-	/ "false" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(false); }
-	/ n:Int Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Int(Integer.parseInt(n)); }
+	s:LiteralString Spacing { yyValue = new Str(s); }
+	/ "true" Spacing { yyValue = new Bool(true); }
+	/ "false" Spacing { yyValue = new Bool(false); }
+	/ n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
 	/ x:Ident Spacing { yyValue = new Ident(x); }
 	/ LParen yyValue:Expr RParen
 	;

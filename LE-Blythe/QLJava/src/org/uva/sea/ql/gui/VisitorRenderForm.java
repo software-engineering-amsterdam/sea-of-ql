@@ -2,23 +2,26 @@ package org.uva.sea.ql.gui;
 
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import net.miginfocom.swing.MigLayout;
+
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.IVisitorStatement;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.IVisitorStatement;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.types.IVisitorType;
+import org.uva.sea.ql.ast.type.IVisitorType;
 import org.uva.sea.ql.gui.control.Applet;
-import org.uva.sea.ql.gui.control.Button;
-import org.uva.sea.ql.gui.control.Control;
-import org.uva.sea.ql.gui.control.Label;
-import org.uva.sea.ql.gui.control.Panel;
-import org.uva.sea.ql.gui.control.ScrollPane;
 import org.uva.sea.ql.gui.widget.Widget;
 import org.uva.sea.ql.gui.widget.WidgetChangeHandler;
 import org.uva.sea.ql.gui.widget.WidgetComputed;
@@ -26,25 +29,24 @@ import org.uva.sea.ql.gui.widget.WidgetObserver;
 import org.uva.sea.ql.gui.widget.WidgetObserverComputed;
 import org.uva.sea.ql.gui.widget.WidgetObserverConditionIf;
 import org.uva.sea.ql.gui.widget.WidgetObserverConditionIfElse;
-import org.uva.sea.ql.util.Environment;
 
-public class VisitorRenderForm implements IVisitorStatement<Control> {
+public class VisitorRenderForm implements IVisitorStatement<JComponent> {
 
-	private Environment environment;
+	private State state;	
 	
-	private VisitorRenderForm(Environment environment){
-		this.environment= environment;
+	private VisitorRenderForm(State state){
+		this.state = state;
 	}
 	
 	
-	private Panel createPanel(){
-		return new Panel("hidemode 2, fillx");
+	private JPanel createPanel(){
+		return new JPanel(new MigLayout("hidemode 2, fillx"));
 	}
 	
 	
-	private Button createSubmitButton(String formName){
-		Button button = new Button("Submit");
-		button.addActionListener(new FormSubmissionHandler(formName, environment));
+	private JButton createSubmitButton(String formName){
+		JButton button = new JButton("Submit");
+		button.addActionListener(new FormSubmissionHandler(formName, state.getValues()));
 		return button;
 	}
 	
@@ -54,7 +56,7 @@ public class VisitorRenderForm implements IVisitorStatement<Control> {
 		List<Ident> identifiers = expr.accept(new VisitorExpressionIdentifiers());
 		
 		for(Ident i: identifiers){
-			environment.addObserver(i, observer);
+			state.addObserver(i, observer);
 		}
 	
 		observer.evaluate();
@@ -62,29 +64,29 @@ public class VisitorRenderForm implements IVisitorStatement<Control> {
 	
 	
 	private void registerWidgetChangeHandler(Ident ident, Widget widget){
-		WidgetChangeHandler observable = new WidgetChangeHandler(ident, widget, environment);
-		environment.putObservable(ident, observable);
+		WidgetChangeHandler observable = new WidgetChangeHandler(ident, widget, state.getValues());
+		state.putObservable(ident, observable);
 	}
 
 	@Override
-	public Control visit(Form form) {
+	public JComponent visit(Form form) {
 
-		Panel panel = createPanel();
-		Button button = createSubmitButton(form.getName());
+		JPanel panel = createPanel();
+		JButton button = createSubmitButton(form.getName());
 		
 		panel.add(form.getBlock().accept(this), "wrap");	
 		panel.add(button);
 		
-		return new ScrollPane(panel);
+		return new JScrollPane(panel);
 	}
 	
 	@Override
-	public Control visit(Block block) {
-		Environment subEnvironment = environment.branchEnvironment();
+	public JComponent visit(Block block) {
+		State branchedState = state.branchState();
 		
-		VisitorRenderForm renderer = new VisitorRenderForm(subEnvironment);
+		VisitorRenderForm renderer = new VisitorRenderForm(branchedState);
 		
-		Panel panel = createPanel();
+		JPanel panel = createPanel();
 		
 		for(Statement s: block.getStatements())
 			panel.add(s.accept(renderer), "wrap");
@@ -93,16 +95,16 @@ public class VisitorRenderForm implements IVisitorStatement<Control> {
 	}
 
 	@Override
-	public Control visit(IfThen branch) {
+	public JComponent visit(IfThen branch) {
 		
-		Panel panel = createPanel();
+		JPanel panel = createPanel();
 		
-		Control ifBlock = branch.getIfBlock().accept(this);
+		JComponent ifBlock = branch.getIfBlock().accept(this);
 		
 		panel.add(ifBlock);
 		
 		WidgetObserverConditionIf observer = 
-				new WidgetObserverConditionIf(branch.getIfCondition(), ifBlock, environment); 
+				new WidgetObserverConditionIf(branch.getIfCondition(), ifBlock, state.getValues()); 
 		
 		registerObservers(branch.getIfCondition(), observer);
 		
@@ -110,18 +112,18 @@ public class VisitorRenderForm implements IVisitorStatement<Control> {
 	}
 
 	@Override
-	public Control visit(IfThenElse branch) {
+	public JComponent visit(IfThenElse branch) {
 		
-		Panel panel = createPanel();
+		JPanel panel = createPanel();
 		
-		Control ifBlock = branch.getIfBlock().accept(this);
-		Control elseBlock = branch.getElseBlock().accept(this);
+		JComponent ifBlock = branch.getIfBlock().accept(this);
+		JComponent elseBlock = branch.getElseBlock().accept(this);
 		
 		panel.add(ifBlock);
 		panel.add(elseBlock);
 		
 		WidgetObserverConditionIfElse observer = 
-				new WidgetObserverConditionIfElse(branch.getIfCondition(), ifBlock, elseBlock, environment); 
+				new WidgetObserverConditionIfElse(branch.getIfCondition(), ifBlock, elseBlock, state.getValues()); 
 		
 		registerObservers(branch.getIfCondition(), observer);
 		
@@ -129,43 +131,43 @@ public class VisitorRenderForm implements IVisitorStatement<Control> {
 	}
 	
 	@Override
-	public Control visit(QuestionAnswerable question) {
-		Panel panel = createPanel();
+	public JComponent visit(QuestionAnswerable question) {
+		JPanel panel = createPanel();
 		
 		IVisitorType<Widget> typeToWidget = new VisitorTypeToWidget(); 
-		Widget widget = question.typeOf(environment).accept(typeToWidget);
+		Widget widget = question.getType().accept(typeToWidget);
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
-		panel.add(new Label(question.getQuestion()));
+		panel.add(new JLabel(question.getQuestion()));
 		panel.add(widget.getControl(), "width 100");
 		
 		return panel;
 	}
 	
 	@Override
-	public Control visit(QuestionComputed question) {
-		Panel panel = createPanel();
+	public JComponent visit(QuestionComputed question) {
+		JPanel panel = createPanel();
 		
 		WidgetComputed widget = new WidgetComputed();
 		
 		registerWidgetChangeHandler(question.getIdentifier(), widget);
 		
-		panel.add(new Label(question.getQuestion()));
+		panel.add(new JLabel(question.getQuestion()));
 		panel.add(widget.getControl());
 		
-		WidgetObserverComputed observer = new WidgetObserverComputed(question, widget, environment); 
-		registerObservers(question.getValue(), observer);
+		WidgetObserverComputed observer = new WidgetObserverComputed(question, widget, state.getValues()); 
+		registerObservers(question.getExpression(), observer);
 
 		return panel;
 	}
 	
 	
-	public static void Render(final Form form, final int width, final int height){
-		final VisitorRenderForm renderer = new VisitorRenderForm(new Environment());
-		final Control ctrl = renderer.visit(form);
+	public static Applet render(final Form form, final int width, final int height){
+		final VisitorRenderForm renderer = new VisitorRenderForm(new State());
+		final JComponent ctrl = renderer.visit(form);
 
-		new Applet(ctrl, form.getName(), width, height);
+		return new Applet(ctrl, form.getName(), width, height);
 	}
 
 }

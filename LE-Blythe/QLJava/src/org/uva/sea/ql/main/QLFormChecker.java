@@ -1,6 +1,6 @@
 package org.uva.sea.ql.main;
 
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.checker.Error;
 import org.uva.sea.ql.checker.VisitorStatementChecker;
 
@@ -11,7 +11,7 @@ public class QLFormChecker extends QLProgramBase {
 	}
 		
 	
-	private void checkForm(Statement form) {
+	private void checkForm(Form form) {
 		
 		VisitorStatementChecker visitor = new VisitorStatementChecker();
 		boolean succeeded = form.accept(visitor);
@@ -29,8 +29,8 @@ public class QLFormChecker extends QLProgramBase {
 	}
 	
 	@Override
-	protected void execute(Statement ast) {
-		checkForm(ast);
+	protected void execute(Form form) {
+		checkForm(form);
 	}
 	
 	

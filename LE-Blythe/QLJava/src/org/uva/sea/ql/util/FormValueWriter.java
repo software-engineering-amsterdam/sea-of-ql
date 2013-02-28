@@ -4,13 +4,14 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.eval.value.Value;
 
 public class FormValueWriter implements IWriter {
 
-	Environment environment;
-	String 		formName;
+	Environment<Ident, Value> environment;
+	String formName;
 	
-	public FormValueWriter(String formName, Environment environment){
+	public FormValueWriter(String formName, Environment<Ident, Value> environment){
 		this.formName = formName;
 		this.environment = environment;
 	}
@@ -21,17 +22,15 @@ public class FormValueWriter implements IWriter {
 	}
 	
 	
-	private void print(BufferedWriter out, Environment env) throws Exception{
+	private void print(BufferedWriter out, Environment<Ident, Value> env) throws Exception{
 		
-		 VisitorExprPrint printer = new VisitorExprPrint();
-		 
 		 write(out, "{\n\r");
 		 
 		 for(Ident i: env.getIdentifiers()){
-			  write(out, "%s=%s;\n\r", i.getName(),env.getValue(i).accept(printer));
+			  write(out, "%s=%s;\n\r", i.getName(),env.get(i).toString());
 		  }
 		 
-		 for(Environment subEnv: env.getBranchedEnvironments()){
+		 for(Environment<Ident, Value> subEnv: env.getBranchedEnvironments()){
 			print(out, subEnv);
 		 }
 		 

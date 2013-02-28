@@ -1,19 +1,21 @@
 package org.uva.sea.ql.gui.widget;
 
+import javax.swing.JComponent;
+
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.eval.VisitorEvalExpr;
-import org.uva.sea.ql.ast.primitive.Bool;
-import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.gui.control.Control;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.eval.VisitorEvalExpr;
+import org.uva.sea.ql.eval.value.BoolVal;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.util.Environment;
 
 public class WidgetObserverConditionIf extends WidgetObserver {
 	
 	protected Expr expression;
-	protected Control ifPanel;
-	protected Environment environment;
+	protected JComponent ifPanel;
+	protected Environment<Ident, Value> environment;
 	
-	public WidgetObserverConditionIf(Expr expression, Control ifPanel, Environment environment){
+	public WidgetObserverConditionIf(Expr expression, JComponent ifPanel, Environment<Ident, Value> environment){
 		super();
 		
 		this.expression = expression;
@@ -22,24 +24,23 @@ public class WidgetObserverConditionIf extends WidgetObserver {
 	}
 	
 	
-	protected Primitive evalCondition(){
+	protected Value evalCondition(){
 		return expression.accept(new VisitorEvalExpr(environment));
 	}
 	
 	
-	protected boolean toBool(Primitive result){
-		return ((Bool)result).getValue();
+	protected boolean toBool(Value result){
+		return ((BoolVal)result).getValue();
 	}
 	
 	
-	protected boolean isDefined(Primitive result){
+	protected boolean isDefined(Value result){
 		return result.isDefined();
 	}
 	
-	
 	@Override
 	public void evaluate(){
-		Primitive result = evalCondition();
+		Value result = evalCondition();
 		ifPanel.setVisible(isDefined(result) && toBool(result) );
 	}
 	

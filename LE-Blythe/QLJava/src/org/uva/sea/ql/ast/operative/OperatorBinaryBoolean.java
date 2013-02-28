@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast.operative;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.util.Environment;
 
 public abstract class OperatorBinaryBoolean extends OperatorBinary{
@@ -12,8 +13,8 @@ public abstract class OperatorBinaryBoolean extends OperatorBinary{
 	}
 
 	@Override
-	public Type typeOf(Environment env) {
-		return new Bool();
+	public Type typeOf(Environment<Ident,Type> env) {
+		return new BoolType();
 	}
 	
 }

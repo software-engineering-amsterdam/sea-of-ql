@@ -26,23 +26,23 @@ import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Int;
 import org.uva.sea.ql.ast.primitive.Str;
 import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Numeric;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.NumericType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.util.Environment;
 
 public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 
-	private Environment environment;
+	private Environment<Ident, Type> environment;
 	private List<Error> errors;
 	
 	public VisitorExpressionChecker(){
-		environment = new Environment();
+		environment = new Environment<Ident, Type>();
 		errors = new ArrayList<Error>();
 	}
 
 	
-	public VisitorExpressionChecker(Environment env, List<Error> errors){
+	public VisitorExpressionChecker(Environment<Ident, Type> env, List<Error> errors){
 		this.environment = env;
 		this.errors = errors;
 	}
@@ -74,10 +74,10 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 	
 	private boolean checkExpression(Expr expression, Type expectedType){
 		
-		if(!checkType(expression, expectedType))
+		if(!expression.accept(this))
 			return false;
 		
-		return expression.accept(this);
+		return checkType(expression, expectedType);
 	}
 	
 	
@@ -85,9 +85,9 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 		Expr lhs = operator.getLeftHandOperand();
 		Expr rhs = operator.getRightHandOperand();
 		
-		return 	checkOperandCompatibility(lhs, rhs) & 
-				checkExpression(lhs, expectedType) & 
-				checkExpression(rhs, expectedType);
+		return 	checkExpression(lhs, expectedType) & 
+				checkExpression(rhs, expectedType) &
+				checkOperandCompatibility(lhs, rhs);
 	}
 	
 	
@@ -120,17 +120,17 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 
 	@Override
 	public Boolean visit(Add operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(And operator) {
-		return checkOperatorBinary(operator, new Bool() );
+		return checkOperatorBinary(operator, new BoolType() );
 	}
 
 	@Override
 	public Boolean visit(Div operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
@@ -140,32 +140,32 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 
 	@Override
 	public Boolean visit(GEq operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(GT operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(LEq operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(LT operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(Mul operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(Neg operator) {
-		return checkOperatorUnary(operator, new Numeric() );
+		return checkOperatorUnary(operator, new NumericType() );
 	}
 
 	@Override
@@ -175,22 +175,22 @@ public class VisitorExpressionChecker implements IVisitorExpr<Boolean> {
 
 	@Override
 	public Boolean visit(Not operator) {
-		return checkOperatorUnary(operator, new Bool() );
+		return checkOperatorUnary(operator, new BoolType() );
 	}
 
 	@Override
 	public Boolean visit(Or operator) {
-		return checkOperatorBinary(operator, new Bool() );
+		return checkOperatorBinary(operator, new BoolType() );
 	}
 
 	@Override
 	public Boolean visit(Pos operator) {
-		return checkOperatorUnary(operator, new Numeric() );
+		return checkOperatorUnary(operator, new NumericType() );
 	}
 
 	@Override
 	public Boolean visit(Sub operator) {
-		return checkOperatorBinary(operator, new Numeric() );
+		return checkOperatorBinary(operator, new NumericType() );
 	}
 
 	@Override
