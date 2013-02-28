@@ -17,9 +17,6 @@ public class Str extends Value {
 	}
 	
 	@Override
-	public boolean isStringValue() { return true; }
-	
-	@Override
 	public Value add(Value value)        { return value.addString(this); }
 	@Override
 	protected Value addString(Str value) { return new Str(value.getValue()+ " " + getValue()); }

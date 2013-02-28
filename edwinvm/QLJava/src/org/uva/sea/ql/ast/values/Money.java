@@ -17,9 +17,6 @@ public class Money extends Value {
 	}
 
 	@Override
-	public boolean isNumericValue() { return true; }
-	
-	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Money();
 	}	

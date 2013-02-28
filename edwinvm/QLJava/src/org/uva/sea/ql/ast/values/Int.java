@@ -16,9 +16,6 @@ public class Int extends Value {
 		return _value;
 	}
 	
-	@Override
-	public boolean isNumericValue() { return true; }
-	
 	/*
 	* NB: below the arguments are reversed because of double dispatch.
 	*/
