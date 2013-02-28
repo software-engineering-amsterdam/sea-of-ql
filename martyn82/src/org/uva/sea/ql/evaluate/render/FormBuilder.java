@@ -23,9 +23,9 @@ import org.uva.sea.ql.visitor.TypeVisitor;
 class FormBuilder implements TypeVisitor<InputControl> {
 	private final ControlFactory factory;
 	private final PanelControl panel;
-	private final BindingEnvironment environment;
+	private final RuntimeEnvironment environment;
 
-	public FormBuilder( ControlFactory factory, BindingEnvironment environment ) {
+	public FormBuilder( ControlFactory factory, RuntimeEnvironment environment ) {
 		this.environment = environment;
 		this.factory = factory;
 		this.panel = this.factory.createPanel();

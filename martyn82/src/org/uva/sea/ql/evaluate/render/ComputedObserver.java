@@ -9,10 +9,10 @@ import org.uva.sea.ql.value.Value;
 
 class ComputedObserver implements Observer {
 	private final InputControl control;
-	private final BindingEnvironment environment;
+	private final RuntimeEnvironment environment;
 	private final ComputedQuestion question;
 
-	public ComputedObserver( InputControl control, BindingEnvironment environment, ComputedQuestion question ) {
+	public ComputedObserver( InputControl control, RuntimeEnvironment environment, ComputedQuestion question ) {
 		this.control = control;
 		this.environment = environment;
 		this.question = question;

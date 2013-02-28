@@ -30,7 +30,7 @@ public class StatementRendererTest extends EvaluatorTest implements StatementTes
 	private final FormBuilder builder;
 
 	public StatementRendererTest() {
-		super( new BindingEnvironment() );
+		super( new RuntimeEnvironment() );
 		this.builder = new FormBuilder( new SwingControlFactory(), this.environment );
 	}
 

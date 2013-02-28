@@ -6,10 +6,10 @@ import java.util.Set;
 
 import org.uva.sea.ql.value.Value;
 
-public class ValueMap {
+public class RuntimeValueMap {
 	private final Map<String, Value> values;
 
-	public ValueMap() {
+	public RuntimeValueMap() {
 		this.values = new HashMap<String, Value>();
 	}
 

@@ -8,12 +8,12 @@ import org.uva.sea.ql.ast.expression.IdentifierExpression;
 import org.uva.sea.ql.evaluate.Environment;
 import org.uva.sea.ql.value.Value;
 
-public class BindingEnvironment extends Environment<Value> {
-	private final Map<IdentifierExpression, Binding> bindings;
+public class RuntimeEnvironment extends Environment<Value> {
+	private final Map<IdentifierExpression, Variable> bindings;
 
-	public BindingEnvironment() {
+	public RuntimeEnvironment() {
 		super();
-		this.bindings = new HashMap<IdentifierExpression, Binding>();
+		this.bindings = new HashMap<IdentifierExpression, Variable>();
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class BindingEnvironment extends Environment<Value> {
 	@Override
 	public void declare( IdentifierExpression identifier, Value value ) {
 		if ( !this.isDeclared( identifier ) ) {
-			this.bindings.put( identifier, new Binding( value ) );
+			this.bindings.put( identifier, new Variable( value ) );
 			return;
 		}
 
@@ -40,13 +40,13 @@ public class BindingEnvironment extends Environment<Value> {
 		return this.bindings.containsKey( identifier );
 	}
 
-	public ValueMap getValueMap() {
-		ValueMap values = new ValueMap();
-		Binding binding;
+	public RuntimeValueMap getValueMap() {
+		RuntimeValueMap values = new RuntimeValueMap();
+		Variable variable;
 
-		for ( Map.Entry<IdentifierExpression, Binding> each : this.bindings.entrySet() ) {
-			binding = each.getValue();
-			values.add( each.getKey().getName(), binding.getValue() );
+		for ( Map.Entry<IdentifierExpression, Variable> each : this.bindings.entrySet() ) {
+			variable = each.getValue();
+			values.add( each.getKey().getName(), variable.getValue() );
 		}
 
 		return values;

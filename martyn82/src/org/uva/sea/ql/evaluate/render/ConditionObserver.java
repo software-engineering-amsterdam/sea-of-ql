@@ -10,12 +10,12 @@ import org.uva.sea.ql.value.Value;
 
 class ConditionObserver implements Observer {
 	private final Expression condition;
-	private final BindingEnvironment environment;
+	private final RuntimeEnvironment environment;
 	private final Control trueControl;
 	private final Control falseControl;
 
 	public ConditionObserver(
-		Expression condition, BindingEnvironment environment, Control trueControl, Control falseControl
+		Expression condition, RuntimeEnvironment environment, Control trueControl, Control falseControl
 	) {
 		this.condition = condition;
 		this.environment = environment;

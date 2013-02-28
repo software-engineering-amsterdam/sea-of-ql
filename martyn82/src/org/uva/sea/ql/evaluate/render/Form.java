@@ -12,7 +12,7 @@ public class Form {
 
 	public Form( Statement root, ControlFactory factory ) {
 		this.factory = factory;
-		this.renderer = new StatementRenderer( factory, new BindingEnvironment() );
+		this.renderer = new StatementRenderer( factory, new RuntimeEnvironment() );
 		root.accept( this.renderer );
 	}
 
@@ -27,7 +27,7 @@ public class Form {
 		this.getPanel().addControl( button );
 	}
 
-	public ValueMap getValues() {
+	public RuntimeValueMap getValues() {
 		return this.renderer.getValues();
 	}
 

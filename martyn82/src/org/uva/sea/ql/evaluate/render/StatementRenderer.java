@@ -18,23 +18,23 @@ import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.StatementVisitor;
 
 class StatementRenderer implements StatementVisitor<Void> {
-	private final BindingEnvironment environment;
+	private final RuntimeEnvironment environment;
 	private final FormBuilder builder;
 
 	private String formName;
 
-	public StatementRenderer( ControlFactory factory, BindingEnvironment environment ) {
+	public StatementRenderer( ControlFactory factory, RuntimeEnvironment environment ) {
 		this.builder = new FormBuilder( factory, environment );
 		this.environment = environment;
 	}
 
-	protected static PanelControl renderPart( Statement statement, FormBuilder builder, BindingEnvironment environment ) {
+	protected static PanelControl renderPart( Statement statement, FormBuilder builder, RuntimeEnvironment environment ) {
 		StatementRenderer renderer = new StatementRenderer( builder.getFactory(), environment );
 		statement.accept( renderer );
 		return renderer.builder.getResult();
 	}
 
-	public ValueMap getValues() {
+	public RuntimeValueMap getValues() {
 		return this.environment.getValueMap();
 	}
 

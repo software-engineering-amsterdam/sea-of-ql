@@ -5,10 +5,10 @@ import java.util.Observable;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.value.Value;
 
-public class Binding extends Observable {
+public class Variable extends Observable {
 	private Value value;
 
-	public Binding( Value value ) {
+	public Variable( Value value ) {
 		this.value = value;
 		this.setChanged();
 	}
