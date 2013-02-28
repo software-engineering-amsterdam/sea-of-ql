@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.forms.Form;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.StatementBody;
@@ -21,14 +22,14 @@ public class QLForm {
 	}
 	
 	private void renderQLForm() {
-		initializeForm();
 		renderQLStatements(getFormBody());
 		setFormLayout();
 	}
 	
 	private StatementBody getFormBody() {
-		Form qlForm = QLHandler.getFormAST();
-		return qlForm.getBody();
+		Form questionnaire = QLHandler.getFormAST();
+		initializeForm(questionnaire.getName());
+		return questionnaire.getBody();
 	}
 	
 	private void renderQLStatements(StatementBody body) {
@@ -37,8 +38,8 @@ public class QLForm {
 		}
 	}
 	
-	private void initializeForm() {
-		_qlFrame = new JFrame("QL Form");
+	private void initializeForm(Identifier identifier) {
+		_qlFrame = new JFrame(identifier.getValue());
 	}
 	
 	private void setFormLayout() {
