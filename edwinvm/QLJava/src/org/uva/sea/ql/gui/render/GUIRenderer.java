@@ -42,7 +42,7 @@ public class GUIRenderer implements Visitor {
 		// Make sure something happens if condition is recomputed
 //		registerConditionDeps(statement.getCondition(), renderedBody);
 		renderedBody.setVisible(false);
-//		addPanel(renderedBody);
+		addPanel(renderedBody);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class GUIRenderer implements Visitor {
 //		registerConditionDeps(statement.getCondition(), renderedBody, renderedElseBody);
 		renderedBody.setVisible(false);
 		renderedElseBody.setVisible(false);
-//		addPanel(renderedBody);
-//		addPanel(renderedElseBody);
+		addPanel(renderedBody);
+		addPanel(renderedElseBody);
 	}
 
 	@Override
@@ -93,6 +93,10 @@ public class GUIRenderer implements Visitor {
 			widget.setToNotEditable();
 		}
 		return widget;
+	}
+	
+	private void addPanel(JPanel renderedBody) {
+		_panel.add(renderedBody);
 	}
 	
 	private void addLabel(QuestionLabel questionLabel) {
