@@ -1,11 +1,5 @@
 package org.uva.sea.ql.gui.render;
 
-import java.text.NumberFormat;
-
-import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.JTextField;
-
 import org.uva.sea.ql.ast.types.Bool;
 import org.uva.sea.ql.ast.types.Error;
 import org.uva.sea.ql.ast.types.Int;
@@ -29,43 +23,20 @@ public class WidgetRenderer implements Visitor<Widget> {
 	}
 
 	@Override
-	public Widget visit(Bool type)    { return renderCheckBoxWidget();          }
-	
+	public Widget visit(Bool type)    { return new CheckBoxWidget();     }
 	@Override
-	public Widget visit(Int type)     { return renderNumericInputFieldWidget(); }
-	
+	public Widget visit(Str type)     { return new TextInputWidget();    }
 	@Override
-	public Widget visit(Money type)   { return renderNumericInputFieldWidget(); }
+	public Widget visit(Int type)     { return new NumericInputWidget(); }
+	@Override
+	public Widget visit(Money type)   { return new NumericInputWidget(); }
+	@Override
+	public Widget visit(Numeric type) { return new NumericInputWidget(); }
 
 	@Override
-	public Widget visit(Numeric type) { return renderNumericInputFieldWidget(); }
-
-	@Override
-	public Widget visit(Str type)     { return renderInputFieldWidget();        }
-
-	@Override
-	public Widget visit(Error type)   { return renderDisabledCheckBoxWidget();  }
-	
-	private Widget renderInputFieldWidget() {
-		JTextField inputFieldWidget = new JTextField(15);
-		return new TextInputWidget(inputFieldWidget);
-	}
-	
-	private Widget renderNumericInputFieldWidget() {
-		JTextField inputFieldWidget = new JFormattedTextField(NumberFormat.getInstance());
-		inputFieldWidget.setColumns(10);
-		inputFieldWidget.setHorizontalAlignment(JTextField.RIGHT);
-		return new NumericInputWidget(inputFieldWidget);
-	}
-	
-	private Widget renderCheckBoxWidget() {
-		return new CheckBoxWidget(new JCheckBox());
-	}
-	
-	private Widget renderDisabledCheckBoxWidget() {
-		JCheckBox disabledCheckBoxWidget = new JCheckBox();
+	public Widget visit(Error type)   { 
+		Widget disabledCheckBoxWidget = new CheckBoxWidget();
 		disabledCheckBoxWidget.setEnabled(false);
-		return new CheckBoxWidget(disabledCheckBoxWidget);
+		return disabledCheckBoxWidget;
 	}
-	
 }

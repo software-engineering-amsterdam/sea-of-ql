@@ -6,20 +6,10 @@ import org.uva.sea.ql.ast.values.Value;
 
 public abstract class Widget {
 
-	private final Component _widget;
-	
-	public Widget(Component widget) {
-		_widget = widget;
-	}
-	
 	public abstract void setValue(Value value);
 	
-	public void setToNotEditable() {
-		_widget.setEnabled(false);
-	}
+	public abstract void setEnabled(boolean enabled);
 	
-	public Component getWidget() {
-		return _widget;
-	}
+	public abstract Component getWidget();
 	
 }

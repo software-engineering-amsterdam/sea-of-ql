@@ -4,9 +4,9 @@ import org.uva.sea.ql.ast.expressions.Expression;
 
 public abstract class Value extends Expression {
 
-	public boolean isStringValue()  { return false; }
-	public boolean isBooleanValue() { return false; }
-	public boolean isNumericValue() { return false; }
+	public boolean isStringValue()                         { return false; }
+	public boolean isBooleanValue()                        { return false; }
+	public boolean isNumericValue()                        { return false; }
 	
 	// Logical operations
 	

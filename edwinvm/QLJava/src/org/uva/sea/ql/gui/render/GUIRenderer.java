@@ -92,7 +92,7 @@ public class GUIRenderer implements Visitor {
 	private Widget renderWidgetFor(Type type, boolean isEditableWidget) {
 		Widget widget = WidgetRenderer.render(type);
 		if (!isEditableWidget) {
-			widget.setToNotEditable();
+			widget.setEnabled(false);
 		}
 		return widget;
 	}
