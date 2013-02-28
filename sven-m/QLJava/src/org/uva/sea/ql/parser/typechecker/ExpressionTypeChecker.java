@@ -107,10 +107,12 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 	}
 	
 	private Boolean assertChildrenType(Binary ast, Type type) {
+		/* check whether children are of type 'type' */
 		return assertChildrenType(ast, type, false);
 	}
 	
 	private Boolean assertChildrenNotType(Binary ast, Type type) {
+		/* check whether children are NOR of type 'type' */
 		return assertChildrenType(ast, type, true);
 	}
 	
@@ -143,7 +145,7 @@ public class ExpressionTypeChecker implements ExpressionVisitor<Boolean>
 			typeCorrect = false;
 		}
 		
-		/* only check rhs if lhs was OK, in orderr to prevent duplicate error
+		/* only check rhs if lhs was OK, in order to prevent duplicate error
 		 * reporting.
 		 */
 		if (typeCorrect && !rhsUndefined && !rhsIsAllowedType) {

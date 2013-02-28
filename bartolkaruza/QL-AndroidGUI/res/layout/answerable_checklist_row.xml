@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:gravity="left"
         android:layout_toLeftOf="@+id/answerable_value"
+        android:gravity="left"
         android:textIsSelectable="false" >
     </TextView>
 

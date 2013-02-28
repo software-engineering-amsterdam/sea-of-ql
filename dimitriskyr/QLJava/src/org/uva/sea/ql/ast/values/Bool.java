@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.values;
 
 import java.util.Map;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
 import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.visitor.ICheckExprVisitor;
 
 public class Bool extends Value {
 
@@ -13,7 +13,7 @@ public class Bool extends Value {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public Boolean getValue() {
 		return value;
 	}
 

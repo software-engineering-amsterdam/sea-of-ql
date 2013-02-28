@@ -23,13 +23,24 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 	public FormTypeChecker(TypeCheckerState state) {
 		this.state = state;
 		this.exprTypeChecker = new ExpressionTypeChecker(state);
-		this.exprTypeEval = new ExpressionTypeEvaluator(
-				state.getTypeState());
+		this.exprTypeEval = new ExpressionTypeEvaluator(state.getTypeState());
+	}
+
+	private TypeCheckerState getState() {
+		return state;
+	}
+
+	private ExpressionTypeChecker getExprTypeChecker() {
+		return exprTypeChecker;
+	}
+
+	private ExpressionTypeEvaluator getExprTypeEval() {
+		return exprTypeEval;
 	}
 
 	private boolean checkConditional(AbstractConditional conditional) {
 		return conditional.getBody().accept(this)
-				&& conditional.getCondition().accept(exprTypeChecker);
+				&& conditional.getCondition().accept(getExprTypeChecker());
 	}
 
 	@Override
@@ -60,14 +71,14 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Question ast) {
-		boolean typeCorrect = state.getType(ast.getIdent()) == null;
+		boolean typeCorrect = getState().getType(ast.getIdent()) == null;
 		Ident ident = ast.getIdent();
 
 		if (typeCorrect) {
-			state.setType(ident, ast.getType());
+			getState().setType(ident, ast.getType());
 		} else {
-			state.reportError(new VariableRedefinitionError(
-					ident.getName(), ident));
+			getState().reportError(
+					new VariableRedefinitionError(ident.getName(), ident));
 		}
 
 		return typeCorrect;
@@ -75,23 +86,26 @@ public class FormTypeChecker implements FormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(Computed ast) {
-		boolean typeCorrect = ast.getExpression().accept(exprTypeChecker);
+		boolean typeCorrect = ast.getExpression().accept(getExprTypeChecker());
+		
 		Ident ident = ast.getIdent();
 
-		Type exprType = ast.getExpression().accept(exprTypeEval);
+		Type exprType = ast.getExpression().accept(getExprTypeEval());
 
 		if (!exprType.equals(ast.getType())) {
 			typeCorrect = false;
-			state.reportError(new FormTypeMismatchError(ident.getName(),
-					ast.getType().toString(), exprType.toString(), ast));
+			getState().reportError(
+					new FormTypeMismatchError(ident.getName(),
+							ast.getType().toString(), exprType.toString(),
+							ast));
 		}
 
-		if (state.getType(ident) == null) {
-			state.setType(ident, ast.getType());
+		if (getState().getType(ident) == null) {
+			getState().setType(ident, ast.getType());
 		} else {
 			typeCorrect = false;
-			state.reportError(new VariableRedefinitionError(
-					ident.getName(), ident));
+			getState().reportError(
+					new VariableRedefinitionError(ident.getName(), ident));
 		}
 
 		return typeCorrect;

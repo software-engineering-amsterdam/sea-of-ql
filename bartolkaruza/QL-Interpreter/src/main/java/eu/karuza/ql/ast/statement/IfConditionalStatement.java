@@ -2,7 +2,6 @@ package eu.karuza.ql.ast.statement;
 
 import java.util.List;
 
-
 import eu.karuza.ql.ast.Expr;
 import eu.karuza.ql.ast.Statement;
 import eu.karuza.ql.visitor.StatementVisitor;
@@ -13,7 +12,6 @@ public class IfConditionalStatement implements Statement {
 	private List<Statement> statements;
 	private Expr expression;
 	private int lineNumber;
-	private boolean visible;
 
 	public IfConditionalStatement(Expr expression, List<Statement> statements, int lineNumber) {
 		this.statements = statements;
@@ -39,10 +37,6 @@ public class IfConditionalStatement implements Statement {
 	}
 
 	public boolean isVisible() {
-		return visible;
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
+		return (Boolean)expression.evaluate().getRawValue();
 	}
 }

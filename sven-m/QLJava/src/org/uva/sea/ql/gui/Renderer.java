@@ -23,10 +23,9 @@ import org.uva.sea.ql.ast.form.types.UndefinedType;
 import org.uva.sea.ql.ast.visitor.FormVisitor;
 import org.uva.sea.ql.ast.visitor.TypeVisitor;
 import org.uva.sea.ql.gui.control.display.DisplayControl;
-import org.uva.sea.ql.gui.control.input.CheckBox;
 import org.uva.sea.ql.gui.control.input.InputControl;
 import org.uva.sea.ql.gui.control.input.NumberField;
-import org.uva.sea.ql.gui.control.input.RadioBox;
+import org.uva.sea.ql.gui.control.input.BooleanField;
 import org.uva.sea.ql.gui.control.input.TextField;
 import org.uva.sea.ql.gui.misc.ValueState;
 import org.uva.sea.ql.gui.propagation.ComputedObserver;
@@ -43,12 +42,21 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 		this.mainPanel = pushPanel();
 		this.state = state;
 	}
+	
+	private JPanel getMainPanel() {
+		return mainPanel;
+	}
+
+	private Stack<JPanel> getPanelStack() {
+		return panelStack;
+	}
 
 	public ValueState getState() {
 		return state;
 	}
 
 	/* Panels */
+
 	private JPanel createPanel(boolean visible) {
 		JPanel panel = new JPanel(new MigLayout("hidemode 3"));
 		panel.setVisible(visible);
@@ -68,7 +76,7 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 
 		insertPanel(newPanel);
 
-		return panelStack.push(newPanel);
+		return getPanelStack().push(newPanel);
 	}
 
 	private void insertPanel(JPanel newPanel) {
@@ -78,18 +86,19 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 	}
 
 	private JPanel popPanel() {
-		return panelStack.pop();
+		return getPanelStack().pop();
 	}
 
 	private JPanel getCurrentPanel() {
-		return panelStack.empty() ? null : panelStack.peek();
+		return getPanelStack().empty() ? null : panelStack.peek();
 	}
 
 	private JPanel getPanel() {
-		return mainPanel;
+		return getMainPanel();
 	}
 
 	/* Controls */
+
 	private InputControl createControl(Type type) {
 		return type.accept(this);
 	}
@@ -103,9 +112,11 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 	}
 
 	/* Static entry */
+	
 	public static JPanel render(Form form, ValueState state) {
 		Renderer renderer = new Renderer(state);
 		form.accept(renderer);
+		
 		return renderer.getPanel();
 	}
 
@@ -202,7 +213,7 @@ public class Renderer implements FormVisitor<Void>, TypeVisitor<InputControl> {
 
 	@Override
 	public InputControl visit(BoolType type) {
-		return new RadioBox(); //CheckBox();
+		return new BooleanField();
 	}
 
 	@Override

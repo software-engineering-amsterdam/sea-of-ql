@@ -3,6 +3,9 @@ package org.uva.sea.ql.gui;
 import static julius.validation.Assertions.state;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,42 +14,35 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import julius.utilities.FileHelper;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.uva.sea.ql.lead.LogPrinter;
+import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.lead.Model;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.uva.sea.ql.visitor.ExpressionEvaluator;
+import org.uva.sea.ql.visitor.UnmodifiedException;
 
+/**
+ * Use {@link #create()} to initialize a menu bar for QL.
+ */
 public class QLMenuBar {
 
-	private static final String EXIT_TEXT = "Exit";
+	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private static final String ANSWER_SEPARATOR = " => ";
+	private static final String ANSWER_HEADER = "Key" + ANSWER_SEPARATOR + "answer"
+			+ LINE_SEPARATOR;
 	private static final String FILE_ITEM_SAVE = "Save";
 	private static final String FILE_MENU_TEXT = "File";
+	private static final String EXIT_TEXT = "Exit";
 
 	private final Model model;
-	private final Stage stage;
 
 	/**
 	 * @param model
 	 *            (not null)
 	 */
-	public QLMenuBar(final Model model, final Stage stage) {
+	public QLMenuBar(final Model model) {
 		this.model = model;
-		this.stage = stage;
 		state.assertNotNull(this.model, "QLMenuBar.model");
-		state.assertNotNull(this.stage, "QLMenuBar.stage");
 	}
 
 	public MenuBar create() {
@@ -61,6 +57,7 @@ public class QLMenuBar {
 		fileMenu.getItems().add(createSave());
 		fileMenu.getItems().add(new SeparatorMenuItem());
 		fileMenu.getItems().add(createExit());
+
 		return fileMenu;
 	}
 
@@ -70,12 +67,10 @@ public class QLMenuBar {
 
 			@Override
 			public void handle(final ActionEvent arg0) {
-				LogPrinter.debugInfo("Exiting");
 				System.exit(0);
 			}
 
 		});
-
 		return exit;
 	}
 
@@ -89,53 +84,45 @@ public class QLMenuBar {
 			}
 
 		});
-
 		return save;
 	}
 
-	// TODO : Unfinished.
 	private void performSave() {
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory
-				.newInstance();
-		try {
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		List<String> preparedQuestions = prepareComputeds();
+		File file = new FileChooser().showSaveDialog(null);
 
-			// root elements
-			Document doc = docBuilder.newDocument();
+		if (file != null) {
+			StringBuffer buffer = new StringBuffer(ANSWER_HEADER);
+			buffer.append(join(preparedQuestions, LINE_SEPARATOR));
 
-			Element rootElement = doc.createElement("Questions");
-			Element staff = doc.createElement("Question");
-			rootElement.appendChild(staff);
-
-			Attr attr = doc.createAttribute("attribute");
-			attr.setValue("attribute value");
-			staff.setAttributeNode(attr);
-
-			TransformerFactory transformerFactory = TransformerFactory
-					.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-
-			FileChooser fileChooser = new FileChooser();
-
-			// Set extension filter
-			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-					"XML files (*.xml)", "*.xml");
-			fileChooser.getExtensionFilters().add(extFilter);
-
-			// Show save file dialog
-			File file = fileChooser.showSaveDialog(stage);
-			if (file != null) {
-				StreamResult result = new StreamResult(file);
-				transformer.transform(source, result);
-			}
-
-		} catch (ParserConfigurationException e) {
-			LogPrinter.debugInfo("Parse " + e);
-		} catch (TransformerConfigurationException e) {
-			LogPrinter.debugInfo("Transformation Config " + e);
-		} catch (TransformerException e) {
-			LogPrinter.debugInfo("Transformer " + e);
+			FileHelper.writeFile(buffer.toString(), file.getPath());
 		}
+	}
+
+	private String join(final Collection<String> collection, final String joiner) {
+		StringBuffer buffer = new StringBuffer();
+
+		for (String item : collection) {
+			buffer.append(item).append(joiner);
+		}
+		return buffer.toString();
+	}
+
+	private List<String> prepareComputeds() {
+		List<String> prepared = new ArrayList<String>();
+		ExpressionEvaluator evaluator = new ExpressionEvaluator(model);
+
+		for (Computed computed : model.getComputeds()) {
+
+			try {
+				prepared.add(computed.getIdentifier().getName() + ANSWER_SEPARATOR
+						+ computed.getExpression().accept(evaluator).getAsString());
+			} catch (UnmodifiedException e) {
+				// since not all the values of the computed questions is known/answered, it is
+				// caught here and continued.
+				continue;
+			}
+		}
+		return prepared;
 	}
 }

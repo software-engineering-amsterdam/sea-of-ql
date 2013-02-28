@@ -113,15 +113,12 @@ public class ExpressionEvaluator implements ExpressionVisitor<Value> {
 
 	@Override
 	public Value visit(Ident ast) {
-		Value value = symbolTable.get(ast);
-
-		if (value == null) {
-			// TODO: throw exception instead of returning an UndefinedValue?
-
-			value = new UndefinedValue();
+		if (symbolTable.containsKey(ast)) {
+			assert symbolTable.get(ast) != null: "Null in sytmboltable";
+			return symbolTable.get(ast);
 		}
 
-		return value;
+		return new UndefinedValue();
 	}
 
 	@Override

@@ -3,12 +3,17 @@ options
 {
 backtrack=true; 
 memoize=true;
+output=AST;
+ASTLabelType= CommonTree;
 }
 
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
-import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.type.*;
+import org.uva.sea.ql.value.*;
 }
 
 @lexer::header
@@ -17,134 +22,80 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form
-: 'form' Ident '{' block '}'
+: 'form'! Ident^ '{'! block '}'!
 ;
 
-block
+// TODO Bart's BlockNode
+block returns [Block node]
 : statement*
 ;
 
-statement
-: ifStatement | assignment
+statement returns [Statement statement]
+: ifStatement {$statement = $ifStatement.node;}
+| assignment {$statement = $assignment.node;}
 ;
 
-assignment
-: variable ':' StringLiteral type
+// TODO check Bart's IfNode
+ifStatement returns [IfStatement node]
+: 'if'^ orExpression '{'! block '}'! //{$node =  new IfStatement();}
+  ('else'^ '{'! block '}'! {$node = null;} )?
 ;
 
-
-ifStatement
-: ifStat elseIfStat* elseStat?
+assignment returns [Assignment node]
+: Ident ':'^ StringLiteral type { $node = new Assignment(new Ident($Ident.text), $StringLiteral.text, $type.type); }
 ;
 
-ifStat
-: 'if' orExpression '{' block '}'
-;
-
-elseIfStat
-: 'else' ifStat
-;
-
-elseStat
-: 'else' '{' block '}'
-;
-
-
-variable
-: Ident
-;
-
-type
-: 'Integer'
-| 'Boolean'
-| 'StringLiteral'
-;
-
-term
-: Ident
-| Int
-| StringLiteral
-| Bool
+type returns [Type type]
+: 'integer' {$type = new IntType();}
+| 'boolean'
+| 'string'
+| 'money'
 ;
 
 primary returns [Expr result]
 : Int   { $result = new Int(Integer.parseInt($Int.text)); } 
-| Ident { $result = new Ident($Ident.text); } 
-| '(' x=orExpression ')' { $result = $x.result; }
+| Money   { $result = new Money(Double.parseDouble($Money.text)); }
+// TODO add Bool, StringLiteral
+| Ident { $result = new Ident($Ident.text); }
+| '('! x=orExpression ')'! { $result = $x.result; }
 ;
     
 unaryExpression returns [Expr result]
-: '+' x=unaryExpression { $result = new Pos($x.result); }
-| '-' x=unaryExpression { $result = new Neg($x.result); }
-| '!' x=unaryExpression { $result = new Not($x.result); }
-| x=primary    { $result = $x.result; }
-;    
+: '+'^ x=unaryExpression { $result = new Pos($x.result); }
+| '-'^ x=unaryExpression { $result = new Neg($x.result); }
+| '!'^ x=unaryExpression { $result = new Not($x.result); }
+| y=primary { $result = $y.result; }
+;
    
 multiplyExpression returns [Expr result]
-: lhs=unaryExpression { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unaryExpression 
-{ 
-  if ($op.text.equals("*")) 
-  {
-  	$result = new Mul($result, rhs);
-  }
-  if ($op.text.equals("/")) 
-  {
-    $result = new Div($result, rhs);      
-  }
-})*
+: lhs=unaryExpression { $result=$lhs.result; }
+  (('*'^ rhs=unaryExpression {$result = new Mul($result, $rhs.result);}
+  | '/'^ rhs=unaryExpression {$result = new Div($result, $rhs.result);})
+  )*
 ;
-    
-  
+
 addExpression returns [Expr result]
-: lhs=multiplyExpression { $result=$lhs.result; } ( op=('+' | '-') rhs=multiplyExpression
-{
-  if ($op.text.equals("+")) 
-  {
-  	$result = new Add($result, rhs);
-  }
-  if ($op.text.equals("-")) 
-  {
-  	$result = new Sub($result, rhs);      
-  }
-})*
+: lhs=multiplyExpression { $result=$lhs.result; }
+  (('+'^ rhs=multiplyExpression { $result = new Add($result, $rhs.result); }
+  | '-'^ rhs=multiplyExpression {$result = new Sub($result, $rhs.result); }))*
 ;
   
 relExpression returns [Expr result]
-: lhs=addExpression { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpression 
-{
-  if ($op.text.equals("<")) 
-  {
-  	$result = new LT($result, rhs);
-  }
-  if ($op.text.equals("<=")) 
-  {
-    $result = new LEq($result, rhs);      
-  }
-  if ($op.text.equals(">")) 
-  {
-    $result = new GT($result, rhs);
-  }
-  if ($op.text.equals(">=")) 
-  {
-    $result = new GEq($result, rhs);      
-  }
-  if ($op.text.equals("==")) 
-  {
-    $result = new Eq($result, rhs);
-  }
-  if ($op.text.equals("!=")) 
-  {
-    $result = new NEq($result, rhs);
-  }
-})*
+: lhs=addExpression { $result=$lhs.result; }
+  (('<'^ rhs=addExpression {$result = new LT($result, $rhs.result);}
+  |'<='^ rhs=addExpression {$result = new LEq($result, $rhs.result);}
+  |'>'^  rhs=addExpression {$result = new GT($result, $rhs.result);}
+  |'>='^ rhs=addExpression {$result = new GEq($result, $rhs.result);}
+  |'=='^ rhs=addExpression {$result = new Eq($result, $rhs.result);}
+  |'!='^ rhs=addExpression {$result = new NEq($result, $rhs.result);}))*
 ;
     
 andExpression returns [Expr result]
-: lhs=relExpression { $result=$lhs.result; } ( '&&' rhs=relExpression { $result = new And($result, rhs); } )*
+: lhs=relExpression { $result=$lhs.result; } ( '&&'^ rhs=relExpression { $result = new And($result, $rhs.result); } )*
 ;
 
 orExpression returns [Expr result]
-: lhs=andExpression { $result = $lhs.result; } ( '||' rhs=andExpression { $result = new Or($result, rhs); } )*
+: lhs=andExpression { $result = $lhs.result; } ( '||'^ rhs=andExpression { $result = new Or($result, $rhs.result); } )*
 ;
     
 // Tokens
@@ -175,3 +126,5 @@ Bool
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
 Int: ('0'..'9')+;
+
+Money: Int '.' Int;

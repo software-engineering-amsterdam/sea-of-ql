@@ -8,7 +8,7 @@ public class BoolType extends Type {
 	public BoolType(Location location) {
 		super(location);
 	}
-	
+
 	@Override
 	public <T> T accept(TypeVisitor<T> visitor) {
 		return visitor.visit(this);

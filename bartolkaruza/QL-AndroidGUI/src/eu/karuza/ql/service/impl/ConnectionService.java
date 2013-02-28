@@ -21,6 +21,8 @@ import eu.karuza.ql.service.IConnectionService;
 
 public class ConnectionService implements IConnectionService {
 
+	private static final String ERR_NO_CONNECTION_AVAILABLE = "No connection available";
+
 	public InputStream createGetConnection(ConnectivityManager connectionManager, String urlString) throws QLFrontEndException {
 		if (isNetworkAvailable(connectionManager)) {
 			URLConnection connection;
@@ -34,10 +36,10 @@ public class ConnectionService implements IConnectionService {
 				connection = url.openConnection();
 				return connection.getInputStream();
 			} catch (IOException e) {
-				throw new QLFrontEndException("Malformed URL: " + urlString);
+				throw new QLFrontEndException(e);
 			}
 		} else {
-			throw new QLFrontEndException("No connection available");
+			throw new QLFrontEndException(ERR_NO_CONNECTION_AVAILABLE);
 		}
 	}
 
@@ -60,7 +62,7 @@ public class ConnectionService implements IConnectionService {
 				throw new QLFrontEndException(e);
 			}
 		} else {
-			throw new QLFrontEndException("No connection available");
+			throw new QLFrontEndException(ERR_NO_CONNECTION_AVAILABLE);
 		}
 	}
 

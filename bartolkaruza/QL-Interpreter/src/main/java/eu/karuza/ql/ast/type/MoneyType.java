@@ -18,6 +18,11 @@ public class MoneyType extends Type {
 	public boolean isCompatibleToInt() {
 		return true;
 	}
+	
+	@Override
+	public boolean isCompatibleToMoney() {
+		return true;
+	}
 
 	@Override
 	public Type leastUpperBound(Type otherType) {

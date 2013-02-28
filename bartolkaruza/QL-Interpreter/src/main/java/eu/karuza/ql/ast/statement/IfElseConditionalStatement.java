@@ -14,7 +14,6 @@ public class IfElseConditionalStatement implements Statement {
 	private List<Statement> elseStatements;
 	private Expr expr;
 	private int lineNumber;
-	private boolean visible;
 	
 	public IfElseConditionalStatement(Expr expression, List<Statement> ifStatements, List<Statement> elseStatements, int lineNumber) {
 		this.ifStatements = ifStatements;
@@ -45,11 +44,7 @@ public class IfElseConditionalStatement implements Statement {
 	}
 	
 	public boolean isVisible() {
-		return visible;
-	}
-	
-	public void setVisible(boolean visible) {
-		this.visible = visible;
+		return (Boolean)getExpr().evaluate().getRawValue();
 	}
 	
 	public List<Statement> getAllStatements() {

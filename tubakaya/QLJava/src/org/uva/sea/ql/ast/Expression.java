@@ -6,5 +6,5 @@ public abstract class Expression extends ASTNode {
 	
 	public abstract void accept(ExpressionVisitor visitor);	
 	
-	public abstract Type getType();
+	public abstract Type accept(ExpressionTypeVisitor visitor);	
 }

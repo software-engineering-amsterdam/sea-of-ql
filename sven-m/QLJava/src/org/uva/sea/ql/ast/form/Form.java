@@ -30,7 +30,11 @@ public class Form implements FormNode {
 
 	@Override
 	public Location getLocation() {
-		return new Location(startLocation, body.getLocation());
+		return new Location(getStartLocation(), getBody().getLocation());
+	}
+	
+	private Location getStartLocation() {
+		return startLocation;
 	}
 
 }

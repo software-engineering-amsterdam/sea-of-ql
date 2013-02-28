@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class Block extends Statement {
 	private final List<Statement> block = new ArrayList<Statement>();

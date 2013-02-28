@@ -4,35 +4,23 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
-import org.uva.sea.ql.gui.misc.InputSourceDelegate;
 import org.uva.sea.ql.parser.evaluator.result.StrValue;
+import org.uva.sea.ql.parser.evaluator.result.Value;
 
 public class TextField extends InputControl {
 	private final JTextField textField;
-	private DocumentListener documentListener;
-
+	
 	public TextField() {
 		textField = new JTextField(5);
+		
+		setupDocumentListener();
 	}
-
-	@Override
-	public StrValue getValue() {
-		return new StrValue(textField.getText());
-	}
-
-	@Override
-	public JComponent getWidget() {
-		return textField;
-	}
-
-	@Override
-	public void setDelegate(InputSourceDelegate delegate) {
-		super.setDelegate(delegate);
-
-		textField.getDocument().removeDocumentListener(documentListener);
-
-		documentListener = new DocumentListener() {
+	
+	private void setupDocumentListener() {
+		Document document = getTextField().getDocument();
+		document.addDocumentListener(new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent e) {
 				signalDelegate();
@@ -47,9 +35,21 @@ public class TextField extends InputControl {
 			public void changedUpdate(DocumentEvent e) {
 				signalDelegate();
 			}
-		};
+		});
+	}
 
-		textField.getDocument().addDocumentListener(documentListener);
+	@Override
+	public Value getValue() {
+		return new StrValue(getTextField().getText());
+	}
+	
+	private JTextField getTextField() {
+		return textField;
+	}
+
+	@Override
+	public JComponent getWidget() {
+		return getTextField();
 	}
 
 }

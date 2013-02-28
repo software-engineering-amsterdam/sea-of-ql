@@ -20,8 +20,7 @@ public class Identifier extends Expression {
 	}
 
 	@Override
-	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
+	public Type accept(ExpressionTypeVisitor visitor) {
+		return visitor.visit(this);
 	}
 }

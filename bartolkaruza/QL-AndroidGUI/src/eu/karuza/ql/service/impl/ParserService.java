@@ -12,10 +12,8 @@ import com.google.gson.Gson;
 
 import eu.karuza.ql.FormResult;
 import eu.karuza.ql.QLFrontEndException;
-import eu.karuza.ql.QuestionResult;
 import eu.karuza.ql.ServerResult;
 import eu.karuza.ql.ast.Form;
-import eu.karuza.ql.ast.statement.AnswerableQuestion;
 import eu.karuza.ql.error.ParseError;
 import eu.karuza.ql.error.QLError;
 import eu.karuza.ql.parser.IParse;
@@ -27,17 +25,18 @@ import eu.karuza.ql.service.ServiceFactory;
 import eu.karuza.ql.service.StoreListGenerator;
 import eu.karuza.ql.ui.widget.RowWrapper;
 import eu.karuza.ql.ui.widget.RowWrapperGenerator;
-import eu.karuza.ql.visitor.impl.Evaluator;
 import eu.karuza.ql.visitor.impl.StatementSemanticChecker;
 
 public class ParserService implements IParserService{
 
-	private static final String BASE_URL = "http://192.168.1.68:8888/";
+	private static final String BASE_URL = "http://10.0.2.2:8888/";
+//	private static final String BASE_URL = "http://ql-surveytool.appspot.com/";
 	private static final String GET_SURVEY_URL = "getform";
 	private static final String STORE_URL = "storeform";
 
 	private IConnectionService connector = ServiceFactory.getConnectionService();
 
+	@Override
 	public ServerResult storeFormAnswers(ConnectivityManager connectionManager, Form form) throws QLFrontEndException {
 		Gson gson = new Gson();
 		FormResult result = makeFormResult(form);
@@ -50,13 +49,14 @@ public class ParserService implements IParserService{
 		return serverResult;
 	}
 	
+	@Override
 	public ParserContext fetchServerForm(ConnectivityManager connectionManager) throws QLFrontEndException {
 		InputStream response = connector.createGetConnection(connectionManager, BASE_URL + GET_SURVEY_URL);
 		ParserContext context = parseNewForm(response);
 		return context;
 	}
 
-	public ParserContext parseNewForm(InputStream form) {
+	private ParserContext parseNewForm(InputStream form) {
 		ParserContext context = new ParserContext();
 		IParse parser = new ANTLRParser();
 		Form formHolder;
@@ -73,13 +73,8 @@ public class ParserService implements IParserService{
 		return context;
 	}
 
-	public ParserContext evaluateValues(ParserContext context) {
-		return context;
-	}
-
 	public List<RowWrapper> getDisplayableData(ParserContext context) {
 		Form form = context.getForm();
-		form.accept(new Evaluator());
 		List<RowWrapper> resultList = new ArrayList<RowWrapper>();
 		form.accept(new RowWrapperGenerator(resultList));
 		return resultList;
@@ -90,14 +85,7 @@ public class ParserService implements IParserService{
 		result.setName(form.getLabel());
 		StoreListGenerator generator = new StoreListGenerator();
 		form.accept(generator);
-		List<QuestionResult> resultList = new ArrayList<QuestionResult>(); 
-		for(AnswerableQuestion question : generator.getQuestions()) {
-			QuestionResult questionResult = new QuestionResult();
-			questionResult.setName(question.getName());
-			questionResult.setValue(question.getRawValue().toString());
-			resultList.add(questionResult);
-		}
-		result.setResult(resultList);
+		result.setResult(generator.getQuestions());
 		return result;
 	}
 }

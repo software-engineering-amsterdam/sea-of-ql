@@ -1,39 +1,21 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.parser.antlr.*;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  final List<Object[]> list = new ArrayList<Object[]>();
-	  list.add(new Object[] {new ANTLRParser()});
-	  return list;
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 
-	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
-	}
-
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);

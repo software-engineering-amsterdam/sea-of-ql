@@ -59,6 +59,8 @@ public class ConditionObserver implements Observer {
 		}
 	}
 
+	/* Observer */
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		ExpressionEvaluator eval = new ExpressionEvaluator(

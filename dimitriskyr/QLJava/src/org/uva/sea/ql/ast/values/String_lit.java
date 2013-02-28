@@ -2,7 +2,8 @@ package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
+import org.uva.sea.ql.visitor.ICheckExprVisitor;
+
 import java.lang.String;
 import java.util.Map;
 

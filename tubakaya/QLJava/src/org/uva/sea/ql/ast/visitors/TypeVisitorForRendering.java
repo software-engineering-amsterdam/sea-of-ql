@@ -7,7 +7,7 @@ import javax.swing.text.PlainDocument;
 
 import org.uva.sea.ql.ast.TypeVisitor;
 import org.uva.sea.ql.ast.types.BooleanType;
-import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.gui.filters.IntFilter;
 
@@ -25,7 +25,7 @@ public class TypeVisitorForRendering implements TypeVisitor{
 	}
 
 	@Override
-	public void visit(IntType intDeclaration) {
+	public void visit(IntegerType intDeclaration) {
 		
 		JTextField textField = new JTextField();
 		textField.setSize(100,20);

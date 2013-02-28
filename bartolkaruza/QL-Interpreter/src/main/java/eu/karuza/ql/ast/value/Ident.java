@@ -2,6 +2,7 @@ package eu.karuza.ql.ast.value;
 
 
 import eu.karuza.ql.ast.Expr;
+import eu.karuza.ql.ast.type.ErrorType;
 import eu.karuza.ql.ast.type.Type;
 import eu.karuza.ql.symbol.SymbolTable;
 import eu.karuza.ql.visitor.ExpressionVisitor;
@@ -28,11 +29,20 @@ public class Ident extends Expr {
 
 	@Override
 	public Type typeOf(SymbolTable symbolTable) {
-		return symbolTable.getSymbol(name).getType(symbolTable);
+		if(symbolTable.getSymbol(getName()) != null) {
+			return symbolTable.getSymbol(name).getType(symbolTable);
+		} else {
+			return new ErrorType();
+		}
+		
 	}
 	
+	/**
+	 * Depends on a run of the <DefinitionCollector>
+	 */
 	@Override
 	public Value evaluate() {
+		assert expr != null;
 		return expr.evaluate();
 	}
 

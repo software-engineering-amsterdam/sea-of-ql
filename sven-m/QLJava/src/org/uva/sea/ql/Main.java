@@ -9,7 +9,7 @@ public class Main {
 	public static void main(final String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                MainWindow mainWindow = new MainWindow(args[0]);
+                MainWindow mainWindow = new MainWindow(args[0], args[1]);
                 mainWindow.setVisible(true);
             }
         });
