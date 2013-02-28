@@ -21,7 +21,7 @@ public data ELSE
 
 public data QUESTION 
 	= exprQuestion(str identifier, str label, TYPE qtype, EXPR expr)
-	| question(str identifier, str label, TYPE t)
+	| question(str identifier, str label, TYPE qtype)
 ;
 
 public data TYPE
