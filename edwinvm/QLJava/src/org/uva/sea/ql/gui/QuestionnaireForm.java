@@ -11,13 +11,13 @@ import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.gui.render.GUIRenderer;
 import org.uva.sea.ql.gui.render.State;
 
-public class QLForm {
+public class QuestionnaireForm {
 
 	private JFrame _questionnaireFrame;
 	
-	public static void main(String[] args) { new QLForm(); }
+	public static void main(String[] args) { new QuestionnaireForm(); }
 	
-	public QLForm() {
+	public QuestionnaireForm() {
 		renderQLForm();
 	}
 	
