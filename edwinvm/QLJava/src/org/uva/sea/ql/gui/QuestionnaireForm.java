@@ -46,7 +46,6 @@ public class QuestionnaireForm {
 		_questionnaireFrame.add(GUIRenderer.render(statement, new State()));
 	}
 	
-	
 	private void initializeForm(Identifier formName) {
 		_questionnaireFrame = new JFrame(formName.getValue());
 	}

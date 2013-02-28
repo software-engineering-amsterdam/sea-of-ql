@@ -38,8 +38,8 @@ public class TypeChecker implements Visitor<Boolean> {
 	private final TypeEnvironment _typeEnvironment;
 	private final ErrorMessages _errorMessages;
 	
-	private TypeChecker(TypeEnvironment supportedTypes, ErrorMessages messages) {
-		_typeEnvironment = supportedTypes;
+	private TypeChecker(TypeEnvironment typeEnvironment, ErrorMessages messages) {
+		_typeEnvironment = typeEnvironment;
 		_errorMessages = messages;
 	}
 	

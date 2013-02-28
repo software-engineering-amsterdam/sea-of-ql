@@ -56,6 +56,13 @@ public class StatementChecker implements Visitor {
 		checkExpression(statement.getExpression());
 	}
 	
+	@Override
+	public void visit(StatementBody statements) {
+		for (FormStatement statement: statements.getStatements()) {
+			check(statement);
+		}
+	}
+	
 	private void checkCondition(ConditionBlock statement) { checkExpression(statement.getCondition()); }
 	private void checkExpression(Expression expression) {
 		// Run expression through TypeChecker
