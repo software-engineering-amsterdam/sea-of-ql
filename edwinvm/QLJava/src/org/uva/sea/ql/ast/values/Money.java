@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.check.TypeEnvironment;
 
 public class Money extends Value {
 
@@ -16,6 +16,9 @@ public class Money extends Value {
 		return _value;
 	}
 
+	@Override
+	public boolean isNumericValue() { return true; }
+	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Money();

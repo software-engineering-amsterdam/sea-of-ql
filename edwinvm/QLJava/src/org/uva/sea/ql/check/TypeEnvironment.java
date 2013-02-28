@@ -1,4 +1,4 @@
-package org.uva.sea.ql.parser;
+package org.uva.sea.ql.check;
 
 import java.util.HashMap;
 import java.util.Map;

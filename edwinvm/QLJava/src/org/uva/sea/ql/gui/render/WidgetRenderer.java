@@ -14,6 +14,10 @@ import org.uva.sea.ql.ast.types.Numeric;
 import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typevisitor.Visitor;
+import org.uva.sea.ql.gui.render.widgets.CheckBoxWidget;
+import org.uva.sea.ql.gui.render.widgets.NumericInputWidget;
+import org.uva.sea.ql.gui.render.widgets.TextInputWidget;
+import org.uva.sea.ql.gui.render.widgets.Widget;
 
 public class WidgetRenderer implements Visitor<Widget> {
 	
@@ -44,24 +48,24 @@ public class WidgetRenderer implements Visitor<Widget> {
 	
 	private Widget renderInputFieldWidget() {
 		JTextField inputFieldWidget = new JTextField(15);
-		return new Widget(inputFieldWidget);
+		return new TextInputWidget(inputFieldWidget);
 	}
 	
 	private Widget renderNumericInputFieldWidget() {
 		JTextField inputFieldWidget = new JFormattedTextField(NumberFormat.getInstance());
 		inputFieldWidget.setColumns(10);
 		inputFieldWidget.setHorizontalAlignment(JTextField.RIGHT);
-		return new Widget(inputFieldWidget);
+		return new NumericInputWidget(inputFieldWidget);
 	}
 	
 	private Widget renderCheckBoxWidget() {
-		return new Widget(new JCheckBox());
+		return new CheckBoxWidget(new JCheckBox());
 	}
 	
 	private Widget renderDisabledCheckBoxWidget() {
 		JCheckBox disabledCheckBoxWidget = new JCheckBox();
 		disabledCheckBoxWidget.setEnabled(false);
-		return new Widget(disabledCheckBoxWidget);
+		return new CheckBoxWidget(disabledCheckBoxWidget);
 	}
 	
 }

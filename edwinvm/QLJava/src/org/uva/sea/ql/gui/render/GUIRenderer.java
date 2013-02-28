@@ -13,6 +13,8 @@ import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
+import org.uva.sea.ql.gui.observe.State;
+import org.uva.sea.ql.gui.render.widgets.Widget;
 
 public class GUIRenderer implements Visitor {
 

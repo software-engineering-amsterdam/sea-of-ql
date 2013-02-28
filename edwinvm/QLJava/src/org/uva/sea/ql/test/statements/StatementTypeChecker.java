@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.check.TypeEnvironment;
 import org.uva.sea.ql.check.statements.StatementChecker;
 import org.uva.sea.ql.parser.IParser;
-import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.errors.ErrorMessages;
 import org.uva.sea.ql.parser.errors.ParseError;
 

@@ -26,7 +26,7 @@ import org.uva.sea.ql.ast.values.NullValue;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.values.Value;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.ValueEnvironment;
+import org.uva.sea.ql.check.ValueEnvironment;
 
 public class Evaluator implements Visitor<Value> {
 	

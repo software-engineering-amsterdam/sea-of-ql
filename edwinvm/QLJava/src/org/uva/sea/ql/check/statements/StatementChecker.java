@@ -13,8 +13,8 @@ import org.uva.sea.ql.ast.statements.questions.Question;
 import org.uva.sea.ql.ast.statements.questions.QuestionVariable;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
+import org.uva.sea.ql.check.TypeEnvironment;
 import org.uva.sea.ql.check.expressions.TypeChecker;
-import org.uva.sea.ql.parser.TypeEnvironment;
 import org.uva.sea.ql.parser.errors.ErrorMessages;
 import org.uva.sea.ql.parser.errors.Message;
 

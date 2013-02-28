@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.check.TypeEnvironment;
 
 public class Str extends Value {
 	
@@ -15,6 +15,9 @@ public class Str extends Value {
 	public String getValue() {
 		return _value;
 	}
+	
+	@Override
+	public boolean isStringValue() { return true; }
 	
 	@Override
 	public Value add(Value value)        { return value.addString(this); }

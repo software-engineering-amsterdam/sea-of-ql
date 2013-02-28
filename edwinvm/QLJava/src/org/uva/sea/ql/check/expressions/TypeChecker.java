@@ -27,7 +27,7 @@ import org.uva.sea.ql.ast.values.Money;
 import org.uva.sea.ql.ast.values.NullValue;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.check.TypeEnvironment;
 import org.uva.sea.ql.parser.errors.ErrorMessages;
 
 public class TypeChecker extends ExpressionChecker implements Visitor<Boolean> {

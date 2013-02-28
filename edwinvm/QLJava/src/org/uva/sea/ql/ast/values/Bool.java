@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.check.TypeEnvironment;
 
 public class Bool extends Value {
 
@@ -15,6 +15,9 @@ public class Bool extends Value {
 	public Boolean getValue() {
 		return _value;
 	}
+	
+	@Override
+	public boolean isBooleanValue() { return true; }
 
 	@Override
 	public Value applyNegation() { return new Bool(!getValue()); }

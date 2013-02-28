@@ -13,8 +13,8 @@ import javax.swing.KeyStroke;
 import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.forms.Form;
 import org.uva.sea.ql.ast.statements.StatementBody;
+import org.uva.sea.ql.gui.observe.State;
 import org.uva.sea.ql.gui.render.GUIRenderer;
-import org.uva.sea.ql.gui.render.State;
 
 public class QuestionnaireForm {
 

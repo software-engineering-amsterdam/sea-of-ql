@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.uva.sea.ql.ast.expressions.Expression;
 import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.check.ValueEnvironment;
 import org.uva.sea.ql.check.values.Evaluator;
-import org.uva.sea.ql.parser.ValueEnvironment;
 import org.uva.sea.ql.parser.antlr.check.ANTLRParserExpressions;
 import org.uva.sea.ql.parser.errors.ParseError;
 
