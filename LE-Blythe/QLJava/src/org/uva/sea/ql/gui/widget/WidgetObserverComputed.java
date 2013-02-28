@@ -1,17 +1,18 @@
 package org.uva.sea.ql.gui.widget;
 
-import org.uva.sea.ql.ast.eval.VisitorEvalExpr;
-import org.uva.sea.ql.ast.primitive.Primitive;
+import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
+import org.uva.sea.ql.eval.VisitorEvalExpr;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.util.Environment;
 
 public class WidgetObserverComputed extends WidgetObserver{
 
 	private QuestionComputed statement;
 	private WidgetComputed widget;
-	private Environment environment;
+	private Environment<Ident, Value> environment;
 	
-	public WidgetObserverComputed(QuestionComputed statement, WidgetComputed widget, Environment environment){
+	public WidgetObserverComputed(QuestionComputed statement, WidgetComputed widget, Environment<Ident, Value> environment){
 		super();
 		
 		this.statement = statement;
@@ -21,7 +22,7 @@ public class WidgetObserverComputed extends WidgetObserver{
 	
 	@Override
 	public void evaluate(){
-		Primitive value = statement.getValue().accept(new VisitorEvalExpr(environment));
+		Value value = statement.getExpression().accept(new VisitorEvalExpr(environment));
 		
 		widget.setValue(value);
 		

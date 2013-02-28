@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.gui.control.Control;
+import javax.swing.JComponent;
+
+import org.uva.sea.ql.eval.value.Value;
 
 public abstract class Widget implements ChangeEventSource {
 
@@ -41,9 +42,9 @@ public abstract class Widget implements ChangeEventSource {
 	}
 	
 	
-	public abstract Control getControl();
+	public abstract JComponent getControl();
 	
-	public abstract Primitive getValue();
+	public abstract Value getValue();
 	
 	
 }

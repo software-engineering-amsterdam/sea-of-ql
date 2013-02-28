@@ -10,6 +10,7 @@ import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
 import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
 
@@ -19,8 +20,8 @@ public class GUIRenderer implements Visitor {
 	private final State _state;
 
 	private GUIRenderer(State state) {
-		_state = state;
 		_panel = new JPanel();
+		_state = state;
 	}
 
 	public static JPanel render(FormStatement statement, State state) {
@@ -29,11 +30,9 @@ public class GUIRenderer implements Visitor {
 		return renderer.getPanel();
 	}
 
-	private JPanel render(StatementBody body, State state) {
+	public static JPanel render(StatementBody bodyStatements, State state) {
 		GUIRenderer renderer = new GUIRenderer(state);
-		for (FormStatement statement: body.getStatements()) {
-			statement.accept(renderer);
-		}
+		bodyStatements.accept(renderer);
 		return renderer.getPanel();
 	}
 
@@ -42,8 +41,8 @@ public class GUIRenderer implements Visitor {
 		JPanel renderedBody = render(statement.getBody(), _state);
 		// Make sure something happens if condition is recomputed
 //		registerConditionDeps(statement.getCondition(), renderedBody);
-//		renderedBody.setVisible(false);
-//		addPanel(renderedBody);
+		renderedBody.setVisible(false);
+		addPanel(renderedBody);
 	}
 
 	@Override
@@ -52,40 +51,64 @@ public class GUIRenderer implements Visitor {
 		JPanel renderedElseBody = render(statement.getElseBody(), _state);
 		// Make sure something happens if condition is recomputed
 //		registerConditionDeps(statement.getCondition(), renderedBody, renderedElseBody);
-//		renderedBody.setVisible(false);
-//		renderedElseBody.setVisible(false);
-//		addPanel(renderedBody);
-//		addPanel(renderedElseBody);
+		renderedBody.setVisible(false);
+		renderedElseBody.setVisible(false);
+		addPanel(renderedBody);
+		addPanel(renderedElseBody);
 	}
 
 	@Override
 	public void visit(AnswerableQuestion statement) {
-		// "Draw" the label
 		addLabel(statement.getQuestionLabel());
-		// Get a Widget based on Type through another Visitor
-		//Control control = typeToWidget(statement.getType(), true); // True == editable, False == not enabled
+		Widget widget = renderWidgetFor(statement.getType());
 		// Add Event Listener
-		//registerHandler(statement, control);
-		// Draw the widget
-		//add(control);
+		//registerHandler(statement, widget);
+		add(widget);
 	}
 
 	@Override
 	public void visit(ComputedQuestion statement) {
-//		addLabel(statement.getQuestionLabel());
-//		Control control = typeToWidget(statement.getExpression().typeOf(new TypeEnvironment()), false);
+		addLabel(statement.getQuestionLabel());
+		Widget widget = renderWidgetFor(statement.getExpression().typeOf(_state.getTypeEnvironment()), false);
 //		registerComputedDeps(statement, control);
 //		registerPropagator(statement);
-//		initValue(statement, control);
-//		add(control);
+//		initValue(statement, widget);
+		add(widget);
 	}
 
+	@Override
+	public void visit(StatementBody statements) {
+		for (FormStatement statement: statements.getStatements()) {
+			statement.accept(this);
+		}
+	}
+	
+	private Widget renderWidgetFor(Type type) {
+		return renderWidgetFor(type, true);
+	}
+	
+	private Widget renderWidgetFor(Type type, boolean isEditableWidget) {
+		Widget widget = WidgetRenderer.render(type);
+		if (!isEditableWidget) {
+			widget.setToNotEditable();
+		}
+		return widget;
+	}
+	
+	private void addPanel(JPanel renderedBody) {
+		_panel.add(renderedBody);
+	}
+	
 	private void addLabel(QuestionLabel questionLabel) {
 		addQuestionLabel(questionLabel.getLabel());
 	}
 	
 	private void addQuestionLabel(Str label) {
 		_panel.add(new JLabel(label.getValue()));
+	}
+	
+	private void add(Widget widget) {
+		_panel.add(widget.getWidget());
 	}
 	
 	private JPanel getPanel() {

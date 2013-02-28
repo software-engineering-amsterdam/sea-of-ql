@@ -63,6 +63,11 @@ public class Int extends Value {
 	protected Value notEqualsInt(Int value)  { return new Bool(!value.equals(this)); }
 	
 	@Override
+	public Value setToPositive() { return new Int(Math.abs(getValue())); }
+	@Override
+	public Value setToNegative() { return new Int(-getValue()); }
+	
+	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new org.uva.sea.ql.ast.types.Int();
 	}	

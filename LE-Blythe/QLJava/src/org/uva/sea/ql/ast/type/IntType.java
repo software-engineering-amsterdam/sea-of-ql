@@ -1,7 +1,7 @@
-package org.uva.sea.ql.ast.types;
+package org.uva.sea.ql.ast.type;
 
 
-public class Int extends Numeric{
+public class IntType extends NumericType{
 
 	@Override
 	public String toString(){

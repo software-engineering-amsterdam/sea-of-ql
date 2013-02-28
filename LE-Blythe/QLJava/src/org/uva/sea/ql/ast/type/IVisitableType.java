@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.types;
+package org.uva.sea.ql.ast.type;
 
 public interface IVisitableType {
 

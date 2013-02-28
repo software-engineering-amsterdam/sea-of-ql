@@ -1,24 +1,25 @@
 package org.uva.sea.ql.gui.widget;
 
 
-import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.gui.control.Control;
-import org.uva.sea.ql.gui.control.Label;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+
+import org.uva.sea.ql.eval.value.UndefinedVal;
+import org.uva.sea.ql.eval.value.Value;
 
 public class WidgetComputed extends Widget {
 	
-	private Label label;
-	private Primitive value;
+	private JLabel label;
+	private Value value;
 	
 	public WidgetComputed(){
 		super();
-		this.label = new Label();
-		this.value = new Undefined();
+		this.label = new JLabel();
+		this.value = new UndefinedVal();
 	}
 	
 	
-	public void setValue(Primitive value){
+	public void setValue(Value value){
 		this.value = value;
 		this.label.setText(value.toString());
 		
@@ -26,12 +27,12 @@ public class WidgetComputed extends Widget {
 	}
 
 	@Override
-	public Control getControl() {
+	public JComponent getControl() {
 		return label;
 	}
 
 	@Override
-	public Primitive getValue() {
+	public Value getValue() {
 		return value;
 	}
 }

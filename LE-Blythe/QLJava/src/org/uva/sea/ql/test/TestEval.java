@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.eval.VisitorEvalExpr;
+import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.operative.Add;
 import org.uva.sea.ql.ast.operative.And;
 import org.uva.sea.ql.ast.operative.Div;
@@ -20,24 +20,27 @@ import org.uva.sea.ql.ast.operative.Or;
 import org.uva.sea.ql.ast.operative.Sub;
 import org.uva.sea.ql.ast.primitive.Bool;
 import org.uva.sea.ql.ast.primitive.Int;
-import org.uva.sea.ql.ast.primitive.Primitive;
 import org.uva.sea.ql.ast.primitive.Str;
+import org.uva.sea.ql.eval.VisitorEvalExpr;
+import org.uva.sea.ql.eval.value.BoolVal;
+import org.uva.sea.ql.eval.value.IntVal;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.util.Environment;
 
 public class TestEval {
 
-	private Primitive eval(Expr ex){
-		return ex.accept(new VisitorEvalExpr(new Environment()));
+	private Value eval(Expr ex){
+		return ex.accept(new VisitorEvalExpr(new Environment<Ident, Value>()));
 	}
 	
 	
 	private int evalInt(Expr ex){
-		return ((Int)eval(ex)).getValue();
+		return ((IntVal)eval(ex)).getValue();
 	}
 	
 	
 	private boolean evalBool(Expr ex){
-		return ((Bool)eval(ex)).getValue();
+		return ((BoolVal)eval(ex)).getValue();
 	}
 	
 	@Test

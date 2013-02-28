@@ -5,128 +5,96 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
-import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.primitive.Undefined;
+public class Environment<K, V> {
 
-public class Environment {
-
-	private Environment parentEnvironment;
-	private Map<Ident, Expr> valueMap;
-	private Map<Ident, Observable> observables;
+	private Environment<K,V> parentEnvironment;
+	private Map<K, V> map;
 	
-	private List<Environment> branchedEnvironments;
+	private List<Environment<K,V>> branchedEnvironments;
 	
 	public Environment(){
 		init(null);
 	}
 	
 	
-	public Environment(Environment parentEnvironment){
+	public Environment(Environment<K,V> parentEnvironment){
 		init(parentEnvironment);
 	}
 	
 	
-	private void init(Environment parentEnvironment){
-		this.valueMap = new HashMap<Ident, Expr>();
-		this.observables = new HashMap<Ident, Observable>();
+	private void init(Environment<K,V> parentEnvironment){
+		this.map = new HashMap<K, V>();
+		
 		this.parentEnvironment = parentEnvironment;
-		this.branchedEnvironments = new ArrayList<Environment>();
+		this.branchedEnvironments = new ArrayList<Environment<K,V>>();
 	}
 	
 	
-	private boolean thisValueMapContains(Ident key){
-		return valueMap.containsKey(key);
+	private boolean hasParent(){
+		return parentEnvironment != null;
 	}
 	
 	
-	private boolean thisObservablesContains(Ident key){
-		return observables.containsKey(key);
-	}
-	
-	
-	private boolean parentValueMapContains(Ident key){
-		return parentEnvironment != null && parentEnvironment.containsValue(key);
-	}
-	
-	
-	private boolean parentObservablesContains(Ident key){
-		return parentEnvironment != null && parentEnvironment.containsObservable(key);
+	private boolean parentContains(K key){
+		return hasParent() && parentEnvironment.contains(key);
 	}
 
 	
-	public boolean containsValue(Ident key){
-		return thisValueMapContains(key) || parentValueMapContains(key);
+	private boolean thisContains(K key){
+		return map.containsKey(key);
 	}
 	
 	
-	public boolean containsObservable(Ident key){
-		return thisObservablesContains(key) || parentObservablesContains(key);
+	public boolean contains(K key){
+		return thisContains(key) || parentContains(key);
 	}
 	
 	
-	public Expr getValue(Ident key){
+	/** Child classes could override this method to return another value than null
+	 */
+	protected V undefinedValue(){
+		return null;
+	}
+	
+	
+	public V get(K key){
 		
-		if(thisValueMapContains(key)){
-			return valueMap.get(key);
+		if(thisContains(key)){
+			return map.get(key);
 		}
-		if(parentEnvironment != null){
-			return parentEnvironment.getValue(key);
+		if(hasParent()){
+			return parentEnvironment.get(key);
 		}
-		return new Undefined();
+		return undefinedValue();
 	}
 	
 	
-	public boolean hasType(Ident key, Class<?> type){
-		return type.isInstance(getValue(key));
-	}
-	
-	
-	public Environment branchEnvironment(){
+	public Environment<K,V> branchEnvironment(){
 		
-		Environment childEnv = new Environment(this);
-		branchedEnvironments.add(childEnv);
-		return childEnv;
+		Environment<K,V> branchedEnv = new Environment<K,V>(this);
+		branchedEnvironments.add(branchedEnv);
+		return branchedEnv;
 	}
 	
 	
-	public void putValue(Ident key, Expr value){
+	public void put(K key, V val){
 		
-		if(parentValueMapContains(key)){
-			//this key is already present in the parent environment,
-			//so update the value there
-			parentEnvironment.putValue(key, value);
+		if(parentContains(key)){
+			parentEnvironment.put(key, val);
 		}else{
-			//otherwise it's a new key, add it to this environment
-			valueMap.put(key, value);
+			map.put(key, val);
 		}
 	}
 
 	
-	public void putObservable(Ident key, Observable observable){
-		observables.put(key, observable);
-	}
-	
-	
-	public void addObserver(Ident key, Observer observer){
-		
-		if(parentObservablesContains(key)){
-			parentEnvironment.addObserver(key, observer);
-		}else{
-			observables.get(key).addObserver(observer);
-		}
-	}
-
-	
-	public Collection<Ident> getIdentifiers(){
-		return valueMap.keySet();
-	}
-	
-	
-	public Collection<Environment> getBranchedEnvironments(){
+	public Collection<Environment<K,V>> getBranchedEnvironments(){
 		return branchedEnvironments;
 	}
+	
+	
+	public Collection<K> getIdentifiers(){
+		return map.keySet();
+	}
+	
 }

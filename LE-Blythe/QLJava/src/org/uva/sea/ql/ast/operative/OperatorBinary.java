@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.Expr;
 
 public abstract class OperatorBinary extends Operator {
 
-	protected final Expr leftHandOperand, 
+	private final Expr leftHandOperand, 
 						rightHandOperand;
 	
 	

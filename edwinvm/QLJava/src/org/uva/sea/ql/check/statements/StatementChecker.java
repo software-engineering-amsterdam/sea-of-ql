@@ -31,6 +31,10 @@ public class StatementChecker implements Visitor {
 	public void check(FormStatement statement) { 
 		statement.accept(this); 
 	}
+	
+	public void check(StatementBody statements) {
+		statements.accept(this);
+	}
 
 	@Override
 	public void visit(IfThenStatement statement) {
@@ -54,6 +58,13 @@ public class StatementChecker implements Visitor {
 	public void visit(ComputedQuestion statement) {
 		checkName(statement, statement.getExpression().typeOf(_typeEnvironment));
 		checkExpression(statement.getExpression());
+	}
+	
+	@Override
+	public void visit(StatementBody statements) {
+		for (FormStatement statement: statements.getStatements()) {
+			check(statement);
+		}
 	}
 	
 	private void checkCondition(ConditionBlock statement) { checkExpression(statement.getCondition()); }

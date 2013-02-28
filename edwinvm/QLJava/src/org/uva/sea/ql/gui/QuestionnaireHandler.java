@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import org.uva.sea.ql.ast.forms.Form;
 import org.uva.sea.ql.ast.forms.IncorrectForm;
-import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.check.statements.StatementChecker;
 import org.uva.sea.ql.parser.IParser;
@@ -21,28 +20,32 @@ public class QuestionnaireHandler {
 	private static TypeEnvironment _typeEnvironment;
 	private static ErrorMessages _errorMessages;
 
-	private static void initializeQLHandler() {
+	private static void initializeQuestionnaireHandler() {
 		_typeEnvironment  = new TypeEnvironment();
 		_errorMessages    = new ErrorMessages();
 		_statementChecker = new StatementChecker(_typeEnvironment, _errorMessages);
 	}
 	
 	public static Form getQuestionnaire() {
-		initializeQLHandler();
+		initializeQuestionnaireHandler();
 		Form questionnaire = parseForm(); 
-		boolean formIsValid = checkStatements(questionnaire.getBody());
-		return formIsValid ? questionnaire : IncorrectForm.InvalidQLForm();
+		checkStatements(questionnaire.getBody());
+		if (!isFormValid()) {
+			return IncorrectForm.InvalidQLForm();
+		}
+		return questionnaire;
 	}
 	
-	private static boolean checkStatements(StatementBody body) {
-		for (FormStatement statement: body.getStatements()) {
-			checkStatement(statement);
-		}
+	private static boolean isFormValid() {
 		return !_errorMessages.hasErrors();
 	}
 	
-	private static void checkStatement(FormStatement statement) {
-		_statementChecker.check(statement);
+	private static void checkStatements(StatementBody statementBody) {
+		_statementChecker.check(statementBody);
+	}
+	
+	public static TypeEnvironment getTypeEnvironment() {
+		return _typeEnvironment;
 	}
 	
 	private static Form parseForm() {

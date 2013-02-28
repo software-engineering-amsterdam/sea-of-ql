@@ -3,24 +3,25 @@ package org.uva.sea.ql.gui.widget;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import org.uva.sea.ql.ast.primitive.Int;
-import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.gui.control.Control;
-import org.uva.sea.ql.gui.control.TextField;
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+
+import org.uva.sea.ql.eval.value.IntVal;
+import org.uva.sea.ql.eval.value.UndefinedVal;
+import org.uva.sea.ql.eval.value.Value;
 
 public class WidgetInt extends Widget implements KeyListener{
 
-	private TextField txtfield;
+	private JTextField txtfield;
 	
 	public WidgetInt(){
 		super();
-		txtfield = new TextField();
+		txtfield = new JTextField();
 		txtfield.addKeyListener(this);
 	}
 	
 	
-	private boolean legalChar(char c){
+	private static boolean legalChar(char c){
 		return (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)  ||  (c== KeyEvent.VK_ENTER)  
 				|| (c == KeyEvent.VK_TAB)  ||  (Character.isDigit(c));
 	}
@@ -55,16 +56,16 @@ public class WidgetInt extends Widget implements KeyListener{
 	}
 	
 	@Override
-	public Control getControl() {
+	public JComponent getControl() {
 		return txtfield;
 	}	
 	
 	@Override
-	public Primitive getValue() {
+	public Value getValue() {
 		if(!empty())
-			return new Int(parseInt() );
+			return new IntVal(parseInt() );
 		
-		return new Undefined();
+		return new UndefinedVal();
 	}
 
 }

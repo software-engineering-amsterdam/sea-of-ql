@@ -1,9 +1,8 @@
-package org.uva.sea.ql.ast.statement;
+package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.Statement;
 
-public class Form extends Statement {
+public class Form implements ASTNode, IVisitableStatement {
 
 	private String name;
 	private Block block;

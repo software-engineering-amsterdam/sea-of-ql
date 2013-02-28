@@ -1,10 +1,10 @@
 package org.uva.sea.ql.main;
 
-import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.checker.Error;
 import org.uva.sea.ql.checker.VisitorStatementChecker;
 import org.uva.sea.ql.gui.VisitorRenderForm;
+import org.uva.sea.ql.gui.control.Applet;
 
 public class QLRenderer extends QLProgramBase {
 
@@ -13,15 +13,14 @@ public class QLRenderer extends QLProgramBase {
 	}
 	
 	@Override
-	protected void execute(Statement ast) {
-		
-		Form form = (Form)ast;
-		
+	protected void execute(Form form) {
+	
 		VisitorStatementChecker checker = new VisitorStatementChecker();
 		boolean succeeded = form.accept(checker);
 		
 		if(succeeded){
-			VisitorRenderForm.Render(form, 500, 500);
+			Applet app = VisitorRenderForm.render(form, 500, 500);
+			app.run();
 		}
 		else{
 			for(Error e: checker.getErrors()){
