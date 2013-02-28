@@ -10,8 +10,8 @@ public class SymbolTable implements Serializable {
 
 	private Map<String, Symbol> symbols = new HashMap<String, Symbol>();
 
-	public void putSymbol(String string, Symbol expr) {
-		symbols.put(string, expr);
+	public void putSymbol(String symbolName, Symbol symbol) {
+		symbols.put(symbolName, symbol);
 	}
 
 	public boolean hasSymbol(String name) {

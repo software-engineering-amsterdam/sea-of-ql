@@ -18,6 +18,7 @@ import org.uva.sea.ql.ast.expressions.binary.relational.NotEqualToExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegationalExpression;
 import org.uva.sea.ql.ast.expressions.unary.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.unary.PositiveExpression;
+import org.uva.sea.ql.ast.expressions.unary.UnaryExpression;
 import org.uva.sea.ql.ast.values.Bool;
 import org.uva.sea.ql.ast.values.Int;
 import org.uva.sea.ql.ast.values.Money;
@@ -36,7 +37,7 @@ public class Evaluator implements Visitor<Value> {
 		_valueEnvironment = valueEnvironment;
 	}
 
-	public static Value eval(Expression expression, ValueEnvironment valueEnvironment) {
+	public static Value evaluate(Expression expression, ValueEnvironment valueEnvironment) {
 		Evaluator evaluator = new Evaluator(valueEnvironment);
 		return expression.accept(evaluator);
 	}
@@ -68,22 +69,22 @@ public class Evaluator implements Visitor<Value> {
 	@Override
 	public Value visit(NotEqualToExpression expression)             { return getLeftHandSide(expression).notEqualsValue(getRightHandSide(expression)); }
 	@Override
-	public Value visit(NegativeExpression expression)               { return new NullValue(); }
+	public Value visit(NegativeExpression expression)               { return getValueFor(expression).setToNegative(); }
 	@Override
-	public Value visit(NegationalExpression expression)             { return new NullValue(); }
+	public Value visit(NegationalExpression expression)             { return getValueFor(expression).applyNegation(); }
 	@Override
-	public Value visit(PositiveExpression expression)               { return new NullValue(); }
+	public Value visit(PositiveExpression expression)               { return getValueFor(expression).setToPositive(); }
 	
 	@Override
-	public Value visit(Bool value)                { return value; }
+	public Value visit(Bool value)                                  { return value; }
 	@Override
-	public Value visit(Int value)                 { return value; }
+	public Value visit(Int value)                                   { return value; }
 	@Override
-	public Value visit(Money value)               { return value; }
+	public Value visit(Money value)                                 { return value; }
 	@Override
-	public Value visit(Str value)                 { return value; }
+	public Value visit(Str value)                                   { return value; }
 	@Override
-	public Value visit(NullValue astNode)         { return new NullValue(); }
+	public Value visit(NullValue astNode)                           { return new NullValue(); }
 	
 	@Override
 	public Value visit(Identifier indentifier) {
@@ -93,7 +94,8 @@ public class Evaluator implements Visitor<Value> {
 		return new NullValue();
 	}
 	
-	private Value getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide().accept(this); }
+	private Value getLeftHandSide(BinaryExpression expression)  { return expression.getLeftHandSide().accept(this);  }
 	private Value getRightHandSide(BinaryExpression expression) { return expression.getRightHandSide().accept(this); }
+	private Value getValueFor(UnaryExpression expression)       { return expression.getExpression().accept(this);    }
 	
 }

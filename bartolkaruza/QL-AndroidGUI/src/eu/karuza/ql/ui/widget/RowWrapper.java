@@ -14,6 +14,6 @@ public interface RowWrapper {
 
 	public void setListener(Callbacks callbacks);
 
-	public void setRowView(View convertView);
+	public void setRowView(View view);
 	
 }

@@ -46,6 +46,11 @@ public class Bool extends Value {
 	}
 	
 	@Override
+	public Value add(Value value) {
+		return value.addBool(this);
+	}
+	
+	@Override
 	public Value and(Value value) {
 		return value.andBool(this);
 	}
@@ -88,6 +93,11 @@ public class Bool extends Value {
 	@Override
 	protected Bool neqBool(Bool value) {
 		return new Bool(getLineNumber(), value.getRawValue() != getRawValue());
+	}
+	
+	@Override
+	protected Value addString(Text value) {
+		return value.addBool(this);
 	}
 
 }

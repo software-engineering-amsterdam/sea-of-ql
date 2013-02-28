@@ -16,6 +16,11 @@ public class IntType extends Type {
 	}
 	
 	@Override
+	public boolean isCompatibleToInt() {
+		return true;
+	}
+	
+	@Override
 	public boolean isCompatibleToMoney() {
 		return true;
 	}

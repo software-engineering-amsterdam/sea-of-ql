@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.core.dom.operators.arithmetic.Div;
-import org.uva.sea.ql.core.dom.operators.arithmetic.Mul;
+import org.uva.sea.ql.ast.operators.arithmetic.Div;
+import org.uva.sea.ql.ast.operators.arithmetic.Mul;
 import org.uva.sea.ql.parsers.MulExprParser;
 import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;

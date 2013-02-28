@@ -6,9 +6,9 @@ import org.uva.sea.ql.ast.visitor.ExpressionVisitor;
 public class IntLiteral extends Leaf {
 	private final int value;
 
-	public IntLiteral(int n, Location location) {
+	public IntLiteral(int value, Location location) {
 		super(location);
-		this.value = n;
+		this.value = value;
 	}
 
 	public int getValue() {

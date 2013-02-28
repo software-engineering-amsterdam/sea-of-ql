@@ -18,7 +18,7 @@ public class Money extends Value {
 
 	public Money(int lineNumber) {
 		super(lineNumber);
-		this.value = BigDecimal.valueOf(0.0);
+		this.value = BigDecimal.valueOf(0);
 		this.value.setScale(2, RoundingMode.HALF_EVEN);
 	}
 
@@ -47,7 +47,11 @@ public class Money extends Value {
 	
 	@Override
 	public void setValue(Object value) {
-		this.value = new BigDecimal(value.toString());
+		if(!value.toString().equals("")) {
+			this.value = new BigDecimal(value.toString());
+		} else {
+			this.value = new BigDecimal(0);
+		}
 	}
 
 	@Override

@@ -50,7 +50,6 @@ public class TestTypeValues {
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" \"some string\" }");
 		question = (ComputedQuestion) form.getStatements().get(0);
 		Assert.assertEquals(Text.class, question.getExpr().getClass());
-		System.out.println(((Text) question.getExpr()).getRawValue());
 		form = (Form) parser.parseNode("form somelabel { question1: \" some text label\" 101.1 }");
 		question = (ComputedQuestion) form.getStatements().get(0);
 		Assert.assertEquals(Money.class, question.getExpr().getClass());

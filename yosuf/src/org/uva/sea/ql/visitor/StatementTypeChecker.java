@@ -4,6 +4,7 @@ import static julius.validation.Assertions.checked;
 import static julius.validation.Assertions.state;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,11 @@ import org.uva.sea.ql.ast.stm.IfStatement;
 import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.ast.type.BooleanType;
 
+/**
+ * This class checks the statements semantically. To collect report whether the checker has
+ * succeeded or not, {@link #isValid()}, {@link #getAllTypeErrors()} and {@link #getTypeErrors()}
+ * could be used after the checking life cycle.
+ */
 public class StatementTypeChecker implements StatementVisitor<Block> {
 
 	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
@@ -36,8 +42,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	@Override
 	public Block visit(final Form form) {
 		form.getBody().accept(this);
-		assertIdentifierAndAddToEnvironment(form.getIdentifier(),
-				form.getIdentifier());
+		assertIdentifierAndAddToEnvironment(form.getIdentifier(), form.getIdentifier());
 
 		return form;
 	}
@@ -55,11 +60,9 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	@Override
 	public Block visit(final Computed computed) {
 
-		assertIdentifierAndAddToEnvironment(computed.getIdentifier(),
-				computed.getExpression());
+		assertIdentifierAndAddToEnvironment(computed.getIdentifier(), computed.getExpression());
 		visitExpression(computed.getExpression());
-		assertSameNature(computed.getDataType(), computed.getExpression(),
-				computed.toString());
+		assertSameNature(computed.getDataType(), computed.getExpression(), computed.toString());
 
 		return computed;
 	}
@@ -68,8 +71,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	public Block visit(final IfStatement ifStatement) {
 		visitExpression(ifStatement.getExpression());
 
-		assertIfStatementExpression(ifStatement.getExpression(),
-				ifStatement.toString());
+		assertIfStatementExpression(ifStatement.getExpression(), ifStatement.toString());
 
 		ifStatement.getIfCompound().accept(this);
 
@@ -83,11 +85,9 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 * @param naturalExpression
 	 * @param reference
 	 */
-	private void assertIfStatementExpression(final Natural naturalExpression,
-			final String reference) {
+	private void assertIfStatementExpression(final Natural naturalExpression, final String reference) {
 		if (environment.get(naturalExpression) != null) {
-			assertSameNature(new BooleanType(),
-					environment.get(naturalExpression), reference);
+			assertSameNature(new BooleanType(), environment.get(naturalExpression), reference);
 		} else {
 			assertSameNature(new BooleanType(), naturalExpression, reference);
 		}
@@ -97,8 +97,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	public Block visit(final IfElseStatement ifElseStatement) {
 		visitExpression(ifElseStatement.getExpression());
 
-		assertIfStatementExpression(ifElseStatement.getExpression(),
-				ifElseStatement.toString());
+		assertIfStatementExpression(ifElseStatement.getExpression(), ifElseStatement.toString());
 
 		ifElseStatement.getIfCompound().accept(this);
 		ifElseStatement.getElseCompound().accept(this);
@@ -108,23 +107,20 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 
 	@Override
 	public Block visit(final Question question) {
-		assertIdentifierAndAddToEnvironment(question.getIdentifier(),
-				question.getDataType());
+		assertIdentifierAndAddToEnvironment(question.getIdentifier(), question.getDataType());
 		return question;
 	}
 
-	private void assertSameNature(final Natural natural,
-			final Natural natural2, final String reference) {
+	private void assertSameNature(final Natural natural, final Natural natural2,
+			final String reference) {
 
 		try {
-			checked.assertTrue(
-					natural.getNature().equals(natural2.getNature()), natural
-							+ " does not match " + natural2 + " for "
-							+ reference);
+			checked.assertTrue(natural.getNature().equals(natural2.getNature()), natural
+					+ " does not match " + natural2 + " for " + reference);
 
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(natural + " does not match "
-					+ natural2 + " for " + reference, e));
+			typeErrors.add(new TypeCheckException(natural + " does not match " + natural2 + " for "
+					+ reference, e));
 		}
 	}
 
@@ -139,22 +135,21 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 * @param natural
 	 *            is the expression to which the identifier refers
 	 */
-	private void assertIdentifierAndAddToEnvironment(
-			final Identifier identifier, final Natural natural) {
+	private void assertIdentifierAndAddToEnvironment(final Identifier identifier,
+			final Natural natural) {
 		// identifier.accept(expressionTypeChecker);
 
 		try {
 			checked.assertTrue(!identifier.getName().isEmpty(), natural
 					+ " identifier cannot be empty");
 
-			checked.assertTrue(environment.get(identifier) == null,
-					identifier.getName() + " already exists");
+			checked.assertTrue(environment.get(identifier) == null, identifier.getName()
+					+ " already exists");
 
 			environment.put(identifier, natural);
 
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(identifier.getName()
-					+ " already exists", e));
+			typeErrors.add(new TypeCheckException(identifier.getName() + " already exists", e));
 		}
 	}
 
@@ -162,7 +157,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 * 
 	 * @return a copy. Does not include expression type errors
 	 */
-	public List<TypeCheckException> getTypeErrors() {
+	public Collection<TypeCheckException> getTypeErrors() {
 		return new ArrayList<TypeCheckException>(typeErrors);
 	}
 
@@ -170,9 +165,8 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 * 
 	 * @return all error types including expression type errors
 	 */
-	public List<TypeCheckException> getAllTypeErrors() {
-		List<TypeCheckException> allErrors = new ArrayList<TypeCheckException>(
-				typeErrors);
+	public Collection<TypeCheckException> getAllTypeErrors() {
+		List<TypeCheckException> allErrors = new ArrayList<TypeCheckException>(typeErrors);
 		allErrors.addAll(expressionTypeChecker.getTypeErrors());
 
 		return allErrors;

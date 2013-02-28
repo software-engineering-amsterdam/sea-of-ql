@@ -17,6 +17,8 @@ public class Bool extends Value {
 	}
 
 	@Override
+	public Value applyNegation() { return new Bool(!getValue()); }
+	@Override
 	public Value and(Value value) { return new Bool(((Bool)value).getValue() && getValue()); }
 	@Override
 	public Value or(Value value)  { return new Bool(((Bool)value).getValue() || getValue()); }

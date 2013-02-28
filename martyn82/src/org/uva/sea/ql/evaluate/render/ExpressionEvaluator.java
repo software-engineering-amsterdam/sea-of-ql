@@ -29,13 +29,13 @@ import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ExpressionVisitor;
 
 class ExpressionEvaluator implements ExpressionVisitor<Value> {
-	private final BindingEnvironment environment;
+	private final RuntimeEnvironment environment;
 
-	private ExpressionEvaluator( BindingEnvironment environment ) {
+	private ExpressionEvaluator( RuntimeEnvironment environment ) {
 		this.environment = environment;
 	}
 
-	public static Value evaluate( Expression node, BindingEnvironment environment ) {
+	public static Value evaluate( Expression node, RuntimeEnvironment environment ) {
 		return node.accept( new ExpressionEvaluator( environment ) );
 	}
 

@@ -40,6 +40,7 @@ import org.uva.sea.ql.visitor.UnmodifiedException;
 @Visitor
 public class QLNodeVisitor implements StatementVisitor<Node> {
 
+	private static final String SPACE_COLON = " :";
 	private static final String INPUT_STYLE = "input";
 	private static final String QUESTION_STYLE = "question";
 
@@ -75,8 +76,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 	@Override
 	public Node visit(final Computed computed) {
 		final Identifier identifier = computed.getIdentifier();
-		state.assertNotNull(model.getComputed(identifier), identifier
-				+ " not registered at model.");
+		state.assertNotNull(model.getComputed(identifier), identifier + " not registered at model.");
 
 		final Label valueText = createText(computed.getIdentifier().getName());
 
@@ -90,30 +90,15 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 			@Override
 			public void changed(final Expression expression) {
 				if (isExpressionEvaluatable(computed)) {
-					String newVal = evaluateAndGetValue(computed
-							.getExpression());
+					String newVal = evaluateAndGetValue(computed.getExpression());
 					valueText.setText(newVal);
-					LogPrinter.debugInfo("update recieved: " + expression);
 				}
 			}
 		});
 
 		valueText.setText(value);
 
-		return createHorizontalHolder(createText(identifier.getName() + " :"),
-				valueText);
-	}
-
-	protected boolean isExpressionEvaluatable(final Computed computed) {
-		try {
-			computed.getExpression().accept(expressionEvaluator);
-		} catch (UnmodifiedException e) {
-			LogPrinter.debugInfo(computed.getIdentifier()
-					+ " cannot be evaluated yet.");
-			return false;
-		}
-
-		return true;
+		return createHorizontalHolder(createText(identifier.getName() + SPACE_COLON), valueText);
 	}
 
 	@Override
@@ -134,27 +119,6 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 		handleVisibility(holder, drawable, isTrueInModel(exp));
 		return holder;
-	}
-
-	private void handleVisibility(final Group holder, final Node drawable,
-			final boolean isVisible) {
-
-		if (isVisible) {
-			holder.getChildren().add(drawable);
-		} else {
-			holder.getChildren().remove(drawable);
-		}
-	}
-
-	private boolean isTrueInModel(final Expression expression) {
-		Computed comp = model.getComputed(expression);
-		if (comp != null
-				&& ((BooleanValue) comp.getExpression().accept(
-						expressionEvaluator)).getValue()) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
@@ -180,17 +144,6 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		return holder;
 	}
 
-	private void handleIfElseVisibility(final Expression exp,
-			final Group holder, final Node ifNode, final Node elseNode) {
-		if (isTrueInModel(exp)) {
-			handleVisibility(holder, ifNode, true);
-			handleVisibility(holder, elseNode, false);
-		} else {
-			handleVisibility(holder, ifNode, false);
-			handleVisibility(holder, elseNode, true);
-		}
-	}
-
 	@Override
 	public Node visit(final Question question) {
 		state.assertNotNull(question, "question");
@@ -204,6 +157,36 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 	}
 
+	private void handleVisibility(final Group holder, final Node drawable, final boolean isVisible) {
+
+		if (isVisible) {
+			holder.getChildren().add(drawable);
+		} else {
+			holder.getChildren().remove(drawable);
+		}
+	}
+
+	private void handleIfElseVisibility(final Expression exp, final Group holder,
+			final Node ifNode, final Node elseNode) {
+		if (isTrueInModel(exp)) {
+			handleVisibility(holder, ifNode, true);
+			handleVisibility(holder, elseNode, false);
+		} else {
+			handleVisibility(holder, ifNode, false);
+			handleVisibility(holder, elseNode, true);
+		}
+	}
+
+	private boolean isTrueInModel(final Expression expression) {
+		Computed comp = model.getComputed(expression);
+		if (comp != null
+				&& ((BooleanValue) comp.getExpression().accept(expressionEvaluator)).getValue()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private Node createOpenQuestion(final Question question) {
 		final TextField input = new TextField();
 		input.setPrefColumnCount(20);
@@ -212,8 +195,8 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		input.textProperty().addListener(new ChangeListener<String>() {
 
 			@Override
-			public void changed(final ObservableValue<? extends String> arg0,
-					final String oldVal, final String newVal) {
+			public void changed(final ObservableValue<? extends String> arg0, final String oldVal,
+					final String newVal) {
 
 				handleUserInput(question, input, oldVal, newVal);
 			}
@@ -221,14 +204,14 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		return createHorizontalHolder(createText(question.getText()), input);
 	}
 
-	private void handleUserInput(final Question question,
-			final TextField input, final String oldInput, final String newInput) {
+	private void handleUserInput(final Question question, final TextField input,
+			final String oldInput, final String newInput) {
 		Nature nature = question.getDataType().getNature();
 
 		if (nature.isValidInput(newInput)) {
 
-			Computed computed = new Computed(question.getDataType(),
-					question.getIdentifier(), nature.createValue(newInput));
+			Computed computed = new Computed(question.getDataType(), question.getIdentifier(),
+					nature.createValue(newInput));
 
 			model.registerComputed(computed);
 
@@ -248,8 +231,8 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 			public void changed(final ObservableValue<? extends Boolean> arg0,
 					final Boolean oldVal, final Boolean newVal) {
 
-				Computed computed = new Computed(question.getDataType(),
-						question.getIdentifier(), new BooleanValue(newVal));
+				Computed computed = new Computed(question.getDataType(), question.getIdentifier(),
+						new BooleanValue(newVal));
 				model.registerComputed(computed);
 			}
 		});
@@ -283,5 +266,21 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		state.assertNotNull(value, "Value does not exist yet.");
 
 		return value.getAsString();
+	}
+
+	/**
+	 * 
+	 * @param computed
+	 * @return true if the computed can be evaluated, i.e. its value is known
+	 */
+	protected boolean isExpressionEvaluatable(final Computed computed) {
+		try {
+			computed.getExpression().accept(expressionEvaluator);
+		} catch (UnmodifiedException e) {
+			LogPrinter.debugInfo(computed.getIdentifier() + " cannot be evaluated yet.");
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.Value;
 import org.uva.sea.ql.ast.types.MoneyType;
-import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
+import org.uva.sea.ql.visitor.ICheckExprVisitor;
 
 public class Money extends Value {
 	private final float value;
@@ -14,7 +14,7 @@ public class Money extends Value {
 		this.value = value;
 	}
 
-	public float getValue() {
+	public Float getValue() {
 		return value;
 	}
 

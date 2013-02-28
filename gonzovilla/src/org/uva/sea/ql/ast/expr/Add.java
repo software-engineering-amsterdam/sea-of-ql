@@ -13,7 +13,7 @@ public class Add extends Binary {
 	}
 
 	@Override
-	public Type typeOf(Map<Ident, Type> typeEnv) {
+	public Type typeOf(Map<String, Type> typeEnv) {
 		return new TypeInt();
 	}
 

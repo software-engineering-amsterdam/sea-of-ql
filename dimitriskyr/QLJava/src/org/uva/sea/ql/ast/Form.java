@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.statements.Block;
 import org.uva.sea.ql.ast.values.Ident;
-import org.uva.sea.ql.ast.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class Form extends Statement {
 	private Ident name;

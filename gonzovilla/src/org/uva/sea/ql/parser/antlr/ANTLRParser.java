@@ -5,6 +5,7 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stat.Form;
+import org.uva.sea.ql.ast.stat.FormUnit;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -42,6 +43,15 @@ public class ANTLRParser implements IParse {
 	public Type parseType(String src) throws ParseError {
 		try {
 			return parse(src).type();
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+
+	@Override
+	public FormUnit parseStatements(String src) throws ParseError {
+		try {
+			return parse(src).formUnit();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

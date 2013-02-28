@@ -80,7 +80,7 @@ public class ExpressionSemanticChecker implements ExpressionVisitor<Void> {
 	@Override
 	public Void visit(Add node) {
 		acceptBinary(node);
-		if(!node.typeOf(context.getTable()).isCompatibleWithAdd()) {
+		if(!node.getLeastUpperBoundsType(context.getTable()).isCompatibleWithAdd()) {
 			context.reportOperationTypeError(ADD, node.getLineNumber());
 		}
 		return null;

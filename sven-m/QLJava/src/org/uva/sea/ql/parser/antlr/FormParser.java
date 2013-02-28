@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser.antlr;
 
-import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -26,7 +26,10 @@ public class FormParser implements IParse {
 		return parseForm(src);
 	}
 
-	public Form parse(String src, ByteArrayOutputStream errorStream)
+	/* Parse a form, but also replace System.err with a PrintStream that
+	 * outputs to the given OutputStream
+	 */
+	public Form parse(String src, OutputStream errorStream)
 			throws NullPointerException, ParseError
 	{
 		/* save current error stream */
@@ -40,14 +43,11 @@ public class FormParser implements IParse {
 
 		/* parse form! */
 		try {
-			System.out.println("about to parse!");
 			form = parse(src);
 		} catch (ParseError e) {
-			System.out.println("Parse error!");
 			throw e;
 		} finally {
-			System.out.println("finally!");
-			/* flush and reset error stream back to original */
+			/* always flush and reset error stream back to original */
 			System.err.flush();
 			System.setErr(oldErr);
 		}

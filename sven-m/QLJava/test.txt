@@ -1,7 +1,11 @@
-form form_5000 {
-  has_cat: "Do you have a cat?" boolean
-  haz_cheeseburger: "Can it haz cheeseburgers?" boolean
-  if (has_cat) {
-    orly: "ORLY?" boolean(has_cat && haz_cheeseburger)
-  }
+form Box1HouseOwning {
+  hasSoldHouse: "Did you sell a house in 2010?" boolean
+  hasBoughtHouse: "Did you by a house in 2010?" boolean
+  hasMaintLoan: "Did you enter a loan for maintenance?" boolean
+  if (hasSoldHouse) {
+    privateDebt: "Private debts for the sold house:" integer
+    sellingPrice: "Price the house was sold for:" integer
+    valueResidue: "Value residue:" integer (sellingPrice - privateDebt)
+    basedOnVR: "Value residue:" integer (valueResidue)
+  } 
 }

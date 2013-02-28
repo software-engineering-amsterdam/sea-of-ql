@@ -22,7 +22,13 @@ import org.uva.sea.ql.visitor.TypeCheckException;
  */
 public final class Startup extends Application {
 
+	private static final String DEBUG = "-debug";
+
 	private static final String PATH_PROPERTY = "QL.formPath";
+
+	private static final String HELP_TEXT = DEBUG + " arg enables printing debug messages."
+			+ "\nUse " + PATH_PROPERTY + " system property to provide the file path. Example: -D"
+			+ PATH_PROPERTY + "=/forms/taxes.txt";
 
 	private final IParse parser;
 	private final Model model;
@@ -35,8 +41,7 @@ public final class Startup extends Application {
 	private void evaluate(final Form form) {
 		ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator(model);
 
-		StatementEvaluator statementEvaluator = new StatementEvaluator(model,
-				expressionEvaluator);
+		StatementEvaluator statementEvaluator = new StatementEvaluator(model, expressionEvaluator);
 
 		statementEvaluator.visit(form);
 	}
@@ -94,11 +99,19 @@ public final class Startup extends Application {
 	@SuppressWarnings("static-access")
 	public static void main(final String[] args) {
 		if (args.length > 0 && args[0].contains("help")) {
-			System.out.println("Use " + PATH_PROPERTY
-					+ " system property to provide the file path.\nExample: -D"
-					+ PATH_PROPERTY + "=/forms/taxes.txt");
+			System.out.println(HELP_TEXT);
 			System.exit(0);
 		}
+		initDebugPrinter(args);
 		new Startup().launch();
 	}
+
+	private static void initDebugPrinter(final String[] args) {
+		for (String string : args) {
+			if (string.contains(DEBUG)) {
+				LogPrinter.setDebugOn(true);
+			}
+		}
+	}
+
 }

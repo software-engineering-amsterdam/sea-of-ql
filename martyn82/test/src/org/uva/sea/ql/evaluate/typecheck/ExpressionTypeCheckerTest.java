@@ -28,8 +28,6 @@ import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
-import org.uva.sea.ql.evaluate.typecheck.ExpressionTypeChecker;
-import org.uva.sea.ql.evaluate.typecheck.TypeEnvironment;
 import org.uva.sea.ql.visitor.VisitorTest;
 
 public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements ExpressionTest {
@@ -44,7 +42,7 @@ public class ExpressionTypeCheckerTest extends VisitorTest<Boolean> implements E
 	}
 
 	private Boolean typeCheck( Expression expression ) {
-		this.environment.getErrors().clear();
+		this.environment.clearErrors();
 		return expression.accept( this.expressionVisitor );
 	}
 

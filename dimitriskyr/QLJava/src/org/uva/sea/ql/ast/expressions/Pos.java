@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.NumericType;
-import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
+import org.uva.sea.ql.visitor.ICheckExprVisitor;
 
 public class Pos extends UnaryExpression {
 

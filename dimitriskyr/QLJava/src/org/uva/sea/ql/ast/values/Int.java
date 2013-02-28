@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.types.IntegerType;
-import org.uva.sea.ql.ast.visitor.ICheckExprVisitor;
+import org.uva.sea.ql.visitor.ICheckExprVisitor;
 
 public class Int extends Value {
 	private final int value;
@@ -12,8 +12,9 @@ public class Int extends Value {
 	public Int(int value) {
 		this.value = value;
 	}
-
-	public int getValue() {
+	
+	@Override
+	public Integer getValue() {
 		return value;
 	}
 

@@ -28,7 +28,11 @@ public class Computed extends Question {
 
 	@Override
 	public Location getLocation() {
-		return new Location(super.getLocation(), endLocation);
+		return new Location(super.getLocation(), getEndLocation());
+	}
+
+	private Location getEndLocation() {
+		return endLocation;
 	}
 
 }

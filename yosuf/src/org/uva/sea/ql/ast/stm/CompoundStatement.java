@@ -15,8 +15,7 @@ public class CompoundStatement extends Block {
 		statements.add(statement);
 	}
 
-	public CompoundStatement(final CompoundStatement compoundStatement,
-			final Block statement) {
+	public CompoundStatement(final CompoundStatement compoundStatement, final Block statement) {
 		statements.addAll(compoundStatement.statements);
 		statements.add(statement);
 	}

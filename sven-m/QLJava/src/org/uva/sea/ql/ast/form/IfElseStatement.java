@@ -15,7 +15,7 @@ public class IfElseStatement extends AbstractConditional {
 
 	@Override
 	public Location getLocation() {
-		return new Location(getStartLocation(), elseBody.getLocation());
+		return new Location(getStartLocation(), getElse().getLocation());
 	}
 
 	@Override

@@ -73,6 +73,11 @@ public class Money extends Value {
 	protected Value notEqualsMoney(Money value) { return new Bool(!value.equals(this)); }
 	
 	@Override
+	public Value setToPositive() { return new Money(Math.abs(getValue())); }
+	@Override
+	public Value setToNegative() { return new Money(-getValue()); }
+	
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

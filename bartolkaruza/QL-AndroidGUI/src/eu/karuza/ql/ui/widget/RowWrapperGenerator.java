@@ -46,7 +46,7 @@ public class RowWrapperGenerator implements StatementVisitor<Void> {
 		if(node.getType().isCompatibleToBool()) {
 			wrapper = new CheckBoxRow(node);
 		} else {
-			wrapper = new TextRow(node);
+			wrapper = new TextRow(node, node.getType().isCompatibleToInt(), node.getType().isCompatibleToMoney());
 		}
 		this.widgetList.add(wrapper);
 		return null;
