@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.values.Ident;
 import org.uva.sea.ql.ast.values.String_lit;
-import org.uva.sea.ql.ast.visitor.IStatementVisitor;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
 public class ComQuestion extends QuestionElement {
 

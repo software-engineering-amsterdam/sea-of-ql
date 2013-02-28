@@ -14,9 +14,9 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.visitor.CheckExpr;
-import org.uva.sea.ql.ast.visitor.Evaluator;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.visitor.CheckExpr;
+import org.uva.sea.ql.visitor.Evaluator;
 
 public class TypeCheckingExpressions {
 
@@ -60,8 +60,9 @@ public class TypeCheckingExpressions {
 		assertEquals(false, CheckExpr.check(
 				parser.parseExpression("(33 >= 4) == pao"), typeEnv,
 				errormessages));
-		assertEquals(true, CheckExpr.check(
-				parser.parseExpression("-43.5 + (+24)"), typeEnv, errormessages));
+		assertEquals(true,
+				CheckExpr.check(parser.parseExpression("-43.5 + (+24)"),
+						typeEnv, errormessages));
 	}
 
 }

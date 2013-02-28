@@ -6,6 +6,8 @@ import org.uva.sea.ql.ast.values.Money;
 
 public abstract class Value extends Expr {
 
+	public abstract Object getValue();
+	
 	public Value add(Value arg) {
 		throw new UnsupportedOperationException();
 	}
