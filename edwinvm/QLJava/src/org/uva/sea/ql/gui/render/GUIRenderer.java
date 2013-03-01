@@ -1,5 +1,7 @@
 package org.uva.sea.ql.gui.render;
 
+import java.awt.Component;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Map.Entry;
@@ -28,10 +30,12 @@ import org.uva.sea.ql.gui.render.widgets.Widget;
 
 public class GUIRenderer implements Visitor {
 
-	private final JPanel _panel;
+	private final ArrayList<JPanel> _panels;
+	private JPanel _panel;
 	private final State _state;
 
 	private GUIRenderer(State state) {
+		_panels = new ArrayList<JPanel>();
 		_panel = new JPanel();
 		_state = state;
 	}
@@ -42,31 +46,31 @@ public class GUIRenderer implements Visitor {
 		return renderer.getPanel();
 	}
 
-	public static JPanel render(StatementBody bodyStatements, State state) {
+	public static ArrayList<JPanel> render(StatementBody bodyStatements, State state) {
 		GUIRenderer renderer = new GUIRenderer(state);
 		bodyStatements.accept(renderer);
-		return renderer.getPanel();
+		return renderer.getPanels();
 	}
 
 	@Override
 	public void visit(final IfThenStatement statement) {
-		JPanel renderedBody = render(statement.getBody(), _state);
+		ArrayList<JPanel> renderedBody = render(statement.getBody(), _state);
 		// Make sure something happens if condition is recomputed
 		registerObserver(statement.getCondition(), renderedBody);
-		renderedBody.setVisible(false);
-		addPanel(renderedBody);
+		hideVisibilityFor(renderedBody);
+		addPanels(renderedBody);
 	}
 
 	@Override
 	public void visit(final IfThenElseStatement statement) {
-		JPanel renderedBody     = render(statement.getBody(), _state);
-		JPanel renderedElseBody = render(statement.getElseBody(), _state);
+		ArrayList<JPanel> renderedBody     = render(statement.getBody(), _state);
+		ArrayList<JPanel> renderedElseBody = render(statement.getElseBody(), _state);
 		// Make sure something happens if condition is recomputed
 		registerObserver(statement.getCondition(), renderedBody, renderedElseBody);
-		renderedBody.setVisible(false);
-		renderedElseBody.setVisible(false);
-		addPanel(renderedBody);
-		addPanel(renderedElseBody);
+		hideVisibilityFor(renderedBody);
+		hideVisibilityFor(renderedElseBody);
+		addPanels(renderedBody);
+		addPanels(renderedElseBody);
 	}
 
 	@Override
@@ -107,8 +111,12 @@ public class GUIRenderer implements Visitor {
 		return widget;
 	}
 	
-	private void addPanel(JPanel renderedBody) {
-		_panel.add(renderedBody);
+	private void addPanel(JPanel panel) {
+		_panels.add(panel);
+	}
+	
+	private void addPanels(ArrayList<JPanel> renderedBody) {
+		_panels.addAll(renderedBody);
 	}
 	
 	private void addLabel(QuestionLabel questionLabel) {
@@ -116,15 +124,31 @@ public class GUIRenderer implements Visitor {
 	}
 	
 	private void addQuestionLabel(Str label) {
-		_panel.add(new JLabel(label.getValue()));
+		addToPanel(new JLabel(label.getValue()));
 	}
 	
 	private void add(Widget widget) {
-		_panel.add(widget.getWidget());
+		addToPanel(widget.getWidget());
+		addPanel(_panel);
+		_panel = new JPanel();
+	}
+	
+	private void addToPanel(Component widgetComponent) {
+		_panel.add(widgetComponent);
+	}
+	
+	private ArrayList<JPanel> getPanels() {
+		return _panels;
 	}
 	
 	private JPanel getPanel() {
 		return _panel;
+	}
+	
+	private void hideVisibilityFor(ArrayList<JPanel> renderedBody) {
+		for (JPanel panel: renderedBody) {
+			panel.setVisible(false);
+		}
 	}
 	
 	private void registerEventHandler(Question question, Widget widget) {
@@ -133,11 +157,11 @@ public class GUIRenderer implements Visitor {
 		widget.addListener(observable);
 	}
 	
-	private void registerObserver(Expression condition, JPanel renderedBody) {
+	private void registerObserver(Expression condition, ArrayList<JPanel> renderedBody) {
 		registerObserver(condition, renderedBody, null);
 	}
 	
-	private void registerObserver(Expression condition, JPanel renderedBody, JPanel renderedElseBody) {
+	private void registerObserver(Expression condition, ArrayList<JPanel> renderedBody, ArrayList<JPanel> renderedElseBody) {
 		ConditionObserver observer = new ConditionObserver(condition, renderedBody, renderedElseBody, _state);
 		addObserver(observer);
 	}
