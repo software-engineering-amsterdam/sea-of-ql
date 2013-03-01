@@ -54,7 +54,7 @@ conditionBlock returns [ConditionBlock result]
     ;
 
 statementBody returns [StatementBody result]
-	  @init  { StatementBody statements = new StatementBody(); }
+	@init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
     :   '{' (statement=formStatement { statements.add(statement); })+ '}'
     |       (statement=formStatement { statements.add(statement); })+
@@ -112,14 +112,13 @@ logicallyEquivalentExpression returns [Expression result]
         rightHandSide = relationalExpression { $result = new LogicallyEquivalentExpression(leftHandSide, rightHandSide); } )*
     ;
     
-
-logicallyNotEquivalentExpression returns [Expression result]
+logicallyEquivalentOrNotExpression returns [Expression result]
     :   leftHandSide  = logicallyEquivalentExpression { $result = leftHandSide; } ( '||' 
-        rightHandSide = logicallyEquivalentExpression { $result = new LogicallyNotEquivalentExpression(leftHandSide, rightHandSide); } )*
+        rightHandSide = logicallyEquivalentExpression { $result = new LogicallyEquivalentOrNotExpression(leftHandSide, rightHandSide); } )*
     ;
 
 expression returns [Expression result]
-    :   getExpression=logicallyNotEquivalentExpression { $result = getExpression; }
+    :   getExpression=logicallyEquivalentOrNotExpression { $result = getExpression; }
     ;
 
 type returns [Type result]

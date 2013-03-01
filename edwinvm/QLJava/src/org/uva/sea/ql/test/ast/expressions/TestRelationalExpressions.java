@@ -11,7 +11,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestRelationalExpressions extends ExpressionParserChecker {
 	@Test
-	public void testRels() throws ParseError {
+	public void testRelationalExpressions() throws ParseError {
 		expressionMatchesASTClass("a < b",       LessThanExpression.class);
 		expressionMatchesASTClass("a < b + c",   LessThanExpression.class);
 		expressionMatchesASTClass("a < (b * c)", LessThanExpression.class);

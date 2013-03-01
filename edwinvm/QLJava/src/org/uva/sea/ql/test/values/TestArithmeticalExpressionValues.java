@@ -6,7 +6,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestArithmeticalExpressionValues extends ExpressionValueChecker {
 	@Test
-	public void testAdds() throws ParseError {
+	public void testAdditions() throws ParseError {
 		expressionMatchesValue("1 + 1", "2");
 		expressionMatchesValue("1 + (2 + 3)", "6");
 		expressionMatchesValue("2.0 + 3.0", "5.0");
@@ -15,21 +15,21 @@ public class TestArithmeticalExpressionValues extends ExpressionValueChecker {
 	}
 	
 	@Test
-	public void testMuls() throws ParseError {
+	public void testMultiplies() throws ParseError {
 		expressionMatchesValue("1 * 1", "1");
 		expressionMatchesValue("1 * (2 * 3)", "6");
 		expressionMatchesValue("2.0 * 3.0", "6.0");
 	}
 	
 	@Test
-	public void testDivs() throws ParseError {
+	public void testDivisions() throws ParseError {
 		expressionMatchesValue("10 / 2", "5");
 		expressionMatchesValue("10 / (2 * 1)", "5");
 		expressionMatchesValue("10.0 / (2.0 * 2.50)", "2.0");
 	}
 	
 	@Test
-	public void testSubs() throws ParseError {
+	public void testSubtractions() throws ParseError {
 		expressionMatchesValue("10 - 10", "0");
 		expressionMatchesValue("10 - (2 * 5)", "0");
 		expressionMatchesValue("10.0 - (2.0 * 2.50)", "5.0");
@@ -38,7 +38,7 @@ public class TestArithmeticalExpressionValues extends ExpressionValueChecker {
 	// Unary operations
 	
 	@Test
-	public void testNegs() throws ParseError {
+	public void testNegatives() throws ParseError {
 		expressionMatchesValue("-1", "-1");
 		expressionMatchesValue("--1", "1");
 		expressionMatchesValue("-(+1)", "-1");
@@ -51,7 +51,7 @@ public class TestArithmeticalExpressionValues extends ExpressionValueChecker {
 	}
 	
 	@Test
-	public void testPoss() throws ParseError {
+	public void testPositives() throws ParseError {
 		expressionMatchesValue("+1", "1");
 		expressionMatchesValue("++1", "1");
 		expressionMatchesValue("+-1", "1");

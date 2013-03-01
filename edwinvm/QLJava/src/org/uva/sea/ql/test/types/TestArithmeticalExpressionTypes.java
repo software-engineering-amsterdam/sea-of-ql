@@ -5,7 +5,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestArithmeticalExpressionTypes extends ExpressionTypeChecker {
 	@Test
-	public void testAdds() throws ParseError {
+	public void testAdditions() throws ParseError {
 		isAValidExpression("1 + 1");
 		isAValidExpression("1 + 1");
 		isAValidExpression("1 + (2 + 3)");
@@ -17,7 +17,7 @@ public class TestArithmeticalExpressionTypes extends ExpressionTypeChecker {
 	}
 	
 	@Test
-	public void testMuls() throws ParseError {
+	public void testMultiplies() throws ParseError {
 		isAValidExpression("1 * 1");
 		isAValidExpression("1 * (2 * 3)");
 		isAValidExpression("1 * (2 * 3.0)");
@@ -28,7 +28,7 @@ public class TestArithmeticalExpressionTypes extends ExpressionTypeChecker {
 	}
 	
 	@Test
-	public void testDivs() throws ParseError {
+	public void testDivisions() throws ParseError {
 		isAValidExpression("10 / 2");
 		isAValidExpression("10 / (2 * 1)");
 		isAValidExpression("10 / (2 * 2.50)");
@@ -39,7 +39,7 @@ public class TestArithmeticalExpressionTypes extends ExpressionTypeChecker {
 	}
 	
 	@Test
-	public void testSubs() throws ParseError {
+	public void testSubtractions() throws ParseError {
 		isAValidExpression("10 - 10");
 		isAValidExpression("10 - (2 * 5)");
 		isAValidExpression("10 - (2 * 2.50)");
@@ -52,13 +52,13 @@ public class TestArithmeticalExpressionTypes extends ExpressionTypeChecker {
 	// Unary operations
 	
 	@Test
-	public void testNegs() throws ParseError {
+	public void testNegatives() throws ParseError {
 		isAValidExpression("-3");
 		isAValidExpression("--3");
 	}
 	
 	@Test
-	public void testPoss() throws ParseError {
+	public void testPositives() throws ParseError {
 		isAValidExpression("+3");
 		isAValidExpression("++3");
 	}

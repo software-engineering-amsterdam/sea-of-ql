@@ -5,7 +5,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestRelationalExpressionTypes extends ExpressionTypeChecker {
 	@Test
-	public void testRels() throws ParseError {
+	public void testRelationalExpressionTypes() throws ParseError {
 		isAValidExpression("1 < 2");
 		isAValidExpression("1 < 1 + 1");
 		isAValidExpression("1 + 2 > 2");

@@ -12,7 +12,7 @@ import org.uva.sea.ql.ast.expressions.arithmetic.PositiveExpression;
 import org.uva.sea.ql.ast.expressions.arithmetic.Subtraction;
 import org.uva.sea.ql.ast.expressions.logical.BinaryLogicalExpression;
 import org.uva.sea.ql.ast.expressions.logical.LogicallyEquivalentExpression;
-import org.uva.sea.ql.ast.expressions.logical.LogicallyNotEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.logical.LogicallyEquivalentOrNotExpression;
 import org.uva.sea.ql.ast.expressions.logical.NegationalExpression;
 import org.uva.sea.ql.ast.expressions.relational.BinaryRelationalExpression;
 import org.uva.sea.ql.ast.expressions.relational.EqualToExpression;
@@ -66,7 +66,7 @@ public class TypeChecker extends ExpressionChecker implements Visitor<Boolean> {
 	@Override
 	public Boolean visit(LogicallyEquivalentExpression astNode)    { return checkLogicalExpression(astNode, "&&"); }
 	@Override
-	public Boolean visit(LogicallyNotEquivalentExpression astNode) { return checkLogicalExpression(astNode, "||"); }
+	public Boolean visit(LogicallyEquivalentOrNotExpression astNode) { return checkLogicalExpression(astNode, "||"); }
 
 	@Override
 	public Boolean visit(NegativeExpression astNode)               { return checkUnaryArithmeticExpression(astNode, "--"); }

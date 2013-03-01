@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.expressions.arithmetic.NegativeExpression;
 import org.uva.sea.ql.ast.expressions.arithmetic.PositiveExpression;
 import org.uva.sea.ql.ast.expressions.arithmetic.Subtraction;
 import org.uva.sea.ql.ast.expressions.logical.LogicallyEquivalentExpression;
-import org.uva.sea.ql.ast.expressions.logical.LogicallyNotEquivalentExpression;
+import org.uva.sea.ql.ast.expressions.logical.LogicallyEquivalentOrNotExpression;
 import org.uva.sea.ql.ast.expressions.logical.NegationalExpression;
 import org.uva.sea.ql.ast.expressions.relational.EqualToExpression;
 import org.uva.sea.ql.ast.expressions.relational.GreaterThanExpression;
@@ -32,7 +32,7 @@ public interface Visitor<T> {
 	
 	// Binary logical expressions
 	T visit(LogicallyEquivalentExpression    astNode);
-	T visit(LogicallyNotEquivalentExpression astNode);
+	T visit(LogicallyEquivalentOrNotExpression astNode);
 	
 	// Binary relational expressions
 	T visit(EqualToExpression                astNode);

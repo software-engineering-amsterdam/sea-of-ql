@@ -5,7 +5,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestLogicalExpressionTypes extends ExpressionTypeChecker {
 	@Test
-	public void testAnds() throws ParseError {
+	public void testLogicallyEquivalentExpressionTypes() throws ParseError {
 		isAValidExpression("true && true");
 		isAValidExpression("true && false");
 		isAValidExpression("false && false");
@@ -18,7 +18,7 @@ public class TestLogicalExpressionTypes extends ExpressionTypeChecker {
 	}
 	
 	@Test
-	public void testOrs() throws ParseError {
+	public void testLogicallyEquivalentOrNotExpressionTypes() throws ParseError {
 		isAValidExpression("true || true");
 		isAValidExpression("true || false");
 		isAValidExpression("false || false");
@@ -31,7 +31,7 @@ public class TestLogicalExpressionTypes extends ExpressionTypeChecker {
 	}
 	
 	@Test
-	public void testNots() throws ParseError {
+	public void testNegations() throws ParseError {
 		isAValidExpression("!true");
 		isAValidExpression("!false");
 	}

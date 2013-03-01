@@ -11,7 +11,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestArithmeticalExpressions extends ExpressionParserChecker {
 	@Test
-	public void testAdds() throws ParseError {
+	public void testAdditions() throws ParseError {
 		expressionMatchesASTClass("a + b",       Addition.class);
 		expressionMatchesASTClass("a + b",       Addition.class);
 		expressionMatchesASTClass("a + b + c",   Addition.class);
@@ -24,7 +24,7 @@ public class TestArithmeticalExpressions extends ExpressionParserChecker {
 	}
 
 	@Test
-	public void testMuls() throws ParseError {
+	public void testMultiplies() throws ParseError {
 		expressionMatchesASTClass("a * b",       Multiplication.class);
 		expressionMatchesASTClass("a * b * c",   Multiplication.class);
 		expressionMatchesASTClass("a * (b * c)", Multiplication.class);
@@ -35,13 +35,13 @@ public class TestArithmeticalExpressions extends ExpressionParserChecker {
 	}
 	
 	@Test
-	public void testDivs() throws ParseError {
+	public void testDivisions() throws ParseError {
 		expressionMatchesASTClass("a / b",       Division.class);
 		expressionMatchesASTClass("a / (b * c)", Division.class);
 	}
 	
 	@Test
-	public void testSubs() throws ParseError {
+	public void testSubtractions() throws ParseError {
 		expressionMatchesASTClass("a - b",       Subtraction.class);
 		expressionMatchesASTClass("a - (b * c)", Subtraction.class);
 	}
@@ -49,12 +49,12 @@ public class TestArithmeticalExpressions extends ExpressionParserChecker {
 	// Unary operations
 	
 	@Test
-	public void testNegs() throws ParseError {
-		expressionMatchesASTClass("--x", NegativeExpression.class);
+	public void testNegatives() throws ParseError {
+		expressionMatchesASTClass("--x",         NegativeExpression.class);
 	}
 	
 	@Test
-	public void testPoss() throws ParseError {
-		expressionMatchesASTClass("++x", PositiveExpression.class);
+	public void testPositives() throws ParseError {
+		expressionMatchesASTClass("++x",         PositiveExpression.class);
 	}
 }

@@ -21,42 +21,42 @@ public class Int extends Value {
 	*/
 	
 	@Override
-	public Value add(Value value)     { return value.addInt(this); }
+	public Value add(Value value)            { return value.addInt(this); }
 	@Override
-	public Value sub(Value value)     { return value.subInt(this); }
+	public Value divideBy(Value value)       { return value.divideByInt(this);   }
 	@Override
-	public Value div(Value value)     { return value.divInt(this); }
+	public Value multiplyBy(Value value)     { return value.multiplyByInt(this); }
 	@Override
-	public Value mul(Value value)     { return value.mulInt(this); }
+	public Value subtractBy(Value value)     { return value.subtractByInt(this); }
 	@Override
-	protected Value addInt(Int value) { return new Int(value.getValue() + getValue()); }
+	protected Value addInt(Int value)        { return new Int(value.getValue() + getValue()); }
 	@Override
-	protected Value subInt(Int value) { return new Int(value.getValue() - getValue()); }
+	protected Value subtractByInt(Int value) { return new Int(value.getValue() - getValue()); }
 	@Override
-	protected Value mulInt(Int value) { return new Int(value.getValue() * getValue()); }
+	protected Value multiplyByInt(Int value) { return new Int(value.getValue() * getValue()); }
 	@Override
-	protected Value divInt(Int value) { return new Int(value.getValue() / getValue()); }
+	protected Value divideByInt(Int value)   { return new Int(value.getValue() / getValue()); }
 	
 	@Override
-	public Value equalsValue(Value value) { return value.equalsInt(this); }
+	public Value equalsValue(Value value)    { return value.equalsInt(this); }
 	@Override
-	protected Value equalsInt(Int value)  { return new Bool(value.equals(this)); }
+	protected Value equalsInt(Int value)     { return new Bool(value.equals(this)); }
 	@Override
-	public Value greaterThan(Value value) { return value.greaterThanInt(this); }
+	public Value isGreaterThan(Value value)     { return value.isGreaterThanInt(this); }
 	@Override
-	protected Value greaterThanInt(Int value) { return new Bool(value.getValue() > getValue()); }
+	protected Value isGreaterThanInt(Int value) { return new Bool(value.getValue() > getValue()); }
 	@Override
-	public Value greaterThanOrEqualTo(Value value) { return value.greaterThanOrEqualToInt(this); }
+	public Value isGreaterThanOrEqualTo(Value value) { return value.isGreaterThanOrEqualToInt(this); }
 	@Override
-	protected Value greaterThanOrEqualToInt(Int value) { return new Bool(value.getValue() >= getValue()); }
+	protected Value isGreaterThanOrEqualToInt(Int value) { return new Bool(value.getValue() >= getValue()); }
 	@Override
-	public Value lessThan(Value value) { return value.lessThanInt(this); }
+	public Value isLessThan(Value value) { return value.isLessThanInt(this); }
 	@Override
-	protected Value lessThanInt(Int value) { return new Bool(value.getValue() < getValue()); }
+	protected Value isLessThanInt(Int value) { return new Bool(value.getValue() < getValue()); }
 	@Override
-	public Value lessThanOrEqualTo(Value value) { return value.lessThanOrEqualToInt(this); }
+	public Value isLessThanOrEqualTo(Value value) { return value.isLessThanOrEqualToInt(this); }
 	@Override
-	protected Value lessThanOrEqualToInt(Int value) { return new Bool(value.getValue() <= getValue()); }
+	protected Value isLessThanOrEqualToInt(Int value) { return new Bool(value.getValue() <= getValue()); }
 	@Override
 	public Value notEqualsValue(Value value) { return value.notEqualsInt(this); }
 	@Override
