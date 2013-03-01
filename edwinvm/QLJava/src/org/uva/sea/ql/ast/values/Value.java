@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.values;
 
-import org.uva.sea.ql.ast.expressions.Expression;
+import org.uva.sea.ql.ast.expressions.LiteralExpression;
 
-public abstract class Value extends Expression {
+public abstract class Value extends LiteralExpression {
 
 	// Logical operations
 	
