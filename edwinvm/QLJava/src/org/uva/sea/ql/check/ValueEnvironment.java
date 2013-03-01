@@ -14,9 +14,7 @@ public class ValueEnvironment {
 	}
 	
 	public void add(Identifier identifier, Value value) {
-		if (!contains(identifier)) {
-			_valueEnvironment.put(identifier, value);
-		}
+		_valueEnvironment.put(identifier, value);
 	}
 	
 	public Boolean contains(Identifier identifier) {

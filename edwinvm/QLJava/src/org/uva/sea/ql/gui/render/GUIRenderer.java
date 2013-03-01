@@ -1,18 +1,28 @@
 package org.uva.sea.ql.gui.render;
 
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Map.Entry;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.uva.sea.ql.ast.expressions.Expression;
+import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.statements.FormStatement;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
 import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.questions.Question;
 import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Str;
 import org.uva.sea.ql.ast.visitors.statementchecker.Visitor;
+import org.uva.sea.ql.gui.observe.AnswerableQuestionObservable;
+import org.uva.sea.ql.gui.observe.ComputedQuestionObserver;
+import org.uva.sea.ql.gui.observe.ConditionObserver;
 import org.uva.sea.ql.gui.observe.State;
 import org.uva.sea.ql.gui.render.widgets.Widget;
 
@@ -42,7 +52,7 @@ public class GUIRenderer implements Visitor {
 	public void visit(final IfThenStatement statement) {
 		JPanel renderedBody = render(statement.getBody(), _state);
 		// Make sure something happens if condition is recomputed
-//		registerConditionDeps(statement.getCondition(), renderedBody);
+		registerObserver(statement.getCondition(), renderedBody);
 		renderedBody.setVisible(false);
 		addPanel(renderedBody);
 	}
@@ -52,7 +62,7 @@ public class GUIRenderer implements Visitor {
 		JPanel renderedBody     = render(statement.getBody(), _state);
 		JPanel renderedElseBody = render(statement.getElseBody(), _state);
 		// Make sure something happens if condition is recomputed
-//		registerConditionDeps(statement.getCondition(), renderedBody, renderedElseBody);
+		registerObserver(statement.getCondition(), renderedBody, renderedElseBody);
 		renderedBody.setVisible(false);
 		renderedElseBody.setVisible(false);
 		addPanel(renderedBody);
@@ -63,8 +73,7 @@ public class GUIRenderer implements Visitor {
 	public void visit(AnswerableQuestion statement) {
 		addLabel(statement.getQuestionLabel());
 		Widget widget = renderWidgetFor(statement.getType());
-		// Add Event Listener
-		//registerHandler(statement, widget);
+		registerEventHandler(statement, widget);
 		add(widget);
 	}
 
@@ -72,8 +81,9 @@ public class GUIRenderer implements Visitor {
 	public void visit(ComputedQuestion statement) {
 		addLabel(statement.getQuestionLabel());
 		Widget widget = renderWidgetFor(statement.getExpression().typeOf(_state.getTypeEnvironment()), false);
-//		registerComputedDeps(statement, control);
-//		registerPropagator(statement);
+		// Let it listen to other questions
+		registerObserver(statement, widget);
+		registerEventHandler(statement, widget);
 //		initValue(statement, widget);
 		add(widget);
 	}
@@ -115,6 +125,32 @@ public class GUIRenderer implements Visitor {
 	
 	private JPanel getPanel() {
 		return _panel;
+	}
+	
+	private void registerEventHandler(Question question, Widget widget) {
+		AnswerableQuestionObservable observable = new AnswerableQuestionObservable(widget, _state, question);
+		_state.putObservable(question.getQuestionVariable().getVariable(), observable);
+		widget.addListener(observable);
+	}
+	
+	private void registerObserver(Expression condition, JPanel renderedBody) {
+		registerObserver(condition, renderedBody, null);
+	}
+	
+	private void registerObserver(Expression condition, JPanel renderedBody, JPanel renderedElseBody) {
+		ConditionObserver observer = new ConditionObserver(condition, renderedBody, renderedElseBody, _state);
+		addObserver(observer);
+	}
+	
+	private void registerObserver(ComputedQuestion statement, Widget widget) {
+		ComputedQuestionObserver observer = new ComputedQuestionObserver(widget, _state, statement);
+		addObserver(observer);
+	}
+
+	private void addObserver(Observer observer) {
+		for (Entry<Identifier, Observable> observable : _state.getObservableEnvironment().entrySet()) {
+			_state.addObserver(observable.getKey(), observer);
+		}
 	}
 	
 }
