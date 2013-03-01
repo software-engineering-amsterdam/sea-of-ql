@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.values.Int;
 import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.gui.observe.AnswerableQuestionObservable;
 
 public class NumericInputWidget extends Widget {
 
@@ -17,6 +18,11 @@ public class NumericInputWidget extends Widget {
 		_widget = new JFormattedTextField(NumberFormat.getInstance());
 		_widget.setColumns(10);
 		_widget.setHorizontalAlignment(JTextField.RIGHT);
+	}
+	
+	@Override
+	public Value getValue() {
+		return new Int(Integer.parseInt(_widget.getText()));
 	}
 
 	@Override
@@ -32,6 +38,11 @@ public class NumericInputWidget extends Widget {
 	@Override
 	public void setEnabled(boolean enabled) {
 		_widget.setEnabled(enabled);
+	}
+	
+	@Override
+	public void addListener(AnswerableQuestionObservable observable) {
+		_widget.addActionListener(observable);
 	}
 	
 }

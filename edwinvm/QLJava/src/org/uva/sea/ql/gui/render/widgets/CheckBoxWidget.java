@@ -6,6 +6,7 @@ import javax.swing.JCheckBox;
 
 import org.uva.sea.ql.ast.values.Bool;
 import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.gui.observe.AnswerableQuestionObservable;
 
 public class CheckBoxWidget extends Widget {
 
@@ -15,6 +16,11 @@ public class CheckBoxWidget extends Widget {
 		_widget = new JCheckBox();
 	}
 
+	@Override
+	public Value getValue() {
+		return new Bool(_widget.isEnabled());
+	}
+	
 	@Override
 	public void setValue(Value value) {
 		_widget.setSelected(((Bool)value).getValue());
@@ -28,6 +34,11 @@ public class CheckBoxWidget extends Widget {
 	@Override
 	public void setEnabled(boolean enabled) {
 		_widget.setEnabled(enabled);
+	}
+	
+	@Override
+	public void addListener(AnswerableQuestionObservable observable) {
+		_widget.addActionListener(observable);
 	}
 	
 }
