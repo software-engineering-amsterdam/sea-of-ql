@@ -13,7 +13,7 @@ import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statements.Form;
 import org.uva.sea.ql.ast.visitors.StatementCheckingVisitor;
-import org.uva.sea.ql.ast.visitors.StatementVisitorForRendering;
+import org.uva.sea.ql.ast.visitors.StatementRenderingVisitor;
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 import org.uva.sea.ql.parsers.exceptions.QLException;
@@ -28,12 +28,12 @@ public class FormPanel extends JFrame {
 	public static void main(String[] args) throws IOException {
 		FormPanel rootFrame = new FormPanel();
 		String filePath = "C:\\Tubis\\School\\Software Construction\\QLTest.txt";
-		
+
 		Form form = rootFrame.parseStringFromFile(filePath);
 		Map<Identifier, org.uva.sea.ql.ast.types.Type> identifierTypeMap = rootFrame
 				.checkForm(form);
 
-		rootFrame.renderForm(rootFrame, form, identifierTypeMap);
+		rootFrame.renderForm(form, identifierTypeMap);
 	}
 
 	private Form parseStringFromFile(String filePath) {
@@ -65,21 +65,21 @@ public class FormPanel extends JFrame {
 			System.out.println(exception.ToString());
 		}
 	}
-	
-	private void renderForm(FormPanel rootFrame, Form form,
+
+	private void renderForm(Form form,
 			Map<Identifier, org.uva.sea.ql.ast.types.Type> identifierTypeMap) {
 
 		JPanel rootPanel = new JPanel();
-		StatementVisitorForRendering statementRenderingVisitor = new StatementVisitorForRendering(
+		StatementRenderingVisitor statementRenderingVisitor = new StatementRenderingVisitor(
 				rootPanel, identifierTypeMap);
 
 		form.accept(statementRenderingVisitor);
 
 		JScrollPane scrollPane = new JScrollPane(rootPanel);
-		rootFrame.add(scrollPane);
-		rootFrame.setSize(825, 300);
-		rootFrame.setVisible(true);
-		rootFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		rootFrame.show();
+		this.add(scrollPane);
+		this.setSize(825, 300);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.show();
 	}
 }

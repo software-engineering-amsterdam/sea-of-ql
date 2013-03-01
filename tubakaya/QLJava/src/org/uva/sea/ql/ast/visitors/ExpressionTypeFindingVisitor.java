@@ -33,11 +33,11 @@ import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
-public class ExpressionTypeCheckingVisitor implements ExpressionTypeVisitor {
+public class ExpressionTypeFindingVisitor implements ExpressionTypeVisitor {
 
 	private Map<Identifier, Type> identifierTypeMap;
 
-	public ExpressionTypeCheckingVisitor(Map<Identifier, Type> identifierTypeMap) {
+	public ExpressionTypeFindingVisitor(Map<Identifier, Type> identifierTypeMap) {
 		this.identifierTypeMap = identifierTypeMap;
 	}
 
