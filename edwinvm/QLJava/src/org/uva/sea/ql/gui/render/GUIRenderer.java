@@ -6,7 +6,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Map.Entry;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.uva.sea.ql.ast.expressions.Expression;
@@ -27,6 +26,7 @@ import org.uva.sea.ql.gui.observe.ComputedQuestionObserver;
 import org.uva.sea.ql.gui.observe.ConditionObserver;
 import org.uva.sea.ql.gui.observe.State;
 import org.uva.sea.ql.gui.render.widgets.Widget;
+import org.uva.sea.ql.gui.render.widgets.WidgetLabel;
 
 public class GUIRenderer implements Visitor {
 
@@ -124,7 +124,8 @@ public class GUIRenderer implements Visitor {
 	}
 	
 	private void addQuestionLabel(Str label) {
-		addToPanel(new JLabel(label.getValue()));
+		WidgetLabel widgetLabel = new WidgetLabel(label);
+		addToPanel(widgetLabel.getLabel());
 	}
 	
 	private void add(Widget widget) {
