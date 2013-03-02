@@ -1,9 +1,13 @@
 package org.uva.sea.ql.tests.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
-import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.expr.Ident;
+import org.uva.sea.ql.ast.expr.value.BoolLiteral;
+import org.uva.sea.ql.ast.expr.value.IntLiteral;
+import org.uva.sea.ql.ast.expr.value.MoneyLiteral;
+import org.uva.sea.ql.ast.expr.value.StringLiteral;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;

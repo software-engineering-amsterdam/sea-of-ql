@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.formelements.FormElement;
 import org.uva.sea.ql.ast.formelements.IfThen;
 import org.uva.sea.ql.ast.formelements.IfThenElse;
 import org.uva.sea.ql.ast.formelements.Question;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitors.IElementVisitor;
 import org.uva.sea.ql.visitors.utils.Errors;
 import org.uva.sea.ql.visitors.utils.State;

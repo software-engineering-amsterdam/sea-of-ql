@@ -138,10 +138,8 @@ public class ExprEvaluator implements IExprVisitor<Value> {
 
 	@Override
 	public Value visit(Ident node) {
-		if (env.containsKey(node.getStringName())) {
-			return env.get(node.getStringName());
-		}
-		return null;
+		assert env.containsKey(node.getStringName());
+		return env.get(node.getStringName());
 	}
 
 	/* 
