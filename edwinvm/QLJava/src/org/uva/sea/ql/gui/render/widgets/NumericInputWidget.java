@@ -16,7 +16,7 @@ public class NumericInputWidget extends Widget {
 	
 	public NumericInputWidget() {
 		_widget = new JFormattedTextField(NumberFormat.getInstance());
-		_widget.setColumns(10);
+		_widget.setColumns(15);
 		_widget.setHorizontalAlignment(JTextField.RIGHT);
 	}
 	

@@ -11,6 +11,8 @@ public class TestArithmeticalExpressionValues extends ExpressionValueChecker {
 		expressionMatchesValue("1 + (2 + 3)", "6");
 		expressionMatchesValue("2.0 + 3.0", "5.0");
 		
+		expressionMatchesValue("\"a\" + \"b\"", "\"a b\"");
+		
 		expressionMatchesValue(new Str("a").add(new Str("b")), new Str("a b"));
 	}
 	

@@ -16,7 +16,7 @@ import org.uva.sea.ql.ast.expressions.Identifier;
 import org.uva.sea.ql.ast.forms.Form;
 import org.uva.sea.ql.ast.statements.StatementBody;
 import org.uva.sea.ql.gui.observe.State;
-import org.uva.sea.ql.gui.render.GUIRenderer;
+import org.uva.sea.ql.gui.render.QuestionnaireRenderer;
 
 public class QuestionnaireForm extends JFrame {
 
@@ -55,7 +55,7 @@ public class QuestionnaireForm extends JFrame {
 	}
 	
 	private ArrayList<JPanel> render(StatementBody body) {
-		return GUIRenderer.render(body, _state);
+		return QuestionnaireRenderer.render(body, _state);
 	}
 	
 	private void initializeQuestionnaireState() {

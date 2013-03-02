@@ -12,7 +12,7 @@ public class WidgetLabel {
 
 	public WidgetLabel(Str label) {
 		_label = new JLabel(label.getValue());
-		_label.setPreferredSize(new Dimension(200, 20));  
+		_label.setPreferredSize(new Dimension(300, 20));  
 	}
 	
 	public JLabel getLabel() {

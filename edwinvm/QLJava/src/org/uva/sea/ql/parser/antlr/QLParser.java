@@ -1,4 +1,4 @@
-// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-03-01 19:44:30
+// $ANTLR 3.4 C:\\Users\\Edwin\\Documents\\GitHub\\sea-of-ql\\edwinvm\\QLJava/src/org/uva/sea/ql/parser/antlr/QL.g 2013-03-02 20:12:44
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
@@ -370,7 +370,7 @@ public class QLParser extends Parser {
             {
             String7=(Token)match(input,String,FOLLOW_String_in_questionLabel195); if (state.failed) return result;
 
-            if ( state.backtracking==0 ) { result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str((String7!=null?String7.getText():null))); }
+            if ( state.backtracking==0 ) { result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str((String7!=null?String7.getText():null).replace("\"", ""))); }
 
             }
 
@@ -805,7 +805,7 @@ public class QLParser extends Parser {
                     {
                     String12=(Token)match(input,String,FOLLOW_String_in_primary457); if (state.failed) return result;
 
-                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Str((String12!=null?String12.getText():null)); }
+                    if ( state.backtracking==0 ) { result = new org.uva.sea.ql.ast.values.Str((String12!=null?String12.getText():null).replace("\"", "")); }
 
                     }
                     break;

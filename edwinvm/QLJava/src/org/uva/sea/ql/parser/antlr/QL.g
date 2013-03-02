@@ -39,7 +39,7 @@ question returns [Question result]
     ;
 
 questionLabel returns [QuestionLabel result]
-    :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str($String.text)); }
+    :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str($String.text.replace("\"", ""))); }
     ;
     
 questionVariable returns [QuestionVariable result]
@@ -64,7 +64,7 @@ primary returns [Expression result]
     :   Int        { $result = new org.uva.sea.ql.ast.values.Int(Integer.parseInt($Int.text)); }
     |   Bool       { $result = new org.uva.sea.ql.ast.values.Bool(Boolean.parseBoolean($Bool.text)); }
     |   Money      { $result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
-    |   String     { $result = new org.uva.sea.ql.ast.values.Str($String.text); }
+    |   String     { $result = new org.uva.sea.ql.ast.values.Str($String.text.replace("\"", "")); }
     |   Identifier { $result = new Identifier($Identifier.text); }
     |   '(' e=expression ')'{ $result = $e.result; }
     ;

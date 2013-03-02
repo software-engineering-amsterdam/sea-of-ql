@@ -19,7 +19,7 @@ public class Str extends Value {
 	@Override
 	public Value add(Value value) { return value.addString(this); }
 	@Override
-	protected Value addString(Str value) { return new Str(value.getValue()+ " " + getValue()); }
+	protected Value addString(Str value) { return new Str(value.getValue() + " " + getValue()); }
 	
 	@Override
 	public Value equalsValue(Value value) { return value.equalsString(this); }
