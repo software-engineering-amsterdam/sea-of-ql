@@ -1,5 +1,8 @@
 package org.uva.sea.ql.value;
 
+import org.uva.sea.ql.type.MoneyType;
+import org.uva.sea.ql.type.Type;
+
 import java.math.BigDecimal;
 
 /**
@@ -129,5 +132,10 @@ public class MoneyValue extends Value{
 
     public Double getValue() {
         return value;
+    }
+
+    @Override
+    public Type getType() {
+        return new MoneyType();
     }
 }

@@ -1,5 +1,8 @@
 package org.uva.sea.ql.value;
 
+import org.uva.sea.ql.type.BoolType;
+import org.uva.sea.ql.type.Type;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
@@ -56,5 +59,10 @@ public class BooleanValue extends Value{
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    @Override
+    public Type getType() {
+        return new BoolType();
     }
 }

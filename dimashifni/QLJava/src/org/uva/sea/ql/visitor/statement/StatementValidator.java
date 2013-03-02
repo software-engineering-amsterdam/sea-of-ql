@@ -2,6 +2,7 @@ package org.uva.sea.ql.visitor.statement;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.IfStatement;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.IntegerValue;
@@ -52,6 +53,11 @@ public class StatementValidator implements StatementVisitor<Boolean> {
 
     @Override
     public Boolean visit(IfStatement node) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Boolean visit(Block node) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

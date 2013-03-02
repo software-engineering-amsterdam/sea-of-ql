@@ -25,9 +25,13 @@ form
 : 'form'! Ident^ '{'! block '}'!
 ;
 
-// TODO Bart's BlockNode
 block returns [Block node]
-: statement*
+@init
+{
+    Block block = new Block();
+    $node = block;
+}
+: (statement {block.addStatement($statement.statement);})*
 ;
 
 statement returns [Statement statement]
@@ -37,26 +41,38 @@ statement returns [Statement statement]
 
 // TODO check Bart's IfNode
 ifStatement returns [IfStatement node]
-: 'if'^ orExpression '{'! block '}'! //{$node =  new IfStatement();}
-  ('else'^ '{'! block '}'! {$node = null;} )?
+@init
+{
+    IfStatement ifStatement = new IfStatement();
+    $node = ifStatement;
+}
+: 'if'^ orExpression '{'! block ifBlock=block '}'!
+  {
+    ifStatement.addOrExpression($orExpression.result);
+    ifStatement.addIfBlock($ifBlock.node);
+  }
+  ('else'^ '{'! block elseBlock=block '}'! { ifStatement.addElseBlock($elseBlock.node);}
+  )?
 ;
 
 assignment returns [Assignment node]
 : Ident ':'^ StringLiteral type { $node = new Assignment(new Ident($Ident.text), $StringLiteral.text, $type.type); }
 ;
 
+//TODO check and test code snippet
 type returns [Type type]
 : 'integer' {$type = new IntType();}
-| 'boolean'
-| 'string'
-| 'money'
+| 'boolean' {$type = new BoolType();}
+| 'string'  {$type = new StringType();}
+| 'money'   {$type = new NumericType();}
 ;
 
 primary returns [Expr result]
-: Int   { $result = new Int(Integer.parseInt($Int.text)); } 
-| Money   { $result = new Money(Double.parseDouble($Money.text)); }
-// TODO add Bool, StringLiteral
-| Ident { $result = new Ident($Ident.text); }
+: Int           { $result = new Int(Integer.parseInt($Int.text)); }
+| Money         { $result = new Money(Double.parseDouble($Money.text)); }
+| Bool          { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+| StringLiteral { $result = new StringLiteral($StringLiteral.text); }
+| Ident         { $result = new Ident($Ident.text); }
 | '('! x=orExpression ')'! { $result = $x.result; }
 ;
     

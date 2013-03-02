@@ -1,5 +1,8 @@
 package org.uva.sea.ql.value;
 
+import org.uva.sea.ql.type.IntType;
+import org.uva.sea.ql.type.Type;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
@@ -113,6 +116,11 @@ public class IntegerValue extends Value {
     @Override
     public Value pos() {
         return new IntegerValue(getValue());
+    }
+
+    @Override
+    public Type getType() {
+        return new IntType();
     }
 
     public Integer getValue() {

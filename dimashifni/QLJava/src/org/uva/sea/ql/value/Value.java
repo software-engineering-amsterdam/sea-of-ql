@@ -1,5 +1,7 @@
 package org.uva.sea.ql.value;
 
+import org.uva.sea.ql.type.Type;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
@@ -10,6 +12,7 @@ package org.uva.sea.ql.value;
 public abstract class Value {
 
     public abstract Object getValue();
+    public abstract Type getType();
 
     public Value add(Value value)
     {

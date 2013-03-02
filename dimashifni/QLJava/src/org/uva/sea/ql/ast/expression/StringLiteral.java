@@ -1,10 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.type.MoneyType;
-import org.uva.sea.ql.type.NumericType;
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.value.MoneyValue;
-import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.value.*;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
 import java.util.Map;
@@ -12,20 +9,20 @@ import java.util.Map;
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
- * Date: 2/27/13
- * Time: 10:31 PM
+ * Date: 2/28/13
+ * Time: 8:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Money extends Expr {
+public class StringLiteral extends Expr {
+    private final StringValue value;
 
-    private final MoneyValue value;
-
-    public Money(double n) {
-        this.value = new MoneyValue(n);
+    public StringLiteral(String value) {
+        this.value = new StringValue(value);
     }
 
-    public MoneyValue getValue() {
-        return value;
+    public StringValue getValue()
+    {
+        return this.value;
     }
 
     @Override
@@ -40,6 +37,6 @@ public class Money extends Expr {
 
     @Override
     public Type getType() {
-        return this.value.getType();
+        return this.value.getType();  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

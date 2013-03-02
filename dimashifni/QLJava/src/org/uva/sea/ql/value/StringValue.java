@@ -1,5 +1,8 @@
 package org.uva.sea.ql.value;
 
+import org.uva.sea.ql.type.StringType;
+import org.uva.sea.ql.type.Type;
+
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
@@ -19,4 +22,8 @@ public class StringValue extends Value {
         return new StringValue(value);
     }
 
+    @Override
+    public Type getType() {
+        return new StringType();
+    }
 }

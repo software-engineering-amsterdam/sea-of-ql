@@ -18,6 +18,8 @@ public interface ExpressionVisitor<T> {
     T visit(GT node);
     T visit(Ident node);
     T visit(Int node);
+    T visit(Bool node);
+    T visit(StringLiteral node);
     T visit(Money node);
     T visit(LEq node);
     T visit(LT node);

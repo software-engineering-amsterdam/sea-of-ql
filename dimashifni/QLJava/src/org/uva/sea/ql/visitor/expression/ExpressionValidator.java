@@ -2,9 +2,12 @@ package org.uva.sea.ql.visitor.expression;
 
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.value.Value;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,9 +21,17 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
     @Override
     public Boolean visit(Add node) {
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        boolean compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
         if(!compatible)
         {
             errors.add("incompatible type for +");
@@ -31,86 +42,276 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
     @Override
     public Boolean visit(And node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for &&");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Div node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        if(!compatible)
+        {
+            errors.add("incompatible type for /");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Eq node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for ==");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(GEq node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for >=");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(GT node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for >");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Ident node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return node.getType().isCompatibleToString();
     }
 
     @Override
     public Boolean visit(Int node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return node.getType().isCompatibleToInteger();
+    }
+
+    @Override
+    public Boolean visit(Bool node) {
+        return node.getType().isCompatibleToBoolean();
+    }
+
+    @Override
+    public Boolean visit(StringLiteral node) {
+        return node.getType().isCompatibleToString();
     }
 
     @Override
     public Boolean visit(Money node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return node.getType().isCompatibleToMoney();
     }
 
     @Override
     public Boolean visit(LEq node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for <=");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(LT node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for <");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Mul node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        if(!compatible)
+        {
+            errors.add("incompatible type for *");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Neg node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return node.getType().isCompatibleToInteger();
     }
 
     @Override
     public Boolean visit(NEq node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for !=");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Not node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return node.getType().isCompatibleToBoolean();
     }
 
     @Override
     public Boolean visit(Or node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        if(!compatible)
+        {
+            errors.add("incompatible type for ||");
+        }
+
+        return compatible;
     }
 
     @Override
     public Boolean visit(Pos node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return node.getType().isCompatibleToInteger();
     }
 
     @Override
     public Boolean visit(Sub node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Boolean compatible = false;
+        Boolean checkLhs = node.getLhs().accept(this);
+        Boolean checkRhs = node.getRhs().accept(this);
+
+        if (!(checkLhs && checkRhs)) {
+            return false;
+        }
+
+        Type lhsType = node.getLhs().getType();
+        Type rhsType = node.getRhs().getType();
+        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        if(!compatible)
+        {
+            errors.add("incompatible type for /");
+        }
+
+        return compatible;
+    }
+
+    public List<String> getErrors() {
+        return errors;
     }
 }

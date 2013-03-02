@@ -4,14 +4,26 @@
 package org.uva.sea.ql.ast;
 
 import junit.framework.Assert;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTree;
 import org.junit.Test;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.parser.antlr.QLLexer;
+import org.uva.sea.ql.parser.antlr.QLParser;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionValidator;
+import org.uva.sea.ql.visitor.statement.StatementValidator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -162,5 +174,39 @@ public class ASTNodeTest {
         variables.put(variable2, new BooleanValue(true));
         Assert.assertEquals("10", variable1.evaluate(variables).getValue().toString());
         Assert.assertEquals("true", variable2.evaluate(variables).getValue().toString());
+    }
+
+    @Test
+    public void testAddValidator()
+    {
+        ANTLRStringStream stream = new ANTLRStringStream("1+2");
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            IntegerValue value1 = new IntegerValue(1);
+            IntegerValue value2 = new IntegerValue(1);
+            ExpressionValidator expressionValidator = new ExpressionValidator();
+            throw new RecognitionException();
+            } catch (RecognitionException e) {
+                e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testIdentValidator()
+    {
+        ANTLRStringStream stream = new ANTLRStringStream("isString");
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            Ident ident = new Ident("0");
+            ExpressionValidator expressionValidator = new ExpressionValidator();
+            ident.accept(expressionValidator);
+            expressionValidator.getErrors();
+        } catch (Exception e) {
+
+        }
     }
 }
