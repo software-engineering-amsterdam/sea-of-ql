@@ -3,6 +3,8 @@ package org.uva.sea.ql.visitor.expression;
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.ObservableStatement;
 import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.type.DefaultValue;
 
 import java.util.*;
 
@@ -16,22 +18,31 @@ import java.util.*;
 public class ExpressionDependencyAnalyzer implements ExpressionVisitor<Void> {
     private final Map<Ident, List<ObservableStatement>> observableMap;
     private final ObservableStatement statement;
+    private final Map<Ident, Value> variables;
 
-    public ExpressionDependencyAnalyzer(final ObservableStatement statement) {
+    public ExpressionDependencyAnalyzer(final ObservableStatement statement, Map<Ident, Value> variables) {
+        this.variables = variables;
         this.observableMap = new HashMap<Ident, List<ObservableStatement>>();
         this.statement = statement;
     }
 
     @Override
     public Void visit(Ident node) {
-        List<ObservableStatement> observables = this.observableMap.get(node);
-        if(observables == null)
+        if(this.statement != null)
         {
-            observables = new ArrayList<ObservableStatement>();
+            List<ObservableStatement> observables = this.observableMap.get(node);
+            if(observables == null)
+            {
+                observables = new ArrayList<ObservableStatement>();
+            }
+            observables.add(statement);
+            this.observableMap.put(node, observables);
         }
-        observables.add(statement);
-        this.observableMap.put(node, observables);
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+        // assign default value
+        this.variables.put(node, node.getType().accept(new DefaultValue()));
+
+        return null;
     }
 
     @Override

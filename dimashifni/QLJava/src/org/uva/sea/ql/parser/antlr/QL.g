@@ -14,11 +14,18 @@ import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.type.*;
 import org.uva.sea.ql.value.*;
+import java.util.Map;
+import java.util.HashMap;
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
+}
+
+@members
+{
+    private final Map<String, Ident> variables = new HashMap<String, Ident>();
 }
 
 form
@@ -56,10 +63,14 @@ ifStatement returns [IfStatement node]
 ;
 
 assignment returns [Assignment node]
-: Ident ':'^ StringLiteral type { $node = new Assignment(new Ident($Ident.text), $StringLiteral.text, $type.type); }
+: Ident ':'^ StringLiteral type
+    {
+        Ident ident = new Ident($Ident.text, $type.type);
+        $node = new Assignment(ident, $StringLiteral.text);
+        this.variables.put($Ident.text, ident);
+    }
 ;
 
-//TODO check and test code snippet
 type returns [Type type]
 : 'integer' {$type = new IntType();}
 | 'boolean' {$type = new BoolType();}
@@ -72,7 +83,7 @@ primary returns [Expr result]
 | Money         { $result = new Money(Double.parseDouble($Money.text)); }
 | Bool          { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
 | StringLiteral { $result = new StringLiteral($StringLiteral.text); }
-| Ident         { $result = new Ident($Ident.text); }
+| Ident         { $result = this.variables.get($Ident.text); }
 | '('! x=orExpression ')'! { $result = $x.result; }
 ;
     

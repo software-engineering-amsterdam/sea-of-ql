@@ -8,9 +8,12 @@ import org.uva.sea.ql.ast.expression.Add;
 import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionValidator;
+import org.uva.sea.ql.visitor.statement.StatementDependencyAnalyzer;
 import org.uva.sea.ql.visitor.statement.StatementValidator;
 import org.uva.sea.ql.visitor.statement.StatementVisitor;
 
@@ -41,11 +44,11 @@ public class ANTLRParser implements IParse {
 //		testPrimary();
 //		testUnaryExpression();
 //		testMultiplyExpression();
-		testAddExpression();
+//		testAddExpression();
 //		testRelExpression();
 //		testAndExpression();
 //		testOrExpression();
-//      testAssignment();
+      testAssignment();
 	}
 	
 	public static void testForm()
@@ -86,23 +89,27 @@ public class ANTLRParser implements IParse {
     public static void testAssignment()
     {
         ANTLRStringStream stream = new ANTLRStringStream(
-                "   hasSoldHouse : \"did you just sell you house! \" boolean" +
-                "   hasSoldHouse2 : \"did you just sell you house! \" boolean" );
+                "   hasSoldHouse2 : \"did you just sell you house! \" boolean" +
+                "   hasSoldHouse3 : \"did you just sell you house! \" boolean" );
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
         try {
-            Assignment assignment = parser.assignment().node;
-            // TODO expression dependency visitor
-            Map<Ident, Value> variables = new HashMap<Ident, Value>();
-            variables.put(new Ident("var1"), new IntegerValue(1));
-            variables.put(new Ident("var1"), new IntegerValue(1));
-            StatementValidator statementVisitor = new StatementValidator(variables);
-            statementVisitor.visit(assignment);
-            List<String> errors = statementVisitor.getErrors();
-            for (String error : errors) {
-                System.out.println("error = " + error);
-            }
+            Block block = parser.block().node;
+
+            // variable map
+            HashMap<Ident, Value> variables = new HashMap<Ident, Value>();
+
+            StatementDependencyAnalyzer statementDependencyAnalyzer = new StatementDependencyAnalyzer(variables);
+            StatementValidator statementValidator = new StatementValidator();
+
+            // check dependency
+            block.accept(statementDependencyAnalyzer);
+
+            // validate statement
+            block.accept(statementValidator);
+
+            System.out.println(statementValidator.getErrors());
         } catch (RecognitionException e) {
             e.printStackTrace();
         }
@@ -166,14 +173,12 @@ public class ANTLRParser implements IParse {
 		QLParser parser = new QLParser(tokens);
 		try
         {
-
             ExpressionValidator expressionValidator = new ExpressionValidator();
             Expr result = parser.addExpression().result;
             result.accept(expressionValidator);
             System.out.println(expressionValidator.getErrors());
         } catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}		
 	}
 	
@@ -189,8 +194,7 @@ public class ANTLRParser implements IParse {
             //System.out.println(commonTree.toStringTree());
 			System.out.println("OK rel");
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}		
 	}
 	
@@ -206,8 +210,7 @@ public class ANTLRParser implements IParse {
             result.accept(expressionValidator);
             System.out.println(expressionValidator.getErrors());
 		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}		
 	}
 
@@ -226,21 +229,5 @@ public class ANTLRParser implements IParse {
 			e.printStackTrace();
 		}
 	}
-
-    public static void TestAssignment()
-	{
-		final String testAssignment = "x : \"Have you ever worked ?\" Boolean";
-		ANTLRStringStream stream = new ANTLRStringStream(testAssignment);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-			parser.assignment();
-			System.out.println("OK assignment");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}	
 
 }

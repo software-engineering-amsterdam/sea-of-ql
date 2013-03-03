@@ -147,7 +147,11 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
     @Override
     public Boolean visit(Ident node) {
-        return true; // Ident can be of any types.
+        if(node == null){
+            errors.add("undefined variable");
+            return false;
+        }
+        return true;
     }
 
     @Override

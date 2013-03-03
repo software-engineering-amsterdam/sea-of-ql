@@ -167,8 +167,8 @@ public class ASTNodeTest {
     @Test
     public void testIdent()
     {
-        Ident variable1 = new Ident("variable1");
-        Ident variable2 = new Ident("variable2");
+        Ident variable1 = new Ident("variable1", null);
+        Ident variable2 = new Ident("variable2", null);
         Map<Ident, Value> variables = new HashMap<Ident, Value>();
         variables.put(variable1, new IntegerValue(10));
         variables.put(variable2, new BooleanValue(true));
@@ -193,9 +193,10 @@ public class ASTNodeTest {
         }
     }
 
+    @Test
     public void testMulValidator()
     {
-        ANTLRStringStream stream = new ANTLRStringStream("1*2.00");
+        ANTLRStringStream stream = new ANTLRStringStream("1 * true");
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
@@ -203,6 +204,25 @@ public class ASTNodeTest {
             Expr result = parser.multiplyExpression().result;
             ExpressionValidator expressionValidator = new ExpressionValidator();
             result.accept(expressionValidator);
+            System.out.println(expressionValidator.getErrors());
+
+        } catch (RecognitionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testStatementValidator()
+    {
+        ANTLRStringStream stream = new ANTLRStringStream("1 * true");
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            Expr result = parser.multiplyExpression().result;
+            ExpressionValidator expressionValidator = new ExpressionValidator();
+            result.accept(expressionValidator);
+            System.out.println(expressionValidator.getErrors());
 
         } catch (RecognitionException e) {
             e.printStackTrace();
