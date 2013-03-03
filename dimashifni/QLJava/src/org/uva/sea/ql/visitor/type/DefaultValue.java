@@ -1,9 +1,6 @@
 package org.uva.sea.ql.visitor.type;
 
-import org.uva.sea.ql.type.BoolType;
-import org.uva.sea.ql.type.IntType;
-import org.uva.sea.ql.type.NumericType;
-import org.uva.sea.ql.type.StringType;
+import org.uva.sea.ql.type.*;
 import org.uva.sea.ql.value.*;
 
 /**
@@ -22,8 +19,13 @@ public class DefaultValue implements TypeVisitor<Value> {
     }
 
     @Override
-    public Value visit(NumericType type) {
+    public Value visit(MoneyType type) {
         return new MoneyValue(0.00);
+    }
+
+    @Override
+    public Value visit(NumericType type) {
+        return type.accept(this);
     }
 
     @Override
