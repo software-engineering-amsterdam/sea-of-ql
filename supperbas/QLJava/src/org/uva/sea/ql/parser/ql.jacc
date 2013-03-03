@@ -1,0 +1,128 @@
+%package org.uva.sea.ql.parser
+%class QLParser
+%interface QLTokens
+%semantic org.uva.sea.ql.ast.ASTNode 
+%start top
+
+%token <org.uva.sea.ql.ast.expression.value.Int> INT
+%token <org.uva.sea.ql.ast.expression.value.Bool> BOOL
+%token <org.uva.sea.ql.ast.expression.value.Str> STR
+%token <org.uva.sea.ql.ast.expression.Ident> IDENT
+%token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
+%token '(' ')' '{' '}'
+%token TRUE FALSE
+%token IF ELSE
+%token FORM
+%token <org.uva.sea.ql.ast.type.Bool> tBool
+%token <org.uva.sea.ql.ast.type.Ident> tIdent
+%token <org.uva.sea.ql.ast.type.Int> tInt
+%token <org.uva.sea.ql.ast.type.Str> tStr
+
+%left OR
+%left AND
+%left '>' '<' GEQ LEQ NEQ EQ
+%left '+' '-'
+%left '*' '/'
+%left UMIN UPLUS UNOT
+
+%type <org.uva.sea.ql.ast.Expression> expression
+%type <org.uva.sea.ql.ast.Form> form
+%type <org.uva.sea.ql.ast.Statement> statement
+%type <org.uva.sea.ql.ast.statement.Block> block ifcon
+%type <org.uva.sea.ql.ast.statement.If> if
+%type <org.uva.sea.ql.ast.type.Bool> tBool
+%type <org.uva.sea.ql.ast.type.Ident> tIdent
+%type <org.uva.sea.ql.ast.type.Int> tInt
+%type <org.uva.sea.ql.ast.type.Str> tStr
+%type <org.uva.sea.ql.ast.Type> dType
+%type <org.uva.sea.ql.ast.statement.Var> dec
+
+%{
+import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.expression.binary.*;
+import org.uva.sea.ql.ast.expression.binary.comparison.*;
+import org.uva.sea.ql.ast.expression.binary.arithmetic.*;
+import org.uva.sea.ql.ast.expression.binary.logic.*;
+import org.uva.sea.ql.ast.expression.unary.*;
+import org.uva.sea.ql.ast.statement.*;
+@SuppressWarnings("unused")
+%}
+
+%%
+
+top 			: form										{ result = $1; };
+	     		
+form			: FORM IDENT '{' block '}'					{ $$ = new Form($2,$4); };
+				
+// a list of zero or more statements
+block			: /* empty */ 								{ $$ = new Block(); }
+				| statement block							{ $$ = new Block($1, $2); }
+				;
+
+statement 		: question
+				| ifcon
+				| if
+				;
+
+question		: STR dec									{ $$ = new QuestionVar($1,$2); }
+				| STR IDENT '=' expression					{ $$ = new QuestionComputed($1,$2,$4); }
+				;
+				
+dec				: IDENT ':' dType							{ $$ = new Var($1,$3); };
+				
+if				: IF '(' expression ')' '{' block '}'		{ $$ = new If($3,$6); };
+                
+ifcon			: IF '(' expression ')' '{' block '}' ELSE '{' block '}'	{ $$ = new If($3,$6,$10); }
+				| IF '(' expression ')' '{' block '}' ELSE if				{ $$ = new If($3,$6,new Block($9)); }
+				| IF '(' expression ')' '{' block '}' ELSE ifcon			{ $$ = new If($3,$6,new Block($9)); }
+                ;
+				
+
+expression	 	: '+' expression %prec UPLUS 				{ $$ = new Pos($2); }
+				| '-' expression %prec UMIN  				{ $$ = new Neg($2); }
+				| '!' expression %prec UNOT 				{ $$ = new Not($2); }
+				| expression '*' expression					{ $$ = new Mul($1, $3); }
+				| expression '/' expression 				{ $$ = new Div($1, $3); }
+				| expression '+' expression					{ $$ = new Add($1, $3); }
+				| expression '-' expression					{ $$ = new Sub($1, $3); }
+				| expression EQ expression			    	{ $$ = new Eq($1, $3); }
+				| expression NEQ expression					{ $$ = new NEq($1, $3); }
+				| expression '>' expression					{ $$ = new GT($1, $3); }
+				| expression '<' expression					{ $$ = new LT($1, $3); }
+				| expression GEQ expression					{ $$ = new GEq($1, $3); }
+				| expression LEQ expression					{ $$ = new LEq($1, $3); }
+				| expression AND expression	    			{ $$ = new And($1, $3); }
+			    | expression OR expression  				{ $$ = new Or($1, $3); }
+				| '(' expression ')'						{ $$ = $2; }
+				| type
+				;
+				
+type 			: INT										{ $$ = $1; }
+				| BOOL										{ $$ = $1; }
+				| TRUE										{ $$ = new org.uva.sea.ql.ast.expression.value.Bool(true); }
+				| FALSE										{ $$ = new org.uva.sea.ql.ast.expression.value.Bool(false); }
+				| STR										{ $$ = $1; }
+				| IDENT         							{ $$ = $1; }
+				;
+				
+dType			: tBool										{ $$ = new org.uva.sea.ql.ast.type.Bool(); }
+				| tInt										{ $$ = new org.uva.sea.ql.ast.type.Int(); }
+				| tStr										{ $$ = new org.uva.sea.ql.ast.type.Str(); }
+				;
+
+%%
+private QLLexer lexer; 
+
+private Form result;
+
+public Form getResult() {
+  return result;
+}
+
+public QLParser(QLLexer lexer) { 
+  this.lexer = lexer; 
+}
+
+private void yyerror(String msg) { 
+  System.err.println(msg); 
+}
