@@ -18,7 +18,7 @@ public class StringType extends Type {
 
     @Override
     public boolean isCompatibleTo(Type type) {
-        return isCompatibleToString();
+        return type.isCompatibleToString();
     }
 
     @Override

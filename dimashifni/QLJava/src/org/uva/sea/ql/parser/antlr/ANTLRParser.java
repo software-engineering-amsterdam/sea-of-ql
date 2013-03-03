@@ -40,8 +40,8 @@ public class ANTLRParser implements IParse {
 //		testForm();
 //		testPrimary();
 //		testUnaryExpression();
-		testMultiplyExpression();
-//		testAddExpression();
+//		testMultiplyExpression();
+		testAddExpression();
 //		testRelExpression();
 //		testAndExpression();
 //		testOrExpression();
@@ -160,7 +160,7 @@ public class ANTLRParser implements IParse {
 	
 	public static void testAddExpression()
 	{
-		ANTLRStringStream stream = new ANTLRStringStream("1 + true");
+		ANTLRStringStream stream = new ANTLRStringStream("1 + 1.00");
 		CommonTokenStream tokens = new CommonTokenStream();
 		tokens.setTokenSource(new QLLexer(stream));
 		QLParser parser = new QLParser(tokens);

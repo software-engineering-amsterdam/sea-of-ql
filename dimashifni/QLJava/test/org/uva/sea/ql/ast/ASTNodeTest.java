@@ -179,34 +179,33 @@ public class ASTNodeTest {
     @Test
     public void testAddValidator()
     {
-        ANTLRStringStream stream = new ANTLRStringStream("1+2");
+        ANTLRStringStream stream = new ANTLRStringStream("1+2.00");
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
         try {
-            IntegerValue value1 = new IntegerValue(1);
-            IntegerValue value2 = new IntegerValue(1);
+            Expr result = parser.addExpression().result;
             ExpressionValidator expressionValidator = new ExpressionValidator();
-            throw new RecognitionException();
+            result.accept(expressionValidator);
+
             } catch (RecognitionException e) {
                 e.printStackTrace();
         }
     }
 
-    @Test
-    public void testIdentValidator()
+    public void testMulValidator()
     {
-        ANTLRStringStream stream = new ANTLRStringStream("isString");
+        ANTLRStringStream stream = new ANTLRStringStream("1*2.00");
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
         try {
-            Ident ident = new Ident("0");
+            Expr result = parser.multiplyExpression().result;
             ExpressionValidator expressionValidator = new ExpressionValidator();
-            ident.accept(expressionValidator);
-            expressionValidator.getErrors();
-        } catch (Exception e) {
+            result.accept(expressionValidator);
 
+        } catch (RecognitionException e) {
+            e.printStackTrace();
         }
     }
 }

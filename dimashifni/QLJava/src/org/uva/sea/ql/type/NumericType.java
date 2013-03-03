@@ -17,7 +17,7 @@ public class NumericType extends Type {
 
     @Override
     public boolean isCompatibleTo(Type type) {
-        return isCompatibleToNumeric();
+        return type.isCompatibleToNumeric();
     }
 
     public boolean isCompatibleToNumeric()

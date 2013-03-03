@@ -20,7 +20,7 @@ public class BoolType extends Type {
 
     @Override
     public boolean isCompatibleTo(Type type) {
-        return isCompatibleToBoolean();
+        return type.isCompatibleToBoolean();
     }
 
     @Override

@@ -37,6 +37,6 @@ public class StringLiteral extends Expr {
 
     @Override
     public Type getType() {
-        return this.value.getType();  //To change body of implemented methods use File | Settings | File Templates.
+        return this.value.getType();
     }
 }

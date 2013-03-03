@@ -18,7 +18,7 @@ public class IntType extends NumericType {
 
     @Override
     public boolean isCompatibleTo(Type type) {
-        return isCompatibleToInteger();
+        return type.isCompatibleToInteger();
     }
 
     @Override

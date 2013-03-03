@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Time: 11:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class IfStatement implements Statement {
+public class IfStatement extends ObservableStatement {
     private Expr orExpression;
     private Block ifBlock;
     private Block elseBlock;

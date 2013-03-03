@@ -31,7 +31,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for +");
@@ -52,7 +52,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for &&");
@@ -73,7 +73,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for /");
@@ -94,7 +94,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for ==");
@@ -115,7 +115,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for >=");
@@ -136,7 +136,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for >");
@@ -147,7 +147,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
     @Override
     public Boolean visit(Ident node) {
-        return node.getType().isCompatibleToString();
+        return true; // Ident can be of any types.
     }
 
     @Override
@@ -182,7 +182,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for <=");
@@ -203,7 +203,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for <");
@@ -224,7 +224,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for *");
@@ -250,7 +250,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for !=");
@@ -276,7 +276,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToBoolean() && rhsType.isCompatibleToBoolean();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for ||");
@@ -302,7 +302,7 @@ public class ExpressionValidator implements ExpressionVisitor<Boolean> {
 
         Type lhsType = node.getLhs().getType();
         Type rhsType = node.getRhs().getType();
-        compatible = lhsType.isCompatibleToNumeric() && rhsType.isCompatibleToNumeric();
+        compatible = lhsType.isCompatibleTo(rhsType);
         if(!compatible)
         {
             errors.add("incompatible type for /");

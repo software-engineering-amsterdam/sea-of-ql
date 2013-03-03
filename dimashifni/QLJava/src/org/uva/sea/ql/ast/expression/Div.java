@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.type.IntType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
@@ -39,6 +40,6 @@ public class Div extends Expr {
 
     @Override
     public Type getType() {
-        return this.getType();
+        return new IntType();
     }
 }

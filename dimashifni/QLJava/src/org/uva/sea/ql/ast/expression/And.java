@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.type.BoolType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
@@ -38,6 +39,6 @@ public class And extends Expr {
 
     @Override
     public Type getType() {
-        return this.getType();
+        return new BoolType();
     }
 }

@@ -18,7 +18,7 @@ public class MoneyType extends NumericType {
 
     @Override
     public boolean isCompatibleTo(Type type) {
-        return isCompatibleToMoney();
+        return type.isCompatibleToMoney();
     }
 
     @Override
