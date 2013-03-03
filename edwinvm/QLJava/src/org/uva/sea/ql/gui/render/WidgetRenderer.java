@@ -9,6 +9,7 @@ import org.uva.sea.ql.ast.types.Str;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typevisitor.Visitor;
 import org.uva.sea.ql.gui.render.widgets.CheckBoxWidget;
+import org.uva.sea.ql.gui.render.widgets.MoneyInputWidget;
 import org.uva.sea.ql.gui.render.widgets.NumericInputWidget;
 import org.uva.sea.ql.gui.render.widgets.TextInputWidget;
 import org.uva.sea.ql.gui.render.widgets.Widget;
@@ -29,14 +30,20 @@ public class WidgetRenderer implements Visitor<Widget> {
 	@Override
 	public Widget visit(Int type)     { return new NumericInputWidget(); }
 	@Override
-	public Widget visit(Money type)   { return new NumericInputWidget(); }
+	public Widget visit(Money type)   { return new MoneyInputWidget(); }
 	@Override
-	public Widget visit(Numeric type) { return new NumericInputWidget(); }
+	public Widget visit(Numeric type) { 
+		if (type.getClass() == Money.class) { 
+			return new MoneyInputWidget(); 
+		}
+		return new NumericInputWidget();
+	}
 
 	@Override
 	public Widget visit(Error type)   { 
 		Widget disabledCheckBoxWidget = new CheckBoxWidget();
 		disabledCheckBoxWidget.setEnabled(false);
+		disabledCheckBoxWidget.setValue(new org.uva.sea.ql.ast.values.Bool(true));
 		return disabledCheckBoxWidget;
 	}
 }

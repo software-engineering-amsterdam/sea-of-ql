@@ -44,6 +44,7 @@ public class TextInputWidget extends Widget {
 	@Override
 	public void addListener(AnswerableQuestionObservable observable) {
 		_widget.addActionListener(observable);
+		_widget.addFocusListener(observable);
 	}
 	
 }

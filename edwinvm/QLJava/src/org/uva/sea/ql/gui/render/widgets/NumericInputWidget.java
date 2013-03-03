@@ -27,7 +27,7 @@ public class NumericInputWidget extends Widget {
 
 	@Override
 	public void setValue(Value value) {
-		_widget.setText(((Int)value).getValue().toString());
+		_widget.setText(value.getValue().toString());
 	}
 	
 	@Override
@@ -48,6 +48,7 @@ public class NumericInputWidget extends Widget {
 	@Override
 	public void addListener(AnswerableQuestionObservable observable) {
 		_widget.addActionListener(observable);
+		_widget.addFocusListener(observable);
 	}
 	
 }
