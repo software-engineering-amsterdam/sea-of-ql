@@ -60,7 +60,9 @@ public class StatementValidator implements StatementVisitor<Void> {
         Boolean orExpressionValid = orExpression.accept(expressionValidator);
 
         node.getIfBlock().accept(this);
-        node.getElseBlock().accept(this);
+        if(node.getElseBlock() != null) {
+            node.getElseBlock().accept(this);
+        }
 
         return null;
     }

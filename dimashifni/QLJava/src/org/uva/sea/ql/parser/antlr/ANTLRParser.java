@@ -1,5 +1,6 @@
 package org.uva.sea.ql.parser.antlr;
 
+import net.miginfocom.swing.MigLayout;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -9,14 +10,19 @@ import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.ObservableStatement;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionDefaultValue;
 import org.uva.sea.ql.visitor.expression.ExpressionValidator;
 import org.uva.sea.ql.visitor.statement.StatementDependencyAnalyzer;
 import org.uva.sea.ql.visitor.statement.StatementValidator;
+import org.uva.sea.ql.visitor.statement.Renderer;
 import org.uva.sea.ql.visitor.statement.StatementVisitor;
 
+import javax.swing.*;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,8 +95,11 @@ public class ANTLRParser implements IParse {
     public static void testAssignment()
     {
         ANTLRStringStream stream = new ANTLRStringStream(
-                "   hasSoldHouse2 : \"did you just sell you house! \" boolean" +
-                "   hasSoldHouse3 : \"did you just sell you house! \" boolean" );
+                "   hasSoldHouse2 : \"did you just sell you house2! \" boolean" +
+                "   hasSoldHouse3 : \"did you just sell you house3! \" boolean" +
+                    " if(hasSoldHouse2) {" +
+                    "   hasSoldHouse4 : \"did you just sell you house4! \" boolean" +
+                    "}" );
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
@@ -98,20 +107,62 @@ public class ANTLRParser implements IParse {
             Block block = parser.block().node;
 
             // variable map
-            HashMap<Ident, Value> variables = new HashMap<Ident, Value>();
+            Map<Ident, Value> variables = new HashMap<Ident, Value>();
+            Map<Ident, List<ObservableStatement>> observableMap = new HashMap<Ident, List<ObservableStatement>>();
 
-            StatementDependencyAnalyzer statementDependencyAnalyzer = new StatementDependencyAnalyzer(variables);
+            StatementDependencyAnalyzer statementDependencyAnalyzer = new StatementDependencyAnalyzer(variables, observableMap);
             StatementValidator statementValidator = new StatementValidator();
-
-            // check dependency
-            block.accept(statementDependencyAnalyzer);
 
             // validate statement
             block.accept(statementValidator);
 
-            System.out.println(statementValidator.getErrors());
+            // check dependency
+            block.accept(statementDependencyAnalyzer);
+
+            // generate GUI
+            if(statementValidator.getErrors().isEmpty())
+            {
+                renderGUI(block, variables, observableMap);
+            }
+            else
+            {
+                // error founds - no need to generate GUI
+                System.out.println(statementValidator.getErrors());
+                System.exit(1);
+            }
+
         } catch (RecognitionException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void renderGUI(final Block block, final Map<Ident, Value> variables, final Map<Ident, List<ObservableStatement>> observableStatementMap)
+    {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                final JFrame frame = new JFrame("QL Test");
+                final JPanel mainPanel = new JPanel(new MigLayout("hidemode 3"));
+                renderWidget(frame, mainPanel, block, variables, observableStatementMap);
+                frame.getContentPane().add(mainPanel);
+                frame.pack();
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                frame.setVisible(true);
+            }
+        });
+    }
+
+    private static void renderWidget(final JFrame frame, final JPanel mainPanel, final Block block, final Map<Ident, Value> variables, final Map<Ident, List<ObservableStatement>> observableStatementMap)
+    {
+        // render statements widget
+        for(final Statement statement : block.getStatements())
+        {
+            Renderer.render(frame, mainPanel, statement, variables, observableStatementMap);
         }
     }
 

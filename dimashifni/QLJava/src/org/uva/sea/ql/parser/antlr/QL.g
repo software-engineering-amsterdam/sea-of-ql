@@ -53,12 +53,12 @@ ifStatement returns [IfStatement node]
     IfStatement ifStatement = new IfStatement();
     $node = ifStatement;
 }
-: 'if'^ orExpression '{'! block ifBlock=block '}'!
+: 'if'^ orExpression '{'! ifBlock=block '}'!
   {
     ifStatement.addOrExpression($orExpression.result);
     ifStatement.addIfBlock($ifBlock.node);
   }
-  ('else'^ '{'! block elseBlock=block '}'! { ifStatement.addElseBlock($elseBlock.node);}
+  ('else'^ '{'! elseBlock=block '}'! { ifStatement.addElseBlock($elseBlock.node);}
   )?
 ;
 

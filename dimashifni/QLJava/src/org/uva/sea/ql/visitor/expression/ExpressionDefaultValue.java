@@ -1,40 +1,30 @@
 package org.uva.sea.ql.visitor.expression;
 
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.statement.ObservableStatement;
-import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.type.DefaultValue;
 
-import java.util.*;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
  * User: dimashifni
- * Date: 3/2/13
- * Time: 11:26 PM
+ * Date: 3/3/13
+ * Time: 4:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ExpressionDependencyAnalyzer implements ExpressionVisitor<Void> {
-    private final Map<Ident, List<ObservableStatement>> observableMap;
-    private final ObservableStatement statement;
+public class ExpressionDefaultValue implements ExpressionVisitor<Void> {
 
+    private final Map<Ident, Value> variables;
 
-    public ExpressionDependencyAnalyzer(final ObservableStatement statement, final Map<Ident, List<ObservableStatement>> observableMap) {
-        this.observableMap = observableMap;
-        this.statement = statement;
+    public ExpressionDefaultValue(Map<Ident, Value> variables) {
+        this.variables = variables;
     }
 
     @Override
     public Void visit(Ident node) {
-        List<ObservableStatement> observables = this.observableMap.get(node);
-        if(observables == null)
-        {
-            observables = new ArrayList<ObservableStatement>();
-        }
-        observables.add(statement);
-        this.observableMap.put(node, observables);
-
+        // assign default value
+        this.variables.put(node, node.getType().accept(new DefaultValue()));
         return null;
     }
 
