@@ -47,6 +47,10 @@ public class TypeCheckVisitor implements ASTVisitor {
 		errorList = new ArrayList<>();
 	}
 	
+	public boolean hasTypeCheckErrors(){
+		return !errorList.isEmpty();
+	}
+	
 	public Iterator<TypeCheckError> getTypeCheckErrorIterator(){
 		return this.errorList.iterator();	
 	}
