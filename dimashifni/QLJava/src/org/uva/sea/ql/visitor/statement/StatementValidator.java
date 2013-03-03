@@ -4,21 +4,13 @@ import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.value.IntegerValue;
-import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionValidator;
-import org.uva.sea.ql.visitor.type.DefaultValue;
-import org.uva.sea.ql.visitor.type.TypeVisitor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/28/13
- * Time: 12:16 AM
- * To change this template use File | Settings | File Templates.
- */
 public class StatementValidator implements StatementVisitor<Void> {
     private final Set<Ident> variables;
     private final List<String> errors;

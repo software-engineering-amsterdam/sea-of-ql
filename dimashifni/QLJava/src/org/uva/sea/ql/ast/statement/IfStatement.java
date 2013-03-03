@@ -1,20 +1,8 @@
 package org.uva.sea.ql.ast.statement;
 
-import com.sun.tools.javac.util.*;
-import com.sun.tools.javac.util.List;
 import org.uva.sea.ql.ast.expression.Expr;
-import org.uva.sea.ql.ast.expression.Or;
 import org.uva.sea.ql.visitor.statement.StatementVisitor;
 
-import java.util.ArrayList;
-
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/27/13
- * Time: 11:26 PM
- * To change this template use File | Settings | File Templates.
- */
 public class IfStatement extends ObservableStatement {
     private Expr orExpression;
     private Block ifBlock;

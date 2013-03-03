@@ -3,15 +3,6 @@ package org.uva.sea.ql.value;
 import org.uva.sea.ql.type.MoneyType;
 import org.uva.sea.ql.type.Type;
 
-import java.math.BigDecimal;
-
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/26/13
- * Time: 10:42 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MoneyValue extends Value{
     private final Double value;
 

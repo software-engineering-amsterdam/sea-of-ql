@@ -7,16 +7,11 @@ import org.uva.sea.ql.value.Value;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/3/13
- * Time: 8:00 PM
- * To change this template use File | Settings | File Templates.
- */
 public class IfConditionObserver implements Observer {
 
 

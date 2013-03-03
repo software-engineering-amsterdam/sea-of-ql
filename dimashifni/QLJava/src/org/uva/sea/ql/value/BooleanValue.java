@@ -3,13 +3,6 @@ package org.uva.sea.ql.value;
 import org.uva.sea.ql.type.BoolType;
 import org.uva.sea.ql.type.Type;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/26/13
- * Time: 11:06 PM
- * To change this template use File | Settings | File Templates.
- */
 public class BooleanValue extends Value{
     private final Boolean value;
 

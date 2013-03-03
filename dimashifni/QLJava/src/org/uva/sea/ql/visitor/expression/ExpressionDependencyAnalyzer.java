@@ -2,19 +2,11 @@ package org.uva.sea.ql.visitor.expression;
 
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.ObservableStatement;
-import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.type.DefaultValue;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/2/13
- * Time: 11:26 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ExpressionDependencyAnalyzer implements ExpressionVisitor<Void> {
     private final Map<Ident, List<ObservableStatement>> observableMap;
     private final ObservableStatement statement;

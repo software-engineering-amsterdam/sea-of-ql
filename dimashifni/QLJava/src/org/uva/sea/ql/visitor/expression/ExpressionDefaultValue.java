@@ -6,13 +6,6 @@ import org.uva.sea.ql.visitor.type.DefaultValue;
 
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/3/13
- * Time: 4:51 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ExpressionDefaultValue implements ExpressionVisitor<Void> {
 
     private final Map<Ident, Value> variables;

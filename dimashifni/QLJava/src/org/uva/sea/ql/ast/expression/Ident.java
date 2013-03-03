@@ -1,10 +1,8 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.type.StringType;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
-import org.uva.sea.ql.visitor.type.TypeVisitor;
 
 import java.util.Map;
 

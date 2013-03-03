@@ -2,20 +2,10 @@ package org.uva.sea.ql.visitor.expression;
 
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.value.Value;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/28/13
- * Time: 12:02 AM
- * To change this template use File | Settings | File Templates.
- */
 public class ExpressionValidator implements ExpressionVisitor<Boolean> {
     private List<String> errors = new ArrayList<String>();
 

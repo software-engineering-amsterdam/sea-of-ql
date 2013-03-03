@@ -2,14 +2,8 @@ package org.uva.sea.ql.visitor.type;
 
 import org.uva.sea.ql.type.*;
 import org.uva.sea.ql.value.*;
+import org.uva.sea.ql.value.StringValue;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/28/13
- * Time: 12:29 AM
- * To change this template use File | Settings | File Templates.
- */
 public class DefaultValue implements TypeVisitor<Value> {
     private final String emptyString = "";
 

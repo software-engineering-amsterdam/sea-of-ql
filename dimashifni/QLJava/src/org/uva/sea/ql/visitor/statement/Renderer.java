@@ -1,6 +1,5 @@
 package org.uva.sea.ql.visitor.statement;
 
-import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.control.Control;
@@ -13,17 +12,9 @@ import org.uva.sea.ql.visitor.type.RenderType;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/28/13
- * Time: 12:47 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Renderer implements StatementVisitor<Void> {
 
     private final JFrame frame;

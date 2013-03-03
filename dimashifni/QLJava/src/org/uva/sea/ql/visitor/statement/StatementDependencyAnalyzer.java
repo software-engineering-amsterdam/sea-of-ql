@@ -9,13 +9,6 @@ import org.uva.sea.ql.visitor.expression.ExpressionDependencyAnalyzer;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/3/13
- * Time: 3:45 PM
- * To change this template use File | Settings | File Templates.
- */
 public class StatementDependencyAnalyzer implements StatementVisitor<Void> {
     private final Map<Ident, Value> variables;
     private Map<Ident, List<ObservableStatement>> observableMap;

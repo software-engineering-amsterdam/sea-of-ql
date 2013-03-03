@@ -17,13 +17,6 @@ import java.awt.event.ItemListener;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/3/13
- * Time: 5:26 PM
- * To change this template use File | Settings | File Templates.
- */
 public class RenderType implements TypeVisitor<Control> {
     private static final int LENGTH = 10;
     private static final String MESSAGE = "Incorrect numeric value. Please enter a number!!";

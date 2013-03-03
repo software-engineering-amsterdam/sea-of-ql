@@ -5,18 +5,10 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.control.Control;
 import org.uva.sea.ql.value.Value;
 
-import java.awt.*;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/3/13
- * Time: 9:52 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ComputedAssignmentObserver implements Observer {
 
     private final Expr expr;

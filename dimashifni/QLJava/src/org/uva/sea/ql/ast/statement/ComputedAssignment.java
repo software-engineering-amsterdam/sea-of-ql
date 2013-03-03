@@ -5,13 +5,6 @@ import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.visitor.statement.StatementVisitor;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 3/3/13
- * Time: 9:27 PM
- * To change this template use File | Settings | File Templates.
- */
 public class ComputedAssignment extends ObservableStatement {
     private final Ident ident;
     private final String question;

@@ -1,18 +1,12 @@
 package org.uva.sea.ql.ast.expression;
 
 import org.uva.sea.ql.type.Type;
-import org.uva.sea.ql.value.*;
+import org.uva.sea.ql.value.StringValue;
+import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
 import java.util.Map;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/28/13
- * Time: 8:58 PM
- * To change this template use File | Settings | File Templates.
- */
 public class StringLiteral extends Expr {
     private final StringValue value;
 
