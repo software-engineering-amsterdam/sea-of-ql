@@ -161,8 +161,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value or(Value otherValue) {
-		// TODO Auto-generated method stub
-		return null;
+		return otherValue.orBool(this);
 	}
 	
 	@Override
