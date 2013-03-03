@@ -5,24 +5,19 @@ import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.tree.CommonTree;
-import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.statement.Assignment;
 import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ObservableStatement;
 import org.uva.sea.ql.ast.statement.Statement;
-import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.expression.ExpressionDefaultValue;
 import org.uva.sea.ql.visitor.expression.ExpressionValidator;
+import org.uva.sea.ql.visitor.statement.Renderer;
 import org.uva.sea.ql.visitor.statement.StatementDependencyAnalyzer;
 import org.uva.sea.ql.visitor.statement.StatementValidator;
-import org.uva.sea.ql.visitor.statement.Renderer;
-import org.uva.sea.ql.visitor.statement.StatementVisitor;
 
 import javax.swing.*;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +33,19 @@ public class ANTLRParser implements IParse {
 		QLParser parser = new QLParser(tokens);
 		try {
 			return parser.orExpression().result;
+		} catch (RecognitionException e) {
+			throw new ParseError(e.getMessage());
+		}
+	}
+
+    @Override
+	public ASTNode parseForm(String src) throws ParseError {
+		ANTLRStringStream stream = new ANTLRStringStream(src);
+		CommonTokenStream tokens = new CommonTokenStream();
+		tokens.setTokenSource(new QLLexer(stream));
+		QLParser parser = new QLParser(tokens);
+		try {
+			return parser.form().node;
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

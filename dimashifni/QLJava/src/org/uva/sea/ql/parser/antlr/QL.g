@@ -28,8 +28,8 @@ package org.uva.sea.ql.parser.antlr;
     private final Map<String, Ident> variables = new HashMap<String, Ident>();
 }
 
-form
-: 'form'! Ident^ '{'! block '}'!
+form returns [Block node]
+: 'form'! Ident^ '{'! block {$node = $block.node;} '}'!
 ;
 
 block returns [Block node]
@@ -46,7 +46,6 @@ statement returns [Statement statement]
 | assignment {$statement = $assignment.node;}
 ;
 
-// TODO check Bart's IfNode
 ifStatement returns [IfStatement node]
 @init
 {

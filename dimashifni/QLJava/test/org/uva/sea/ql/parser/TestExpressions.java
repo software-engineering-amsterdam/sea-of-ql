@@ -58,18 +58,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
 	}
 
-
-	@Test
-	public void testIds() throws ParseError {
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
-	}
-
 	@Test
 	public void testNums() throws ParseError {
 		assertEquals(parser.parse("0").getClass(), Int.class);
