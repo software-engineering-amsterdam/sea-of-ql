@@ -1,13 +1,4 @@
 form boxHouse1Owning {
-    /*
-    "Wat is je naam?" userName: string
-    "Wat is je leeftijd?" userAge: integer
-    //"Je naam is: " name = userName
-    if (userAge == 18) {
-    	"U mag auto rijden: " allowedToDrive = userAge == 18
-    }
-    */
-    
     "Did you sell a house in 2010?" hasSoldHouse: boolean
 	"Did you by a house in 2010?" hasBoughtHouse: boolean
 	"Did you enter a loan for maintenance?" hasMaintLoan: boolean
@@ -15,5 +6,11 @@ form boxHouse1Owning {
 		"Private debts for the sold house:" privateDebt: integer
 		"Price the house was sold for:" sellingPrice: integer
 		"Value residue:" valueResidue = sellingPrice - privateDebt
+	}
+	if (hasBoughtHouse) {
+	    "You qualify for a house insurance:" qualifiesForInsurance = hasBoughtHouse && hasMaintLoan
+	    "What is your first name?" firstName: string
+	    "What is your last name?" lastName: string
+	    "Entered full name" filledInName = firstName != "" && lastName != ""
 	}
 }

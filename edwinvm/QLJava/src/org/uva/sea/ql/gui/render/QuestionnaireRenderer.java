@@ -11,6 +11,7 @@ import org.uva.sea.ql.ast.statements.conditions.IfThenElseStatement;
 import org.uva.sea.ql.ast.statements.conditions.IfThenStatement;
 import org.uva.sea.ql.ast.statements.questions.AnswerableQuestion;
 import org.uva.sea.ql.ast.statements.questions.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.questions.Question;
 import org.uva.sea.ql.ast.statements.questions.QuestionLabel;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.values.Str;
@@ -69,6 +70,7 @@ public class QuestionnaireRenderer implements Visitor {
 	public void visit(AnswerableQuestion statement) {
 		addLabel(statement.getQuestionLabel());
 		Widget widget = renderWidgetFor(statement.getType());
+		initializeValue(statement, widget);
 		QuestionnaireObserver.registerEventHandler(statement, widget, _state);
 		add(widget);
 	}
@@ -80,7 +82,7 @@ public class QuestionnaireRenderer implements Visitor {
 		// Let it listen to other questions
 		QuestionnaireObserver.registerObserver(statement, widget, _state);
 		QuestionnaireObserver.registerEventHandler(statement, widget, _state);
-//		initValue(statement, widget);
+		initializeValue(statement, widget);
 		add(widget);
 	}
 
@@ -101,6 +103,11 @@ public class QuestionnaireRenderer implements Visitor {
 			widget.setEnabled(false);
 		}
 		return widget;
+	}
+	
+	private void initializeValue(Question statement, Widget widget) {
+		widget.setDefaultValue();
+		_state.putValue(statement.getQuestionVariable().getVariable(), widget.getValue());
 	}
 	
 	private void addPanel(JPanel panel) {

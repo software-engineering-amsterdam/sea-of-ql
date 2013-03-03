@@ -9,6 +9,8 @@ public abstract class Widget {
 
 	public abstract Value getValue();
 	
+	public abstract void setDefaultValue();
+	
 	public abstract void setValue(Value value);
 	
 	public abstract void setEnabled(boolean enabled);

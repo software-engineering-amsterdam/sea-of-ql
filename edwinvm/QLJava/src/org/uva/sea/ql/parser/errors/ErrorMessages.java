@@ -1,10 +1,9 @@
 package org.uva.sea.ql.parser.errors;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ErrorMessages {
-	private final List<Message> _errorMessages;
+	private final ArrayList<Message> _errorMessages;
 
 	public ErrorMessages() {
 		_errorMessages = new ArrayList<Message>();
@@ -16,5 +15,9 @@ public class ErrorMessages {
 	
 	public Boolean hasErrors() {
 		return _errorMessages.size() > 0;
+	}
+	
+	public ArrayList<Message> getErrorMessages() {
+		return _errorMessages;
 	}
 }

@@ -76,15 +76,15 @@ public class TypeChecker extends ExpressionChecker implements Visitor<Boolean> {
 	public Boolean visit(NegationalExpression astNode)             { return checkUnaryLogicalExpression(astNode, "!");  }
 
 	@Override
-	public Boolean visit(Bool astNode)                             { return checkLiteralExpression(astNode, Bool.class.toString());  }
+	public Boolean visit(Bool astNode)                             { return checkLiteralExpression(astNode, astNode.getValue().toString()); }
 	@Override
-	public Boolean visit(Identifier astNode)                       { return checkLiteralExpression(astNode, Identifier.class.toString()); }
+	public Boolean visit(Identifier astNode)                       { return checkLiteralExpression(astNode, "identifier name ''" + astNode.getValue() + "''"); }
 	@Override
-	public Boolean visit(Int astNode)                              { return checkLiteralExpression(astNode, Int.class.toString());   }
+	public Boolean visit(Int astNode)                              { return checkLiteralExpression(astNode, astNode.getValue().toString()); }
 	@Override
-	public Boolean visit(Money astNode)                            { return checkLiteralExpression(astNode, Money.class.toString()); }
+	public Boolean visit(Money astNode)                            { return checkLiteralExpression(astNode, astNode.getValue().toString()); }
 	@Override
-	public Boolean visit(Str astNode)                              { return checkLiteralExpression(astNode, Str.class.toString());   }
+	public Boolean visit(Str astNode)                              { return checkLiteralExpression(astNode, astNode.getValue()); }
 	@Override
 	public Boolean visit(NullValue astNode) 					   { return false; }
 	

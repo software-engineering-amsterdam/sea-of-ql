@@ -8,4 +8,9 @@ public class Int extends Numeric {
 		return t.isCompatibleToInt();
 	}
 	
+	@Override
+	public String toString() {
+		return "Int";
+	}
+	
 }

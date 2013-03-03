@@ -39,7 +39,7 @@ public class ExpressionChecker {
 	
 	public boolean isCompatibleToNumeric(BinaryExpression expression, String binarySymbol) {
 		boolean isCompatible = getLeftHandSideType(expression).isCompatibleToNumeric() && getRightHandSideType(expression).isCompatibleToNumeric();
-		return checkTypes(expression, binarySymbol, isCompatible);
+		return checkTypes(expression, getErrorMessage(expression, binarySymbol), isCompatible);
 	}
 	
 	public boolean isCompatibleToNumeric(UnaryExpression expression, String binarySymbol) {
@@ -49,7 +49,7 @@ public class ExpressionChecker {
 	
 	public boolean isCompatibleToBool(BinaryExpression expression, String binarySymbol) {
 		boolean isCompatible = getLeftHandSideType(expression).isCompatibleToBool() && getRightHandSideType(expression).isCompatibleToBool();
-		return checkTypes(expression, binarySymbol, isCompatible);
+		return checkTypes(expression, getErrorMessage(expression, binarySymbol), isCompatible);
 	}
 	
 	public boolean isCompatibleToBool(UnaryExpression expression, String binarySymbol) {
@@ -59,7 +59,7 @@ public class ExpressionChecker {
 	
 	public boolean isCompatibleTo(BinaryExpression expression, String binarySymbol) {
 		boolean isCompatible = getLeftHandSideType(expression).isCompatibleTo(getRightHandSideType(expression));
-		return checkTypes(expression, binarySymbol, isCompatible);
+		return checkTypes(expression, getErrorMessage(expression, binarySymbol), isCompatible);
 	}
 	
 	public boolean isCompatibleTo(Expression expression, String binarySymbol) {
@@ -69,13 +69,18 @@ public class ExpressionChecker {
 	
 	private boolean checkTypes(Expression expression, String binarySymbol, boolean isCompatible) {
 		if (!isCompatible) {
-			addError(expression, "invalid type for " + binarySymbol);
+			addError("Invalid " + binarySymbol);
 		}
 		return isCompatible;
 	}
 	
-	private void addError(Expression expression, String errorMessage) {
-		_errorMessages.add(new Message("Type error for expr " + expression + ": " + errorMessage));
+	private void addError(String errorMessage) {
+		_errorMessages.add(new Message(errorMessage));
+	}
+	
+	private String getErrorMessage(BinaryExpression expression, String binarySymbol) {
+		return "type for computing " + expression.getLeftHandSide().typeOf(_typeEnvironment).toString() + " " + binarySymbol + " " + 
+		expression.getRightHandSide().typeOf(_typeEnvironment).toString();
 	}
 	
 	public ErrorMessages getErrorMessages() {

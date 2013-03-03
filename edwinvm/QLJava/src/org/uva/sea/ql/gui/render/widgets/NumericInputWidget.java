@@ -22,12 +22,17 @@ public class NumericInputWidget extends Widget {
 	
 	@Override
 	public Value getValue() {
-		return new Int(Integer.parseInt(_widget.getText()));
+		return new Int(Integer.parseInt(_widget.getText().replace(".", "")));
 	}
 
 	@Override
 	public void setValue(Value value) {
 		_widget.setText(((Int)value).getValue().toString());
+	}
+	
+	@Override
+	public void setDefaultValue() {
+		_widget.setText("0");
 	}
 	
 	@Override
