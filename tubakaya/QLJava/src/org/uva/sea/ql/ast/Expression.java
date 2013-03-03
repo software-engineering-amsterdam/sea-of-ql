@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 public abstract class Expression extends ASTNode {
 	
-	public abstract void accept(ExpressionVisitor visitor);	
+	public abstract <T> T accept(ExpressionVisitor<T> visitor);
 	
 	public abstract Type accept(ExpressionTypeVisitor visitor);	
 }

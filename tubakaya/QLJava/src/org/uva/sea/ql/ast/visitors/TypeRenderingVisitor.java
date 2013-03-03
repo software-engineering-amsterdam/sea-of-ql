@@ -3,6 +3,7 @@ package org.uva.sea.ql.ast.visitors;
 import java.text.NumberFormat;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,7 +17,7 @@ import org.uva.sea.ql.gui.listeners.CheckBoxActionListener;
 import org.uva.sea.ql.gui.listeners.NumericTextFieldActionListener;
 import org.uva.sea.ql.gui.listeners.TextFieldActionListener;
 
-public class TypeRenderingVisitor implements TypeVisitor {
+public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 
 	private JPanel parentPanel;
 	private QLValue value;
@@ -29,18 +30,18 @@ public class TypeRenderingVisitor implements TypeVisitor {
 	}
 
 	@Override
-	public void visit(BooleanType booleanDeclaration) {
+	public JComponent visit(BooleanType booleanDeclaration) {
 		JCheckBox checkBox = new JCheckBox();
 		CheckBoxActionListener booleanListener = new CheckBoxActionListener(
 				parentPanel);
 		checkBox.addActionListener(booleanListener);
 		checkBox.setSelected(value.getBooleanValue());
 		checkBox.setEnabled(enabled);
-		parentPanel.add(checkBox);
+		return checkBox;
 	}
 
 	@Override
-	public void visit(IntegerType intDeclaration) {
+	public JComponent visit(IntegerType intDeclaration) {
 		JFormattedTextField intField = new JFormattedTextField(
 				NumberFormat.getIntegerInstance());
 		intField.setColumns(8);
@@ -49,18 +50,18 @@ public class TypeRenderingVisitor implements TypeVisitor {
 		intField.addActionListener(integerListener);
 		intField.setText(value.toString());
 		intField.setEditable(enabled);
-		parentPanel.add(intField);
+		return intField;
 	}
 
 	@Override
-	public void visit(StringType stringDeclaration) {
+	public JComponent visit(StringType stringDeclaration) {
 		JTextField strField = new JTextField(20);
 		TextFieldActionListener stringListener = new TextFieldActionListener(
 				parentPanel, strField);
 		strField.addActionListener(stringListener);
 		strField.setText(value.toString());
 		strField.setEditable(enabled);
-		parentPanel.add(strField);
+		return strField;
 	}
 
 }

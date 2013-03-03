@@ -10,17 +10,17 @@ public class Identifier extends Expression {
 		this.name = name;
 	}
 
-	@Override
-	public void accept(ExpressionVisitor visitor) {
-		visitor.visit(this);
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	@Override
 	public Type accept(ExpressionTypeVisitor visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public <T> T accept(ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 }

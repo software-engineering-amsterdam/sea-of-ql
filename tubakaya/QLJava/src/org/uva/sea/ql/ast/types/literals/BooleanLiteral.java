@@ -17,8 +17,8 @@ public class BooleanLiteral extends QLValue {
 	}
 
 	@Override
-	public void accept(ExpressionVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override

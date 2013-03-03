@@ -19,122 +19,124 @@ import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.QLValue;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
-public class ExpressionEvaluatingVisitor implements ExpressionVisitor{
+public class ExpressionEvaluatingVisitor implements ExpressionVisitor<QLValue>{
 
 	@Override
-	public void visit(BooleanLiteral booleanLiteral) {
+	public QLValue visit(BooleanLiteral booleanLiteral) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Identifier identifier) {
+	public QLValue visit(Identifier identifier) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(IntLiteral integerLiteral) {
+	public QLValue visit(IntLiteral integerLiteral) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(StringLiteral stringLiteral) {
+	public QLValue visit(StringLiteral stringLiteral) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Add add) {
+	public QLValue visit(Add add) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Div div) {
+	public QLValue visit(Div div) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Sub sub) {
+	public QLValue visit(Sub sub) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Mul mul) {
+	public QLValue visit(Mul mul) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(And and) {
+	public QLValue visit(And and) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Or or) {
+	public QLValue visit(Or or) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Eq eq) {
+	public QLValue visit(Eq eq) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(GEq gEq) {
+	public QLValue visit(GEq gEq) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(GT gT) {
+	public QLValue visit(GT gT) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(LEq lEq) {
+	public QLValue visit(LEq lEq) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(LT lT) {
+	public QLValue visit(LT lT) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(NEq nEq) {
+	public QLValue visit(NEq nEq) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Neg neg) {
+	public QLValue visit(Neg neg) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Not not) {
+	public QLValue visit(Not not) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void visit(Pos pos) {
+	public QLValue visit(Pos pos) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
 
 }
