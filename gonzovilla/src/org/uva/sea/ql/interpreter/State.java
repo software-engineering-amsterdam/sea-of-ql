@@ -8,6 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import org.uva.sea.ql.ast.values.Value;
+import org.uva.sea.ql.qlsource.QLWriter;
 
 public class State implements ActionListener {
 	
@@ -45,8 +46,8 @@ public class State implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+		QLWriter qlWriter = new QLWriter();
+		qlWriter.save(env);
 	}
 	
 }
