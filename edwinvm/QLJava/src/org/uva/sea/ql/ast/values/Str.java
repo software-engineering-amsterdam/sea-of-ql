@@ -12,6 +12,7 @@ public class Str extends Value {
 		_value = value;
 	}
 	
+	@Override
 	public String getValue() {
 		return _value;
 	}

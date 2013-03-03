@@ -4,6 +4,8 @@ import org.uva.sea.ql.ast.expressions.LiteralExpression;
 
 public abstract class Value extends LiteralExpression {
 
+	public abstract Object getValue();
+	
 	// Logical operations
 	
 	public Value isEquivalentTo(Value value)                 { throw new UnsupportedOperationException(); }

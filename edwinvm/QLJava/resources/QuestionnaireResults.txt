@@ -1,0 +1,12 @@
+Questionnaire results:         Taken on 2013/03/03 17:33:42
+
+filledInName:                  true                
+lastName:                      Test                
+sellingPrice:                  125000              
+valueResidue:                  25000               
+qualifiesForInsurance:         true                
+hasMaintLoan:                  true                
+hasBoughtHouse:                true                
+hasSoldHouse:                  true                
+privateDebt:                   100000              
+firstName:                     Edwin               

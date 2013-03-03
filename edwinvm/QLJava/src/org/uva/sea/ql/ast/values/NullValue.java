@@ -7,6 +7,11 @@ import org.uva.sea.ql.check.TypeEnvironment;
 
 public class NullValue extends Value {
 	@Override
+	public NullValue getValue() {
+		return null;
+	}
+	
+	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {
 		return new Error();
 	}

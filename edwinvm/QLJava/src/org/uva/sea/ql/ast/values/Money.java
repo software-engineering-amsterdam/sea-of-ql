@@ -12,6 +12,7 @@ public class Money extends Value {
 		_value = value;
 	}
 	
+	@Override
 	public Double getValue() {
 		return _value;
 	}

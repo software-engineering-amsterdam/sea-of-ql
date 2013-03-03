@@ -12,6 +12,7 @@ public class Bool extends Value {
 		_value = value;
 	}
 	
+	@Override
 	public Boolean getValue() {
 		return _value;
 	}

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,10 +43,10 @@ public class QuestionnaireForm extends JFrame {
 	
 	private void renderStatements(StatementBody body) {
 		initializeQuestionnaireState();
-		renderPanel(body);
+		renderPanels(body);
 	}
 	
-	private void renderPanel(StatementBody body) {
+	private void renderPanels(StatementBody body) {
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new MigLayout("wrap"));
 		for (JPanel panel: render(body)) {
@@ -71,9 +72,22 @@ public class QuestionnaireForm extends JFrame {
 		setLayout(new MigLayout("wrap 1"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
+		createSaveButton();
 		enableCloseOnEscape();
 	}
 
+	private void createSaveButton()
+	{
+		JButton saveButton = new JButton("Save Questionnaire");
+		add(saveButton);
+		saveButton.setFocusPainted(false);
+		// Add Event listener to enable the button to respond to events.
+		saveButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent evt) { QuestionnaireSaver.storeQuestionnaire(_state.getValueEnvironment()); }
+		});
+	}
+	
 	private void enableCloseOnEscape() {
 		ActionListener escListener = new ActionListener() {
 	        @Override
