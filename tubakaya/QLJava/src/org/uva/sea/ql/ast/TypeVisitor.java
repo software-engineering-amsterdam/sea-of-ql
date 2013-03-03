@@ -4,9 +4,9 @@ import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.StringType;
 
-public interface TypeVisitor {
+public interface TypeVisitor<T> {
 
-	void visit(BooleanType booleanDeclaration);
-	void visit(IntegerType intDeclaration);
-	void visit(StringType stringDeclaration);
+	T visit(BooleanType booleanDeclaration);
+	T visit(IntegerType intDeclaration);
+	T visit(StringType stringDeclaration);
 }

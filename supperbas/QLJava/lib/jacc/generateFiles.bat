@@ -1,4 +1,4 @@
 @echo off
-java -jar jacc.jar ./../../src/parser/ql.jacc
+java -jar jacc.jar ./../../src/org/uva/sea/ql/parser/ql.jacc
 pause
 generateFiles.bat
