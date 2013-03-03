@@ -1,4 +1,4 @@
-package org.uva.sea.ql.interpreter;
+package org.uva.sea.ql.eval;
 
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.literal.*;
