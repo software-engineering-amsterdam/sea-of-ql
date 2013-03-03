@@ -10,10 +10,10 @@ import java.util.Map;
 import julius.utilities.collection.MultiHashMap;
 import julius.utilities.collection.MultiMap;
 
+import org.uva.sea.ql.ast.Computed;
+import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.stm.Computed;
-import org.uva.sea.ql.ast.stm.Question;
 
 /**
  * Model holds the state. At the same time query and command methods are available.

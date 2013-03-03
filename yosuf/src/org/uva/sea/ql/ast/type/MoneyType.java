@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.type;
 
+import org.uva.sea.ql.ast.NaturalVisitor;
 import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.Numeric;
-import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class MoneyType extends DataType {
 
@@ -15,4 +15,5 @@ public class MoneyType extends DataType {
 	public Nature getNature() {
 		return new Numeric();
 	}
+
 }

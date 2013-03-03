@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.type;
 
+import org.uva.sea.ql.ast.NaturalVisitor;
 import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Nature;
-import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class BooleanType extends DataType {
 

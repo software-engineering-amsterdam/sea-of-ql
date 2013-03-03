@@ -5,15 +5,15 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import julius.utilities.FileHelper;
 
-import org.uva.sea.ql.ast.stm.Form;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.checker.StatementTypeChecker;
+import org.uva.sea.ql.checker.TypeCheckException;
+import org.uva.sea.ql.evaluator.ExpressionEvaluator;
+import org.uva.sea.ql.evaluator.StatementEvaluator;
 import org.uva.sea.ql.gui.QLForm;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JACCParser;
-import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.StatementEvaluator;
-import org.uva.sea.ql.visitor.StatementTypeChecker;
-import org.uva.sea.ql.visitor.TypeCheckException;
 
 /**
  * Main class starting up and initializing. It uses {@value #PATH_PROPERTY} to read the source path
@@ -23,9 +23,9 @@ import org.uva.sea.ql.visitor.TypeCheckException;
 public final class Startup extends Application {
 
 	private static final String DEBUG = "-debug";
-
 	private static final String PATH_PROPERTY = "QL.formPath";
 
+	private static final String HELP = "help";
 	private static final String HELP_TEXT = DEBUG + " arg enables printing debug messages."
 			+ "\nUse " + PATH_PROPERTY + " system property to provide the file path. Example: -D"
 			+ PATH_PROPERTY + "=/forms/taxes.txt";
@@ -98,7 +98,8 @@ public final class Startup extends Application {
 
 	@SuppressWarnings("static-access")
 	public static void main(final String[] args) {
-		if (args.length > 0 && args[0].contains("help")) {
+		if (args.length > 0 && args[0].contains(HELP)) {
+			// Since debug messages printing option is disable by default, System.println is used.
 			System.out.println(HELP_TEXT);
 			System.exit(0);
 		}

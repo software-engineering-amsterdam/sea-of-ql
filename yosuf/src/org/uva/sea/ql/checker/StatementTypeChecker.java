@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.checker;
 
 import static julius.validation.Assertions.checked;
 import static julius.validation.Assertions.state;
@@ -11,15 +11,16 @@ import java.util.Map;
 
 import julius.validation.ValidationException;
 
+import org.uva.sea.ql.ast.Block;
+import org.uva.sea.ql.ast.CompoundStatement;
+import org.uva.sea.ql.ast.Computed;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.IfElseStatement;
+import org.uva.sea.ql.ast.IfStatement;
 import org.uva.sea.ql.ast.Natural;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.StatementVisitor;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.stm.Block;
-import org.uva.sea.ql.ast.stm.CompoundStatement;
-import org.uva.sea.ql.ast.stm.Computed;
-import org.uva.sea.ql.ast.stm.Form;
-import org.uva.sea.ql.ast.stm.IfElseStatement;
-import org.uva.sea.ql.ast.stm.IfStatement;
-import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.ast.type.BooleanType;
 
 /**

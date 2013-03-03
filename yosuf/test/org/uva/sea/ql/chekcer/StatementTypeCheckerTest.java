@@ -1,22 +1,23 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.chekcer;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.CompoundStatement;
+import org.uva.sea.ql.ast.Computed;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.IfElseStatement;
+import org.uva.sea.ql.ast.IfStatement;
+import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.stm.CompoundStatement;
-import org.uva.sea.ql.ast.stm.Computed;
-import org.uva.sea.ql.ast.stm.Form;
-import org.uva.sea.ql.ast.stm.IfElseStatement;
-import org.uva.sea.ql.ast.stm.IfStatement;
-import org.uva.sea.ql.ast.stm.Question;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.checker.StatementTypeChecker;
 
 public class StatementTypeCheckerTest {
 

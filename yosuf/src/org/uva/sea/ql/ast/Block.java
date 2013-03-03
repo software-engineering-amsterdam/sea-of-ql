@@ -1,7 +1,5 @@
-package org.uva.sea.ql.ast.stm;
+package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
 /**
  * A block is a combination of single or multipe lines.

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.uva.sea.ql.ast.Computed;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.stm.Computed;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.value.NumericValue;

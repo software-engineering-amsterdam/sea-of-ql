@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.ast.exp;
 
 /**
  * Indicates that the value to a reference is not modifed / known yet.

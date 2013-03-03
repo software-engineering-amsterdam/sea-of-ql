@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.checker;
 
 import static julius.validation.Assertions.checked;
 
@@ -11,6 +11,7 @@ import julius.validation.ValidationException;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.Natural;
+import org.uva.sea.ql.ast.NaturalVisitor;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Bools;

@@ -1,10 +1,9 @@
-package org.uva.sea.ql.ast.stm;
+package org.uva.sea.ql.ast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jpatterns.gof.CompositePattern.Composite;
-import org.uva.sea.ql.visitor.StatementVisitor;
 
 @Composite
 public class CompoundStatement extends Block {

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.chekcer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -28,6 +28,7 @@ import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
+import org.uva.sea.ql.checker.ExpressionTypeChecker;
 import org.uva.sea.ql.lead.LogPrinter;
 
 public class ExpressionTypeCheckerTest {

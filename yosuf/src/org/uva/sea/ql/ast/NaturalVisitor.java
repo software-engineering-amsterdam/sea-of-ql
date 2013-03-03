@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;

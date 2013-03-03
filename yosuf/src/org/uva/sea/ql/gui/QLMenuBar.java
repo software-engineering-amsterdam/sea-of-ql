@@ -16,10 +16,10 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.stage.FileChooser;
 import julius.utilities.FileHelper;
 
-import org.uva.sea.ql.ast.stm.Computed;
+import org.uva.sea.ql.ast.Computed;
+import org.uva.sea.ql.ast.exp.UnmodifiedException;
+import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.lead.Model;
-import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.UnmodifiedException;
 
 /**
  * Use {@link #create()} to initialize a menu bar for QL.
@@ -118,7 +118,7 @@ public class QLMenuBar {
 				prepared.add(computed.getIdentifier().getName() + ANSWER_SEPARATOR
 						+ computed.getExpression().accept(evaluator).getAsString());
 			} catch (UnmodifiedException e) {
-				// since not all the values of the computed questions is known/answered, it is
+				// since not all the values of the computed questions could be known/answered, it is
 				// caught here and continued.
 				continue;
 			}
