@@ -1,10 +1,7 @@
-package org.uva.sea.ql.parser.test;
+package org.uva.sea.ql.visitor;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-import org.junit.Assert;
 import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.ASTVisitor;
 import org.uva.sea.ql.ast.CompoundStatement;
@@ -33,74 +30,58 @@ import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.expression.unary.UnaryExpr;
 
-public class TestVisitor implements ASTVisitor {
-
-	private final List<Class<? extends ASTNode>> visitedASTClassesList;
-
-	public TestVisitor() {
-		this.visitedASTClassesList = new ArrayList<>();
-	}
-
-	private void internalVisit(ASTNode node) {
-		// build a list of the traversed/visited AST classess
-		visitedASTClassesList.add(node.getClass());
-	}
-
-	public void assertAST(@SuppressWarnings("unchecked") Class<? extends ASTNode>... expectedASTClasses) {
-		Assert.assertArrayEquals(
-				"Observed AST does not match with the expected hierarchy",
-				expectedASTClasses,
-				visitedASTClassesList.toArray(new Class[visitedASTClassesList.size()]));
-	}
+/**
+ * Implements the visiting behavior for all the {@link ASTNode}s.
+ * @author jpeeters
+ *
+ */
+public abstract class BaseVisitor implements ASTVisitor {
 
 	@Override
 	public void visit(Form form) {
-		this.internalVisit(form);
 		form.getCompoundStatement().accept(this);
 	}
 
 	@Override
 	public void visit(CompoundStatement statement) {
-		this.internalVisit(statement);
-		Iterator<Statement> statementIterator = statement.getStatementIterator();
-
-		while (statementIterator.hasNext()) {
+		final Iterator<Statement> statementIterator = statement.getStatementIterator();
+		while(statementIterator.hasNext()){
 			statementIterator.next().accept(this);
 		}
 	}
 
 	@Override
-	public void visit(Question question) {
-		this.internalVisit(question);
+	public void visit(final Question question) {
 	}
 
 	@Override
 	public void visit(IfStatement statement) {
-		this.internalVisit(statement);
 		statement.getExpression().accept(this);
 		statement.getStatement().accept(this);
 	}
 
 	@Override
-	public void visit(Identifier ident) {
-		this.internalVisit(ident);
+	public void visit(IfElseStatement statement) {
+		statement.getExpression().accept(this);
+		statement.getStatement().accept(this);
+		statement.getExpression().accept(this);
+	}
+
+	@Override
+	public void visit(Identifier identifier) {
 	}
 
 	@Override
 	public void visit(Literal literal) {
-		this.internalVisit(literal);
-	}
-
-	@Override
-	public void visit(IfElseStatement statement) {
-		this.visit((IfStatement)statement);
-		statement.getElseStatement().accept(this);
 	}
 	
-	private void visitBinary(BinaryExpr expression){
-		this.internalVisit(expression);
+	protected void visitBinary(BinaryExpr expression){
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
+	}
+	
+	protected void visitUnary(UnaryExpr expression){
+		expression.getExpr().accept(this);
 	}
 
 	@Override
@@ -148,7 +129,6 @@ public class TestVisitor implements ASTVisitor {
 		this.visitBinary(expression);
 	}
 
-	
 	@Override
 	public void visit(LT expression) {
 		this.visitBinary(expression);
@@ -163,11 +143,6 @@ public class TestVisitor implements ASTVisitor {
 	public void visit(Or expression) {
 		this.visitBinary(expression);
 	}
-	
-	private void visitUnary(UnaryExpr expression){
-		this.internalVisit(expression);
-		expression.getExpr().accept(this);
-	}
 
 	@Override
 	public void visit(Neg expression) {
@@ -177,6 +152,7 @@ public class TestVisitor implements ASTVisitor {
 	@Override
 	public void visit(Pos expression) {
 		this.visitUnary(expression);
+		
 	}
 
 	@Override

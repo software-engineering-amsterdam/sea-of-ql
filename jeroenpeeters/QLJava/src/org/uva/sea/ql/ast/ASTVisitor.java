@@ -1,10 +1,5 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.IfElseStatement;
-import org.uva.sea.ql.ast.IfStatement;
-import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.expression.binary.Add;
 import org.uva.sea.ql.ast.expression.binary.And;

@@ -1,9 +1,10 @@
-package org.uva.sea.ql.visitor;
+package org.uva.sea.ql.visitor.semantics;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.uva.sea.ql.ast.ASTVisitor;
 import org.uva.sea.ql.ast.CompoundStatement;
 import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.Form;
@@ -64,7 +65,7 @@ public class TypeCheckVisitor implements ASTVisitor {
 		final DataType expressionType = typeSystem.resolve(expr);
 		DataType castedType = DataType.UNDEF;
 		for(final DataType dt : dataTypes){
-			castedType =  this.cast(expressionType, dt);
+			castedType = typeSystem.cast(expressionType, dt);
 			if(castedType != DataType.UNDEF){
 				// break from loop if we've found compatible type
 				break;
@@ -72,12 +73,17 @@ public class TypeCheckVisitor implements ASTVisitor {
 		}
 		if(castedType == DataType.UNDEF){
 			errorList.add(new TypeCheckError("Expression " + expr + " is of incomaptible type. Should be one of " + Joiner.on(',').join(dataTypes)));
+			return expressionType;
 		}
 		return castedType;
 	}
 	
 	private DataType cast(DataType dt1, DataType dt2){
-		return typeSystem.cast(dt1, dt2);
+		DataType castedType = typeSystem.cast(dt1, dt2);
+		//if(castedType == DataType.UNDEF){
+		//	errorList.add(new TypeCheckError(dt1 + " is not compatible with " + dt2));
+		//}
+		return castedType;
 	}
 
 	@Override

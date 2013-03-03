@@ -19,7 +19,7 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
 import org.uva.sea.ql.typesystem.QLTypeSystem;
-import org.uva.sea.ql.visitor.TypeCheckVisitor;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
 
 import com.google.common.base.Joiner;
 
