@@ -28,6 +28,10 @@ public class Neg extends Expr {
         return visitor.visit(this);
     }
 
+    public Expr getExpr() {
+        return expr;
+    }
+
     @Override
     public Type getType() {
          return new IntType();

@@ -30,12 +30,12 @@ public class StatementValidator implements StatementVisitor<Void> {
 
     @Override
     public Void visit(Assignment node) {
-        checkVariable(node.getIdent(), node.getType());
+        checkVariable(node.getIdent());
 
         return null;
     }
 
-    private boolean checkVariable(Ident ident, Type type)
+    private boolean checkVariable(Ident ident)
     {
         final boolean result;
         if(this.variables.contains(ident))
@@ -57,11 +57,27 @@ public class StatementValidator implements StatementVisitor<Void> {
 
         ExpressionValidator expressionValidator = new ExpressionValidator();
         Expr orExpression = node.getOrExpression();
-        Boolean orExpressionValid = orExpression.accept(expressionValidator);
+        orExpression.accept(expressionValidator);
 
         node.getIfBlock().accept(this);
         if(node.getElseBlock() != null) {
             node.getElseBlock().accept(this);
+        }
+
+        return null;
+    }
+
+    @Override
+    public Void visit(ComputedAssignment node) {
+        Ident ident = node.getIdent();
+        checkVariable(ident);
+
+        Expr expr = node.getExpr();
+        Type exprType = expr.getType();
+        Type nodeType = node.getType();
+
+        if(!exprType.isCompatibleTo(nodeType)) {
+            this.errors.add("Mismatch computed type: " +ident.getName());
         }
 
         return null;

@@ -126,4 +126,9 @@ public class IntegerValue extends Value {
     public Integer getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

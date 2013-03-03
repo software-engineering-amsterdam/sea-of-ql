@@ -26,4 +26,9 @@ public class StringValue extends Value {
     public Type getType() {
         return new StringType();
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

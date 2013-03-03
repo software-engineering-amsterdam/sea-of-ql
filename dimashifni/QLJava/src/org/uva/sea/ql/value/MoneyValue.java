@@ -138,4 +138,9 @@ public class MoneyValue extends Value{
     public Type getType() {
         return new MoneyType();
     }
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }

@@ -105,6 +105,8 @@ public class ANTLRParser implements IParse {
         ANTLRStringStream stream = new ANTLRStringStream(
                 "   name : \"what is your name bro? \" string" +
                 "   age : \"what is your age bro? \" integer" +
+                "   age2 : \"what is your age2 bro? \" integer" +
+                "   age3 : \"Age difference: (age-age2) \" integer(age-age2)" +
                 "   hasSoldHouse2 : \"did you just sell you house2! \" boolean" +
                 "   hasSoldHouse3 : \"did you just sell you house3! \" boolean" +
                 "   if(hasSoldHouse2) {" +
@@ -176,7 +178,7 @@ public class ANTLRParser implements IParse {
 
     private static void renderWidget(final JFrame frame, final JPanel mainPanel, final Block block, final Map<Ident, Value> variables, final Map<Ident, List<ObservableStatement>> observableStatementMap)
     {
-        // render statements widget
+        // render statements control
         for(final Statement statement : block.getStatements())
         {
             Renderer.render(frame, mainPanel, statement, variables, observableStatementMap);

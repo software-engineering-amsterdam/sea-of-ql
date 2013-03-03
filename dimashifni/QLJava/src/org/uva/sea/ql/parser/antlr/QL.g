@@ -44,6 +44,7 @@ block returns [Block node]
 statement returns [Statement statement]
 : ifStatement {$statement = $ifStatement.node;}
 | assignment {$statement = $assignment.node;}
+| computedAssignment {$statement = $computedAssignment.node;}
 ;
 
 ifStatement returns [IfStatement node]
@@ -67,6 +68,14 @@ assignment returns [Assignment node]
         Ident ident = new Ident($Ident.text, $type.type);
         $node = new Assignment(ident, $StringLiteral.text);
         this.variables.put($Ident.text, ident);
+    }
+;
+
+computedAssignment returns [ComputedAssignment node]
+: Ident ':'^ StringLiteral type '('! orExpression ')'!
+    {
+        Ident ident = new Ident($Ident.text, $type.type);
+        $node = new ComputedAssignment(ident, $StringLiteral.text, $orExpression.result);
     }
 ;
 

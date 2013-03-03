@@ -3,6 +3,8 @@ package org.uva.sea.ql.visitor.statement;
 import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.control.Control;
+import org.uva.sea.ql.observer.ComputedAssignmentObserver;
 import org.uva.sea.ql.observer.IfConditionObserver;
 import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
@@ -81,6 +83,24 @@ public class Renderer implements StatementVisitor<Void> {
     }
 
     @Override
+    public Void visit(ComputedAssignment node) {
+        final String question = node.getQuestion();
+        final JPanel questionPanel = new JPanel();
+        questionPanel.add(new JLabel(question));
+        addQuestionPanel(questionPanel);
+
+        final JPanel typePanel = new JPanel();
+        final Type type = node.getType();
+        final RenderType renderType = new RenderType(typePanel, node.getIdent(), this.variables, this.observableMap, false);
+        Control control = type.accept(renderType);
+        addTypePanel(typePanel);
+
+        registerComputedObserver(node, control);
+
+        return null;
+    }
+
+    @Override
     public Void visit(Block node) {
         List<Statement> statements = node.getStatements();
         for (Statement s : statements) {
@@ -127,5 +147,11 @@ public class Renderer implements StatementVisitor<Void> {
 
         // trigger observer
         observer.update(null, null);
+    }
+
+    private void registerComputedObserver(ComputedAssignment computedAssignment, Control control)
+    {
+        final ComputedAssignmentObserver observer = new ComputedAssignmentObserver(computedAssignment.getExpr(), control, this.variables);
+        computedAssignment.addObserver(observer);
     }
 }

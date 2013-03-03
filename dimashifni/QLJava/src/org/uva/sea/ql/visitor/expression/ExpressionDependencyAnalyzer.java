@@ -40,31 +40,61 @@ public class ExpressionDependencyAnalyzer implements ExpressionVisitor<Void> {
 
     @Override
     public Void visit(Add node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(And node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Div node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Eq node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(GEq node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(GT node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -90,46 +120,86 @@ public class ExpressionDependencyAnalyzer implements ExpressionVisitor<Void> {
 
     @Override
     public Void visit(LEq node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(LT node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Mul node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Neg node) {
+        Expr exprNode = node.getExpr();
+        exprNode.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(NEq node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Not node) {
+        Expr exprNode = node.getExpr();
+        exprNode.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Or node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Pos node) {
+        Expr exprNode = node.getExpr();
+        exprNode.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public Void visit(Sub node) {
+        Expr lhs = node.getLhs();
+        Expr rhs = node.getRhs();
+        lhs.accept(this);
+        rhs.accept(this);
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }

@@ -46,6 +46,14 @@ public class StatementDependencyAnalyzer implements StatementVisitor<Void> {
     }
 
     @Override
+    public Void visit(ComputedAssignment node) {
+        final ExpressionDependencyAnalyzer expressionDependencyAnalyzer = new ExpressionDependencyAnalyzer(node, this.observableMap);
+        node.getExpr().accept(expressionDependencyAnalyzer);
+
+        return null;
+    }
+
+    @Override
     public Void visit(Block node) {
         List<Statement> statements = node.getStatements();
         for (Statement statement : statements) {

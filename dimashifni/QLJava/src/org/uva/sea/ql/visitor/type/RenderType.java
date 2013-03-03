@@ -2,6 +2,9 @@ package org.uva.sea.ql.visitor.type;
 
 import org.uva.sea.ql.ast.expression.Ident;
 import org.uva.sea.ql.ast.statement.ObservableStatement;
+import org.uva.sea.ql.control.CheckboxControl;
+import org.uva.sea.ql.control.Control;
+import org.uva.sea.ql.control.TextFieldControl;
 import org.uva.sea.ql.type.*;
 import org.uva.sea.ql.value.*;
 import org.uva.sea.ql.value.StringValue;
@@ -21,7 +24,7 @@ import java.util.Map;
  * Time: 5:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class RenderType implements TypeVisitor<Void> {
+public class RenderType implements TypeVisitor<Control> {
     private static final int LENGTH = 10;
     private static final String MESSAGE = "Incorrect numeric value. Please enter a number!!";
     private static final String TITLE = "Error Message";
@@ -40,8 +43,8 @@ public class RenderType implements TypeVisitor<Void> {
     }
 
     @Override
-    public Void visit(BoolType type) {
-        final JCheckBox checkBox = new JCheckBox("Yes");
+    public Control visit(BoolType type) {
+        final CheckboxControl checkBox = new CheckboxControl("Yes");
         checkBox.setEnabled(this.enabled);
         checkBox.addItemListener(new ItemListener() {
             @Override
@@ -52,12 +55,12 @@ public class RenderType implements TypeVisitor<Void> {
             }
         });
         this.panel.add(checkBox);
-        return null;
+        return checkBox;
     }
 
     @Override
-    public Void visit(StringType type) {
-        final JTextField jTextField = new JTextField(LENGTH);
+    public Control visit(StringType type) {
+        final TextFieldControl jTextField = new TextFieldControl(LENGTH);
         jTextField.setEditable(this.enabled);
         jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
@@ -79,16 +82,18 @@ public class RenderType implements TypeVisitor<Void> {
             public void update()
             {
                 variables.put(RenderType.this.ident, new StringValue(jTextField.getText()));
+                // notify observers
+                notifyObservers(RenderType.this.ident);
             }
         });
         this.panel.add(jTextField);
 
-        return null;
+        return jTextField;
     }
 
     @Override
-    public Void visit(IntType type) {
-        final JTextField jTextField = new JTextField(LENGTH);
+    public Control visit(IntType type) {
+        final TextFieldControl jTextField = new TextFieldControl(LENGTH);
         jTextField.setEditable(this.enabled);
         jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
@@ -124,17 +129,19 @@ public class RenderType implements TypeVisitor<Void> {
                 }
 
                 variables.put(RenderType.this.ident, new IntegerValue(value));
+                // notify observers
+                notifyObservers(RenderType.this.ident);
             }
 
         });
         this.panel.add(jTextField);
 
-        return null;
+        return jTextField;
     }
 
     @Override
-    public Void visit(MoneyType type) {
-        final JTextField jTextField = new JTextField(LENGTH);
+    public Control visit(MoneyType type) {
+        final TextFieldControl jTextField = new TextFieldControl(LENGTH);
         jTextField.setEditable(this.enabled);
         jTextField.getDocument().addDocumentListener(new DocumentListener()
         {
@@ -170,18 +177,19 @@ public class RenderType implements TypeVisitor<Void> {
                 }
 
                 variables.put(RenderType.this.ident, new MoneyValue(value));
+                // notify observers
+                notifyObservers(RenderType.this.ident);
             }
 
         });
         this.panel.add(jTextField);
 
-        return null;
+        return jTextField;
     }
 
     @Override
-    public Void visit(NumericType type) {
-        type.accept(this);
-        return null;
+    public Control visit(NumericType type) {
+        return type.accept(this);
     }
 
     private void notifyObservers(Ident ident)
