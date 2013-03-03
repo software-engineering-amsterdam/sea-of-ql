@@ -14,6 +14,7 @@ public class NonDeclaredType extends Type {
 	}
 
 	@Override
-	public void accept(TypeVisitor visitor) {
+	public <T> T accept(TypeVisitor<T> visitor) {
+		return null;
 	}
 }

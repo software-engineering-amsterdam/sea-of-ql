@@ -22,13 +22,10 @@ public class StatementCheckingVisitor implements StatementVisitor {
 
 	private Map<Identifier, Type> identifierTypeMap;
 	private List<QLException> exceptions;
-	private ExpressionTypeFindingVisitor expressionTypeCheckingVisitor;
-	
+
 	public StatementCheckingVisitor() {
 		identifierTypeMap = new HashMap<Identifier, Type>();
 		exceptions = new ArrayList<QLException>();
-		this.expressionTypeCheckingVisitor = new ExpressionTypeFindingVisitor(
-				identifierTypeMap);
 	}
 
 	public List<QLException> getExceptions() {
@@ -70,9 +67,7 @@ public class StatementCheckingVisitor implements StatementVisitor {
 	public void visit(IfStatement ifStatement) {
 
 		Expression expression = ifStatement.getExpression();
-		BooleanType booleanType = new BooleanType();
-
-		checkExpressionValidation(expression, booleanType);
+		checkExpressionValidation(expression, new BooleanType());
 
 		List<Statement> statements = ifStatement.getStatements();
 
@@ -82,8 +77,6 @@ public class StatementCheckingVisitor implements StatementVisitor {
 	}
 
 	private void checkExpressionValidation(Expression expression, Type type) {
-		expression.accept(getExpressionCheckingVisitor());
-	
 		if (!typeOfExpressionIsCompatible(expression, type)) {
 			addExceptionInExceptionsList(expression);
 		}
@@ -92,8 +85,9 @@ public class StatementCheckingVisitor implements StatementVisitor {
 	private void checkIdentifierDefinition(Identifier identifier, Type type) {
 		if (identifierExistsInIdentifierTypeMap(identifier)) {
 			addExceptionInExceptionsList(identifier);
+		} else {
+			addIdentifierAndTypeInMap(identifier, type);
 		}
-		addIdentifierAndTypeInMap(identifier, type);
 	}
 
 	private Boolean identifierExistsInIdentifierTypeMap(Identifier identifier) {
@@ -112,14 +106,16 @@ public class StatementCheckingVisitor implements StatementVisitor {
 		this.exceptions.add(new ExpressionNotValidException(expression));
 	}
 
-	private ExpressionCheckingVisitor getExpressionCheckingVisitor() {
-		return new ExpressionCheckingVisitor(identifierTypeMap, exceptions);
-	}
-
 	private boolean typeOfExpressionIsCompatible(Expression expression,
 			Type compatibleType) {
-		
-		Type type = expression.accept(expressionTypeCheckingVisitor);
+		ExpressionTypeFindingVisitor expressionTypeFindingVisitor = new ExpressionTypeFindingVisitor(
+				identifierTypeMap);
+		Type type = expression.accept(expressionTypeFindingVisitor);
+
+		if (type == null) {
+			this.exceptions.add(new ExpressionNotValidException(expression));
+			return false;
+		}
 
 		return type.isCompatibleTo(compatibleType);
 	}

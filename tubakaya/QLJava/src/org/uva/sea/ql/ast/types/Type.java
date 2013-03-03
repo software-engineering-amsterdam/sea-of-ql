@@ -29,5 +29,5 @@ public abstract class Type extends ASTNode {
 		return false;
 	}
 
-	public abstract void accept(TypeVisitor visitor);
+	public abstract <T> T accept(TypeVisitor<T> visitor);
 }

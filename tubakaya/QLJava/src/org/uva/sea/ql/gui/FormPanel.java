@@ -2,6 +2,7 @@ package org.uva.sea.ql.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +13,10 @@ import javax.swing.JScrollPane;
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statements.Form;
+import org.uva.sea.ql.ast.types.literals.QLValue;
 import org.uva.sea.ql.ast.visitors.StatementCheckingVisitor;
 import org.uva.sea.ql.ast.visitors.StatementRenderingVisitor;
+import org.uva.sea.ql.ast.visitors.TypeDefaultValueVisitor;
 import org.uva.sea.ql.parsers.FormParser;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 import org.uva.sea.ql.parsers.exceptions.QLException;
@@ -70,8 +73,11 @@ public class FormPanel extends JFrame {
 			Map<Identifier, org.uva.sea.ql.ast.types.Type> identifierTypeMap) {
 
 		JPanel rootPanel = new JPanel();
+		Map<Identifier, QLValue> identifierValueMapWithDefaultValues = generateIdentifierValueMapWithDefaultValues(identifierTypeMap);
+
 		StatementRenderingVisitor statementRenderingVisitor = new StatementRenderingVisitor(
-				rootPanel, identifierTypeMap);
+				rootPanel, identifierTypeMap,
+				identifierValueMapWithDefaultValues);
 
 		form.accept(statementRenderingVisitor);
 
@@ -82,4 +88,18 @@ public class FormPanel extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.show();
 	}
+
+	private Map<Identifier, QLValue> generateIdentifierValueMapWithDefaultValues(
+			Map<Identifier, org.uva.sea.ql.ast.types.Type> identifierTypeMap) {
+		Map<Identifier, QLValue> valueList = new HashMap<Identifier, QLValue>();
+		TypeDefaultValueVisitor typeDefaultValueVisitor = new TypeDefaultValueVisitor();
+
+		for (Map.Entry<Identifier, org.uva.sea.ql.ast.types.Type> typeListEntry : identifierTypeMap
+				.entrySet()) {
+			valueList.put(typeListEntry.getKey(), typeListEntry.getValue()
+					.accept(typeDefaultValueVisitor));
+		}
+		return valueList;
+	}
+
 }

@@ -1,5 +1,9 @@
 package org.uva.sea.ql.ast.visitors;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.operators.arithmetic.Add;
@@ -21,122 +25,152 @@ import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
 import org.uva.sea.ql.ast.types.literals.QLValue;
 import org.uva.sea.ql.ast.types.literals.StringLiteral;
+import org.uva.sea.ql.parsers.exceptions.IdentifierNotDefinedException;
+import org.uva.sea.ql.parsers.exceptions.QLException;
 
-public class ExpressionEvaluatingVisitor implements ExpressionVisitor<QLValue>{
+public class ExpressionEvaluatingVisitor implements ExpressionVisitor<QLValue> {
+
+	private Map<Identifier, QLValue> identifierValueMap;
+	private List<QLException> exceptions;
+
+	public ExpressionEvaluatingVisitor(
+			Map<Identifier, QLValue> identifierValueMap) {
+		this.identifierValueMap = identifierValueMap;
+		this.exceptions = new ArrayList<QLException>();
+	}
+
+	public List<QLException> getExceptions() {
+		return this.exceptions;
+	}
 
 	@Override
 	public QLValue visit(BooleanLiteral booleanLiteral) {
-		// TODO Auto-generated method stub
-		return null;
+		return booleanLiteral;
 	}
 
 	@Override
 	public QLValue visit(Identifier identifier) {
-		// TODO Auto-generated method stub
+		String nameOfSearchedIdentifier = identifier.getName();
+		for (Identifier ident : identifierValueMap.keySet()) {
+			String nameOfFoundIdentifier = ident.getName();
+			if (nameOfFoundIdentifier.equals(nameOfSearchedIdentifier)) {
+				return identifierValueMap.get(ident);
+			}
+		}
+
+		this.exceptions.add(new IdentifierNotDefinedException(identifier));
 		return null;
 	}
 
 	@Override
 	public QLValue visit(IntLiteral integerLiteral) {
-		// TODO Auto-generated method stub
-		return null;
+		return integerLiteral;
 	}
 
 	@Override
 	public QLValue visit(StringLiteral stringLiteral) {
-		// TODO Auto-generated method stub
-		return null;
+		return stringLiteral;
 	}
 
 	@Override
 	public QLValue visit(Add add) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = add.getLhs().accept(this);
+		QLValue rhs = add.getRhs().accept(this);
+		return lhs.add(rhs);
 	}
 
 	@Override
 	public QLValue visit(Div div) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = div.getLhs().accept(this);
+		QLValue rhs = div.getRhs().accept(this);
+		return lhs.div(rhs);
 	}
 
 	@Override
 	public QLValue visit(Sub sub) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = sub.getLhs().accept(this);
+		QLValue rhs = sub.getRhs().accept(this);
+		return lhs.sub(rhs);
 	}
 
 	@Override
 	public QLValue visit(Mul mul) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = mul.getLhs().accept(this);
+		QLValue rhs = mul.getRhs().accept(this);
+		return lhs.mul(rhs);
 	}
 
 	@Override
 	public QLValue visit(And and) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = and.getLhs().accept(this);
+		QLValue rhs = and.getRhs().accept(this);
+		return lhs.and(rhs);
 	}
 
 	@Override
 	public QLValue visit(Or or) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = or.getLhs().accept(this);
+		QLValue rhs = or.getRhs().accept(this);
+		return lhs.or(rhs);
 	}
 
 	@Override
 	public QLValue visit(Eq eq) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = eq.getLhs().accept(this);
+		QLValue rhs = eq.getRhs().accept(this);
+		return lhs.eql(rhs);
 	}
 
 	@Override
 	public QLValue visit(GEq gEq) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = gEq.getLhs().accept(this);
+		QLValue rhs = gEq.getRhs().accept(this);
+		return lhs.gEq(rhs);
 	}
 
 	@Override
 	public QLValue visit(GT gT) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = gT.getLhs().accept(this);
+		QLValue rhs = gT.getRhs().accept(this);
+		return lhs.gT(rhs);
 	}
 
 	@Override
 	public QLValue visit(LEq lEq) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = lEq.getLhs().accept(this);
+		QLValue rhs = lEq.getRhs().accept(this);
+		return lhs.lEq(rhs);
 	}
 
 	@Override
 	public QLValue visit(LT lT) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = lT.getLhs().accept(this);
+		QLValue rhs = lT.getRhs().accept(this);
+		return lhs.lT(rhs);
 	}
 
 	@Override
 	public QLValue visit(NEq nEq) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue lhs = nEq.getLhs().accept(this);
+		QLValue rhs = nEq.getRhs().accept(this);
+		return lhs.nEq(rhs);
 	}
 
 	@Override
 	public QLValue visit(Neg neg) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue exp = neg.getExpression().accept(this);
+		return exp.neg();
 	}
 
 	@Override
 	public QLValue visit(Not not) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue value = not.getExpression().accept(this);
+		return value.not();
 	}
 
 	@Override
 	public QLValue visit(Pos pos) {
-		// TODO Auto-generated method stub
-		return null;
+		QLValue exp = pos.getExpression().accept(this);
+		return exp.pos();
 	}
-
-
 }
