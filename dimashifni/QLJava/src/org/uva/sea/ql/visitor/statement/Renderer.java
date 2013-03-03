@@ -26,20 +26,18 @@ public class Renderer implements StatementVisitor<Void> {
 
     private final JFrame frame;
     private final JPanel panel;
-    private final Statement statement;
     private final Map<Ident, Value> variables;
     private final Map<Ident, List<ObservableStatement>> observableMap;
 
-    private Renderer(JFrame frame, JPanel panel, Statement statement, Map<Ident, Value> variables, Map<Ident, List<ObservableStatement>> observableMap) {
+    private Renderer(JFrame frame, JPanel panel, Map<Ident, Value> variables, Map<Ident, List<ObservableStatement>> observableMap) {
         this.frame = frame;
         this.panel = panel;
-        this.statement = statement;
         this.variables = variables;
         this.observableMap = observableMap;
     }
 
     public static JPanel render(JFrame frame, JPanel panel, Statement statement, Map<Ident, Value> variables, Map<Ident, List<ObservableStatement>> observableMap) {
-        Renderer renderer = new Renderer(frame, panel, statement, variables, observableMap);
+        Renderer renderer = new Renderer(frame, panel, variables, observableMap);
         statement.accept(renderer);
         return panel;
     }
@@ -60,6 +58,43 @@ public class Renderer implements StatementVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visit(IfStatement node) {
+        Block ifBlock = node.getIfBlock();
+        Block elseBlock = node.getElseBlock();
+
+        // handle if block
+        final List<Component> ifComponents = new ArrayList<Component>();
+        handleBlock(ifBlock, ifComponents);
+
+        // handle else block
+        final List<Component> elseComponents = new ArrayList<Component>();
+        if(elseBlock != null)
+        {
+            handleBlock(elseBlock, elseComponents);
+        }
+
+        // register condition observer
+        registerConditionObserver(node, ifComponents, elseComponents);
+
+        return null;
+    }
+
+    @Override
+    public Void visit(Block node) {
+        List<Statement> statements = node.getStatements();
+        for (Statement s : statements) {
+            s.accept(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Void visit(ObservableStatement node) {
+        node.accept(this);
+        return null;
+    }
+
     private void addQuestionPanel(final Component question)
     {
         this.panel.add(question, "left, gapright 10");
@@ -70,14 +105,7 @@ public class Renderer implements StatementVisitor<Void> {
         this.panel.add(type, "left, span");
     }
 
-    @Override
-    public Void visit(IfStatement node) {
-        Expr expression = node.getOrExpression();
-        Block ifBlock = node.getIfBlock();
-        Block elseBlock = node.getElseBlock();
-
-        // handle if block
-        final List<Component> ifComponents = new ArrayList<Component>();
+    private void handleBlock(Block ifBlock, List<Component> ifComponents) {
         for(final Statement statement : ifBlock.getStatements())
         {
             final JPanel jPanel = render(this.frame, new JPanel(), statement, this.variables, this.observableMap);
@@ -91,30 +119,6 @@ public class Renderer implements StatementVisitor<Void> {
             addQuestionPanel(question);
             addTypePanel(type);
         }
-
-        // handle else block
-        final List<Component> elseComponents = new ArrayList<Component>();
-        if(elseBlock != null)
-        {
-            for(final Statement statement : elseBlock.getStatements())
-            {
-                final JPanel jPanel = render(this.frame, new JPanel(), statement, this.variables, this.observableMap);
-
-                final Component question = jPanel.getComponent(0);
-                final Component type = jPanel.getComponent(1);
-
-                elseComponents.add(question);
-                elseComponents.add(type);
-
-                addQuestionPanel(question);
-                addTypePanel(type);
-            }
-        }
-
-        // register condition observer
-        registerConditionObserver(node, ifComponents, elseComponents);
-
-        return null;
     }
 
     private void registerConditionObserver(IfStatement ifStatement, List<Component> ifComponents, List<Component> elseComponents) {
@@ -123,15 +127,5 @@ public class Renderer implements StatementVisitor<Void> {
 
         // trigger observer
         observer.update(null, null);
-    }
-
-    @Override
-    public Void visit(Block node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public Void visit(ObservableStatement node) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 }

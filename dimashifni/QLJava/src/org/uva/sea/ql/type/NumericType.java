@@ -12,7 +12,7 @@ import org.uva.sea.ql.visitor.type.TypeVisitor;
 public class NumericType extends Type {
     @Override
     public <T> T accept(TypeVisitor<T> visitor) {
-        return visitor.visit(this);
+        throw new UnsupportedOperationException("unsupported numeric type visitor");
     }
 
     @Override

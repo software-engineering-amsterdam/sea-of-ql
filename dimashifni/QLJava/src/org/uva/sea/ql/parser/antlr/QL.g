@@ -75,7 +75,7 @@ type returns [Type type]
 : 'integer' {$type = new IntType();}
 | 'boolean' {$type = new BoolType();}
 | 'string'  {$type = new StringType();}
-| 'money'   {$type = new NumericType();}
+| 'money'   {$type = new MoneyType();}
 ;
 
 primary returns [Expr result]

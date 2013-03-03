@@ -101,12 +101,13 @@ public class ANTLRParser implements IParse {
                 "   hasSoldHouse3 : \"did you just sell you house3! \" boolean" +
                 "   if(hasSoldHouse2) {" +
                 "       hasSoldHouse4 : \"did you just sell you house4! \" boolean" +
-                "       hasSoldHouse5 : \"did you just sell you house5! \" boolean" +
+                "       watchPrice : \"what is your watch price bro? \" money" +
                 "   }" +
                 "   else" +
                 "   {" +
                 "      hasSoldHouse6 : \"did you just sell you house6! \" boolean" +
-                "   }" )
+                "   }" +
+                "   carPrice : \"what is your car price bro? \" integer" )
                 ;
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
