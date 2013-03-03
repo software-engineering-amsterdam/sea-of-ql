@@ -97,9 +97,14 @@ public class ANTLRParser implements IParse {
         ANTLRStringStream stream = new ANTLRStringStream(
                 "   hasSoldHouse2 : \"did you just sell you house2! \" boolean" +
                 "   hasSoldHouse3 : \"did you just sell you house3! \" boolean" +
-                    " if(hasSoldHouse2) {" +
-                    "   hasSoldHouse4 : \"did you just sell you house4! \" boolean" +
-                    "}" );
+                "   if(hasSoldHouse2) {" +
+                "       hasSoldHouse4 : \"did you just sell you house4! \" boolean" +
+                "   }" +
+                "   else" +
+                "   {" +
+                "      hasSoldHouse5 : \"did you just sell you house5! \" boolean" +
+                "   }" )
+                ;
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
