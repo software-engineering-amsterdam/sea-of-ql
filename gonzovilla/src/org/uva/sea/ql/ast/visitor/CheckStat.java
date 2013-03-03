@@ -20,10 +20,10 @@ public class CheckStat implements VisitorStatements<Boolean> {
 	private final List<String> messages;
 	private CheckExpr checkExpr;
 	
-	public CheckStat(Map<String, Type> tenv, List<String> messages) {
-		this.typeEnv = tenv;
+	public CheckStat(Map<String, Type> typeEnv, List<String> messages) {
+		this.typeEnv = typeEnv;
 		this.messages = messages;
-		checkExpr = new CheckExpr(tenv, messages);
+		checkExpr = new CheckExpr(typeEnv, messages);
 	}
 	
 	public void addError(String errors) {
@@ -38,14 +38,13 @@ public class CheckStat implements VisitorStatements<Boolean> {
 	@Override
 	public Boolean visit(Form form) {
 		Boolean returnValue = form.getBody().accept(this);
-		printErrMsg();
 		return returnValue;
 	}
 	
 	@Override
 	public Boolean visit(ComputedQuestion computedQuestion) {
 		boolean returnValue = true;
-		Ident ident = computedQuestion.getName();
+		Ident ident = computedQuestion.getIdent();
 		Expr expression = computedQuestion.getExpression();
 		Type type = computedQuestion.getType();
 		
@@ -67,7 +66,7 @@ public class CheckStat implements VisitorStatements<Boolean> {
 	@Override
 	public Boolean visit(Question question) {
 		boolean returnValue = true;
-		Ident ident = question.getName();
+		Ident ident = question.getIdent();
 		Type type = question.getType();		
 		
 		if(typeEnv.get(ident.getName())!= null){

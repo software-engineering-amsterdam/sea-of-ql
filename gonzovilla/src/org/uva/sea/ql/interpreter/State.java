@@ -1,33 +1,52 @@
 package org.uva.sea.ql.interpreter;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.uva.sea.ql.ast.expr.Ident;
 import org.uva.sea.ql.ast.values.Value;
 
-public class State {
+public class State implements ActionListener {
 	
-	private final Map<Ident, Value> env;
-	private final Map<Ident, Observable> observables;
+	private final Map<String, Value> env;
+	private final Map<String, Observable> observables;
 
 	public State() {
-		this.env = new HashMap<Ident, Value>();
-		this.observables = new HashMap<Ident, Observable>();
+		this.env = new HashMap<String, Value>();
+		this.observables = new HashMap<String, Observable>();
 	}
 	
-	public void addObserver(Ident x, Observer obs) {
-		observables.get(x).addObserver(obs);
+	public Map<String, Observable> getObservables() {
+		return observables;
 	}
 	
-	public void putObservable(Ident x, Observable obs) {
-		observables.put(x, obs);
+	public void addObserver(String name, Observer obs) {
+		observables.get(name).addObserver(obs);
+	}
+	
+	public void putObservable(String name, Observable obs) {
+		observables.put(name, obs);
 	}
 
-	public Object getEnv() {
-		return this.env;
+	public Map<String, Value> getEnv() {
+		return env;
+	}
+
+	public void putValue(String name, Value value) {
+		env.put(name, value);
+	}
+
+	public void notifyObservers(String name) {
+		observables.get(name).notifyObservers();			
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

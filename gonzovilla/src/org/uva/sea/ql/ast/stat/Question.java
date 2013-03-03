@@ -10,13 +10,13 @@ public class Question extends FormUnit {
 	private final String body;
 	private final Type type;
 	
-	public Question(Ident name, String body, Type type) {
-		this.name = name;
+	public Question(Ident ident, String body, Type type) {
+		this.name = ident;
 		this.body = body;
 		this.type = type;
 	}
 
-	public Ident getName() {
+	public Ident getIdent() {
 		return name;
 	}
 
