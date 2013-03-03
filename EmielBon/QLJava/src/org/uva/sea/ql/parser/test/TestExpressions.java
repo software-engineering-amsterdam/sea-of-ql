@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.junit.Test;
 import org.uva.sea.ql.ast.expression.*;
@@ -13,16 +12,16 @@ import org.uva.sea.ql.ast.expression.operators.logical.*;
 import org.uva.sea.ql.ast.expression.operators.numeric.*;
 import org.uva.sea.ql.ast.expression.operators.relational.*;
 import org.uva.sea.ql.ast.statement.*;
+import org.uva.sea.ql.eval.*;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.typechecker.CheckExpression;
 import org.uva.sea.ql.typechecker.CheckStatement;
 import org.uva.sea.ql.typechecker.Message;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
-import org.uva.sea.ql.interpreter.*;
 
 public class TestExpressions {
 
-	private JACCParser parser;
+	private IParse parser;
 	
 	public TestExpressions() {
 		this.parser = new JACCParser();
@@ -144,7 +143,7 @@ public class TestExpressions {
 		assertTrue(CheckStatement.check((Statement)parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" integer }"), new TypeEnvironment(), new ArrayList<Message>()));
 		assertTrue(CheckStatement.check((Statement)parser.parse("form a { hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean(hasSoldHouse) }"), new TypeEnvironment(), new ArrayList<Message>()));
 
-		assertTrue(CheckStatement.check((Statement) parser.parse("\n" +
+		assertTrue(CheckStatement.check((Statement) parser.parse(
 				"form a { \n" +
 				"	hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n" +
 				"	hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n" +
@@ -156,7 +155,7 @@ public class TestExpressions {
 	
 	@Test
 	public void testEvaluations() throws Exception {
-		assertEquals(((Expression)parser.parse("1+2")).accept(new Eval(new ValueEnvironment())), new IntegerValue(4));
+		assertEquals(((Expression)parser.parse("(1+2)*5-8")).accept(new Eval(new ValueEnvironment())), new IntegerValue(7));
 	}
 	
 }
