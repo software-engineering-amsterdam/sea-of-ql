@@ -20,13 +20,13 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 
 	private Map<Identifier, Type> identifierTypeMap;
 	private List<QLException> exceptions;
-	private ExpressionTypeCheckingVisitor expressionTypeCheckingVisitor;
+	private ExpressionTypeFindingVisitor expressionTypeCheckingVisitor;
 
 	public ExpressionCheckingVisitor(Map<Identifier, Type> identifierTypeMap,
 			List<QLException> exceptions) {
 		this.identifierTypeMap = identifierTypeMap;
 		this.exceptions = exceptions;
-		this.expressionTypeCheckingVisitor = new ExpressionTypeCheckingVisitor(
+		this.expressionTypeCheckingVisitor = new ExpressionTypeFindingVisitor(
 				identifierTypeMap);
 	}
 

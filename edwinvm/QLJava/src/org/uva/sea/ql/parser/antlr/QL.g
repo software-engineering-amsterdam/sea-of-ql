@@ -134,7 +134,7 @@ type returns [Type result]
 // Tokens
 WS:	        (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT:    ('/*' .* '*/' | '//') { $channel=HIDDEN; };
+COMMENT:    ('/*' .* '*/' | '//' .* ('\n' | '\r')) { $channel=HIDDEN; };
 
 Bool:       ('true'|'false');
 

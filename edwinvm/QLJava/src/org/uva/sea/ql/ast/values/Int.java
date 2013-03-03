@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.check.TypeEnvironment;
 
 public class Int extends Value {
 
@@ -61,6 +61,11 @@ public class Int extends Value {
 	public Value notEqualsValue(Value value) { return value.notEqualsInt(this); }
 	@Override
 	protected Value notEqualsInt(Int value)  { return new Bool(!value.equals(this)); }
+	
+	@Override
+	public Value setToPositive() { return new Int(Math.abs(getValue())); }
+	@Override
+	public Value setToNegative() { return new Int(-getValue()); }
 	
 	@Override
 	public Type typeOf(TypeEnvironment typeEnvironment) {

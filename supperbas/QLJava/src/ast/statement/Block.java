@@ -36,26 +36,6 @@ public class Block extends Statement implements Iterable<Statement> {
 
 	@Override
 	public Iterator<Statement> iterator() {
-		return new Iterator<Statement>(){
-			private int index = statements.size();
-			@Override
-			public boolean hasNext() {
-				if(statements==null)
-					return false;
-				return (index>0);
-			}
-
-			@Override
-			public Statement next() {
-				return statements.get(--index);
-				
-			}
-
-			@Override
-			public void remove() {
-				throw new UnsupportedOperationException();
-			}
-			
-		};
+		return statements.iterator();
 	}
 }

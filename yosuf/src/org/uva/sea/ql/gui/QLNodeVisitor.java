@@ -13,25 +13,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
+import org.uva.sea.ql.ast.Block;
+import org.uva.sea.ql.ast.CompoundStatement;
+import org.uva.sea.ql.ast.Computed;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.IfElseStatement;
+import org.uva.sea.ql.ast.IfStatement;
+import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.StatementVisitor;
 import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.exp.Nature;
-import org.uva.sea.ql.ast.stm.Block;
-import org.uva.sea.ql.ast.stm.CompoundStatement;
-import org.uva.sea.ql.ast.stm.Computed;
-import org.uva.sea.ql.ast.stm.Form;
-import org.uva.sea.ql.ast.stm.IfElseStatement;
-import org.uva.sea.ql.ast.stm.IfStatement;
-import org.uva.sea.ql.ast.stm.Question;
+import org.uva.sea.ql.ast.exp.UnmodifiedException;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.lead.LogPrinter;
 import org.uva.sea.ql.lead.Model;
 import org.uva.sea.ql.lead.ModelChangeListener;
-import org.uva.sea.ql.visitor.ExpressionEvaluator;
-import org.uva.sea.ql.visitor.StatementVisitor;
-import org.uva.sea.ql.visitor.UnmodifiedException;
 
 /**
  * This creator class functions as a visitor to create visual objects for the form.
@@ -55,7 +55,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		this.model = model;
 		state.assertNotNull(this.model, "model");
 
-		expressionEvaluator = new ExpressionEvaluator(model);
+		expressionEvaluator = new ExpressionEvaluator(this.model);
 	}
 
 	@Override
@@ -75,6 +75,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 	@Override
 	public Node visit(final Computed computed) {
+
 		final Identifier identifier = computed.getIdentifier();
 		state.assertNotNull(model.getComputed(identifier), identifier + " not registered at model.");
 
@@ -157,6 +158,15 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 	}
 
+	/**
+	 * In order to show or hide certain nodes, nodes can be added or removed from the holder group
+	 * which is handled by this method.
+	 * 
+	 * @param holder
+	 * @param drawable
+	 * @param isVisible
+	 *            shows the drawable if true
+	 */
 	private void handleVisibility(final Group holder, final Node drawable, final boolean isVisible) {
 
 		if (isVisible) {
@@ -166,9 +176,18 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		}
 	}
 
-	private void handleIfElseVisibility(final Expression exp, final Group holder,
+	/**
+	 * If the given expression is true in model, the if node will become visible. Otherwise the else
+	 * node.
+	 * 
+	 * @param expression
+	 * @param holder
+	 * @param ifNode
+	 * @param elseNode
+	 */
+	private void handleIfElseVisibility(final Expression expression, final Group holder,
 			final Node ifNode, final Node elseNode) {
-		if (isTrueInModel(exp)) {
+		if (isTrueInModel(expression)) {
 			handleVisibility(holder, ifNode, true);
 			handleVisibility(holder, elseNode, false);
 		} else {
@@ -179,9 +198,12 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 	private boolean isTrueInModel(final Expression expression) {
 		Computed comp = model.getComputed(expression);
-		if (comp != null
-				&& ((BooleanValue) comp.getExpression().accept(expressionEvaluator)).getValue()) {
-			return true;
+
+		if (comp != null) {
+			Expression evaluated = comp.getExpression().accept(expressionEvaluator);
+			boolean bools = evaluated.getNature().equals(new Bools());
+
+			return bools && ((BooleanValue) evaluated).getValue();
 		} else {
 			return false;
 		}
@@ -204,12 +226,21 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 		return createHorizontalHolder(createText(question.getText()), input);
 	}
 
+	/**
+	 * User inputs which are received through a text-field are evaluated and invalidated based on
+	 * the data type of the given question. If the input is positive, {@link #model} is reported.
+	 * 
+	 * 
+	 * @param question
+	 * @param input
+	 * @param oldInput
+	 * @param newInput
+	 */
 	private void handleUserInput(final Question question, final TextField input,
 			final String oldInput, final String newInput) {
 		Nature nature = question.getDataType().getNature();
 
 		if (nature.isValidInput(newInput)) {
-
 			Computed computed = new Computed(question.getDataType(), question.getIdentifier(),
 					nature.createValue(newInput));
 
@@ -224,13 +255,11 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 	private Node createYesNoQuestion(final Question question) {
 		CheckBox checkBox = new CheckBox();
-
 		checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
 			@Override
 			public void changed(final ObservableValue<? extends Boolean> arg0,
 					final Boolean oldVal, final Boolean newVal) {
-
 				Computed computed = new Computed(question.getDataType(), question.getIdentifier(),
 						new BooleanValue(newVal));
 				model.registerComputed(computed);

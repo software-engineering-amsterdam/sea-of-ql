@@ -6,19 +6,18 @@ import Prelude;
 keyword Keywords = "form" | "int" | "bool" | "string" | "if" | "elseif" | "else" | "true" | "false";
 
 lexical Id  	= ([a-z][a-zA-Z0-9]* !>> [a-z0-9] )\ Keywords;
-lexical Natural = [0-9]+ ;
-lexical String 	= "\"" ![\"]*  "\"";
-lexical Boolean = "true" | "false";
+lexical Natural = [0-9]+;
+lexical String 	= @category="Variable" "\"" ![\"]*  "\"";
+lexical Boolean = @category="Constant" "true" | "false";
 lexical Date 	= [0-3][0-9]"-"[0][1-9] | [1][0-2]"-"[1-2][0|9][0-9][0-9];	//Day-Month-Year
 lexical Decimal	= [0-9]+"."[0-9][0-9]*;
-//lexical Currency = Currencies;
 
 layout Layout = WhitespaceAndComment* !>> [\ \t\n\r%];
 
 lexical WhitespaceAndComment 
    = [\ \t\n\r]
-   | @category="Comment" "%" ![%]+ "%"
-   | @category="Comment" "%%" ![\n]* $
+   | @category="Comment" "/*" ![*]+ "*/"
+   | @category="Comment" "//" ![\n]* $
    ;
 
 start syntax Form 

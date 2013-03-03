@@ -3,6 +3,7 @@ package org.uva.sea.ql.visitor;
 import java.util.Iterator;
 
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.ASTVisitor;
 import org.uva.sea.ql.ast.CompoundStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.IfElseStatement;

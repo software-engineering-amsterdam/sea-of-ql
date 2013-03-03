@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
+
 import org.uva.sea.ql.ast.formelements.Form;
 import org.uva.sea.ql.parser.antlr.ParseError;
 import org.uva.sea.ql.visitors.rendering.Renderer;
@@ -29,14 +30,18 @@ public class Gui extends JFrame {
 	private final Errors errors = new Errors();
 	private JPanel errorLog = new JPanel(new MigLayout());
 	private JButton open = new JButton("Open QL");
+	private JButton export = new JButton("Export XML");
 	private JPanel buttonPanel = new JPanel(new MigLayout("fillx,insets 0"));
 	private JPanel centerPanel = new JPanel(new MigLayout());
 	private final JFileChooser fileChooser = new JFileChooser();
+	private final JFileChooser xmlChooser = new JFileChooser();
 
 	public Gui(Form ast) throws IOException, ParseError {
 		this.ast = ast;
 		fileChooser.setFileFilter(new QLFilter());
+		xmlChooser.setFileFilter(new XMLFilter());
 		addOpenListener(open);
+		addExportListener(export);
 		setInitialFrame();
 		checkForConsistency();
 	}
@@ -47,6 +52,22 @@ public class Gui extends JFrame {
 				setQLChooser();
 			}
 		});
+	}
+	
+	private void addExportListener(JButton b) {
+		b.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setOutputFile();
+			}
+		});
+	}
+	
+	private void setOutputFile() {
+		final int returnVal = fileChooser.showSaveDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			final File file = fileChooser.getSelectedFile();
+			new XMLConverter(state.getValueEnv(), file);
+		}
 	}
 
 	private void setQLChooser() {
@@ -111,8 +132,10 @@ public class Gui extends JFrame {
 	}
 
 	private void setButtonPane() {
+		export.setMnemonic('E');
 		open.setMnemonic('O');
 		buttonPanel.add(open, "split,left,width 100!");
+		buttonPanel.add(export);
 		add(buttonPanel, "wrap");
 	}
 

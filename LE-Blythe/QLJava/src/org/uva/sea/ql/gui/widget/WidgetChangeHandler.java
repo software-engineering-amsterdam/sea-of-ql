@@ -4,6 +4,7 @@ import java.util.EventObject;
 import java.util.Observable;
 
 import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.util.Environment;
 
 
@@ -11,9 +12,9 @@ public class WidgetChangeHandler extends Observable implements ChangeEventListen
 	
 	private Ident identifier;
 	private Widget widget;
-	private Environment environment;
+	private Environment<Ident, Value> environment;
 	
-	public WidgetChangeHandler(Ident identifier, Widget widget, Environment environment){
+	public WidgetChangeHandler(Ident identifier, Widget widget, Environment<Ident, Value> environment){
 		
 		this.widget = widget;
 		this.identifier = identifier;
@@ -27,7 +28,7 @@ public class WidgetChangeHandler extends Observable implements ChangeEventListen
 		
 		///update value in the environment
 		if(widget.isDefined())
-			environment.putValue(identifier, widget.getValue());
+			environment.put(identifier, widget.getValue());
 		
 		setChanged();
 		notifyObservers();		

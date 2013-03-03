@@ -23,7 +23,7 @@ import ast.type.Int;
 import ast.type.Str;
 
 @SuppressWarnings("serial")
-public class UIVisitor extends JFrame implements ast.statement.Visitor<Object>, ast.type.Visitor<Wrapper> {
+public class UIVisitor extends JFrame implements ast.statement.Visitor<Void>, ast.type.Visitor<Wrapper> {
 	private Environment environment;
 	private JPanel panel;
 

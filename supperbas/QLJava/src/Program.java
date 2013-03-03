@@ -32,7 +32,9 @@ public class Program {
 
 	private void init() {
 		ql = "form Box1HouseOwning { "
-				+ "\"Did you sell a house in 2010?\" hasSoldHouse: boolean "
+				//+ "\"Did you sell a house in 2010?\" hasSoldHouse: boolean "
+				+ " hasSoldHouse: boolean "
+				+ " hasSoldHouse: integer "
 				+ "\"Did you by a house in 2010?\" hasBoughtHouse: boolean "
 				+ "\"Value residue:\" hasBoughtHouse3 = hasBoughtHouse "
 				+ "\"Did you enter a loan for maintenance/reconstruction?\" hasMaintLoan: boolean "

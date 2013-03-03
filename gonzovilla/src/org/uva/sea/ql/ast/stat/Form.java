@@ -8,12 +8,12 @@ public class Form extends FormUnit {
 	private final Ident name;
 	private final Block body;
 
-	public Form(Ident name, Block body) {
-		this.name = name;
+	public Form(Ident ident, Block body) {
+		this.name = ident;
 		this.body = body;
 	}
 
-	public Ident getName() {
+	public Ident getIdent() {
 		return name;
 	}
 

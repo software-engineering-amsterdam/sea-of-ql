@@ -3,7 +3,7 @@ package org.uva.sea.ql.parser.jacc;
 import java.io.StringReader;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.stm.Form;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 

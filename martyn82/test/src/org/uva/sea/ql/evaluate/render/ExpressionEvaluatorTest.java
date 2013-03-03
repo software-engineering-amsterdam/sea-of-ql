@@ -24,12 +24,12 @@ import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.expression.unary.logical.NotExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.NegativeExpression;
 import org.uva.sea.ql.ast.expression.unary.numeric.PositiveExpression;
-import org.uva.sea.ql.evaluate.render.BindingEnvironment;
+import org.uva.sea.ql.evaluate.render.RuntimeEnvironment;
 import org.uva.sea.ql.value.StringValue;
 
 public class ExpressionEvaluatorTest extends EvaluatorTest implements ExpressionTest {
 	public ExpressionEvaluatorTest() {
-		super( new BindingEnvironment() );
+		super( new RuntimeEnvironment() );
 	}
 
 	@Test

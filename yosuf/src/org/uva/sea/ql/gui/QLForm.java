@@ -9,12 +9,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.stm.Form;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.lead.Model;
 
 /**
  * Represents a visual form. This class handles also the initial call for creating the gui, its
- * components like menus and the form.
+ * components like menus and the form body.
  * 
  */
 public class QLForm extends Application {

@@ -13,14 +13,14 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.uva.sea.ql.evaluate.render.ValueMap;
+import org.uva.sea.ql.evaluate.render.RuntimeValueMap;
 import org.uva.sea.ql.value.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 public class XmlExporter extends Exporter {
-	public XmlExporter( String formName, ValueMap values ) {
+	public XmlExporter( String formName, RuntimeValueMap values ) {
 		super( formName, values );
 	}
 

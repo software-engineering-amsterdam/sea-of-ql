@@ -3,14 +3,15 @@ package org.uva.sea.ql.gui.widget;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import org.uva.sea.ql.ast.primitive.Bool;
-import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.ast.primitive.Undefined;
-import org.uva.sea.ql.gui.control.CheckBox;
-import org.uva.sea.ql.gui.control.Control;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+
+import org.uva.sea.ql.eval.value.BoolVal;
+import org.uva.sea.ql.eval.value.UndefinedVal;
+import org.uva.sea.ql.eval.value.Value;
 
 public class WidgetBool extends Widget implements ItemListener{
-	private CheckBox chkbox;
+	private JCheckBox chkbox;
 	
 	//tracks whether the checkbox has been clicked before
 	boolean initialized;
@@ -18,13 +19,13 @@ public class WidgetBool extends Widget implements ItemListener{
 	public WidgetBool(){
 		super();
 		
-		chkbox = new CheckBox();
+		chkbox = new JCheckBox();
 		chkbox.addItemListener(this);
 		this.initialized = false;
 	}
 
 	@Override
-	public Control getControl(){
+	public JComponent getControl(){
 		initialized = true;
 		return chkbox;
 	}
@@ -35,8 +36,8 @@ public class WidgetBool extends Widget implements ItemListener{
 	}
 
 	@Override
-	public Primitive getValue() {
-		return initialized ? new Bool(chkbox.isSelected()) : new Undefined();
+	public Value getValue() {
+		return initialized ? new BoolVal(chkbox.isSelected()) : new UndefinedVal();
 	}
 	
 }

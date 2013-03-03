@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefinedType;
 import org.uva.sea.ql.util.Environment;
 
 public class Ident extends Expr implements Comparable<Ident>{
@@ -35,13 +36,13 @@ public class Ident extends Expr implements Comparable<Ident>{
 	
 	
 	@Override
-	public Type typeOf(Environment env){
+	public Type typeOf(Environment<Ident, Type> env){
 		
-		if(env.containsValue(this)){
-			return env.getValue(this).typeOf(env);
+		if(env.contains(this)){
+			return env.get(this);
 		}
 		
-		return new org.uva.sea.ql.ast.types.Undefined(); //undefined type
+		return new UndefinedType();
 	}
 	
 	

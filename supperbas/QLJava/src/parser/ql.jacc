@@ -54,7 +54,7 @@ form			: FORM IDENT '{' block '}'					{ $$ = new Form($2,$4); };
 				
 // a list of zero or more statements
 block			: /* empty */ 								{ $$ = new Block(); }
-				| block statement							{ if ($1 == null) $$ = new Block($2); else $$ = new Block($2, (Block)$1); }
+				| statement block							{ $$ = new Block($1, $2); }
 				;
 
 statement 		: question

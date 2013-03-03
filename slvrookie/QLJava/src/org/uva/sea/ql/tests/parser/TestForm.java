@@ -1,6 +1,7 @@
 package org.uva.sea.ql.tests.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.uva.sea.ql.ast.formelements.Form;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;

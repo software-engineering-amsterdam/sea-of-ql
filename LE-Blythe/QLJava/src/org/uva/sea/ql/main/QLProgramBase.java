@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.parser.rats.ParseError;
 import org.uva.sea.ql.parser.rats.RatsParser;
 
@@ -42,12 +42,12 @@ public abstract class QLProgramBase {
 	}
 	
 	
-	protected Statement parse(String input) throws ParseError{
+	protected Form parse(String input) throws ParseError{
 		return new RatsParser().parse(input); 
 	}
 	
 	
-	protected Statement readAst(String filename) throws Exception {
+	protected Form readAst(String filename) throws Exception {
 			return parse(readFile(filename));
 	}
 	
@@ -82,6 +82,6 @@ public abstract class QLProgramBase {
 	}
 	
 	
-	protected abstract void execute(Statement ast);
+	protected abstract void execute(Form form);
 	
 }

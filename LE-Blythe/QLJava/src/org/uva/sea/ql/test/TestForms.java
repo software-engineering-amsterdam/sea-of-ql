@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.checker.Error;
 import org.uva.sea.ql.checker.ErrorExpressionType;
 import org.uva.sea.ql.checker.ErrorIdentifierExists;
@@ -41,7 +41,7 @@ public class TestForms {
 	/** wrap provided form elements into form structure
 	 * parse and perform validation check 
 	 */
-	private Statement execute(String... args) throws Exception{
+	private Form execute(String... args) throws Exception{
 		
 		String strForm = FormStringBuilder.form("a", args);
 		IParse parser = new RatsParser();
@@ -57,7 +57,7 @@ public class TestForms {
 		
 		VisitorStatementChecker checker = new VisitorStatementChecker();
 		
-		Statement form = execute(args);
+		Form form = execute(args);
 		form.accept(checker);
 		
 		if(!checker.errorsFound())
@@ -74,7 +74,7 @@ public class TestForms {
 	private boolean correct(String... args) throws Exception{
 		VisitorStatementChecker checker = new VisitorStatementChecker();
 		
-		Statement form = execute(args);
+		Form form = execute(args);
 		form.accept(checker);
 		
 		return !checker.errorsFound();

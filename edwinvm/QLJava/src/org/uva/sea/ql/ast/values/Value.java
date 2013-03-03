@@ -4,21 +4,13 @@ import org.uva.sea.ql.ast.expressions.Expression;
 
 public abstract class Value extends Expression {
 
-	public Value pos()                                     { throw new UnsupportedOperationException(); }
-	
 	// Logical operations
+	
 	public Value and(Value value)                          { throw new UnsupportedOperationException(); }
 	public Value or(Value value)                           { throw new UnsupportedOperationException(); }
 	
-	// Relational operations
-	public Value equalsValue(Value value)                  { throw new UnsupportedOperationException(); }
-	public Value greaterThan(Value value)                  { throw new UnsupportedOperationException(); }
-	public Value greaterThanOrEqualTo(Value value)         { throw new UnsupportedOperationException(); }
-	public Value lessThan(Value value)                     { throw new UnsupportedOperationException(); }
-	public Value lessThanOrEqualTo(Value value)            { throw new UnsupportedOperationException(); }
-	public Value notEqualsValue(Value value)               { throw new UnsupportedOperationException(); }
-	
 	// Arithmetical operations
+	
 	public Value add(Value value)                          { throw new UnsupportedOperationException(); }
 	public Value div(Value value)                          { throw new UnsupportedOperationException(); }
 	public Value mul(Value value)                          { throw new UnsupportedOperationException(); }
@@ -35,6 +27,15 @@ public abstract class Value extends Expression {
 	protected Value subMoney(Money value)                  { throw new UnsupportedOperationException(); }
 
 	protected Value addString(Str value)                   { throw new UnsupportedOperationException(); }
+	
+	// Relational operations
+	
+	public Value equalsValue(Value value)                  { throw new UnsupportedOperationException(); }
+	public Value greaterThan(Value value)                  { throw new UnsupportedOperationException(); }
+	public Value greaterThanOrEqualTo(Value value)         { throw new UnsupportedOperationException(); }
+	public Value lessThan(Value value)                     { throw new UnsupportedOperationException(); }
+	public Value lessThanOrEqualTo(Value value)            { throw new UnsupportedOperationException(); }
+	public Value notEqualsValue(Value value)               { throw new UnsupportedOperationException(); }
 	
 	protected Value equalsBool(Bool value)                 { throw new UnsupportedOperationException(); }
 	protected Value equalsInt(Int value)                   { throw new UnsupportedOperationException(); }
@@ -54,5 +55,11 @@ public abstract class Value extends Expression {
 	protected Value lessThanMoney(Money value)             { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToInt(Int value)        { throw new UnsupportedOperationException(); }
 	protected Value lessThanOrEqualToMoney(Money value)    { throw new UnsupportedOperationException(); }
+	
+	// Unary operations
+	
+	public Value setToPositive()                           { throw new UnsupportedOperationException(); }
+	public Value setToNegative()                           { throw new UnsupportedOperationException(); }
+	public Value applyNegation()                           { throw new UnsupportedOperationException(); }
 	
 }

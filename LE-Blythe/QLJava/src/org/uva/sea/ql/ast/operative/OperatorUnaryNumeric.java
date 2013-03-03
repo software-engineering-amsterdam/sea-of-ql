@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast.operative;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.types.Numeric;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.type.NumericType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.util.Environment;
 
 public abstract class OperatorUnaryNumeric extends OperatorUnary {
@@ -12,8 +13,8 @@ public abstract class OperatorUnaryNumeric extends OperatorUnary {
 	}
 
 	@Override
-	public Type typeOf(Environment env) {
-		return new Numeric();
+	public Type typeOf(Environment<Ident, Type> env) {
+		return new NumericType();
 	}
 
 }

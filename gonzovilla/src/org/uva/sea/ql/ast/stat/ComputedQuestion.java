@@ -12,14 +12,14 @@ public class ComputedQuestion extends FormUnit {
 	private final Expr expression;
 	private final Type type;
 	
-	public ComputedQuestion(Ident name, String body, Expr expression, Type type) {
-		this.name = name;
+	public ComputedQuestion(Ident ident, String body, Expr expression, Type type) {
+		this.name = ident;
 		this.body = body;
 		this.type = type;
 		this.expression = expression;
 	}
 
-	public Ident getName() {
+	public Ident getIdent() {
 		return name;
 	}
 

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.ASTVisitor;
 
 public class IfStatement extends Statement {
 

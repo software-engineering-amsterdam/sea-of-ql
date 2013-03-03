@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.values;
 
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.visitors.typechecker.Visitor;
-import org.uva.sea.ql.parser.TypeEnvironment;
+import org.uva.sea.ql.check.TypeEnvironment;
 
 public class Money extends Value {
 
@@ -71,6 +71,11 @@ public class Money extends Value {
 	public Value notEqualsValue(Value value) { return value.notEqualsMoney(this); }
 	@Override
 	protected Value notEqualsMoney(Money value) { return new Bool(!value.equals(this)); }
+	
+	@Override
+	public Value setToPositive() { return new Money(Math.abs(getValue())); }
+	@Override
+	public Value setToNegative() { return new Money(-getValue()); }
 	
 	@Override
 	public int hashCode() {

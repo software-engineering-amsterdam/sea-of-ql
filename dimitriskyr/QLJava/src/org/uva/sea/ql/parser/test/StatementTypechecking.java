@@ -5,8 +5,8 @@ import java.util.HashMap;
 
 import org.antlr.runtime.*;
 import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.visitor.StatementVisitor;
 import org.uva.sea.ql.parser.antlr.*;
+import org.uva.sea.ql.visitor.StatementVisitor;
 
 ;
 

@@ -22,12 +22,12 @@ public class StatementCheckingVisitor implements StatementVisitor {
 
 	private Map<Identifier, Type> identifierTypeMap;
 	private List<QLException> exceptions;
-	private ExpressionTypeCheckingVisitor expressionTypeCheckingVisitor;
+	private ExpressionTypeFindingVisitor expressionTypeCheckingVisitor;
 	
 	public StatementCheckingVisitor() {
 		identifierTypeMap = new HashMap<Identifier, Type>();
 		exceptions = new ArrayList<QLException>();
-		this.expressionTypeCheckingVisitor = new ExpressionTypeCheckingVisitor(
+		this.expressionTypeCheckingVisitor = new ExpressionTypeFindingVisitor(
 				identifierTypeMap);
 	}
 

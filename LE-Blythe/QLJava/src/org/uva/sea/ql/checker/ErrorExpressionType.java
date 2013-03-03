@@ -1,7 +1,7 @@
 package org.uva.sea.ql.checker;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.type.Type;
 
 public class ErrorExpressionType extends Error{
 

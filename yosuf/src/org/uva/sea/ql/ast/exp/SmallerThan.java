@@ -1,8 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.NaturalVisitor;
 import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class SmallerThan extends Binary {
 

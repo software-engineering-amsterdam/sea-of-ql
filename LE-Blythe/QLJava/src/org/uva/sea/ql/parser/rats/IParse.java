@@ -1,7 +1,7 @@
 package org.uva.sea.ql.parser.rats;
 
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.Form;
 
 public interface IParse {
-	Statement parse(String src) throws ParseError;
+	Form parse(String src) throws ParseError;
 }

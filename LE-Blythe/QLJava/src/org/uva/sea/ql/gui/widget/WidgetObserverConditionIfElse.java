@@ -1,15 +1,17 @@
 package org.uva.sea.ql.gui.widget;
 
+import javax.swing.JComponent;
+
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.ast.primitive.Primitive;
-import org.uva.sea.ql.gui.control.Control;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.eval.value.Value;
 import org.uva.sea.ql.util.Environment;
 
 public class WidgetObserverConditionIfElse extends WidgetObserverConditionIf {
 	
-	private Control elsePanel;
+	private JComponent elsePanel;
 	
-	public WidgetObserverConditionIfElse(Expr expression, Control ifPanel, Control elsePanel, Environment environment){
+	public WidgetObserverConditionIfElse(Expr expression, JComponent ifPanel, JComponent elsePanel, Environment<Ident, Value> environment){
 		super(expression, ifPanel, environment);
 		
 		this.elsePanel = elsePanel;
@@ -17,7 +19,7 @@ public class WidgetObserverConditionIfElse extends WidgetObserverConditionIf {
 	
 	@Override
 	public void evaluate(){
-		Primitive result = evalCondition();		
+		Value result = evalCondition();		
 		ifPanel.setVisible(isDefined(result) && toBool(result));
 		elsePanel.setVisible(isDefined(result) && !toBool(result));
 	}

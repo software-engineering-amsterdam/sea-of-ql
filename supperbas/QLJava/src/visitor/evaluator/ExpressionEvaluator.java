@@ -30,12 +30,8 @@ public class ExpressionEvaluator implements Visitor<Value> {
 	public Int visit(Add ast) {
 		Int lhs;
 		Int rhs;
-		try {
 			lhs = (Int) ast.getLhs().accept(this);
 			rhs = (Int) ast.getRhs().accept(this);
-		} catch (Exception e) {
-			return intError("Add incompatible types (Required: Int; Got: " +ast.getLhs().typeOf(environment.getTypeEnv())+" and "+ast.getRhs().typeOf(environment.getTypeEnv())+")");
-		}
 		return new Int(lhs.getValue() + rhs.getValue());
 	}
 

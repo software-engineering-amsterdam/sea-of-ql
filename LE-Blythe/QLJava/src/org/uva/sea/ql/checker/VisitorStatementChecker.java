@@ -4,32 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.IVisitorStatement;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.statement.Block;
-import org.uva.sea.ql.ast.statement.Form;
-import org.uva.sea.ql.ast.statement.IVisitorStatement;
 import org.uva.sea.ql.ast.statement.IfThen;
 import org.uva.sea.ql.ast.statement.IfThenElse;
 import org.uva.sea.ql.ast.statement.QuestionAnswerable;
 import org.uva.sea.ql.ast.statement.QuestionComputed;
-import org.uva.sea.ql.ast.types.Bool;
-import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.util.Environment;
 
 public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 
-	private Environment environment;
+	private Environment<Ident, Type> environment;
 	private List<Error> errors;
 	
 	
 	public VisitorStatementChecker(){
-		environment = new Environment();
+		environment = new Environment<Ident, Type>();
 		errors = new ArrayList<Error>();
 	}
 
 	
-	public VisitorStatementChecker(Environment env, List<Error> errors){
+	public VisitorStatementChecker(Environment<Ident, Type> env, List<Error> errors){
 		this.environment = env;
 		this.errors = errors;
 	}
@@ -54,7 +54,7 @@ public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 	
 
 	private boolean identifierExists(Ident ident){
-		if(environment.containsValue(ident)){
+		if(environment.contains(ident)){
 			errors.add(new ErrorIdentifierExists(ident));
 			return true;
 		}
@@ -87,7 +87,7 @@ public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 	@Override
 	public Boolean visit(IfThen branch) {
 
-		Type type = new Bool();
+		Type type = new BoolType();
 		
 		return 	checkExpression(branch.getIfCondition(), type) &
 				branch.getIfBlock().accept(this);
@@ -95,7 +95,7 @@ public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 	
 	@Override
 	public Boolean visit(IfThenElse branch) {
-		Type type = new Bool();
+		Type type = new BoolType();
 		
 		return 	checkExpression(branch.getIfCondition(), type) &
 				branch.getIfBlock().accept(this) &
@@ -106,12 +106,13 @@ public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 	public Boolean visit(QuestionAnswerable question) {
 		
 		Ident ident = question.getIdentifier();
+		Type type = question.getType();
 		
 		if(!identifierExists(ident)){
-			environment.putValue(ident, question.getValue() );
+			environment.put(ident, type );
 			return true;
 		}
-		
+	
 		return false;
 	}
 	
@@ -119,19 +120,19 @@ public class VisitorStatementChecker implements IVisitorStatement<Boolean> {
 	public Boolean visit(QuestionComputed question) {
 		
 		Ident ident = question.getIdentifier();
-		Expr val = question.getValue();
+		Expr val = question.getExpression();
 		
 		//the type of the declared identifier is inferred from the
 		//type of the expression that follows it's definition.
 		//i.e. val:integer has type integer
 		//i.e. val:a+b has type numeric
-		Type typeOfIdent = question.getValue().typeOf(environment);
+		Type typeOfIdent = question.typeOf(environment);
 		
 		if(!checkExpression(val, typeOfIdent))
 			return false;
 		
 		if(!identifierExists(ident)){
-			environment.putValue(ident, val);
+			environment.put(ident, typeOfIdent);
 			return true;
 		}
 		

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.ast.value;
 
+import org.uva.sea.ql.ast.NaturalVisitor;
 import org.uva.sea.ql.ast.exp.Bools;
+import org.uva.sea.ql.ast.exp.ExpressionVisitor;
 import org.uva.sea.ql.ast.exp.Nature;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
-import org.uva.sea.ql.visitor.NaturalVisitor;
 
 public class BooleanValue extends Value {
 
