@@ -17,20 +17,19 @@ public class StatementChecker implements ast.statement.Visitor<Boolean> {
 
 	public boolean check(Statement stat, Environment environment) {
 		StatementChecker check = new StatementChecker(environment);
-		return stat.accept(check);
+		Boolean x = stat.accept(check);
+		return x;
 	}
 
 	@Override
 	public Boolean visit(Assignment ast) {
 		if (!environment.getTypeEnv().containsKey(ast.getIdent()))
-			environment.addError("undefined identifier (" + ast.getIdent().getValue() + ")");
+			environment.addError("undefined identifier (" + ast.getIdent() + ")");
 		return true;
 	}
 
 	@Override
 	public Boolean visit(Form ast) {
-		if (ast.getContent() == null)
-			return true;
 		return ast.getContent().accept(new StatementChecker(environment));
 	}
 

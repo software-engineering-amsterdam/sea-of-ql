@@ -47,10 +47,14 @@ public class ExpressionChecker implements ast.expression.Visitor<Boolean> {
 
 		}
 		// we should never get here
+		assert false: "Missed an expression case"; 
 		return false;
 	}
 
-	private boolean checkInt(Expression ast) {
+	private boolean checkInt(Binary ast) {
+		return check(ast, new ast.type.Int());
+	}
+	private boolean checkInt(Unary ast) {
 		return check(ast, new ast.type.Int());
 	}
 
