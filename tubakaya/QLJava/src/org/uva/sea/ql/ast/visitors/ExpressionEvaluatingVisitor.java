@@ -6,6 +6,10 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.QLValue;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.arithmetic.Add;
 import org.uva.sea.ql.ast.operators.arithmetic.Div;
 import org.uva.sea.ql.ast.operators.arithmetic.Mul;
@@ -21,10 +25,6 @@ import org.uva.sea.ql.ast.operators.relational.NEq;
 import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.QLValue;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
 import org.uva.sea.ql.parsers.exceptions.IdentifierNotDefinedException;
 import org.uva.sea.ql.parsers.exceptions.QLException;
 

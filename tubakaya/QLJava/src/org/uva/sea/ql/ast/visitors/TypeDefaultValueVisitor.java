@@ -1,11 +1,10 @@
 package org.uva.sea.ql.ast.visitors;
 
 import org.uva.sea.ql.ast.TypeVisitor;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.types.literals.*;
-import org.uva.sea.ql.ast.types.literals.QLValue;
 
 public class TypeDefaultValueVisitor implements TypeVisitor<QLValue>{
 

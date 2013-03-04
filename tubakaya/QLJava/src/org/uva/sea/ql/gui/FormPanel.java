@@ -11,8 +11,8 @@ import javax.swing.JFrame;
 
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.ast.statements.Form;
-import org.uva.sea.ql.ast.types.literals.QLValue;
 import org.uva.sea.ql.ast.visitors.StatementCheckingVisitor;
 import org.uva.sea.ql.ast.visitors.StatementRenderingVisitor;
 import org.uva.sea.ql.ast.visitors.TypeDefaultValueVisitor;
@@ -77,10 +77,9 @@ public class FormPanel extends JFrame {
 
 		this.form.accept(statementRenderingVisitor);
 
-		this.setSize(600, 1000);
+		this.setSize(600, 600);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.show();
 	}
 
 	private Map<Identifier, QLValue> generateIdentifierValueMapWithDefaultValues() {

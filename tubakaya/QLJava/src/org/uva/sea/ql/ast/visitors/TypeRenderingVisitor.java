@@ -10,10 +10,10 @@ import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.TypeVisitor;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.types.literals.QLValue;
 import org.uva.sea.ql.gui.FormPanel;
 import org.uva.sea.ql.gui.listeners.CheckBoxActionListener;
 import org.uva.sea.ql.gui.listeners.NumericTextFieldActionListener;

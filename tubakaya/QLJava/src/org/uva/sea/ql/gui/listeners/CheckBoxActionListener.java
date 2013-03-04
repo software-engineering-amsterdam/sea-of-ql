@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.swing.JCheckBox;
 
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.gui.FormPanel;
 
 public class CheckBoxActionListener extends QLActionListener {

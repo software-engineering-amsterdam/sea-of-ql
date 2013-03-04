@@ -1,5 +1,8 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.arithmetic.Add;
 import org.uva.sea.ql.ast.operators.arithmetic.Div;
 import org.uva.sea.ql.ast.operators.arithmetic.Mul;
@@ -16,9 +19,6 @@ import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public interface ExpressionTypeVisitor {
 

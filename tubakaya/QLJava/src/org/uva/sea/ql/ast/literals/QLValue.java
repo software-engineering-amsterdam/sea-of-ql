@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.types.literals;
+package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.Expression;
 

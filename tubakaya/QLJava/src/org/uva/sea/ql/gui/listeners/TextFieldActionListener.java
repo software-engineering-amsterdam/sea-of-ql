@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.types.literals.QLValue;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
+import org.uva.sea.ql.ast.literals.QLValue;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.gui.FormPanel;
 
 public class TextFieldActionListener extends QLActionListener {

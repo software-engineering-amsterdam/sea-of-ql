@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast.types.literals;
+package org.uva.sea.ql.ast.literals;
 
 import org.uva.sea.ql.ast.ExpressionTypeVisitor;
 import org.uva.sea.ql.ast.ExpressionVisitor;
@@ -76,12 +76,12 @@ public class IntLiteral extends QLValue {
 
 	public QLValue gT(QLValue rhs) {
 		return new BooleanLiteral(
-				this.getIntegerValue() < rhs.getIntegerValue());
+				this.getIntegerValue() > rhs.getIntegerValue());
 	}
 
 	public QLValue lT(QLValue rhs) {
 		return new BooleanLiteral(
-				this.getIntegerValue() > rhs.getIntegerValue());
+				this.getIntegerValue() < rhs.getIntegerValue());
 	}
 
 	public QLValue pos() {

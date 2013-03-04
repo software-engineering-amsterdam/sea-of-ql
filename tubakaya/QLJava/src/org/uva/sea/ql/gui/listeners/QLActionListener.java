@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.gui.FormPanel;
 
 public abstract class QLActionListener implements ActionListener {

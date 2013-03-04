@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.uva.sea.ql.ast.Identifier;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.gui.FormPanel;
 
 public class NumericTextFieldActionListener extends QLActionListener {

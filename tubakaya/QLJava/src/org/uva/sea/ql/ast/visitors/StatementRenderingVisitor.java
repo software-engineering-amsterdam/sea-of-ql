@@ -11,12 +11,12 @@ import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.ast.statements.ComputedValue;
 import org.uva.sea.ql.ast.statements.Form;
 import org.uva.sea.ql.ast.statements.IfStatement;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.types.literals.QLValue;
 import org.uva.sea.ql.gui.FormPanel;
 
 public class StatementRenderingVisitor implements StatementVisitor {
