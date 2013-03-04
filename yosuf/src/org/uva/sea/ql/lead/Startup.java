@@ -7,7 +7,7 @@ import julius.utilities.FileHelper;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.checker.StatementTypeChecker;
-import org.uva.sea.ql.checker.TypeCheckException;
+import org.uva.sea.ql.checker.TypeCheckError;
 import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.evaluator.StatementEvaluator;
 import org.uva.sea.ql.gui.QLForm;
@@ -55,7 +55,7 @@ public final class Startup extends Application {
 		StatementTypeChecker statementChecker = new StatementTypeChecker();
 		statementChecker.visit(form);
 
-		for (TypeCheckException e : statementChecker.getAllTypeErrors()) {
+		for (TypeCheckError e : statementChecker.getAllTypeErrors()) {
 			LogPrinter.debugInfo(e.toString());
 		}
 		return statementChecker.isValid();

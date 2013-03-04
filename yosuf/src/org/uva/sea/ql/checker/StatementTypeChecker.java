@@ -31,7 +31,7 @@ import org.uva.sea.ql.ast.type.BooleanType;
  */
 public class StatementTypeChecker implements StatementVisitor<Block> {
 
-	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
+	private final List<TypeCheckError> typeErrors = new ArrayList<TypeCheckError>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
 	private final Map<Identifier, Natural> environment = new HashMap<Identifier, Natural>();
@@ -64,7 +64,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 
 		assertIdentifierAndAddToEnvironment(computed.getIdentifier(), computed.getExpression());
 		visitExpression(computed.getExpression());
-		assertSameNature(computed.getDataType(), computed.getExpression(), computed.toString());
+		checkNature(computed.getDataType(), computed.getExpression(), computed.toString());
 
 		return computed;
 	}
@@ -89,9 +89,9 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 */
 	private void assertIfStatementExpression(final Natural naturalExpression, final String reference) {
 		if (environment.get(naturalExpression) != null) {
-			assertSameNature(new BooleanType(), environment.get(naturalExpression), reference);
+			checkNature(new BooleanType(), environment.get(naturalExpression), reference);
 		} else {
-			assertSameNature(new BooleanType(), naturalExpression, reference);
+			checkNature(new BooleanType(), naturalExpression, reference);
 		}
 	}
 
@@ -113,16 +113,11 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 		return question;
 	}
 
-	private void assertSameNature(final Natural natural, final Natural natural2,
-			final String reference) {
+	private void checkNature(final Natural natural, final Natural natural2, final String reference) {
 
-		try {
-			checked.assertTrue(natural.getNature().equals(natural2.getNature()), natural
-					+ " does not match " + natural2 + " for " + reference);
-
-		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(natural + " does not match " + natural2 + " for "
-					+ reference, e));
+		if (!natural.getNature().equals(natural2.getNature())) {
+			typeErrors.add(new TypeCheckError(natural + " does not match " + natural2 + " for "
+					+ reference));
 		}
 	}
 
@@ -139,7 +134,6 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 */
 	private void assertIdentifierAndAddToEnvironment(final Identifier identifier,
 			final Natural natural) {
-		// identifier.accept(expressionTypeChecker);
 
 		try {
 			checked.assertTrue(!identifier.getName().isEmpty(), natural
@@ -151,7 +145,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 			environment.put(identifier, natural);
 
 		} catch (ValidationException e) {
-			typeErrors.add(new TypeCheckException(identifier.getName() + " already exists", e));
+			typeErrors.add(new TypeCheckError(identifier.getName() + " already exists"));
 		}
 	}
 
@@ -159,16 +153,16 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 * 
 	 * @return a copy. Does not include expression type errors
 	 */
-	public Collection<TypeCheckException> getTypeErrors() {
-		return new ArrayList<TypeCheckException>(typeErrors);
+	public Collection<TypeCheckError> getTypeErrors() {
+		return new ArrayList<TypeCheckError>(typeErrors);
 	}
 
 	/**
 	 * 
 	 * @return all error types including expression type errors
 	 */
-	public Collection<TypeCheckException> getAllTypeErrors() {
-		List<TypeCheckException> allErrors = new ArrayList<TypeCheckException>(typeErrors);
+	public Collection<TypeCheckError> getAllTypeErrors() {
+		List<TypeCheckError> allErrors = new ArrayList<TypeCheckError>(typeErrors);
 		allErrors.addAll(expressionTypeChecker.getTypeErrors());
 
 		return allErrors;
