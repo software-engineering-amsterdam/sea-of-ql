@@ -1,19 +1,24 @@
 package org.uva.sea.ql.gui.listeners;
 
 import java.awt.event.ActionEvent;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.types.literals.IntLiteral;
+import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.gui.FormPanel;
 
 public class NumericTextFieldActionListener extends QLActionListener {
 
 	private JTextField textField;
 
-	public NumericTextFieldActionListener(JPanel panel, JTextField textField) {
-		super(panel);
+	public NumericTextFieldActionListener(FormPanel formPanel,
+			Map<Identifier, QLValue> identifierValueMap, Identifier identifier,
+			JTextField textField) {
+		super(formPanel, identifierValueMap, identifier);
 		this.textField = textField;
 	}
 
@@ -28,6 +33,9 @@ public class NumericTextFieldActionListener extends QLActionListener {
 		}
 
 		IntLiteral integerLiteral = new IntLiteral(intValue);
+
+		this.identifierValueMap.put(this.identifier, integerLiteral);
+		super.updateFormPanel();
 	}
 
 }

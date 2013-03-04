@@ -1,30 +1,38 @@
 package org.uva.sea.ql.ast.visitors;
 
 import java.text.NumberFormat;
+import java.util.Map;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.TypeVisitor;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.gui.FormPanel;
 import org.uva.sea.ql.gui.listeners.CheckBoxActionListener;
 import org.uva.sea.ql.gui.listeners.NumericTextFieldActionListener;
 import org.uva.sea.ql.gui.listeners.TextFieldActionListener;
 
 public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 
-	private JPanel parentPanel;
+	private FormPanel formPanel;
+	private Map<Identifier, QLValue> identifierValueMap;
+	private Identifier identifier;
 	private QLValue value;
 	private Boolean enabled;
 
-	public TypeRenderingVisitor(JPanel parentPanel, QLValue value,	Boolean enabled) {
-		this.parentPanel = parentPanel;
+	public TypeRenderingVisitor(FormPanel formPanel,
+			Map<Identifier, QLValue> identifierValueMap, Identifier identifier,
+			QLValue value, Boolean enabled) {
+		this.formPanel = formPanel;
+		this.identifierValueMap = identifierValueMap;
+		this.identifier = identifier;
 		this.value = value;
 		this.enabled = enabled;
 	}
@@ -33,7 +41,7 @@ public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 	public JComponent visit(BooleanType booleanDeclaration) {
 		JCheckBox checkBox = new JCheckBox();
 		CheckBoxActionListener booleanListener = new CheckBoxActionListener(
-				parentPanel);
+				formPanel, identifierValueMap, identifier, checkBox);
 		checkBox.addActionListener(booleanListener);
 		checkBox.setSelected(value.getBooleanValue());
 		checkBox.setEnabled(enabled);
@@ -46,7 +54,7 @@ public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 				NumberFormat.getIntegerInstance());
 		intField.setColumns(8);
 		NumericTextFieldActionListener integerListener = new NumericTextFieldActionListener(
-				parentPanel, intField);
+				formPanel, identifierValueMap, identifier, intField);
 		intField.addActionListener(integerListener);
 		intField.setText(value.toString());
 		intField.setEditable(enabled);
@@ -57,7 +65,7 @@ public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 	public JComponent visit(StringType stringDeclaration) {
 		JTextField strField = new JTextField(20);
 		TextFieldActionListener stringListener = new TextFieldActionListener(
-				parentPanel, strField);
+				formPanel, identifierValueMap, identifier, strField);
 		strField.addActionListener(stringListener);
 		strField.setText(value.toString());
 		strField.setEditable(enabled);

@@ -17,17 +17,20 @@ import org.uva.sea.ql.ast.statements.IfStatement;
 import org.uva.sea.ql.ast.statements.Question;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.gui.FormPanel;
 
 public class StatementRenderingVisitor implements StatementVisitor {
 
+	private FormPanel formPanel;
 	private JPanel parentPanel;
 	private ExpressionTypeFindingVisitor expressionTypeFindingVisitor;
 	private Map<Identifier, QLValue> identifierValueMap;
 
-	public StatementRenderingVisitor(JPanel parentPanel,
+	public StatementRenderingVisitor(FormPanel formPanel,
 			Map<Identifier, Type> identifierTypeMap,
 			Map<Identifier, QLValue> identifierValueMap) {
-		this.parentPanel = parentPanel;
+		this.parentPanel = new JPanel();
+		this.formPanel = formPanel;
 		this.expressionTypeFindingVisitor = new ExpressionTypeFindingVisitor(
 				identifierTypeMap);
 		this.identifierValueMap = identifierValueMap;
@@ -73,10 +76,11 @@ public class StatementRenderingVisitor implements StatementVisitor {
 		Type type = identifier.accept(expressionTypeFindingVisitor);
 
 		TypeRenderingVisitor typeRenderingVisitor = new TypeRenderingVisitor(
-				panel, value, enabled);
+				formPanel, identifierValueMap, identifier, value, enabled);
 		panel.add(type.accept(typeRenderingVisitor));
 
 		this.parentPanel.add(panel);
+		this.formPanel.add(parentPanel);
 	}
 
 	private JPanel getNewPanelWithLabel(String label) {
