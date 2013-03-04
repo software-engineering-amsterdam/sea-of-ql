@@ -1,35 +1,14 @@
 package org.uva.sea.ql.ast.nodes.statements;
 
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import java.util.Map;
+import org.uva.sea.ql.ast.nodes.ASTNode;
+import org.uva.sea.ql.ast.nodes.expressions.Ident;
+import org.uva.sea.ql.ast.statements.visitor.Visitable;
+import org.uva.sea.ql.ast.statements.visitor.Visitor;
+import org.uva.sea.ql.types.Type;
 
-public abstract class Statement extends Expr {
-	private final String astNodeType = "Statement";
-	
-	public String getNodeType(){
-		return this.astNodeType;
-	}
-	
-	public boolean isQuestionStatement(){
-		return false;
-	}
-	public boolean isBlockStatement(){
-		return false;
-	}
-	public boolean isQuestionBodyStatement(){
-		return false;
-	}
-	public boolean isFormStatement(){
-		return false;
-	}
-	public boolean isConditionStatement(){
-		return false;
-	}
-	public boolean isConditionalStatement(){
-		return false;
-	}
-	
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
-	}
+public abstract class Statement implements ASTNode, Visitable{
+	public abstract Type getType();
+	public abstract Type typeOf(Map<Ident, Type> typeEnvironment);
+	public abstract void accept(Visitor visitor);
 }

@@ -5,12 +5,9 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expressions.*;
-import org.uva.sea.ql.ast.nodes.*;
+import org.uva.sea.ql.ast.nodes.expressions.*;
 import org.uva.sea.ql.ast.nodes.statements.*;
-import org.uva.sea.ql.ast.nodes.types.*;
-import java.util.HashSet;
+
 }
 
 @lexer::header
@@ -19,19 +16,17 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 // PARSE RULES
-
-start	returns [Expr result]
+start	returns [Statement result]
 	: fD=formDeclaration { $result = $fD.result; }
 	;
 
-formDeclaration returns [Expr result]
+formDeclaration returns [Statement result]
 	: FORM i=FORMIDENT b=block { $result = new Form(new Ident($i.text), $b.result);}
 	// for test cases
 	| x=block { $result = $x.result; }
 	| x=statement { $result = $x.result; }
-	| x=condition { $result = $x.result; }
-	| x=conditionalStatement { $result = $x.result; }
-	| x=unExpr {$result = $x.result; }
+	| x=ifStatement { $result = $x.result; }
+	| x=ifElseStatement { $result = $x.result; }
 	;
 	
 blockContent returns [ArrayList<Statement> result]
@@ -46,43 +41,74 @@ block returns [Statement result]
 	: LCB b=blockContent RCB { $result = new Block($b.result); }
 	;
 
-conditionalStatement returns [Statement result]
-	: c=condition b=block { $result = new ConditionalStatement($c.result, $b.result);}
+ifStatement returns [Statement result]
+	: ic=ifCondition ib=block { $result = new IfThen($ic.result, $ib.result);}
+	;
+ifElseStatement returns [Statement result]
+	: ic=ifCondition ib=block ELSE eb=block  { $result = new IfThenElse($ic.result, $ib.result, $eb.result);}
 	;
 	
 statement returns [Statement result]
-	: a=assDeclStatement { $result = $a.result; }
-	| c=conditionalStatement { $result = $c.result; }
+	: cqd=compQuestionDeclaration { $result = $cqd.result; }
+	| qd=questionDeclaration { $result = $qd.result; }
+	| ie=ifElseStatement { $result = $ie.result; }
+	| is=ifStatement { $result = $is.result; }
 	;
 	
-condition returns [Statement result]
-	: IF LB x=IDENT RB { $result = new Condition(new Ident($x.text)); }
-	| IF LB e=unExpr RB { $result = new Condition($e.result); }
+ifCondition returns [Expr result]
+	: IF LB x=IDENT RB { $result = new Ident($x.text); }
+	| IF LB e=orExpr RB { $result = $e.result; }
 	;
-
-tMoney	returns [Expr result]
+// Simple Types
+typeMoney returns [Expr result]
 	: m=MONEY {$result = new Money($m.text);}
-	| MONEY LB x=addExpr RB { $result = new Money($x.result); }
 	;
 	
-tBoolean returns [Expr result]
-	: b=BOOLEAN {$result = new Bool(new Boolean(false));}
-	;
-
-assDeclStatement returns [Statement result]
-	: i=IDENT CL s=STRING b=tBoolean { $result = new Question( new Ident($i.text), new QuestionBody(new Str($s.text), $b.result )); }
-	| i=IDENT CL s=STRING x=tMoney { $result = new Question( new Ident($i.text),  new QuestionBody(new Str($s.text), $x.result )); }
+typeBoolean returns [Expr result]
+	: b=BOOLEAN {$result = new Bool($b.text);}
 	;
 	
+typeInteger returns [Expr result]
+	: i=INT {$result = new Int($i.text);}
+	;
+// Computated types [Bool,Int,Money]
+compTypeMoney returns [Expr result]
+	: MONEY LB ( x=addExpr | x=mulExpr ) RB { $result = new CompMoney($x.result); }
+	;
 
+compTypeBoolean returns [Expr result]
+	: BOOLEAN LB bx=boolExpr RB { $result = new CompBool($bx.result); }
+	;
+
+compTypeInteger returns [Expr result]
+	: INT LB ( x=addExpr | x=mulExpr ) RB { $result = new CompInt($x.result); }
+	;
+// Computated  Question variant	
+compQuestionDeclaration returns [Statement result]
+	: i=IDENT CL s=STRING cb=compTypeBoolean { $result = new ComputedQuestion( new Ident($i.text), new Str($s.text), $cb.result ); }
+	| i=IDENT CL s=STRING cm=compTypeMoney { $result = new ComputedQuestion( new Ident($i.text),  new Str($s.text), $cm.result ); }
+	| i=IDENT CL s=STRING ci=compTypeInteger { $result = new ComputedQuestion( new Ident($i.text),  new Str($s.text), $ci.result ); }
+	;	
+// Simple Question variant
+questionDeclaration returns [Statement result]
+	: i=IDENT CL s=STRING tb=typeBoolean { $result = new Question( new Ident($i.text), new Str($s.text), $tb.result ); }
+	| i=IDENT CL s=STRING tm=typeMoney { $result = new Question( new Ident($i.text),  new Str($s.text), $tm.result ); }
+	| i=IDENT CL s=STRING ti=typeInteger { $result = new Question( new Ident($i.text),  new Str($s.text), $ti.result ); }
+	;
+	
+boolExpr returns [Expr result]
+	: rx=relExpr { $result = $rx.result; }
+	| ax=andExpr { $result = $ax.result; }
+	| ox=orExpr  { $result = $ox.result; };	
+	
 // Skeleton Rules
 primary returns [Expr result]
-  : i=INT   { $result = new Int(Integer.parseInt($i.text)); }
+  : i=INT   { $result = new Int($i.text); }
   | s=STRING   { $result = new Str($s.text); }
   | m=MONEY { $result = new Money($m.text); }
-  | b=BOOLEAN  { $result = new Bool(new Boolean(false)); }
+  | b=BOOLEAN  { $result = new Bool($b.text); }
   | LB x=orExpr RB { $result = $x.result; }
-  | i=IDENT { $result = new Ident($i.text); } 
+  | i=IDENT { $result = new Ident($i.text); }
   ;
     
 unExpr returns [Expr result]
@@ -178,7 +204,7 @@ MONEY
 IDENT	
 	: ( LOWERCASE_LETTER ) (LOWERCASE_LETTER | UPPERCASE_LETTER | INT_DIGIT | UNDERSCORE )* 
 	;
-STRING	//REM: DQ could be also removed
+STRING	
 	: (DQ) ( LOWERCASE_LETTER | UPPERCASE_LETTER | INT_DIGIT | UNDERSCORE | QUESTION_MARK | COLON | SINGLE_SPACE | BACKSLASH )* (DQ)
 	;
 INT	

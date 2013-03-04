@@ -1,5 +1,3 @@
 package org.uva.sea.ql.ast.nodes;
 
-public interface ASTNode {	
-	String getNodeType();
-}
+public interface ASTNode {}
