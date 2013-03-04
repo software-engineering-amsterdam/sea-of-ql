@@ -2,6 +2,10 @@ package org.uva.sea.ql.ast;
 
 import java.util.List;
 
+import org.uva.sea.ql.ast.statements.Statement;
+import org.uva.sea.ql.visitor.Visitor;
+
+
 public class Form {
 	protected Expr name;
 	protected List<Statement> sList;

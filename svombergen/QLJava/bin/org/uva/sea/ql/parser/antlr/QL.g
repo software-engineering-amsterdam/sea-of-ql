@@ -5,11 +5,11 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.boolexpr.*;
-import org.uva.sea.ql.ast.relationalexpr.*;
 import org.uva.sea.ql.ast.unaryexpr.*;
 import org.uva.sea.ql.ast.binaryexpr.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.primaryexpr.*;
+import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.ast.statements.types.*;
 }
 @parser::members {
     @Override
@@ -39,7 +39,8 @@ ifStatement returns [IfStatement result]
 	;
 	
 question returns [Question result]
-	: Ident ':' Str type { $result = new Question(new Ident($Ident.text), new Str($Str.text), $type.result); }
+	: Ident ':' Str type '(' addExpr ')'  { $result = new ComputableQuestion(new Ident($Ident.text), new Str($Str.text), $type.result, $addExpr.result); }
+	| Ident ':' Str type { $result = new AnswerableQuestion(new Ident($Ident.text), new Str($Str.text), $type.result); }
 	;
 
 type returns [Type result]
@@ -47,7 +48,6 @@ type returns [Type result]
 	| 'int' { $result = new IntType(); }
 	| 'string' { $result = new StrType(); }
 	| 'money' { $result = new MoneyType(); }
-	| 'money(' x=addExpr ')' { $result = new MoneyExprType($x.result); }
 	;
 
 primary returns [Expr result]
