@@ -17,12 +17,12 @@ import org.uva.sea.ql.ast.Computed;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.IfElseStatement;
 import org.uva.sea.ql.ast.IfStatement;
-import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.type.BooleanType;
 
 /**
  * This class checks the statements semantically. To collect report whether the checker has
@@ -34,7 +34,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	private final List<TypeCheckError> typeErrors = new ArrayList<TypeCheckError>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
-	private final Map<Identifier, Natural> environment = new HashMap<Identifier, Natural>();
+	private final Map<Identifier, Type> environment = new HashMap<Identifier, Type>();
 
 	public StatementTypeChecker() {
 		expressionTypeChecker = new ExpressionTypeChecker(environment);
@@ -44,7 +44,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	@Override
 	public Block visit(final Form form) {
 		form.getBody().accept(this);
-		assertIdentifierAndAddToEnvironment(form.getIdentifier(), form.getIdentifier());
+		assertIdentifierAndAddToEnvironment(form.getIdentifier(), form.getIdentifier().getType());
 
 		return form;
 	}
@@ -62,9 +62,11 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	@Override
 	public Block visit(final Computed computed) {
 
-		assertIdentifierAndAddToEnvironment(computed.getIdentifier(), computed.getExpression());
+		assertIdentifierAndAddToEnvironment(computed.getIdentifier(), computed.getExpression()
+				.getType());
 		visitExpression(computed.getExpression());
-		checkNature(computed.getDataType(), computed.getExpression(), computed.toString());
+		checkType(computed.getDataType().getType(), computed.getExpression().getType(),
+				computed.toString());
 
 		return computed;
 	}
@@ -81,17 +83,17 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	}
 
 	/**
-	 * Checks whethere the given expression is of the boolean nature or refers to any expression
-	 * with such nature.
+	 * Checks whethere the given expression is of the boolean type or refers to any expression with
+	 * the same type.
 	 * 
-	 * @param naturalExpression
+	 * @param expression
 	 * @param reference
 	 */
-	private void assertIfStatementExpression(final Natural naturalExpression, final String reference) {
-		if (environment.get(naturalExpression) != null) {
-			checkNature(new BooleanType(), environment.get(naturalExpression), reference);
+	private void assertIfStatementExpression(final Expression expression, final String reference) {
+		if (environment.get(expression) != null) {
+			checkType(new Bools(), environment.get(expression), reference);
 		} else {
-			checkNature(new BooleanType(), naturalExpression, reference);
+			checkType(new Bools(), expression.getType(), reference);
 		}
 	}
 
@@ -109,14 +111,15 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 
 	@Override
 	public Block visit(final Question question) {
-		assertIdentifierAndAddToEnvironment(question.getIdentifier(), question.getDataType());
+		assertIdentifierAndAddToEnvironment(question.getIdentifier(), question.getDataType()
+				.getType());
 		return question;
 	}
 
-	private void checkNature(final Natural natural, final Natural natural2, final String reference) {
+	private void checkType(final Type type1, final Type type2, final String reference) {
 
-		if (!natural.getNature().equals(natural2.getNature())) {
-			typeErrors.add(new TypeCheckError(natural + " does not match " + natural2 + " for "
+		if (!type1.equals(type2)) {
+			typeErrors.add(new TypeCheckError(type1 + " does not match " + type2 + " for "
 					+ reference));
 		}
 	}
@@ -129,20 +132,19 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	 * This method asserts the identifier is not empty an non existing in the environment
 	 * 
 	 * @param identifier
-	 * @param natural
+	 * @param type
 	 *            is the expression to which the identifier refers
 	 */
-	private void assertIdentifierAndAddToEnvironment(final Identifier identifier,
-			final Natural natural) {
+	private void assertIdentifierAndAddToEnvironment(final Identifier identifier, final Type type) {
 
 		try {
-			checked.assertTrue(!identifier.getName().isEmpty(), natural
+			checked.assertTrue(!identifier.getName().isEmpty(), type
 					+ " identifier cannot be empty");
 
 			checked.assertTrue(environment.get(identifier) == null, identifier.getName()
 					+ " already exists");
 
-			environment.put(identifier, natural);
+			environment.put(identifier, type);
 
 		} catch (ValidationException e) {
 			typeErrors.add(new TypeCheckError(identifier.getName() + " already exists"));

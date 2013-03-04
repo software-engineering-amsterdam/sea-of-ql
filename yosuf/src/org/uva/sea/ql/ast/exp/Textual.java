@@ -2,10 +2,11 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.ast.value.Value;
 
-public class Textual extends Nature {
+public class Textual extends Type {
 
 	private final String textualValue;
 

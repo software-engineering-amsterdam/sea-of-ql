@@ -31,8 +31,8 @@ public abstract class Binary extends Expression {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + " [left=" + left + ", right="
-				+ right + ", Nature=" + getNature() + "]";
+		return getClass().getSimpleName() + " [left=" + left + ", right=" + right + ", Type="
+				+ getType() + "]";
 	}
 
 }

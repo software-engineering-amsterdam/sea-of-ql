@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.ExpressionVisitor;
-import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.Numeric;
 
 public class NumericValue extends Value {
@@ -31,13 +31,13 @@ public class NumericValue extends Value {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Numeric();
 	}
 
 	@Override
 	public String toString() {
-		return "IntegerValue [value=" + value + ", Nature=" + getNature() + "]";
+		return "IntegerValue [value=" + value + ", Type=" + getType() + "]";
 	}
 
 	@Override

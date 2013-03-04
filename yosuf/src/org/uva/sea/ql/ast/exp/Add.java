@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.Type;
+
 
 public class Add extends Binary {
 
@@ -8,7 +10,7 @@ public class Add extends Binary {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Numeric();
 	}
 

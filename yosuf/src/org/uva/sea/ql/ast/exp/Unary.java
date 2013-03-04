@@ -22,8 +22,7 @@ public abstract class Unary extends Expression {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[operation=" + operation
-				+ ", Nature=" + getNature() + "]";
+		return getClass().getSimpleName() + "[operation=" + operation + ", Type=" + getType() + "]";
 	}
 
 }

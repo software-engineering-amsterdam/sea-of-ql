@@ -6,18 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
-import org.uva.sea.ql.ast.Natural;
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
-import org.uva.sea.ql.ast.exp.ExpressionVisitor;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.exp.Multiply;
-import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.Negative;
 import org.uva.sea.ql.ast.exp.Not;
 import org.uva.sea.ql.ast.exp.NotEquals;
@@ -28,7 +26,6 @@ import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.type.BooleanType;
-import org.uva.sea.ql.ast.type.DataTypeVisitor;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
@@ -40,194 +37,194 @@ import org.uva.sea.ql.ast.value.StringValue;
  * Use {@link #isValid()} and {@link #getTypeErrors()} to validate at the end.
  */
 @Visitor
-public class ExpressionTypeChecker implements ExpressionVisitor<Natural>, DataTypeVisitor<Natural> {
+public class ExpressionTypeChecker implements TypeCheckerVisitor<Type> {
 
 	private final List<TypeCheckError> typeErrors;
-	private final Map<Identifier, Natural> environment;
+	private final Map<Identifier, Type> environment;
 
-	public ExpressionTypeChecker(final Map<Identifier, Natural> environment) {
+	public ExpressionTypeChecker(final Map<Identifier, Type> environment) {
 		typeErrors = new ArrayList<TypeCheckError>();
 		this.environment = environment;
 	}
 
 	@Override
-	public Natural visit(final Add add) {
+	public Type visit(final Add add) {
 		checkNumeric(add.getRight().accept(this));
 		checkNumeric(add.getLeft().accept(this));
 
-		return add;
+		return add.getType();
 	}
 
 	@Override
-	public Natural visit(final NumericValue integerValue) {
-		return integerValue;
+	public Type visit(final NumericValue integerValue) {
+		return integerValue.getType();
 	}
 
 	@Override
-	public Natural visit(final And and) {
+	public Type visit(final And and) {
 		checkBoolean(and.getLeft().accept(this));
 		checkBoolean(and.getRight().accept(this));
 
-		return and;
+		return and.getType();
 	}
 
 	@Override
-	public Natural visit(final Divide divide) {
+	public Type visit(final Divide divide) {
 		checkNumeric(divide.getRight().accept(this));
 		checkNumeric(divide.getLeft().accept(this));
 
-		return divide;
+		return divide.getType();
 	}
 
 	@Override
-	public Natural visit(final Equals equals) {
+	public Type visit(final Equals equals) {
 		// Only numeric equals supported right now.
 		checkNumeric(equals.getRight().accept(this));
 		checkNumeric(equals.getLeft().accept(this));
 
-		return equals;
+		return equals.getType();
 	}
 
 	@Override
-	public Natural visit(final GreaterOrEquals greaterOrEquals) {
+	public Type visit(final GreaterOrEquals greaterOrEquals) {
 		checkNumeric(greaterOrEquals.getRight().accept(this));
 		checkNumeric(greaterOrEquals.getLeft().accept(this));
 
-		return greaterOrEquals;
+		return greaterOrEquals.getType();
 	}
 
 	@Override
-	public Natural visit(final BooleanValue booleanValue) {
-		return booleanValue;
+	public Type visit(final BooleanValue booleanValue) {
+		return booleanValue.getType();
 	}
 
 	@Override
-	public Natural visit(final StringValue stringValue) {
-		return stringValue;
+	public Type visit(final StringValue stringValue) {
+		return stringValue.getType();
 	}
 
 	@Override
-	public Natural visit(final GreaterThan greaterThan) {
+	public Type visit(final GreaterThan greaterThan) {
 		checkNumeric(greaterThan.getRight().accept(this));
 		checkNumeric(greaterThan.getLeft().accept(this));
 
-		return greaterThan;
+		return greaterThan.getType();
 	}
 
 	@Override
-	public Natural visit(final Identifier identifier) {
+	public Type visit(final Identifier identifier) {
 		if (environment.get(identifier) == null) {
-			return identifier;
+			return identifier.getType();
 		} else {
 			return environment.get(identifier);
 		}
 	}
 
 	@Override
-	public Natural visit(final Multiply multiply) {
+	public Type visit(final Multiply multiply) {
 
 		checkNumeric(multiply.getRight().accept(this));
 		checkNumeric(multiply.getLeft().accept(this));
 
-		return multiply;
+		return multiply.getType();
 	}
 
 	@Override
-	public Natural visit(final Negative negative) {
-		checkNumeric(negative.getOperation());
+	public Type visit(final Negative negative) {
+		checkNumeric(negative.getOperation().accept(this));
 
-		return negative;
+		return negative.getType();
 	}
 
 	@Override
-	public Natural visit(final Not not) {
+	public Type visit(final Not not) {
 		checkBoolean(not.getOperation().accept(this));
 
-		return not;
+		return not.getType();
 	}
 
 	@Override
-	public Natural visit(final NotEquals notEquals) {
+	public Type visit(final NotEquals notEquals) {
 		checkNumeric(notEquals.getRight().accept(this));
 		checkNumeric(notEquals.getLeft().accept(this));
 
-		return notEquals;
+		return notEquals.getType();
 	}
 
 	@Override
-	public Natural visit(final Or or) {
+	public Type visit(final Or or) {
 
 		checkBoolean(or.getRight().accept(this));
 		checkBoolean(or.getLeft().accept(this));
 
-		return or;
+		return or.getType();
 	}
 
 	@Override
-	public Natural visit(final Positive positive) {
+	public Type visit(final Positive positive) {
 		checkNumeric(positive.getOperation().accept(this));
 
-		return positive;
+		return positive.getType();
 	}
 
 	@Override
-	public Natural visit(final SmallerOrEquals smallerOrEquals) {
+	public Type visit(final SmallerOrEquals smallerOrEquals) {
 		checkNumeric(smallerOrEquals.getRight().accept(this));
 		checkNumeric(smallerOrEquals.getLeft().accept(this));
 
-		return smallerOrEquals;
+		return smallerOrEquals.getType();
 	}
 
 	@Override
-	public Natural visit(final SmallerThan smallerThan) {
+	public Type visit(final SmallerThan smallerThan) {
 
 		checkNumeric(smallerThan.getRight().accept(this));
 		checkNumeric(smallerThan.getLeft().accept(this));
 
-		return smallerThan;
+		return smallerThan.getType();
 	}
 
 	@Override
-	public Natural visit(final Substitute substitute) {
+	public Type visit(final Substitute substitute) {
 
 		checkNumeric(substitute.getRight().accept(this));
 		checkNumeric(substitute.getLeft().accept(this));
 
-		return substitute;
+		return substitute.getType();
 	}
 
-	private void checkNumeric(final Natural natural) {
-		checkNature(natural, new Numeric());
+	private void checkNumeric(final Type type) {
+		checkType(type, new Numeric());
 	}
 
-	private void checkBoolean(final Natural natural) {
-		checkNature(natural, new Bools());
+	private void checkBoolean(final Type type) {
+		checkType(type, new Bools());
 	}
 
-	private void checkNature(final Natural natural, final Nature nature) {
-		if (!natural.getNature().equals(nature)) {
-			typeErrors.add(new TypeCheckError("A " + nature + " is incompatible with " + natural));
+	private void checkType(final Type type1, final Type type2) {
+		if (!type1.equals(type2)) {
+			typeErrors.add(new TypeCheckError(type2 + " is incompatible with " + type1));
 		}
 	}
 
 	@Override
-	public Natural visit(final BooleanType booleanType) {
-		return booleanType;
+	public Type visit(final BooleanType booleanType) {
+		return booleanType.getType();
 	}
 
 	@Override
-	public Natural visit(final IntegerType integerType) {
-		return integerType;
+	public Type visit(final IntegerType integerType) {
+		return integerType.getType();
 	}
 
 	@Override
-	public Natural visit(final MoneyType moneyType) {
-		return moneyType;
+	public Type visit(final MoneyType moneyType) {
+		return moneyType.getType();
 	}
 
 	@Override
-	public Natural visit(final StringType stringType) {
-		return stringType;
+	public Type visit(final StringType stringType) {
+		return stringType.getType();
 	}
 
 	/**

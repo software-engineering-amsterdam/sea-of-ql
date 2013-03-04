@@ -21,10 +21,10 @@ import org.uva.sea.ql.ast.IfElseStatement;
 import org.uva.sea.ql.ast.IfStatement;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.UnmodifiedException;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.Value;
@@ -148,9 +148,9 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 	@Override
 	public Node visit(final Question question) {
 		state.assertNotNull(question, "question");
-		Nature nature = question.getDataType().getNature();
+		Type type = question.getDataType().getType();
 
-		if (nature.equals(new Bools())) {
+		if (type.equals(new Bools())) {
 			return createYesNoQuestion(question);
 		} else {
 			return createOpenQuestion(question);
@@ -201,7 +201,7 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 
 		if (comp != null) {
 			Expression evaluated = comp.getExpression().accept(expressionEvaluator);
-			boolean bools = evaluated.getNature().equals(new Bools());
+			boolean bools = evaluated.getType().equals(new Bools());
 
 			return bools && ((BooleanValue) evaluated).getValue();
 		} else {
@@ -238,11 +238,11 @@ public class QLNodeVisitor implements StatementVisitor<Node> {
 	 */
 	private void handleUserInput(final Question question, final TextField input,
 			final String oldInput, final String newInput) {
-		Nature nature = question.getDataType().getNature();
+		Type type = question.getDataType().getType();
 
-		if (nature.isValidInput(newInput)) {
+		if (type.isValidInput(newInput)) {
 			Computed computed = new Computed(question.getDataType(), question.getIdentifier(),
-					nature.createValue(newInput));
+					type.createValue(newInput));
 
 			model.registerComputed(computed);
 

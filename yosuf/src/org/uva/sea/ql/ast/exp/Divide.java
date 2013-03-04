@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.Type;
+
 public class Divide extends Binary {
 
 	public Divide(final Expression left, final Expression right) {
@@ -7,7 +9,7 @@ public class Divide extends Binary {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Numeric();
 	}
 

@@ -2,8 +2,8 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.ExpressionVisitor;
-import org.uva.sea.ql.ast.exp.Nature;
 import org.uva.sea.ql.ast.exp.Textual;
 
 public class StringValue extends Value {
@@ -31,7 +31,7 @@ public class StringValue extends Value {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Textual();
 	}
 

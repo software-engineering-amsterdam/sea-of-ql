@@ -7,7 +7,7 @@ import java.util.HashMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.Natural;
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Divide;
@@ -41,7 +41,7 @@ public class ExpressionTypeCheckerTest {
 
 	@Before
 	public void setUp() {
-		typeCheck = new ExpressionTypeChecker(new HashMap<Identifier, Natural>());
+		typeCheck = new ExpressionTypeChecker(new HashMap<Identifier, Type>());
 
 		LogPrinter.setDebugOn(true);
 	}

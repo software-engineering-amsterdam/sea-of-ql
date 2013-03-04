@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.exp;
 
+import org.uva.sea.ql.ast.Type;
+
 
 public class Negative extends Unary {
 
@@ -13,7 +15,7 @@ public class Negative extends Unary {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Numeric();
 	}
 

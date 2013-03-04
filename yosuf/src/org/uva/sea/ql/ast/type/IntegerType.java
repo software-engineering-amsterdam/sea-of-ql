@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.exp.Nature;
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.Numeric;
 
 public class IntegerType extends DataType {
@@ -11,7 +11,7 @@ public class IntegerType extends DataType {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Numeric();
 	}
 

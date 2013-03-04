@@ -1,14 +1,11 @@
-package org.uva.sea.ql.ast.exp;
+package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.value.Value;
 
-/**
- * Expressions and data types can have a common shared nature which is described by this class.
- */
-public abstract class Nature {
+public abstract class Type {
 
 	/**
-	 * Validates the given input string for the nature.
+	 * Validates the given input string for the type.
 	 * 
 	 * @param input
 	 * @return

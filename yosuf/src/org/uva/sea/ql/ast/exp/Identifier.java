@@ -2,6 +2,8 @@ package org.uva.sea.ql.ast.exp;
 
 import static julius.validation.Assertions.state;
 
+import org.uva.sea.ql.ast.Type;
+
 public class Identifier extends Expression {
 
 	private final String name;
@@ -26,7 +28,7 @@ public class Identifier extends Expression {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Textual();
 	}
 

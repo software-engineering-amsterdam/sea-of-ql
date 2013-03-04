@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class NatureTest {
+public class TypeTest {
 
 	@Test
 	public void testEquals() {

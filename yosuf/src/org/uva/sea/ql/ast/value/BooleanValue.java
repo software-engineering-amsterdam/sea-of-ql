@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.value;
 
+import org.uva.sea.ql.ast.Type;
 import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.ExpressionVisitor;
-import org.uva.sea.ql.ast.exp.Nature;
 
 public class BooleanValue extends Value {
 
@@ -18,7 +18,7 @@ public class BooleanValue extends Value {
 	}
 
 	@Override
-	public Nature getNature() {
+	public Type getType() {
 		return new Bools();
 	}
 
@@ -28,7 +28,7 @@ public class BooleanValue extends Value {
 
 	@Override
 	public String toString() {
-		return "BooleanValue [value=" + value + ", Nature=" + getNature() + "]";
+		return "BooleanValue [value=" + value + ", Type=" + getType() + "]";
 	}
 
 	@Override
