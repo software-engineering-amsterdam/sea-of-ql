@@ -77,7 +77,7 @@ public class StatementRenderingVisitor implements StatementVisitor {
 
 		TypeRenderingVisitor typeRenderingVisitor = new TypeRenderingVisitor(
 				formPanel, identifierValueMap, identifier, value, enabled);
-		panel.add(type.accept(typeRenderingVisitor));
+		panel.add(type.accept(typeRenderingVisitor),"wrap");
 
 		this.parentPanel.add(panel);
 		this.formPanel.add(parentPanel);
@@ -86,7 +86,7 @@ public class StatementRenderingVisitor implements StatementVisitor {
 	private JPanel getNewPanelWithLabel(String label) {
 		JPanel panel = new JPanel(new MigLayout());
 		JLabel jLabel = new JLabel(label);
-		panel.add(jLabel, "w 280!, grow");
+		panel.add(jLabel, "w 400!, grow");
 		return panel;
 	}
 

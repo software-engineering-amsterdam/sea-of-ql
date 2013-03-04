@@ -56,18 +56,19 @@ public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 		NumericTextFieldActionListener integerListener = new NumericTextFieldActionListener(
 				formPanel, identifierValueMap, identifier, intField);
 		intField.addActionListener(integerListener);
-		intField.setText(value.toString());
+		intField.setText(value.getIntegerValue().toString());
 		intField.setEditable(enabled);
 		return intField;
 	}
 
 	@Override
 	public JComponent visit(StringType stringDeclaration) {
-		JTextField strField = new JTextField(20);
+		JTextField strField = new JTextField();
+		strField.setColumns(8);
 		TextFieldActionListener stringListener = new TextFieldActionListener(
 				formPanel, identifierValueMap, identifier, strField);
 		strField.addActionListener(stringListener);
-		strField.setText(value.toString());
+		strField.setText(value.getStringValue());
 		strField.setEditable(enabled);
 		return strField;
 	}

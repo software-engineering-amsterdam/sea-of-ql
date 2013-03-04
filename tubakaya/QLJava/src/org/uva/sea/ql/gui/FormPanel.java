@@ -28,18 +28,15 @@ public class FormPanel extends JFrame {
 	private Map<Identifier, org.uva.sea.ql.ast.types.Type> identifierTypeMap;
 
 	public FormPanel() {
+		String filePath = "C:\\Tubis\\School\\Software Construction\\QLTest.txt";
+		this.form = this.parseStringFromFile(filePath);
+		this.identifierTypeMap = this.checkForm(this.form);
 	}
 
 	public static void main(String[] args) throws IOException {
 		FormPanel rootFrame = new FormPanel();
-		String filePath = "C:\\Tubis\\School\\Software Construction\\QLTest.txt";
-
-		rootFrame.form = rootFrame.parseStringFromFile(filePath);
-		rootFrame.identifierTypeMap = rootFrame.checkForm(rootFrame.form);
-
 		Map<Identifier, QLValue> identifierValueMapWithDefaultValues = rootFrame
 				.generateIdentifierValueMapWithDefaultValues();
-
 		rootFrame.renderForm(identifierValueMapWithDefaultValues);
 	}
 
@@ -73,16 +70,14 @@ public class FormPanel extends JFrame {
 		}
 	}
 
-	public void renderForm(
-			Map<Identifier, QLValue> identifierValueMap) {
+	public void renderForm(Map<Identifier, QLValue> identifierValueMap) {
 
 		StatementRenderingVisitor statementRenderingVisitor = new StatementRenderingVisitor(
-				this, this.identifierTypeMap,
-				identifierValueMap);
+				this, this.identifierTypeMap, identifierValueMap);
 
 		this.form.accept(statementRenderingVisitor);
 
-		this.setSize(825, 300);
+		this.setSize(600, 1000);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.show();

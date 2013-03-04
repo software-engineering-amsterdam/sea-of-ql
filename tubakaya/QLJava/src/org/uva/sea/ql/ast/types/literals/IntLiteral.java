@@ -53,35 +53,35 @@ public class IntLiteral extends QLValue {
 	}
 
 	public QLValue div(QLValue rhs) {
-		return new IntLiteral(rhs.getIntegerValue() / this.getIntegerValue());
+		return new IntLiteral(this.getIntegerValue() / rhs.getIntegerValue());
 	}
 
 	public QLValue mul(QLValue rhs) {
-		return new IntLiteral(rhs.getIntegerValue() * this.getIntegerValue());
+		return new IntLiteral(this.getIntegerValue() * rhs.getIntegerValue());
 	}
 
 	public QLValue sub(QLValue rhs) {
-		return new IntLiteral(rhs.getIntegerValue() - this.getIntegerValue());
+		return new IntLiteral(this.getIntegerValue() - rhs.getIntegerValue());
 	}
 
 	public QLValue lEq(QLValue rhs) {
 		return new BooleanLiteral(
-				rhs.getIntegerValue() <= this.getIntegerValue());
+				this.getIntegerValue() <= rhs.getIntegerValue());
 	}
 
 	public QLValue gEq(QLValue rhs) {
 		return new BooleanLiteral(
-				rhs.getIntegerValue() >= this.getIntegerValue());
+				this.getIntegerValue() >= rhs.getIntegerValue());
 	}
 
 	public QLValue gT(QLValue rhs) {
 		return new BooleanLiteral(
-				rhs.getIntegerValue() < this.getIntegerValue());
+				this.getIntegerValue() < rhs.getIntegerValue());
 	}
 
 	public QLValue lT(QLValue rhs) {
 		return new BooleanLiteral(
-				rhs.getIntegerValue() > this.getIntegerValue());
+				this.getIntegerValue() > rhs.getIntegerValue());
 	}
 
 	public QLValue pos() {
