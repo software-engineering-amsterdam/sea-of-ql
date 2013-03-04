@@ -4,10 +4,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 import org.uva.sea.ql.ast.stat.FormUnit;
-import org.uva.sea.ql.qlsource.QLWriter;
 
 public class Renderer {
 	
@@ -23,16 +21,14 @@ public class Renderer {
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.add(visitorRenderer.getPanel());
-		QLWriter qlWriter = new QLWriter();
 		JButton button = new JButton("Save Form");
 		button.addActionListener(visitorRenderer.getState());
 		panel.add(button);
 		panel.validate();
 		
 		frame.setContentPane(panel);
-		frame.setSize(500, 500);
-		frame.setLocation(200, 200);
-		frame.pack();
+		frame.setSize(380, 300);
+		frame.setLocation(400, 200);
 		frame.setVisible(true);
 	}
 	

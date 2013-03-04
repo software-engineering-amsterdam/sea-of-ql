@@ -11,7 +11,7 @@ public class TextField extends Control {
 	protected final JTextField jTextField;
 
 	protected TextField() {
-		jTextField = new JTextField(20);
+		jTextField = new JTextField();
 	}
 	@Override
 	public JComponent getControl() {
@@ -20,7 +20,6 @@ public class TextField extends Control {
 
 	@Override
 	public void setValue(Value value) {
-		if (value instanceof StringValue)
 		jTextField.setText(((StringValue)value).getValue());	
 	}
 

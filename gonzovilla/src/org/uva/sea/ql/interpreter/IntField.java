@@ -12,7 +12,7 @@ public class IntField extends Control {
 	protected final JTextField jIntField;
 
 	public IntField(){
-		jIntField = new JTextField(20);
+		jIntField = new JTextField();
 	}
 	
 	@Override
@@ -22,15 +22,21 @@ public class IntField extends Control {
 
 	@Override
 	public void setValue(Value value) {
-		if (value instanceof Int)
-			jIntField.setText(((Int)value).getValue().toString());	
+		jIntField.setText(((Int)value).getValue().toString());	
 	}
 
 	@Override
 	public Value getValue() {
 		if (jIntField.getText().isEmpty())
 			return new Int(0);
-		return new Int(Integer.parseInt(jIntField.getText()));
+		
+		try{
+			return new Int(Integer.parseInt(jIntField.getText()));
+		}catch	(NumberFormatException e)	{
+			//new ErrorWindow("This field accepts only integer values");
+			System.out.println("This field accepts only integer values");
+			return new Int(0);
+		}
 	}
 
 	@Override

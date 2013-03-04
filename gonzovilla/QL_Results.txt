@@ -1,6 +1,6 @@
 hasBoughtHouse = false
 sellingPrice = 0
 valueResidue = 0
-hasSoldHouse = true
+hasSoldHouse = false
 privateDebt = 0
 hasMaintLoan = false

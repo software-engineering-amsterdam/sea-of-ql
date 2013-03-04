@@ -1,6 +1,5 @@
 package org.uva.sea.ql.interpreter;
 
-import java.awt.FlowLayout;
 import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
