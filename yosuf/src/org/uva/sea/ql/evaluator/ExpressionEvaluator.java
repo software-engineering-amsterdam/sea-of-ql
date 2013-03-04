@@ -31,7 +31,7 @@ import org.uva.sea.ql.lead.Model;
  * Visitor representing the expression evaluator. Expression which does not have a known value will
  * throw {@link UnmodifiedException}.
  */
-public class ExpressionEvaluator implements ExpressionVisitor {
+public class ExpressionEvaluator implements ExpressionVisitor<Value> {
 
 	private final Model model;
 

@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast.exp;
 
-import org.uva.sea.ql.ast.NaturalVisitor;
-import org.uva.sea.ql.ast.value.Value;
 
 public class Or extends Binary {
 
@@ -10,12 +8,7 @@ public class Or extends Binary {
 	}
 
 	@Override
-	public <T> T accept(final NaturalVisitor<T> visitor) {
-		return visitor.visit(this);
-	}
-
-	@Override
-	public Value accept(final ExpressionVisitor visitor) {
+	public <T> T accept(final ExpressionVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
 

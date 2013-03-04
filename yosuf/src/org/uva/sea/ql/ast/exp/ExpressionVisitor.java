@@ -3,53 +3,52 @@ package org.uva.sea.ql.ast.exp;
 import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
-import org.uva.sea.ql.ast.value.Value;
 
-public interface ExpressionVisitor {
+public interface ExpressionVisitor<T> {
 
-	Value visit(Add add);
+	T visit(Add add);
 
-	Value visit(And and);
+	T visit(And and);
 
-	Value visit(Divide divide);
+	T visit(Divide divide);
 
-	Value visit(Equals equals);
+	T visit(Equals equals);
 
-	Value visit(GreaterOrEquals greaterOrEquals);
+	T visit(GreaterOrEquals greaterOrEquals);
 
-	Value visit(GreaterThan greaterThan);
+	T visit(GreaterThan greaterThan);
 
-	Value visit(Multiply multiply);
+	T visit(Multiply multiply);
 
-	Value visit(Negative negative);
+	T visit(Negative negative);
 
-	Value visit(Not not);
+	T visit(Not not);
 
-	Value visit(NotEquals notEquals);
+	T visit(NotEquals notEquals);
 
-	Value visit(Or or);
+	T visit(Or or);
 
-	Value visit(Positive positive);
+	T visit(Positive positive);
 
-	Value visit(SmallerOrEquals smallerOrEquals);
+	T visit(SmallerOrEquals smallerOrEquals);
 
-	Value visit(SmallerThan smallerThan);
+	T visit(SmallerThan smallerThan);
 
-	Value visit(Substitute substitute);
+	T visit(Substitute substitute);
 
-	Value visit(BooleanValue booleanValue);
+	T visit(BooleanValue booleanValue);
 
-	Value visit(NumericValue integerValue);
+	T visit(NumericValue integerValue);
 
-	Value visit(StringValue stringValue);
+	T visit(StringValue stringValue);
 
 	/**
 	 * 
 	 * @param identifier
 	 * @return
 	 * @throws UnmodifiedException
-	 *             if the value is not known yet
+	 *             if the T is not known yet
 	 */
-	Value visit(Identifier identifier) throws UnmodifiedException;
+	T visit(Identifier identifier) throws UnmodifiedException;
 
 }

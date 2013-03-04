@@ -20,6 +20,7 @@ import org.uva.sea.ql.ast.IfStatement;
 import org.uva.sea.ql.ast.Natural;
 import org.uva.sea.ql.ast.Question;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.BooleanType;
 
@@ -33,7 +34,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 	private final List<TypeCheckException> typeErrors = new ArrayList<TypeCheckException>();
 	private final ExpressionTypeChecker expressionTypeChecker;
 
-	private final Map<Natural, Natural> environment = new HashMap<Natural, Natural>();
+	private final Map<Identifier, Natural> environment = new HashMap<Identifier, Natural>();
 
 	public StatementTypeChecker() {
 		expressionTypeChecker = new ExpressionTypeChecker(environment);
@@ -125,7 +126,7 @@ public class StatementTypeChecker implements StatementVisitor<Block> {
 		}
 	}
 
-	private void visitExpression(final Natural expression) {
+	private void visitExpression(final Expression expression) {
 		expression.accept(expressionTypeChecker);
 	}
 

@@ -10,5 +10,4 @@ public interface Natural {
 
 	Nature getNature();
 
-	<T> T accept(NaturalVisitor<T> visitor);
 }

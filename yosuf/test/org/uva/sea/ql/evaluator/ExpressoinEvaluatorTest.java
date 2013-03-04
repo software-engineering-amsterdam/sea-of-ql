@@ -28,7 +28,6 @@ import org.uva.sea.ql.ast.value.BooleanValue;
 import org.uva.sea.ql.ast.value.NumericValue;
 import org.uva.sea.ql.ast.value.StringValue;
 import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.evaluator.ExpressionEvaluator;
 import org.uva.sea.ql.lead.Model;
 
 public class ExpressoinEvaluatorTest {
@@ -39,7 +38,7 @@ public class ExpressoinEvaluatorTest {
 	private final BooleanValue trueVal = new BooleanValue(true);
 	private final BooleanValue falseVal = new BooleanValue(false);
 
-	private ExpressionVisitor evaluator;
+	private ExpressionVisitor<Value> evaluator;
 	private Model model;
 
 	@Before
@@ -162,8 +161,7 @@ public class ExpressoinEvaluatorTest {
 
 	@Test
 	public void testVisitStringValue() {
-		StringValue value = (StringValue) evaluator.visit(new StringValue(
-				"Software Construction"));
+		StringValue value = (StringValue) evaluator.visit(new StringValue("Software Construction"));
 
 		assertTrue(value instanceof StringValue);
 		assertEquals("Software Construction", value.getValue());

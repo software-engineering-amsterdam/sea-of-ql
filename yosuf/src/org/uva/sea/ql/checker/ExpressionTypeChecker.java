@@ -11,12 +11,12 @@ import julius.validation.ValidationException;
 
 import org.jpatterns.gof.VisitorPattern.Visitor;
 import org.uva.sea.ql.ast.Natural;
-import org.uva.sea.ql.ast.NaturalVisitor;
 import org.uva.sea.ql.ast.exp.Add;
 import org.uva.sea.ql.ast.exp.And;
 import org.uva.sea.ql.ast.exp.Bools;
 import org.uva.sea.ql.ast.exp.Divide;
 import org.uva.sea.ql.ast.exp.Equals;
+import org.uva.sea.ql.ast.exp.ExpressionVisitor;
 import org.uva.sea.ql.ast.exp.GreaterOrEquals;
 import org.uva.sea.ql.ast.exp.GreaterThan;
 import org.uva.sea.ql.ast.exp.Identifier;
@@ -32,6 +32,7 @@ import org.uva.sea.ql.ast.exp.SmallerOrEquals;
 import org.uva.sea.ql.ast.exp.SmallerThan;
 import org.uva.sea.ql.ast.exp.Substitute;
 import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.DataTypeVisitor;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
 import org.uva.sea.ql.ast.type.StringType;
@@ -43,12 +44,12 @@ import org.uva.sea.ql.ast.value.StringValue;
  * Use {@link #isValid()} and {@link #getTypeErrors()} to validate at the end.
  */
 @Visitor
-public class ExpressionTypeChecker implements NaturalVisitor<Natural> {
+public class ExpressionTypeChecker implements ExpressionVisitor<Natural>, DataTypeVisitor<Natural> {
 
 	private final List<TypeCheckException> typeErrors;
-	private final Map<Natural, Natural> environment;
+	private final Map<Identifier, Natural> environment;
 
-	public ExpressionTypeChecker(final Map<Natural, Natural> environment) {
+	public ExpressionTypeChecker(final Map<Identifier, Natural> environment) {
 		typeErrors = new ArrayList<TypeCheckException>();
 		this.environment = environment;
 	}

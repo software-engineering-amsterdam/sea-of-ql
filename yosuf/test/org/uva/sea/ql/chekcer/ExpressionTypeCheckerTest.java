@@ -41,7 +41,7 @@ public class ExpressionTypeCheckerTest {
 
 	@Before
 	public void setUp() {
-		typeCheck = new ExpressionTypeChecker(new HashMap<Natural, Natural>());
+		typeCheck = new ExpressionTypeChecker(new HashMap<Identifier, Natural>());
 
 		LogPrinter.setDebugOn(true);
 	}
