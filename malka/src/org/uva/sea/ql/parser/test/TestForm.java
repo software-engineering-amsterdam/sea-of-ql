@@ -1,6 +1,7 @@
 package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,19 @@ public class TestForm {
 		assertEquals(parser.parseFormElements("hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean").getClass(), ArrayList.class);
 		List<FormElement> elements = parser.parseFormElements("hasSoldHouse: \"Did you sell a house in 2010?\" boolean \n hasBoughtHouse: \"Did you by a house in 2010?\" boolean \n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean");
 		assertEquals(elements.size(), 3);
+		assertTrue(parser.getErrors().isEmpty());
 	}
 	
 	@Test
 	public void testForm() throws ParseError {
-		assertEquals(parser.parseForm("form Box1HouseOwning { \n hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean \n}").getClass(), Form.class);
-		assertEquals(parser.parseForm("form Box1HouseOwning { \n hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean \n if (hasSoldHouse) {\n sellingPrice: \"Price the house was sold for:\" integer\n privateDebt: \"Private debts for the sold house:\" integer\n valueResidue: \"Value residue:\" integer (sellingPrice - privateDebt)\n} }").getClass(), Form.class);
+		Form form = null;
+		
+		form = parser.parseForm("form Box1HouseOwning { \n hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean \n}");
+		assertEquals(form.getClass(), Form.class);
+		assertTrue(parser.getErrors().isEmpty());
+		
+		form = parser.parseForm("form Box1HouseOwning { \n hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\" boolean \n if (hasSoldHouse) {\n sellingPrice: \"Price the house was sold for:\" integer\n privateDebt: \"Private debts for the sold house:\" integer\n valueResidue: \"Value residue:\" integer (sellingPrice - privateDebt)\n} }");
+		assertEquals(form.getClass(), Form.class);
+		assertTrue(parser.getErrors().isEmpty());
 	}
 }

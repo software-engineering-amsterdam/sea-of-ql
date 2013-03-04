@@ -9,8 +9,15 @@ import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 import java.util.List;
+import java.util.Stack;
 
 public class ANTLRParser implements IParse {
+	private List<String> errors = new Stack<String>();
+	
+	@Override
+	public List<String> getErrors() {
+		return errors;
+	}
 	
 	private CommonTokenStream getTokens(String src)
 	{
@@ -27,6 +34,8 @@ public class ANTLRParser implements IParse {
 			return parser.orExpr();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} finally {
+			errors = parser.getErrors();
 		}
 	}
 	
@@ -37,6 +46,8 @@ public class ANTLRParser implements IParse {
 			return parser.formElement();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} finally {
+			errors = parser.getErrors();
 		}
 	}
 
@@ -48,6 +59,8 @@ public class ANTLRParser implements IParse {
 			return parser.form();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} finally {
+			errors = parser.getErrors();
 		}
 	}
 	
@@ -58,10 +71,8 @@ public class ANTLRParser implements IParse {
 			return parser.formElementList();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
+		} finally {
+			errors = parser.getErrors();
 		}
-	}
-	
-	
-
-	
+	}	
 }
