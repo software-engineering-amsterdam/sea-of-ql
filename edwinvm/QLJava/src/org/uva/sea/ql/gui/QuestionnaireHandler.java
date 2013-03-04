@@ -31,7 +31,7 @@ public class QuestionnaireHandler {
 		Form questionnaire = parseForm(); 
 		checkStatements(questionnaire.getBody());
 		if (!isFormValid()) {
-			return IncorrectForm.InvalidQLForm();
+			return IncorrectForm.InvalidQLForm(_errorMessages);
 		}
 		return questionnaire;
 	}

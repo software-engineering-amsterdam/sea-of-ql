@@ -1,12 +1,8 @@
 package org.uva.sea.ql.value;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/26/13
- * Time: 11:54 PM
- * To change this template use File | Settings | File Templates.
- */
+import org.uva.sea.ql.type.StringType;
+import org.uva.sea.ql.type.Type;
+
 public class StringValue extends Value {
 
     private final String value;
@@ -19,4 +15,13 @@ public class StringValue extends Value {
         return new StringValue(value);
     }
 
+    @Override
+    public Type getType() {
+        return new StringType();
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

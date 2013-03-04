@@ -1,14 +1,8 @@
 package org.uva.sea.ql.value;
 
-import java.math.BigDecimal;
+import org.uva.sea.ql.type.MoneyType;
+import org.uva.sea.ql.type.Type;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/26/13
- * Time: 10:42 PM
- * To change this template use File | Settings | File Templates.
- */
 public class MoneyValue extends Value{
     private final Double value;
 
@@ -129,5 +123,15 @@ public class MoneyValue extends Value{
 
     public Double getValue() {
         return value;
+    }
+
+    @Override
+    public Type getType() {
+        return new MoneyType();
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
     }
 }

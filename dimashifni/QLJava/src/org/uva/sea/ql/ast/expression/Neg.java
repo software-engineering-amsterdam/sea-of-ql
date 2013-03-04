@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.type.IntType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
@@ -24,6 +26,15 @@ public class Neg extends Expr {
     @Override
     public <T> T accept(ExpressionVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    public Expr getExpr() {
+        return expr;
+    }
+
+    @Override
+    public Type getType() {
+         return new IntType();
     }
 
 }

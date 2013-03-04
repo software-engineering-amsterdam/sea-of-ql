@@ -11,10 +11,5 @@ public abstract class Expr implements ASTNode {
 
     public abstract Value evaluate(Map<Ident, Value> variables);
     public abstract <T> T accept(ExpressionVisitor<T> visitor);
-
-    // TODO make it abstract
-    public Type getType()
-    {
-        throw new UnsupportedOperationException("unsupported operation");
-    }
+    public abstract Type getType();
 }

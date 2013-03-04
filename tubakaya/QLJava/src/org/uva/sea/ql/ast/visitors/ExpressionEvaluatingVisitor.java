@@ -1,7 +1,15 @@
 package org.uva.sea.ql.ast.visitors;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.QLValue;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.arithmetic.Add;
 import org.uva.sea.ql.ast.operators.arithmetic.Div;
 import org.uva.sea.ql.ast.operators.arithmetic.Mul;
@@ -17,124 +25,152 @@ import org.uva.sea.ql.ast.operators.relational.NEq;
 import org.uva.sea.ql.ast.operators.unary.Neg;
 import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
-import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
+import org.uva.sea.ql.parsers.exceptions.IdentifierNotDefinedException;
+import org.uva.sea.ql.parsers.exceptions.QLException;
 
-public class ExpressionEvaluatingVisitor implements ExpressionVisitor{
+public class ExpressionEvaluatingVisitor implements ExpressionVisitor<QLValue> {
 
-	@Override
-	public void visit(BooleanLiteral booleanLiteral) {
-		// TODO Auto-generated method stub
-		
+	private Map<Identifier, QLValue> identifierValueMap;
+	private List<QLException> exceptions;
+
+	public ExpressionEvaluatingVisitor(
+			Map<Identifier, QLValue> identifierValueMap) {
+		this.identifierValueMap = identifierValueMap;
+		this.exceptions = new ArrayList<QLException>();
+	}
+
+	public List<QLException> getExceptions() {
+		return this.exceptions;
 	}
 
 	@Override
-	public void visit(Identifier identifier) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(BooleanLiteral booleanLiteral) {
+		return booleanLiteral;
 	}
 
 	@Override
-	public void visit(IntLiteral integerLiteral) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Identifier identifier) {
+		String nameOfSearchedIdentifier = identifier.getName();
+		for (Identifier ident : identifierValueMap.keySet()) {
+			String nameOfFoundIdentifier = ident.getName();
+			if (nameOfFoundIdentifier.equals(nameOfSearchedIdentifier)) {
+				return identifierValueMap.get(ident);
+			}
+		}
+
+		this.exceptions.add(new IdentifierNotDefinedException(identifier));
+		return null;
 	}
 
 	@Override
-	public void visit(StringLiteral stringLiteral) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(IntLiteral integerLiteral) {
+		return integerLiteral;
 	}
 
 	@Override
-	public void visit(Add add) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(StringLiteral stringLiteral) {
+		return stringLiteral;
 	}
 
 	@Override
-	public void visit(Div div) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Add add) {
+		QLValue lhs = add.getLhs().accept(this);
+		QLValue rhs = add.getRhs().accept(this);
+		return lhs.add(rhs);
 	}
 
 	@Override
-	public void visit(Sub sub) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Div div) {
+		QLValue lhs = div.getLhs().accept(this);
+		QLValue rhs = div.getRhs().accept(this);
+		return lhs.div(rhs);
 	}
 
 	@Override
-	public void visit(Mul mul) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Sub sub) {
+		QLValue lhs = sub.getLhs().accept(this);
+		QLValue rhs = sub.getRhs().accept(this);
+		return lhs.sub(rhs);
 	}
 
 	@Override
-	public void visit(And and) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Mul mul) {
+		QLValue lhs = mul.getLhs().accept(this);
+		QLValue rhs = mul.getRhs().accept(this);
+		return lhs.mul(rhs);
 	}
 
 	@Override
-	public void visit(Or or) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(And and) {
+		QLValue lhs = and.getLhs().accept(this);
+		QLValue rhs = and.getRhs().accept(this);
+		return lhs.and(rhs);
 	}
 
 	@Override
-	public void visit(Eq eq) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Or or) {
+		QLValue lhs = or.getLhs().accept(this);
+		QLValue rhs = or.getRhs().accept(this);
+		return lhs.or(rhs);
 	}
 
 	@Override
-	public void visit(GEq gEq) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Eq eq) {
+		QLValue lhs = eq.getLhs().accept(this);
+		QLValue rhs = eq.getRhs().accept(this);
+		return lhs.eql(rhs);
 	}
 
 	@Override
-	public void visit(GT gT) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(GEq gEq) {
+		QLValue lhs = gEq.getLhs().accept(this);
+		QLValue rhs = gEq.getRhs().accept(this);
+		return lhs.gEq(rhs);
 	}
 
 	@Override
-	public void visit(LEq lEq) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(GT gT) {
+		QLValue lhs = gT.getLhs().accept(this);
+		QLValue rhs = gT.getRhs().accept(this);
+		return lhs.gT(rhs);
 	}
 
 	@Override
-	public void visit(LT lT) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(LEq lEq) {
+		QLValue lhs = lEq.getLhs().accept(this);
+		QLValue rhs = lEq.getRhs().accept(this);
+		return lhs.lEq(rhs);
 	}
 
 	@Override
-	public void visit(NEq nEq) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(LT lT) {
+		QLValue lhs = lT.getLhs().accept(this);
+		QLValue rhs = lT.getRhs().accept(this);
+		return lhs.lT(rhs);
 	}
 
 	@Override
-	public void visit(Neg neg) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(NEq nEq) {
+		QLValue lhs = nEq.getLhs().accept(this);
+		QLValue rhs = nEq.getRhs().accept(this);
+		return lhs.nEq(rhs);
 	}
 
 	@Override
-	public void visit(Not not) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Neg neg) {
+		QLValue exp = neg.getExpression().accept(this);
+		return exp.neg();
 	}
 
 	@Override
-	public void visit(Pos pos) {
-		// TODO Auto-generated method stub
-		
+	public QLValue visit(Not not) {
+		QLValue value = not.getExpression().accept(this);
+		return value.not();
 	}
 
+	@Override
+	public QLValue visit(Pos pos) {
+		QLValue exp = pos.getExpression().accept(this);
+		return exp.pos();
+	}
 }

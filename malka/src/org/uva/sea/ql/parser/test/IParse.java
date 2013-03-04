@@ -10,4 +10,5 @@ public interface IParse {
 	Form parseForm(String src) throws ParseError;
 	FormElement parseFormElement(String src) throws ParseError;
 	List<FormElement> parseFormElements(String src) throws ParseError;
+	List<String> getErrors();
 }

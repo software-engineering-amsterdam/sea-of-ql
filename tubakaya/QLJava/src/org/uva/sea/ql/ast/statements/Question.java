@@ -3,8 +3,8 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class Question extends Statement {
 

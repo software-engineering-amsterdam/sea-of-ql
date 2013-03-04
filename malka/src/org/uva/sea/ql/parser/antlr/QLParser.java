@@ -1,6 +1,7 @@
-// $ANTLR !Unknown version! QL.g 2013-02-18 14:26:49
+// $ANTLR !Unknown version! QL.g 2013-03-04 12:35:33
 
 package org.uva.sea.ql.parser.antlr;
+
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.integer.*;
 import org.uva.sea.ql.ast.expression.bool.*;
@@ -12,6 +13,7 @@ import org.uva.sea.ql.ast.expression.bool.operation.relational.*;
 
 
 import org.antlr.runtime.*;
+import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,9 +72,22 @@ public class QLParser extends Parser {
     public String getGrammarFileName() { return "QL.g"; }
 
 
+    private List<String> errors = new Stack<String>();
+    public void displayRecognitionError(String[] tokenNames,
+                                        RecognitionException e) {
+    	String hdr = getErrorHeader(e);
+        String msg = getErrorMessage(e, tokenNames);
+        errors.add(hdr + " " + msg);
+    }
+
+    public List<String> getErrors() {
+    	return errors;
+    }
+
+
 
     // $ANTLR start "form"
-    // QL.g:22:1: form returns [Form result] : FORM IDENT '{' elements= formElementList '}' ;
+    // QL.g:40:1: form returns [Form result] : FORM IDENT '{' elements= formElementList '}' ;
     public final Form form() throws RecognitionException {
         Form result = null;
         int form_StartIndex = input.index();
@@ -81,18 +96,18 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
-            // QL.g:23:2: ( FORM IDENT '{' elements= formElementList '}' )
-            // QL.g:23:4: FORM IDENT '{' elements= formElementList '}'
+            // QL.g:41:2: ( FORM IDENT '{' elements= formElementList '}' )
+            // QL.g:41:4: FORM IDENT '{' elements= formElementList '}'
             {
-            match(input,FORM,FOLLOW_FORM_in_form45); if (state.failed) return result;
-            match(input,IDENT,FOLLOW_IDENT_in_form47); if (state.failed) return result;
-            match(input,16,FOLLOW_16_in_form49); if (state.failed) return result;
-            pushFollow(FOLLOW_formElementList_in_form53);
+            match(input,FORM,FOLLOW_FORM_in_form54); if (state.failed) return result;
+            match(input,IDENT,FOLLOW_IDENT_in_form56); if (state.failed) return result;
+            match(input,16,FOLLOW_16_in_form58); if (state.failed) return result;
+            pushFollow(FOLLOW_formElementList_in_form62);
             elements=formElementList();
 
             state._fsp--;
             if (state.failed) return result;
-            match(input,17,FOLLOW_17_in_form55); if (state.failed) return result;
+            match(input,17,FOLLOW_17_in_form64); if (state.failed) return result;
             if ( state.backtracking==0 ) {
                result = new Form(elements); 
             }
@@ -113,7 +128,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "formElementList"
-    // QL.g:26:1: formElementList returns [List<FormElement> result] : (element= formElement )* ;
+    // QL.g:44:1: formElementList returns [List<FormElement> result] : (element= formElement )* ;
     public final List<FormElement> formElementList() throws RecognitionException {
         List<FormElement> result = null;
         int formElementList_StartIndex = input.index();
@@ -122,13 +137,13 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
-            // QL.g:27:2: ( (element= formElement )* )
-            // QL.g:27:4: (element= formElement )*
+            // QL.g:45:2: ( (element= formElement )* )
+            // QL.g:45:4: (element= formElement )*
             {
             if ( state.backtracking==0 ) {
               result = new ArrayList<FormElement>();
             }
-            // QL.g:27:46: (element= formElement )*
+            // QL.g:45:46: (element= formElement )*
             loop1:
             do {
                 int alt1=2;
@@ -141,9 +156,9 @@ public class QLParser extends Parser {
 
                 switch (alt1) {
             	case 1 :
-            	    // QL.g:27:47: element= formElement
+            	    // QL.g:45:47: element= formElement
             	    {
-            	    pushFollow(FOLLOW_formElement_in_formElementList77);
+            	    pushFollow(FOLLOW_formElement_in_formElementList86);
             	    element=formElement();
 
             	    state._fsp--;
@@ -177,7 +192,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "formElement"
-    // QL.g:30:1: formElement returns [FormElement result] : ( IDENT ':' STRING t= type | IDENT ':' STRING t= type '(' x= addExpr ')' | IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )? );
+    // QL.g:48:1: formElement returns [FormElement result] : ( IDENT ':' STRING t= type | IDENT ':' STRING t= type '(' x= addExpr ')' | IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )? );
     public final FormElement formElement() throws RecognitionException {
         FormElement result = null;
         int formElement_StartIndex = input.index();
@@ -198,17 +213,17 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
-            // QL.g:31:2: ( IDENT ':' STRING t= type | IDENT ':' STRING t= type '(' x= addExpr ')' | IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )? )
+            // QL.g:49:2: ( IDENT ':' STRING t= type | IDENT ':' STRING t= type '(' x= addExpr ')' | IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )? )
             int alt3=3;
             alt3 = dfa3.predict(input);
             switch (alt3) {
                 case 1 :
-                    // QL.g:31:4: IDENT ':' STRING t= type
+                    // QL.g:49:4: IDENT ':' STRING t= type
                     {
-                    IDENT1=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement96); if (state.failed) return result;
-                    match(input,18,FOLLOW_18_in_formElement98); if (state.failed) return result;
-                    STRING2=(Token)match(input,STRING,FOLLOW_STRING_in_formElement100); if (state.failed) return result;
-                    pushFollow(FOLLOW_type_in_formElement104);
+                    IDENT1=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement105); if (state.failed) return result;
+                    match(input,18,FOLLOW_18_in_formElement107); if (state.failed) return result;
+                    STRING2=(Token)match(input,STRING,FOLLOW_STRING_in_formElement109); if (state.failed) return result;
+                    pushFollow(FOLLOW_type_in_formElement113);
                     t=type();
 
                     state._fsp--;
@@ -220,23 +235,23 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // QL.g:32:4: IDENT ':' STRING t= type '(' x= addExpr ')'
+                    // QL.g:50:4: IDENT ':' STRING t= type '(' x= addExpr ')'
                     {
-                    IDENT3=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement111); if (state.failed) return result;
-                    match(input,18,FOLLOW_18_in_formElement113); if (state.failed) return result;
-                    STRING4=(Token)match(input,STRING,FOLLOW_STRING_in_formElement115); if (state.failed) return result;
-                    pushFollow(FOLLOW_type_in_formElement119);
+                    IDENT3=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement120); if (state.failed) return result;
+                    match(input,18,FOLLOW_18_in_formElement122); if (state.failed) return result;
+                    STRING4=(Token)match(input,STRING,FOLLOW_STRING_in_formElement124); if (state.failed) return result;
+                    pushFollow(FOLLOW_type_in_formElement128);
                     t=type();
 
                     state._fsp--;
                     if (state.failed) return result;
-                    match(input,19,FOLLOW_19_in_formElement121); if (state.failed) return result;
-                    pushFollow(FOLLOW_addExpr_in_formElement125);
+                    match(input,19,FOLLOW_19_in_formElement130); if (state.failed) return result;
+                    pushFollow(FOLLOW_addExpr_in_formElement134);
                     x=addExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
-                    match(input,20,FOLLOW_20_in_formElement127); if (state.failed) return result;
+                    match(input,20,FOLLOW_20_in_formElement136); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                        result = new FormText(new Identifier((IDENT3!=null?IDENT3.getText():null)), new StringPrimitive((STRING4!=null?STRING4.getText():null)), t, x); 
                     }
@@ -244,24 +259,24 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // QL.g:33:4: IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )?
+                    // QL.g:51:4: IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )?
                     {
-                    match(input,IF,FOLLOW_IF_in_formElement134); if (state.failed) return result;
-                    match(input,19,FOLLOW_19_in_formElement136); if (state.failed) return result;
-                    pushFollow(FOLLOW_orExpr_in_formElement140);
+                    match(input,IF,FOLLOW_IF_in_formElement143); if (state.failed) return result;
+                    match(input,19,FOLLOW_19_in_formElement145); if (state.failed) return result;
+                    pushFollow(FOLLOW_orExpr_in_formElement149);
                     condition=orExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
-                    match(input,20,FOLLOW_20_in_formElement142); if (state.failed) return result;
-                    match(input,16,FOLLOW_16_in_formElement144); if (state.failed) return result;
-                    pushFollow(FOLLOW_formElementList_in_formElement148);
+                    match(input,20,FOLLOW_20_in_formElement151); if (state.failed) return result;
+                    match(input,16,FOLLOW_16_in_formElement153); if (state.failed) return result;
+                    pushFollow(FOLLOW_formElementList_in_formElement157);
                     if_list=formElementList();
 
                     state._fsp--;
                     if (state.failed) return result;
-                    match(input,17,FOLLOW_17_in_formElement150); if (state.failed) return result;
-                    // QL.g:33:64: ( ELSE '{' else_list= formElementList '}' )?
+                    match(input,17,FOLLOW_17_in_formElement159); if (state.failed) return result;
+                    // QL.g:51:64: ( ELSE '{' else_list= formElementList '}' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -270,16 +285,16 @@ public class QLParser extends Parser {
                     }
                     switch (alt2) {
                         case 1 :
-                            // QL.g:33:66: ELSE '{' else_list= formElementList '}'
+                            // QL.g:51:66: ELSE '{' else_list= formElementList '}'
                             {
-                            match(input,ELSE,FOLLOW_ELSE_in_formElement154); if (state.failed) return result;
-                            match(input,16,FOLLOW_16_in_formElement156); if (state.failed) return result;
-                            pushFollow(FOLLOW_formElementList_in_formElement160);
+                            match(input,ELSE,FOLLOW_ELSE_in_formElement163); if (state.failed) return result;
+                            match(input,16,FOLLOW_16_in_formElement165); if (state.failed) return result;
+                            pushFollow(FOLLOW_formElementList_in_formElement169);
                             else_list=formElementList();
 
                             state._fsp--;
                             if (state.failed) return result;
-                            match(input,17,FOLLOW_17_in_formElement162); if (state.failed) return result;
+                            match(input,17,FOLLOW_17_in_formElement171); if (state.failed) return result;
 
                             }
                             break;
@@ -288,10 +303,15 @@ public class QLParser extends Parser {
 
                     if ( state.backtracking==0 ) {
 
+                      		
+                      		if (condition instanceof Identifier) {
+                             		condition = new BooleanVariable((Identifier) condition);
+                            	}
+                            		
                       		if (condition instanceof BooleanExpression) {
                       			result = new IfStatement((BooleanExpression)condition, if_list, else_list);
                       		} else {
-                      			throw new RecognitionException();
+                      			throw new TypeException();
                       		}
                       	
                     }
@@ -314,7 +334,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "primary"
-    // QL.g:43:1: primary returns [Expression result] : ( INT | BOOL | STRING | IDENT | '(' x= orExpr ')' );
+    // QL.g:66:1: primary returns [Expression result] : ( INT | BOOL | STRING | IDENT | '(' x= orExpr ')' );
     public final Expression primary() throws RecognitionException {
         Expression result = null;
         int primary_StartIndex = input.index();
@@ -327,7 +347,7 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
-            // QL.g:44:3: ( INT | BOOL | STRING | IDENT | '(' x= orExpr ')' )
+            // QL.g:67:3: ( INT | BOOL | STRING | IDENT | '(' x= orExpr ')' )
             int alt4=5;
             switch ( input.LA(1) ) {
             case INT:
@@ -365,9 +385,9 @@ public class QLParser extends Parser {
 
             switch (alt4) {
                 case 1 :
-                    // QL.g:44:5: INT
+                    // QL.g:67:5: INT
                     {
-                    INT5=(Token)match(input,INT,FOLLOW_INT_in_primary184); if (state.failed) return result;
+                    INT5=(Token)match(input,INT,FOLLOW_INT_in_primary193); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                        result = new IntegerPrimitive(Integer.parseInt((INT5!=null?INT5.getText():null))); 
                     }
@@ -375,9 +395,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // QL.g:45:5: BOOL
+                    // QL.g:68:5: BOOL
                     {
-                    BOOL6=(Token)match(input,BOOL,FOLLOW_BOOL_in_primary195); if (state.failed) return result;
+                    BOOL6=(Token)match(input,BOOL,FOLLOW_BOOL_in_primary204); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                        result = new BooleanPrimitive(Boolean.parseBoolean((BOOL6!=null?BOOL6.getText():null))); 
                     }
@@ -385,9 +405,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // QL.g:46:5: STRING
+                    // QL.g:69:5: STRING
                     {
-                    STRING7=(Token)match(input,STRING,FOLLOW_STRING_in_primary205); if (state.failed) return result;
+                    STRING7=(Token)match(input,STRING,FOLLOW_STRING_in_primary214); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                        result = new StringPrimitive((STRING7!=null?STRING7.getText():null)); 
                     }
@@ -395,9 +415,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // QL.g:47:5: IDENT
+                    // QL.g:70:5: IDENT
                     {
-                    IDENT8=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary213); if (state.failed) return result;
+                    IDENT8=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary222); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                        result = new Identifier((IDENT8!=null?IDENT8.getText():null)); 
                     }
@@ -405,15 +425,15 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // QL.g:48:5: '(' x= orExpr ')'
+                    // QL.g:71:5: '(' x= orExpr ')'
                     {
-                    match(input,19,FOLLOW_19_in_primary222); if (state.failed) return result;
-                    pushFollow(FOLLOW_orExpr_in_primary226);
+                    match(input,19,FOLLOW_19_in_primary231); if (state.failed) return result;
+                    pushFollow(FOLLOW_orExpr_in_primary235);
                     x=orExpr();
 
                     state._fsp--;
                     if (state.failed) return result;
-                    match(input,20,FOLLOW_20_in_primary228); if (state.failed) return result;
+                    match(input,20,FOLLOW_20_in_primary237); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                        result = x; 
                     }
@@ -436,13 +456,13 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "type"
-    // QL.g:51:1: type returns [Type result] : ( BOOL_TYPE | INT_TYPE | STRING_TYPE );
+    // QL.g:74:1: type returns [Type result] : ( BOOL_TYPE | INT_TYPE | STRING_TYPE );
     public final Type type() throws RecognitionException {
         Type result = null;
         int type_StartIndex = input.index();
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
-            // QL.g:52:2: ( BOOL_TYPE | INT_TYPE | STRING_TYPE )
+            // QL.g:75:2: ( BOOL_TYPE | INT_TYPE | STRING_TYPE )
             int alt5=3;
             switch ( input.LA(1) ) {
             case BOOL_TYPE:
@@ -470,9 +490,9 @@ public class QLParser extends Parser {
 
             switch (alt5) {
                 case 1 :
-                    // QL.g:52:4: BOOL_TYPE
+                    // QL.g:75:4: BOOL_TYPE
                     {
-                    match(input,BOOL_TYPE,FOLLOW_BOOL_TYPE_in_type247); if (state.failed) return result;
+                    match(input,BOOL_TYPE,FOLLOW_BOOL_TYPE_in_type256); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                       result = new BooleanType();
                     }
@@ -480,9 +500,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // QL.g:53:4: INT_TYPE
+                    // QL.g:76:4: INT_TYPE
                     {
-                    match(input,INT_TYPE,FOLLOW_INT_TYPE_in_type254); if (state.failed) return result;
+                    match(input,INT_TYPE,FOLLOW_INT_TYPE_in_type263); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                       result = new IntegerType();
                     }
@@ -490,9 +510,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // QL.g:54:4: STRING_TYPE
+                    // QL.g:77:4: STRING_TYPE
                     {
-                    match(input,STRING_TYPE,FOLLOW_STRING_TYPE_in_type261); if (state.failed) return result;
+                    match(input,STRING_TYPE,FOLLOW_STRING_TYPE_in_type270); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
                       result = new StringType();
                     }
@@ -515,7 +535,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "unExpr"
-    // QL.g:57:1: unExpr returns [Expression result] : (op= ( '+' | '-' ) x= unExpr | '!' x= unExpr | x= primary );
+    // QL.g:80:1: unExpr returns [Expression result] : (op= ( '+' | '-' ) x= unExpr | '!' x= unExpr | x= primary );
     public final Expression unExpr() throws RecognitionException {
         Expression result = null;
         int unExpr_StartIndex = input.index();
@@ -525,7 +545,7 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
-            // QL.g:58:5: (op= ( '+' | '-' ) x= unExpr | '!' x= unExpr | x= primary )
+            // QL.g:81:5: (op= ( '+' | '-' ) x= unExpr | '!' x= unExpr | x= primary )
             int alt6=3;
             switch ( input.LA(1) ) {
             case 21:
@@ -558,7 +578,7 @@ public class QLParser extends Parser {
 
             switch (alt6) {
                 case 1 :
-                    // QL.g:58:8: op= ( '+' | '-' ) x= unExpr
+                    // QL.g:81:8: op= ( '+' | '-' ) x= unExpr
                     {
                     op=(Token)input.LT(1);
                     if ( (input.LA(1)>=21 && input.LA(1)<=22) ) {
@@ -571,7 +591,7 @@ public class QLParser extends Parser {
                         throw mse;
                     }
 
-                    pushFollow(FOLLOW_unExpr_in_unExpr296);
+                    pushFollow(FOLLOW_unExpr_in_unExpr305);
                     x=unExpr();
 
                     state._fsp--;
@@ -596,7 +616,7 @@ public class QLParser extends Parser {
                           	}
                           	else
                           	{
-                          		throw new RecognitionException();
+                          		throw new TypeException();
                           	}
                           	
                           
@@ -605,10 +625,10 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // QL.g:82:8: '!' x= unExpr
+                    // QL.g:105:8: '!' x= unExpr
                     {
-                    match(input,23,FOLLOW_23_in_unExpr312); if (state.failed) return result;
-                    pushFollow(FOLLOW_unExpr_in_unExpr316);
+                    match(input,23,FOLLOW_23_in_unExpr321); if (state.failed) return result;
+                    pushFollow(FOLLOW_unExpr_in_unExpr325);
                     x=unExpr();
 
                     state._fsp--;
@@ -630,7 +650,7 @@ public class QLParser extends Parser {
                           	}
                           	else
                           	{
-                          		throw new RecognitionException();
+                          		throw new TypeException();
                           	}
                           
                     }
@@ -638,9 +658,9 @@ public class QLParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // QL.g:102:8: x= primary
+                    // QL.g:125:8: x= primary
                     {
-                    pushFollow(FOLLOW_primary_in_unExpr333);
+                    pushFollow(FOLLOW_primary_in_unExpr342);
                     x=primary();
 
                     state._fsp--;
@@ -667,7 +687,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "mulExpr"
-    // QL.g:105:1: mulExpr returns [Expression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+    // QL.g:128:1: mulExpr returns [Expression result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
     public final Expression mulExpr() throws RecognitionException {
         Expression result = null;
         int mulExpr_StartIndex = input.index();
@@ -679,10 +699,10 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
-            // QL.g:106:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-            // QL.g:106:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+            // QL.g:129:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+            // QL.g:129:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
-            pushFollow(FOLLOW_unExpr_in_mulExpr367);
+            pushFollow(FOLLOW_unExpr_in_mulExpr376);
             lhs=unExpr();
 
             state._fsp--;
@@ -690,7 +710,7 @@ public class QLParser extends Parser {
             if ( state.backtracking==0 ) {
                result =lhs; 
             }
-            // QL.g:106:45: (op= ( '*' | '/' ) rhs= unExpr )*
+            // QL.g:129:45: (op= ( '*' | '/' ) rhs= unExpr )*
             loop7:
             do {
                 int alt7=2;
@@ -703,7 +723,7 @@ public class QLParser extends Parser {
 
                 switch (alt7) {
             	case 1 :
-            	    // QL.g:106:47: op= ( '*' | '/' ) rhs= unExpr
+            	    // QL.g:129:47: op= ( '*' | '/' ) rhs= unExpr
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=24 && input.LA(1)<=25) ) {
@@ -716,7 +736,7 @@ public class QLParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_unExpr_in_mulExpr387);
+            	    pushFollow(FOLLOW_unExpr_in_mulExpr396);
             	    rhs=unExpr();
 
             	    state._fsp--;
@@ -742,7 +762,7 @@ public class QLParser extends Parser {
             	              
             	              
             	            } else {
-            	            	throw new RecognitionException();
+            	            	throw new TypeException();
             	            }
             	          
             	    }
@@ -772,7 +792,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "addExpr"
-    // QL.g:133:1: addExpr returns [Expression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+    // QL.g:156:1: addExpr returns [Expression result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
     public final Expression addExpr() throws RecognitionException {
         Expression result = null;
         int addExpr_StartIndex = input.index();
@@ -784,10 +804,10 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
-            // QL.g:134:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-            // QL.g:134:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+            // QL.g:157:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+            // QL.g:157:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
-            pushFollow(FOLLOW_mulExpr_in_addExpr428);
+            pushFollow(FOLLOW_mulExpr_in_addExpr437);
             lhs=mulExpr();
 
             state._fsp--;
@@ -795,7 +815,7 @@ public class QLParser extends Parser {
             if ( state.backtracking==0 ) {
                result =lhs; 
             }
-            // QL.g:134:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+            // QL.g:157:46: (op= ( '+' | '-' ) rhs= mulExpr )*
             loop8:
             do {
                 int alt8=2;
@@ -808,7 +828,7 @@ public class QLParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // QL.g:134:48: op= ( '+' | '-' ) rhs= mulExpr
+            	    // QL.g:157:48: op= ( '+' | '-' ) rhs= mulExpr
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=21 && input.LA(1)<=22) ) {
@@ -821,7 +841,7 @@ public class QLParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr446);
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr455);
             	    rhs=mulExpr();
 
             	    state._fsp--;
@@ -844,7 +864,7 @@ public class QLParser extends Parser {
             	      	        result = new Sub((IntegerExpression)result, (IntegerExpression)rhs);
             	          	}
             	            } else {
-            	            	throw new RecognitionException();
+            	            	throw new TypeException();
             	            }
             	          
             	    }
@@ -874,7 +894,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "relExpr"
-    // QL.g:157:1: relExpr returns [Expression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+    // QL.g:180:1: relExpr returns [Expression result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
     public final Expression relExpr() throws RecognitionException {
         Expression result = null;
         int relExpr_StartIndex = input.index();
@@ -886,10 +906,10 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
-            // QL.g:158:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-            // QL.g:158:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // QL.g:181:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+            // QL.g:181:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
-            pushFollow(FOLLOW_addExpr_in_relExpr481);
+            pushFollow(FOLLOW_addExpr_in_relExpr490);
             lhs=addExpr();
 
             state._fsp--;
@@ -897,7 +917,7 @@ public class QLParser extends Parser {
             if ( state.backtracking==0 ) {
                result =lhs; 
             }
-            // QL.g:158:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            // QL.g:181:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             loop9:
             do {
                 int alt9=2;
@@ -910,7 +930,7 @@ public class QLParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // QL.g:158:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+            	    // QL.g:181:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
             	    {
             	    op=(Token)input.LT(1);
             	    if ( (input.LA(1)>=26 && input.LA(1)<=31) ) {
@@ -923,7 +943,7 @@ public class QLParser extends Parser {
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr505);
+            	    pushFollow(FOLLOW_addExpr_in_relExpr514);
             	    rhs=addExpr();
 
             	    state._fsp--;
@@ -976,7 +996,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "andExpr"
-    // QL.g:181:1: andExpr returns [Expression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+    // QL.g:204:1: andExpr returns [Expression result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
     public final Expression andExpr() throws RecognitionException {
         Expression result = null;
         int andExpr_StartIndex = input.index();
@@ -987,10 +1007,10 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
-            // QL.g:182:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // QL.g:182:9: lhs= relExpr ( '&&' rhs= relExpr )*
+            // QL.g:205:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+            // QL.g:205:9: lhs= relExpr ( '&&' rhs= relExpr )*
             {
-            pushFollow(FOLLOW_relExpr_in_andExpr543);
+            pushFollow(FOLLOW_relExpr_in_andExpr552);
             lhs=relExpr();
 
             state._fsp--;
@@ -998,7 +1018,7 @@ public class QLParser extends Parser {
             if ( state.backtracking==0 ) {
                result =lhs; 
             }
-            // QL.g:182:46: ( '&&' rhs= relExpr )*
+            // QL.g:205:46: ( '&&' rhs= relExpr )*
             loop10:
             do {
                 int alt10=2;
@@ -1011,10 +1031,10 @@ public class QLParser extends Parser {
 
                 switch (alt10) {
             	case 1 :
-            	    // QL.g:182:48: '&&' rhs= relExpr
+            	    // QL.g:205:48: '&&' rhs= relExpr
             	    {
-            	    match(input,32,FOLLOW_32_in_andExpr549); if (state.failed) return result;
-            	    pushFollow(FOLLOW_relExpr_in_andExpr553);
+            	    match(input,32,FOLLOW_32_in_andExpr558); if (state.failed) return result;
+            	    pushFollow(FOLLOW_relExpr_in_andExpr562);
             	    rhs=relExpr();
 
             	    state._fsp--;
@@ -1033,7 +1053,7 @@ public class QLParser extends Parser {
             	            	
             	            	result = new And((BooleanExpression)result, (BooleanExpression)rhs);
             	            } else {
-            	            	throw new RecognitionException();
+            	            	throw new TypeException();
             	            }
             	          
             	    }
@@ -1063,7 +1083,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "orExpr"
-    // QL.g:202:1: orExpr returns [Expression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+    // QL.g:225:1: orExpr returns [Expression result] : lhs= andExpr ( '||' rhs= andExpr )* ;
     public final Expression orExpr() throws RecognitionException {
         Expression result = null;
         int orExpr_StartIndex = input.index();
@@ -1074,10 +1094,10 @@ public class QLParser extends Parser {
 
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
-            // QL.g:203:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // QL.g:203:9: lhs= andExpr ( '||' rhs= andExpr )*
+            // QL.g:226:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+            // QL.g:226:9: lhs= andExpr ( '||' rhs= andExpr )*
             {
-            pushFollow(FOLLOW_andExpr_in_orExpr592);
+            pushFollow(FOLLOW_andExpr_in_orExpr601);
             lhs=andExpr();
 
             state._fsp--;
@@ -1085,7 +1105,7 @@ public class QLParser extends Parser {
             if ( state.backtracking==0 ) {
                result = lhs; 
             }
-            // QL.g:203:48: ( '||' rhs= andExpr )*
+            // QL.g:226:48: ( '||' rhs= andExpr )*
             loop11:
             do {
                 int alt11=2;
@@ -1098,10 +1118,10 @@ public class QLParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // QL.g:203:50: '||' rhs= andExpr
+            	    // QL.g:226:50: '||' rhs= andExpr
             	    {
-            	    match(input,33,FOLLOW_33_in_orExpr598); if (state.failed) return result;
-            	    pushFollow(FOLLOW_andExpr_in_orExpr602);
+            	    match(input,33,FOLLOW_33_in_orExpr607); if (state.failed) return result;
+            	    pushFollow(FOLLOW_andExpr_in_orExpr611);
             	    rhs=andExpr();
 
             	    state._fsp--;
@@ -1120,7 +1140,7 @@ public class QLParser extends Parser {
             	            	
             	            	result = new Or((BooleanExpression)result, (BooleanExpression)rhs);
             	            } else {
-            	            	throw new RecognitionException();
+            	            	throw new TypeException();
             	            }
             	          
             	    }
@@ -1207,68 +1227,68 @@ public class QLParser extends Parser {
             this.transition = DFA3_transition;
         }
         public String getDescription() {
-            return "30:1: formElement returns [FormElement result] : ( IDENT ':' STRING t= type | IDENT ':' STRING t= type '(' x= addExpr ')' | IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )? );";
+            return "48:1: formElement returns [FormElement result] : ( IDENT ':' STRING t= type | IDENT ':' STRING t= type '(' x= addExpr ')' | IF '(' condition= orExpr ')' '{' if_list= formElementList '}' ( ELSE '{' else_list= formElementList '}' )? );";
         }
     }
  
 
-    public static final BitSet FOLLOW_FORM_in_form45 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_IDENT_in_form47 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_form49 = new BitSet(new long[]{0x00000000000200A0L});
-    public static final BitSet FOLLOW_formElementList_in_form53 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_form55 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_formElement_in_formElementList77 = new BitSet(new long[]{0x00000000000000A2L});
-    public static final BitSet FOLLOW_IDENT_in_formElement96 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_formElement98 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_STRING_in_formElement100 = new BitSet(new long[]{0x0000000000003800L});
-    public static final BitSet FOLLOW_type_in_formElement104 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_formElement111 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_formElement113 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_STRING_in_formElement115 = new BitSet(new long[]{0x0000000000003800L});
-    public static final BitSet FOLLOW_type_in_formElement119 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_formElement121 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_addExpr_in_formElement125 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_formElement127 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_formElement134 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_formElement136 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_orExpr_in_formElement140 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_formElement142 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_formElement144 = new BitSet(new long[]{0x00000000000200A0L});
-    public static final BitSet FOLLOW_formElementList_in_formElement148 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_formElement150 = new BitSet(new long[]{0x0000000000000102L});
-    public static final BitSet FOLLOW_ELSE_in_formElement154 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_formElement156 = new BitSet(new long[]{0x00000000000200A0L});
-    public static final BitSet FOLLOW_formElementList_in_formElement160 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_formElement162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_in_primary184 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOL_in_primary195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_in_primary205 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_primary213 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_primary222 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_orExpr_in_primary226 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_primary228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BOOL_TYPE_in_type247 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INT_TYPE_in_type254 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_TYPE_in_type261 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_unExpr288 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr296 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_unExpr312 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr316 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_in_unExpr333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr367 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_set_in_mulExpr375 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr387 = new BitSet(new long[]{0x0000000003000002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr428 = new BitSet(new long[]{0x0000000000600002L});
-    public static final BitSet FOLLOW_set_in_addExpr436 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr446 = new BitSet(new long[]{0x0000000000600002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr481 = new BitSet(new long[]{0x00000000FC000002L});
-    public static final BitSet FOLLOW_set_in_relExpr489 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr505 = new BitSet(new long[]{0x00000000FC000002L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr543 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_32_in_andExpr549 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr553 = new BitSet(new long[]{0x0000000100000002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr592 = new BitSet(new long[]{0x0000000200000002L});
-    public static final BitSet FOLLOW_33_in_orExpr598 = new BitSet(new long[]{0x0000000000E80660L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr602 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_FORM_in_form54 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_IDENT_in_form56 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_form58 = new BitSet(new long[]{0x00000000000200A0L});
+    public static final BitSet FOLLOW_formElementList_in_form62 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_form64 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_formElement_in_formElementList86 = new BitSet(new long[]{0x00000000000000A2L});
+    public static final BitSet FOLLOW_IDENT_in_formElement105 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_formElement107 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_STRING_in_formElement109 = new BitSet(new long[]{0x0000000000003800L});
+    public static final BitSet FOLLOW_type_in_formElement113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_formElement120 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_formElement122 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_STRING_in_formElement124 = new BitSet(new long[]{0x0000000000003800L});
+    public static final BitSet FOLLOW_type_in_formElement128 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_formElement130 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_addExpr_in_formElement134 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_formElement136 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_formElement143 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_formElement145 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_orExpr_in_formElement149 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_formElement151 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_formElement153 = new BitSet(new long[]{0x00000000000200A0L});
+    public static final BitSet FOLLOW_formElementList_in_formElement157 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_formElement159 = new BitSet(new long[]{0x0000000000000102L});
+    public static final BitSet FOLLOW_ELSE_in_formElement163 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_formElement165 = new BitSet(new long[]{0x00000000000200A0L});
+    public static final BitSet FOLLOW_formElementList_in_formElement169 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_17_in_formElement171 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_in_primary193 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOL_in_primary204 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_primary214 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_primary222 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_primary231 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_orExpr_in_primary235 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_primary237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BOOL_TYPE_in_type256 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INT_TYPE_in_type263 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_TYPE_in_type270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_unExpr297 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_unExpr321 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primary_in_unExpr342 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr376 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_mulExpr384 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr396 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr437 = new BitSet(new long[]{0x0000000000600002L});
+    public static final BitSet FOLLOW_set_in_addExpr445 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr455 = new BitSet(new long[]{0x0000000000600002L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr490 = new BitSet(new long[]{0x00000000FC000002L});
+    public static final BitSet FOLLOW_set_in_relExpr498 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr514 = new BitSet(new long[]{0x00000000FC000002L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr552 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_32_in_andExpr558 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr562 = new BitSet(new long[]{0x0000000100000002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr601 = new BitSet(new long[]{0x0000000200000002L});
+    public static final BitSet FOLLOW_33_in_orExpr607 = new BitSet(new long[]{0x0000000000E80660L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr611 = new BitSet(new long[]{0x0000000200000002L});
 
 }

@@ -12,6 +12,7 @@ public class Money extends Value {
 		_value = value;
 	}
 	
+	@Override
 	public Double getValue() {
 		return _value;
 	}
@@ -31,42 +32,42 @@ public class Money extends Value {
 	*/
 	
 	@Override
-	public Value add(Value value)         { return value.addMoney(this); }
+	public Value add(Value value)                { return value.addMoney(this); }
 	@Override
-	public Value sub(Value value)         { return value.subMoney(this); }
+	public Value divideBy(Value value)           { return value.divideByMoney(this);   }
 	@Override
-	public Value div(Value value)         { return value.divMoney(this); }
+	public Value multiplyBy(Value value)         { return value.multiplyByMoney(this); }
 	@Override
-	public Value mul(Value value)         { return value.mulMoney(this); }
+	public Value subtractBy(Value value)         { return value.subtractByMoney(this); }
 	@Override
-	protected Value addMoney(Money value) { return new Money(value.getValue() + getValue()); }
+	protected Value addMoney(Money value)        { return new Money(value.getValue() + getValue()); }
 	@Override
-	protected Value subMoney(Money value) { return new Money(value.getValue() - getValue()); }
+	protected Value subtractByMoney(Money value) { return new Money(value.getValue() - getValue()); }
 	@Override
-	protected Value mulMoney(Money value) { return new Money(value.getValue() * getValue()); }
+	protected Value multiplyByMoney(Money value) { return new Money(value.getValue() * getValue()); }
 	@Override
-	protected Value divMoney(Money value) { return new Money(value.getValue() / getValue()); }
+	protected Value divideByMoney(Money value)   { return new Money(value.getValue() / getValue()); }
 	
 	@Override
 	public Value equalsValue(Value value) { return value.equalsMoney(this); }
 	@Override
 	protected Value equalsMoney(Money value) { return new Bool(value.equals(this)); }
 	@Override
-	public Value greaterThan(Value value) { return value.greaterThanMoney(this); }
+	public Value isGreaterThan(Value value) { return value.isGreaterThanMoney(this); }
 	@Override
-	protected Value greaterThanMoney(Money value)  { return new Bool(value.getValue() > getValue()); }
+	protected Value isGreaterThanMoney(Money value)  { return new Bool(value.getValue() > getValue()); }
 	@Override
-	public Value greaterThanOrEqualTo(Value value) { return value.greaterThanOrEqualToMoney(this); }
+	public Value isGreaterThanOrEqualTo(Value value) { return value.isGreaterThanOrEqualToMoney(this); }
 	@Override
-	protected Value greaterThanOrEqualToMoney(Money value) { return new Bool(value.getValue() >= getValue()); }
+	protected Value isGreaterThanOrEqualToMoney(Money value) { return new Bool(value.getValue() >= getValue()); }
 	@Override
-	public Value lessThan(Value value) { return value.lessThanMoney(this); }
+	public Value isLessThan(Value value) { return value.isLessThanMoney(this); }
 	@Override
-	protected Value lessThanMoney(Money value) { return new Bool(value.getValue() < getValue()); }
+	protected Value isLessThanMoney(Money value) { return new Bool(value.getValue() < getValue()); }
 	@Override
-	public Value lessThanOrEqualTo(Value value) { return value.lessThanOrEqualToMoney(this); }
+	public Value isLessThanOrEqualTo(Value value) { return value.isLessThanOrEqualToMoney(this); }
 	@Override
-	protected Value lessThanOrEqualToMoney(Money value) { return new Bool(value.getValue() <= getValue()); }
+	protected Value isLessThanOrEqualToMoney(Money value) { return new Bool(value.getValue() <= getValue()); }
 	@Override
 	public Value notEqualsValue(Value value) { return value.notEqualsMoney(this); }
 	@Override

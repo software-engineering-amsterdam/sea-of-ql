@@ -1,17 +1,27 @@
 package org.uva.sea.ql.gui.listeners;
 
 import java.awt.event.ActionListener;
+import java.util.Map;
 
-import javax.swing.JPanel;
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literals.QLValue;
+import org.uva.sea.ql.gui.FormPanel;
 
 public abstract class QLActionListener implements ActionListener {
 
-	private JPanel panel;
+	protected FormPanel formPanel;
+	protected Map<Identifier, QLValue> identifierValueMap;
+	protected Identifier identifier;
 
-	public QLActionListener(JPanel panel) {
-		this.panel = panel;
+	public QLActionListener(FormPanel formPanel,
+			Map<Identifier, QLValue> identifierValueMap, Identifier identifier) {
+		this.formPanel = formPanel;
+		this.identifierValueMap = identifierValueMap;
+		this.identifier = identifier;
 	}
 
-	protected void updateFrame() {
+	protected void updateFormPanel() {
+		formPanel.resetContainer();
+		formPanel.renderForm(this.identifierValueMap);
 	}
 }

@@ -1,39 +1,39 @@
 package org.uva.sea.ql.ast;
 
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.operators.arithmetic.*;
 import org.uva.sea.ql.ast.operators.conditional.*;
 import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.operators.unary.*;
-import org.uva.sea.ql.ast.types.literals.*;
 
-public interface ExpressionVisitor {
+public interface ExpressionVisitor<T> {
 	
 	// Primitive types
-	void visit(BooleanLiteral booleanLiteral);
-	void visit(Identifier identifier);
-	void visit(IntLiteral integerLiteral);
-	void visit(StringLiteral stringLiteral);
+	T visit(BooleanLiteral booleanLiteral);
+	T visit(Identifier identifier);
+	T visit(IntLiteral integerLiteral);
+	T visit(StringLiteral stringLiteral);
 
 	// Arithmetic operators
-	void visit(Add add);
-	void visit(Div div);
-	void visit(Sub sub);
-	void visit(Mul mul);
+	T visit(Add add);
+	T visit(Div div);
+	T visit(Sub sub);
+	T visit(Mul mul);
 	
 	// Conditional operators
-	void visit(And and);
-	void visit(Or or);
+	T visit(And and);
+	T visit(Or or);
 	
 	// Relational operators
-	void visit(Eq eq);
-	void visit(GEq gEq);
-	void visit(GT gT);
-	void visit(LEq lEq);
-	void visit(LT lT);
-	void visit(NEq nEq);
+	T visit(Eq eq);
+	T visit(GEq gEq);
+	T visit(GT gT);
+	T visit(LEq lEq);
+	T visit(LT lT);
+	T visit(NEq nEq);
 	
 	// Unary operators
-	void visit(Neg neg);
-	void visit(Not not);
-	void visit(Pos pos);
+	T visit(Neg neg);
+	T visit(Not not);
+	T visit(Pos pos);
 }

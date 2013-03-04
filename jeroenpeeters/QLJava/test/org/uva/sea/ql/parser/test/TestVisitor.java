@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.uva.sea.ql.ast.ASTNode;
+import org.uva.sea.ql.ast.ASTVisitor;
 import org.uva.sea.ql.ast.CompoundStatement;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.IfElseStatement;
@@ -31,7 +32,6 @@ import org.uva.sea.ql.ast.expression.unary.Neg;
 import org.uva.sea.ql.ast.expression.unary.Not;
 import org.uva.sea.ql.ast.expression.unary.Pos;
 import org.uva.sea.ql.ast.expression.unary.UnaryExpr;
-import org.uva.sea.ql.visitor.ASTVisitor;
 
 public class TestVisitor implements ASTVisitor {
 

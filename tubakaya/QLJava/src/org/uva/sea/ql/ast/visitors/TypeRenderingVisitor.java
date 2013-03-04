@@ -1,66 +1,76 @@
 package org.uva.sea.ql.ast.visitors;
 
 import java.text.NumberFormat;
+import java.util.Map;
 
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.TypeVisitor;
+import org.uva.sea.ql.ast.literals.QLValue;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
 import org.uva.sea.ql.ast.types.StringType;
-import org.uva.sea.ql.ast.types.literals.QLValue;
+import org.uva.sea.ql.gui.FormPanel;
 import org.uva.sea.ql.gui.listeners.CheckBoxActionListener;
 import org.uva.sea.ql.gui.listeners.NumericTextFieldActionListener;
 import org.uva.sea.ql.gui.listeners.TextFieldActionListener;
 
-public class TypeRenderingVisitor implements TypeVisitor {
+public class TypeRenderingVisitor implements TypeVisitor<JComponent> {
 
-	private JPanel parentPanel;
+	private FormPanel formPanel;
+	private Map<Identifier, QLValue> identifierValueMap;
+	private Identifier identifier;
 	private QLValue value;
 	private Boolean enabled;
 
-	public TypeRenderingVisitor(JPanel parentPanel, QLValue value,	Boolean enabled) {
-		this.parentPanel = parentPanel;
+	public TypeRenderingVisitor(FormPanel formPanel,
+			Map<Identifier, QLValue> identifierValueMap, Identifier identifier,
+			QLValue value, Boolean enabled) {
+		this.formPanel = formPanel;
+		this.identifierValueMap = identifierValueMap;
+		this.identifier = identifier;
 		this.value = value;
 		this.enabled = enabled;
 	}
 
 	@Override
-	public void visit(BooleanType booleanDeclaration) {
+	public JComponent visit(BooleanType booleanDeclaration) {
 		JCheckBox checkBox = new JCheckBox();
 		CheckBoxActionListener booleanListener = new CheckBoxActionListener(
-				parentPanel);
+				formPanel, identifierValueMap, identifier, checkBox);
 		checkBox.addActionListener(booleanListener);
 		checkBox.setSelected(value.getBooleanValue());
 		checkBox.setEnabled(enabled);
-		parentPanel.add(checkBox);
+		return checkBox;
 	}
 
 	@Override
-	public void visit(IntegerType intDeclaration) {
+	public JComponent visit(IntegerType intDeclaration) {
 		JFormattedTextField intField = new JFormattedTextField(
 				NumberFormat.getIntegerInstance());
 		intField.setColumns(8);
 		NumericTextFieldActionListener integerListener = new NumericTextFieldActionListener(
-				parentPanel, intField);
+				formPanel, identifierValueMap, identifier, intField);
 		intField.addActionListener(integerListener);
-		intField.setText(value.toString());
+		intField.setText(value.getIntegerValue().toString());
 		intField.setEditable(enabled);
-		parentPanel.add(intField);
+		return intField;
 	}
 
 	@Override
-	public void visit(StringType stringDeclaration) {
-		JTextField strField = new JTextField(20);
+	public JComponent visit(StringType stringDeclaration) {
+		JTextField strField = new JTextField();
+		strField.setColumns(8);
 		TextFieldActionListener stringListener = new TextFieldActionListener(
-				parentPanel, strField);
+				formPanel, identifierValueMap, identifier, strField);
 		strField.addActionListener(stringListener);
-		strField.setText(value.toString());
+		strField.setText(value.getStringValue());
 		strField.setEditable(enabled);
-		parentPanel.add(strField);
+		return strField;
 	}
 
 }

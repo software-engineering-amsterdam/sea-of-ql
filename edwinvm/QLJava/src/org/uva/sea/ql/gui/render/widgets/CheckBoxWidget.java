@@ -18,12 +18,17 @@ public class CheckBoxWidget extends Widget {
 
 	@Override
 	public Value getValue() {
-		return new Bool(_widget.isEnabled());
+		return new Bool(_widget.isSelected());
 	}
 	
 	@Override
 	public void setValue(Value value) {
 		_widget.setSelected(((Bool)value).getValue());
+	}
+	
+	@Override
+	public void setDefaultValue() {
+		_widget.setSelected(false);
 	}
 	
 	@Override
@@ -39,6 +44,7 @@ public class CheckBoxWidget extends Widget {
 	@Override
 	public void addListener(AnswerableQuestionObservable observable) {
 		_widget.addActionListener(observable);
+		_widget.addFocusListener(observable);
 	}
 	
 }

@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.expression.literal;
 
+import org.uva.sea.ql.ast.ASTVisitor;
 import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.visitor.ASTVisitor;
 
 
 public abstract class Literal extends Expression {

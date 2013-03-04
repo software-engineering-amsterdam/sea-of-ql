@@ -14,6 +14,8 @@ import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.type.*;
 import org.uva.sea.ql.value.*;
+import java.util.Map;
+import java.util.HashMap;
 }
 
 @lexer::header
@@ -21,42 +23,75 @@ import org.uva.sea.ql.value.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-form
-: 'form'! Ident^ '{'! block '}'!
+@members
+{
+    private final Map<String, Ident> variables = new HashMap<String, Ident>();
+}
+
+form returns [Block node]
+: 'form'! Ident^ '{'! block {$node = $block.node;} '}'!
 ;
 
-// TODO Bart's BlockNode
 block returns [Block node]
-: statement*
+@init
+{
+    Block block = new Block();
+    $node = block;
+}
+: (statement {block.addStatement($statement.statement);})*
 ;
 
 statement returns [Statement statement]
 : ifStatement {$statement = $ifStatement.node;}
 | assignment {$statement = $assignment.node;}
+| computedAssignment {$statement = $computedAssignment.node;}
 ;
 
-// TODO check Bart's IfNode
 ifStatement returns [IfStatement node]
-: 'if'^ orExpression '{'! block '}'! //{$node =  new IfStatement();}
-  ('else'^ '{'! block '}'! {$node = null;} )?
+@init
+{
+    IfStatement ifStatement = new IfStatement();
+    $node = ifStatement;
+}
+: 'if'^ orExpression '{'! ifBlock=block '}'!
+  {
+    ifStatement.addOrExpression($orExpression.result);
+    ifStatement.addIfBlock($ifBlock.node);
+  }
+  ('else'^ '{'! elseBlock=block '}'! { ifStatement.addElseBlock($elseBlock.node);}
+  )?
 ;
 
 assignment returns [Assignment node]
-: Ident ':'^ StringLiteral type { $node = new Assignment(new Ident($Ident.text), $StringLiteral.text, $type.type); }
+: Ident ':'^ StringLiteral type
+    {
+        Ident ident = new Ident($Ident.text, $type.type);
+        $node = new Assignment(ident, $StringLiteral.text);
+        this.variables.put($Ident.text, ident);
+    }
+;
+
+computedAssignment returns [ComputedAssignment node]
+: Ident ':'^ StringLiteral type '('! orExpression ')'!
+    {
+        Ident ident = new Ident($Ident.text, $type.type);
+        $node = new ComputedAssignment(ident, $StringLiteral.text, $orExpression.result);
+    }
 ;
 
 type returns [Type type]
 : 'integer' {$type = new IntType();}
-| 'boolean'
-| 'string'
-| 'money'
+| 'boolean' {$type = new BoolType();}
+| 'string'  {$type = new StringType();}
+| 'money'   {$type = new MoneyType();}
 ;
 
 primary returns [Expr result]
-: Int   { $result = new Int(Integer.parseInt($Int.text)); } 
-| Money   { $result = new Money(Double.parseDouble($Money.text)); }
-// TODO add Bool, StringLiteral
-| Ident { $result = new Ident($Ident.text); }
+: Int           { $result = new Int(Integer.parseInt($Int.text)); }
+| Money         { $result = new Money(Double.parseDouble($Money.text)); }
+| Bool          { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+| StringLiteral { $result = new StringLiteral($StringLiteral.text); }
+| Ident         { $result = this.variables.get($Ident.text); }
 | '('! x=orExpression ')'! { $result = $x.result; }
 ;
     

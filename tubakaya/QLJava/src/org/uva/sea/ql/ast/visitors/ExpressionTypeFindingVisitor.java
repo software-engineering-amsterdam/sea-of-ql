@@ -4,6 +4,9 @@ import java.util.Map;
 
 import org.uva.sea.ql.ast.ExpressionTypeVisitor;
 import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literals.BooleanLiteral;
+import org.uva.sea.ql.ast.literals.IntLiteral;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.operators.ArithmeticOperator;
 import org.uva.sea.ql.ast.operators.ConditionalOperator;
 import org.uva.sea.ql.ast.operators.RelationalOperator;
@@ -26,12 +29,8 @@ import org.uva.sea.ql.ast.operators.unary.Not;
 import org.uva.sea.ql.ast.operators.unary.Pos;
 import org.uva.sea.ql.ast.types.BooleanType;
 import org.uva.sea.ql.ast.types.IntegerType;
-import org.uva.sea.ql.ast.types.NonDeclaredType;
 import org.uva.sea.ql.ast.types.StringType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.types.literals.BooleanLiteral;
-import org.uva.sea.ql.ast.types.literals.IntLiteral;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class ExpressionTypeFindingVisitor implements ExpressionTypeVisitor {
 
@@ -48,11 +47,15 @@ public class ExpressionTypeFindingVisitor implements ExpressionTypeVisitor {
 
 	@Override
 	public Type visit(Identifier identifier) {
-		if (identifierTypeMap.containsKey(identifier)) {
-			return identifierTypeMap.get(identifier);
+		String nameOfSearchedIdentifier = identifier.getName();
+		for (Identifier ident : identifierTypeMap.keySet()) {
+			String nameOfFoundIdentifier = ident.getName();
+			if (nameOfFoundIdentifier.equals(nameOfSearchedIdentifier)) {
+				return identifierTypeMap.get(ident);
+			}
 		}
 
-		return new NonDeclaredType();
+		return null;
 	}
 
 	@Override

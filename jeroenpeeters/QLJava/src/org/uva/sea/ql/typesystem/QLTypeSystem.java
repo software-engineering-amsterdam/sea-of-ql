@@ -27,6 +27,9 @@ public class QLTypeSystem implements ITypeResolver {
 		if(dt1 == dt2){
 			// types are the same, cast is not needed.
 			return dt1;
+		}else if(dt1 == DataType.UNDEF || dt2 == DataType.UNDEF){
+			// on or both are undef
+			return DataType.UNDEF;
 			
 		}else if(isOneOf(dt1, DataType.INTEGER, DataType.MONEY) && isOneOf(dt2, DataType.INTEGER, DataType.MONEY)){
 			// on of the types is integer, the other one is money -> cast to money type

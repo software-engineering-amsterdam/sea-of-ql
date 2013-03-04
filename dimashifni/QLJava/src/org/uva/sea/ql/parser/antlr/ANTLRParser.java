@@ -1,241 +1,115 @@
 package org.uva.sea.ql.parser.antlr;
 
+import net.miginfocom.swing.MigLayout;
+import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.tree.CommonTree;
+import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
-import org.uva.sea.ql.ast.statement.Assignment;
-import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.ast.statement.Block;
+import org.uva.sea.ql.ast.statement.ObservableStatement;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.statement.Renderer;
+import org.uva.sea.ql.visitor.statement.StatementDependencyAnalyzer;
 import org.uva.sea.ql.visitor.statement.StatementValidator;
-import org.uva.sea.ql.visitor.statement.StatementVisitor;
 
+import javax.swing.*;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-// import org.uva.sea.ql.ast.expression.Expr;
 
 public class ANTLRParser implements IParse {
 
-	@Override
-	public Expr parse(String src) throws ParseError {
-		ANTLRStringStream stream = new ANTLRStringStream(src);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-			return parser.orExpression().result;
-		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-		}
-	}
-	
-	public static void main(String[] args) throws RecognitionException
-	{
-		System.out.println("Start test..");			
-//		testForm();
-//		testPrimary();
-//		testUnaryExpression();
-//		testMultiplyExpression();
-//		testAddExpression();
-//		testRelExpression();
-//		testAndExpression();
-//		testOrExpression();
-        testAssignment();
-	}
-	
-	public static void testForm()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("" +
-                "form boxhousing1 { " +
-				"   hasSoldHouse : \"did you just sell you house! \" Boolean" +
-				"   if(hasSoldHouse) {" +
-				"       isExpensive : \"Is the house expensive?\" Boolean"+
-				"       isnice : \"Is the house nice?\" Boolean"+
-				"   }" +
-//                "   else if(hasSoldHouse) {" +
-//                "       if(hasSoldHouse) {" +
-//                "          isExpensive : \"Is the house expensive?\" Boolean"+
-//                "       }" +
-//                "       else" +
-//                "       {" +
-//                "           isExpensive : \"Is the house expensive?\" Boolean" +
-//                "       }" +
-//                "       isExpensive : \"Is the house expensive?\" Boolean" +
-//                "   }" +
-                "   else {" +
-                "      isCheap : \"Is the house cheap?\" Boolean" +
-                "   }"+
-                "}");
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-            CommonTree commonTree = parser.form().tree;
-            System.out.println(commonTree.toStringTree());
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-
-    public static void testAssignment()
-    {
-        ANTLRStringStream stream = new ANTLRStringStream("" +
-                "form boxhousing1 { " +
-                "   hasSoldHouse : \"did you just sell you house! \" boolean" +
-                "   hasSoldHouse2 : \"did you just sell you house! \" boolean" +
-                "}");
+    @Override
+    public Expr parse(String src) throws ParseError {
+        ANTLRStringStream stream = new ANTLRStringStream(src);
         CommonTokenStream tokens = new CommonTokenStream();
         tokens.setTokenSource(new QLLexer(stream));
         QLParser parser = new QLParser(tokens);
         try {
-            Assignment assignment = parser.assignment().node;
-            // TODO expression dependency visitor
+            return parser.orExpression().result;
+        } catch (RecognitionException e) {
+            throw new ParseError(e.getMessage());
+        }
+    }
+
+    @Override
+    public ASTNode parseForm(String src) throws ParseError {
+        ANTLRStringStream stream = new ANTLRStringStream(src);
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            return parser.form().node;
+        } catch (RecognitionException e) {
+            throw new ParseError(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) throws RecognitionException, IOException {
+        ANTLRStringStream stream = new ANTLRFileStream(args[0]);
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            Block block = parser.form().node;
+
+            // variable map
             Map<Ident, Value> variables = new HashMap<Ident, Value>();
-            variables.put(new Ident("var1"), new IntegerValue(1));
-            variables.put(new Ident("var1"), new IntegerValue(1));
-            StatementValidator statementVisitor = new StatementValidator(variables);
-            statementVisitor.visit(assignment);
-            List<String> errors = statementVisitor.getErrors();
-            for (String error : errors) {
-                System.out.println("error = " + error);
+            Map<Ident, List<ObservableStatement>> observableMap = new HashMap<Ident, List<ObservableStatement>>();
+
+            StatementDependencyAnalyzer statementDependencyAnalyzer = new StatementDependencyAnalyzer(variables, observableMap);
+            StatementValidator statementValidator = new StatementValidator();
+
+            // validate statement
+            block.accept(statementValidator);
+
+            // check dependency
+            block.accept(statementDependencyAnalyzer);
+
+            // generate GUI
+            if (statementValidator.getErrors().isEmpty()) {
+                renderGUI(block, variables, observableMap);
+            } else {
+                // error founds - no need to generate GUI
+                System.out.println(statementValidator.getErrors());
+                System.exit(1);
             }
+
         } catch (RecognitionException e) {
             e.printStackTrace();
         }
     }
 
-	public static void testPrimary()
-	{
-		final String testPrimary = "100000";
-		ANTLRStringStream stream = new ANTLRStringStream(testPrimary);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-			parser.primary();
-			System.out.println("OK primary");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public static void testUnaryExpression()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("+t");
-				CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-            CommonTree commonTree = parser.unaryExpression().tree;
-            System.out.println(commonTree.toStringTree());
-			System.out.println("OK unary");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-	
-	public static void testMultiplyExpression()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("3 * 2");
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-//            CommonTree commonTree = parser.multiplyExpression().tree;
-//            System.out.println(commonTree.toStringTree());
-            Expr result = parser.multiplyExpression().result;
-            System.out.println(result.evaluate(new HashMap<Ident, Value>()));
-            System.out.println("OK multiply");
-        } catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public static void testAddExpression()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("a+b");
-				CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-            CommonTree commonTree = parser.addExpression().tree;
-            System.out.println(commonTree.toStringTree());
-            System.out.println("OK add");
-        } catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-	
-	public static void testRelExpression()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("a > b");
-				CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-            CommonTree commonTree = parser.relExpression().tree;
-            System.out.println(commonTree.toStringTree());
-			System.out.println("OK rel");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-	
-	public static void testAndExpression()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("a&&b");
-				CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-            CommonTree commonTree = parser.andExpression().tree;
-            System.out.println(commonTree.toStringTree());
-			System.out.println("OK and");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
-	
-	public static void testOrExpression()
-	{
-		ANTLRStringStream stream = new ANTLRStringStream("(a||b)");
-				CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-            CommonTree commonTree = parser.orExpression().tree;
-            System.out.println(commonTree.toStringTree());
-			System.out.println("OK or");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}	
-	
-	public static void TestAssignment()
-	{
-		final String testAssignment = "x : \"Have you ever worked ?\" Boolean";
-		ANTLRStringStream stream = new ANTLRStringStream(testAssignment);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-			parser.assignment();
-			System.out.println("OK assignment");
-		} catch (RecognitionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}	
+    private static void renderGUI(final Block block, final Map<Ident, Value> variables, final Map<Ident, List<ObservableStatement>> observableStatementMap) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                final JFrame frame = new JFrame("QL Test");
+                final JPanel mainPanel = new JPanel(new MigLayout("hidemode 3"));
+                renderWidget(frame, mainPanel, block, variables, observableStatementMap);
+                frame.getContentPane().add(mainPanel);
+                frame.pack();
+                frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                frame.setVisible(true);
+            }
+        });
+    }
+
+    private static void renderWidget(final JFrame frame, final JPanel mainPanel, final Block block, final Map<Ident, Value> variables, final Map<Ident, List<ObservableStatement>> observableStatementMap) {
+        // render statements control
+        for (final Statement statement : block.getStatements()) {
+            Renderer.render(frame, mainPanel, statement, variables, observableStatementMap);
+        }
+    }
 
 }

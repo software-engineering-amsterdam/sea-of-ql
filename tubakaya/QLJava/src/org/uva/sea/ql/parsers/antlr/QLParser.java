@@ -2,6 +2,7 @@
 
 package org.uva.sea.ql.parsers.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.operators.*;
 import org.uva.sea.ql.ast.operators.arithmetic.*;
 import org.uva.sea.ql.ast.operators.conditional.*;
@@ -9,7 +10,6 @@ import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.types.literals.*;
 
 
 import org.antlr.runtime.*;

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.gui.observe;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -13,15 +14,15 @@ import org.uva.sea.ql.check.values.Evaluator;
 public class ConditionObserver implements Observer {
 
 	private final Expression _condition;
-	private final JPanel _renderedBody;
-	private final JPanel _renderedElseBody;
+	private final ArrayList<JPanel> _renderedBody;
+	private final ArrayList<JPanel> _renderedElseBody;
 	private final State _state;
 	
-	public ConditionObserver(Expression condition, JPanel renderedBody, State state) {
+	public ConditionObserver(Expression condition, ArrayList<JPanel> renderedBody, State state) {
 		this(condition, renderedBody, null, state);
 	}
 	
-	public ConditionObserver(Expression condition, JPanel renderedBody, JPanel renderedElseBody, State state) {
+	public ConditionObserver(Expression condition, ArrayList<JPanel> renderedBody, ArrayList<JPanel> renderedElseBody, State state) {
 		_condition = condition;
 		_renderedBody = renderedBody;
 		_renderedElseBody = renderedElseBody;
@@ -32,9 +33,15 @@ public class ConditionObserver implements Observer {
 	public void update(Observable o, Object arg) {
 		Value value = evaluateExpression();
 		boolean visible = ((Bool)value).getValue();
-		_renderedBody.setVisible(visible);
+		setVisibilityFor(_renderedBody, visible);
 		if (_renderedElseBody != null) {
-			_renderedElseBody.setVisible(!visible);
+			setVisibilityFor(_renderedElseBody, !visible);
+		}
+	}
+	
+	private void setVisibilityFor(ArrayList<JPanel> renderedBody, boolean visible) {
+		for (JPanel panel: renderedBody) {
+			panel.setVisible(visible);
 		}
 	}
 	

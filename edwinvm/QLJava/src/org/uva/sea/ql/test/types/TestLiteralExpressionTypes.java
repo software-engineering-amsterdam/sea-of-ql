@@ -5,7 +5,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestLiteralExpressionTypes extends ExpressionTypeChecker {
 	@Test
-	public void testIds() throws ParseError {
+	public void testIdentifiers() throws ParseError {
 		isOfTypeIdent("boolean");
 		isOfTypeIdent("integer");
 		isOfTypeIdent("money");
@@ -13,7 +13,7 @@ public class TestLiteralExpressionTypes extends ExpressionTypeChecker {
 	}
 	
 	@Test
-	public void testNums() throws ParseError {
+	public void testIntegers() throws ParseError {
 		isOfTypeInt("0");
 		isOfTypeInt("123");
 	}

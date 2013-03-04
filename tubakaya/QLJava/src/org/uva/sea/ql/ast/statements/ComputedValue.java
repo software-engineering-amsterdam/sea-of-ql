@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.Statement;
 import org.uva.sea.ql.ast.StatementVisitor;
+import org.uva.sea.ql.ast.literals.StringLiteral;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.types.literals.StringLiteral;
 
 public class ComputedValue extends Statement {
 

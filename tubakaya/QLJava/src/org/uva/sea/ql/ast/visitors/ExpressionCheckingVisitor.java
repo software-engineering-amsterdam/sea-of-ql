@@ -5,18 +5,18 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.ExpressionVisitor;
 import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literals.*;
 import org.uva.sea.ql.ast.operators.*;
 import org.uva.sea.ql.ast.operators.arithmetic.*;
 import org.uva.sea.ql.ast.operators.conditional.*;
 import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.operators.unary.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.types.literals.*;
 import org.uva.sea.ql.parsers.exceptions.ExpressionNotValidException;
 import org.uva.sea.ql.parsers.exceptions.IdentifierNotDefinedException;
 import org.uva.sea.ql.parsers.exceptions.QLException;
 
-public class ExpressionCheckingVisitor implements ExpressionVisitor {
+public class ExpressionCheckingVisitor implements ExpressionVisitor<Boolean> {
 
 	private Map<Identifier, Type> identifierTypeMap;
 	private List<QLException> exceptions;
@@ -31,97 +31,102 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 	}
 
 	@Override
-	public void visit(Identifier identifier) {
+	public Boolean visit(Identifier identifier) {
 		if (!identifierTypeMap.containsKey(identifier)) {
 			addExceptionInExceptionsList(identifier);
+			return false;
 		}
+		return true;
 	}
 
 	@Override
-	public void visit(BooleanLiteral booleanLiteral) {
+	public Boolean visit(BooleanLiteral booleanLiteral) {
+		return true;
 	}
 
 	@Override
-	public void visit(IntLiteral integerLiteral) {
+	public Boolean visit(IntLiteral integerLiteral) {
+		return true;
 	}
 
 	@Override
-	public void visit(StringLiteral stringLiteral) {
+	public Boolean visit(StringLiteral stringLiteral) {
+		return true;
 	}
 
 	@Override
-	public void visit(Add add) {
-		visitBase(add);
+	public Boolean visit(Add add) {
+		return visitBase(add);
 	}
 
 	@Override
-	public void visit(Div div) {
-		visitBase(div);
+	public Boolean visit(Div div) {
+		return visitBase(div);
 	}
 
 	@Override
-	public void visit(Sub sub) {
-		visitBase(sub);
+	public Boolean visit(Sub sub) {
+		return visitBase(sub);
 	}
 
 	@Override
-	public void visit(Mul mul) {
-		visitBase(mul);
+	public Boolean visit(Mul mul) {
+		return visitBase(mul);
 	}
 
 	@Override
-	public void visit(And and) {
-		visitBase(and);
+	public Boolean visit(And and) {
+		return visitBase(and);
 	}
 
 	@Override
-	public void visit(Or or) {
-		visitBase(or);
+	public Boolean visit(Or or) {
+		return visitBase(or);
 	}
 
 	@Override
-	public void visit(Eq eq) {
-		visitBase(eq);
+	public Boolean visit(Eq eq) {
+		return visitBase(eq);
 	}
 
 	@Override
-	public void visit(GEq gEq) {
-		visitBase(gEq);
+	public Boolean visit(GEq gEq) {
+		return visitBase(gEq);
 	}
 
 	@Override
-	public void visit(GT gT) {
-		visitBase(gT);
+	public Boolean visit(GT gT) {
+		return visitBase(gT);
 	}
 
 	@Override
-	public void visit(LEq lEq) {
-		visitBase(lEq);
+	public Boolean visit(LEq lEq) {
+		return visitBase(lEq);
 	}
 
 	@Override
-	public void visit(LT lT) {
-		visitBase(lT);
+	public Boolean visit(LT lT) {
+		return visitBase(lT);
 	}
 
 	@Override
-	public void visit(NEq nEq) {
-		visitBase(nEq);
+	public Boolean visit(NEq nEq) {
+		return visitBase(nEq);
 	}
 
 	@Override
-	public void visit(Neg neg) {
-		visitBase(neg);
+	public Boolean visit(Neg neg) {
+		return visitBase(neg);
 	}
 
 	@Override
-	public void visit(Not not) {
-		visitBase(not);
+	public Boolean visit(Not not) {
+		return visitBase(not);
 	}
 
 	@Override
-	public void visit(Pos pos) {
-		visitBase(pos);
+	public Boolean visit(Pos pos) {
+		return visitBase(pos);
 	}
 
 	private void addExceptionInExceptionsList(Identifier identifier) {
@@ -132,7 +137,7 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 		this.exceptions.add(new ExpressionNotValidException(expression));
 	}
 
-	private void visitBase(ArithmeticOperator arithmeticOperator) {
+	private Boolean visitBase(ArithmeticOperator arithmeticOperator) {
 
 		Expression lhs = arithmeticOperator.getLhs();
 		Expression rhs = arithmeticOperator.getRhs();
@@ -143,9 +148,11 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 		Type compatibleType = new IntegerType();
 		checkExpressionTypeCompatibility(lhs, compatibleType);
 		checkExpressionTypeCompatibility(rhs, compatibleType);
+		
+		return true;
 	}
 
-	private void checkExpressionTypeCompatibility(Expression lhs,
+	private Boolean checkExpressionTypeCompatibility(Expression lhs,
 			Type compatibleType) {
 		
 		Type typeLhs = lhs.accept(expressionTypeCheckingVisitor);
@@ -153,9 +160,10 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 		if (!typeLhs.isCompatibleTo(compatibleType)) {
 			addExceptionInExceptionsList(lhs);
 		}
+		return true;
 	}
 
-	private void visitBase(ConditionalOperator conditionalOperator) {
+	private Boolean visitBase(ConditionalOperator conditionalOperator) {
 
 		Expression lhs = conditionalOperator.getLhs();
 		Expression rhs = conditionalOperator.getRhs();
@@ -166,9 +174,10 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 		Type compatibleType = new BooleanType();
 		checkExpressionTypeCompatibility(lhs, compatibleType);
 		checkExpressionTypeCompatibility(rhs, compatibleType);
+		return true;
 	}
 
-	private void visitBase(RelationalOperator relationalOperator) {
+	private Boolean visitBase(RelationalOperator relationalOperator) {
 
 		Expression lhs = relationalOperator.getLhs();
 		Expression rhs = relationalOperator.getRhs();
@@ -187,17 +196,19 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 				addExceptionInExceptionsList(relationalOperator.getRhs());
 			}
 		}
+		
+		return true;
 	}
 
-	private void visitBase(UnaryArithmeticOperator unaryArithmeticOperator) {
-		visitBase(unaryArithmeticOperator, new IntegerType());
+	private Boolean visitBase(UnaryArithmeticOperator unaryArithmeticOperator) {
+		return visitBase(unaryArithmeticOperator, new IntegerType());
 	}
 
-	private void visitBase(UnaryLogicalOperator unaryLogicalOperator) {
-		visitBase(unaryLogicalOperator, new BooleanType());
+	private Boolean visitBase(UnaryLogicalOperator unaryLogicalOperator) {
+		return visitBase(unaryLogicalOperator, new BooleanType());
 	}
 
-	private void visitBase(UnaryOperator unaryLogicalOperator,
+	private Boolean visitBase(UnaryOperator unaryLogicalOperator,
 			Type compatibleType) {
 		Expression expression = unaryLogicalOperator.getExpression();
 		expression.accept(this);
@@ -206,6 +217,8 @@ public class ExpressionCheckingVisitor implements ExpressionVisitor {
 
 		if (!type.isCompatibleTo(compatibleType)) {
 			addExceptionInExceptionsList(expression);
+			return false;
 		}
+		return true;
 	}
 }

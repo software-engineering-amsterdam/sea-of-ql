@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
+import org.uva.sea.ql.type.IntType;
+import org.uva.sea.ql.type.Type;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.expression.ExpressionVisitor;
 
@@ -16,6 +18,14 @@ public class Sub extends Expr {
         this.rhs = rhs;
     }
 
+    public Expr getLhs() {
+        return lhs;
+    }
+
+    public Expr getRhs() {
+        return rhs;
+    }
+
     @Override
     public Value evaluate(Map<Ident, Value> variables) {
         Value lhs = this.lhs.evaluate(variables);
@@ -26,6 +36,11 @@ public class Sub extends Expr {
     @Override
     public <T> T accept(ExpressionVisitor<T> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public Type getType() {
+        return new IntType();
     }
 
 }

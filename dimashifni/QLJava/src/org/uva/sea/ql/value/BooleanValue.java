@@ -1,12 +1,8 @@
 package org.uva.sea.ql.value;
 
-/**
- * Created with IntelliJ IDEA.
- * User: dimashifni
- * Date: 2/26/13
- * Time: 11:06 PM
- * To change this template use File | Settings | File Templates.
- */
+import org.uva.sea.ql.type.BoolType;
+import org.uva.sea.ql.type.Type;
+
 public class BooleanValue extends Value{
     private final Boolean value;
 
@@ -56,5 +52,10 @@ public class BooleanValue extends Value{
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    @Override
+    public Type getType() {
+        return new BoolType();
     }
 }

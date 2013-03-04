@@ -7,8 +7,8 @@ import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.stat.Form;
 import org.uva.sea.ql.ast.stat.FormUnit;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.parser.test.IParse;
-import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.test.IParse;
+import org.uva.sea.ql.test.ParseError;
 
 public class ANTLRParser implements IParse {
 

@@ -7,10 +7,9 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.forms.*;
 import org.uva.sea.ql.ast.expressions.*;
-import org.uva.sea.ql.ast.expressions.binary.arithmetic.*;
-import org.uva.sea.ql.ast.expressions.binary.logical.*;
-import org.uva.sea.ql.ast.expressions.binary.relational.*;
-import org.uva.sea.ql.ast.expressions.unary.*;
+import org.uva.sea.ql.ast.expressions.arithmetic.*;
+import org.uva.sea.ql.ast.expressions.logical.*;
+import org.uva.sea.ql.ast.expressions.relational.*;
 import org.uva.sea.ql.ast.statements.conditions.*;
 import org.uva.sea.ql.ast.statements.questions.*;
 import org.uva.sea.ql.ast.statements.*;
@@ -40,7 +39,7 @@ question returns [Question result]
     ;
 
 questionLabel returns [QuestionLabel result]
-    :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str($String.text)); }
+    :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str($String.text.replace("\"", ""))); }
     ;
     
 questionVariable returns [QuestionVariable result]
@@ -55,7 +54,7 @@ conditionBlock returns [ConditionBlock result]
     ;
 
 statementBody returns [StatementBody result]
-	  @init  { StatementBody statements = new StatementBody(); }
+	@init  { StatementBody statements = new StatementBody(); }
     @after { $result = statements; }
     :   '{' (statement=formStatement { statements.add(statement); })+ '}'
     |       (statement=formStatement { statements.add(statement); })+
@@ -65,7 +64,7 @@ primary returns [Expression result]
     :   Int        { $result = new org.uva.sea.ql.ast.values.Int(Integer.parseInt($Int.text)); }
     |   Bool       { $result = new org.uva.sea.ql.ast.values.Bool(Boolean.parseBoolean($Bool.text)); }
     |   Money      { $result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
-    |   String     { $result = new org.uva.sea.ql.ast.values.Str($String.text); }
+    |   String     { $result = new org.uva.sea.ql.ast.values.Str($String.text.replace("\"", "")); }
     |   Identifier { $result = new Identifier($Identifier.text); }
     |   '(' e=expression ')'{ $result = $e.result; }
     ;
@@ -113,14 +112,13 @@ logicallyEquivalentExpression returns [Expression result]
         rightHandSide = relationalExpression { $result = new LogicallyEquivalentExpression(leftHandSide, rightHandSide); } )*
     ;
     
-
-logicallyNotEquivalentExpression returns [Expression result]
+logicallyEquivalentOrNotExpression returns [Expression result]
     :   leftHandSide  = logicallyEquivalentExpression { $result = leftHandSide; } ( '||' 
-        rightHandSide = logicallyEquivalentExpression { $result = new LogicallyNotEquivalentExpression(leftHandSide, rightHandSide); } )*
+        rightHandSide = logicallyEquivalentExpression { $result = new LogicallyEquivalentOrNotExpression(leftHandSide, rightHandSide); } )*
     ;
 
 expression returns [Expression result]
-    :   getExpression=logicallyNotEquivalentExpression { $result = getExpression; }
+    :   getExpression=logicallyEquivalentOrNotExpression { $result = getExpression; }
     ;
 
 type returns [Type result]

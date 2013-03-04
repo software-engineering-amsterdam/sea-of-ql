@@ -1,9 +1,12 @@
-// $ANTLR !Unknown version! QL.g 2013-02-18 14:26:49
+// $ANTLR !Unknown version! QL.g 2013-03-04 12:35:33
 
 package org.uva.sea.ql.parser.antlr;
 
 
 import org.antlr.runtime.*;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
 
 public class QLLexer extends Lexer {
     public static final int T__29=29;
@@ -422,7 +425,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:226:5: ( '/*' ( options {greedy=false; } : . )* '*/' | '//' ( options {greedy=false; } : . )* '\\n' )
+            // QL.g:249:5: ( '/*' ( options {greedy=false; } : . )* '*/' | '//' ( options {greedy=false; } : . )* '\\n' )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -450,11 +453,11 @@ public class QLLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // QL.g:226:7: '/*' ( options {greedy=false; } : . )* '*/'
+                    // QL.g:249:7: '/*' ( options {greedy=false; } : . )* '*/'
                     {
                     match("/*"); 
 
-                    // QL.g:226:12: ( options {greedy=false; } : . )*
+                    // QL.g:249:12: ( options {greedy=false; } : . )*
                     loop1:
                     do {
                         int alt1=2;
@@ -479,7 +482,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // QL.g:226:38: .
+                    	    // QL.g:249:38: .
                     	    {
                     	    matchAny(); 
 
@@ -498,11 +501,11 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:227:7: '//' ( options {greedy=false; } : . )* '\\n'
+                    // QL.g:250:7: '//' ( options {greedy=false; } : . )* '\\n'
                     {
                     match("//"); 
 
-                    // QL.g:227:12: ( options {greedy=false; } : . )*
+                    // QL.g:250:12: ( options {greedy=false; } : . )*
                     loop2:
                     do {
                         int alt2=2;
@@ -518,7 +521,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // QL.g:227:38: .
+                    	    // QL.g:250:38: .
                     	    {
                     	    matchAny(); 
 
@@ -550,8 +553,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:231:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // QL.g:231:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // QL.g:254:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // QL.g:254:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -579,7 +582,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:236:2: ( '\"' ( options {greedy=false; } : . )* '\"' | '\\'' ( options {greedy=false; } : . )* '\\'' )
+            // QL.g:259:2: ( '\"' ( options {greedy=false; } : . )* '\"' | '\\'' ( options {greedy=false; } : . )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -597,10 +600,10 @@ public class QLLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // QL.g:236:4: '\"' ( options {greedy=false; } : . )* '\"'
+                    // QL.g:259:4: '\"' ( options {greedy=false; } : . )* '\"'
                     {
                     match('\"'); 
-                    // QL.g:236:8: ( options {greedy=false; } : . )*
+                    // QL.g:259:8: ( options {greedy=false; } : . )*
                     loop4:
                     do {
                         int alt4=2;
@@ -616,7 +619,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // QL.g:236:34: .
+                    	    // QL.g:259:34: .
                     	    {
                     	    matchAny(); 
 
@@ -633,10 +636,10 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:237:4: '\\'' ( options {greedy=false; } : . )* '\\''
+                    // QL.g:260:4: '\\'' ( options {greedy=false; } : . )* '\\''
                     {
                     match('\''); 
-                    // QL.g:237:9: ( options {greedy=false; } : . )*
+                    // QL.g:260:9: ( options {greedy=false; } : . )*
                     loop5:
                     do {
                         int alt5=2;
@@ -652,7 +655,7 @@ public class QLLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // QL.g:237:35: .
+                    	    // QL.g:260:35: .
                     	    {
                     	    matchAny(); 
 
@@ -683,8 +686,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:241:2: ( 'if' )
-            // QL.g:241:4: 'if'
+            // QL.g:264:2: ( 'if' )
+            // QL.g:264:4: 'if'
             {
             match("if"); 
 
@@ -704,8 +707,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:245:2: ( 'else' )
-            // QL.g:245:4: 'else'
+            // QL.g:268:2: ( 'else' )
+            // QL.g:268:4: 'else'
             {
             match("else"); 
 
@@ -725,8 +728,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = FORM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:249:2: ( 'form' )
-            // QL.g:249:4: 'form'
+            // QL.g:272:2: ( 'form' )
+            // QL.g:272:4: 'form'
             {
             match("form"); 
 
@@ -746,7 +749,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = BOOL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:253:2: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
+            // QL.g:276:2: ( 'true' | 'false' | 'TRUE' | 'FALSE' )
             int alt7=4;
             switch ( input.LA(1) ) {
             case 't':
@@ -778,7 +781,7 @@ public class QLLexer extends Lexer {
 
             switch (alt7) {
                 case 1 :
-                    // QL.g:253:4: 'true'
+                    // QL.g:276:4: 'true'
                     {
                     match("true"); 
 
@@ -786,7 +789,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // QL.g:254:4: 'false'
+                    // QL.g:277:4: 'false'
                     {
                     match("false"); 
 
@@ -794,7 +797,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // QL.g:255:4: 'TRUE'
+                    // QL.g:278:4: 'TRUE'
                     {
                     match("TRUE"); 
 
@@ -802,7 +805,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // QL.g:256:4: 'FALSE'
+                    // QL.g:279:4: 'FALSE'
                     {
                     match("FALSE"); 
 
@@ -824,8 +827,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = BOOL_TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:260:2: ( 'boolean' )
-            // QL.g:260:4: 'boolean'
+            // QL.g:283:2: ( 'boolean' )
+            // QL.g:283:4: 'boolean'
             {
             match("boolean"); 
 
@@ -845,8 +848,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = INT_TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:264:2: ( 'integer' )
-            // QL.g:264:4: 'integer'
+            // QL.g:287:2: ( 'integer' )
+            // QL.g:287:4: 'integer'
             {
             match("integer"); 
 
@@ -866,8 +869,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = STRING_TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:268:2: ( 'string' )
-            // QL.g:268:4: 'string'
+            // QL.g:291:2: ( 'string' )
+            // QL.g:291:4: 'string'
             {
             match("string"); 
 
@@ -887,8 +890,8 @@ public class QLLexer extends Lexer {
         try {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:272:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // QL.g:272:4: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:295:2: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // QL.g:295:4: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -899,7 +902,7 @@ public class QLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // QL.g:272:23: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // QL.g:295:23: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             loop8:
             do {
                 int alt8=2;
@@ -948,10 +951,10 @@ public class QLLexer extends Lexer {
         try {
             int _type = INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // QL.g:275:2: ( ( '0' .. '9' )+ )
-            // QL.g:275:4: ( '0' .. '9' )+
+            // QL.g:298:2: ( ( '0' .. '9' )+ )
+            // QL.g:298:4: ( '0' .. '9' )+
             {
-            // QL.g:275:4: ( '0' .. '9' )+
+            // QL.g:298:4: ( '0' .. '9' )+
             int cnt9=0;
             loop9:
             do {
@@ -965,7 +968,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // QL.g:275:5: '0' .. '9'
+            	    // QL.g:298:5: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 

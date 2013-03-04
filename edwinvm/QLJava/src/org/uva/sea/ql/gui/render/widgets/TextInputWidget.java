@@ -27,6 +27,11 @@ public class TextInputWidget extends Widget {
 	}
 
 	@Override
+	public void setDefaultValue() {
+		_widget.setText("");
+	}
+	
+	@Override
 	public Component getWidget() {
 		return _widget;
 	}
@@ -39,6 +44,7 @@ public class TextInputWidget extends Widget {
 	@Override
 	public void addListener(AnswerableQuestionObservable observable) {
 		_widget.addActionListener(observable);
+		_widget.addFocusListener(observable);
 	}
 	
 }

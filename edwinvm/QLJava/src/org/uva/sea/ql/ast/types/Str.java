@@ -17,4 +17,9 @@ public class Str extends Type {
 		return visitor.visit(this);
 	}
 	
+	@Override
+	public String toString() {
+		return "Str";
+	}
+	
 }

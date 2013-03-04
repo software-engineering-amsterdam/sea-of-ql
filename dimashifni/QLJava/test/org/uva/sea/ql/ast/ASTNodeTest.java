@@ -4,14 +4,26 @@
 package org.uva.sea.ql.ast;
 
 import junit.framework.Assert;
+import org.antlr.runtime.ANTLRStringStream;
+import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.tree.CommonTree;
 import org.junit.Test;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.Expr;
 import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.statement.Assignment;
+import org.uva.sea.ql.parser.antlr.QLLexer;
+import org.uva.sea.ql.parser.antlr.QLParser;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.IntegerValue;
 import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.expression.ExpressionValidator;
+import org.uva.sea.ql.visitor.statement.StatementValidator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -155,12 +167,65 @@ public class ASTNodeTest {
     @Test
     public void testIdent()
     {
-        Ident variable1 = new Ident("variable1");
-        Ident variable2 = new Ident("variable2");
+        Ident variable1 = new Ident("variable1", null);
+        Ident variable2 = new Ident("variable2", null);
         Map<Ident, Value> variables = new HashMap<Ident, Value>();
         variables.put(variable1, new IntegerValue(10));
         variables.put(variable2, new BooleanValue(true));
         Assert.assertEquals("10", variable1.evaluate(variables).getValue().toString());
         Assert.assertEquals("true", variable2.evaluate(variables).getValue().toString());
+    }
+
+    @Test
+    public void testAddValidator()
+    {
+        ANTLRStringStream stream = new ANTLRStringStream("1+2.00");
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            Expr result = parser.addExpression().result;
+            ExpressionValidator expressionValidator = new ExpressionValidator();
+            result.accept(expressionValidator);
+
+            } catch (RecognitionException e) {
+                e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testMulValidator()
+    {
+        ANTLRStringStream stream = new ANTLRStringStream("1 * true");
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            Expr result = parser.multiplyExpression().result;
+            ExpressionValidator expressionValidator = new ExpressionValidator();
+            result.accept(expressionValidator);
+            System.out.println(expressionValidator.getErrors());
+
+        } catch (RecognitionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testStatementValidator()
+    {
+        ANTLRStringStream stream = new ANTLRStringStream("1 * true");
+        CommonTokenStream tokens = new CommonTokenStream();
+        tokens.setTokenSource(new QLLexer(stream));
+        QLParser parser = new QLParser(tokens);
+        try {
+            Expr result = parser.multiplyExpression().result;
+            ExpressionValidator expressionValidator = new ExpressionValidator();
+            result.accept(expressionValidator);
+            System.out.println(expressionValidator.getErrors());
+
+        } catch (RecognitionException e) {
+            e.printStackTrace();
+        }
     }
 }

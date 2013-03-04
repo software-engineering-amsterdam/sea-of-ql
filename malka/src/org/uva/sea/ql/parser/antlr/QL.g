@@ -4,6 +4,7 @@ options {backtrack=true; memoize=true;}
 @parser::header
 {
 package org.uva.sea.ql.parser.antlr;
+
 import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.ast.expression.integer.*;
 import org.uva.sea.ql.ast.expression.bool.*;
@@ -19,6 +20,23 @@ import org.uva.sea.ql.ast.expression.bool.operation.relational.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+
+
+@members {
+private List<String> errors = new Stack<String>();
+public void displayRecognitionError(String[] tokenNames,
+                                    RecognitionException e) {
+	String hdr = getErrorHeader(e);
+    String msg = getErrorMessage(e, tokenNames);
+    errors.add(hdr + " " + msg);
+}
+
+public List<String> getErrors() {
+	return errors;
+}
+}
+
+
 form returns [Form result]
 	: FORM IDENT '{' elements=formElementList '}' { $result = new Form($elements.result); }
 	;
@@ -32,10 +50,15 @@ formElement returns [FormElement result]
 	| IDENT ':' STRING t=type '(' x=addExpr ')' { $result = new FormText(new Identifier($IDENT.text), new StringPrimitive($STRING.text), $t.result, $x.result); }
 	| IF '(' condition=orExpr ')' '{' if_list=formElementList '}' ( ELSE '{' else_list=formElementList '}' )?
 	{
+		
+		if ($condition.result instanceof Identifier) {
+       		condition = new BooleanVariable((Identifier) condition);
+      	}
+      		
 		if (condition instanceof BooleanExpression) {
 			$result = new IfStatement((BooleanExpression)$condition.result, $if_list.result, $else_list.result);
 		} else {
-			throw new RecognitionException();
+			throw new TypeException();
 		}
 	}
 	;
@@ -75,7 +98,7 @@ unExpr returns [Expression result]
     	}
     	else
     	{
-    		throw new RecognitionException();
+    		throw new TypeException();
     	}
     	
     }
@@ -96,7 +119,7 @@ unExpr returns [Expression result]
     	}
     	else
     	{
-    		throw new RecognitionException();
+    		throw new TypeException();
     	}
     }
     |  x=primary    { $result = $x.result; }
@@ -124,7 +147,7 @@ mulExpr returns [Expression result]
         
         
       } else {
-      	throw new RecognitionException();
+      	throw new TypeException();
       }
     })*
     ;
@@ -149,7 +172,7 @@ addExpr returns [Expression result]
 	        $result = new Sub((IntegerExpression)$result, (IntegerExpression)rhs);
     	}
       } else {
-      	throw new RecognitionException();
+      	throw new TypeException();
       }
     })*
     ;
@@ -193,7 +216,7 @@ andExpr returns [Expression result]
       	
       	$result = new And((BooleanExpression)$result, (BooleanExpression)rhs);
       } else {
-      	throw new RecognitionException();
+      	throw new TypeException();
       }
     })*
     ;
@@ -214,7 +237,7 @@ orExpr returns [Expression result]
       	
       	$result = new Or((BooleanExpression)$result, (BooleanExpression)rhs);
       } else {
-      	throw new RecognitionException();
+      	throw new TypeException();
       }
     })*
     ;

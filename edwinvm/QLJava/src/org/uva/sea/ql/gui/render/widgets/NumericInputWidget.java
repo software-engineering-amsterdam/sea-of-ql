@@ -16,18 +16,23 @@ public class NumericInputWidget extends Widget {
 	
 	public NumericInputWidget() {
 		_widget = new JFormattedTextField(NumberFormat.getInstance());
-		_widget.setColumns(10);
+		_widget.setColumns(15);
 		_widget.setHorizontalAlignment(JTextField.RIGHT);
 	}
 	
 	@Override
 	public Value getValue() {
-		return new Int(Integer.parseInt(_widget.getText()));
+		return new Int(Integer.parseInt(_widget.getText().replace(".", "")));
 	}
 
 	@Override
 	public void setValue(Value value) {
-		_widget.setText(((Int)value).getValue().toString());
+		_widget.setText(value.getValue().toString());
+	}
+	
+	@Override
+	public void setDefaultValue() {
+		_widget.setText("0");
 	}
 	
 	@Override
@@ -43,6 +48,7 @@ public class NumericInputWidget extends Widget {
 	@Override
 	public void addListener(AnswerableQuestionObservable observable) {
 		_widget.addActionListener(observable);
+		_widget.addFocusListener(observable);
 	}
 	
 }

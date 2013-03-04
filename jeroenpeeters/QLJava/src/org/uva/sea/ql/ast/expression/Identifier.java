@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.visitor.ASTVisitor;
+import org.uva.sea.ql.ast.ASTVisitor;
 
 public class Identifier extends Expression {
 

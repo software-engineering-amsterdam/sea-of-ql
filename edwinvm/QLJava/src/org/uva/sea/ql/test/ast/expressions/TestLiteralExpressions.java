@@ -10,7 +10,7 @@ import org.uva.sea.ql.parser.errors.ParseError;
 
 public class TestLiteralExpressions extends ExpressionParserChecker {
 	@Test
-	public void testIds() throws ParseError {
+	public void testIdentifiers() throws ParseError {
 		expressionMatchesASTClass("a",              Identifier.class);
 		expressionMatchesASTClass("abc",            Identifier.class);
 		expressionMatchesASTClass("ABC",            Identifier.class);
@@ -19,7 +19,7 @@ public class TestLiteralExpressions extends ExpressionParserChecker {
 	}
 	
 	@Test
-	public void testNums() throws ParseError {
+	public void testIntegers() throws ParseError {
 		expressionMatchesASTClass("0",              Int.class);
 		expressionMatchesASTClass("123",            Int.class);
 	}

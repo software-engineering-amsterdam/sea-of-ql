@@ -1,89 +1,35 @@
 package org.uva.sea.ql.interpreter;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.ast.stat.Block;
-import org.uva.sea.ql.ast.stat.ComputedQuestion;
-import org.uva.sea.ql.ast.stat.Form;
 import org.uva.sea.ql.ast.stat.FormUnit;
-import org.uva.sea.ql.ast.stat.IfElseStatement;
-import org.uva.sea.ql.ast.stat.IfStatement;
-import org.uva.sea.ql.ast.stat.Question;
-import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.ast.visitor.VisitorStatements;
 
-public class Renderer implements VisitorStatements<Void>{
+public class Renderer {
 	
-	private final JPanel panel;
-	private final State state;
-	
-	public static JPanel render(FormUnit stat, State state) {
-		Renderer r = new Renderer(state);
-		stat.accept(r);
-		return r.getPanel();
-	}
-	
-	private JPanel getPanel() {
-		return panel;
-	}
-	
-	private Renderer(State state) {
-		this.state = state;
-		this.panel = new JPanel();
-	}
-	
-	@Override
-	public Void visit(Form form) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Void visit(ComputedQuestion computedQuestion) {
-	addLabel(computedQuestion.getName());
-	Control ctl = typeToWidget(computedQuestion.getType(), false);
-	registerComputedDeps(computedQuestion, ctl);
-	registerPropagator(computedQuestion);
-	initValue(computedQuestion, ctl);
-	add(ctl);
-	}
-
-	
-	private Control typeToWidget(Type type, boolean b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Void visit(Question question) {
-	addLabel(question.getLabel());
-	Control ctl = typeToWidget(question.getType(), true);
-	registerHandler(question, ctl);
-	add(ctl);
+	public void render(FormUnit formUnit) {
+		
+		JFrame frame = new JFrame("QL Program");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		State state = new State();
+		VisitorRenderer visitorRenderer = new VisitorRenderer(state);
+		formUnit.accept(visitorRenderer);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(visitorRenderer.getPanel());
+		JButton button = new JButton("Save Form");
+		button.addActionListener(visitorRenderer.getState());
+		panel.add(button);
+		panel.validate();
+		
+		frame.setContentPane(panel);
+		frame.setSize(380, 300);
+		frame.setLocation(400, 200);
+		frame.setVisible(true);
 	}
 	
-	@Override
-	public Void visit(final IfStatement ifStatement) {
-	JPanel tru = render(ifStatement.getBody(), state);
-	JPanel fls = render(ifStatement.getElseBody(), state);
-	registerConditionDeps(ifStatement.getCond(), tru, fls);
-	tru.setVisible(false);
-	fls.setVisible(false);
-	addPanel(tru);
-	addPanel(fls);
-	}
-
-	@Override
-	public Void visit(Block block) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Void visit(IfElseStatement ifElseStatement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }
