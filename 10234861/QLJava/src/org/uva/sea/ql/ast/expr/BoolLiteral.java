@@ -6,10 +6,16 @@ import org.uva.sea.ql.ast.IExprVisitor;
 import org.uva.sea.ql.ast.type.BoolType;
 import org.uva.sea.ql.ast.type.Type;
 
-public class NEq extends BinaryExpr {
+public class BoolLiteral extends Expr {
 
-	public NEq(Expr result, Expr rhs) {
-		super(result, rhs);
+	private final String value;
+
+	public BoolLiteral(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
 	}
 
 	@Override
@@ -21,5 +27,4 @@ public class NEq extends BinaryExpr {
 	public Type isOfType(Map<String, Type> typeEnv) {
 		return new BoolType();
 	}
-
 }

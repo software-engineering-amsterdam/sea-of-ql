@@ -1,34 +1,38 @@
 package org.uva.sea.ql.ast.expr;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import java.util.Map;
 
-public class Ident implements Expr {
+import org.uva.sea.ql.ast.IExprVisitor;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefinedType;
+
+public class Ident extends Expr {
 
 	private final String name;
 
 	public Ident(String name) {
 		this.name = name;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
 
 	@Override
-	public <ReturnType, ParameterType> 
-		ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
-		return visitor.visit(this, param);
+	public <T> T accept(IExprVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
-	
+
 	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof Ident))
-			return false;
-		Ident ident = (Ident) obj;
-		
-		return this.getName().equals(ident.getName());
+	public Type isOfType(Map<String, Type> typeEnvironment) {
+
+		if (typeEnvironment.containsKey(name)) {
+			return typeEnvironment.get(name);
+		}
+
+		return new UndefinedType();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return name.hashCode();

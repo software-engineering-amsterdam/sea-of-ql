@@ -5,9 +5,9 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.expr.*;
-import org.uva.sea.ql.ast.expr.value.*;
+import org.uva.sea.ql.ast.stmnt.*;
+import org.uva.sea.ql.ast.types.*;
 }
 
 @lexer::header
@@ -15,64 +15,97 @@ import org.uva.sea.ql.ast.expr.value.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
+ifStatement returns [IfStatement result]
+: 'if' '(' condition=orExpr ')' body {result = new IfStatement(condition, $body.result); }
+;
+
+question returns [Question result]
+: ( computedQuestion { result = $computedQuestion.result; } | normalQuestion { result = $normalQuestion.result; } )
+;
+
+normalQuestion returns [Question result]
+: Ident ':' String type
+{ result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result); }
+;
+
+computedQuestion returns [ComputedQuestion result]
+: Ident ':' String type '(' orExpr ')'
+{ result = new ComputedQuestion(new Ident($Ident.text), new StringLiteral($String.text), $type.result, $orExpr.result); }
+;
+
+type returns [Type result]
+: 'int' { $result = new IntType(); }
+| 'bool' { $result = new BoolType(); }
+| 'string' { $result = new StringType(); }
+;
+
+statement returns [Statement result]
+: (question { $result = $question.result; }
+| ifStatement { $result = $ifStatement.result; } )
+;
+
+body returns [Body result]
+@init { List<Statement> statements = new ArrayList<Statement>(); }
+: '{' ( statement { statements.add($statement.result); } )* '}' { $result = new Body(statements); }
+;
+
+form returns [Form result]
+    : 'form' Ident body { $result = new Form (new Ident($Ident.text), $body.result); }
+    ;
+
 primary returns [Expr result]
-    : Bool { $result = new org.uva.sea.ql.ast.expr.value.Bool(Boolean.parseBoolean($Bool.text)); }
-    | Int { $result = new org.uva.sea.ql.ast.expr.value.Int(Integer.parseInt($Int.text)); }
-    | strExpr { $result = $strExpr.result; }
-    | Ident { $result = new Ident($Ident.text); }
-    | '(' x=orExpr ')'{ $result = $x.result; }
-    ;
-    
-strExpr returns [org.uva.sea.ql.ast.expr.value.Str result]
-    : Str { $result = new org.uva.sea.ql.ast.expr.value.Str($Str.text.substring(1, $Str.text.length() - 1)); }
-    ;
+   : Int { $result = new IntLiteral(Integer.parseInt($Int.text)); }
+   | Bool { $result = new BoolLiteral ($Bool.text); }
+   | String { $result = new StringLiteral ($String.text); }
+   | Ident { $result = new Ident($Ident.text); }
+   | '(' x=orExpr ')'{ $result = $x.result; }
+   ;
     
 unExpr returns [Expr result]
-    :  '+' x=unExpr { $result = new Pos($x.result); }
-    |  '-' x=unExpr { $result = new Neg($x.result); }
-    |  '!' x=unExpr { $result = new Not($x.result); }
-    |  x=primary    { $result = $x.result; }
-    ;    
+    : '+' x=unExpr { $result = new Pos($x.result); }
+    | '-' x=unExpr { $result = new Neg($x.result); }
+    | '!' x=unExpr { $result = new Not($x.result); }
+    | x=primary { $result = $x.result; }
+    ;
     
 mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
-    { 
+    : lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr
+    {
       if ($op.text.equals("*")) {
         $result = new Mul($result, rhs);
       }
-      if ($op.text.equals("/")) {
+      if ($op.text.equals("<=")) {
         $result = new Div($result, rhs);
       }
     })*
     ;
     
-  
 addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
-    { 
+    : lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+    {
       if ($op.text.equals("+")) {
         $result = new Add($result, rhs);
       }
       if ($op.text.equals("-")) {
-        $result = new Sub($result, rhs);      
+        $result = new Sub($result, rhs);
       }
     })*
     ;
   
 relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
-    { 
+    : lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr
+    {
       if ($op.text.equals("<")) {
         $result = new LT($result, rhs);
       }
       if ($op.text.equals("<=")) {
-        $result = new LEq($result, rhs);      
+        $result = new LEq($result, rhs);
       }
       if ($op.text.equals(">")) {
         $result = new GT($result, rhs);
       }
       if ($op.text.equals(">=")) {
-        $result = new GEq($result, rhs);      
+        $result = new GEq($result, rhs);
       }
       if ($op.text.equals("==")) {
         $result = new Eq($result, rhs);
@@ -84,86 +117,25 @@ relExpr returns [Expr result]
     ;
     
 andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+    : lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
 orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
-    ;
-
-form returns [Form result]
-    : 'form' Ident '{' formElements '}' {
-        $result = new Form(new Ident($Ident.text), $formElements.result);
-      }
-    ;
-    
-formElements returns [FormElement result]
-    @init {
-        ArrayList<FormElement> formElements = new ArrayList<FormElement>();
-    }
-    @after {
-        if(formElements.isEmpty())
-            result = new NullFormElement();
-        else if(formElements.size() == 1)
-            result = formElements.get(0);
-        else
-            result = new CompositeFormElement(formElements);
-    }
-    : (formElement { formElements.add($formElement.result); })*
-    ;
-    
-formElement returns [FormElement result]
-    : ifFormElement { $result = $ifFormElement.result; }
-    | questionFormElement { $result = $questionFormElement.result; }
-    | computedFormElement { $result = $computedFormElement.result; }
-    ;
-    
-questionFormElement returns [Question result]
-    : strExpr Ident ':' typeDeclaration {
-        $result = new Question($strExpr.result.getValue(), new Declaration(new Ident($Ident.text), $typeDeclaration.result)); }
-    ;
-
-Type: 'string'|'boolean'|'integer';
-typeDeclaration returns [Type result]
-    : Type {
-        if($Type.text.equals("boolean"))
-          $result = new org.uva.sea.ql.ast.type.Bool();
-        else if($Type.text.equals("integer"))
-          $result = new org.uva.sea.ql.ast.type.Int();
-        else if($Type.text.equals("string"))
-          $result = new org.uva.sea.ql.ast.type.Str();
-      }
-    ;
-
-computedFormElement returns [Computed result]
-    : strExpr orExpr { $result = new Computed($strExpr.result.getValue(), $orExpr.result); }
-    ;
-   
-ifFormElement returns [If result]
-    : 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' elseElement = ifFormElement
-        { $result = new If($orExpr.result, $ifElements.result, $elseElement.result); }
-    | 'if' '(' orExpr ')' '{' ifElements = formElements '}' 'else' '{' elseElements = formElements'}'
-        { $result = new If($orExpr.result, $ifElements.result, $elseElements.result); }
-    | 'if' '(' orExpr ')' '{' formElements '}'
-        { $result = new If($orExpr.result, $formElements.result, new NullFormElement()); }
+    : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
     
 // Tokens
-WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
-    ;
+WS : (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT
-    : '/*' .* '*/' {$channel=HIDDEN;}
-    | '//' ~NewLine* {$channel=HIDDEN;}
-    ;
+MLINE_COMMENT : '/*' .* '*/' { $channel=HIDDEN; };
+    
+SLINE_COMMENT : '//' .* ('\n'|'\r') { $channel=HIDDEN; };
 
-NewLine: '\n' | '\r\n';
+Bool: ('true' | 'false');
 
-Bool: 'true'|'false';
-
-Str: '\"' ('\\"'|~'\"')* '\"';
-
-Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+String: '"' ~('\n' | '\r' | '"')* '"';
 
 Int: ('0'..'9')+;
+
+Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

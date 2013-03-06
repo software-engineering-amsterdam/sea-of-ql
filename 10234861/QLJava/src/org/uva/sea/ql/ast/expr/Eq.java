@@ -1,18 +1,25 @@
 package org.uva.sea.ql.ast.expr;
 
+import java.util.Map;
 
-import org.uva.sea.ql.ast.ASTNodeVisitor;
+import org.uva.sea.ql.ast.IExprVisitor;
+import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.Type;
 
 public class Eq extends BinaryExpr {
 
-	public Eq(Expr leftExpression, Expr rightExpression) {
-		super(leftExpression, rightExpression);
-	}	
-	
-	@Override
-	public <ReturnType, ParameterType> 
-		ReturnType accept(ASTNodeVisitor<ReturnType, ParameterType> visitor, ParameterType param) {
-		return visitor.visit(this, param);
+	public Eq(Expr result, Expr rhs) {
+		super(result, rhs);
 	}
-	
+
+	@Override
+	public <T> T accept(IExprVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Type isOfType(Map<String, Type> typeEnv) {
+		return new BoolType();
+	}
+
 }

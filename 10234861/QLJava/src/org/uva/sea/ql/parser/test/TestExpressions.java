@@ -2,14 +2,12 @@ package org.uva.sea.ql.parser.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.expr.value.Int;
+import org.uva.sea.ql.ast.expr.IntLiteral;
 import org.uva.sea.ql.ast.expr.Add;
 import org.uva.sea.ql.ast.expr.And;
 import org.uva.sea.ql.ast.expr.GT;
@@ -31,7 +29,13 @@ public class TestExpressions {
 			    new Object[] {new ANTLRParser()}
 			 );
 	}*/
-
+	
+	@Parameters
+	public static List<Object[]> theParsers(){
+		List<Object[]> antlrList = new ArrayList<Object[]>();
+		antlrList.add(new Object[] {new ANTLRParser()});
+		return antlrList;
+	}
 	//Constructor
 	public TestExpressions() {
 		this.parser = new ANTLRParser();
@@ -94,9 +98,9 @@ public class TestExpressions {
 
 	@Test
 	public void testNums() throws ParseError {
-		assertEquals(parser.parse("0").getClass(), Int.class);
-		assertEquals(parser.parse("1223").getClass(), Int.class);
-		assertEquals(parser.parse("234234234").getClass(), Int.class);
+		assertEquals(parser.parse("0").getClass(), IntLiteral.class);
+		assertEquals(parser.parse("1223").getClass(), IntLiteral.class);
+		assertEquals(parser.parse("234234234").getClass(), IntLiteral.class);
 	}
 	
 }

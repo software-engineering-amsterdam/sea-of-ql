@@ -1,6 +1,28 @@
 package org.uva.sea.ql.ast.type;
 
-public interface Type {
-	public <ReturnType, ParameterType> 
-		ReturnType accept(TypeVisitor<ReturnType, ParameterType> visitor, ParameterType param);
+import org.uva.sea.ql.ast.ASTNode;
+
+public abstract class Type implements ASTNode {
+
+	public abstract boolean isCompatibleTo(Type t);
+
+	public boolean isCompatibleToNumeric() {
+		return false;
+	}
+
+	public boolean isCompatibleToInt() {
+		return false;
+	}
+
+	public boolean isCompatibleToString() {
+		return false;
+	}
+
+	public boolean isCompatibleToBool() {
+		return false;
+	}
+
+	public boolean isCompatibleToUndefined() {
+		return false;
+	}
 }

@@ -22,7 +22,7 @@ public class ANTLRParser implements IParse {
 			throw new ParseError(e.getMessage());
 		}
 	}
-	
+	// Parsing form
 	@Override
 	public Form parseForm(String src) throws ParseError {
 	ANTLRStringStream stream = new ANTLRStringStream(src);

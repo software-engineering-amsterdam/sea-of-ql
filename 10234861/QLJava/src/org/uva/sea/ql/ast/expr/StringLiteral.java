@@ -3,13 +3,19 @@ package org.uva.sea.ql.ast.expr;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.IExprVisitor;
-import org.uva.sea.ql.ast.type.BoolType;
+import org.uva.sea.ql.ast.type.StringType;
 import org.uva.sea.ql.ast.type.Type;
 
-public class NEq extends BinaryExpr {
+public class StringLiteral extends Expr {
 
-	public NEq(Expr result, Expr rhs) {
-		super(result, rhs);
+	private final String value;
+
+	public StringLiteral(String value) {
+		this.value = value;
+	}
+
+	public String getValue() {
+		return value;
 	}
 
 	@Override
@@ -19,7 +25,7 @@ public class NEq extends BinaryExpr {
 
 	@Override
 	public Type isOfType(Map<String, Type> typeEnv) {
-		return new BoolType();
+		return new StringType();
 	}
 
 }
