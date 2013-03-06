@@ -2,7 +2,9 @@ package org.uva.sea.ql.ast.value;
 
 import static julius.validation.Assertions.state;
 
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.exp.ExpressionVisitor;
+import org.uva.sea.ql.ast.exp.Textual;
 
 public class StringValue extends Value {
 
@@ -24,18 +26,23 @@ public class StringValue extends Value {
 	}
 
 	@Override
+	public <T> T accept(final ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public Type getType() {
+		return new Textual();
+	}
+
+	@Override
 	public String toString() {
 		return "StringLiteral [value=" + value + "]";
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
-	}
-
-	@Override
-	public Value evaluate() {
-		return this;
+	public String getAsString() {
+		return value;
 	}
 
 }

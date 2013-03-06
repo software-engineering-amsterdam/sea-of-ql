@@ -1,39 +1,21 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.parser.antlr.*;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.Int;
+import org.uva.sea.ql.ast.expression.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 import org.uva.sea.ql.parser.antlr.IParse;
 import org.uva.sea.ql.parser.antlr.ParseError;
 
-@RunWith(Parameterized.class)
 public class TestExpressions {
 
 	private IParse parser;
 
-	@Parameters
-	public static List<Object[]> theParsers() {
-	  final List<Object[]> list = new ArrayList<Object[]>();
-	  list.add(new Object[] {new ANTLRParser()});
-	  return list;
+	public TestExpressions() {
+		this.parser = new ANTLRParser();
 	}
 
-	
-	public TestExpressions(IParse parser) {
-		this.parser = parser;
-	}
-
-	
 	@Test
 	public void testAdds() throws ParseError {
 		assertEquals(parser.parse("a + b").getClass(), Add.class);
@@ -74,18 +56,6 @@ public class TestExpressions {
 		assertEquals(parser.parse("a && b").getClass(), And.class);
 		assertEquals(parser.parse("a > b && b > c").getClass(), And.class);
 		assertEquals(parser.parse("(a > b) && (b > c)").getClass(), And.class);
-	}
-
-
-	@Test
-	public void testIds() throws ParseError {
-		assertEquals(parser.parse("a").getClass(), Ident.class);
-		assertEquals(parser.parse("abc").getClass(), Ident.class);
-		assertEquals(parser.parse("ABC").getClass(), Ident.class);
-		assertEquals(parser.parse("ABCDEF").getClass(), Ident.class);
-		assertEquals(parser.parse("abc2323").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232").getClass(), Ident.class);
-		assertEquals(parser.parse("a2bc232aa").getClass(), Ident.class);
 	}
 
 	@Test

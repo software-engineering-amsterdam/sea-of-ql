@@ -4,25 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jpatterns.gof.CompositePattern.Composite;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
 @Composite
-public class CompoundStatement implements ASTNode {
+public class CompoundStatement extends Block {
 
-	List<Statement> statements = new ArrayList<Statement>();
+	private final List<Block> statements = new ArrayList<Block>();
 
-	public CompoundStatement(final Statement statement) {
+	public CompoundStatement(final Block statement) {
 		statements.add(statement);
 	}
 
-	public CompoundStatement(final CompoundStatement compoundStatement,
-			final Statement statement) {
-		// TODO compoundStatement
+	public CompoundStatement(final CompoundStatement compoundStatement, final Block statement) {
+		statements.addAll(compoundStatement.statements);
 		statements.add(statement);
+	}
+
+	public List<Block> getStatements() {
+		return new ArrayList<Block>(statements);
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "CompoundStatement [statements=" + statements + "]";
+	}
+
 }

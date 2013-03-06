@@ -10,15 +10,16 @@
 
 module lang::ql::compiler::web::PHP
 
+import Configuration;
 import IO;
 import String;
-import lang::ql::ast::AST;
-import lang::ql::compiler::PrettyPrinter;
+import lang::ql::\ast::AST;
+import lang::ql::compiler::web::PHPExpressionPrinter;
 
 private str title = "";
 
-public void PHP(Form f, loc dest) {
-  dest += "form.php";
+public void php(Form f, loc dest) {
+  dest += getPHPName();
   title = f.formName.ident;
   writeFile(dest, createPHP(f));
 }
@@ -41,37 +42,41 @@ private str createPHP(Statement item: question(Question question)) =
   createPHP(question);
 
 private str createPHP(Question q: 
-  question(questionText, answerDataType, answerIdentifier)) =
-    "<validator(answerDataType.name, answerIdentifier.ident)>
-    '<addToArray(answerDataType.name, answerIdentifier.ident)>
+  question(_, answerDataType, answerIdentifier)) =
+    "<validator(answerDataType, answerIdentifier.ident)>
+    '<addToArray(answerDataType, answerIdentifier.ident)>
     ";
 
 private str createPHP(Question q: 
-  question(questionText, answerDataType, answerIdentifier, calculatedField)) {
-  
-  cf = prependIdent(calculatedField, "$");
-  
-  return 
-    "<addToArray(answerDataType.name, answerIdentifier.ident, prettyPrint(cf))>";
-}
+  question(_, answerDataType, ansIdent, calculatedField)) =
+    "<addToArray(answerDataType, ansIdent.ident, phpPrint(prependIdent(calculatedField, "$")))>";
 
 private str createPHP(Statement item: 
-  ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)) = 
-    "if(<createPHP(ifPart.condition)>) { <for(e <- ifPart.body) {>
-    '  <createPHP(e)><}><for(ei <- elseIfs) { >
-    '} else if(<createPHP(ei.condition)>) { <for(e <- ei.body) {>
-    '  <createPHP(e)><}><}><for(ep <- elsePart) { >
-    '} else { <for(e <- ep.body) {>
-    '  <createPHP(e)><}><}>
-    '}";
+    ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)) = 
+  "if(<createPHP(ifPart.condition)>) { <for(e <- ifPart.body) {>
+  '  <createPHP(e)><}><for(ei <- elseIfs) { >
+  '} else if(<createPHP(ei.condition)>) { <for(e <- ei.body) {>
+  '  <createPHP(e)><}><}><for(ep <- elsePart) { >
+  '} else { <for(e <- ep.body) {>
+  '  <createPHP(e)><}><}>
+  '}";
 
 private str createPHP(Expr e) =
-  "<prettyPrint(prependIdent(e, "$"))>";
+  "<phpPrint(prependIdent(e, "$"))>";
 
-private str addToArray(str answerDataType, str ident) =
+private str addToArray(Type answerDataType, str ident) =
   addToArray(answerDataType, ident, "$_POST[\'<ident>\']");
-
-private str addToArray(str answerDataType, str ident, str expr) =
+  
+private str addToArray(Type answerDataType: booleanType(_), 
+  str ident, str expr) =
+    "
+    '$<ident> = <expr> === \"true\";
+    '$__RES[\"<ident>\"] = $<ident>;
+    '
+    ";
+    
+private str addToArray(Type answerDataType, str ident, str expr) =
   "
   '$<ident> = <expr>;
   '$__RES[\"<ident>\"] = $<ident>;
@@ -85,28 +90,29 @@ private str createJSON() =
   'print_r($__JSON);
   'echo \"\n\";
   ";
-private str preparedStatementShorthand(str answerDataType) {      
-  switch(answerDataType) {
-    case "boolean": return "b";
-    case "integer": return "i";
-    case "money": return "m";
-    case "date": return "d";
-    case "string": return "s";
-  };
-}
+  
+private str validator(Type \type: booleanType(_), str ident) =
+  validateBoolean(ident);
+  
+private str validator(Type \type: integerType(_), str ident) =
+  validateInteger(ident);
+  
+private str validator(Type \type: moneyType(_), str ident) =
+  validateMoney(ident);
+  
+private str validator(Type \type: dateType(_), str ident) =
+  validateDate(ident);
 
-private str validator(str answerDataType, str ident) {
-  switch(answerDataType) {
-    case "boolean": return validateBoolean(ident);
-    case "integer": return validateInteger(ident);
-    case "money": return validateMoney(ident);
-    case "date": return validateDate(ident);
-    case "string": return validateString(ident);
-  }
-}
+private str validator(Type \type: stringType(_), str ident) =
+  validateString(ident);    
 
 private str validateBoolean(str ident) =
-  "if(!(is_bool((boolean) $_POST[\'<ident>\']))) {
+  "if(!isset($_POST[\'<ident>\'])) {
+  '  // A boolean which is not set means false.
+  '  $_POST[\'<ident>\'] = \"false\";
+  '} else if($_POST[\'<ident>\'] === \"true\" || 
+  '          $_POST[\'<ident>\'] === \"false\") {
+  '} else {
   '  die(\"<ident> is not a boolean!\");
   '}";
   

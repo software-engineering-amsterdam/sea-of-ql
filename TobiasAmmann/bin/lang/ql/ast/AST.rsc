@@ -8,7 +8,7 @@ public data STATEMENT
 	| conditional2(IF ifStatement, list[ELSEIF] elseIfStatement)
 ;
 public data IF
-	= ifStat(EXPR expression, list[STATEMENT] statement) //str id, str x, TYPE t)
+	= ifStat(EXPR expression, list[STATEMENT] statement) 
 ;
 
 public data ELSEIF
@@ -20,8 +20,8 @@ public data ELSE
 ;
 
 public data QUESTION 
-	= exprQuestion(str identifier, str qst, TYPE t, EXPR condition)
-	| question(str identifier, str qst, TYPE t) 
+	= exprQuestion(str identifier, str label, TYPE qtype, EXPR expr)
+	| question(str identifier, str label, TYPE qtype)
 ;
 
 public data TYPE
@@ -35,7 +35,8 @@ public data TYPE
 public data EXPR
 	= ident	(str name)
 	| \int  (int integer)
-	| \bool (bool boolean)
+	| \bool	(bool boolean)
+	| string(str string)
 	| date  (str date)	
   	| neg   (EXPR val)
   	| not   (EXPR val)	

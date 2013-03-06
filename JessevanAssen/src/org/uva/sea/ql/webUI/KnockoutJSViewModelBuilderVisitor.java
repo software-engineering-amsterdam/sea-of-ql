@@ -31,7 +31,7 @@ public class KnockoutJSViewModelBuilderVisitor implements
         public StringBuilder getObjectHierarchy() { return objectHierarchy; }
     }
 
-    private static final String VIEWMODEL_TEMPLATE = "new (function(){var _self=this;_self.identifiers=%s;_self.root=%s;})()";
+    private static final String VIEWMODEL_TEMPLATE = "new (function(){var _self=this;_self.identifiers={};%s_self.root=%s;})()";
 
     /**
      * Private constructor to indicate that no instance should be made of this class.
@@ -44,20 +44,14 @@ public class KnockoutJSViewModelBuilderVisitor implements
         form.accept(visitor, context);
 
         return String.format(VIEWMODEL_TEMPLATE,
-                createIdentifierObject(context.identifiers),
+                createIdentifierList(context.identifiers),
                 context.getObjectHierarchy().toString());
     }
 
-    private static String createIdentifierObject(Iterable<String> identifiers) {
-        StringBuilder stringBuilder = new StringBuilder("{");
-        for(Iterator<String> iterator = identifiers.iterator(); iterator.hasNext(); ) {
-            stringBuilder.append(iterator.next());
-
-            if(iterator.hasNext())
-                stringBuilder.append(",");
-        }
-        stringBuilder.append("}");
-
+    private static String createIdentifierList(Iterable<String> identifiers) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(String identifier : identifiers)
+            stringBuilder.append(identifier);
         return stringBuilder.toString();
     }
 
@@ -216,7 +210,9 @@ public class KnockoutJSViewModelBuilderVisitor implements
 
     @Override
     public Void visit(Positive astNode, Context param) {
-        visitUnaryExpression(astNode, param, "+");
+        param.getObjectHierarchy().append("Math.abs(");
+        astNode.getExpression().accept(this, param);
+        param.getObjectHierarchy().append(")");
         return null;
     }
 
@@ -224,7 +220,7 @@ public class KnockoutJSViewModelBuilderVisitor implements
     public Void visit(Question astNode, Context param) {
         param.getIdentifiers().add(
                 String.format(
-                        "%s:ko.observable()",
+                        "_self.identifiers.%s=ko.observable();",
                         astNode.getIdentifier().getName()
                 )
         );
@@ -248,11 +244,13 @@ public class KnockoutJSViewModelBuilderVisitor implements
         astNode.getExpression().accept(this, newContext);
         param.getIdentifiers().add(
                 String.format(
-                        "%s:ko.computed(function(){return %s;})",
+                        "_self.identifiers.%s=ko.computed(function(){return %s;});",
                         astNode.getIdentifier().getName(),
                         newContext.getObjectHierarchy().toString()
                 )
         );
+
+        param.getObjectHierarchy().append("{type:-1,valid:function(){return true;}}");
 
         return null;
     }

@@ -1,17 +1,16 @@
 package org.uva.sea.ql.parsers.tests;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.operations.*;
+import org.uva.sea.ql.ast.operators.arithmetic.Add;
 import org.uva.sea.ql.parsers.AddExprParser;
-import org.uva.sea.ql.parsers.ParserBase;
+import org.uva.sea.ql.parsers.ParserBaseForExpressions;
 import org.uva.sea.ql.parsers.exceptions.ParseException;
 
 public class AddExprParserTests {
 
-	private ParserBase parser;
+	private ParserBaseForExpressions parser;
 	
 	@Before
     public void setUp() {

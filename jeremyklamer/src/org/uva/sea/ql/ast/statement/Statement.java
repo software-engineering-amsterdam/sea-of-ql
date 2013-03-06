@@ -1,30 +1,36 @@
 package org.uva.sea.ql.ast.statement;
 
 import java.util.List;
-import java.util.Map;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.Ident;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.interpreter.Env;
 import org.uva.sea.ql.message.Message;
+import org.uva.sea.ql.ui.components.BaseComponent;
 
-import ui.UIComponent;
 
 public abstract class Statement implements ASTNode{
 
-	public abstract List<Message> checkType (Map<Ident, Type> typeEnv);
+	protected String newLine = System.getProperty("line.separator");
+	protected String errorStartSign = "ERROR:  ";
 	
-	public abstract List<UIComponent> getUIComponents();
+	public abstract void checkType(List<Message> errors, Env env);
+	public abstract void getErrorsMessages(List<Message> errors, Env env);
+	public abstract List<BaseComponent> getUIComponents(Env env, Form form);
+
+	public abstract void initTypes(Env env);
+	public abstract String genFormFeedBack(Env env, int indentation);
 	
-	protected static String getSimpleName(Object e) { 
+	protected String getIndentation(int indentation){
+		StringBuilder indent = new StringBuilder();
+		for(int i = 0; i < indentation; i++){
+			indent.append("  ");
+		}	
+		return indent.toString(); 
+	}
+	 
+	protected String getSimpleName(Object e) { 
 		return e.getClass().getSimpleName();
 	}
 	
-	public abstract void printSelf(int indentation);
-	
-	public void printIndentation(int indentation){
-		for(int i = 0; i < indentation; i++){
-			System.out.print("  ");
-		}	
-	}
 }

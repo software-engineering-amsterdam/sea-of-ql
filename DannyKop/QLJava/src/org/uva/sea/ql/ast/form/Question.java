@@ -1,8 +1,9 @@
 package org.uva.sea.ql.ast.form;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.*;
-import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.Ident;
+import org.uva.sea.ql.ast.literals.StrLiteral;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * class: Question
@@ -12,47 +13,47 @@ import org.uva.sea.ql.ast.types.*;
 public class Question extends FormElement {
 	
 	private final Ident identifier;
-	private final Str question;
+	private final StrLiteral question;
 	
 	/**
 	 * Constructor
 	 * @param id 	- Identifier
 	 * @param q 	- Question
 	 */
-	public Question(Ident id, Str q, Expr type) {
+	public Question(Ident id, StrLiteral q, Type type) {
 		super(type);
 		this.identifier = id;
 		this.question = q;
+
 	}
 	/**
-	 * getIdent()
+	 * getIdentifier
 	 * @return identifier
 	 */
-	public Ident getIdent(){
+	public Ident getIdentifier(){
 		return this.identifier;
 	}
 	/**
 	 * getQuestion()
 	 * @return question
 	 */
-	public Str getQuestion(){
+	public StrLiteral getQuestion(){
 		return this.question;
-	}	
+	}
+	/**
+	 * getDescription
+	 * @return question.getValue();
+	 */
+	public String getDescription(){
+		return this.question.getValue();
+	}
 	/**
 	 * accept()
 	 * @param visitor
 	 * @return type
 	 */
-	public void accept(Visitor visitor){
-		visitor.visit(this);
-	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
 	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return t.isCompatibleTo(this);
+	public <T> T accept(Visitor<T> visitor){
+		return visitor.visit(this);
 	}
 }

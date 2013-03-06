@@ -1,0 +1,26 @@
+form Taxes {
+	String name = "What is your name?";
+	Integer age = "How old are you?";
+	Boolean married = "Are you married?";
+	
+	if( married ) {
+		String spouseName = "What is your spouse's name";
+		Integer spouseAge = "How old is your spouse?";
+		Boolean children = "Do you have any children together?";
+	} else {
+		String notMarried = "Why are you not married?";
+	}
+	
+	Integer previousCapital = "How much cash did you have?";
+	Integer presentCapital = "How much cash do you have?";
+	
+	Integer difference = presentCapital - previousCapital;
+	String YourName = name;
+	
+	Boolean moreMoneyNow = previousCapital<presentCapital;
+	
+	Integer someNumber = "Which number?" ;
+	Integer someNumberPlus = someNumber + someNumber;
+	Integer someNumberTimes = someNumber * someNumber;
+	Integer someNumberDividesByTwo = someNumber / 2;
+}

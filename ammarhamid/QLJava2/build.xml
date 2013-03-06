@@ -40,14 +40,14 @@
         <java classname="org.antlr.Tool" fork="true" failonerror="true">
             <arg value="-fo"/>
             <arg value="${antlr.generated}/org/uva/sea/ql/parser"/>
-            <arg value="${src.main}/org/uva/sea/ql/parser/QL.g"/>
+            <arg value="${src.main}/org/uva/sea/ql/grammar/QL.g"/>
             <classpath refid="classpath"/>
         </java>
         <echo>Generating the Tree Walker...</echo>
         <java classname="org.antlr.Tool" fork="true" failonerror="true">
             <arg value="-fo"/>
             <arg value="${antlr.generated}/org/uva/sea/ql/parser"/>
-            <arg value="${src.main}/org/uva/sea/ql/parser/QLTreeWalker.g"/>
+            <arg value="${src.main}/org/uva/sea/ql/grammar/QLTreeWalker.g"/>
             <classpath refid="classpath"/>
         </java>
     </target>

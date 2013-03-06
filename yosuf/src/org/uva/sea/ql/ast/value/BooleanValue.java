@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.value;
 
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
+import org.uva.sea.ql.ast.Type;
+import org.uva.sea.ql.ast.exp.Bools;
+import org.uva.sea.ql.ast.exp.ExpressionVisitor;
 
 public class BooleanValue extends Value {
 
@@ -11,16 +13,26 @@ public class BooleanValue extends Value {
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public Value evaluate() {
-		return this;
+	public Type getType() {
+		return new Bools();
 	}
 
 	public boolean getValue() {
 		return value;
+	}
+
+	@Override
+	public String toString() {
+		return "BooleanValue [value=" + value + ", Type=" + getType() + "]";
+	}
+
+	@Override
+	public String getAsString() {
+		return String.valueOf(value);
 	}
 }

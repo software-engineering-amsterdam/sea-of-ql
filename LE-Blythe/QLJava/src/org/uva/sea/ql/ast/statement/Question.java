@@ -1,10 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.Statement;
-import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.util.Environment;
 
 
 public abstract class Question extends Statement{
@@ -26,7 +23,4 @@ public abstract class Question extends Statement{
 	public String getQuestion(){
 		return question;
 	}
-
-	public abstract Type typeOf(Environment env);
-	public abstract Expr getValue(); 
 }

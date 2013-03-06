@@ -1,43 +1,37 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ast.expression.BooleanOperation;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.ast.value.impl.BooleanValue;
+import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class AndNode extends ExprNode
+import java.util.Map;
+
+public class AndNode extends BooleanOperation
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public AndNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
     }
 
     @Override
-    public Value evaluate()
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
     {
-        final Value value1 = this.lhs.evaluate();
-        final Value value2 = this.rhs.evaluate();
-
-        if(value1.isCompatibleTo(value2))
-        {
-            final BooleanValue booleanValue1 = value1.asBooleanValue();
-            final BooleanValue booleanValue2 = value2.asBooleanValue();
-            return new BooleanValue(booleanValue1.getValue() && booleanValue2.getValue());
-        }
-
-        throw new InvalidTypeException("Invalid operand type for and(&&) operation: " + toTreeString(" "));
+        return expressionVisitor.visit(this);
     }
 
     @Override
-    public String toTreeString(final String indent)
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        return '\n' + indent + "&&" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-
+        final Value value1 = this.lhs.evaluate(variables);
+        final Value value2 = this.rhs.evaluate(variables);
+        return value1.and(value2);
     }
 
+    @Override
+    protected String getOperator()
+    {
+        return "&&";
+    }
 }

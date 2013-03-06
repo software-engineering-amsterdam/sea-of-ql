@@ -1,10 +1,21 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.interfaces.ReturnsBoolOperands;
+import org.uva.sea.ql.common.TypeVisitor;
 
-public class BooleanType extends Type implements ReturnsBoolOperands {
+public class BooleanType extends AbstractType {
+   
+    public BooleanType() {
 
-	public BooleanType() {
+    }
 
-	}
+    @Override
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+    
+    @Override
+    public final boolean equals(Object o){
+        return o instanceof BooleanType;
+    }
+
 }

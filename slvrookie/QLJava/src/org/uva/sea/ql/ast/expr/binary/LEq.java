@@ -2,10 +2,10 @@ package org.uva.sea.ql.ast.expr.binary;
 
 import java.util.Map;
 
-import org.uva.sea.ql.ast.expr.*;
+import org.uva.sea.ql.ast.expr.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
-import org.uva.sea.ql.visitor.IExprVisitor;
+import org.uva.sea.ql.visitors.IExprVisitor;
 
 public class LEq extends BinaryExpr {
 
@@ -22,5 +22,5 @@ public class LEq extends BinaryExpr {
 	public <T> T accept(IExprVisitor<T> ExprVisitor) {
 		return ExprVisitor.visit(this);
 	}
-	
+
 }

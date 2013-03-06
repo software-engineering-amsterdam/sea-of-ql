@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<project name="QLJava" default="war-with-copy">
+
+    <property name="distDir" value="dist" />
+    <property name="buildDir" value="build/classes" />
+    <property name="webDir" value="WebContent" />
+    <property name="libDir" value="lib" />
+    <property name="srcDir" value="src" />
+    <property name="tomcatWebapps" value="/home/ioana/Installs/apache-tomcat-6.0.36/webapps" />
+
+    <target name="init" depends="clean">
+        <mkdir dir="${buildDir}"/>
+        <mkdir dir="${distDir}"/>
+    </target>
+
+    <path id="compile.classpath">
+        <fileset dir="${libDir}">
+           <include name="*.jar"/>
+        </fileset>
+    </path>
+    <target name="compile" depends="init" >
+        <javac destdir="${buildDir}" debug="true" srcdir="${srcDir}">
+            <classpath refid="compile.classpath"/>
+            <exclude name="**/*.g"/>
+            <exclude name="org/uva/sea/ql/parser/test/"/>
+        </javac>
+    </target>
+
+    <target name="war" depends="compile">
+        <war destfile="${distDir}/ql.war" webxml="${webDir}/WEB-INF/web.xml">
+            <fileset dir="${webDir}">
+                <exclude name="*.xml" />
+            </fileset>
+            <classes dir="${buildDir}"/>
+        </war>
+    </target>
+    
+    <target name="war-with-copy" depends="war">
+        <copy todir="${tomcatWebapps}">
+            <fileset dir="${distDir}" />
+        </copy>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tomcatWebapps}/ql" />
+        <delete file="${tomcatWebapps}/ql.war" />
+        <delete dir="${distDir}" />
+        <delete dir="${buildDir}" />
+    </target>
+
+</project>

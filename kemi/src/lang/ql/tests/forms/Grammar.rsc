@@ -10,27 +10,27 @@
 
 module lang::ql::tests::forms::Grammar
 
-import lang::ql::ast::AST;
-import lang::ql::tests::ParseHelper;
+import lang::ql::\ast::AST;
+import lang::ql::util::ParseHelper;
 import lang::ql::util::FormGenerator;
 import lang::ql::util::Random;
 
 public test bool testForm1() = parseForm("form Hello { \"Income?\" money myIncome }") is form;
 public test bool testForm1() = parseForm("form Hello { \"Tax?\" money myTax = myIncome * 0.40 }") is form;
 
-public test bool testBasicForm() = parseForm(|project://QL-R-kemi/forms/basic.q|) is form;
-public test bool testCommentForm() = parseForm(|project://QL-R-kemi/forms/comment.q|) is form;
-public test bool testMultiparseleQuestions() = parseForm(|project://QL-R-kemi/forms/multipleQuestions.q|) is form;
-public test bool testIfCondition() = parseForm(|project://QL-R-kemi/forms/ifCondition.q|) is form;
-public test bool testIfElseCondition() = parseForm(|project://QL-R-kemi/forms/ifElseCondition.q|) is form;
-public test bool testIfElseIfCondition() = parseForm(|project://QL-R-kemi/forms/ifElseIfCondition.q|) is form;
-public test bool testIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/forms/ifElseIfElseCondition.q|) is form;
-public test bool testNestedIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/forms/nestedIfElseIfElseCondition.q|) is form;
-public test bool testCalculatedField() = parseForm(|project://QL-R-kemi/forms/calculatedField.q|) is form;
-public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/forms/uglyFormatted.q|) is form;
+public test bool testBasicForm() = parseForm(|project://QL-R-kemi/examples/tests/basic.q|) is form;
+public test bool testCommentForm() = parseForm(|project://QL-R-kemi/examples/tests/comment.q|) is form;
+public test bool testMultiparseleQuestions() = parseForm(|project://QL-R-kemi/examples/tests/multipleQuestions.q|) is form;
+public test bool testIfCondition() = parseForm(|project://QL-R-kemi/examples/tests/ifCondition.q|) is form;
+public test bool testIfElseCondition() = parseForm(|project://QL-R-kemi/examples/tests/ifElseCondition.q|) is form;
+public test bool testIfElseIfCondition() = parseForm(|project://QL-R-kemi/examples/tests/ifElseIfCondition.q|) is form;
+public test bool testIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/examples/tests/ifElseIfElseCondition.q|) is form;
+public test bool testNestedIfElseIfElseCondition() = parseForm(|project://QL-R-kemi/examples/tests/nestedIfElseIfElseCondition.q|) is form;
+public test bool testCalculatedField() = parseForm(|project://QL-R-kemi/examples/tests/calculatedField.q|) is form;
+public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/examples/tests/uglyFormatted.q|) is form;
 
-public test bool testUndefinedVariableForm() = parseForm(|project://QL-R-kemi/forms/undefinedVariable.q|) is form;
+public test bool testUndefinedVariableForm() = parseForm(|project://QL-R-kemi/examples/tests/undefinedVariable.q|) is form;
 
-public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/forms/duplicateLabels.q|) is form;
+public test bool testUglyFormattedForm() = parseForm(|project://QL-R-kemi/examples/tests/duplicateLabels.q|) is form;
 
 public test bool testRandomForm() = parseForm(randomForm(5, 3)) is form;

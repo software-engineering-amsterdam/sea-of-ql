@@ -1,7 +1,8 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.ast.visitor.SymbolTable;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.SymbolTable;
+import org.uva.sea.ql.visitor.Visitor;
 
 /**
  * Class: Ident
@@ -35,25 +36,11 @@ public class Ident extends Expr {
 	 * @param visitor
 	 */
 	@Override
-	public void accept(Visitor visitor) { 
-		visitor.visit(this);
+	public <T> T accept(Visitor<T> visitor) { 
+		return visitor.visit(this);
 	}
-	/**
-	 * getType
-	 * @param st - SymbolTable with data
-	 * @return Type of the current Identifier
-	 */
 	@Override
-	public Expr getType(SymbolTable st) {
+	public Type typeOf(SymbolTable st) {
 		return st.getTypeForIdentifier(this);
-	}
-	/**
-	 * isCompatibleTo
-	 * @param t type
-	 * @return boolean - true if compatible false otherwise
-	 */
-	@Override
-	public boolean isCompatibleTo(Expr t) {
-		return t.isCompatibleTo(this);
 	}
 }

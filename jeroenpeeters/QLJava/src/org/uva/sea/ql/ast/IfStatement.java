@@ -1,26 +1,25 @@
 package org.uva.sea.ql.ast;
 
 import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.parser.ASTVisitor;
 
 public class IfStatement extends Statement {
 
 	private final Expression expression;
-	private final CompoundStatement compoundStatement;
+	private final Statement statement;
 	
-	public IfStatement(Expression expr, CompoundStatement compoundStatement) {
+	public IfStatement(Expression expr, Statement statement) {
 		this.expression = expr;
-		this.compoundStatement = compoundStatement;
+		this.statement = statement;
 	}
 	
 	public Expression getExpression() {
 		return expression;
 	}
 
-	public CompoundStatement getCompoundStatement() {
-		return compoundStatement;
+	public Statement getStatement() {
+		return statement;
 	}
-	
+
 	public void accept(ASTVisitor v){
 		v.visit(this);
 	}

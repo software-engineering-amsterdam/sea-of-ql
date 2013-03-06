@@ -12,4 +12,9 @@ public class StringType extends Type {
 	public boolean isCompatibleToString() {
 		return true;
 	}
+
+	@Override
+	public <T> T accept(TypeVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }

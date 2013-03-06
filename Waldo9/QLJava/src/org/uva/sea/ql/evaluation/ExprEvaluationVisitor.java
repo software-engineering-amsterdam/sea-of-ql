@@ -1,5 +1,8 @@
 package org.uva.sea.ql.evaluation;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.expressions.Add;
 import org.uva.sea.ql.ast.expressions.And;
 import org.uva.sea.ql.ast.expressions.BooleanLiteral;
@@ -19,12 +22,18 @@ import org.uva.sea.ql.ast.expressions.Or;
 import org.uva.sea.ql.ast.expressions.Pos;
 import org.uva.sea.ql.ast.expressions.StringLiteral;
 import org.uva.sea.ql.ast.expressions.Sub;
-import org.uva.sea.ql.evaluation.values.Value;
-import org.uva.sea.ql.evaluation.values.Int;
 import org.uva.sea.ql.evaluation.values.Bool;
+import org.uva.sea.ql.evaluation.values.Int;
 import org.uva.sea.ql.evaluation.values.String;
+import org.uva.sea.ql.evaluation.values.Value;
 
 public class ExprEvaluationVisitor implements ExprVisitor<Value> {
+	
+	private final Map<Ident, Value> identifierEnvironment;
+	
+	public ExprEvaluationVisitor(Map<Ident, Value> identifierEnvironment) {
+		this.identifierEnvironment = Collections.unmodifiableMap(identifierEnvironment);
+	}
 
 	@Override
 	public Value visit(StringLiteral stringLiteral) {
@@ -75,8 +84,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Ident ident) {
-		// TODO Auto-generated method stub
-		return null;
+		return identifierEnvironment.get(ident);
 	}
 
 	@Override
@@ -107,7 +115,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Neg neg) {
-		Value value = neg.getLhs().accept(this);
+		Value value = neg.getContainedExpression().accept(this);
 		return new Int(-((Int)value).getValue());
 	}
 
@@ -120,7 +128,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Not not) {
-		Value value = not.getLhs().accept(this);
+		Value value = not.getContainedExpression().accept(this);
 		return new Bool(!((Bool)value).getValue());
 	}
 
@@ -133,7 +141,7 @@ public class ExprEvaluationVisitor implements ExprVisitor<Value> {
 
 	@Override
 	public Value visit(Pos pos) {
-		Value value = pos.getLhs().accept(this);
+		Value value = pos.getContainedExpression().accept(this);
 		return new Int(((Int)value).getValue());
 	}
 

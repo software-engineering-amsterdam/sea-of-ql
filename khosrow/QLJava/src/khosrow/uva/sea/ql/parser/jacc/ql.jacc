@@ -48,7 +48,7 @@ form	: FORM IDENT '{' stmts '}'
 								{ $$ = new Form($2, $4); }					
 		;
 
-stmts	: stmts stmt 		    { $$ = new Stmts($1, $2); }
+stmts	: stmts stmt   		    { $$ = new Stmts($1, $2); }
         | /* empty */		 	{ $$ = new Stmts(); }
         ;
 
@@ -87,7 +87,7 @@ expr	: '+' expr	%prec UPLUS { $$ = new Pos($2); }
 		| INT_LITERAL			{ $$ = $1; }
 		| IDENT         		{ $$ = $1; }
 		| STRING_LITERAL		{ $$ = $1; }
-		| MONEY_LITERAL					{ $$ = $1; }
+		| MONEY_LITERAL			{ $$ = $1; }
 		| BOOL_LITERAL			{ $$ = $1; }
 		| '(' expr ')'		    { $$ = $2; }
 		;				

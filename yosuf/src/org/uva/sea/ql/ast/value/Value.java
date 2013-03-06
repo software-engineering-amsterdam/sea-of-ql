@@ -8,4 +8,10 @@ public abstract class Value extends Expression {
 		super();
 	}
 
+	/**
+	 * 
+	 * @return a string representation of this value
+	 */
+	public abstract String getAsString();
+
 }

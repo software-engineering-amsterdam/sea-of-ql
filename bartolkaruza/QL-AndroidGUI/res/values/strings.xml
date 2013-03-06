@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QL Survey</string>
+    <string name="title_question_detail">Question Detail</string>
+    <string name="menu_reload">reload</string>
+    <string name="menu_store">store</string>
+    <string name="editor_hint">Enter the QL form data here</string>
+    <string name="answer_hint">Enter the answer hint here</string>
+    <string name="store_failure_message">Something went wrong while trying to store the form</string>
+    <string name="load_failure_message_retry">Something went wrong while trying to load the form, retrying</string>
+	<string name="load_failure_message">Something went wrong while trying to load the form</string>
+	<string name="store_result_message">Result of storing: </string>
+</resources>

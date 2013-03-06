@@ -1,30 +1,28 @@
 package org.uva.sea.ql.ast;
-import java.util.List;
 
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.statements.Block;
+import org.uva.sea.ql.ast.values.Ident;
+import org.uva.sea.ql.visitor.IStatementVisitor;
 
-public class Form implements ASTNode { 
-	private Value name;
-	private List<Statement> block ;
-	
-	public Form(Value name, List<Statement> block){
-		this.name=name;
-		this.block=block;
+public class Form extends Statement {
+	private Ident name;
+	private Block block;
+
+	public Form(Ident name, Block block) {
+		this.name = name;
+		this.block = block;
 	}
-	
-	public Value getName() {
+
+	public Ident getName() {
 		return name;
 	}
-	
-	public List<Statement> getBlock() {
+
+	public Block getBlock() {
 		return block;
 	}
- 
+
 	@Override
-	public void accept(Visitor visitor) {
+	public void accept(IStatementVisitor visitor) {
 		visitor.visit(this);
-		
 	}
-
-
 }

@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.stmt.question;
 
 import org.uva.sea.ql.ast.expr.primary.Ident;
 import org.uva.sea.ql.ast.stmt.Statement;
-import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.type.Type;
 
 public abstract class Question extends Statement {
 	private final Ident id;

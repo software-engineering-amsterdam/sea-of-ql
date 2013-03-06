@@ -11,9 +11,7 @@ public class SimpleQuestion extends Question {
 	}
 
 	@Override
-	public void accept(IStmtVisitor visitor) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public <T> T accept(IStmtVisitor<T> visitor) {		
+		return visitor.visit(this);
+	}	
 }

@@ -2,10 +2,11 @@ module typeChecker::TypeCheck
 
 import Prelude;
 import syntax::AbstractSyntax;
-import syntax::ConcreteSyntax;
 import util::Load;
 import typeChecker::ExpressionTypeChecker;
 import typeChecker::TypeEnvironment;
+import typeChecker::TypeHelper;
+import util::IDE;
 
 /** Method to check if statement 
 * @param statement the if statement
@@ -14,22 +15,39 @@ import typeChecker::TypeEnvironment;
 * @author Philipp
 */
 QLTENV checkStatement(statement:ifStat(Expression exp, list[Body] body), QLTENV env){
-    println("EXP : <exp>"); 
-    env0 = checkExp(exp, boolean(), env);
-    println();
-    if(size(env0.errors) != 0)
-    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);   // check standart libary Message !!!
-    return env;
+    QLTENV env0 = <{},[]>;
+    if(size(getChildren(exp)) == 1) return checkExp(exp,boolean() ,env);
+    else{
+    	list[Type] tp = getExpressionType(exp,env);
+    	if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    	else{
+    		set[Type] s = toSet(tp);
+    		if(size(s) == 1){  	// To compare expression when they have equal tp
+    			return checkExp(exp,tp[0],env);
+    		}else {				// // To compare expression or and and when the types are for example boolean || money < money
+    			println("Set is : <s>");
+    			println("Need to be implemented");
+    			return checkExp(exp,tp[0],env);
+    		}
+    	}
+    }
 }
 
-// check if else statement
+/** Method to check an if else statement
+* @param statement the if else statement
+* @param thenpart thenpart of the statement
+* @param elsepart elsepart of the statement
+* @return env2 a QL type environment with the checked statement
+*/
 QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, list[Body] elsepart), QLTENV env){
-    println("EXP : <Exp>"); 
-    env0 = checkExp(Exp, boolean(), env);
-    if(size(env0.errors) != 0)
-    	return addError(env0, env0.errors[0].l, env0.errors[0].msg);    // check standart libary Message !!!
-    env1 = checkQuestionStats(Stats1, env0);
-    return env;
+    list[Type] tp = getExpressionType(exp,env);
+    if(tp[0] == integer()) return checkIntExp(exp,tp[0],env);
+    else{
+    	env0 = checkExp(exp, tp[0], env);    // check standart libary Message !!!
+    	env1 = checkBodyJustStatements(thenpart, env0);
+    	env2 = checkBodyJustStatements(elsepart, env1);
+    	return env2;
+	}
 }
 
 /** Method to check easy question and save it in the environment
@@ -39,7 +57,8 @@ QLTENV checkStatement(statement:ifElseStat(Expression exp, list[Body] thenpart, 
 * @author Philipp
 */
 QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) , QLTENV env){
-	return addInstance(env, id , labelQuestion, tp );	
+	if(checkIdentifiers(question, env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
+	else return addInstance(env, id , labelQuestion, tp, false );	
 }
 
 /** Method to check computed question and save it in the environment
@@ -48,25 +67,21 @@ QLTENV checkQuestion(question:easyQuestion(str id, str labelQuestion, Type tp) ,
 * @return env the enviroment
 * @author Philipp
 */
-QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){
-	println("check computed question");
-	env = <{< id , labelQuestion, tp >} , []>;
-	println("ENV : <env>");
-	return env;
+QLTENV checkQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp) , QLTENV env){  
+	if(checkIdentifiers(question,env) == false) return addError(env, question@location, "Identifier <id> is declared two times");
+	if(tp == integer()){
+		env = checkIntExp(exp, tp, env);
+	 	return addInstance(env, id, labelQuestion, tp, true);
+	}
+	 env = checkExp(exp, tp, env);
+	 return addInstance(env, id, labelQuestion, tp, true);
 }
 
-/** Method to check for double Identifiers
-* @param env the QL Type environment
-* @return true if no double Idenfiers
-* @author Philipp
-*/
-bool checkIdentifiers(QLTENV env){
-	if(size(env.question) == size(env.question.id)){
-		return true;
-	}else{
-		println("in add error");
-		return false;
-	}
+QLTENV checkBodyJustStatements(list[Body] Body, QLTENV env){
+	visit(Body){
+        case Statement s: env = checkStatement(s,env);
+      };
+	return env;
 }
 
 /** Method to check the body of the QL program
@@ -76,17 +91,10 @@ bool checkIdentifiers(QLTENV env){
 * @author Philipp
 */
 QLTENV checkBody(list[Body] Body, QLTENV env){
-	for(s <- Body){
 	visit(Body){
-     	case Question q : {
-    			env = checkQuestion(q,env);   // I can put the check in the checkQuestion !!!!
-    			if(checkIdentifiers(env) == false) return addError(env, q@location, "Identifier double declared");
-    	    }
-        case Statement s: {
-        		env = checkStatement(s,env);
-        	}
+     	case Question q : env = checkQuestion(q,env);
+        case Statement s: env = checkStatement(s,env);
       };
-	}
 	return env;
 }
 
@@ -95,10 +103,11 @@ public QLTENV checkProgram(Program P){
   if(program(str id, list[Body] Body) := P){	 
      QLTENV env = <{},[]>; 
      env = checkBody(Body, env);
-     println("ENV : <env>"); 
 	 return env;
   } else
      throw "Cannot happen";
 }
                                                                                  
 public list[tuple[loc l, str msg]] checkProgram(str txt) = checkProgram(load(txt)).errors;
+
+public set[Message] checkingQL(Program p) = getErrors(checkProgram(p));

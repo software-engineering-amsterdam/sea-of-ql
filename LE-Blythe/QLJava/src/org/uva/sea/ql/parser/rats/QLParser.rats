@@ -5,13 +5,13 @@ import xtc.util.Action;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.operative.*;
+import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.ast.primitive.*;
-import org.uva.sea.ql.ast.types.*;
 }
 
 public Form RunParse = yyValue:Form;
 
-Statement Form = 
+Form Form = 
 	"form" Spacing f:Ident Spacing b:Block { yyValue = new Form(f, b); };
 	
 Block Block =
@@ -29,15 +29,14 @@ IfThen IfThen =
 	;		
 
 Question Question =
-	q:Literal Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
-	/ q:Literal Spacing x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
+	q:LiteralString Spacing x:Ident Spacing ":" Spacing t:Type Spacing { yyValue = new QuestionAnswerable(q, new Ident(x), t); }
+	/ q:LiteralString Spacing  x:Ident Spacing ":" Spacing e:Expr Spacing { yyValue = new QuestionComputed(q, new Ident(x), e); }
 	; 
-
 	
 Type Type =
-	"boolean" Spacing { yyValue = new org.uva.sea.ql.ast.types.Bool(); }
-	/ "integer" Spacing { yyValue = new org.uva.sea.ql.ast.types.Int(); }
-	/ "string" Spacing { yyValue = new org.uva.sea.ql.ast.types.Str(); }
+	"boolean" Spacing { yyValue = new BoolType(); }
+	/ "integer" Spacing { yyValue = new IntType(); }
+	/ "string" Spacing { yyValue = new StrType(); }
 	;
 
 
@@ -104,10 +103,10 @@ Expr Unary =
 	
 
 Expr Primary = 
-	s:Literal Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Str(s); }
-	/ "true" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(true); }
-	/ "false" Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Bool(false); }
-	/ n:Int Spacing { yyValue = new org.uva.sea.ql.ast.primitive.Int(Integer.parseInt(n)); }
+	s:LiteralString Spacing { yyValue = new Str(s); }
+	/ "true" Spacing { yyValue = new Bool(true); }
+	/ "false" Spacing { yyValue = new Bool(false); }
+	/ n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); }
 	/ x:Ident Spacing { yyValue = new Ident(x); }
 	/ LParen yyValue:Expr RParen
 	;
@@ -120,10 +119,14 @@ String Ident
   = [a-zA-Z_][A-Za-z0-9_]* //![0-9a-zA-Z_]
   ;
 
-String Literal 
-	= ["] [A-Za-z0-9_?!;:\t\f\n ]* ["]
+String LiteralString =
+	"\"" yyValue:Literal "\"" 
 	;
 	
+String Literal
+	= [A-Za-z0-9_?!;:\t\f\n ]*
+	;
+			
 transient void LParen = '(' Spacing;
 transient void RParen = ')' Spacing;
 
@@ -131,7 +134,6 @@ transient void LBracket = '{' Spacing;
 transient void RBracket = '}' Spacing;
 
 transient void quotes = '\"' Spacing;
-
 
 transient void Spacing = (Space / Comment)*;
 transient void Space              = ' ' /  '\t' / '\f' / LineTerminator ;

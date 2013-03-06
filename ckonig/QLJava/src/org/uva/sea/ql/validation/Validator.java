@@ -1,33 +1,39 @@
 package org.uva.sea.ql.validation;
 
-import java.io.IOException;
+import java.util.List;
 
 import org.uva.sea.ql.ast.elements.Form;
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.common.ASTVisitor;
-import org.uva.sea.ql.common.VisitorException;
+import org.uva.sea.ql.common.QLException;
 import org.uva.sea.ql.parser.ParseError;
 
 public class Validator {
-	public void validate(Expr e) throws IOException, AstValidationError {
-		try {
-			if (e != null) {
-				if (e.getClass().equals(Form.class)) {
-					Form f = (Form) e;
-					ASTVisitor validator = new ValidationVisitor();
-					f.accept(validator);
-					System.out.println("validation success");
-				} else {
-					throw new AstValidationError("root element must be form");
-				}
-			} else {
-				throw new AstValidationError("result was null");
-			}
-		} catch (ParseError ex) {
-			System.out.println("ParseError: " + ex.getMessage());
-		} catch (VisitorException ex) {
-			System.out.println("Visitor Error: " + ex.getMessage());
-		}
+    private List<String> errors;
 
-	}
+    public Validator() {
+    }
+
+    public final List<String> getErrors() {
+        return this.errors;
+    }
+
+    public final boolean hasErrors() {
+        return this.errors.size() > 0;
+    }
+
+    public final void validate(Form e) throws AstValidationError {
+        try {
+            if (e != null) {
+                final Form f = (Form) e;
+                final ValidationElementVisitor validator = new ValidationElementVisitor();
+                f.accept(validator);
+                this.errors = validator.getErrors();
+            } else {
+                throw new AstValidationError("result was null");
+            }
+        } catch (ParseError ex) {
+            throw new AstValidationError(ex.getMessage());
+        } catch (QLException ex) {
+            throw new AstValidationError(ex.getMessage());
+        }
+    }
 }

@@ -1,0 +1,13 @@
+form QLForm {
+    age : "How old are you?" integer
+    if (age >= 18) {
+        yearsToTwentyOneYears : "Years until you will be 21" (21 - age)
+        driversLicense : "Do you have a driver's license?" boolean
+        cityLicense : "In what city do you get your license?" string
+    } else {
+        bicycle : "Do you have a bicycle?" boolean
+        if (bicycle) {
+            bicycleColour : "What colour is it?" string
+        }
+    }
+}

@@ -1,6 +1,7 @@
 module lang::ql::util::Parse
 
-import lang::ql::syntax::QL;
+import lang::ql::syntax::Syntax;
+import lang::ql::ast::AST;
 import ParseTree;
 
-public start[Expr] parse(str src, loc l) = parse(#start[Expr], src, l);
+public start[Form] parse(str src, loc l) = parse(#start[Form], src, l);

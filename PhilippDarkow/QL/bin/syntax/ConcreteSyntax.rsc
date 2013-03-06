@@ -11,7 +11,7 @@ lexical Int = [0-9]+ !>> [0-9];
 keyword Keywords = "if" | "then" | "else" | "false" | "true";
   
 lexical Id
-  = ([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
+  = @category="Identifier"([a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]) \ Keywords
   ;
 
 lexical Comment 
@@ -67,7 +67,7 @@ start syntax Type
    = integer : "integer" 
    | string :"string"
    | boolean :"boolean"
-   | money :"money"  
+   | money :"money"   
    ;
    
 // start syntax Expression  
@@ -98,7 +98,7 @@ start syntax Expression
    > left or: Expression "||" Expression
     | boolCon: Boolean bVal
     | moneyCon: Money mVal
-    | string: String
+    | strCon: String sVal
    ;
    
 // METHODS

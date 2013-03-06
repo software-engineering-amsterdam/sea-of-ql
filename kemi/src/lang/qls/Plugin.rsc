@@ -10,28 +10,67 @@
 
 module lang::qls::Plugin
 
+import Configuration;
 import IO;
-import ParseTree;
+import \ParseTree;
+import lang::ql::Plugin;
+import lang::qls::analysis::SemanticChecker;
+import lang::qls::\ast::AST;
+import lang::qls::compiler::PrettyPrinter;
+import lang::qls::compiler::web::Web;
+import lang::qls::ide::Outline;
+import lang::qls::\syntax::QLS;
+import lang::qls::util::ParseHelper;
+import lang::qls::util::StyleHelper;
 import util::IDE;
 import util::Prompt;
 
-import lang::qls::analysis::SemanticChecker;
-import lang::qls::ast::AST;
-import lang::qls::compiler::PrettyPrinter;
-import lang::qls::ide::Outline;
-import lang::qls::syntax::QLS;
-import lang::qls::util::Implode;
-import lang::qls::util::Parse;
+private str actionBuild = "Build stylesheet and accompanying form";
+private str actionFormat = "Format (removes comments)";
 
-private str LANG = "QLS-R";
-private str EXT = "qs";
-private str ACTION_FORMAT = "Format (removes comments)";
+private set[Message] buildAndReturnMessages(start[Stylesheet] sheet, loc target) =
+  buildAndReturnMessages(implode(sheet), target);
+  
+private set[Message] buildAndReturnMessages(Stylesheet sheet, loc target) {
+  messages = semanticChecker(sheet);
+  
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
+    return messages;
+  }
+  
+  form = getAccompanyingForm(sheet);
+  
+  formMessages = buildAndReturnMessages(form, target);
+  formErrors = {m | m <- formMessages, error(_, _) := m};
+  
+  if(formErrors != {}) {
+    return formMessages;
+  }
+  
+  buildSheet(sheet, target);
+  
+  return {};
+}
 
-private void format(start[Stylesheet] s, loc l) =
-  writeFile(l, prettyPrint(implode(s)));
+void build(Stylesheet sheet, loc source) {
+  messages = buildAndReturnMessages(sheet, getCompileTarget());
+  
+  errors = {m | m <- messages, error(_, _) := m};
+  
+  if(errors != {}) {
+    alert("The sheet cannot be built when it still contains errors.");
+  } else {
+    alert("The sheet is built in <getCompileTarget()>.");
+  }
+}
+
+private void format(Stylesheet s, loc l) =
+  writeFile(l, prettyPrint(s));
 
 public void setupQLS() {
-  registerLanguage(LANG, EXT, Tree(str src, loc l) {
+  registerLanguage(getQLSLangName(), getQLSLangExt(), Tree(str src, loc l) {
     return parse(src, l);
   });
   
@@ -45,9 +84,21 @@ public void setupQLS() {
     }),
     
     popup(
-      menu(LANG, [action(ACTION_FORMAT, format)])
-    )
+      menu(getQLSLangName(),[
+        action(actionBuild, (Tree tree, loc source) {
+          build(implode(tree), source);
+        }),
+        action(actionFormat, (Tree tree, loc source) {
+          format(implode(tree), source);
+        })
+      ])
+    ),
+    
+    builder(set[Message] (Tree input) {
+      messages = buildAndReturnMessages(implode(input), getCompileTarget());
+      return messages;
+    })
   };
   
-  registerContributions(LANG, contribs);
+  registerContributions(getQLSLangName(), contribs);
 }

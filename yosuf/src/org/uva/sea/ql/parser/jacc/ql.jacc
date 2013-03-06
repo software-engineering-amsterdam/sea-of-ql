@@ -4,17 +4,17 @@
 %semantic org.uva.sea.ql.ast.ASTNode 
 %start top
 
-
 %token <StringValue> STRING_VAL
-%token <IntegerValue> INT_VAL
-%token <IntegerValue> BOOL_VAL
-%token <IntegerValue> MON_VAL
+%token <NumericValue> INT_VAL
+%token <BooleanValue> BOOL_VAL
+%token <MoneyValue> MON_VAL
 %token <DataType> BOOL INT MON STR
 %token <Identifier> IDENT
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 %token '(' ')' 
-%token IF
+%token IF ELSE
 %token FORM
+%token TRUE FALSE
 
 %left OR
 %left AND
@@ -24,10 +24,10 @@
 %left UMIN UPLUS UNOT
 
 %type <Expression> expr
-%type <Statement> stm
+%type <Block> block
 %type <CompoundStatement> compound
 %type <DataType> dataType
-%type <Question> question
+%type <Form> form
 
 %{
 import org.uva.sea.ql.ast.*;
@@ -38,6 +38,7 @@ import org.uva.sea.ql.ast.value.*;
 @edu.umd.cs.findbugs.annotations.SuppressWarnings(
     value="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD", 
     justification="because this class is generated.")
+
 @SuppressWarnings("unused")
 %}
 
@@ -60,6 +61,8 @@ expr	: '+' expr	%prec UPLUS 	{ $$ = new Positive($2); }
 	    | expr OR expr  			{ $$ = new Or($1, $3); }
 	    | INT_VAL					{ $$ = $1; }
 		| IDENT         			{ $$ = $1; }
+		| TRUE						{ $$ = new BooleanValue(true); }
+		| FALSE						{ $$ = new BooleanValue(false); }
 		| '(' expr ')'				{ $$ = $2; }
 		;
 
@@ -70,7 +73,7 @@ dataType: BOOL 						{ $$ = new BooleanType(); }
 		;
 
 //In order to enable testing, top returns differnt types.
-top		: form						{ result = $1; }
+top		: form						{ form = $1; }
 		| expr						{ result = $1; }
 		| question					{ result = $1; }
 		| dataType					{ result = $1; }
@@ -79,11 +82,11 @@ top		: form						{ result = $1; }
 form 	: FORM IDENT '{' compound '}'	{ $$ = new Form($2, $4); }
 		;
 		
-compound: stm 						{ $$ = new CompoundStatement($1); }
-		| compound stm				{ $$ = new CompoundStatement($1, $2); }
+compound: block 					{ $$ = new CompoundStatement($1); }
+		| compound block			{ $$ = new CompoundStatement($1, $2); }
  		; 
 
-stm		: question					{ $$ = $1; }
+block	: question					{ $$ = $1; }
     	| ifStm						{ $$ = $1; }
 		;
 		
@@ -91,16 +94,29 @@ question: dataType IDENT '=' STRING_VAL ';'	{ $$ = new Question($1, $2, $4); }
 		| dataType IDENT '=' expr ';' 		{ $$ = new Computed($1, $2, $4); } 
 		;
 		
-ifStm	: IF '(' expr ')' '{' compound '}'	{ $$ = new IfStatement($3, $6); }
-		;						
+ifStm	: IF '(' expr ')' '{' compound '}'							{ $$ = new IfStatement($3, $6); }
+		| IF '(' expr ')' '{' compound '}' ELSE '{' compound '}'	{ $$ = new IfElseStatement($3, $6, $10); }
+		;				
 
 %%
 
 private QLLexer lexer; 
 private ASTNode result;
+private Form form;
+private String errorMessage;
 
-public ASTNode getResult(){
+/**
+* @return 
+*/
+protected ASTNode getResult(){
 	return result;
+}
+
+/**
+* @return 
+*/
+public Form getForm(){
+	return form;
 }
  
 public QLParser(QLLexer lexer) { 
@@ -108,5 +124,9 @@ public QLParser(QLLexer lexer) {
 }
 
 private void yyerror(String msg) { 
-  System.err.println(msg); 
+  this.errorMessage = msg;
+}
+
+public String getErrorMessage(){
+	return errorMessage;
 }

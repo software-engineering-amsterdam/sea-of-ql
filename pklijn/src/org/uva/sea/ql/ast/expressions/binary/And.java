@@ -1,6 +1,9 @@
 package org.uva.sea.ql.ast.expressions.binary;
 
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.uva.sea.ql.ast.eval.Env;
 import org.uva.sea.ql.ast.expressions.Expr;
 import org.uva.sea.ql.ast.types.BoolType;
@@ -12,7 +15,6 @@ public class And extends Binary {
 
 	public And(Expr left, Expr right) {
 		super(left, right);
-		allowedTypes.add(new BoolType());
 	}
 
 	@Override
@@ -31,5 +33,10 @@ public class And extends Binary {
 	@Override
 	public String toString() {
 		return "(" + getLeft() + " && " + getRight() + ")";
+	}
+
+	@Override
+	public Set<Type> allowedArgumentTypes() {
+		return Collections.<Type>singleton(new BoolType());
 	}
 }

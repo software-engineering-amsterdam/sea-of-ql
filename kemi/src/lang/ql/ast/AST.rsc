@@ -8,7 +8,7 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::ql::ast::AST
+module lang::ql::\ast::AST
 
 data Form
   = form(IdentDefinition formName, list[Statement] formElements);
@@ -23,12 +23,15 @@ data ElsePart
 
 data Statement 
   = question(Question question)
-  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, list[ElsePart] elsePart)
+  | ifCondition(Conditional ifPart, list[Conditional] elseIfs, 
+    list[ElsePart] elsePart)
   ;
 
 data Question
-  = question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier)
-  | question(QuestionText questionText, Type answerDataType, IdentDefinition answerIdentifier, Expr calculatedField)
+  = question(QuestionText questionText, Type answerDataType, 
+    IdentDefinition answerIdentifier)
+  | question(QuestionText questionText, Type answerDataType, 
+    IdentDefinition answerIdentifier, Expr calculatedField)
   ;
 
 data QuestionText
@@ -77,7 +80,7 @@ data Expr
   | or(Expr left, Expr right)
   ;
   
-// Some annotation for language integration
+anno bool Expr@parentheses;
 anno loc Conditional@location;
 anno loc ElsePart@location;
 anno loc Expr@location;

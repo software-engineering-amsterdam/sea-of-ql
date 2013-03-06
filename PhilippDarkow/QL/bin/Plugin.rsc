@@ -1,15 +1,71 @@
 module Plugin
 
+import Prelude;
+import vis::Figure;
+import vis::Render;
+import syntax::AbstractSyntax;
+import syntax::ConcreteSyntax;
+import typeChecker::TypeCheck;
+import controlFlow::ControlFlow;
+import visualization::Visualize;
+import ide::Uninit;
 import util::IDE;
-import util::Load;
+import util::ValueUI;
+import util::Parse;
+import util::Implode;
 import ParseTree;
+import template::StringTemplate;
+import visualization::Outline;
 
-private str LANG = "QL";
-private str EXT = "q";
+private str QL_NAME = "QL";
+private str QL_EXT = "ql";
 
+//  Define connection with the QL checkers
+public Program checkQLProgram(Program x) {
+	p = implodeProgram(#Program, x);
+	env = checkProgram(p);
+	errors = { error(v, l) | <loc l, PicoId v> <- env.errors };
+	if(!isEmpty(errors))
+		return x[@messages = errors];
+    ids = uninitProgram(p);
+	warnings = { warning("Variable <v> maybe uninitialized", l) | <loc l, PicoId v, STATEMENT s> <- ids };
+	return x[@messages = warnings];
+}
 
-public void main() {
-  registerLanguage(LANG, EXT, Tree(str src, loc l) {
-     return parse(src, l);
+//  Define connection with CFG visualization
+public void visualizeQLProgram(Tree x, loc selection) {
+	m = implodeProgram(x); 
+	CFG = cflowProgram(m);
+	render(visCFG(CFG.graph));
+}
+	
+//  Register the QL tools
+public void registerQL() {
+	println("in main");
+  registerLanguage(QL_NAME, QL_EXT, Tree(str src, loc l) {
+     return parseProgram(src, l);
   });
+
+  registerContributions(QL_NAME, {
+    	outliner(node (Tree t) {
+    		println("t is :<t>");
+			return outline(implodeProgram(t));
+			}
+		),
+
+		menu(menu("QL",[
+		    action("Generate QL Program", generateQL),
+		    action("Visualize Programm", visualizeQLProgram)
+	    ])
+  	),
+	annotator(Tree (Tree t) {
+			
+			return t[@messages = checkingQL(implodeProgram(t))];
+  		})
+  	}); 
+}
+
+public void generateQL(Tree x, loc selection) {
+	println("tree : <x>");
+	generateQLForm(implodeProgram(x));
 }

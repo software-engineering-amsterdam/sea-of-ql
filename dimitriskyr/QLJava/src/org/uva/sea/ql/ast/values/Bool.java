@@ -1,22 +1,73 @@
 package org.uva.sea.ql.ast.values;
 
+import java.util.Map;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.visitor.Visitor;
+import org.uva.sea.ql.ast.types.BooleanType;
+import org.uva.sea.ql.visitor.ICheckExprVisitor;
 
-public class Bool extends Value{
-	private final boolean value;
-	
-	public Bool( boolean value){
-		this.value=value;
+public class Bool extends Value {
+
+	private final Boolean value;
+
+	public Bool(boolean value) {
+		this.value = value;
 	}
-	
-	public boolean isValue() {
+
+	public Boolean getValue() {
 		return value;
 	}
-	
+
+	public <T> T accept(ICheckExprVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	public Type typeOf(Map<String, Type> typeEnv) {
+		return new BooleanType();
+	}
+
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public Value and(Value arg) {
+		return arg.andBool(this);
+	}
+
+	@Override
+	public Value andBool(Bool arg) {
+		return new Bool(arg.getValue() && getValue());
+	}
+
+	@Override
+	public Value eq(Value arg) {
+		return arg.eqBool(this);
+	}
+
+	@Override
+	public Value eqBool(Bool arg) {
+		return new Bool(arg.getValue() == getValue());
+	}
+
+	@Override
+	public Value neq(Value arg) {
+		return arg.neqBool(this);
+	}
+
+	@Override
+	public Value neqBool(Bool arg) {
+		return new Bool(arg.getValue() != getValue());
+	}
+
+	@Override
+	public Value not() {
+		return new Bool(!getValue());
+	}
+
+	@Override
+	public Value or(Value arg) {
+		return arg.orBool(this);
+	}
+
+	@Override
+	public Value orBool(Bool arg) {
+		return new Bool(arg.getValue() || getValue());
 	}
 
 }

@@ -10,8 +10,8 @@
 
 module lang::ql::tests::expressions::String
 
-import lang::ql::ast::AST;
-import lang::ql::tests::ParseHelper;
+import lang::ql::\ast::AST;
+import lang::ql::util::ParseHelper;
 import lang::ql::util::Random;
 
 public test bool testString1() = 

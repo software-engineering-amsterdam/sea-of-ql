@@ -6,10 +6,12 @@ options {backtrack=true; memoize=true;}
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expressions.*;
-import org.uva.sea.ql.ast.expressions.binaryExpr.*;
-import org.uva.sea.ql.ast.expressions.unaryExpr.*;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.*;
+import org.uva.sea.ql.ast.expressions.unaryExpressions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
+import org.uva.sea.ql.ast.expressions.literals.*;
+import org.uva.sea.ql.ast.form.*;
 }
 
 @lexer::header
@@ -21,62 +23,62 @@ form returns [Form result]
 	: 'form' IDENT b=blockOfStatements { $result = new Form(new Ident($IDENT.text), $b.result);}
 	;
 
-ifStatement returns [ifStatement result]
-    : 'if' '(' x=orExpr ')' b=blockOfStatements { $result = new ifStatement($x.result, $b.result); }
+blockOfStatements returns [BlockOfStatements result]
+    @init { List<AStatement> stmts = new ArrayList<AStatement>(); }
+    : '{' (s=statement { stmts.add(s); } )+ '}' { $result = new BlockOfStatements(stmts); }
+    ;
+
+statement returns [AStatement result]
+    : ifES=ifElseStatement  { $result = $ifES.result; }
+    | ifS=ifStatement       { $result = $ifS.result; }
+    | cQ=computedQuestion   { $result = $cQ.result; }
+    | q=question            { $result = $q.result; } 
     ;
 
 ifElseStatement returns [ifElseStatement result]
     : 'if' '(' x=orExpr ')' bIf=blockOfStatements 'else' bElse=blockOfStatements
       { $result = new ifElseStatement($x.result, $bIf.result, $bElse.result); }
     ;
-  
-blockOfStatements returns [BlockOfStatements result]
-    @init { BlockOfStatements block = new BlockOfStatements(); }
-    : '{' (s=statement { block.addStatement(s); } )+ '}'
-    ;
 
-statement returns [Statement result]
-    : ifS=ifStatement       { $result = $ifS.result; }
-    | ifES=ifElseStatement  { $result = $ifES.result; }
-    | cQ=computedQuestion   { $result = $cQ.result; }
-    | q=question            { $result = $q.result; } 
+ifStatement returns [ifStatement result]
+    : 'if' '(' x=orExpr ')' b=blockOfStatements { $result = new ifStatement($x.result, $b.result); }
     ;
 
 computedQuestion returns [ComputedQuestion result]
 	  : IDENT ':' STRING_LITERAL type '(' x=orExpr ')'
 	  {
 	    $result =
-	    new ComputedQuestion(new Ident($IDENT.text), new Str($STRING_LITERAL.text),  $type.result, $x.result);
+	    new ComputedQuestion(new Ident($IDENT.text), $STRING_LITERAL.text,  $type.result, $x.result);
 	  }
 	  ;
 
-
 question returns [Question result]
     : IDENT ':' STRING_LITERAL type
-    { $result = new Question(new Ident($IDENT.text), new Str($STRING_LITERAL.text), $type.result); }
+    { $result = new Question(new Ident($IDENT.text), $STRING_LITERAL.text, $type.result); }
     ;
 
-type returns [Type result]
+type returns [AType result]
     : 'int'     { $result = new IntType(); }
     | 'boolean' { $result = new BoolType(); }
     | 'string'  { $result = new StringType(); }
     ;
 
-primary returns [Expr result]
-    : INT             { $result = new Int(Integer.parseInt($INT.text)); }
+primary returns [AExpr result]
+    : INT             { $result = new IntLiteral(Integer.parseInt($INT.text)); }
   	| IDENT           { $result = new Ident($IDENT.text); }
-  	| BOOLEAN         { $result = new Bool(Boolean.parseBoolean($BOOLEAN.text)); }
+  	| BOOLEAN         { $result = new BoolLiteral(Boolean.parseBoolean($BOOLEAN.text)); }
+  	| STRING_LITERAL  { $result = new StrLiteral($STRING_LITERAL.text); }
   	| '(' x=orExpr ')'{ $result = $x.result; }
   	;
     
-unExpr returns [Expr result]
+unExpr returns [AExpr result]
     : '+' x=unExpr { $result = new Pos($x.result); }
     | '-' x=unExpr { $result = new Neg($x.result); }
     | '!' x=unExpr { $result = new Not($x.result); }
     | x=primary    { $result = $x.result; }
     ;    
     
-mulExpr returns [Expr result]
+mulExpr returns [AExpr result]
     : lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
     { 
       if ($op.text.equals("*")) {
@@ -89,7 +91,7 @@ mulExpr returns [Expr result]
     ;
     
   
-addExpr returns [Expr result]
+addExpr returns [AExpr result]
     : lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 
       if ($op.text.equals("+")) {
@@ -101,7 +103,7 @@ addExpr returns [Expr result]
     })*
     ;
   
-relExpr returns [Expr result]
+relExpr returns [AExpr result]
     : lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
     { 
       if ($op.text.equals("<")) {
@@ -125,12 +127,12 @@ relExpr returns [Expr result]
     })*
     ;
     
-andExpr returns [Expr result]
+andExpr returns [AExpr result]
     : lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
     
 
-orExpr returns [Expr result]
+orExpr returns [AExpr result]
     : lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
        

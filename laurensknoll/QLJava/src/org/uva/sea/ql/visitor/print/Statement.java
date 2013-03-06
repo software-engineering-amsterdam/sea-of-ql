@@ -5,7 +5,9 @@ import org.uva.sea.ql.ast.statement.Block;
 import org.uva.sea.ql.ast.statement.ComputedQuestion;
 import org.uva.sea.ql.ast.statement.If;
 import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.visitor.IExpression;
 import org.uva.sea.ql.visitor.IStatement;
+import org.uva.sea.ql.visitor.IType;
 
 public class Statement implements IStatement<String> {
 
@@ -23,7 +25,7 @@ public class Statement implements IStatement<String> {
 		statements.append(System.getProperty("line.separator"));
 
 		Environment newBlockContext = new Environment(this.environment);
-		Statement statementVisitor = new Statement(newBlockContext);
+		IStatement<String> statementVisitor = new Statement(newBlockContext);
 
 		for (AbstractStatement statement : block.getStatements()) {
 			statements.append(statement.accept(statementVisitor));
@@ -40,8 +42,8 @@ public class Statement implements IStatement<String> {
 	public String visit(ComputedQuestion computedQuestion) {
 		String question = computedQuestion.getQuestion().accept(this);
 
-		Expression expressionVisitor = new Expression();
-		String expr = computedQuestion.getComputeExpression().accept(
+		IExpression<String> expressionVisitor = new Expression();
+		String expr = computedQuestion.getComputation().accept(
 				expressionVisitor);
 
 		return String.format("%s %s", question, expr);
@@ -56,7 +58,7 @@ public class Statement implements IStatement<String> {
 
 		sb.append("if (");
 
-		Expression expressionVisitor = new Expression();
+		IExpression<String> expressionVisitor = new Expression();
 		String condition = ifStatement.getCondition().accept(expressionVisitor);
 		sb.append(condition);
 
@@ -72,11 +74,11 @@ public class Statement implements IStatement<String> {
 
 	@Override
 	public String visit(Question question) {
-		Expression expressionVisitor = new Expression();
+		IExpression<String> expressionVisitor = new Expression();
 		String ident = question.getIdent().accept(expressionVisitor);
 		String descr = question.getQuestion().accept(expressionVisitor);
 
-		Type typeVisitor = new Type();
+		IType<String> typeVisitor = new Type();
 		String answerType = question.getType().accept(typeVisitor);
 
 		return String.format("%s%s: %s %s", this.environment.getIndent(),

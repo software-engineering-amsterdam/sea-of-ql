@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.form;
 
-public class FormElement {
+import org.uva.sea.ql.ast.ASTNode;
+
+public abstract class FormElement implements ASTNode {
 	
 }

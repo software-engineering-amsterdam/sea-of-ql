@@ -5,9 +5,9 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
 import org.uva.sea.ql.ast.value.StringValue;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Question extends Statement {
+public class Question extends Block {
+
 	private final DataType dataType;
 	private final Identifier identifier;
 	private final StringValue questionText;
@@ -33,13 +33,31 @@ public class Question extends Statement {
 		state.assertNotNull(this.questionText, "Question.questionText");
 	}
 
-	public StringValue getQuestionText() {
+	public StringValue getStringValue() {
 		return questionText;
 	}
 
+	public String getText() {
+		return questionText.getValue();
+	}
+
+	public DataType getDataType() {
+		return dataType;
+	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Question [" + dataType + ", " + identifier + ", "
+				+ questionText + "]";
 	}
 
 }

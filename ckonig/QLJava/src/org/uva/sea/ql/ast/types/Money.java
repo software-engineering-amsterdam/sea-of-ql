@@ -1,20 +1,20 @@
 package org.uva.sea.ql.ast.types;
 
-import org.uva.sea.ql.ast.expressions.Expr;
-import org.uva.sea.ql.ast.interfaces.ReturnsMathOperands;
+import org.uva.sea.ql.common.TypeVisitor;
 
-public class Money extends Type implements ReturnsMathOperands {
-	private Expr expr;
+public class Money extends AbstractMathType {
+    public Money() {
+    }
 
-	public Money() {
-	}
+    @Override
+    public final void accept(TypeVisitor v) {
+        v.visit(this);
+    }
+    
+    @Override
+    public final boolean equals(Object o){
+        return o instanceof AbstractMathType;
+    }
 
-	public Money(Expr e) {
-		this.expr = e;
-	}
-
-	public Expr getExpr() {
-		return expr;
-	}
 
 }

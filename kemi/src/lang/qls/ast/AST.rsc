@@ -8,65 +8,72 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::ast::AST
+module lang::qls::\ast::AST
 
 data Stylesheet
-  = stylesheet(str ident, list[Definition] definitions)
+  = stylesheet(Ident ident, list[Definition] definitions)
   ;
 
 data Definition
-  = definition(PageDefinition pageDefinition)
-  | definition(SectionDefinition sectionDefinition)
-  | definition(QuestionDefinition questionDefinition)
-  | definition(DefaultDefinition defaultDefinition)
+  = pageDefinition(str name, list[LayoutRule] layoutRules)
+  | sectionDefinition(str name, list[LayoutRule] layoutRules)
+  | questionDefinition(Ident ident)
+  | questionDefinition(Ident ident, list[StyleRule] styleRules)
+  | defaultDefinition(Type \type, list[StyleRule] styleRules)
   ;
 
-data PageDefinition
-  = pageDefinition(str ident, list[PageRule] pageRules)
+data LayoutRule
+  = layoutRule(Definition definition)
   ;
 
-data PageRule
-  = pageRule(SectionDefinition sectionDefinition)
-  | pageRule(QuestionDefinition questionDefinition)
-  | pageRule(DefaultDefinition defaultDefinition)
+data Ident
+  = ident(str name)
   ;
 
-data SectionDefinition
-  = sectionDefinition(str ident, list[SectionRule] sectionRules)
-  ;
-
-data SectionRule
-  = sectionRule(SectionDefinition sectionDefinition)
-  | sectionRule(QuestionDefinition questionDefinition)
-  | sectionRule(DefaultDefinition defaultDefinition)
-  ;
-
-data QuestionDefinition
-  = questionDefinition(str ident)
-  | questionDefinition(str ident, list[StyleRule] styleRules)
-  ;
-
-data DefaultDefinition
-  = defaultDefinition(str ident, list[StyleRule] styleRules)
+data Type
+  = booleanType(str name)
+  | integerType(str name)
+  | moneyType(str name)
+  | dateType(str name)
+  | stringType(str name)
   ;
 
 data StyleRule
-  = typeStyleRule(str attr, TypeStyleValue typeValue)
-  | widthStyleRule(str attr, int widthValue)
+  = widgetStyleRule(StyleAttr attr, WidgetStyleValue widgetValue)
+  | intStyleRule(StyleAttr attr, int intValue)
+  | stringStyleRule(StyleAttr attr, str stringValue)
+  | colorStyleRule(StyleAttr attr, str colorValue)
   ;
 
-data TypeStyleValue
-  = radio(str name)
+data StyleAttr
+  = widget(str name)
+  | width(str name)
+  | fontsize(str name)
+  | labelFontsize(str name)
+  | font(str name)
+  | labelFont(str name)
+  | color(str name)
+  | labelColor(str name)
+  ;
+
+data WidgetStyleValue
+  = text(str name)
+  | number(str name)
+  | number(str name, real min, real max)
+  | number(str name, real min, real max, real step)
+  | datepicker(str name)
+  | slider(str name)
+  | slider(str name, real min, real max)
+  | slider(str name, real min, real max, real step)
+  | radio(str name)
   | checkbox(str name)
+  | select(str name)
   ;
 
 anno loc Stylesheet@location;
 anno loc Definition@location;
-anno loc PageDefinition@location;
-anno loc PageRule@location;
-anno loc SectionDefinition@location;
-anno loc SectionRule@location;
-anno loc QuestionDefinition@location;
-anno loc DefaultDefinition@location;
+anno loc LayoutRule@location;
+anno loc Type@location;
 anno loc StyleRule@location;
-
+anno loc StyleAttr@location;
+anno loc WidgetStyleValue@location;

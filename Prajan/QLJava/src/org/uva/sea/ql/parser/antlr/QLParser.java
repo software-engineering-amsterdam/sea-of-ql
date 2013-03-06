@@ -1,19 +1,24 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-01-24 19:10:05
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-03-04 14:41:59
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.alg.*;
+import org.uva.sea.ql.ast.form.*;
+import org.uva.sea.ql.ast.types.*;
+import java.util.Map;
+import java.util.HashMap;
 
 
 import org.antlr.runtime.*;
 import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+
 public class QLParser extends Parser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Ident", "Int", "WS", "COMMENT", "'form'", "'{'", "'}'", "'\"'", "':'", "'if ('", "')'", "'='", "'('", "'+'", "'-'", "'!'", "'*'", "'/'", "'<'", "'<='", "'>'", "'>='", "'=='", "'!='", "'&&'", "'||'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "Ident", "STRING", "Int", "Bool", "WS", "COMMENT", "Money", "'form'", "'{'", "'}'", "':'", "'integer'", "'boolean'", "'string'", "'money'", "'if'", "'('", "')'", "'else'", "'='", "'+'", "'-'", "'!'", "'*'", "'/'", "'<'", "'<='", "'>'", "'>='", "'=='", "'!='", "'&&'", "'||'"
     };
+    public static final int Bool=7;
     public static final int T__29=29;
     public static final int T__28=28;
     public static final int T__27=27;
@@ -25,22 +30,28 @@ public class QLParser extends Parser {
     public static final int T__21=21;
     public static final int T__20=20;
     public static final int EOF=-1;
-    public static final int T__9=9;
-    public static final int T__8=8;
-    public static final int Int=5;
+    public static final int Int=6;
+    public static final int T__30=30;
     public static final int T__19=19;
-    public static final int WS=6;
+    public static final int T__31=31;
+    public static final int T__32=32;
+    public static final int Money=10;
+    public static final int WS=8;
+    public static final int T__33=33;
     public static final int T__16=16;
+    public static final int T__34=34;
     public static final int T__15=15;
+    public static final int T__35=35;
     public static final int T__18=18;
     public static final int Ident=4;
+    public static final int T__36=36;
     public static final int T__17=17;
     public static final int T__12=12;
     public static final int T__11=11;
     public static final int T__14=14;
     public static final int T__13=13;
-    public static final int T__10=10;
-    public static final int COMMENT=7;
+    public static final int COMMENT=9;
+    public static final int STRING=5;
 
     // delegates
     // delegators
@@ -51,8 +62,6 @@ public class QLParser extends Parser {
         }
         public QLParser(TokenStream input, RecognizerSharedState state) {
             super(input, state);
-            this.state.ruleMemo = new HashMap[33+1];
-             
              
         }
         
@@ -61,39 +70,66 @@ public class QLParser extends Parser {
     public String getGrammarFileName() { return "C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
 
 
+        private final Map<String, Ident> variables = new HashMap<String, Ident>();
+
+
 
     // $ANTLR start "form"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:15:1: form : 'form' Ident '{' ( question )* '}' ;
-    public final void form() throws RecognitionException {
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:1: form returns [Form f] : 'form' Ident '{' (q= question | ce= ifconditionalexpr )* '}' ;
+    public final Form form() throws RecognitionException {
+        Form f = null;
         int form_StartIndex = input.index();
+        Token Ident1=null;
+        Question q = null;
+
+        IfConditionalExpr ce = null;
+
+
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return ; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:16:5: ( 'form' Ident '{' ( question )* '}' )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:7: 'form' Ident '{' ( question )* '}'
+            if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return f; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:5: ( 'form' Ident '{' (q= question | ce= ifconditionalexpr )* '}' )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:7: 'form' Ident '{' (q= question | ce= ifconditionalexpr )* '}'
             {
-            match(input,8,FOLLOW_8_in_form60); if (state.failed) return ;
-            match(input,Ident,FOLLOW_Ident_in_form62); if (state.failed) return ;
-            match(input,9,FOLLOW_9_in_form64); if (state.failed) return ;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:17:24: ( question )*
+            match(input,11,FOLLOW_11_in_form69); 
+            Ident1=(Token)match(input,Ident,FOLLOW_Ident_in_form71); 
+            f = new Form((Ident1!=null?Ident1.getText():null)); 
+            match(input,12,FOLLOW_12_in_form75); 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:55: (q= question | ce= ifconditionalexpr )*
             loop1:
             do {
-                int alt1=2;
+                int alt1=3;
                 int LA1_0 = input.LA(1);
 
-                if ( (LA1_0==11) ) {
+                if ( (LA1_0==STRING) ) {
                     alt1=1;
+                }
+                else if ( (LA1_0==19) ) {
+                    alt1=2;
                 }
 
 
                 switch (alt1) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:0:0: question
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:57: q= question
             	    {
-            	    pushFollow(FOLLOW_question_in_form66);
-            	    question();
+            	    pushFollow(FOLLOW_question_in_form83);
+            	    q=question();
 
             	    state._fsp--;
-            	    if (state.failed) return ;
+
+            	     f.addQuestion(q); 
+
+            	    }
+            	    break;
+            	case 2 :
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:30:96: ce= ifconditionalexpr
+            	    {
+            	    pushFollow(FOLLOW_ifconditionalexpr_in_form94);
+            	    ce=ifconditionalexpr();
+
+            	    state._fsp--;
+
+            	     f.addIfConditionalExpr(ce); 
 
             	    }
             	    break;
@@ -103,7 +139,7 @@ public class QLParser extends Parser {
                 }
             } while (true);
 
-            match(input,10,FOLLOW_10_in_form69); if (state.failed) return ;
+            match(input,13,FOLLOW_13_in_form100); 
 
             }
 
@@ -113,198 +149,338 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 1, form_StartIndex); }
         }
-        return ;
+        return f;
     }
     // $ANTLR end "form"
 
 
     // $ANTLR start "question"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:38:1: question : '\"' ( . )* '\"' ( condition | calculation ) ;
-    public final void question() throws RecognitionException {
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:34:1: question returns [Question q] : ( STRING ) (d= declaration | c= calculation ) ;
+    public final Question question() throws RecognitionException {
+        Question q = null;
         int question_StartIndex = input.index();
+        Token STRING2=null;
+        Declaration d = null;
+
+        Calculation c = null;
+
+
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return ; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:39:5: ( '\"' ( . )* '\"' ( condition | calculation ) )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:7: '\"' ( . )* '\"' ( condition | calculation )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return q; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:35:5: ( ( STRING ) (d= declaration | c= calculation ) )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:7: ( STRING ) (d= declaration | c= calculation )
             {
-            match(input,11,FOLLOW_11_in_question105); if (state.failed) return ;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:11: ( . )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:7: ( STRING )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:8: STRING
+            {
+            STRING2=(Token)match(input,STRING,FOLLOW_STRING_in_question135); 
+            q = new Question((STRING2!=null?STRING2.getText():null)); 
 
-                if ( (LA2_0==11) ) {
-                    int LA2_1 = input.LA(2);
+            }
 
-                    if ( (synpred2_QL()) ) {
-                        alt2=1;
-                    }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:52: (d= declaration | c= calculation )
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
+            if ( (LA2_0==Ident) ) {
+                int LA2_1 = input.LA(2);
 
-                }
-                else if ( ((LA2_0>=Ident && LA2_0<=10)||(LA2_0>=12 && LA2_0<=29)) ) {
+                if ( (LA2_1==14) ) {
                     alt2=1;
                 }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:0:0: .
-            	    {
-            	    matchAny(input); if (state.failed) return ;
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop2;
-                }
-            } while (true);
-
-            match(input,11,FOLLOW_11_in_question110); if (state.failed) return ;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:18: ( condition | calculation )
-            int alt3=2;
-            int LA3_0 = input.LA(1);
-
-            if ( (LA3_0==Ident) ) {
-                int LA3_1 = input.LA(2);
-
-                if ( (LA3_1==12) ) {
-                    alt3=1;
-                }
-                else if ( (LA3_1==15) ) {
-                    alt3=2;
+                else if ( (LA2_1==23) ) {
+                    alt2=2;
                 }
                 else {
-                    if (state.backtracking>0) {state.failed=true; return ;}
                     NoViableAltException nvae =
-                        new NoViableAltException("", 3, 1, input);
+                        new NoViableAltException("", 2, 1, input);
 
                     throw nvae;
                 }
             }
             else {
-                if (state.backtracking>0) {state.failed=true; return ;}
+                NoViableAltException nvae =
+                    new NoViableAltException("", 2, 0, input);
+
+                throw nvae;
+            }
+            switch (alt2) {
+                case 1 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:54: d= declaration
+                    {
+                    pushFollow(FOLLOW_declaration_in_question146);
+                    d=declaration();
+
+                    state._fsp--;
+
+                    q.addDeclaration(d); 
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:36:98: c= calculation
+                    {
+                    pushFollow(FOLLOW_calculation_in_question157);
+                    c=calculation();
+
+                    state._fsp--;
+
+                     q.addCalculation(c); 
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return q;
+    }
+    // $ANTLR end "question"
+
+
+    // $ANTLR start "declaration"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:39:1: declaration returns [Declaration d] : d1= Ident ':' d2= type ;
+    public final Declaration declaration() throws RecognitionException {
+        Declaration d = null;
+        int declaration_StartIndex = input.index();
+        Token d1=null;
+        Type d2 = null;
+
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return d; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:5: (d1= Ident ':' d2= type )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:7: d1= Ident ':' d2= type
+            {
+            d1=(Token)match(input,Ident,FOLLOW_Ident_in_declaration196); 
+            match(input,14,FOLLOW_14_in_declaration198); 
+            pushFollow(FOLLOW_type_in_declaration204);
+            d2=type();
+
+            state._fsp--;
+
+             
+                     Ident ident = new Ident((d1!=null?d1.getText():null));      
+                     d = new Declaration(ident, d2); 
+                     this.variables.put((d1!=null?d1.getText():null), ident);
+                  
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return d;
+    }
+    // $ANTLR end "declaration"
+
+
+    // $ANTLR start "type"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:50:1: type returns [Type type] : ( 'integer' | 'boolean' | 'string' | 'money' );
+    public final Type type() throws RecognitionException {
+        Type type = null;
+        int type_StartIndex = input.index();
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return type; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:1: ( 'integer' | 'boolean' | 'string' | 'money' )
+            int alt3=4;
+            switch ( input.LA(1) ) {
+            case 15:
+                {
+                alt3=1;
+                }
+                break;
+            case 16:
+                {
+                alt3=2;
+                }
+                break;
+            case 17:
+                {
+                alt3=3;
+                }
+                break;
+            case 18:
+                {
+                alt3=4;
+                }
+                break;
+            default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 3, 0, input);
 
                 throw nvae;
             }
+
             switch (alt3) {
                 case 1 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:19: condition
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:3: 'integer'
                     {
-                    pushFollow(FOLLOW_condition_in_question113);
-                    condition();
-
-                    state._fsp--;
-                    if (state.failed) return ;
+                    match(input,15,FOLLOW_15_in_type231); 
+                    type = new IntType();
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:31: calculation
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:3: 'boolean'
                     {
-                    pushFollow(FOLLOW_calculation_in_question117);
-                    calculation();
+                    match(input,16,FOLLOW_16_in_type237); 
+                    type = new BoolType();
 
-                    state._fsp--;
-                    if (state.failed) return ;
+                    }
+                    break;
+                case 3 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:3: 'string'
+                    {
+                    match(input,17,FOLLOW_17_in_type243); 
+                    type = new StrType();
+
+                    }
+                    break;
+                case 4 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:3: 'money'
+                    {
+                    match(input,18,FOLLOW_18_in_type250); 
+                    type = new MoneyType();
 
                     }
                     break;
 
             }
-
-
-            }
-
         }
         catch (RecognitionException re) {
             reportError(re);
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 2, question_StartIndex); }
         }
-        return ;
+        return type;
     }
-    // $ANTLR end "question"
+    // $ANTLR end "type"
 
 
-    // $ANTLR start "condition"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:43:1: condition : Ident ':' Ident ( 'if (' Ident ')' '{' ( question )* '}' )* ;
-    public final void condition() throws RecognitionException {
-        int condition_StartIndex = input.index();
+    // $ANTLR start "ifconditionalexpr"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:1: ifconditionalexpr returns [IfConditionalExpr ifce] : 'if' '(' ce1= orExpr ')' '{' (ce2= question )* '}' ( 'else' '{' (ce3= question )* '}' )? ;
+    public final IfConditionalExpr ifconditionalexpr() throws RecognitionException {
+        IfConditionalExpr ifce = null;
+        int ifconditionalexpr_StartIndex = input.index();
+        Expr ce1 = null;
+
+        Question ce2 = null;
+
+        Question ce3 = null;
+
+
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return ; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:44:5: ( Ident ':' Ident ( 'if (' Ident ')' '{' ( question )* '}' )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:7: Ident ':' Ident ( 'if (' Ident ')' '{' ( question )* '}' )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return ifce; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:5: ( 'if' '(' ce1= orExpr ')' '{' (ce2= question )* '}' ( 'else' '{' (ce3= question )* '}' )? )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:7: 'if' '(' ce1= orExpr ')' '{' (ce2= question )* '}' ( 'else' '{' (ce3= question )* '}' )?
             {
-            match(input,Ident,FOLLOW_Ident_in_condition144); if (state.failed) return ;
-            match(input,12,FOLLOW_12_in_condition146); if (state.failed) return ;
-            match(input,Ident,FOLLOW_Ident_in_condition148); if (state.failed) return ;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:23: ( 'if (' Ident ')' '{' ( question )* '}' )*
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+            match(input,19,FOLLOW_19_in_ifconditionalexpr278); 
+            match(input,20,FOLLOW_20_in_ifconditionalexpr280); 
+            pushFollow(FOLLOW_orExpr_in_ifconditionalexpr286);
+            ce1=orExpr();
 
-                if ( (LA5_0==13) ) {
-                    alt5=1;
+            state._fsp--;
+
+            ifce = new IfConditionalExpr(ce1); 
+            match(input,21,FOLLOW_21_in_ifconditionalexpr290); 
+            match(input,12,FOLLOW_12_in_ifconditionalexpr292); 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:76: (ce2= question )*
+            loop4:
+            do {
+                int alt4=2;
+                int LA4_0 = input.LA(1);
+
+                if ( (LA4_0==STRING) ) {
+                    alt4=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt4) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:24: 'if (' Ident ')' '{' ( question )* '}'
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:77: ce2= question
             	    {
-            	    match(input,13,FOLLOW_13_in_condition151); if (state.failed) return ;
-            	    match(input,Ident,FOLLOW_Ident_in_condition153); if (state.failed) return ;
-            	    match(input,14,FOLLOW_14_in_condition155); if (state.failed) return ;
-            	    match(input,9,FOLLOW_9_in_condition157); if (state.failed) return ;
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:45: ( question )*
-            	    loop4:
-            	    do {
-            	        int alt4=2;
-            	        int LA4_0 = input.LA(1);
+            	    pushFollow(FOLLOW_question_in_ifconditionalexpr299);
+            	    ce2=question();
 
-            	        if ( (LA4_0==11) ) {
-            	            alt4=1;
-            	        }
+            	    state._fsp--;
 
-
-            	        switch (alt4) {
-            	    	case 1 :
-            	    	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:0:0: question
-            	    	    {
-            	    	    pushFollow(FOLLOW_question_in_condition159);
-            	    	    question();
-
-            	    	    state._fsp--;
-            	    	    if (state.failed) return ;
-
-            	    	    }
-            	    	    break;
-
-            	    	default :
-            	    	    break loop4;
-            	        }
-            	    } while (true);
-
-            	    match(input,10,FOLLOW_10_in_condition162); if (state.failed) return ;
+            	    ifce.addThen(ce2); 
 
             	    }
             	    break;
 
             	default :
-            	    break loop5;
+            	    break loop4;
                 }
             } while (true);
 
+            match(input,13,FOLLOW_13_in_ifconditionalexpr306); 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:122: ( 'else' '{' (ce3= question )* '}' )?
+            int alt6=2;
+            int LA6_0 = input.LA(1);
+
+            if ( (LA6_0==22) ) {
+                alt6=1;
+            }
+            switch (alt6) {
+                case 1 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:123: 'else' '{' (ce3= question )* '}'
+                    {
+                    match(input,22,FOLLOW_22_in_ifconditionalexpr309); 
+                    match(input,12,FOLLOW_12_in_ifconditionalexpr311); 
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:134: (ce3= question )*
+                    loop5:
+                    do {
+                        int alt5=2;
+                        int LA5_0 = input.LA(1);
+
+                        if ( (LA5_0==STRING) ) {
+                            alt5=1;
+                        }
+
+
+                        switch (alt5) {
+                    	case 1 :
+                    	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:135: ce3= question
+                    	    {
+                    	    pushFollow(FOLLOW_question_in_ifconditionalexpr318);
+                    	    ce3=question();
+
+                    	    state._fsp--;
+
+                    	    ifce.addElse(ce3); 
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop5;
+                        }
+                    } while (true);
+
+                    match(input,13,FOLLOW_13_in_ifconditionalexpr325); 
+
+                    }
+                    break;
+
+            }
+
 
             }
 
@@ -314,29 +490,34 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 3, condition_StartIndex); }
         }
-        return ;
+        return ifce;
     }
-    // $ANTLR end "condition"
+    // $ANTLR end "ifconditionalexpr"
 
 
     // $ANTLR start "calculation"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:49:1: calculation : Ident '=' primary ;
-    public final void calculation() throws RecognitionException {
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:1: calculation returns [Calculation c] : d1= Ident '=' or1= orExpr ;
+    public final Calculation calculation() throws RecognitionException {
+        Calculation c = null;
         int calculation_StartIndex = input.index();
+        Token d1=null;
+        Expr or1 = null;
+
+
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return ; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:50:5: ( Ident '=' primary )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:7: Ident '=' primary
+            if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return c; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:64:5: (d1= Ident '=' or1= orExpr )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:65:7: d1= Ident '=' or1= orExpr
             {
-            match(input,Ident,FOLLOW_Ident_in_calculation190); if (state.failed) return ;
-            match(input,15,FOLLOW_15_in_calculation192); if (state.failed) return ;
-            pushFollow(FOLLOW_primary_in_calculation194);
-            primary();
+            d1=(Token)match(input,Ident,FOLLOW_Ident_in_calculation359); 
+            match(input,23,FOLLOW_23_in_calculation362); 
+            pushFollow(FOLLOW_orExpr_in_calculation369);
+            or1=orExpr();
 
             state._fsp--;
-            if (state.failed) return ;
+
+            c = new Calculation((d1!=null?d1.getText():null), or1); 
 
             }
 
@@ -346,140 +527,49 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 4, calculation_StartIndex); }
         }
-        return ;
+        return c;
     }
     // $ANTLR end "calculation"
 
 
     // $ANTLR start "primary"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:1: primary returns [Expr result] : ( Int | Ident | '(' x= orExpr ')' );
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:69:1: primary returns [Expr result] : ( Int | Ident | Bool | '(' x= orExpr ')' );
     public final Expr primary() throws RecognitionException {
         Expr result = null;
         int primary_StartIndex = input.index();
-        Token Int1=null;
-        Token Ident2=null;
+        Token Int3=null;
+        Token Ident4=null;
+        Token Bool5=null;
         Expr x = null;
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:5: ( Int | Ident | '(' x= orExpr ')' )
-            int alt6=3;
-            switch ( input.LA(1) ) {
-            case Int:
-                {
-                alt6=1;
-                }
-                break;
-            case Ident:
-                {
-                alt6=2;
-                }
-                break;
-            case 16:
-                {
-                alt6=3;
-                }
-                break;
-            default:
-                if (state.backtracking>0) {state.failed=true; return result;}
-                NoViableAltException nvae =
-                    new NoViableAltException("", 6, 0, input);
-
-                throw nvae;
-            }
-
-            switch (alt6) {
-                case 1 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:9: Int
-                    {
-                    Int1=(Token)match(input,Int,FOLLOW_Int_in_primary225); if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = new Int(Integer.parseInt((Int1!=null?Int1.getText():null))); 
-                    }
-
-                    }
-                    break;
-                case 2 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:7: Ident
-                    {
-                    Ident2=(Token)match(input,Ident,FOLLOW_Ident_in_primary237); if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = new Ident((Ident2!=null?Ident2.getText():null)); 
-                    }
-
-                    }
-                    break;
-                case 3 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:7: '(' x= orExpr ')'
-                    {
-                    match(input,16,FOLLOW_16_in_primary247); if (state.failed) return result;
-                    pushFollow(FOLLOW_orExpr_in_primary251);
-                    x=orExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-                    match(input,14,FOLLOW_14_in_primary253); if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = x; 
-                    }
-
-                    }
-                    break;
-
-            }
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 5, primary_StartIndex); }
-        }
-        return result;
-    }
-    // $ANTLR end "primary"
-
-
-    // $ANTLR start "unExpr"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr | x= primary );
-    public final Expr unExpr() throws RecognitionException {
-        Expr result = null;
-        int unExpr_StartIndex = input.index();
-        Expr x = null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:64:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr | x= primary )
+            if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:70:3: ( Int | Ident | Bool | '(' x= orExpr ')' )
             int alt7=4;
             switch ( input.LA(1) ) {
-            case 17:
+            case Int:
                 {
                 alt7=1;
                 }
                 break;
-            case 18:
+            case Ident:
                 {
                 alt7=2;
                 }
                 break;
-            case 19:
+            case Bool:
                 {
                 alt7=3;
                 }
                 break;
-            case Ident:
-            case Int:
-            case 16:
+            case 20:
                 {
                 alt7=4;
                 }
                 break;
             default:
-                if (state.backtracking>0) {state.failed=true; return result;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 7, 0, input);
 
@@ -488,61 +578,40 @@ public class QLParser extends Parser {
 
             switch (alt7) {
                 case 1 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:65:9: '+' x= unExpr
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:70:5: Int
                     {
-                    match(input,17,FOLLOW_17_in_unExpr286); if (state.failed) return result;
-                    pushFollow(FOLLOW_unExpr_in_unExpr290);
-                    x=unExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = new Pos(x); 
-                    }
+                    Int3=(Token)match(input,Int,FOLLOW_Int_in_primary395); 
+                     result = new Int(Integer.parseInt((Int3!=null?Int3.getText():null))); 
 
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:9: '-' x= unExpr
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:5: Ident
                     {
-                    match(input,18,FOLLOW_18_in_unExpr303); if (state.failed) return result;
-                    pushFollow(FOLLOW_unExpr_in_unExpr307);
-                    x=unExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = new Neg(x); 
-                    }
+                    Ident4=(Token)match(input,Ident,FOLLOW_Ident_in_primary405); 
+                     result = this.variables.get((Ident4!=null?Ident4.getText():null)); 
 
                     }
                     break;
                 case 3 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:67:9: '!' x= unExpr
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:72:5: Bool
                     {
-                    match(input,19,FOLLOW_19_in_unExpr320); if (state.failed) return result;
-                    pushFollow(FOLLOW_unExpr_in_unExpr324);
-                    x=unExpr();
-
-                    state._fsp--;
-                    if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = new Not(x); 
-                    }
+                    Bool5=(Token)match(input,Bool,FOLLOW_Bool_in_primary413); 
+                     result = new Bool((Bool5!=null?Bool5.getText():null)); 
 
                     }
                     break;
                 case 4 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:68:13: x= primary
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:73:5: '(' x= orExpr ')'
                     {
-                    pushFollow(FOLLOW_primary_in_unExpr343);
-                    x=primary();
+                    match(input,20,FOLLOW_20_in_primary421); 
+                    pushFollow(FOLLOW_orExpr_in_primary425);
+                    x=orExpr();
 
                     state._fsp--;
-                    if (state.failed) return result;
-                    if ( state.backtracking==0 ) {
-                       result = x; 
-                    }
+
+                    match(input,21,FOLLOW_21_in_primary427); 
+                     result = x; 
 
                     }
                     break;
@@ -554,7 +623,115 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 6, unExpr_StartIndex); }
+        }
+        return result;
+    }
+    // $ANTLR end "primary"
+
+
+    // $ANTLR start "unExpr"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:78:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr | x= primary );
+    public final Expr unExpr() throws RecognitionException {
+        Expr result = null;
+        int unExpr_StartIndex = input.index();
+        Expr x = null;
+
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:79:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr | x= primary )
+            int alt8=4;
+            switch ( input.LA(1) ) {
+            case 24:
+                {
+                alt8=1;
+                }
+                break;
+            case 25:
+                {
+                alt8=2;
+                }
+                break;
+            case 26:
+                {
+                alt8=3;
+                }
+                break;
+            case Ident:
+            case Int:
+            case Bool:
+            case 20:
+                {
+                alt8=4;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 8, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt8) {
+                case 1 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:79:8: '+' x= unExpr
+                    {
+                    match(input,24,FOLLOW_24_in_unExpr460); 
+                    pushFollow(FOLLOW_unExpr_in_unExpr464);
+                    x=unExpr();
+
+                    state._fsp--;
+
+                     result = new Pos(x); 
+
+                    }
+                    break;
+                case 2 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:8: '-' x= unExpr
+                    {
+                    match(input,25,FOLLOW_25_in_unExpr475); 
+                    pushFollow(FOLLOW_unExpr_in_unExpr479);
+                    x=unExpr();
+
+                    state._fsp--;
+
+                     result = new Neg(x); 
+
+                    }
+                    break;
+                case 3 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:8: '!' x= unExpr
+                    {
+                    match(input,26,FOLLOW_26_in_unExpr490); 
+                    pushFollow(FOLLOW_unExpr_in_unExpr494);
+                    x=unExpr();
+
+                    state._fsp--;
+
+                     result = new Not(x); 
+
+                    }
+                    break;
+                case 4 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:8: x= primary
+                    {
+                    pushFollow(FOLLOW_primary_in_unExpr507);
+                    x=primary();
+
+                    state._fsp--;
+
+                     result = x; 
+
+                    }
+                    break;
+
+            }
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
         }
         return result;
     }
@@ -562,7 +739,7 @@ public class QLParser extends Parser {
 
 
     // $ANTLR start "mulExpr"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:85:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
     public final Expr mulExpr() throws RecognitionException {
         Expr result = null;
         int mulExpr_StartIndex = input.index();
@@ -573,149 +750,54 @@ public class QLParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:72:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:73:7: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
             {
-            pushFollow(FOLLOW_unExpr_in_mulExpr382);
+            pushFollow(FOLLOW_unExpr_in_mulExpr545);
             lhs=unExpr();
 
             state._fsp--;
-            if (state.failed) return result;
-            if ( state.backtracking==0 ) {
-               result =lhs; 
-            }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:73:43: (op= ( '*' | '/' ) rhs= unExpr )*
-            loop8:
-            do {
-                int alt8=2;
-                int LA8_0 = input.LA(1);
 
-                if ( ((LA8_0>=20 && LA8_0<=21)) ) {
-                    alt8=1;
-                }
-
-
-                switch (alt8) {
-            	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:73:45: op= ( '*' | '/' ) rhs= unExpr
-            	    {
-            	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=20 && input.LA(1)<=21) ) {
-            	        input.consume();
-            	        state.errorRecovery=false;state.failed=false;
-            	    }
-            	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        throw mse;
-            	    }
-
-            	    pushFollow(FOLLOW_unExpr_in_mulExpr402);
-            	    rhs=unExpr();
-
-            	    state._fsp--;
-            	    if (state.failed) return result;
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	      if ((op!=null?op.getText():null).equals("*")) {
-            	      	        result = new Mul(result, rhs);
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals("/")) {
-            	      	        result = new Div(result, rhs);      
-            	      	      }
-            	      	    
-            	    }
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop8;
-                }
-            } while (true);
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-            if ( state.backtracking>0 ) { memoize(input, 7, mulExpr_StartIndex); }
-        }
-        return result;
-    }
-    // $ANTLR end "mulExpr"
-
-
-    // $ANTLR start "addExpr"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:85:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
-    public final Expr addExpr() throws RecognitionException {
-        Expr result = null;
-        int addExpr_StartIndex = input.index();
-        Token op=null;
-        Expr lhs = null;
-
-        Expr rhs = null;
-
-
-        try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:7: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
-            {
-            pushFollow(FOLLOW_mulExpr_in_addExpr448);
-            lhs=mulExpr();
-
-            state._fsp--;
-            if (state.failed) return result;
-            if ( state.backtracking==0 ) {
-               result =lhs; 
-            }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:44: (op= ( '+' | '-' ) rhs= mulExpr )*
+             result =lhs; 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:45: (op= ( '*' | '/' ) rhs= unExpr )*
             loop9:
             do {
                 int alt9=2;
                 int LA9_0 = input.LA(1);
 
-                if ( ((LA9_0>=17 && LA9_0<=18)) ) {
+                if ( ((LA9_0>=27 && LA9_0<=28)) ) {
                     alt9=1;
                 }
 
 
                 switch (alt9) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:46: op= ( '+' | '-' ) rhs= mulExpr
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:86:47: op= ( '*' | '/' ) rhs= unExpr
             	    {
             	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=17 && input.LA(1)<=18) ) {
+            	    if ( (input.LA(1)>=27 && input.LA(1)<=28) ) {
             	        input.consume();
-            	        state.errorRecovery=false;state.failed=false;
+            	        state.errorRecovery=false;
             	    }
             	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_mulExpr_in_addExpr466);
-            	    rhs=mulExpr();
+            	    pushFollow(FOLLOW_unExpr_in_mulExpr565);
+            	    rhs=unExpr();
 
             	    state._fsp--;
-            	    if (state.failed) return result;
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	      if ((op!=null?op.getText():null).equals("+")) {
-            	      	        result = new Add(result, rhs);
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals("-")) {
-            	      	        result = new Sub(result, rhs);      
-            	      	      }
-            	      	    
-            	    }
+
+            	     
+            	          if ((op!=null?op.getText():null).equals("*")) {
+            	            result = new Mul(result, rhs);
+            	          }
+            	          if ((op!=null?op.getText():null).equals("/")) {
+            	            result = new Div(result, rhs);      
+            	          }
+            	        
 
             	    }
             	    break;
@@ -734,18 +816,17 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 8, addExpr_StartIndex); }
         }
         return result;
     }
-    // $ANTLR end "addExpr"
+    // $ANTLR end "mulExpr"
 
 
-    // $ANTLR start "relExpr"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
-    public final Expr relExpr() throws RecognitionException {
+    // $ANTLR start "addExpr"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:98:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+    public final Expr addExpr() throws RecognitionException {
         Expr result = null;
-        int relExpr_StartIndex = input.index();
+        int addExpr_StartIndex = input.index();
         Token op=null;
         Expr lhs = null;
 
@@ -753,71 +834,54 @@ public class QLParser extends Parser {
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:7: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
             {
-            pushFollow(FOLLOW_addExpr_in_relExpr509);
-            lhs=addExpr();
+            pushFollow(FOLLOW_mulExpr_in_addExpr606);
+            lhs=mulExpr();
 
             state._fsp--;
-            if (state.failed) return result;
-            if ( state.backtracking==0 ) {
-               result =lhs; 
-            }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:44: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+
+             result =lhs; 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:46: (op= ( '+' | '-' ) rhs= mulExpr )*
             loop10:
             do {
                 int alt10=2;
                 int LA10_0 = input.LA(1);
 
-                if ( ((LA10_0>=22 && LA10_0<=27)) ) {
+                if ( ((LA10_0>=24 && LA10_0<=25)) ) {
                     alt10=1;
                 }
 
 
                 switch (alt10) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:46: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:48: op= ( '+' | '-' ) rhs= mulExpr
             	    {
             	    op=(Token)input.LT(1);
-            	    if ( (input.LA(1)>=22 && input.LA(1)<=27) ) {
+            	    if ( (input.LA(1)>=24 && input.LA(1)<=25) ) {
             	        input.consume();
-            	        state.errorRecovery=false;state.failed=false;
+            	        state.errorRecovery=false;
             	    }
             	    else {
-            	        if (state.backtracking>0) {state.failed=true; return result;}
             	        MismatchedSetException mse = new MismatchedSetException(null,input);
             	        throw mse;
             	    }
 
-            	    pushFollow(FOLLOW_addExpr_in_relExpr533);
-            	    rhs=addExpr();
+            	    pushFollow(FOLLOW_mulExpr_in_addExpr624);
+            	    rhs=mulExpr();
 
             	    state._fsp--;
-            	    if (state.failed) return result;
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	      if ((op!=null?op.getText():null).equals("<")) {
-            	      	        result = new LT(result, rhs);
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals("<=")) {
-            	      	        result = new LEq(result, rhs);      
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals(">")) {
-            	      	        result = new GT(result, rhs);
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals(">=")) {
-            	      	        result = new GEq(result, rhs);      
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals("==")) {
-            	      	        result = new Eq(result, rhs);
-            	      	      }
-            	      	      if ((op!=null?op.getText():null).equals("!=")) {
-            	      	        result = new NEq(result, rhs);
-            	      	      }
-            	      	    
-            	    }
+
+            	     
+            	          if ((op!=null?op.getText():null).equals("+")) {
+            	            result = new Add(result, rhs);
+            	          }
+            	          if ((op!=null?op.getText():null).equals("-")) {
+            	            result = new Sub(result, rhs);      
+            	          }
+            	        
 
             	    }
             	    break;
@@ -836,60 +900,84 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 9, relExpr_StartIndex); }
         }
         return result;
     }
-    // $ANTLR end "relExpr"
+    // $ANTLR end "addExpr"
 
 
-    // $ANTLR start "andExpr"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
-    public final Expr andExpr() throws RecognitionException {
+    // $ANTLR start "relExpr"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:111:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+    public final Expr relExpr() throws RecognitionException {
         Expr result = null;
-        int andExpr_StartIndex = input.index();
+        int relExpr_StartIndex = input.index();
+        Token op=null;
         Expr lhs = null;
 
         Expr rhs = null;
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:7: lhs= relExpr ( '&&' rhs= relExpr )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             {
-            pushFollow(FOLLOW_relExpr_in_andExpr576);
-            lhs=relExpr();
+            pushFollow(FOLLOW_addExpr_in_relExpr662);
+            lhs=addExpr();
 
             state._fsp--;
-            if (state.failed) return result;
-            if ( state.backtracking==0 ) {
-               result =lhs; 
-            }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:44: ( '&&' rhs= relExpr )*
+
+             result =lhs; 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
             loop11:
             do {
                 int alt11=2;
                 int LA11_0 = input.LA(1);
 
-                if ( (LA11_0==28) ) {
+                if ( ((LA11_0>=29 && LA11_0<=34)) ) {
                     alt11=1;
                 }
 
 
                 switch (alt11) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:46: '&&' rhs= relExpr
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
             	    {
-            	    match(input,28,FOLLOW_28_in_andExpr582); if (state.failed) return result;
-            	    pushFollow(FOLLOW_relExpr_in_andExpr586);
-            	    rhs=relExpr();
+            	    op=(Token)input.LT(1);
+            	    if ( (input.LA(1)>=29 && input.LA(1)<=34) ) {
+            	        input.consume();
+            	        state.errorRecovery=false;
+            	    }
+            	    else {
+            	        MismatchedSetException mse = new MismatchedSetException(null,input);
+            	        throw mse;
+            	    }
+
+            	    pushFollow(FOLLOW_addExpr_in_relExpr686);
+            	    rhs=addExpr();
 
             	    state._fsp--;
-            	    if (state.failed) return result;
-            	    if ( state.backtracking==0 ) {
-            	       result = new And(result, rhs); 
-            	    }
+
+            	     
+            	          if ((op!=null?op.getText():null).equals("<")) {
+            	            result = new LT(result, rhs);
+            	          }
+            	          if ((op!=null?op.getText():null).equals("<=")) {
+            	            result = new LEq(result, rhs);      
+            	          }
+            	          if ((op!=null?op.getText():null).equals(">")) {
+            	            result = new GT(result, rhs);
+            	          }
+            	          if ((op!=null?op.getText():null).equals(">=")) {
+            	            result = new GEq(result, rhs);      
+            	          }
+            	          if ((op!=null?op.getText():null).equals("==")) {
+            	            result = new Eq(result, rhs);
+            	          }
+            	          if ((op!=null?op.getText():null).equals("!=")) {
+            	            result = new NEq(result, rhs);
+            	          }
+            	        
 
             	    }
             	    break;
@@ -908,60 +996,55 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 10, andExpr_StartIndex); }
         }
         return result;
     }
-    // $ANTLR end "andExpr"
+    // $ANTLR end "relExpr"
 
 
-    // $ANTLR start "orExpr"
-    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
-    public final Expr orExpr() throws RecognitionException {
+    // $ANTLR start "andExpr"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:136:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+    public final Expr andExpr() throws RecognitionException {
         Expr result = null;
-        int orExpr_StartIndex = input.index();
+        int andExpr_StartIndex = input.index();
         Expr lhs = null;
 
         Expr rhs = null;
 
 
         try {
-            if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:7: lhs= andExpr ( '||' rhs= andExpr )*
+            if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:9: lhs= relExpr ( '&&' rhs= relExpr )*
             {
-            pushFollow(FOLLOW_andExpr_in_orExpr620);
-            lhs=andExpr();
+            pushFollow(FOLLOW_relExpr_in_andExpr729);
+            lhs=relExpr();
 
             state._fsp--;
-            if (state.failed) return result;
-            if ( state.backtracking==0 ) {
-               result = lhs; 
-            }
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:46: ( '||' rhs= andExpr )*
+
+             result =lhs; 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:46: ( '&&' rhs= relExpr )*
             loop12:
             do {
                 int alt12=2;
                 int LA12_0 = input.LA(1);
 
-                if ( (LA12_0==29) ) {
+                if ( (LA12_0==35) ) {
                     alt12=1;
                 }
 
 
                 switch (alt12) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:48: '||' rhs= andExpr
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:48: '&&' rhs= relExpr
             	    {
-            	    match(input,29,FOLLOW_29_in_orExpr626); if (state.failed) return result;
-            	    pushFollow(FOLLOW_andExpr_in_orExpr630);
-            	    rhs=andExpr();
+            	    match(input,35,FOLLOW_35_in_andExpr735); 
+            	    pushFollow(FOLLOW_relExpr_in_andExpr739);
+            	    rhs=relExpr();
 
             	    state._fsp--;
-            	    if (state.failed) return result;
-            	    if ( state.backtracking==0 ) {
-            	       result = new Or(result, rhs); 
-            	    }
+
+            	     result = new And(result, rhs); 
 
             	    }
             	    break;
@@ -980,90 +1063,140 @@ public class QLParser extends Parser {
             recover(input,re);
         }
         finally {
-            if ( state.backtracking>0 ) { memoize(input, 11, orExpr_StartIndex); }
+        }
+        return result;
+    }
+    // $ANTLR end "andExpr"
+
+
+    // $ANTLR start "orExpr"
+    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:141:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+    public final Expr orExpr() throws RecognitionException {
+        Expr result = null;
+        int orExpr_StartIndex = input.index();
+        Expr lhs = null;
+
+        Expr rhs = null;
+
+
+        try {
+            if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:9: lhs= andExpr ( '||' rhs= andExpr )*
+            {
+            pushFollow(FOLLOW_andExpr_in_orExpr774);
+            lhs=andExpr();
+
+            state._fsp--;
+
+             result = lhs; 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:48: ( '||' rhs= andExpr )*
+            loop13:
+            do {
+                int alt13=2;
+                int LA13_0 = input.LA(1);
+
+                if ( (LA13_0==36) ) {
+                    alt13=1;
+                }
+
+
+                switch (alt13) {
+            	case 1 :
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:142:50: '||' rhs= andExpr
+            	    {
+            	    match(input,36,FOLLOW_36_in_orExpr780); 
+            	    pushFollow(FOLLOW_andExpr_in_orExpr784);
+            	    rhs=andExpr();
+
+            	    state._fsp--;
+
+            	     result = new Or(result, rhs); 
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop13;
+                }
+            } while (true);
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
         }
         return result;
     }
     // $ANTLR end "orExpr"
 
-    // $ANTLR start synpred2_QL
-    public final void synpred2_QL_fragment() throws RecognitionException {   
-        // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:11: ( . )
-        // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:11: .
-        {
-        matchAny(input); if (state.failed) return ;
-
-        }
-    }
-    // $ANTLR end synpred2_QL
-
     // Delegated rules
-
-    public final boolean synpred2_QL() {
-        state.backtracking++;
-        int start = input.mark();
-        try {
-            synpred2_QL_fragment(); // can never throw exception
-        } catch (RecognitionException re) {
-            System.err.println("impossible: "+re);
-        }
-        boolean success = !state.failed;
-        input.rewind(start);
-        state.backtracking--;
-        state.failed=false;
-        return success;
-    }
 
 
  
 
-    public static final BitSet FOLLOW_8_in_form60 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_Ident_in_form62 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_9_in_form64 = new BitSet(new long[]{0x0000000000000C00L});
-    public static final BitSet FOLLOW_question_in_form66 = new BitSet(new long[]{0x0000000000000C00L});
-    public static final BitSet FOLLOW_10_in_form69 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_question105 = new BitSet(new long[]{0x000000003FFFFFF0L});
-    public static final BitSet FOLLOW_11_in_question110 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_condition_in_question113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_calculation_in_question117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_condition144 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_condition146 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_Ident_in_condition148 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_13_in_condition151 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_Ident_in_condition153 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_condition155 = new BitSet(new long[]{0x0000000000000200L});
-    public static final BitSet FOLLOW_9_in_condition157 = new BitSet(new long[]{0x0000000000000C00L});
-    public static final BitSet FOLLOW_question_in_condition159 = new BitSet(new long[]{0x0000000000000C00L});
-    public static final BitSet FOLLOW_10_in_condition162 = new BitSet(new long[]{0x0000000000002002L});
-    public static final BitSet FOLLOW_Ident_in_calculation190 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_calculation192 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_primary_in_calculation194 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Int_in_primary225 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Ident_in_primary237 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_primary247 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_orExpr_in_primary251 = new BitSet(new long[]{0x0000000000004000L});
-    public static final BitSet FOLLOW_14_in_primary253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_unExpr286 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr290 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_unExpr303 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_unExpr320 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_unExpr_in_unExpr324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_primary_in_unExpr343 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr382 = new BitSet(new long[]{0x0000000000300002L});
-    public static final BitSet FOLLOW_set_in_mulExpr390 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_unExpr_in_mulExpr402 = new BitSet(new long[]{0x0000000000300002L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr448 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_set_in_addExpr456 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_mulExpr_in_addExpr466 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr509 = new BitSet(new long[]{0x000000000FC00002L});
-    public static final BitSet FOLLOW_set_in_relExpr517 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_addExpr_in_relExpr533 = new BitSet(new long[]{0x000000000FC00002L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr576 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_28_in_andExpr582 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_relExpr_in_andExpr586 = new BitSet(new long[]{0x0000000010000002L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr620 = new BitSet(new long[]{0x0000000020000002L});
-    public static final BitSet FOLLOW_29_in_orExpr626 = new BitSet(new long[]{0x00000000000F0030L});
-    public static final BitSet FOLLOW_andExpr_in_orExpr630 = new BitSet(new long[]{0x0000000020000002L});
+    public static final BitSet FOLLOW_11_in_form69 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_Ident_in_form71 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_form75 = new BitSet(new long[]{0x0000000000082020L});
+    public static final BitSet FOLLOW_question_in_form83 = new BitSet(new long[]{0x0000000000082020L});
+    public static final BitSet FOLLOW_ifconditionalexpr_in_form94 = new BitSet(new long[]{0x0000000000082020L});
+    public static final BitSet FOLLOW_13_in_form100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_in_question135 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_declaration_in_question146 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_calculation_in_question157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_declaration196 = new BitSet(new long[]{0x0000000000004000L});
+    public static final BitSet FOLLOW_14_in_declaration198 = new BitSet(new long[]{0x0000000000078000L});
+    public static final BitSet FOLLOW_type_in_declaration204 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_type231 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_type237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_type243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_type250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_ifconditionalexpr278 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_ifconditionalexpr280 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_orExpr_in_ifconditionalexpr286 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_ifconditionalexpr290 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_ifconditionalexpr292 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_question_in_ifconditionalexpr299 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_13_in_ifconditionalexpr306 = new BitSet(new long[]{0x0000000000400002L});
+    public static final BitSet FOLLOW_22_in_ifconditionalexpr309 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_ifconditionalexpr311 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_question_in_ifconditionalexpr318 = new BitSet(new long[]{0x0000000000002020L});
+    public static final BitSet FOLLOW_13_in_ifconditionalexpr325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_calculation359 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_calculation362 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_orExpr_in_calculation369 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Int_in_primary395 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Ident_in_primary405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_Bool_in_primary413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_primary421 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_orExpr_in_primary425 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_21_in_primary427 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_unExpr460 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_unExpr475 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr479 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_unExpr490 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_unExpr_in_unExpr494 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_primary_in_unExpr507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr545 = new BitSet(new long[]{0x0000000018000002L});
+    public static final BitSet FOLLOW_set_in_mulExpr553 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_unExpr_in_mulExpr565 = new BitSet(new long[]{0x0000000018000002L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr606 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_set_in_addExpr614 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_mulExpr_in_addExpr624 = new BitSet(new long[]{0x0000000003000002L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr662 = new BitSet(new long[]{0x00000007E0000002L});
+    public static final BitSet FOLLOW_set_in_relExpr670 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_addExpr_in_relExpr686 = new BitSet(new long[]{0x00000007E0000002L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr729 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_35_in_andExpr735 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_relExpr_in_andExpr739 = new BitSet(new long[]{0x0000000800000002L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr774 = new BitSet(new long[]{0x0000001000000002L});
+    public static final BitSet FOLLOW_36_in_orExpr780 = new BitSet(new long[]{0x00000000071000D0L});
+    public static final BitSet FOLLOW_andExpr_in_orExpr784 = new BitSet(new long[]{0x0000001000000002L});
 
 }

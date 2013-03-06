@@ -1,47 +1,38 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.exception.InvalidTypeException;
+import org.uva.sea.ql.ast.expression.ArithmeticOperation;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.ast.value.impl.NumericValue;
+import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
 
-public class LessThanNode extends ExprNode
+import java.util.Map;
+
+public class LessThanNode extends ArithmeticOperation
 {
-    private final ExprNode lhs;
-    private final ExprNode rhs;
 
     public LessThanNode(final ExprNode lhs, final ExprNode rhs)
     {
-        this.lhs = lhs;
-        this.rhs = rhs;
+        super(lhs, rhs);
     }
 
     @Override
-    public Value evaluate()
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
     {
-        final Value value1 = this.lhs.evaluate();
-        final Value value2 = this.rhs.evaluate();
-
-        final Value result;
-        if(value1.isCompatibleTo(value2))
-        {
-            final NumericValue numericValue1 = value1.asNumericValue();
-            final NumericValue numericValue2 = value2.asNumericValue();
-            result = numericValue1.lessThan(numericValue2);
-        }
-        else
-        {
-            throw new InvalidTypeException("Invalid operand type for lessThan(<) operation: " + toTreeString(" "));
-        }
-
-        return result;
+        return expressionVisitor.visit(this);
     }
 
     @Override
-    public String toTreeString(String indent)
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        return '\n' + indent + "<" + lhs.toTreeString(indent + "  ")
-                + rhs.toTreeString(indent + "  ");
-
+        final Value value1 = this.lhs.evaluate(variables);
+        final Value value2 = this.rhs.evaluate(variables);
+        return value1.lessThan(value2);
     }
+
+    @Override
+    protected String getOperator()
+    {
+        return "<";
+    }
+
 }

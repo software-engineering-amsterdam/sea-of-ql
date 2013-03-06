@@ -5,11 +5,11 @@ import static julius.validation.Assertions.state;
 import org.uva.sea.ql.ast.exp.Expression;
 import org.uva.sea.ql.ast.exp.Identifier;
 import org.uva.sea.ql.ast.type.DataType;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Computed implements ASTNode {
-	private final DataType dataType;
+public class Computed extends Block {
+
 	private final Identifier identifier;
+	private final DataType dataType;
 	private final Expression expression;
 
 	/**
@@ -33,8 +33,27 @@ public class Computed implements ASTNode {
 		state.assertNotNull(this.expression, "Computed.expression");
 	}
 
-	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public DataType getDataType() {
+		return dataType;
 	}
+
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public Expression getExpression() {
+		return expression;
+	}
+
+	@Override
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Computed [" + identifier + ", " + dataType + ", " + expression
+				+ "]";
+	}
+
 }

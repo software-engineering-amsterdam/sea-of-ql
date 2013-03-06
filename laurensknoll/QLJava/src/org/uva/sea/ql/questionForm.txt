@@ -1,11 +1,15 @@
 form Box1HouseOwning {
+   name: "What is your name?" string
    hasSoldHouse: "Did you sell a house in 2010?" boolean
    hasBoughtHouse: "Did you by a house in 2010?" boolean
    hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
-   if (hasSoldHouse) {
+   if (hasSoldHouse || hasMaintLoan) {
      sellingPrice: "Price the house was sold for:" money
      privateDebt: "Private debts for the sold house:" money
      valueResidue: "Value residue:" money(sellingPrice - privateDebt)
+     if (valueResidue > 20) {
+     	valueResiduePlusTen: "Residue + 10:" money(valueResidue + 10)
+     }
    }
    
    if (hasBoughtHouse)  {

@@ -1,12 +1,17 @@
 package org.uva.sea.ql.ast.types;
 
 import org.uva.sea.ql.ast.Type;
-import org.uva.sea.ql.ast.visitor.Visitor;
 
-public class StringType extends Type{
-	
+public class StringType extends Type {
+
 	@Override
-	public void accept(Visitor visitor) {
-		visitor.visit(this);
+	public boolean isCompatibleTo(Type t) {
+		return t.isCompatibleToString();
 	}
+
+	@Override
+	public boolean isCompatibleToString() {
+		return true;
+	}
+
 }

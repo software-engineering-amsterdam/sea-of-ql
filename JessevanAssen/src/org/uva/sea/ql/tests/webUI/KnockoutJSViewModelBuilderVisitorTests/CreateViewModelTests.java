@@ -26,15 +26,6 @@ public class CreateViewModelTests extends KnockoutJSViewModelBuilderVisitorTests
     );
 
     @Test
-    public void methodCalled_identifiersAreAddedToViewModel() {
-        String viewModel = visitor.createViewModel(FORM);
-
-        assertTrue(viewModel.contains(
-                "identifiers={a:ko.observable(),b:ko.observable(),c:ko.observable()}"
-        ));
-    }
-
-    @Test
     public void methodCalled_formIsAddedToViewModel() {
         String viewModel = visitor.createViewModel(FORM);
         FORM.accept(visitor, context);

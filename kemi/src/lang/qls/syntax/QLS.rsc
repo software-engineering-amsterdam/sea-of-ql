@@ -8,50 +8,40 @@
 @contributor{Kevin van der Vlist - kevin@kevinvandervlist.nl}
 @contributor{Jimi van der Woning - Jimi.vanderWoning@student.uva.nl}
 
-module lang::qls::syntax::QLS
+module lang::qls::\syntax::QLS
+
+extend lang::ql::\syntax::Comment;
+extend lang::ql::\syntax::Int;
+extend lang::ql::\syntax::Layout;
+extend lang::ql::\syntax::Money;
+extend lang::ql::\syntax::String;
+extend lang::ql::\syntax::Type;
+extend lang::qls::\syntax::Color;
+extend lang::qls::\syntax::Keyword;
 
 start syntax Stylesheet
   = stylesheet: "stylesheet" Ident "{" Definition* definitions "}"
   ;
 
-
-syntax Ident
-  = IdentIdent \ Keywords
-  | ("\\" IdentIdent) \ Keywords
-  ;
-
-lexical IdentIdent
-  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
-  ;
-
-
 syntax Definition
-  = @Foldable definition: PageDefinition
-  | @Foldable definition: SectionDefinition
-  | @Foldable definition: QuestionDefinition
-  | @Foldable definition: DefaultDefinition
+  = @Foldable PageDefinition
+  | @Foldable SectionDefinition
+  | @Foldable QuestionDefinition
+  | @Foldable DefaultDefinition
   ;
-
 
 syntax PageDefinition
-  = pageDefinition: "page" String "{" PageRule* "}"
-  ;
-
-
-syntax PageRule
-  = @Foldable pageRule: SectionDefinition
-  | @Foldable pageRule: QuestionDefinition
-  | @Foldable pageRule: DefaultDefinition
+  = pageDefinition: "page" String "{" LayoutRule* "}"
   ;
 
 syntax SectionDefinition
-  = sectionDefinition: "section" String "{" SectionRule* "}"
+  = sectionDefinition: "section" String "{" LayoutRule* "}"
   ;
 
-syntax SectionRule
-  = @Foldable sectionRule: SectionDefinition
-  | @Foldable sectionRule: QuestionDefinition
-  | @Foldable sectionRule: DefaultDefinition
+syntax LayoutRule
+  = @Foldable layoutRule: SectionDefinition
+  | @Foldable layoutRule: QuestionDefinition
+  | @Foldable layoutRule: DefaultDefinition
   ;
 
 syntax QuestionDefinition
@@ -63,76 +53,85 @@ syntax DefaultDefinition
   = defaultDefinition: "default" Type "{" StyleRule* "}"
   ;
 
-lexical Type
-  = @category="Type" "boolean"
-  | @category="Type" "integer"
-  | @category="Type" "money"
-  | @category="Type" "date"
-  | @category="Type" "string"
-  ; 
-
 syntax StyleRule
-  = typeStyleRule: TypeStyleAttr TypeStyleValue
-  | widthStyleRule: WidthStyleAttr Int
+  = widgetStyleRule: WidgetStyleAttr WidgetStyleValue
+  | intStyleRule: IntStyleAttr Int
+  | stringStyleRule: StringStyleAttr String
+  | colorStyleRule: ColorStyleAttr Color
   ;
 
-lexical TypeStyleValue
-  = radio: "radio"
-  | checkbox: "checkbox"
+syntax WidgetStyleValue
+  = text: TextWidgetValue
+  | number: NumberWidgetValue
+  | number: NumberWidgetValue "[" Number "," Number "]"
+  | number: NumberWidgetValue "[" Number "," Number "," Number "]"
+  | datepicker: DatepickerWidgetValue
+  | slider: SliderWidgetValue
+  | slider: SliderWidgetValue "[" Number "," Number "]"
+  | slider: SliderWidgetValue "[" Number "," Number "," Number "]"
+  | radio: RadioWidgetValue
+  | checkbox: CheckboxWidgetValue
+  | select: SelectWidgetValue
   ;
 
-lexical TypeStyleAttr
-  = @category="Constant" "type"
+lexical Number
+  = Int
+  | Money
   ;
 
-lexical WidthStyleAttr
-  = @category="Constant" "width"
+lexical TextWidgetValue
+  = "text"
   ;
 
-lexical Int
-  = [0-9]+ !>> [0-9]
+lexical NumberWidgetValue
+  = "number"
   ;
 
-lexical String
-  = @category="Variable" "\"" TextChar* "\"";
-
-lexical TextChar
-  = [\\] << [\"]
-  | ![\"]
+lexical DatepickerWidgetValue
+  = "datepicker"
   ;
 
-syntax WhitespaceOrComment 
-  = whitespace: Whitespace whitespace
-  | comment: Comment comment
+lexical SliderWidgetValue
+  = "slider"
+  ;
+
+lexical RadioWidgetValue
+  = "radio"
+  ;
+
+lexical CheckboxWidgetValue
+  = "checkbox"
+  ;
+
+lexical SelectWidgetValue
+  = "select"
+  ;
+
+lexical WidgetStyleAttr
+  = @category="Identifier" widget: "widget"
+  ;
+
+lexical IntStyleAttr
+  = @category="Identifier" width: "width"
+  | @category="Identifier" fontsize: "fontsize"
+  | @category="Identifier" labelFontsize: "label-fontsize"
+  ;
+
+lexical StringStyleAttr
+  = @category="Identifier" font: "font"
+  | @category="Identifier" labelFont: "label-font"
+  ;
+
+lexical ColorStyleAttr
+  = @category="Identifier" color: "color"
+  | @category="Identifier" labelColor: "label-color"
   ;
   
-lexical Comment 
-  = @category="Comment" "/*" CommentChar* "*/"
-  | @category="Comment" "//" ![\n]* $
+syntax Ident
+  = @category="Variable" ident: IdentLexical \ Keywords
+  | @category="Variable" ident: "\\" IdentLexical
   ;
 
-lexical CommentChar
-  = ![*]
-  | [*] !>> [/]
-  ;
-
-lexical Whitespace = [\u0009-\u000D \u0020 \u0085 \u00A0 \u1680 \u180E \u2000-\u200A \u2028 \u2029 \u202F \u205F \u3000];
-
-layout Standard = WhitespaceOrComment* !>> [\ \t\n\f\r] !>> "//" !>> "/*";
-
-keyword Keywords 
-  = stylesheet: "stylesheet"
-  | page: "page"
-  | section: "section"
-  | question: "question"
-  | \default: "default"
-  | boolean: "boolean"
-  | \int: "integer"
-  | money: "money"
-  | date: "date"
-  | string: "string"
-  | \type: "type"
-  | width: "width"
-  | radio: "radio"
-  | checkbox: "checkbox"
-  ;
+lexical IdentLexical
+  = [a-z A-Z 0-9 _] !<< [a-z A-Z][a-z A-Z 0-9 _]* !>> [a-z A-Z 0-9 _]
+   ;

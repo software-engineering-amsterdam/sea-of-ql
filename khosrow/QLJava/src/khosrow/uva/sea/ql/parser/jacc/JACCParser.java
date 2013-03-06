@@ -15,7 +15,7 @@ public class JACCParser implements IParse {
 		lexer.nextToken();
 		QLParser parser = new QLParser(lexer);
 		if (!parser.parse()) {
-			throw new ParseError("error");
+			throw new ParseError("Syntax error");
 		}
 		return parser;
 	}

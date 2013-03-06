@@ -11,16 +11,25 @@ import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.form.*;
 }
 
-@parser::members {
-  @Override
-  public void reportError(RecognitionException e) {
-    throw new RuntimeException(e);
-  }
-}
-
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr;
+}
+
+//@rulecatch
+//{
+//	catch (RecognitionException re) {
+//	    reportError(re);
+//	    recover(input,re);
+//	    throw re;
+//	}
+//}
+
+@parser::members {
+  @Override
+  public void reportError(RecognitionException e) {
+  throw new RuntimeException(e);
+  }
 }
 
 form returns [Form result]
@@ -146,7 +155,9 @@ COMMENT
     : ('/*' .* '*/' | '//'.* '\n') { $channel=HIDDEN; }
     ;
 
-String: '"' .* '"';
+String returns [String result]
+    : '"' .* '"' { setText(getText().substring(1,getText().length() - 1)); }
+    ;
 Bool: 'true' | 'false';
 Int: ('0'..'9')+;
 Ident: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -22,8 +23,9 @@ import java.util.Map;
 
 public class Controller extends HttpServlet {
 
-    public static String VIEWMODEL_ATTRIBUTE = "viewModel_attribute";
+    public static final String VIEWMODEL_ATTRIBUTE = "viewModel_attribute";
 
+    private static final String FORMFILE_NAME = "Box1HouseOwning.ql";
     private static final String VIEWPATH = "form.jsp";
     private static final String JSON_CONTENTTYPE = "application/json";
 
@@ -33,7 +35,7 @@ public class Controller extends HttpServlet {
         // However, there is nothing the application can do to repair this, so
         // go for the 'organized panic'-strategy and notify the caller that the
         // form is broken via the default server exception handling mechanism.
-        Form form = FormLoaderFactory.createFormLoader().loadForm();
+        Form form = FormLoaderFactory.createFormLoaderFromFile(getFormFile()).loadForm();
         String viewModel = KnockoutJSViewModelBuilderVisitor.createViewModel(form);
         request.setAttribute(VIEWMODEL_ATTRIBUTE, viewModel);
 
@@ -44,7 +46,7 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<String, String> postValues = flatten(request.getParameterMap());
-        Form form = FormLoaderFactory.createFormLoader().loadForm();
+        Form form = FormLoaderFactory.createFormLoaderFromFile(getFormFile()).loadForm();
         InterpreterVisitor.Result result = InterpreterVisitor.interpret(form, postValues);
 
         if(result.getErrors().isEmpty()) {
@@ -52,6 +54,11 @@ public class Controller extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_OK);
         } else
             showErrors(result.getErrors().iterator(), response);
+    }
+
+    private File getFormFile() {
+        String formFilePath = getServletContext().getRealPath(FORMFILE_NAME);
+        return new File(formFilePath);
     }
 
     private void persistFormValues(Map<Identifier, Value> values) {

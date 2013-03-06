@@ -3,14 +3,13 @@ package org.uva.sea.ql.ast;
 import static julius.validation.Assertions.state;
 
 import org.uva.sea.ql.ast.exp.Identifier;
-import org.uva.sea.ql.visitor.ASTNodeVisitor;
 
-public class Form implements ASTNode {
+public class Form extends Block {
 
 	private final Identifier identifier;
-	private final ASTNode body;
+	private final CompoundStatement body;
 
-	public Form(final Identifier identifier, final ASTNode body) {
+	public Form(final Identifier identifier, final CompoundStatement body) {
 		this.identifier = identifier;
 		this.body = body;
 
@@ -22,12 +21,18 @@ public class Form implements ASTNode {
 		return identifier;
 	}
 
-	public ASTNode getBody() {
+	public CompoundStatement getBody() {
 		return body;
 	}
 
 	@Override
-	public void accept(final ASTNodeVisitor visitor) {
-		visitor.visit(this);
+	public <T> T accept(final StatementVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Form [identifier=" + identifier + ", body=" + body + "]";
+	}
+
 }

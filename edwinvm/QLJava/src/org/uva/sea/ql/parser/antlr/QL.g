@@ -5,12 +5,18 @@ options {backtrack=true; memoize=true;}
 {
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expressions.binary.bool.*;
-import org.uva.sea.ql.ast.expressions.binary.numeric.*;
-import org.uva.sea.ql.ast.expressions.literal.*;
-import org.uva.sea.ql.ast.expressions.unary.*;
-import org.uva.sea.ql.ast.questions.*;
+import org.uva.sea.ql.ast.forms.*;
+import org.uva.sea.ql.ast.expressions.*;
+import org.uva.sea.ql.ast.expressions.arithmetic.*;
+import org.uva.sea.ql.ast.expressions.logical.*;
+import org.uva.sea.ql.ast.expressions.relational.*;
+import org.uva.sea.ql.ast.statements.conditions.*;
+import org.uva.sea.ql.ast.statements.questions.*;
+import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.ast.values.*;
 import org.uva.sea.ql.ast.types.*;
+import java.util.ArrayList;
+import java.util.List;
 }
 
 @lexer::header
@@ -19,7 +25,7 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-    :   'form' Ident '{' body=formStatement* '}' { $result = new Form(new Ident($Ident.text), $body.result); }
+    :   'form' Identifier '{' statementBody '}' { $result = new Form(new Identifier($Identifier.text), $statementBody.result); }
     ;
 
 formStatement returns [FormStatement result]
@@ -28,75 +34,91 @@ formStatement returns [FormStatement result]
     ;
 
 question returns [Question result]
-    :   String Ident ':' t=type { $result = new AnswerableQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), t); }
-    |   String Ident '=' e=orExpr { $result = new ComputedQuestion(new org.uva.sea.ql.ast.expressions.literal.Str($String.text), new Ident($Ident.text), $e.result); }
+    :   label = questionLabel variable = questionVariable ':' type     { $result = new AnswerableQuestion(label, variable, $type.result); }
+    |   label = questionLabel variable = questionVariable '=' expression { $result = new ComputedQuestion(label, variable, $expression.result); }
+    ;
+
+questionLabel returns [QuestionLabel result]
+    :   String { $result = new QuestionLabel(new org.uva.sea.ql.ast.values.Str($String.text.replace("\"", ""))); }
+    ;
+    
+questionVariable returns [QuestionVariable result]
+    :   Identifier { $result = new QuestionVariable(new Identifier($Identifier.text)); }
     ;
 
 conditionBlock returns [ConditionBlock result]
-    :   'if' '(' condition=orExpr ')' ifBody=conditionBody 'else' elseBody=conditionBody
-        { $result = new ConditionBlock(condition, $ifBody.result, $elseBody.result); }
-    |   'if' '(' condition=orExpr ')' ifBody=conditionBody
-        { $result = new ConditionBlock(condition, $ifBody.result); }
+    :   'if' '(' condition=expression ')' ifBody=statementBody 'else' elseBody=statementBody
+        { $result = new IfThenElseStatement(condition, ifBody, elseBody); }
+    |   'if' '(' condition=expression ')' ifBody=statementBody
+        { $result = new IfThenStatement(condition, ifBody); }
     ;
 
-conditionBody returns [FormStatement result]
-    :   '{' body=formStatement '}'  { $result = body; }
-    |   body=formStatement          { $result = body; }
-    |   '{' body=formStatement* '}' { $result = body; }
-    |   body=formStatement*         { $result = body; }
+statementBody returns [StatementBody result]
+	@init  { StatementBody statements = new StatementBody(); }
+    @after { $result = statements; }
+    :   '{' (statement=formStatement { statements.add(statement); })+ '}'
+    |       (statement=formStatement { statements.add(statement); })+
     ;
 
-primary returns [Expr result]
-    :   Int    { $result = new org.uva.sea.ql.ast.expressions.literal.Int(Integer.parseInt($Int.text)); }
-    |   Bool   { $result = new org.uva.sea.ql.ast.expressions.literal.Bool(Boolean.parseBoolean($Bool.text)); }
-    |   Money  { $result = new org.uva.sea.ql.ast.expressions.literal.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
-    |   String { $result = new org.uva.sea.ql.ast.expressions.literal.Str($String.text); }
-    |   Ident  { $result = new Ident($Ident.text); }
-    |   '(' x=orExpr ')'{ $result = $x.result; }
+primary returns [Expression result]
+    :   Int        { $result = new org.uva.sea.ql.ast.values.Int(Integer.parseInt($Int.text)); }
+    |   Bool       { $result = new org.uva.sea.ql.ast.values.Bool(Boolean.parseBoolean($Bool.text)); }
+    |   Money      { $result = new org.uva.sea.ql.ast.values.Money(Double.parseDouble($Money.text.replace(',', '.'))); }
+    |   String     { $result = new org.uva.sea.ql.ast.values.Str($String.text.replace("\"", "")); }
+    |   Identifier { $result = new Identifier($Identifier.text); }
+    |   '(' e=expression ')'{ $result = $e.result; }
     ;
     
-unExpr returns [Expr result]
-    :   '+' x=unExpr { $result = new Pos($x.result); }
-    |   '-' x=unExpr { $result = new Neg($x.result); }
-    |   '!' x=unExpr { $result = new Not($x.result); }
-    |   x=primary    { $result = $x.result; }
+unaryExpression returns [Expression result]
+    :   '+' e=unaryExpression { $result = new PositiveExpression($e.result); }
+    |   '-' e=unaryExpression { $result = new NegativeExpression($e.result); }
+    |   '!' e=unaryExpression { $result = new NegationalExpression($e.result); }
+    |   e=primary             { $result = $e.result; }
     ;    
     
-mulExpr returns [Expr result]
-    :   lhs=unExpr { $result=$lhs.result; } ( op=( '*' | '/' ) rhs=unExpr 
+multiplicationExpression returns [Expression result]
+    :   leftHandSide  = unaryExpression { $result = leftHandSide; } ( op = ('*' | '/') 
+        rightHandSide = unaryExpression 
     { 
-        if ($op.text.equals("*"))  { $result = new Mul($result, rhs); }
-        if ($op.text.equals("/")) { $result = new Div($result, rhs); }
+        if ($op.text.equals("*")) { $result = new Multiplication(leftHandSide, rightHandSide); }
+        if ($op.text.equals("/")) { $result = new Division(leftHandSide,       rightHandSide); }
     })*
     ;
     
-addExpr returns [Expr result]
-    :   lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
+additionExpression returns [Expression result]
+    :   leftHandSide  = multiplicationExpression { $result = leftHandSide; } ( op = ('+' | '-') 
+        rightHandSide = multiplicationExpression
     { 
-        if ($op.text.equals("+")) { $result = new Add($result, rhs); }
-        if ($op.text.equals("-")) { $result = new Sub($result, rhs); }
+        if ($op.text.equals("+")) { $result = new Addition(leftHandSide,    rightHandSide); }
+        if ($op.text.equals("-")) { $result = new Subtraction(leftHandSide, rightHandSide); }
     })*
     ;
   
-relExpr returns [Expr result]
-    :   lhs=addExpr { $result=$lhs.result; } ( op=('<'|'<='|'>'|'>='|'=='|'!=') rhs=addExpr 
+relationalExpression returns [Expression result]
+    :   leftHandSide  = additionExpression { $result = leftHandSide; } ( op = ('<'|'<='|'>'|'>='|'=='|'!=') 
+        rightHandSide = additionExpression 
     { 
-        if ($op.text.equals("<"))  { $result = new LT($result, rhs);  }
-        if ($op.text.equals("<=")) { $result = new LEq($result, rhs); }
-        if ($op.text.equals(">"))  { $result = new GT($result, rhs);  }
-        if ($op.text.equals(">=")) { $result = new GEq($result, rhs); }
-        if ($op.text.equals("==")) { $result = new Eq($result, rhs);  }
-        if ($op.text.equals("!=")) { $result = new NEq($result, rhs); }
+        if ($op.text.equals("<"))  { $result = new LessThanExpression(leftHandSide,             rightHandSide); }
+        if ($op.text.equals("<=")) { $result = new LessThanOrEqualToExpression(leftHandSide,    rightHandSide); }
+        if ($op.text.equals(">"))  { $result = new GreaterThanExpression(leftHandSide,          rightHandSide); }
+        if ($op.text.equals(">=")) { $result = new GreaterThanOrEqualToExpression(leftHandSide, rightHandSide); }
+        if ($op.text.equals("==")) { $result = new EqualToExpression(leftHandSide,              rightHandSide); }
+        if ($op.text.equals("!=")) { $result = new NotEqualToExpression(leftHandSide,           rightHandSide); }
     })*
     ;
     
-andExpr returns [Expr result]
-    :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
+logicallyEquivalentExpression returns [Expression result]
+    :   leftHandSide  = relationalExpression { $result = leftHandSide; } ( '&&' 
+        rightHandSide = relationalExpression { $result = new LogicallyEquivalentExpression(leftHandSide, rightHandSide); } )*
     ;
     
+logicallyEquivalentOrNotExpression returns [Expression result]
+    :   leftHandSide  = logicallyEquivalentExpression { $result = leftHandSide; } ( '||' 
+        rightHandSide = logicallyEquivalentExpression { $result = new LogicallyEquivalentOrNotExpression(leftHandSide, rightHandSide); } )*
+    ;
 
-orExpr returns [Expr result]
-    :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
+expression returns [Expression result]
+    :   getExpression=logicallyEquivalentOrNotExpression { $result = getExpression; }
     ;
 
 type returns [Type result]
@@ -108,16 +130,16 @@ type returns [Type result]
 
     
 // Tokens
-WS:	     (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
+WS:	        (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; };
 
-COMMENT: ('/*' .* '*/' | '//') { $channel=HIDDEN; };
+COMMENT:    ('/*' .* '*/' | '//' .* ('\n' | '\r')) { $channel=HIDDEN; };
 
-Bool:    ('true'|'false');
+Bool:       ('true'|'false');
 
-Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
+Identifier: ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
-Money:   (('0'..'9')+ ('.' | ',') ('0'..'9')+);
+Money:      (('0'..'9')+ ('.' | ',') ('0'..'9')+);
 
-String:	 ('"' .* '"');
+String:	    ('"' .* '"');
 
-Int:     ('0'..'9')+;
+Int:        ('0'..'9')+;

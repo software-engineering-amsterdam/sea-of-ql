@@ -1,69 +1,67 @@
 package org.uva.sea.ql.ast.expression.impl;
 
-import org.uva.sea.ql.ast.VariableScope;
+import org.uva.sea.ql.Message;
 import org.uva.sea.ql.ast.expression.ExprNode;
-import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.type.Type;
+import org.uva.sea.ql.value.Value;
+import org.uva.sea.ql.visitor.ExpressionVisitor;
+
+import java.util.Collection;
+import java.util.Map;
 
 public class IdentifierNode extends ExprNode
 {
-	public final String value;
-	public final VariableScope variableScope;
+    private final String identifier;
+    private final Value defaultValue;
 
-	public IdentifierNode(final String value, final VariableScope variableScope)
-	{
-		this.value = value;
-        this.variableScope = variableScope;
-	}
-
-    public IdentifierNode(final String value)
+    public IdentifierNode(final String identifier, final Value defaultValue)
     {
-        this.value = value;
-        this.variableScope = new VariableScope();
+        this.identifier = identifier;
+        this.defaultValue = defaultValue;
     }
 
     @Override
-    public Value evaluate()
+    public <T> T accept(ExpressionVisitor<T> expressionVisitor)
     {
-        final Value value = this.variableScope.resolve(this.value);
-        if(value == null)
-        {
-            throw new RuntimeException("No such variable: " +this.value);
-        }
-
-        return value;
+        return expressionVisitor.visit(this);
     }
 
     @Override
-    public String toTreeString(String indent)
+    public Value evaluate(final Map<IdentifierNode, Value> variables)
     {
-        return '\n' + indent + this.value + " = " + String.valueOf(evaluate());
+        return variables.get(this);
+    }
+
+    @Override
+    public boolean validate(Collection<Message> errors)
+    {
+        return true;
+    }
+
+    @Override
+    public Type getType()
+    {
+        return this.defaultValue.getType();
     }
 
     @Override
     public boolean equals(Object o)
     {
-        if(this == o)
-        {
-            return true;
-        }
-        if(o == null || getClass() != o.getClass())
-        {
-            return false;
-        }
-
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
         IdentifierNode that = (IdentifierNode) o;
-        return !(value != null ? !value.equals(that.value) : that.value != null);
+        return !(identifier != null ? !identifier.equals(that.identifier) : that.identifier != null);
     }
 
     @Override
     public int hashCode()
     {
-        return value != null ? value.hashCode() : 0;
+        return identifier != null ? identifier.hashCode() : 0;
     }
 
     @Override
     public String toString()
     {
-        return this.value;
+        return identifier;
     }
 }

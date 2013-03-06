@@ -28,4 +28,11 @@ public abstract class Binary extends Expression {
 	public Expression getRight() {
 		return right;
 	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + " [left=" + left + ", right=" + right + ", Type="
+				+ getType() + "]";
+	}
+
 }

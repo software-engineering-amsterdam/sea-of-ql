@@ -8,7 +8,8 @@ import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.bool.*;
 import org.uva.sea.ql.ast.types.*;
 import org.uva.sea.ql.ast.math.*;
-import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.literals.*;
+import org.uva.sea.ql.ast.expressions.*;
 import org.uva.sea.ql.ast.elements.*;
 }
 
@@ -17,14 +18,14 @@ import org.uva.sea.ql.ast.elements.*;
 package org.uva.sea.ql.parser.antlr;
 }
 
-parse returns [Expr result]
+parse returns [Form result]
 :	 formDefinition EOF {$result = $formDefinition.result;};
 
-formDefinition returns [Expr result]
+formDefinition returns [Form result]
 	:	 Form formDeclaration {$result = $formDeclaration.result;};
 	
-formDeclaration returns [Expr result]
-: 	FormIdent LEFTCBR blockContent RIGHTCBR {$result = new Form($FormIdent.text, $blockContent.result);};
+formDeclaration returns [Form result]
+: 	FormIdent LEFTCBR blockContent RIGHTCBR {$result = new Form(new StringLiteral($FormIdent.text), $blockContent.result);};
 
 blockContent returns [Block result]
 @init 
@@ -35,45 +36,50 @@ blockContent returns [Block result]
 : (blockLine {if($blockLine.result != null) {$result.addLine($blockLine.result);}} )* 
 ;
 	
-blockLine returns [Expr result]
+blockLine returns [AbstractBlockElement result]
 :  question {$result = $question.result;}
 | ifStatement {$result = $ifStatement.result;}
 ;
 
-question returns [Expr result]
-: Ident Assign String type {$result = new Question(new Ident($Ident.text), new StringLiteral($String.text), $type.result);}
+question returns [Question result]
+	: ident Assign String type {$result = new Question($ident.result, new StringLiteral($String.text), $type.result);}
+	| ident Assign String type '(' e=orExpr ')' {$result = new Question($ident.result, new StringLiteral($String.text), $type.result, $e.result);}
 ;
 
-ifStatement returns [Expr result]
+ifStatement returns [IfStatement result]
 : 'if' LEFTBR orExpr RIGHTBR LEFTCBR blockContent RIGHTCBR {$result = new IfStatement($orExpr.result, $blockContent.result);}
 ;
 
-type returns [Type result]
-	:  boolType { $result = new BooleanType();}
+ident returns [Ident result]
+: Ident { $result = new Ident(new StringLiteral($Ident.text)); }
+;
+
+type returns [AbstractType result]
+	:  boolType { $result = $boolType.result;}
 	|  money   { $result = $money.result;} 
-	|  intType { $result = new IntType();}
+	|  intType { $result = $intType.result;}
 	|  strType { $result = new StrType();}	
 ;
-
-
-
+intType returns [IntType result]
+	:	'integer' { $result = new IntType(); }
+;
 money	returns [Money result]
 	: 	'money' { $result = new Money(); }
-	|	 moneyCalc { $result = $moneyCalc.result; }
 ;
-
-moneyCalc returns [Money result]
-:	 'money' LEFTBR addExpr RIGHTBR {$result = new Money( $addExpr.result);}
+boolType returns [BooleanType result]
+	:	'boolean'{$result = new BooleanType(); }
 ;
-
+strType returns [StrType result]
+	: 	'string'{$result = new StrType(); }
+;
 	
 
 primary returns [Expr result]
   : Int   { $result = new IntLiteral(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
+  | ident { $result = $ident.result; }
   | String { $result = new StringLiteral($String.text); }
-  | type {$result = $type.result; }
-  | '(' x=orExpr ')'{ $result = $x.result; }
+  | '(' x=orExpr ')'{ $result = $x.result; }  
+  //| BoolLit { $result = new BooleanLiteral(true); }
   ;
     
 unExpr returns [Expr result]
@@ -140,10 +146,7 @@ andExpr returns [Expr result]
 orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
-    
-boolType:	'boolean';
-strType :	'string';
-intType :	'integer';
+
     
 // Tokens
 
@@ -153,7 +156,7 @@ COMMENT
     ;
     
 WS  :		(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; } ;
-
+//BoolLit :	('true' | 'TRUE' | 'false' | 'FALSE');
 Form 	:	'form';
 FormIdent:	'A'..'Z' ('a'..'z'|'A'..'Z'|'0'..'9')*;
 Ident	:   	('a'..'z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;

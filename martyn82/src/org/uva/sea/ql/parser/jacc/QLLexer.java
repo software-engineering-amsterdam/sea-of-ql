@@ -7,20 +7,14 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.uva.sea.ql.ast.Node;
-import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.expression.IdentifierExpression;
+import org.uva.sea.ql.ast.expression.literal.IntegerLiteral;
+import org.uva.sea.ql.ast.expression.literal.MoneyLiteral;
+import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 
-/**
- * Lexer class.
- */
-public class QLLexer implements QLTokens {
-	/**
-	 * Keyword map.
-	 */
+class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
 
-	/**
-	 * Initializes the keyword mapping.
-	 */
 	static {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put( "true", TRUE );
@@ -34,134 +28,87 @@ public class QLLexer implements QLTokens {
 		KEYWORDS.put( "form", FORM );
 	}
 
-	/**
-	 * Holds the current token.
-	 */
 	private int token;
-
-	/**
-	 * Holds the current character code.
-	 */
 	private int c = ' ';
-
-	/**
-	 * Holds current column number.
-	 */
 	private int column;
-
-	/**
-	 * Holds current line number.
-	 */
 	private int line;
-
-	/**
-	 * Holds the current AST node.
-	 */
 	private Node yylval;
-
-	/**
-	 * Holds the input reader.
-	 */
 	private final Reader input;
-
-	/**
-	 * Holds the regular expression pattern for decimals.
-	 */
 	private final Pattern decimal = Pattern.compile( "[0-9]*\\.[0-9]+([E|e][\\+|\\-]?[0-9]+)?" );
-
-	/**
-	 * Holds the regular expression pattern for integers.
-	 */
 	private final Pattern integer = Pattern.compile( "[0-9]+" );
 
-	/**
-	 * Constructs a new lexer instance.
-	 *
-	 * @param input The input reader.
-	 */
 	public QLLexer( Reader input ) {
 		this.input = input;
 		this.column = 0;
 		this.line = 1;
 	}
 
-	/**
-	 * Reads the next character into field c.
-	 * On end of input or failure, c will be -1.
-	 */
 	private void nextChar() {
-		if ( c >= 0 ) {
+		if ( this.c >= 0 ) {
 			try {
-				c = input.read();
+				this.c = this.input.read();
+				this.column++;
 
-				if ( c == '\n' ) {
-					line++;
-					column = 0;
-				}
-				else if ( c > 0 ) {
-					column++;
+				if ( this.c == '\n' ) {
+					this.line++;
+					this.column = 1;
 				}
 			}
 			catch ( IOException e ) {
-				c = -1;
+				this.c = -1;
 			}
 		}
 	}
 
-	/**
-	 * Retrieves the next token based on previously read character.
-	 *
-	 * @return The token.
-	 */
 	public int nextToken() {
 		boolean inComment = false;
 
-		for ( ;; ) {
+		while ( true ) {
 			if ( inComment ) {
-				while ( c != '*' && c != -1 ) {
-					nextChar();
+				while ( this.c != '*' && this.c != -1 ) {
+					this.nextChar();
 				}
 
-				if ( c == '*' ) {
-					nextChar();
+				if ( this.c == '*' ) {
+					this.nextChar();
 
-					if ( c == '/' ) {
-						nextChar();
+					if ( this.c == '/' ) {
+						this.nextChar();
 						inComment = false;
 					}
 					continue;
 				}
 			}
 
-			while ( c == ' ' || c == '\t' || c == '\n' || c == '\r' ) {
-				nextChar();
+			while ( this.c == ' ' || this.c == '\t' || this.c == '\n' || this.c == '\r' ) {
+				this.nextChar();
 			}
 
-			if ( c < 0 ) {
-				return token = ENDINPUT;
+			if ( this.c < 0 ) {
+				return this.token = ENDINPUT;
 			}
 
-			switch ( c ) {
+			switch ( this.c ) {
 				case '/': {
-					nextChar();
+					this.nextChar();
 
-					if ( c == '*' ) {
+					if ( this.c == '*' ) {
 						inComment = true;
-						nextChar();
+						this.nextChar();
 						continue;
 					}
-					else if ( c == '/' ) {
+					else if ( this.c == '/' ) {
 						// single line comments
-						nextChar();
+						this.nextChar();
 
-						while ( c >= ENDINPUT && c != '\r' && c != '\n' ) {
-							nextChar();
+						while ( this.c >= ENDINPUT && this.c != '\r' && this.c != '\n' ) {
+							this.nextChar();
 						}
 
 						continue;
 					}
 
-					return token = '/';
+					return this.token = '/';
 				}
 
 				case ')':
@@ -173,154 +120,140 @@ public class QLLexer implements QLTokens {
 				case '+':
 				case '-':
 				case '^':
-					token = c;
-					nextChar();
-					return token;
+					this.token = this.c;
+					this.nextChar();
+					return this.token;
 
 				case '*': {
-					nextChar();
+					this.nextChar();
 
-					if ( inComment && c == '/' ) {
+					if ( inComment && this.c == '/' ) {
 						inComment = false;
-						nextChar();
+						this.nextChar();
 						continue;
 					}
 
-					return token = '*';
+					return this.token = '*';
 				}
 
 				case '&': {
-					nextChar();
+					this.nextChar();
 
-					if ( c == '&' ) {
-						nextChar();
-						return token = AND;
+					if ( this.c == '&' ) {
+						this.nextChar();
+						return this.token = AND;
 					}
 
-					throw new RuntimeException( "Unexpected character: " + (char) c );
+					throw new RuntimeException( "Unexpected character: " + (char) this.c );
 				}
 
 				case '|': {
-					nextChar();
+					this.nextChar();
 
-					if ( c == '|' ) {
-						nextChar();
-						return token = OR;
+					if ( this.c == '|' ) {
+						this.nextChar();
+						return this.token = OR;
 					}
 
-					throw new RuntimeException( "Unexpected character: " + (char) c );
+					throw new RuntimeException( "Unexpected character: " + (char) this.c );
 				}
 
 				case '!':
-					nextChar();
+					this.nextChar();
 
-					if ( c == '=' ) {
-						nextChar();
-						return token = NEQ;
+					if ( this.c == '=' ) {
+						this.nextChar();
+						return this.token = NEQ;
 					}
 
-					return token = '!';
+					return this.token = '!';
 
 				case '<': {
-					nextChar();
+					this.nextChar();
 
-					if ( c == '=' ) {
-						nextChar();
-						return token = LEQ;
+					if ( this.c == '=' ) {
+						this.nextChar();
+						return this.token = LEQ;
 					}
 
 					return '<';
 				}
 
 				case '=': {
-					nextChar();
+					this.nextChar();
 
-					if ( c == '=' ) {
-						nextChar();
-						return token = EQ;
+					if ( this.c == '=' ) {
+						this.nextChar();
+						return this.token = EQ;
 					}
 					else {
-						nextChar();
-						return token = '=';
+						this.nextChar();
+						return this.token = '=';
 					}
 				}
 
 				case '>': {
-					nextChar();
+					this.nextChar();
 
-					if ( c == '=' ) {
-						nextChar();
-						return token = GEQ;
+					if ( this.c == '=' ) {
+						this.nextChar();
+						return this.token = GEQ;
 					}
 
-					return token = '>';
+					return this.token = '>';
 				}
 
 				case '"': {
 					if ( this.matchString() ) {
-						return token;
+						return this.token;
 					}
 				}
 
 				default: {
 					if ( this.matchNumber() ) {
-						return token;
+						return this.token;
 					}
 
 					if ( this.matchWord() ) {
-						return token;
+						return this.token;
 					}
 
-					throw new RuntimeException( "Unexpected character: " + (char) c );
+					throw new RuntimeException( "Unexpected character: " + (char) this.c );
 				}
 			}
 		}
 	}
 
-	/**
-	 * Matches a string literal and updates the token field.
-	 *
-	 * @return True if string, false otherwise.
-	 */
 	private boolean matchString() {
 		StringBuilder sb = new StringBuilder();
 		boolean inString = true;
 
-		nextChar(); // go around the string boundaries (")
+		this.nextChar(); // go around the string boundaries (")
 
 		while ( inString ) {
-			if ( c < ENDINPUT ) {
+			if ( this.c < ENDINPUT ) {
 				throw new RuntimeException( "Unterminated string literal" );
 			}
-			else if ( c == '"' ) {
+			else if ( this.c == '"' ) {
 				inString = false;
 			}
-			else if ( c == '\\' ) {
-				nextChar();
-				sb.append( this.getEscapedChar( (char) c ) );
+			else if ( this.c == '\\' ) {
+				this.nextChar();
+				sb.append( this.getEscapedChar( (char) this.c ) );
 			}
 			else {
-				sb.append( (char) c );
+				sb.append( (char) this.c );
 			}
 
-			nextChar();
+			this.nextChar();
 		}
 
-		yylval = new org.uva.sea.ql.ast.expression.literal.Str( sb.toString() );
-		token = STR;
+		this.yylval = new StringLiteral( sb.toString() );
+		this.token = STR;
 
 		return true;
 	}
 
-	/**
-	 * Retrieves an escaped character within a string literal.
-	 *
-	 * @param input The escaped character.
-	 *
-	 * @return The un-escaped character.
-	 *
-	 * @throws RuntimeException if escaped character is invalid.
-	 */
 	private char getEscapedChar( char input ) {
 		switch ( input ) {
 			// whitespace
@@ -353,44 +286,33 @@ public class QLLexer implements QLTokens {
 		throw new RuntimeException( "Unrecognized escape sequence" );
 	}
 
-	/**
-	 * Matches an integer literal and updates the token field.
-	 *
-	 * @return True if integer, false otherwise.
-	 */
 	private boolean matchInteger() {
-		if ( !Character.isDigit( c ) ) {
+		if ( !Character.isDigit( this.c ) ) {
 			return false;
 		}
 
 		StringBuilder sb = new StringBuilder();
 
 		do {
-			sb.append( (char) c  );
-			nextChar();
+			sb.append( (char) this.c  );
+			this.nextChar();
 		}
-		while ( Character.isDigit( (char) c ) );
+		while ( Character.isDigit( (char) this.c ) );
 
 		String value = sb.toString();
 
-		if ( integer.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
-			token = INT;
+		if ( this.integer.matcher( value ).matches() ) {
+			this.yylval = new IntegerLiteral( Integer.parseInt( value ) );
+			this.token = INT;
 			return true;
 		}
 
 		return false;
 	}
 
-	/**
-	 * Matches a money (decimal) literal and updates the token field.
-	 * Fall back on Integer literals if decimal do not match.
-	 *
-	 * @return True if money or integer, false otherwise.
-	 */
 	private boolean matchNumber() {
-		if ( !Character.isDigit( c ) && c != '.' ) {
-			return matchInteger();
+		if ( !Character.isDigit( this.c ) && this.c != '.' ) {
+			return this.matchInteger();
 		}
 
 		StringBuilder sb = new StringBuilder();
@@ -401,121 +323,96 @@ public class QLLexer implements QLTokens {
 		boolean isDecimal = false;
 
 		do {
-			if ( c == '.' && !separator ) {
+			if ( this.c == '.' && !separator ) {
 				isDecimal = true;
 				separator = true;
 			}
-			else if ( c == '.' && separator ) {
+			else if ( this.c == '.' && separator ) {
 				break;
 			}
 
-			if ( ( c == 'e' || c == 'E' ) && !exponent ) {
+			if ( ( this.c == 'e' || this.c == 'E' ) && !exponent ) {
 				exponent = true;
 			}
-			else if ( ( c == 'e' || c == 'E' ) && exponent ) {
+			else if ( ( this.c == 'e' || this.c == 'E' ) && exponent ) {
 				break;
 			}
 
-			if ( ( c == '+' || c == '-' ) && exponent && !sign ) {
+			if ( ( this.c == '+' || this.c == '-' ) && exponent && !sign ) {
 				sign = true;
 			}
-			else if ( ( c == '+' || c == '-' ) && ( sign || !exponent ) ) {
+			else if ( ( this.c == '+' || this.c == '-' ) && ( sign || !exponent ) ) {
 				break;
 			}
 
-			sb.append( (char) c );
-			nextChar();
+			sb.append( (char) this.c );
+			this.nextChar();
 		}
 		while (
-			Character.isDigit( c )
-			|| c == 'e'
-			|| c == 'E'
-			|| c == '.'
-			|| c == '-'
-			|| c == '+'
+			Character.isDigit( this.c )
+			|| this.c == 'e'
+			|| this.c == 'E'
+			|| this.c == '.'
+			|| this.c == '-'
+			|| this.c == '+'
 		);
 
 		String value = sb.toString();
 
-		if ( isDecimal && decimal.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.literal.Money( Double.parseDouble( value ) );
-			token = MON;
+		if ( isDecimal && this.decimal.matcher( value ).matches() ) {
+			this.yylval = new MoneyLiteral( Double.parseDouble( value ) );
+			this.token = MON;
 			return true;
 		}
 
-		if ( integer.matcher( value ).matches() ) {
-			yylval = new org.uva.sea.ql.ast.expression.literal.Int( Integer.parseInt( value ) );
-			token = INT;
+		if ( this.integer.matcher( value ).matches() ) {
+			this.yylval = new IntegerLiteral( Integer.parseInt( value ) );
+			this.token = INT;
 			return true;
 		}
 
 		return false;
 	}
 
-	/**
-	 * Matches a keyword or identifier token and updates the token field accordingly on success.
-	 *
-	 * @return True if successful, false otherwise.
-	 */
 	private boolean matchWord() {
-		if ( !Character.isLetter( c ) && c != '_' ) {
+		if ( !Character.isLetter( this.c ) && this.c != '_' ) {
 			return false;
 		}
 
 		StringBuilder sb = new StringBuilder();
 
 		do {
-			sb.append( (char) c );
-			nextChar();
+			sb.append( (char) this.c );
+			this.nextChar();
 		}
-		while ( Character.isLetterOrDigit( c ) || c == '_' );
+		while ( Character.isLetterOrDigit( this.c ) || this.c == '_' );
 
 		String name = sb.toString();
 
 		if ( KEYWORDS.containsKey( name ) ) {
-			token = KEYWORDS.get( name );
+			this.token = KEYWORDS.get( name );
 			return true;
 		}
 
-		yylval = new Ident( name );
-		token = IDENT;
+		this.yylval = new IdentifierExpression( name );
+		this.token = IDENT;
 
 		return true;
 	}
 
-	/**
-	 * Returns the most recent identified token.
-	 *
-	 * @return The current token.
-	 */
 	public int getToken() {
-		return token;
+		return this.token;
 	}
 
-	/**
-	 * Returns the current AST.
-	 *
-	 * @return The AST.
-	 */
 	public Node getSemantic() {
-		return yylval;
+		return this.yylval;
 	}
 
-	/**
-	 * Retrieves the current column number on the current line.
-	 *
-	 * @return Column number.
-	 */
 	public int getColumn() {
-		return column;
+		return this.column;
 	}
 
-	/**
-	 * Retrieves the current line number.
-	 *
-	 * @return Line number.
-	 */
 	public int getLineNumber() {
-		return line;
+		return this.line;
 	}
 }

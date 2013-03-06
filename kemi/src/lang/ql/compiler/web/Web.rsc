@@ -10,7 +10,9 @@
 
 module lang::ql::compiler::web::Web
 
-import lang::ql::ast::AST;
+import Configuration;
+import IO;
+import lang::ql::\ast::AST;
 import lang::ql::compiler::web::HTML;
 import lang::ql::compiler::web::JS;
 import lang::ql::compiler::web::PHP;
@@ -18,9 +20,16 @@ import lang::ql::compiler::web::PHP;
 public loc buildForm(Form form, loc destFolder) {
   destFolder += "<form.formName.ident>/";
   
-  HTML(form, destFolder);
-  JS(form, destFolder);
-  PHP(form, destFolder);
+  if(!exists(destFolder))
+    mkDirectory(destFolder);
+  
+  // Copy static files
+  for(e <- listEntries(getStaticSourceLoc()))
+    writeFile(destFolder + e, readFile(getStaticSourceLoc() + e));
+  
+  html(form, destFolder);
+  js(form, destFolder);
+  php(form, destFolder);
   
   return destFolder;
 }

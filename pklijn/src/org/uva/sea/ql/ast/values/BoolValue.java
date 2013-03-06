@@ -33,4 +33,9 @@ public class BoolValue extends Value {
 		Boolean b = new Boolean(value);
 		return b.hashCode();
 	}
+	
+	@Override
+	public String toString() {
+		return Boolean.toString(value);
+	}
 }

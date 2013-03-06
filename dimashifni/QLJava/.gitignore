@@ -1,6 +1,7 @@
 bin/
 *.class
 .idea/
+generated/
 
 # Package Files #
 *.war

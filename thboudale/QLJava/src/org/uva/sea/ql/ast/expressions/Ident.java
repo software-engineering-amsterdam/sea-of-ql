@@ -1,6 +1,11 @@
 package org.uva.sea.ql.ast.expressions;
 
-public class Ident extends Expr {
+import java.util.Map;
+import org.uva.sea.ql.ast.types.AType;
+import org.uva.sea.ql.ast.types.ErrorType;
+import org.uva.sea.ql.visitor.IExprVisitor;
+
+public class Ident extends AExpr {
 	private final String name;
 
 	public Ident(String name) {
@@ -9,5 +14,21 @@ public class Ident extends Expr {
 	
 	public String getName() {
 		return name;
+	}
+	
+	@Override
+	public AType typeOf(Map<Ident, AType> typeEnv) {
+
+		for (Ident id : typeEnv.keySet()) {
+			if (id.getName().equals(this.name)) {
+				return typeEnv.get(id);
+			}
+		}
+		return new ErrorType();
+	}
+	
+	@Override
+	public <T> T accept(IExprVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 }

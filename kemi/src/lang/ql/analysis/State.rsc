@@ -10,7 +10,7 @@
 
 module lang::ql::analysis::State
 
-import lang::ql::ast::AST;
+import lang::ql::\ast::AST;
 import util::IDE;
 
 public alias TypeMap = 
