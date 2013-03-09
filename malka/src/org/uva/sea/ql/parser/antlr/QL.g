@@ -38,7 +38,7 @@ public List<String> getErrors() {
 
 
 form returns [Form result]
-	: FORM IDENT '{' elements=formElementList '}' { $result = new Form($elements.result); }
+	: FORM IDENT '{' elements=formElementList '}' { $result = new Form($IDENT.text, $elements.result); }
 	;
 
 formElementList returns [List<FormElement> result]
@@ -256,7 +256,7 @@ WS  :	(' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     
 
 STRING
-	: '"' ( options{greedy=false;}: . )* '"'
+	: '"' ( options{greedy=false;}: . )* '"' {setText(getText().substring(1, getText().length()-1));}
 	| '\'' ( options{greedy=false;}: . )* '\''
 	;
 

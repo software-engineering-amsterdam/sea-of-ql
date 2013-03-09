@@ -13,14 +13,15 @@ import org.uva.sea.ql.ast.expression.bool.BooleanType;
 import org.uva.sea.ql.ast.expression.bool.BooleanVariable;
 import org.uva.sea.ql.ast.expression.integer.IntegerVariable;
 import org.uva.sea.ql.ast.expression.integer.operation.Add;
-import org.uva.sea.ql.ast.expression.bool.operation.logical.And;
 import org.uva.sea.ql.ast.expression.string.StringPrimitive;
+import org.uva.sea.ql.ast.expression.bool.operation.logical.And;
 import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
 import org.uva.sea.ql.ast.form.FormText;
 import org.uva.sea.ql.ast.form.Question;
-import org.uva.sea.ql.validation.TypeChecker;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.validation.FormTypeChecker;
+import org.uva.sea.ql.validation.TypeCheckerDoesNotSupportQuestionnaireException;
+import org.uva.sea.ql.visitor.VisitingException;
 
 public class TypeCheckerTest {
 
@@ -28,8 +29,8 @@ public class TypeCheckerTest {
 	 * tests if the checker will recognize if an unknown variable is used
 	 */
 	@Test
-	public void testUsageOfUndefinedVariable() throws VisitorException {
-		TypeChecker type_checker;
+	public void testUsageOfUndefinedVariable() throws VisitingException, TypeCheckerDoesNotSupportQuestionnaireException {
+		FormTypeChecker type_checker;
 		Expression undefined_var_expression;
 		List<FormElement> elements;
 		Identifier id, id2, unknown_id;
@@ -38,9 +39,9 @@ public class TypeCheckerTest {
 		boolean valid_types;
 		List<Integer> errors;
 		
-		type_checker = new TypeChecker();
+		type_checker = new FormTypeChecker();
 		elements     = new ArrayList<FormElement>();
-		form         = new Form(elements);
+		form         = new Form("testForm", elements);
 		id           = new Identifier("hi");
 		id2          = new Identifier("hi2");
 		unknown_id   = new Identifier("unknown");
@@ -60,7 +61,7 @@ public class TypeCheckerTest {
 		
 		if (! valid_types) {
 			errors = type_checker.getErrorCodes();
-			assertTrue(errors.contains(TypeChecker.VARIABLE_NOT_DEFINED));
+			assertTrue(errors.contains(FormTypeChecker.VARIABLE_NOT_DEFINED));
 		}
 	}
 	
@@ -68,8 +69,8 @@ public class TypeCheckerTest {
 	 * tests if the checker will recognize if a variable is used as another type.
 	 */
 	@Test
-	public void testVariableUsageConformDefinition() throws VisitorException {
-		TypeChecker type_checker;
+	public void testVariableUsageConformDefinition() throws VisitingException, TypeCheckerDoesNotSupportQuestionnaireException {
+		FormTypeChecker type_checker;
 		Expression undefined_var_expression;
 		List<FormElement> elements;
 		Identifier id, id2, id3;
@@ -78,9 +79,9 @@ public class TypeCheckerTest {
 		boolean valid_types;
 		List<Integer> errors;
 		
-		type_checker = new TypeChecker();
+		type_checker = new FormTypeChecker();
 		elements     = new ArrayList<FormElement>();
-		form         = new Form(elements);
+		form         = new Form("testForm", elements);
 		id           = new Identifier("hi");
 		id2          = new Identifier("hi2");
 		id3          = new Identifier("hi3");
@@ -101,7 +102,7 @@ public class TypeCheckerTest {
 		
 		if ( ! valid_types) {
 			errors = type_checker.getErrorCodes();
-			assertTrue(errors.contains(TypeChecker.VARIABLE_USED_AS_OTHER_TYPE));
+			assertTrue(errors.contains(FormTypeChecker.VARIABLE_USED_AS_OTHER_TYPE));
 			assertTrue(errors.size() == 3);
 		}
 	}
@@ -110,8 +111,8 @@ public class TypeCheckerTest {
 	 * tests if the checker will recognize correct AST
 	 */
 	@Test
-	public void testCorrect() throws VisitorException {
-		TypeChecker type_checker;
+	public void testCorrect() throws VisitingException, TypeCheckerDoesNotSupportQuestionnaireException {
+		FormTypeChecker type_checker;
 		Expression undefined_var_expression;
 		List<FormElement> elements;
 		Identifier id, id2;
@@ -120,9 +121,9 @@ public class TypeCheckerTest {
 		boolean valid_types;
 		List<Integer> errors;
 		
-		type_checker = new TypeChecker();
+		type_checker = new FormTypeChecker();
 		elements     = new ArrayList<FormElement>();
-		form         = new Form(elements);
+		form         = new Form("testForm", elements);
 		id           = new Identifier("hi");
 		id2          = new Identifier("hi2");
 		type         = new BooleanType();

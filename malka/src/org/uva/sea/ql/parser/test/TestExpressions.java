@@ -17,6 +17,8 @@ import org.uva.sea.ql.ast.expression.integer.operation.Mul;
 import org.uva.sea.ql.ast.expression.integer.operation.Neg;
 import org.uva.sea.ql.ast.expression.integer.operation.Pos;
 import org.uva.sea.ql.ast.expression.string.StringPrimitive;
+import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class TestExpressions {

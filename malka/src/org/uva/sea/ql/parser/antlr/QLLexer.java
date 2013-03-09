@@ -1,12 +1,9 @@
-// $ANTLR !Unknown version! QL.g 2013-03-04 12:35:33
+// $ANTLR !Unknown version! QL.g 2013-03-09 00:38:27
 
 package org.uva.sea.ql.parser.antlr;
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 
 public class QLLexer extends Lexer {
     public static final int T__29=29;
@@ -632,6 +629,7 @@ public class QLLexer extends Lexer {
                     } while (true);
 
                     match('\"'); 
+                    setText(getText().substring(1, getText().length()-1));
 
                     }
                     break;

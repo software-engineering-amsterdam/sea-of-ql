@@ -1,6 +1,6 @@
 package org.uva.sea.ql.visitor;
 
-public class NodeNotSupportedByVisitorException extends VisitorException {
+public class NodeNotSupportedByVisitorException extends VisitingException {
 
 	/**
 	 * 

@@ -29,56 +29,56 @@ import org.uva.sea.ql.ast.form.Question;
 
 public interface Visitor {
 
-	void visit(Form form) throws VisitorException;
+	void visit(Form form) throws VisitingException;
 
-	void visit(Question question) throws VisitorException;
+	void visit(Question question) throws VisitingException;
 
-	void visit(FormText form_text) throws VisitorException;
+	void visit(FormText form_text) throws VisitingException;
 	
-	void visit(IfStatement ifStatement) throws VisitorException;
+	void visit(IfStatement ifStatement) throws VisitingException;
 
-	void visit(Identifier identifier) throws VisitorException;
+	void visit(Identifier identifier) throws VisitingException;
 
-	void visit(BooleanPrimitive booleanPrimitive) throws VisitorException;
+	void visit(BooleanPrimitive booleanPrimitive) throws VisitingException;
 
-	void visit(BooleanVariable booleanVariable) throws VisitorException;
+	void visit(BooleanVariable booleanVariable) throws VisitingException;
 
-	void visit(And and) throws VisitorException;
+	void visit(And and) throws VisitingException;
 
-	void visit(Not not) throws VisitorException;
+	void visit(Not not) throws VisitingException;
 
-	void visit(Or or) throws VisitorException;
+	void visit(Or or) throws VisitingException;
 
-	void visit(Eq eq) throws VisitorException;
+	void visit(Eq eq) throws VisitingException;
 
-	void visit(GT gt) throws VisitorException;
+	void visit(GT gt) throws VisitingException;
 
-	void visit(IntegerPrimitive integerPrimitive) throws VisitorException;
+	void visit(IntegerPrimitive integerPrimitive) throws VisitingException;
 	
-	void visit(IntegerVariable integerVariable) throws VisitorException;
+	void visit(IntegerVariable integerVariable) throws VisitingException;
 
-	void visit(GEq gEq) throws VisitorException;
+	void visit(GEq gEq) throws VisitingException;
 
-	void visit(LEq lEq) throws VisitorException;
+	void visit(LEq lEq) throws VisitingException;
 
-	void visit(NEq nEq) throws VisitorException;
+	void visit(NEq nEq) throws VisitingException;
 
-	void visit(LT lt) throws VisitorException;
+	void visit(LT lt) throws VisitingException;
 
-	void visit(Sub sub) throws VisitorException;
+	void visit(Sub sub) throws VisitingException;
 
-	void visit(Neg neg) throws VisitorException;
+	void visit(Neg neg) throws VisitingException;
 
-	void visit(Mul mul) throws VisitorException;
+	void visit(Mul mul) throws VisitingException;
 
-	void visit(Div div) throws VisitorException;
+	void visit(Div div) throws VisitingException;
 
-	void visit(Add add) throws VisitorException;
+	void visit(Add add) throws VisitingException;
 
-	void visit(Pos pos) throws VisitorException;
+	void visit(Pos pos) throws VisitingException;
 
-	void visit(StringVariable stringVariable) throws VisitorException;
+	void visit(StringVariable stringVariable) throws VisitingException;
 
-	void visit(StringPrimitive stringPrimitive) throws VisitorException;
+	void visit(StringPrimitive stringPrimitive) throws VisitingException;
 	
 }
