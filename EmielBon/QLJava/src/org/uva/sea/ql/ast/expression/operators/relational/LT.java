@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the relational less-then (<) operator
+ */
 public class LT extends BinaryOperator {
 
 	public LT(Expression leftOperand, Expression rightOperand) {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.gui.Renderer;
 import org.uva.sea.ql.parser.jacc.JACCParser;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
@@ -25,14 +26,15 @@ public class Questionnaire extends JFrame {
 	}
 	
 	public Questionnaire() throws ParseError {
-		
 		parser = new JACCParser();
-		source = "form a { \n" +
-				 "	hasSoldHouse:\"Did you sell a house in 2010?\" boolean\n" +
-				 "	hasBoughtHouse: \"Did you by a house in 2010?\" boolean\n" +
-				 "	if (hasSoldHouse) {\n" +
-				 "		sellingPrice: \"Price the house was sold for:\" integer\n" +
-				 "	}\n" +
+		source = "form a { " +
+				 "	hasSoldHouse:\"Did you sell a house in 2010?\" boolean" +
+				 "	hasBoughtHouse: \"Did you by a house in 2010?\" boolean(true)" +
+				 "	if (hasSoldHouse) {" +
+				 "		sellingPrice: \"Price the house was sold for:\" integer" +
+				 "      buyingPrice: \"Price the house was bought for:\" integer" +
+				 "      sellingPrice2:\"Price the house was solddd for:\" integer(sellingPrice - buyingPrice)" +
+				 "	}" +
 				 "}";
 		
 		form = (Form) parser.parse(source);
@@ -44,7 +46,6 @@ public class Questionnaire extends JFrame {
 	}
 	
 	public void render() {
-		
 		State state = new State();
 		JPanel formPanel = Renderer.render(form, state);
 		getContentPane().add(formPanel, BorderLayout.CENTER);

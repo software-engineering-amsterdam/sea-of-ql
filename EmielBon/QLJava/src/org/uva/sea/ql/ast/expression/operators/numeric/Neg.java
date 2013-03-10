@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the numeric negation (-) operator
+ */
 public class Neg extends UnaryOperator {
 
 	public Neg(Expression operand) {

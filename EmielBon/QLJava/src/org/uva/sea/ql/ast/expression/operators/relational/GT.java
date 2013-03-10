@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the relational greater-then (>) operator
+ */
 public class GT extends BinaryOperator {
 
 	public GT(Expression leftOperand, Expression rightOperand) {
@@ -21,7 +24,6 @@ public class GT extends BinaryOperator {
 		return visitor.visit(this);
 	}
 
-	@Override
 	public String getRepresentation() {
 		return ">";
 	}

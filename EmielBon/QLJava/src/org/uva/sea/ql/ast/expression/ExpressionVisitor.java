@@ -5,6 +5,10 @@ import org.uva.sea.ql.ast.expression.operators.logical.*;
 import org.uva.sea.ql.ast.expression.operators.numeric.*;
 import org.uva.sea.ql.ast.expression.operators.relational.*;
 
+/**
+ * Interface to enable double-dispatch visiting of expressions using the visitor pattern
+ * @param <T> The return type of the visit method
+ */
 public interface ExpressionVisitor<T> {
 
 	// Numeric operators

@@ -10,4 +10,7 @@ public abstract class Type extends Node {
 	public boolean isCompatibleWithNumeric() { return false; }
 	public boolean isCompatibleWithStr()     { return false; }
 	public boolean isCompatibleWithBool()    { return false; }
+	
+	public abstract <T> T accept(TypeVisitor<T> visitor);
+	
 }

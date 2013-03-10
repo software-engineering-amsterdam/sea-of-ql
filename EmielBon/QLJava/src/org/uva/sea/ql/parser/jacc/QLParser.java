@@ -1,4 +1,4 @@
-// Output created by jacc on Sun Feb 17 20:43:48 CET 2013
+// Output created by jacc on Fri Mar 08 23:12:40 CET 2013
 
 package org.uva.sea.ql.parser.jacc;
 
@@ -809,7 +809,7 @@ class QLParser implements QLTokens {
                         case ENDINPUT:
                         case '}':
                         case IF:
-                            yyn = yyr10();
+                            yyn = yyr11();
                             continue;
                     }
                     yyn = 151;
@@ -1003,7 +1003,7 @@ class QLParser implements QLTokens {
                         case ENDINPUT:
                         case '}':
                         case IF:
-                            yyn = yyr11();
+                            yyn = yyr10();
                             continue;
                     }
                     yyn = 151;
@@ -2304,15 +2304,15 @@ class QLParser implements QLTokens {
         return 7;
     }
 
-    private int yyr10() { // question : IDENTIFIER ':' STRINGLITERAL type
-        { yyrv = new Question(((Identifier)yysv[yysp-4]), ((StringLiteral)yysv[yysp-2]), ((Type)yysv[yysp-1])); }
-        yysv[yysp-=4] = yyrv;
+    private int yyr10() { // question : IDENTIFIER ':' STRINGLITERAL type '(' expression ')'
+        { yyrv = new ComputedQuestion(((Identifier)yysv[yysp-7]), ((StringLiteral)yysv[yysp-5]), ((Type)yysv[yysp-4]), ((Expression)yysv[yysp-2])); }
+        yysv[yysp-=7] = yyrv;
         return 8;
     }
 
-    private int yyr11() { // question : IDENTIFIER ':' STRINGLITERAL type '(' expression ')'
-        { yyrv = new ComputedQuestion(((Identifier)yysv[yysp-7]), ((StringLiteral)yysv[yysp-5]), ((Type)yysv[yysp-4]), ((Expression)yysv[yysp-2])); }
-        yysv[yysp-=7] = yyrv;
+    private int yyr11() { // question : IDENTIFIER ':' STRINGLITERAL type
+        { yyrv = new Question(((Identifier)yysv[yysp-4]), ((StringLiteral)yysv[yysp-2]), ((Type)yysv[yysp-1])); }
+        yysv[yysp-=4] = yyrv;
         return 8;
     }
 

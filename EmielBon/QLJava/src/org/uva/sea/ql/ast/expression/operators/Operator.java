@@ -3,6 +3,9 @@ package org.uva.sea.ql.ast.expression.operators;
 import java.util.List;
 import org.uva.sea.ql.ast.expression.*;
 
+/**
+ * Represents an n-ary operator
+ */
 public abstract class Operator extends Expression {
 	
 	protected List<Expression> operands;
@@ -11,6 +14,10 @@ public abstract class Operator extends Expression {
 		this.operands = operands;
 	}
 	
+	/**
+	 * Returns all operands of this operator
+	 * @return A list containing all operands of this operator
+	 */
 	public List<Expression> getOperands() {
 		return operands;
 	}

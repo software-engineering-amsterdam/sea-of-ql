@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the numeric addition (+) operator
+ */
 public class Add extends BinaryOperator {
 
 	public Add(Expression leftOperand, Expression rightOperand) {

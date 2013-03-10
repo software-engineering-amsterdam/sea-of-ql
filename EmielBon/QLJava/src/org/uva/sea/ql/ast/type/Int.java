@@ -6,4 +6,8 @@ public class Int extends Numeric {
 		return t.isCompatibleWithInt();
 	}
 	
+	public <T> T accept(TypeVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
 }

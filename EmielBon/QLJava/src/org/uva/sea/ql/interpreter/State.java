@@ -22,6 +22,12 @@ public class State {
 		observables.get(x).addObserver(obs);
 	}
 	
+	public void addGlobalObserver(Observer obs) {
+		for(Identifier id : observables.keySet()) {
+			addObserver(id, obs);
+		}
+	}
+	
 	public void putObservable(Identifier x, Observable obs) {
 		observables.put(x, obs);
 	}
@@ -31,7 +37,14 @@ public class State {
 	}
 	
 	public void putValue(Identifier id, Value value) {
-		env.declare(id, value);
+		env.setValue(id, value);
+	}
+
+	public void notify(Identifier identifier) {
+		Observable obs = observables.get(identifier);
+		if (obs != null) {
+			obs.notifyObservers();
+		}
 	}
 	
 }
