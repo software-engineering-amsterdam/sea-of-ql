@@ -17,6 +17,7 @@ public class Renderer implements StatementVisitor<Boolean> {
 	private final State state;
 	
 	public static JPanel render(Statement stat, State state) {
+		// 
 		Renderer renderer = new Renderer(state);
 		stat.accept(renderer);
 		return renderer.getPanel();
