@@ -12,6 +12,7 @@ import org.uva.sea.ql.ast.type.Type;
 public class CheckExpression implements ExpressionVisitor<Boolean> {
 
 	private final TypeEnvironment typeEnv;
+	// TODO Implement error messages
 	private final List<Message> messages;
 	
 	private CheckExpression(TypeEnvironment typeEnv, List<Message> messages) {
@@ -142,6 +143,10 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 	}
 
 	public Boolean visit(StringLiteral expr) {
+		return true;
+	}
+
+	public Boolean visit(MoneyLiteral moneyLiteral) {
 		return true;
 	}
 	

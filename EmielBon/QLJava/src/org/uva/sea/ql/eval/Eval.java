@@ -116,5 +116,9 @@ public class Eval implements ExpressionVisitor<Value> {
 	public Value visit(StringLiteral expr) {
 		return new StringValue(expr.getValue());
 	}
+
+	public Value visit(MoneyLiteral expr) {
+		return new MoneyValue(expr.getValue());
+	}
 	
 }

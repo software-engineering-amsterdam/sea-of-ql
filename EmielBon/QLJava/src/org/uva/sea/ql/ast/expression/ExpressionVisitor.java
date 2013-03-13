@@ -39,5 +39,6 @@ public interface ExpressionVisitor<T> {
 	T visit(BooleanLiteral expr);
 	T visit(IntegerLiteral expr);
 	T visit(StringLiteral expr);
+	T visit(MoneyLiteral moneyLiteral);
 	
 }

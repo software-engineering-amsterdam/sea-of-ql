@@ -193,8 +193,31 @@ public class QLLexer implements QLTokens {
 			    default: {
 			    	
 			    	// Integer token [0-9]+
+			    	/*if (Character.isDigit(c)) {
+			    		int n = 0;
+			    		do {
+			    			n = 10 * n + (c - '0');
+			    			nextChar(); 
+			    		} while (Character.isDigit(c)); 
+			    		yylval = new IntegerLiteral(n);
+			    		return token = INTEGERLITERAL;
+			    	}*/
+			    	
+			    	// Numeric token
 			    	if (Character.isDigit(c)) {
-			    		int n = 0; 
+			    		String number = "";
+			    		int dots = 0;
+			    		while(true) {
+			    			if (Character.isDigit(c)) {
+			    				number += c;
+			    			} else if (c == '.') {
+			    				dots++;
+			    			} else {
+			    				break;
+			    			}
+			    			nextChar();
+			    		}
+			    		int n = 0;
 			    		do {
 			    			n = 10 * n + (c - '0');
 			    			nextChar(); 

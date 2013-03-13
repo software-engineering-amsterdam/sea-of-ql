@@ -7,6 +7,7 @@ public abstract class Type extends Node {
 	public abstract boolean isCompatibleWith(Type t);
 	
 	public boolean isCompatibleWithInt()     { return false; }
+	public boolean isCompatibleWithMoney()   { return false; }
 	public boolean isCompatibleWithNumeric() { return false; }
 	public boolean isCompatibleWithStr()     { return false; }
 	public boolean isCompatibleWithBool()    { return false; }

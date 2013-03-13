@@ -36,6 +36,30 @@ public class IntegerValue extends Value {
 		return arg.subInt(this);
 	}
 	
+	public Value eq(Value arg) {
+		return arg.eqInt(this);
+	}
+	
+	public Value geq(Value arg) {
+		return arg.geqInt(this);
+	}
+	
+	public Value gt(Value arg) {
+		return arg.gtInt(this);
+	}
+	
+	public Value leq(Value arg) {
+		return arg.leqInt(this);
+	}
+	
+	public Value lt(Value arg) {
+		return arg.ltInt(this);
+	}
+	
+	public Value neq(Value arg) {
+		return arg.neqInt(this);
+	}
+	
 	protected Value addInt(IntegerValue arg) {
 		return new IntegerValue(arg.getValue() + getValue());
 	}
@@ -50,6 +74,30 @@ public class IntegerValue extends Value {
 	
 	protected Value subInt(IntegerValue arg) {
 		return new IntegerValue(arg.getValue() - getValue());
+	}
+	
+	protected Value eqInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() == getValue());
+	}
+	
+	protected Value geqInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() >= getValue());
+	}
+	
+	protected Value gtInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() > getValue());
+	}
+	
+	protected Value leqInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() <= getValue());
+	}
+	
+	protected Value ltInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() < getValue());
+	}
+	
+	protected Value neqInt(IntegerValue arg) {
+		return new BooleanValue(arg.getValue() != getValue());
 	}
 	
 	public boolean equals(Object other) {

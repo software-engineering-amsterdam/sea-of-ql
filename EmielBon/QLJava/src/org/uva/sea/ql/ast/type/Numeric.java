@@ -10,6 +10,10 @@ public class Numeric extends Type {
 		return true;
 	}
 	
+	public boolean isCompatibleWithMoney() {
+		return true;
+	}
+	
 	public boolean isCompatibleWithNumeric() {
 		return true;
 	}

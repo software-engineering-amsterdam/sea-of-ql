@@ -2,6 +2,8 @@ package org.uva.sea.ql.eval;
 
 public abstract class Value {
 
+	// TODO Money support
+	
 	// Logical operators
 	
 	public Value and(Value arg) {
@@ -82,7 +84,7 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
-	// Numeric computation
+	// Numeric computation (integers)
 	
 	protected Value addInt(IntegerValue arg) {
 		throw new UnsupportedOperationException();
@@ -100,6 +102,74 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
-	// TODO Relational computation
+	// Numeric computation (money)
+	
+	protected Value addMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value divMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value mulMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value subMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	// Relational computation (integers)
+	
+	protected Value eqInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value geqInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value gtInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value leqInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value ltInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value neqInt(IntegerValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	// Relational computation (money)
+	
+	protected Value eqMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value geqMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value gtMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value leqMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value ltMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
+	
+	protected Value neqMoney(MoneyValue arg) {
+		throw new UnsupportedOperationException();
+	}
 	
 }

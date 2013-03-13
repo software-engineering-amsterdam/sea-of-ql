@@ -19,7 +19,7 @@ public class TextField extends Control implements CaretListener {
 		component = new JTextField();
 		component.setPreferredSize(new Dimension(100, 24));
 		component.addCaretListener(this);
-		//component.setText(initialValue.toString());
+		component.setText("0");
 	}
 	
 	public JComponent getUIComponent() {

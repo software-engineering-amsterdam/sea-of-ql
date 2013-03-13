@@ -5,8 +5,6 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.*;
-import org.uva.sea.ql.eval.Eval;
-import org.uva.sea.ql.eval.Value;
 import org.uva.sea.ql.gui.controls.Control;
 import org.uva.sea.ql.interpreter.ComputedObserver;
 import org.uva.sea.ql.interpreter.State;
@@ -17,7 +15,6 @@ public class Renderer implements StatementVisitor<Boolean> {
 	private final State state;
 	
 	public static JPanel render(Statement stat, State state) {
-		// 
 		Renderer renderer = new Renderer(state);
 		stat.accept(renderer);
 		return renderer.getPanel();
@@ -53,9 +50,9 @@ public class Renderer implements StatementVisitor<Boolean> {
 	}
 	
 	private void initValue(ComputedQuestion stat, Control ctrl) {
-		Value value = stat.getExpression().accept(new Eval(state.getEnvironment()));
-		state.putValue(stat.getIdentifier(), value);
-		ctrl.setValue(value);
+		//Value value = new IntegerValue(0);//stat.getExpression().accept(new Eval(state.getEnvironment()));
+		//state.putValue(stat.getIdentifier(), value);
+		//ctrl.setValue(value);
 	}
 
 	private void registerHandler(Question stat, Control ctrl) {

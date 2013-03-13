@@ -19,10 +19,14 @@ public class ComputedObserver implements Observer {
 	}
 	
 	public void update(Observable o, Object arg) {
-		Value value = stat.getExpression().accept(new Eval(state.getEnvironment()));
-		state.putValue(stat.getIdentifier(), value);
-		state.notify(stat.getIdentifier());
-		control.setValue(value);
+		try {
+			Value value = stat.getExpression().accept(new Eval(state.getEnvironment()));
+			state.putValue(stat.getIdentifier(), value);
+			state.notify(stat.getIdentifier());
+			control.setValue(value);
+		} catch (UnsupportedOperationException e) {
+			
+		}
 	}
 
 }
