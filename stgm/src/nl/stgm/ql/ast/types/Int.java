@@ -1,6 +1,6 @@
 package nl.stgm.ql.ast.types;
-import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.inspector.CodeInspector;
+
+import nl.stgm.ql.ast.*;
 
 public class Int extends Expr
 {

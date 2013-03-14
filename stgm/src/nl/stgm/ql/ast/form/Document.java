@@ -1,8 +1,9 @@
 package nl.stgm.ql.ast.form;
 
-import java.util.List;
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspector.pretty.*;
+import nl.stgm.ql.inspectors.*;
+
+import java.util.List;
 
 public class Document extends AbstractElement
 {
@@ -13,7 +14,7 @@ public class Document extends AbstractElement
 		this.forms = forms;
 	}
 	
-	public void print(ConsolePrinter context)
+	public void print(PrettyPrinter context)
 	{
 		// hint: document element has no visual representation, so
 		// only prints children

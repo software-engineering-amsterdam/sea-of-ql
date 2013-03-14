@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspector;
+package nl.stgm.ql.inspectors;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,56 +17,9 @@ import nl.stgm.ql.parser.rats.*;
 //
 // Inspector that validates basic semantics of the tree
 //
-public class SemanticChecker implements CodeInspector
+public class SemanticChecker
 {
 	private HashMap<String,Ident> symbols = new HashMap<String,Ident>();
-	
-	public void visit(Ident node)
-	{
-		symbols.put(node.getName(), node);
-	}
-	
-	public void visit(BinaryExpr node)
-	{
-		// check if result of left is same type as result of right argument
-		if(node.getLeft().getClass() != node.getRight().getClass())
-			System.out.println("Error: " + node.toString() + " has two different argument types.");
-	}
-	
-	public void visit(UnaryExpr node)
-	{
-		System.out.println(node.getClass());
-	}
-	
-	public void visit(CalcQuestion node)
-	{
-		System.out.println(node.getClass());
-	}
-	
-	public void visit(Question node)
-	{
-		System.out.println(node.getClass());
-	}
-	
-	public void visit(Conditional node)
-	{
-		System.out.println(node.getClass());
-	}
-	
-	public void visit(Document node)
-	{
-		System.out.println(node.getClass());
-	}
-	
-	public void visit(Form node)
-	{
-		System.out.println(node.getClass());
-	}
-	
-	public void visit(Expr node)
-	{
-		System.out.println(node.getClass());
-	}
 	
 	public int results()
 	{

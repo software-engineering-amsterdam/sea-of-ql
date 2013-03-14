@@ -1,7 +1,7 @@
 package nl.stgm.ql.ast.expr;
 
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspector.pretty.*;
+import nl.stgm.ql.inspectors.*;
 
 public abstract class BinaryExpr extends Expr
 {
@@ -18,7 +18,7 @@ public abstract class BinaryExpr extends Expr
 		return right;
 	}
 
-	public void print(ConsolePrinter context)
+	public void print(PrettyPrinter context)
 	{
 		left.print(context);
 		context.print(this.prettyString());

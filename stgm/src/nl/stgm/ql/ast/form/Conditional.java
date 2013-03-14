@@ -1,9 +1,9 @@
 package nl.stgm.ql.ast.form;
 
-import java.util.List;
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.inspector.pretty.*;
+import nl.stgm.ql.inspectors.*;
+
+import java.util.List;
 
 public class Conditional extends FormItem
 {
@@ -18,7 +18,7 @@ public class Conditional extends FormItem
 		this.elseQuestions = elseQuestions;
 	}
 
-	public void print(ConsolePrinter context)
+	public void print(PrettyPrinter context)
 	{
 		context.print("if(");
 		condition.print(context);

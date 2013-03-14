@@ -12,8 +12,8 @@ inspectors: PrettyPrinter
 # Runnable classes
 TestExpressions: QLParser src/nl/stgm/ql/parser/test/TestExpressions.class
 TestForms: QLParser src/nl/stgm/ql/parser/test/TestForms.class
-PrettyPrinter: QLParser src/nl/stgm/ql/inspector/PrettyPrinter.class
-SemanticChecker: QLParser src/nl/stgm/ql/inspector/SemanticChecker.class
+PrettyPrinter: QLParser src/nl/stgm/ql/inspectors/PrettyPrinter.class
+SemanticChecker: QLParser src/nl/stgm/ql/inspectors/SemanticChecker.class
 
 # Generating the parser class
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
@@ -27,9 +27,9 @@ run/testexpr: TestExpressions
 run/testform: TestForms
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
 run/pretty: PrettyPrinter
-	$(JAVA) $(JFLAGS) nl.stgm.ql.inspector.PrettyPrinter
+	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.PrettyPrinter
 run/checker: SemanticChecker
-	$(JAVA) $(JFLAGS) nl.stgm.ql.inspector.SemanticChecker
+	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.SemanticChecker
 
 # Utilities
 %.class: %.java

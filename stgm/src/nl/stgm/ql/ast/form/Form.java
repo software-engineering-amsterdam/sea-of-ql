@@ -1,8 +1,9 @@
 package nl.stgm.ql.ast.form;
 
-import java.util.List;
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspector.pretty.*;
+import nl.stgm.ql.inspectors.*;
+
+import java.util.List;
 
 public class Form extends AbstractElement
 {
@@ -15,7 +16,7 @@ public class Form extends AbstractElement
 		this.formItems = formItems;
 	}
 
-	public void print(ConsolePrinter context)
+	public void print(PrettyPrinter context)
 	{
 		context.println("form " + this.id + " {");
 		context.increaseIndent();
