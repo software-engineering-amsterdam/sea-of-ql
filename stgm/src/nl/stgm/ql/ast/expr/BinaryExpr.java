@@ -1,17 +1,27 @@
 package nl.stgm.ql.ast.expr;
 
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspector.CodeInspector;
+import nl.stgm.ql.inspector.pretty.*;
 
-public class BinaryExpr extends Expr
+public abstract class BinaryExpr extends Expr
 {
 	protected Expr left;
 	protected Expr right;
-
-	public void accept(CodeInspector inspector)
+	
+	public Expr getLeft()
 	{
-		left.accept(inspector);
-		right.accept(inspector);
-		inspector.visit(this);
+		return left;
+	}
+
+	public Expr getRight()
+	{
+		return right;
+	}
+
+	public void print(ConsolePrinter context)
+	{
+		left.print(context);
+		context.print(this.prettyString());
+		right.print(context);
 	}
 }

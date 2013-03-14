@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.types;
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.inspector.CodeInspector;
 
 public class Bool extends Expr
 {
@@ -15,7 +16,7 @@ public class Bool extends Expr
 		return value;
 	}
 	
-	public String toString()
+	public String prettyString()
 	{
 		return("bool: " + String.valueOf(value));
 	}

@@ -6,4 +6,9 @@ public class Neg extends UnaryExpr
 	{
 		this.arg = arg;
 	}
+
+	public String prettyString()
+	{
+		return "-";
+	}
 }

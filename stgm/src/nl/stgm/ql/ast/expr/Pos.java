@@ -6,4 +6,9 @@ public class Pos extends UnaryExpr
 	{
 		this.arg = arg;
 	}
+
+	public String prettyString()
+	{
+		return "+";
+	}
 }

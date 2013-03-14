@@ -7,4 +7,9 @@ public class GEq extends BinaryExpr
 		this.left = left;
 		this.right = right;
 	}
+
+	public String prettyString()
+	{
+		return " >= ";
+	}
 }

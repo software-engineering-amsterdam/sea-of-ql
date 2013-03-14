@@ -1,15 +1,15 @@
 package nl.stgm.ql.ast.expr;
 
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspector.CodeInspector;
+import nl.stgm.ql.inspector.pretty.*;
 
-public class UnaryExpr extends Expr
+public abstract class UnaryExpr extends Expr
 {
 	protected Expr arg;
 
-	public void accept(CodeInspector inspector)
+	public void print(ConsolePrinter context)
 	{
-		arg.accept(inspector);
-		inspector.visit(this);
+		context.print(this.prettyString());
+		arg.print(context);
 	}
 }

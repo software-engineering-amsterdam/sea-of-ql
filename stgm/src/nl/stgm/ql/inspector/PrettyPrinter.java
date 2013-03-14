@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.FileSystems;
 
+import nl.stgm.ql.inspector.pretty.*;
+
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
 
@@ -14,14 +16,8 @@ import nl.stgm.ql.parser.rats.*;
 //
 // Simple inspector that walks the tree depth-first and prints out class names
 //
-public class TreeWalker implements CodeInspector
+public class PrettyPrinter implements CodeInspector
 {
-	public void visit(ASTNode node)
-	{
-		System.out.print("-> ");
-		System.out.println(node);
-	}
-	
 	public static void main(String[] args)
 	{
 		RatsParser parser = new RatsParser();
@@ -33,7 +29,7 @@ public class TreeWalker implements CodeInspector
 			//
 			// hardcoded single sample file
 			//
-			Path path = FileSystems.getDefault().getPath("samples", "canonical.qldoc");
+			Path path = FileSystems.getDefault().getPath("samples", "elaborate.qldoc");
 			file = Files.readAllBytes(path);
 		}
 		catch(IOException e)
@@ -48,7 +44,7 @@ public class TreeWalker implements CodeInspector
 		try
 		{
 			Document f = parser.parse(docSource);
-			f.accept(new TreeWalker());
+			f.print(new ConsolePrinter());
 		}
 		catch(ParseError e)
 		{

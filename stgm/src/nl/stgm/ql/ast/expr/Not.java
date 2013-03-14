@@ -6,4 +6,9 @@ public class Not extends UnaryExpr
 	{
 		this.arg = arg;
 	}
+
+	public String prettyString()
+	{
+		return "!";
+	}
 }

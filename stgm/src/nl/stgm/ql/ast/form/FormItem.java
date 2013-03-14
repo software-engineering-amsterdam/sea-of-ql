@@ -1,12 +1,8 @@
 package nl.stgm.ql.ast.form;
 
-import nl.stgm.ql.ast.ASTNode;
-import nl.stgm.ql.inspector.CodeInspector;
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.inspector.pretty.*;
 
-public class FormItem extends ASTNode
+public abstract class FormItem extends AbstractElement
 {
-	public void accept(CodeInspector inspector)
-	{
-		inspector.visit(this);
-	}
 }

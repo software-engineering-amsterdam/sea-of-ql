@@ -1,10 +1,10 @@
 package nl.stgm.ql.ast.form;
 
 import java.util.List;
-import nl.stgm.ql.ast.ASTNode;
-import nl.stgm.ql.inspector.CodeInspector;
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.inspector.pretty.*;
 
-public class Form extends ASTNode
+public class Form extends AbstractElement
 {
 	private String id;
 	private List<FormItem> formItems;
@@ -15,18 +15,15 @@ public class Form extends ASTNode
 		this.formItems = formItems;
 	}
 
-	public void accept(CodeInspector inspector)
+	public void print(ConsolePrinter context)
 	{
-		for (FormItem item: formItems)
+		context.println("form " + this.id + " {");
+		context.increaseIndent();
+		for (FormItem formItem: formItems)
 		{
-			item.accept(inspector);
+			formItem.print(context);
 		}
-		
-		inspector.visit(this);
-	}
-	
-	public String toString()
-	{
-		return("Form: " + id);
+		context.decreaseIndent();
+		context.println("}");
 	}
 }

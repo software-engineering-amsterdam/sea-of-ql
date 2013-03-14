@@ -7,4 +7,9 @@ public class LT extends BinaryExpr
 		this.left = left;
 		this.right = right;
 	}
+
+	public String prettyString()
+	{
+		return " < ";
+	}
 }

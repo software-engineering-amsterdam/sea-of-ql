@@ -7,12 +7,13 @@ JFLAGS=-cp $(CLASSPATH)
 all: parser tests inspectors
 parser: QLParser
 tests: TestExpressions TestForms
-inspectors: TreeWalker
+inspectors: PrettyPrinter
 
 # Runnable classes
 TestExpressions: QLParser src/nl/stgm/ql/parser/test/TestExpressions.class
 TestForms: QLParser src/nl/stgm/ql/parser/test/TestForms.class
-TreeWalker: QLParser src/nl/stgm/ql/inspector/TreeWalker.class
+PrettyPrinter: QLParser src/nl/stgm/ql/inspector/PrettyPrinter.class
+SemanticChecker: QLParser src/nl/stgm/ql/inspector/SemanticChecker.class
 
 # Generating the parser class
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
@@ -25,8 +26,10 @@ run/testexpr: TestExpressions
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestExpressions
 run/testform: TestForms
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
-run/treewalker: TreeWalker
-	$(JAVA) $(JFLAGS) nl.stgm.ql.inspector.TreeWalker
+run/pretty: PrettyPrinter
+	$(JAVA) $(JFLAGS) nl.stgm.ql.inspector.PrettyPrinter
+run/checker: SemanticChecker
+	$(JAVA) $(JFLAGS) nl.stgm.ql.inspector.SemanticChecker
 
 # Utilities
 %.class: %.java

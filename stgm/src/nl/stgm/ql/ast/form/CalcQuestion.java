@@ -1,7 +1,8 @@
 package nl.stgm.ql.ast.form;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.inspector.CodeInspector;
+import nl.stgm.ql.inspector.pretty.*;
 
 public class CalcQuestion extends Question
 {
@@ -13,14 +14,10 @@ public class CalcQuestion extends Question
 		this.calculation = calculation;
 	}
 
-	public String toString()
+	public void print(ConsolePrinter context)
 	{
-		return("Calculated Question: " + question);
-	}
-
-	public void accept(CodeInspector inspector)
-	{
-		calculation.accept(inspector);
-		inspector.visit(this);
+		context.print(id + ": " + question + " " + type + " (");
+		calculation.print(context);
+		context.println(")");
 	}
 }

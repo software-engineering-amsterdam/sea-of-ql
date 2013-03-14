@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.types;
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.inspector.CodeInspector;
 
 public class Int extends Expr
 {
@@ -15,7 +16,7 @@ public class Int extends Expr
 		return value;
 	}	
 	
-	public String toString()
+	public String prettyString()
 	{
 		return("Int: " + String.valueOf(value));
 	}
