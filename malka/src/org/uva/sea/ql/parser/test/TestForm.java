@@ -11,6 +11,8 @@ import org.uva.sea.ql.ast.form.Form;
 import org.uva.sea.ql.ast.form.FormElement;
 import org.uva.sea.ql.ast.form.FormText;
 import org.uva.sea.ql.ast.form.Question;
+import org.uva.sea.ql.parser.IParse;
+import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
 
 public class TestForm {

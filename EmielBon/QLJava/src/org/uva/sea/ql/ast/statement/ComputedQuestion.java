@@ -5,6 +5,9 @@ import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
 
+/**
+ * Represents a question of which the value is computed using the values of other questions.
+ */
 public class ComputedQuestion extends Question {
 
 	protected final Expression expression;
@@ -14,8 +17,16 @@ public class ComputedQuestion extends Question {
 		this.expression = expr;
 	}
 
+	/**
+	 * Returns the expression used to compute the value of this question
+	 * @return The expression
+	 */
 	public Expression getExpression() {
 		return expression;
+	}
+	
+	public <T> T accept(StatementVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 	
 }

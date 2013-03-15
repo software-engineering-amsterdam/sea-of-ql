@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.expression.Type;
 import org.uva.sea.ql.ast.expression.string.StringPrimitive;
 import org.uva.sea.ql.visitor.Visitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.visitor.VisitingException;
 
 public class Question extends FormField {
 
@@ -13,7 +13,7 @@ public class Question extends FormField {
 	}
 
 	@Override
-	public void accept(Visitor visitor) throws VisitorException {
+	public void accept(Visitor visitor) throws VisitingException {
 		visitor.visit(this);
 	}
 }

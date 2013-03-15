@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the logical NOT (!) operator
+ */
 public class Not extends UnaryOperator {
 
 	public Not(Expression operand) {

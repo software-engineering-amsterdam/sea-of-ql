@@ -1,8 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-
 public abstract class Variable implements Expression {
-	
 	private final Identifier id;
 	
 	public Identifier getID() {
@@ -26,6 +24,14 @@ public abstract class Variable implements Expression {
         Variable guest = (Variable) obj;
         return id == guest.id;
     }
+	
+	protected abstract boolean setPrimitive(Primitive p);
+	
+	public void bind(Primitive bound_primitive) {
+		if ( ! setPrimitive(bound_primitive) ) {
+			throw new RuntimeTypeError();
+		}
+	}
 	
 	@Override
     public int hashCode() {

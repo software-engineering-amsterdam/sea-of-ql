@@ -5,6 +5,9 @@ import org.uva.sea.ql.ast.type.Int;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * A class representing all possible integer literals
+ */
 public class IntegerLiteral extends Literal<Integer> {
 
 	public IntegerLiteral(int n) {

@@ -1,10 +1,11 @@
 package nl.stgm.ql.ast.form;
 
-import java.util.List;
-import nl.stgm.ql.ast.ASTNode;
-import nl.stgm.ql.inspector.CodeInspector;
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.inspectors.*;
 
-public class Document extends ASTNode
+import java.util.List;
+
+public class Document extends AbstractElement
 {
 	private List<Form> forms;
 	
@@ -13,13 +14,14 @@ public class Document extends ASTNode
 		this.forms = forms;
 	}
 	
-	public void accept(CodeInspector inspector)
+	public void print(PrettyPrinter context)
 	{
+		// hint: document element has no visual representation, so
+		// only prints children
+		
 		for (Form form: forms)
 		{
-			form.accept(inspector);
+			form.print(context);
 		}
-		
-		inspector.visit(this);
 	}
 }

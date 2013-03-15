@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.types;
-import nl.stgm.ql.ast.expr.*;
+
+import nl.stgm.ql.ast.*;
 
 public class Ident extends Expr
 {
@@ -15,8 +16,8 @@ public class Ident extends Expr
 		return name;
 	}
 
-	public String toString()
+	public String prettyString()
 	{
-		return("Ident: " + name);
+		return(name);
 	}
 }

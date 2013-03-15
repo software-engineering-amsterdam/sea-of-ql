@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the relational equality (==) operator
+ */
 public class Eq extends BinaryOperator {
 
 	public Eq(Expression leftOperand, Expression rightOperand) {
@@ -21,7 +24,6 @@ public class Eq extends BinaryOperator {
 		return visitor.visit(this);
 	}
 
-	@Override
 	public String getRepresentation() {
 		return "==";
 	}

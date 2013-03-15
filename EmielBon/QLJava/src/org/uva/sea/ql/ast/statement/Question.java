@@ -27,7 +27,7 @@ public class Question extends Statement {
 	public Type getType() {
 		return type;
 	}
-
+	
 	public <T> T accept(StatementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}

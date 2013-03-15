@@ -3,13 +3,13 @@ QL Interpreter
 
 * Has a parser generator for QL.
 * Has separate test runners for forms and expressions.
-* Has a treewalker that should be able to show class names in the tree.
+* Has a pretty printer that should render the textual representation from the AST.
 
 Building.
 ---------
 
-Use `make` to compile everything (will generate classfiles next to the
-sources), or use the Eclipse build tools.
+Use `make` to compile everything (this will generate classfiles next to the
+sources).
 
 Running.
 --------
@@ -23,9 +23,9 @@ Run the parser tests
 	make run/testexpr
 	make run/testform
 
-Run the tree walker for a simple form
+Run the pretty printer for a sample form
 
-	make run/treewalker
+	make run/pretty
 
 References.
 -----------

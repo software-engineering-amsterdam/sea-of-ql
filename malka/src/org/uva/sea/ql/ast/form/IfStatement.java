@@ -2,7 +2,7 @@ package org.uva.sea.ql.ast.form;
 
 import java.util.List;
 import org.uva.sea.ql.ast.expression.bool.BooleanExpression;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.visitor.VisitingException;
 import org.uva.sea.ql.visitor.Visitor;
 
 public class IfStatement extends FormElement {
@@ -27,7 +27,7 @@ public class IfStatement extends FormElement {
 	
 	@Override
 	public void accept(Visitor visitor)
-			throws VisitorException {
+			throws VisitingException {
 		visitor.visit(this);
 	}
 

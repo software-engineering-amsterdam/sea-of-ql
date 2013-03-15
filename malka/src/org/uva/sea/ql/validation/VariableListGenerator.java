@@ -2,7 +2,7 @@ package org.uva.sea.ql.validation;
 
 import org.uva.sea.ql.visitor.NodeNotSupportedByVisitorException;
 import org.uva.sea.ql.visitor.Visitor;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.visitor.VisitingException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,19 +41,27 @@ import org.uva.sea.ql.ast.form.Question;
 public class VariableListGenerator implements Visitor {
 	Map<String, Variable> variables;
 	
+	private void addVariable(Variable variable) throws DuplicateVariableException {
+		if (variables.containsKey(variable.getID().getName())) {
+			throw new DuplicateVariableException();
+		} else {
+			variables.put(variable.getID().getName(), variable);
+		}
+	}
+	
 	public VariableListGenerator() {
 		variables = new HashMap<String, Variable>();
 	}
 	
 	public Map<String, Variable> getVariableList (Form form)
-			throws VisitorException {
+			throws VisitingException {
 		
 		form.accept(this);
 		return variables;
 	}
-	
+		
 	@Override
-	public void visit(Form form) throws VisitorException {
+	public void visit(Form form) throws VisitingException {
 		List<FormElement> elements = form.getElements(); 
 		for(FormElement element : elements) {
 			element.accept(this);
@@ -65,11 +73,7 @@ public class VariableListGenerator implements Visitor {
 		Identifier id     = field.getId();
 		Type type         = field.getType();
 		Variable variable = type.getVariable(id); 
-		if (variables.containsKey(id.getName())) {
-			throw new DuplicateVariableException();
-		} else {
-			variables.put(id.getName(), variable);
-		}
+		addVariable(variable);
 	}
 	
 	@Override
@@ -77,132 +81,133 @@ public class VariableListGenerator implements Visitor {
 		Identifier id     = field.getId();
 		Type type         = field.getType();
 		Variable variable = type.getVariable(id); 
-		if (variables.containsKey(id.getName())) {
-			throw new DuplicateVariableException();
-		} else {
-			variables.put(id.getName(), variable);
-		}
+		addVariable(variable);
 	}
 	
 	@Override
-	public void visit(IfStatement statement) throws VisitorException {
+	public void visit(IfStatement statement) throws VisitingException {
 		List<FormElement> elements = statement.getIfList();
-		elements.addAll(statement.getElseList());
+		List<FormElement> else_elements = statement.getElseList();
+		
+		if (else_elements != null) {
+			elements.addAll(else_elements);
+		}
+		
 		for(FormElement element : elements) {
 			element.accept(this);
 		}
 	}
 
 	@Override
-	public void visit(Identifier identifier) throws VisitorException {
+	public void visit(Identifier identifier) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
 	public void visit(BooleanPrimitive booleanPrimitive)
-			throws VisitorException {
+			throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(BooleanVariable booleanVariable) throws VisitorException {
+	public void visit(BooleanVariable booleanVariable) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(And and) throws VisitorException {
+	public void visit(And and) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Not not) throws VisitorException {
+	public void visit(Not not) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Or or) throws VisitorException {
+	public void visit(Or or) throws VisitingException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void visit(Eq eq) throws VisitorException {
+	public void visit(Eq eq) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(GT gt) throws VisitorException {
+	public void visit(GT gt) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
 	public void visit(IntegerPrimitive integerPrimitive)
-			throws VisitorException {
+			throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(IntegerVariable integerVariable) throws VisitorException {
+	public void visit(IntegerVariable integerVariable) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(GEq gEq) throws VisitorException {
+	public void visit(GEq gEq) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(LEq lEq) throws VisitorException {
+	public void visit(LEq lEq) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(NEq nEq) throws VisitorException {
+	public void visit(NEq nEq) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(LT lt) throws VisitorException {
+	public void visit(LT lt) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Sub sub) throws VisitorException {
+	public void visit(Sub sub) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Neg neg) throws VisitorException {
+	public void visit(Neg neg) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Mul mul) throws VisitorException {
+	public void visit(Mul mul) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Div div) throws VisitorException {
+	public void visit(Div div) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Add add) throws VisitorException {
+	public void visit(Add add) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(Pos pos) throws VisitorException {
+	public void visit(Pos pos) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(StringVariable stringVariable) throws VisitorException {
+	public void visit(StringVariable stringVariable) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 
 	@Override
-	public void visit(StringPrimitive stringPrimitive) throws VisitorException {
+	public void visit(StringPrimitive stringPrimitive) throws VisitingException {
 		throw new NodeNotSupportedByVisitorException();
 	}
 	

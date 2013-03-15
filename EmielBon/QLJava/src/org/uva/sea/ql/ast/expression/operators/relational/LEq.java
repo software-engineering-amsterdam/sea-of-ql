@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Bool;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the relational less-then-or-equal-to (<=) operator
+ */
 public class LEq extends BinaryOperator {
 
 	public LEq(Expression leftOperand, Expression rightOperand) {
@@ -21,7 +24,6 @@ public class LEq extends BinaryOperator {
 		return visitor.visit(this);
 	}
 
-	@Override
 	public String getRepresentation() {
 		return "<=";
 	}

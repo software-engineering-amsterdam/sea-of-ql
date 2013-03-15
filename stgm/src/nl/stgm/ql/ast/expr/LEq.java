@@ -1,4 +1,5 @@
 package nl.stgm.ql.ast.expr;
+import nl.stgm.ql.ast.*;
 
 public class LEq extends BinaryExpr
 {
@@ -6,5 +7,10 @@ public class LEq extends BinaryExpr
 	{
 		this.left = left;
 		this.right = right;
+	}
+
+	public String prettyString()
+	{
+		return " <= ";
 	}
 }

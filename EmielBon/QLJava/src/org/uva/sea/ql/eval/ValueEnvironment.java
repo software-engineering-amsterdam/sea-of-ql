@@ -12,12 +12,12 @@ public class ValueEnvironment {
 		return environment.containsKey(id);
 	}
 	
-	public void declare(Identifier id, Value value) {
+	public void setValue(Identifier id, Value value) {
 		environment.put(id, value);
 	}
 	
 	public Value getValue(Identifier id) {
-		return (isDeclared(id)) ? environment.get(id) : new Undefined();
+		return (isDeclared(id)) ? environment.get(id) : Undefined.UNDEF;
 	}
 	
 	public String toString() {

@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the numeric subtraction (-) operator
+ */
 public class Sub extends BinaryOperator {
 
 	public Sub(Expression leftOperand, Expression rightOperand) {

@@ -1,5 +1,8 @@
 package nl.stgm.ql.ast.form;
 
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.inspectors.*;
+
 public class Question extends FormItem
 {
 	protected String id;
@@ -13,8 +16,8 @@ public class Question extends FormItem
 		this.type = type;
 	}
 	
-	public String toString()
+	public void print(PrettyPrinter context)
 	{
-		return("Question: " + question);
+		context.println(id + ": " + question + " " + type);
 	}
 }

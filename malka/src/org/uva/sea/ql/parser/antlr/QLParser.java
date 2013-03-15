@@ -1,4 +1,4 @@
-// $ANTLR !Unknown version! QL.g 2013-03-04 12:35:33
+// $ANTLR !Unknown version! QL.g 2013-03-09 00:38:26
 
 package org.uva.sea.ql.parser.antlr;
 
@@ -91,6 +91,7 @@ public class QLParser extends Parser {
     public final Form form() throws RecognitionException {
         Form result = null;
         int form_StartIndex = input.index();
+        Token IDENT1=null;
         List<FormElement> elements = null;
 
 
@@ -100,7 +101,7 @@ public class QLParser extends Parser {
             // QL.g:41:4: FORM IDENT '{' elements= formElementList '}'
             {
             match(input,FORM,FOLLOW_FORM_in_form54); if (state.failed) return result;
-            match(input,IDENT,FOLLOW_IDENT_in_form56); if (state.failed) return result;
+            IDENT1=(Token)match(input,IDENT,FOLLOW_IDENT_in_form56); if (state.failed) return result;
             match(input,16,FOLLOW_16_in_form58); if (state.failed) return result;
             pushFollow(FOLLOW_formElementList_in_form62);
             elements=formElementList();
@@ -109,7 +110,7 @@ public class QLParser extends Parser {
             if (state.failed) return result;
             match(input,17,FOLLOW_17_in_form64); if (state.failed) return result;
             if ( state.backtracking==0 ) {
-               result = new Form(elements); 
+               result = new Form((IDENT1!=null?IDENT1.getText():null), elements); 
             }
 
             }
@@ -196,10 +197,10 @@ public class QLParser extends Parser {
     public final FormElement formElement() throws RecognitionException {
         FormElement result = null;
         int formElement_StartIndex = input.index();
-        Token IDENT1=null;
-        Token STRING2=null;
-        Token IDENT3=null;
-        Token STRING4=null;
+        Token IDENT2=null;
+        Token STRING3=null;
+        Token IDENT4=null;
+        Token STRING5=null;
         Type t = null;
 
         Expression x = null;
@@ -220,16 +221,16 @@ public class QLParser extends Parser {
                 case 1 :
                     // QL.g:49:4: IDENT ':' STRING t= type
                     {
-                    IDENT1=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement105); if (state.failed) return result;
+                    IDENT2=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement105); if (state.failed) return result;
                     match(input,18,FOLLOW_18_in_formElement107); if (state.failed) return result;
-                    STRING2=(Token)match(input,STRING,FOLLOW_STRING_in_formElement109); if (state.failed) return result;
+                    STRING3=(Token)match(input,STRING,FOLLOW_STRING_in_formElement109); if (state.failed) return result;
                     pushFollow(FOLLOW_type_in_formElement113);
                     t=type();
 
                     state._fsp--;
                     if (state.failed) return result;
                     if ( state.backtracking==0 ) {
-                       result = new Question(new Identifier((IDENT1!=null?IDENT1.getText():null)), new StringPrimitive((STRING2!=null?STRING2.getText():null)), t); 
+                       result = new Question(new Identifier((IDENT2!=null?IDENT2.getText():null)), new StringPrimitive((STRING3!=null?STRING3.getText():null)), t); 
                     }
 
                     }
@@ -237,9 +238,9 @@ public class QLParser extends Parser {
                 case 2 :
                     // QL.g:50:4: IDENT ':' STRING t= type '(' x= addExpr ')'
                     {
-                    IDENT3=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement120); if (state.failed) return result;
+                    IDENT4=(Token)match(input,IDENT,FOLLOW_IDENT_in_formElement120); if (state.failed) return result;
                     match(input,18,FOLLOW_18_in_formElement122); if (state.failed) return result;
-                    STRING4=(Token)match(input,STRING,FOLLOW_STRING_in_formElement124); if (state.failed) return result;
+                    STRING5=(Token)match(input,STRING,FOLLOW_STRING_in_formElement124); if (state.failed) return result;
                     pushFollow(FOLLOW_type_in_formElement128);
                     t=type();
 
@@ -253,7 +254,7 @@ public class QLParser extends Parser {
                     if (state.failed) return result;
                     match(input,20,FOLLOW_20_in_formElement136); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
-                       result = new FormText(new Identifier((IDENT3!=null?IDENT3.getText():null)), new StringPrimitive((STRING4!=null?STRING4.getText():null)), t, x); 
+                       result = new FormText(new Identifier((IDENT4!=null?IDENT4.getText():null)), new StringPrimitive((STRING5!=null?STRING5.getText():null)), t, x); 
                     }
 
                     }
@@ -338,10 +339,10 @@ public class QLParser extends Parser {
     public final Expression primary() throws RecognitionException {
         Expression result = null;
         int primary_StartIndex = input.index();
-        Token INT5=null;
-        Token BOOL6=null;
-        Token STRING7=null;
-        Token IDENT8=null;
+        Token INT6=null;
+        Token BOOL7=null;
+        Token STRING8=null;
+        Token IDENT9=null;
         Expression x = null;
 
 
@@ -387,9 +388,9 @@ public class QLParser extends Parser {
                 case 1 :
                     // QL.g:67:5: INT
                     {
-                    INT5=(Token)match(input,INT,FOLLOW_INT_in_primary193); if (state.failed) return result;
+                    INT6=(Token)match(input,INT,FOLLOW_INT_in_primary193); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
-                       result = new IntegerPrimitive(Integer.parseInt((INT5!=null?INT5.getText():null))); 
+                       result = new IntegerPrimitive(Integer.parseInt((INT6!=null?INT6.getText():null))); 
                     }
 
                     }
@@ -397,9 +398,9 @@ public class QLParser extends Parser {
                 case 2 :
                     // QL.g:68:5: BOOL
                     {
-                    BOOL6=(Token)match(input,BOOL,FOLLOW_BOOL_in_primary204); if (state.failed) return result;
+                    BOOL7=(Token)match(input,BOOL,FOLLOW_BOOL_in_primary204); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
-                       result = new BooleanPrimitive(Boolean.parseBoolean((BOOL6!=null?BOOL6.getText():null))); 
+                       result = new BooleanPrimitive(Boolean.parseBoolean((BOOL7!=null?BOOL7.getText():null))); 
                     }
 
                     }
@@ -407,9 +408,9 @@ public class QLParser extends Parser {
                 case 3 :
                     // QL.g:69:5: STRING
                     {
-                    STRING7=(Token)match(input,STRING,FOLLOW_STRING_in_primary214); if (state.failed) return result;
+                    STRING8=(Token)match(input,STRING,FOLLOW_STRING_in_primary214); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
-                       result = new StringPrimitive((STRING7!=null?STRING7.getText():null)); 
+                       result = new StringPrimitive((STRING8!=null?STRING8.getText():null)); 
                     }
 
                     }
@@ -417,9 +418,9 @@ public class QLParser extends Parser {
                 case 4 :
                     // QL.g:70:5: IDENT
                     {
-                    IDENT8=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary222); if (state.failed) return result;
+                    IDENT9=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary222); if (state.failed) return result;
                     if ( state.backtracking==0 ) {
-                       result = new Identifier((IDENT8!=null?IDENT8.getText():null)); 
+                       result = new Identifier((IDENT9!=null?IDENT9.getText():null)); 
                     }
 
                     }

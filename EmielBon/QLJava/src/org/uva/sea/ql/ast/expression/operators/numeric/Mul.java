@@ -7,6 +7,9 @@ import org.uva.sea.ql.ast.type.Numeric;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.typechecker.TypeEnvironment;
 
+/**
+ * Represents the numeric multiplication (*) operator
+ */
 public class Mul extends BinaryOperator {
 
 	public Mul(Expression leftOperand, Expression rightOperand) {

@@ -1,8 +1,9 @@
 package nl.stgm.ql.ast.form;
 
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.inspectors.*;
+
 import java.util.List;
-import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.inspector.CodeInspector;
 
 public class Conditional extends FormItem
 {
@@ -17,23 +18,29 @@ public class Conditional extends FormItem
 		this.elseQuestions = elseQuestions;
 	}
 
-	public void accept(CodeInspector inspector)
+	public void print(PrettyPrinter context)
 	{
-		condition.accept(inspector);
-		
-		for (Question question: ifQuestions)
-		{
-			question.accept(inspector);
-		}
-		
+		context.print("if(");
+		condition.print(context);
+		context.println(") {");
+				
+		context.increaseIndent();
+		for (Question q: ifQuestions)
+			q.print(context);
+		context.decreaseIndent();
+		context.println("}");
+
 		if(elseQuestions != null)
 		{
-			for (Question question: elseQuestions)
+			context.println("else {");
+			context.increaseIndent();
+			for (Question q: elseQuestions)
 			{
-				question.accept(inspector);
+				q.print(context);
 			}
+			context.decreaseIndent();
+			context.println("}");
 		}
-		
-		inspector.visit(this);
+
 	}
 }

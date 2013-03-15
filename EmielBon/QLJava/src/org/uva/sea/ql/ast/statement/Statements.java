@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// TODO Rename!
 public class Statements extends Statement {
 
 	private final List<Statement> statements = new ArrayList<Statement>();

@@ -20,16 +20,16 @@ import org.uva.sea.ql.ast.form.Question;
 import org.uva.sea.ql.ast.form.FormElement;
 import org.uva.sea.ql.validation.DuplicateVariableException;
 import org.uva.sea.ql.validation.VariableListGenerator;
-import org.uva.sea.ql.visitor.VisitorException;
+import org.uva.sea.ql.visitor.VisitingException;
 
 public class VariableListGeneratorTest {
 	
 	@Test
-	public void testFormVariables() throws VisitorException{
+	public void testFormVariables() throws VisitingException{
 		VariableListGenerator list_generator = new VariableListGenerator();
 		List<FormElement> elements = new ArrayList<FormElement>();
 		
-		Form form      = new Form(elements);
+		Form form      = new Form("testForm", elements);
 		Identifier id  = new Identifier("hi");
 		Identifier id2 = new Identifier("hi2");
 		Type type      = new BooleanType();
@@ -50,11 +50,11 @@ public class VariableListGeneratorTest {
 	}
 	
 	@Test
-	public void testFormVariablesUniqueness() throws VisitorException{
+	public void testFormVariablesUniqueness() throws VisitingException{
 		VariableListGenerator list_generator = new VariableListGenerator();
 		List<FormElement> elements = new ArrayList<FormElement>();
 		
-		Form form     = new Form(elements);
+		Form form     = new Form("testForm", elements);
 		Identifier id = new Identifier("hi");
 		Type type     = new BooleanType();
 		

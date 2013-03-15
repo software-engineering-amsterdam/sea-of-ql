@@ -102,10 +102,7 @@ public class Eval implements ExpressionVisitor<Value> {
 	}
 
 	public Value visit(Identifier var) {
-		if (env.isDeclared(var)) {
-			return env.getValue(var);
-		}
-		return new Undefined();
+		return env.getValue(var);
 	}
 
 	public Value visit(BooleanLiteral expr) {
