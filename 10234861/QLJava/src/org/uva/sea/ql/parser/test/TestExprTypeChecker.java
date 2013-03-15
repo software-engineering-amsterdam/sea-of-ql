@@ -31,13 +31,13 @@ public class TestExprTypeChecker {
 	@Test
 	public void testExprTypeChecker() throws ParseError {
 
-		assertEquals(true, ExprTypeChecker.check(parser.parse("1 - 6 + 2 * (-23) +34"), typeEnvironment, errors));
-		assertEquals(true, ExprTypeChecker.check(parser.parse("(4+5)<=(9+0) || true"), typeEnvironment, errors));
-		/*
-		 * assertEquals(true, ExprTypeChecker.check(
-		 * parser.parse("(+5<=-9) && !false || true"), typeEnvironment,
-		 * errors));
-		 */
+		assertEquals(true, ExprTypeChecker.check(parser.parse("1 - 6 + 2 * (-23) +34"),
+				typeEnvironment, errors));
+		assertEquals(true, ExprTypeChecker.check(parser.parse("(4+5)<=(9+0) || true"),
+				typeEnvironment, errors));
+
+		assertEquals(true, ExprTypeChecker.check(parser.parse("(+5<=9) &&  (!false || true)"),
+				typeEnvironment, errors));		
 
 	}
 }

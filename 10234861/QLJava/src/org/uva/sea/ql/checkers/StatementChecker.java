@@ -26,6 +26,10 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 		this.errors = errors;
 	}
 
+	public List<QLError> getErrors() {
+		return this.errors;
+	}
+
 	public static boolean check(Form form, Map<String, Type> typeEnvironment, List<QLError> errors) {
 
 		StatementChecker stmntChecker = new StatementChecker(typeEnvironment, errors);
@@ -87,7 +91,7 @@ public class StatementChecker implements IStatementVisitor<Boolean> {
 			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override

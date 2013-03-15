@@ -21,9 +21,9 @@ public class TestEvaluator {
 	}
 	
 	@Test
-	public void testExprTypeChecker() throws ParseError {
+	public void testExprEvaluator() throws ParseError {
 		
-		Expr expr = parser.parse("5<6 || 7>10");
+		Expr expr = parser.parse("5+10");
 		Value v = Evaluator.eval(expr, env);
 		
 		System.out.println(v.getValue());		

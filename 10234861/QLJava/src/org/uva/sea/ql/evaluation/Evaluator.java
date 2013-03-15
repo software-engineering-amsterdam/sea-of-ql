@@ -35,7 +35,7 @@ public class Evaluator implements IExprVisitor<Value> {
 
 	public Evaluator(Map<String, Value> env) {
 
-		this.env = Collections.unmodifiableMap(env); // what this one for?
+		this.env = Collections.unmodifiableMap(env); // references can't modify
 	}
 
 	public static Value eval(Expr expr, Map<String, Value> environment) {

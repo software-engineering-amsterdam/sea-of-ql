@@ -64,7 +64,7 @@ public class TestForm {
 						+ " question6 : \" wtf? \" int " + " }"
 						+ " question5 : \"...then what?\" string"
 						+ " if (true + false * peace / 9898) { "
-						+ " question7 : \" bla bla \" int " + " if (-8) { "
+						+ " question7 : \" bla bla \" int " + " if (question2 + question6 ) { "
 						+ " question8 : \" lekker \" string " + " question9 : \" joli \" bool "
 						+ " }" + " }" + " }" + " question3 : \"again question?\" bool " + " }")
 				.getClass());
