@@ -2,7 +2,7 @@ package nl.stgm.ql.inspectors.pretty;
 
 public interface Printable
 {
-	// You will need to provide a prettyString() implementation for each
+	// You will need to provide a toString() implementation for each
 	// concrete descendant of this class. It will be printed upon encoutering
 	// a node of that type.
 	//
@@ -10,5 +10,5 @@ public interface Printable
 	// printing flow, printing children first, or adding brackets.
 	
 	public void print(PrettyPrinter context);
-	public String prettyString() throws UnsupportedOperationException;
+	public String toString() throws UnsupportedOperationException;
 }

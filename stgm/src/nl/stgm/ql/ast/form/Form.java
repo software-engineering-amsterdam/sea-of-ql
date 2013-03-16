@@ -31,6 +31,8 @@ public class Form extends AbstractElement
 
 	public void check(SemanticChecker context)
 	{
+		context.registerForm(this.id, this);
+		
 		context.pushCrumb(this.id);
 		for(FormItem f: formItems)
 		{

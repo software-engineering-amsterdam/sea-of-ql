@@ -8,7 +8,7 @@ public class Pos extends UnaryExpr
 		this.arg = arg;
 	}
 
-	public String prettyString()
+	public String toString()
 	{
 		return "+";
 	}

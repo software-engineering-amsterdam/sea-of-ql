@@ -11,3 +11,13 @@ form Box1HouseOwning {
 	
 	hasMaintLoan: "Maint?" boolean (true == true)
 }
+
+form AnotherForm
+{
+	hasBoughtHouse: "Did you by a house in 2010?" int
+}
+
+form AnotherForm
+{
+	// this is a dupe form
+}

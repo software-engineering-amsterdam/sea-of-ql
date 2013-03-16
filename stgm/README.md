@@ -27,6 +27,18 @@ Run the pretty printer for a sample form
 
 	make run/pretty
 
+Run the semantics checker for a sample form
+
+	make run/check
+
+It will check for these problems:
+
+* type inconsistencies in expressions
+* using the same question name with different data types
+* using the same question name as calculated and user input
+* undefined names in calculations
+* duplicate form names
+
 References.
 -----------
 

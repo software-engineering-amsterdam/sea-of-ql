@@ -2,25 +2,6 @@ package nl.stgm.ql.inspectors.checker;
 
 public class Identifier
 {
-	public static enum Type
-	{
-		INT, BOOL, STRING;
-		
-		public static Type parse(String source)
-		{
-			switch(source)
-			{
-				case "int":
-					return INT;
-				case "boolean":
-					return BOOL;
-				case "string":
-					return STRING;
-			}
-			return null;
-		}
-	}
-
 	String name;
 	Type type;
 	boolean computed;
@@ -40,6 +21,11 @@ public class Identifier
 	public Type getType()
 	{
 		return this.type;
+	}
+	
+	public boolean isOfType(String type)
+	{
+		return this.type == Type.parse(type);
 	}
 	
 	public boolean isComputed()

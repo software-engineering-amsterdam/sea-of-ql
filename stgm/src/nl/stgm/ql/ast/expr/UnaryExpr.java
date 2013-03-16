@@ -7,27 +7,13 @@ public abstract class UnaryExpr extends Expr
 {
 	protected Expr arg;
 
-	public void print(PrettyPrinter context)
+	public String pretty()
 	{
-		context.print(this.prettyString());
-		arg.print(context);
+		return this.toString() + arg.pretty();
 	}
 
-	// public void check(SemanticChecker context)
-	// {
-	// 	System.out.println("Check 1 element!" + this.toString());
-	// 
-	// 	arg.check(context);
-	// }
-	
-	public String toString()
+	public Type getType(SemanticChecker context) throws IncompatibleTypesException
 	{
-		return(this.prettyString() + arg.toString());
-	}
-
-	public Identifier.Type getType(SemanticChecker context)
-	{
-		// TODO: check if operator is appropriate for arg
 		return arg.getType(context);
 	}
 }

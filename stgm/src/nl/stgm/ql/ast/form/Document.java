@@ -17,7 +17,7 @@ public class Document extends AbstractElement
 	
 	public void print(PrettyPrinter context)
 	{
-		// hint: document element has no visual representation, so
+		// document element has no visual representation, so
 		// only prints children
 		
 		for(Form form: forms)
