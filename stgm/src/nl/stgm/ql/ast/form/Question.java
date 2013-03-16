@@ -24,7 +24,5 @@ public class Question extends FormItem
 	public void check(SemanticChecker context)
 	{
 		context.registerIdent(this.id, this.type, false);
-		// context.pushCrumb(this.id);
-		// context.popCrumb();
 	}
 }

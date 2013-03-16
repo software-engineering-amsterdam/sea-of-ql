@@ -5,5 +5,6 @@ public interface Checkable
 	// You will need to provide a check() implementation for each concrete
 	// descendant of this class.
 	
+	// TODO
 	// public void check(SemanticChecker context);
 }

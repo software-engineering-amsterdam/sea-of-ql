@@ -8,6 +8,10 @@ form Box1HouseOwning {
 		privateDebt: "Private debts for the sold house:" int
 		valueResidue: "Value residue:" int (sellingPrice - privateDebt)
 	}
+	else
+	{
+		tellingPrice: "No way?!" int
+	}
 }
 
 form Box1Loans {

@@ -17,11 +17,6 @@ public class Ident extends Expr
 		return name;
 	}
 
-	public String toString()
-	{
-		return name;
-	}
-
 	public String pretty()
 	{
 		return name;
@@ -29,7 +24,7 @@ public class Ident extends Expr
 
 	public Type getType(SemanticChecker context)
 	{
-		// context knowns our type from previous definitions
+		// the semantic checker knowns our type from previous definitions
 		return context.lookupType(this.name);
 	}
 }

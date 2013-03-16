@@ -19,6 +19,13 @@ public class Conditional extends FormItem
 		this.elseQuestions = elseQuestions;
 	}
 
+	public Conditional(Expr condition, List<Question> ifQuestions)
+	{
+		this.condition = condition;
+		this.ifQuestions = ifQuestions;
+		this.elseQuestions = null;
+	}
+
 	public void print(PrettyPrinter context)
 	{
 		context.print("if(");
@@ -29,6 +36,7 @@ public class Conditional extends FormItem
 		for (Question q: ifQuestions)
 			q.print(context);
 		context.decreaseIndent();
+		
 		context.println("}");
 
 		if(elseQuestions != null)
@@ -46,7 +54,7 @@ public class Conditional extends FormItem
 
 	public void check(SemanticChecker context)
 	{
-		context.pushCrumb("if(" + condition + ")");
+		context.pushCrumb("if(" + condition.pretty() + ")");
 		context.performTypeCheck(condition);
 
 		for(Question q: ifQuestions)

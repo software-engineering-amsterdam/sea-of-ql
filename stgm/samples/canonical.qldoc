@@ -15,6 +15,15 @@ form Box1HouseOwning {
 form AnotherForm
 {
 	hasBoughtHouse: "Did you by a house in 2010?" int
+
+	if(huh)
+	{
+		// no=op
+	}
+	else
+	{
+		// no-up
+	}
 }
 
 form AnotherForm

@@ -138,7 +138,7 @@ public class SemanticChecker
 				err.append(c);
 				err.append(" / ");
 			}
-			err.append("\n   ");
+			err.append("\n     ");
 		}
 		err.append(message);
 		errors.add(err.toString());
@@ -187,8 +187,28 @@ public class SemanticChecker
 			exitWithError("Error parsing sample file: " + e.getMessage());
 		}
 		
+		printErrorList(checker);
+	}
+
+	public static void printErrorList(SemanticChecker checker)
+	{
+		if(checker.errors.size() == 0)
+		{
+			System.out.println("No errors found.");
+			System.exit(0);
+		}
+		
+		System.out.println();
+
+		int line = 1;
 		for(String e: checker.errors)
-			System.out.println(e);		
+		{
+			System.out.print(" " + String.valueOf(line) + ": ");
+			System.out.println(e);
+			line++;
+		}
+
+		System.out.println();
 	}
 	
 	public static void exitWithError(String message)

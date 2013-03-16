@@ -66,7 +66,7 @@ public class PrettyPrinter
 			//
 			// hardcoded single sample file
 			//
-			Path path = FileSystems.getDefault().getPath("samples", "elaborate.qldoc");
+			Path path = FileSystems.getDefault().getPath("samples", "canonical.qldoc");
 			file = Files.readAllBytes(path);
 		}
 		catch(IOException e)
