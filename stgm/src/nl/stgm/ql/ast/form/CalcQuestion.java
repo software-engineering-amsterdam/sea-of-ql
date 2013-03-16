@@ -19,4 +19,10 @@ public class CalcQuestion extends Question
 		calculation.print(context);
 		context.println(")");
 	}
+
+	public void check(SemanticChecker context)
+	{
+		System.out.println("CalcQ type" + this.toString());
+		context.typeCheck(calculation);
+	}
 }

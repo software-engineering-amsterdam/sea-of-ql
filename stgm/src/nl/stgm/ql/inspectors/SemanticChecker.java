@@ -9,7 +9,7 @@ import java.util.HashMap;
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
-import nl.stgm.ql.ast.types.*;
+import nl.stgm.ql.ast.terminals.*;
 
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
@@ -24,6 +24,38 @@ public class SemanticChecker
 	public int results()
 	{
 		return(symbols.size());
+	}
+	
+	public void addIdent(String name, String type)
+	{
+		symbols.put(symbol.getName(), symbol);
+	}
+	
+	public Class lookupType(String name)
+	{
+		Ident s = symbols.get(name);
+		
+		if(s != null)
+		{
+			return(symbols.get(name).getClass());
+		}
+		else
+		{
+			// identifier is not defined yet
+			return(null);
+		}
+	}
+	
+	public void typeCheck(Expr expr)
+	{
+		try
+		{
+			System.out.println(expr.getType(this));
+		}
+		catch(Error e)
+		{
+			System.out.println("Type error.");
+		}
 	}
 	
 	public static void main(String[] args)
@@ -70,7 +102,7 @@ public class SemanticChecker
 		try
 		{
 			Document document = parser.parse(documentSource);
-			document.accept(checker);
+			document.check(checker);
 		}
 		catch(ParseError e)
 		{

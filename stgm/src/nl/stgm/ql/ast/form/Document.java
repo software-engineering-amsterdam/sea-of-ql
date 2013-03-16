@@ -19,9 +19,19 @@ public class Document extends AbstractElement
 		// hint: document element has no visual representation, so
 		// only prints children
 		
-		for (Form form: forms)
+		for(Form form: forms)
 		{
 			form.print(context);
+		}
+	}
+	
+	public void check(SemanticChecker context)
+	{
+		System.out.println("Check 1 element!" + this.toString());
+
+		for(Form f: forms)
+		{
+			f.check(context);
 		}
 	}
 }

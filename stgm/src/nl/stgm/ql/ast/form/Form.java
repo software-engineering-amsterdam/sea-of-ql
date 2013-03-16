@@ -27,4 +27,14 @@ public class Form extends AbstractElement
 		context.decreaseIndent();
 		context.println("}");
 	}
+
+	public void check(SemanticChecker context)
+	{
+		System.out.println("Check 1 element!" + this.toString());
+
+		for(FormItem f: formItems)
+		{
+			f.check(context);
+		}
+	}
 }

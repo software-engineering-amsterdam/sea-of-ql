@@ -12,4 +12,24 @@ public abstract class UnaryExpr extends Expr
 		context.print(this.prettyString());
 		arg.print(context);
 	}
+
+	public void check(SemanticChecker context)
+	{
+		System.out.println("Check 1 element!" + this.toString());
+
+		arg.check(context);
+	}
+
+	public Class getType(SemanticChecker context)
+	{
+		// if(arg.getClass())
+		// {
+			return arg.getType(context);
+		// }
+		// else
+		// {
+		// 	// interpretererror
+		// 	throw new Error();
+		// }
+	}
 }

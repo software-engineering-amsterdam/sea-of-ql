@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import xtc.util.Action;
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.ast.types.*;
+import nl.stgm.ql.ast.terminals.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 }

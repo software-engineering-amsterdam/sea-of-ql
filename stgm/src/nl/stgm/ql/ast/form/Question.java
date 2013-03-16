@@ -20,4 +20,11 @@ public class Question extends FormItem
 	{
 		context.println(id + ": " + question + " " + type);
 	}
+
+	public void check(SemanticChecker context)
+	{
+		System.out.println("Check 1 element!" + this.toString());
+		
+		context.addIdent(this.id, this.type);
+	}
 }

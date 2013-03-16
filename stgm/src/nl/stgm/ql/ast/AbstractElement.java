@@ -1,7 +1,7 @@
 package nl.stgm.ql.ast;
 import nl.stgm.ql.inspectors.*;
 
-public abstract class AbstractElement implements ASTNode, Printable
+public abstract class AbstractElement implements ASTNode, Printable, Checkable
 {
 	//
 	// You will need to provide a prettyString() implementation for each concrete descendant of this class.

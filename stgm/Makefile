@@ -28,7 +28,7 @@ run/testform: TestForms
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
 run/pretty: PrettyPrinter
 	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.PrettyPrinter
-run/checker: SemanticChecker
+run/check: SemanticChecker
 	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.SemanticChecker
 
 # Utilities
