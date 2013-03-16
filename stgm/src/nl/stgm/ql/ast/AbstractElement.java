@@ -5,11 +5,6 @@ import nl.stgm.ql.inspectors.checker.*;
 
 public abstract class AbstractElement implements ASTNode, Printable, Checkable
 {
-	//
-	// You will need to provide a prettyString() implementation for each concrete descendant of this class.
-	// Alternatively, you can override print() to enable a more complex printing flow.
-	//
-	
 	public void print(PrettyPrinter context)
 	{
 		context.print(this.prettyString());

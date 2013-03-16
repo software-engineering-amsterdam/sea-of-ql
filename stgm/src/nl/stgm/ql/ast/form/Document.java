@@ -28,8 +28,6 @@ public class Document extends AbstractElement
 	
 	public void check(SemanticChecker context)
 	{
-		System.out.println("Check 1 element!" + this.toString());
-
 		for(Form f: forms)
 		{
 			f.check(context);

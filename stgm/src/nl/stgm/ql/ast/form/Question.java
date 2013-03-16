@@ -23,8 +23,8 @@ public class Question extends FormItem
 
 	public void check(SemanticChecker context)
 	{
-		System.out.println("Check 1 element!" + this.toString());
-		
 		context.registerIdent(this.id, this.type, false);
+		// context.pushCrumb(this.id);
+		// context.popCrumb();
 	}
 }

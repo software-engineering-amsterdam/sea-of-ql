@@ -31,11 +31,11 @@ public class Form extends AbstractElement
 
 	public void check(SemanticChecker context)
 	{
-		System.out.println("Check 1 element!" + this.toString());
-
+		context.pushCrumb(this.id);
 		for(FormItem f: formItems)
 		{
 			f.check(context);
 		}
+		context.popCrumb();
 	}
 }

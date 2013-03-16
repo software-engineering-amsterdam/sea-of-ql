@@ -10,9 +10,6 @@ import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
 
-//
-// Simple inspector that walks the tree depth-first and prints out class names
-//
 public class PrettyPrinter
 {
 	private int indent = 0;

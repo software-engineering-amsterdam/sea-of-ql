@@ -23,10 +23,9 @@ public class Ident extends TerminalExpr
 		return(name);
 	}
 
-	public void check(SemanticChecker context)
+	public String toString()
 	{
-		// check of ident uberhaupt bestaat
-		System.out.println("Check 1 element!" + this.toString());
+		return(name);
 	}
 
 	public Identifier.Type getType(SemanticChecker context)

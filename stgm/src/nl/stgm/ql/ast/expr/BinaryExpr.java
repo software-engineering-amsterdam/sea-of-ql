@@ -25,24 +25,25 @@ public abstract class BinaryExpr extends Expr
 		right.print(context);
 	}
 
-	public void check(SemanticChecker context)
+	public String toString()
 	{
-		System.out.println("Check 1 element!" + this.toString());
-
-		left.check(context);
-		right.check(context);
+		return(left.toString() + this.prettyString() + right.toString());
 	}
+	
+	// public void check(SemanticChecker context)
+	// {
+	// 	System.out.println("Check 1 element!" + this.toString());
+	// 
+	// 	left.check(context);
+	// 	right.check(context);
+	// }
 
 	public Identifier.Type getType(SemanticChecker context)
 	{
 		if(left.getType(context) == right.getType(context))
-		{
 			return left.getType(context);
-		}
 		else
-		{
 			// interpretererror?
 			throw new Error("Incompatible types");
-		}
 	}
 }

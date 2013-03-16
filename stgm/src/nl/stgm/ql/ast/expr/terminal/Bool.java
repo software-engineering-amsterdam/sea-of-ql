@@ -22,10 +22,10 @@ public class Bool extends TerminalExpr
 	{
 		return("bool: " + String.valueOf(value));
 	}
-
-	public void check(SemanticChecker context)
+	
+	public String toString()
 	{
-		System.out.println("Check 1 element!" + this.toString());
+		return(String.valueOf(value));
 	}
 
 	public Identifier.Type getType(SemanticChecker context)

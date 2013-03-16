@@ -17,7 +17,6 @@ public class Identifier
 				case "string":
 					return STRING;
 			}
-			
 			return null;
 		}
 	}
@@ -45,6 +44,6 @@ public class Identifier
 	
 	public boolean isComputed()
 	{
-		return computed;
+		return this.computed;
 	}
 }

@@ -46,21 +46,16 @@ public class Conditional extends FormItem
 
 	public void check(SemanticChecker context)
 	{
-		System.out.println("Conditional:");
-		
-		context.typeCheck(condition);
+		context.pushCrumb("if(" + condition + ")");
+		context.performTypeCheck(condition);
 
 		for(Question q: ifQuestions)
-		{
 			q.check(context);
-		}
 
 		if(elseQuestions != null)
-		{
 			for(Question q: elseQuestions)
-			{
 				q.check(context);
-			}
-		}
+		
+		context.popCrumb();
 	}
 }

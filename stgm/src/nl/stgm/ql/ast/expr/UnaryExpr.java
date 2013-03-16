@@ -13,23 +13,21 @@ public abstract class UnaryExpr extends Expr
 		arg.print(context);
 	}
 
-	public void check(SemanticChecker context)
+	// public void check(SemanticChecker context)
+	// {
+	// 	System.out.println("Check 1 element!" + this.toString());
+	// 
+	// 	arg.check(context);
+	// }
+	
+	public String toString()
 	{
-		System.out.println("Check 1 element!" + this.toString());
-
-		arg.check(context);
+		return(this.prettyString() + arg.toString());
 	}
 
 	public Identifier.Type getType(SemanticChecker context)
 	{
-		// if(arg.getClass())
-		// {
-			return arg.getType(context);
-		// }
-		// else
-		// {
-		// 	// interpretererror
-		// 	throw new Error();
-		// }
+		// TODO: check if operator is appropriate for arg
+		return arg.getType(context);
 	}
 }
