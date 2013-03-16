@@ -1,9 +1,5 @@
 package nl.stgm.ql.inspectors.checker;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.FileSystems;
 import java.util.HashMap;
 import java.util.Stack;
 import java.util.Vector;
@@ -13,10 +9,9 @@ import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.ast.form.Form;
 
-import nl.stgm.ql.parser.*;
-import nl.stgm.ql.parser.rats.*;
+import nl.stgm.ql.inspectors.*;
 
-public class SemanticChecker
+public class SemanticChecker extends DocumentInspector
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,Form> forms = new HashMap<String,Form>();
@@ -144,55 +139,9 @@ public class SemanticChecker
 		errors.add(err.toString());
 	}
 	
-	public static void main(String[] args)
+	public void printErrorList()
 	{
-		RatsParser parser = new RatsParser();
-		byte[] file = null;
-		String documentSource;
-		
-		// read the file
-		
-		try
-		{
-			// hardcoded single sample file!
-			Path path = FileSystems.getDefault().getPath("samples", "canonical.qldoc");
-			file = Files.readAllBytes(path);
-		}
-		catch(IOException e)
-		{
-			exitWithError("Problem loading sample file: " + e.getMessage());
-		}
-		catch(OutOfMemoryError e)
-		{
-			exitWithError("Error: input file too large to fit in memory.");
-		}
-		catch(SecurityException e)
-		{
-			exitWithError("Error: no permission to read input file.");
-		}
-
-		documentSource = new String(file);
-		
-		// run the semantic checker
-		
-		SemanticChecker checker = new SemanticChecker();
-
-		try
-		{
-			Document document = parser.parse(documentSource);
-			document.check(checker);
-		}
-		catch(ParseError e)
-		{
-			exitWithError("Error parsing sample file: " + e.getMessage());
-		}
-		
-		printErrorList(checker);
-	}
-
-	public static void printErrorList(SemanticChecker checker)
-	{
-		if(checker.errors.size() == 0)
+		if(errors.size() == 0)
 		{
 			System.out.println("No errors found.");
 			System.exit(0);
@@ -201,7 +150,7 @@ public class SemanticChecker
 		System.out.println();
 
 		int line = 1;
-		for(String e: checker.errors)
+		for(String e: errors)
 		{
 			System.out.print(" " + String.valueOf(line) + ": ");
 			System.out.println(e);
@@ -210,10 +159,12 @@ public class SemanticChecker
 
 		System.out.println();
 	}
-	
-	public static void exitWithError(String message)
+
+	public static void main(String[] args)
 	{
-		System.out.println(message);
-		System.exit(1); // generic "error" exit code
+		SemanticChecker checkerContext = new SemanticChecker();
+		Document document = parseDocument();
+		document.check(checkerContext);
+		checkerContext.printErrorList();
 	}
 }
