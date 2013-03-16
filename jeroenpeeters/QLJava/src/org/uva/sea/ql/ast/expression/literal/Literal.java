@@ -1,6 +1,5 @@
 package org.uva.sea.ql.ast.expression.literal;
 
-import org.uva.sea.ql.ast.ASTVisitor;
 import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.Expression;
 
@@ -17,9 +16,6 @@ public abstract class Literal extends Expression {
 		return this.dataType;
 	}
 	
-	public void accept(ASTVisitor v){
-		v.visit(this);
-	}
 
 	@Override
 	public String toString() {

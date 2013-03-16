@@ -33,8 +33,6 @@
 %{
 import org.uva.sea.ql.ast.*;
 import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.binary.*;
-import org.uva.sea.ql.ast.expression.unary.*;
 import org.uva.sea.ql.ast.expression.literal.*;
 %}
 

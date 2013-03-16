@@ -3,32 +3,35 @@ package org.uva.sea.ql.visitor;
 import java.util.Iterator;
 
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.ASTVisitor;
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.IfElseStatement;
-import org.uva.sea.ql.ast.IfStatement;
-import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.binary.Add;
-import org.uva.sea.ql.ast.expression.binary.And;
-import org.uva.sea.ql.ast.expression.binary.Div;
-import org.uva.sea.ql.ast.expression.binary.Eq;
-import org.uva.sea.ql.ast.expression.binary.GEq;
-import org.uva.sea.ql.ast.expression.binary.GT;
-import org.uva.sea.ql.ast.expression.binary.LEq;
-import org.uva.sea.ql.ast.expression.binary.LT;
-import org.uva.sea.ql.ast.expression.binary.Mul;
-import org.uva.sea.ql.ast.expression.binary.NEq;
-import org.uva.sea.ql.ast.expression.binary.Or;
-import org.uva.sea.ql.ast.expression.binary.Sub;
-import org.uva.sea.ql.ast.expression.literal.Literal;
-import org.uva.sea.ql.ast.expression.unary.Neg;
-import org.uva.sea.ql.ast.expression.unary.Not;
-import org.uva.sea.ql.ast.expression.unary.Pos;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.Sub;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntLiteral;
+import org.uva.sea.ql.ast.expression.literal.TextLiteral;
+import org.uva.sea.ql.ast.statement.CompoundStatement;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IfElseStatement;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.StatementVisitor;
 
-public class PrintVisitor implements ASTVisitor {
+public class PrintVisitor implements StatementVisitor<Void>, ExpressionVisitor<Void> {
 
 	int level = 0;
 
@@ -54,15 +57,17 @@ public class PrintVisitor implements ASTVisitor {
 	}
 
 	@Override
-	public void visit(Form form) {
+	public Void visit(Form form) {
 		this.internalVisit(form);
 		inc();
 		form.getCompoundStatement().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(CompoundStatement statement) {
+	public Void visit(CompoundStatement statement) {
 		this.internalVisit(statement);
 
 		inc();
@@ -71,35 +76,59 @@ public class PrintVisitor implements ASTVisitor {
 			it.next().accept(this);
 		}
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Question question) {
+	public Void visit(Question question) {
 		this.internalVisit(question);
+		
+		return null;
 	}
 
 	@Override
-	public void visit(IfStatement statement) {
+	public Void visit(IfStatement statement) {
 		this.internalVisit(statement);
 
 		inc();
 		statement.getExpression().accept(this);
 		dec();
 		statement.getStatement().accept(this);
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Identifier ident) {
+	public Void visit(Identifier ident) {
 		this.internalVisit(ident);
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Literal literal) {
+	public Void visit(BooleanLiteral literal) {
 		this.internalVisit(literal);
+		
+		return null;
 	}
 
 	@Override
-	public void visit(IfElseStatement statement) {
+	public Void visit(IntLiteral literal) {
+		this.internalVisit(literal);
+		
+		return null;
+	}
+
+	@Override
+	public Void visit(TextLiteral literal) {
+		this.internalVisit(literal);
+		
+		return null;
+	}
+
+	@Override
+	public Void visit(IfElseStatement statement) {
 		this.internalVisit(statement);
 
 		inc();
@@ -108,154 +137,184 @@ public class PrintVisitor implements ASTVisitor {
 		statement.getStatement().accept(this);
 		statement.getElseStatement().accept(this);
 
+		return null;
 	}
 
 	@Override
-	public void visit(Add expression) {
+	public Void visit(Add expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
-
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Div expression) {
+	public Void visit(Div expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Mul expression) {
+	public Void visit(Mul expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Sub expression) {
+	public Void visit(Sub expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(And expression) {
+	public Void visit(And expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Eq expression) {
+	public Void visit(Eq expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(GEq expression) {
+	public Void visit(GEq expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(LEq expression) {
+	public Void visit(LEq expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(LT expression) {
+	public Void visit(LT expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(NEq expression) {
+	public Void visit(NEq expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 	
 	@Override
-	public void visit(GT expression) {
+	public Void visit(GT expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Or expression) {
+	public Void visit(Or expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getLhs().accept(this);
 		expression.getRhs().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Neg expression) {
+	public Void visit(Neg expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getExpr().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Pos expression) {
+	public Void visit(Pos expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getExpr().accept(this);
 		dec();
+		
+		return null;
 	}
 
 	@Override
-	public void visit(Not expression) {
+	public Void visit(Not expression) {
 		this.internalVisit(expression);
 
 		inc();
 		expression.getExpr().accept(this);
 		dec();
+		
+		return null;
 	}
 
 }

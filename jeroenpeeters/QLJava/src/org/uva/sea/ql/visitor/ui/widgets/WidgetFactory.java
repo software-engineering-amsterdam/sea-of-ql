@@ -4,16 +4,16 @@ import org.uva.sea.ql.ast.DataType;
 
 public class WidgetFactory {
 
-	public static BaseWidget createWidget(final DataType dt, final String caption){
+	public static Widget createWidget(final DataType dt, final String caption, final WidgetObserver widgetObserver){
 		switch(dt){
 		case BOOLEAN: 
-			return new CheckboxWidget(caption);
+			return new CheckboxWidget(caption, widgetObserver);
 		case INTEGER:
-			return new NumberWidget(caption);
+			return new NumberWidget(caption, widgetObserver);
 		case MONEY:
-			return new CurrencyWidget(caption);
+			return new CurrencyWidget(caption, widgetObserver);
 		case TEXT:
-			return new TextWidget(caption);
+			return new TextWidget(caption, widgetObserver);
 		default:
 			throw new IllegalStateException("Unsupported DataType: " + dt);
 		}

@@ -1,19 +1,19 @@
 package org.uva.sea.ql.visitor.ui.widgets;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public abstract class BaseWidget extends JPanel {
+import org.uva.sea.ql.valuesystem.Value;
+
+public abstract class Widget extends JPanel{
 	
 	private static final long serialVersionUID = 2829680059832940319L;
 
-	public BaseWidget(String description) {
+	public Widget(final String description) {
 		super();
 		
 		this.setLayout(new GridBagLayout());
@@ -30,9 +30,11 @@ public abstract class BaseWidget extends JPanel {
 		c.weightx = 0;
 		c.anchor = GridBagConstraints.EAST;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		this.add(this.getControlComponent(), c);
+		this.add(this.createInputComponent(), c);
 	}
 	
-	protected abstract Component getControlComponent();
+	protected abstract Component createInputComponent();
+	
+	public abstract Value getValue();
 
 }

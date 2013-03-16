@@ -2,19 +2,26 @@ package org.uva.sea.ql.app;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.apache.commons.io.IOUtils;
-import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
 import org.uva.sea.ql.typesystem.QLTypeSystem;
+import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.visitor.evaluation.EvaluatorVisitor;
 import org.uva.sea.ql.visitor.semantics.TypeCheckError;
 import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
 import org.uva.sea.ql.visitor.ui.FormGeneratorVisitor;
+
+import com.google.common.collect.Maps;
 
 public class QLApplication {
 	
@@ -31,6 +38,10 @@ public class QLApplication {
 		if(!typeCheck(qlForm)){
 			System.exit(-1);
 		}
+		
+		//NodeJsGenerator nodeJsGenerator = new NodeJsGenerator(new File("D:\\Data\\jpeeters\\Desktop\\"));
+		//nodeJsGenerator.visit(qlForm);
+		//nodeJsGenerator.finish();
 		
 		render(qlForm);
 	}
@@ -65,13 +76,16 @@ public class QLApplication {
 	}
 	
 	private static void render(final Form qlForm){
-		final FormGeneratorVisitor formGeneratorVisitor = new FormGeneratorVisitor();
-		qlForm.accept(formGeneratorVisitor);
+		final Map<Identifier, Value> symbolMap = Maps.newConcurrentMap();
+		
+		final EvaluatorVisitor evaluatorVisitor = new EvaluatorVisitor(symbolMap);
+		final FormGeneratorVisitor formGeneratorVisitor = new FormGeneratorVisitor(evaluatorVisitor);
+		final JPanel formPanel = qlForm.accept(formGeneratorVisitor);
 		
 		final JFrame jframe = new JFrame();
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		jframe.setContentPane(formGeneratorVisitor.getPanel());
+		jframe.setContentPane(formPanel);
 		jframe.pack();
 		jframe.setLocationRelativeTo(null); // centers frame on screen
 		jframe.setVisible(true);

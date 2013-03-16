@@ -5,11 +5,11 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.IfElseStatement;
-import org.uva.sea.ql.ast.IfStatement;
-import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.ast.Statement;
+import org.uva.sea.ql.ast.statement.CompoundStatement;
+import org.uva.sea.ql.ast.statement.IfElseStatement;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;

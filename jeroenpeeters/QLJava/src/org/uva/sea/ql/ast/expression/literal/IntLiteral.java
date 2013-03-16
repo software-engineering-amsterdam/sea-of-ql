@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
 
 public class IntLiteral extends Literal {
 
@@ -15,6 +16,10 @@ public class IntLiteral extends Literal {
 		return value;
 	}
 
+	public <T> T accept(final ExpressionVisitor<T> v){
+		return v.visit(this);
+	}
+	
 	@Override
 	public String toString() {
 		return "IntLiteral [value=" + value + "]";

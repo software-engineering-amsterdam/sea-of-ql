@@ -56,6 +56,16 @@ public abstract class NumericValue implements Value {
 	}
 
 	@Override
+	public Value leqInteger(IntegerValue otherValue) {
+		return new BooleanValue(otherValue.getValue() > getNumberValue().intValue());
+	}
+
+	@Override
+	public Value leqMoney(MoneyValue otherValue) {
+		return new BooleanValue(otherValue.getValue() > getNumberValue().doubleValue());
+	}
+
+	@Override
 	public Value ltInteger(IntegerValue otherValue) {
 		return new BooleanValue(otherValue.getValue() < getNumberValue().intValue());
 	}

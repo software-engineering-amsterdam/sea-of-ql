@@ -8,14 +8,16 @@ import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.IfStatement;
-import org.uva.sea.ql.ast.Question;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.GT;
 import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.binary.GT;
-import org.uva.sea.ql.ast.expression.binary.Sub;
+import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.literal.IntLiteral;
+import org.uva.sea.ql.ast.statement.CompoundStatement;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
@@ -34,7 +36,7 @@ public class TestForms {
 		return IOUtils.toString(this.getClass().getResourceAsStream("resources\\" + resourceName));
 	}
 	
-	private static void assertAST(ASTNode astNode, Class<? extends ASTNode>... expectedASTClasses) {
+	private static void assertAST(Statement astNode, Class<? extends ASTNode>... expectedASTClasses) {
 		final TestVisitor tv = new TestVisitor();
 		astNode.accept(tv);
 		tv.assertAST(expectedASTClasses);

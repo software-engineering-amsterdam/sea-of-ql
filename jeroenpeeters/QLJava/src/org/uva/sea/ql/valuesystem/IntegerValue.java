@@ -24,7 +24,7 @@ public class IntegerValue extends NumericValue {
 	public DataType getDataType() {
 		return DataType.INTEGER;
 	}
-	
+
 	@Override
 	public Value add(Value otherValue) {
 		return otherValue.addInteger(this);
@@ -48,6 +48,11 @@ public class IntegerValue extends NumericValue {
 	@Override
 	public Value gt(Value otherValue) {
 		return otherValue.gtInteger(this);
+	}
+	
+	@Override
+	public Value leq(Value otherValue) {
+		return otherValue.leq(this);
 	}
 	
 	@Override

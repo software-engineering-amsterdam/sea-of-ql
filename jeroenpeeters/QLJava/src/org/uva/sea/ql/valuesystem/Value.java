@@ -44,6 +44,12 @@ public interface Value {
 	
 	Value gtMoney(MoneyValue otherValue);
 	
+	Value leq(Value otherValue);
+	
+	Value leqInteger(IntegerValue otherValue);
+	
+	Value leqMoney(MoneyValue otherValue);
+	
 	Value lt(Value otherValue);
 	
 	Value ltInteger(IntegerValue otherValue);

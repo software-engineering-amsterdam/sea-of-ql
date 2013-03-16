@@ -1,24 +1,28 @@
 package org.uva.sea.ql.visitor.ui.widgets;
 
-import java.awt.Component;
 import java.text.DecimalFormat;
-import java.util.Currency;
-import java.util.Locale;
+
+import org.uva.sea.ql.valuesystem.IntegerValue;
+import org.uva.sea.ql.valuesystem.MoneyValue;
+import org.uva.sea.ql.valuesystem.Value;
 
 public class CurrencyWidget extends FormattedTextWidget {
 
 	private static final long serialVersionUID = -132604908899541084L;
-
-	public CurrencyWidget(String description) {
-		super(description);
+	
+	public CurrencyWidget(final String description, final WidgetObserver widgetObserver) {
+		super(description, widgetObserver, new DecimalFormat("0.##"));
 	}
 
 	@Override
-	protected Component getControlComponent() {
-		DecimalFormat decimalFormat = new DecimalFormat("0.##");
-		
-		decimalFormat.setCurrency(Currency.getInstance(Locale.getDefault()));
-		return super.getControlComponent(decimalFormat);
+	public Value getValue() {
+		double val;
+		try{
+			val = Double.valueOf(this.jFormattedTextfield.getText());
+		}catch(NumberFormatException e){
+			val = 0;
+		}
+		return new MoneyValue(val);
 	}
 
 }

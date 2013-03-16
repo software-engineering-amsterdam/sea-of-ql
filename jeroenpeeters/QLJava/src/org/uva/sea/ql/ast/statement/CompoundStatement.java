@@ -1,9 +1,8 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.statement;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 
 
 public class CompoundStatement extends Statement {
@@ -18,12 +17,12 @@ public class CompoundStatement extends Statement {
 		this.statementList.add(statement);
 	}
 	
-	public void accept(ASTVisitor v){
-		v.visit(this);
-	}
-	
 	public Iterator<Statement> getStatementIterator(){
 		return statementList.iterator();
+	}
+	
+	public <T> T accept(final StatementVisitor<T> v){
+		return v.visit(this);
 	}
 	
 }

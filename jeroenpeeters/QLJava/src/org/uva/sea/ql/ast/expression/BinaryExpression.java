@@ -1,12 +1,11 @@
-package org.uva.sea.ql.ast.expression.binary;
+package org.uva.sea.ql.ast.expression;
 
-import org.uva.sea.ql.ast.expression.Expression;
 
-public abstract class BinaryExpr extends Expression {
+public abstract class BinaryExpression extends Expression {
 
 	protected final Expression lhs, rhs;
 	
-	public BinaryExpr(final Expression lhs, final Expression rhs){
+	public BinaryExpression(final Expression lhs, final Expression rhs){
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}

@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;

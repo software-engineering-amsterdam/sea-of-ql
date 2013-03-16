@@ -1,6 +1,7 @@
 package org.uva.sea.ql.ast.expression.literal;
 
 import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
 
 public class BooleanLiteral extends Literal {
 
@@ -13,6 +14,10 @@ public class BooleanLiteral extends Literal {
 
 	public boolean getValue() {
 		return value;
+	}
+
+	public <T> T accept(final ExpressionVisitor<T> v){
+		return v.visit(this);
 	}
 
 	@Override

@@ -51,6 +51,11 @@ public class MoneyValue extends NumericValue {
 	}
 	
 	@Override
+	public Value leq(Value otherValue) {
+		return otherValue.leq(this);
+	}
+	
+	@Override
 	public Value lt(Value otherValue) {
 		return otherValue.ltMoney(this);
 	}

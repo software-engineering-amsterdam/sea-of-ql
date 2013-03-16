@@ -2,11 +2,33 @@
 
 package org.uva.sea.ql.parser.jacc;
 
-import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.binary.*;
-import org.uva.sea.ql.ast.expression.unary.*;
-import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.expression.Add;
+import org.uva.sea.ql.ast.expression.And;
+import org.uva.sea.ql.ast.expression.Div;
+import org.uva.sea.ql.ast.expression.Eq;
+import org.uva.sea.ql.ast.expression.Expression;
+import org.uva.sea.ql.ast.expression.GEq;
+import org.uva.sea.ql.ast.expression.GT;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.expression.LEq;
+import org.uva.sea.ql.ast.expression.LT;
+import org.uva.sea.ql.ast.expression.Mul;
+import org.uva.sea.ql.ast.expression.NEq;
+import org.uva.sea.ql.ast.expression.Neg;
+import org.uva.sea.ql.ast.expression.Not;
+import org.uva.sea.ql.ast.expression.Or;
+import org.uva.sea.ql.ast.expression.Pos;
+import org.uva.sea.ql.ast.expression.Sub;
+import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
+import org.uva.sea.ql.ast.expression.literal.IntLiteral;
+import org.uva.sea.ql.ast.expression.literal.TextLiteral;
+import org.uva.sea.ql.ast.statement.CompoundStatement;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IfElseStatement;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
 
 class QLParser implements QLTokens {
     private int yyss = 100;

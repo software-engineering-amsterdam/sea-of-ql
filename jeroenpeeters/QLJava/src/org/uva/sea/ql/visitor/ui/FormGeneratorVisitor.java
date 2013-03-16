@@ -1,95 +1,92 @@
 package org.uva.sea.ql.visitor.ui;
 
 import java.awt.GridLayout;
-import java.util.Map;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import org.apache.commons.lang3.Validate;
-import org.uva.sea.ql.ast.CompoundStatement;
-import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.IfElseStatement;
-import org.uva.sea.ql.ast.IfStatement;
-import org.uva.sea.ql.ast.Question;
-import org.uva.sea.ql.visitor.BaseVisitor;
-import org.uva.sea.ql.visitor.ui.widgets.BaseWidget;
+import org.uva.sea.ql.ast.expression.ExpressionVisitor;
+import org.uva.sea.ql.ast.statement.CompoundStatement;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IfElseStatement;
+import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Question;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.statement.StatementVisitor;
+import org.uva.sea.ql.valuesystem.BooleanValue;
+import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.visitor.ui.widgets.Widget;
 import org.uva.sea.ql.visitor.ui.widgets.WidgetFactory;
+import org.uva.sea.ql.visitor.ui.widgets.WidgetObserver;
 
-import com.google.common.collect.Maps;
-
-public class FormGeneratorVisitor extends BaseVisitor{
-
-	private JPanel rootPanel;
-	private JPanel currentPanel;
+public class FormGeneratorVisitor implements StatementVisitor<JPanel>, WidgetObserver{
 	
-	private final Map<CompoundStatement, JPanel> panelMap = Maps.newHashMap();
+	private final ExpressionVisitor<Value> expressionVisitor;
 	
-	public FormGeneratorVisitor(){
-		rootPanel = new JPanel(new GridLayout(0, 1));
-		currentPanel = rootPanel;
-	}
-
-	public JPanel getPanel(){
-		return rootPanel;
-	}
 	
-	private void addPanel(final JPanel panel){
-		currentPanel.add(panel);
-	}
-	
-	private void addWidget(final BaseWidget widget){
-		currentPanel.add(widget);
+	public FormGeneratorVisitor(final ExpressionVisitor<Value> expressionVisitor){
+		this.expressionVisitor = expressionVisitor;
 	}
 	
 	@Override
-	public void visit(Form form) {
-		rootPanel.setBorder(BorderFactory.createTitledBorder(form.getIdentity().getName()));
-		
-		super.visit(form);
-	}
-
-	@Override
-	public void visit(CompoundStatement statement) {
+	public JPanel visit(Form form) {
 		final JPanel panel = new JPanel(new GridLayout(0, 1));
-		addPanel(panel);
-		currentPanel = panel;
-		panelMap.put(statement, currentPanel);
+		panel.setBorder(BorderFactory.createTitledBorder(form.getIdentity().getName()));
 		
-		super.visit(statement);
-	}
-	
-	
-
-	@Override
-	public void visit(IfStatement statement) {
-		super.visit(statement);
+		final JPanel compoundPanel = form.getCompoundStatement().accept(this);
+		panel.add(compoundPanel);
 		
-		final JPanel panel = panelMap.get(statement.getStatement());
-		Validate.notNull(panel);
-		
-		panel.setVisible(false);
+		return panel;
 	}
 
 	@Override
-	public void visit(IfElseStatement statement) {
-		super.visit(statement);
+	public JPanel visit(CompoundStatement statement) {
+		final JPanel panel = new JPanel(new GridLayout(0, 1));
 		
-		final JPanel panel = panelMap.get(statement.getStatement());
-		Validate.notNull(panel);
+		final Iterator<Statement> statementIterator = statement.getStatementIterator();
+		while(statementIterator.hasNext()){
+			final JPanel statementPanel = statementIterator.next().accept(this);
+			panel.add(statementPanel);
+		}
+		
+		return panel;
+	}
+	
+	@Override
+	public JPanel visit(IfStatement statement) {
+		final JPanel panel = statement.getStatement().accept(this);
+		
+		BooleanValue v = (BooleanValue)statement.getExpression().accept(expressionVisitor);
+		
+		System.out.println(v);
+		
 		panel.setVisible(false);
 		
-		final JPanel elsePanel = panelMap.get(statement.getElseStatement());
-		Validate.notNull(elsePanel);
+		return panel;
+	}
+
+	@Override
+	public JPanel visit(IfElseStatement statement) {
+		JPanel ifPanel = this.visit((IfStatement)statement);
+		
+		final JPanel elsePanel = statement.getElseStatement().accept(this);
 		elsePanel.setVisible(false);
+		ifPanel.add(elsePanel);
+		
+		return ifPanel;
 	}
 
 	@Override
-	public void visit(Question question) {
-		super.visit(question);
+	public JPanel visit(Question question) {
+		final Widget widget = WidgetFactory.createWidget(question.getDataType(), question.getLabel().getValue(), this);
+		return widget;
+	}
+
+	@Override
+	public void widgetUpdate(Widget widget) {
+		System.out.println("Widget updated -> " + widget + ", value:" + widget.getValue());
 		
-		final BaseWidget widget = WidgetFactory.createWidget(question.getDataType(), question.getLabel().getValue());
-		this.addWidget(widget);
 	}
 
 }

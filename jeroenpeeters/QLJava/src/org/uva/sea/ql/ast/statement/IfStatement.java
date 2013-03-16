@@ -1,4 +1,4 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.statement;
 
 import org.uva.sea.ql.ast.expression.Expression;
 
@@ -20,8 +20,8 @@ public class IfStatement extends Statement {
 		return statement;
 	}
 
-	public void accept(ASTVisitor v){
-		v.visit(this);
+	public <T> T accept(final StatementVisitor<T> v){
+		return v.visit(this);
 	}
 	
 }

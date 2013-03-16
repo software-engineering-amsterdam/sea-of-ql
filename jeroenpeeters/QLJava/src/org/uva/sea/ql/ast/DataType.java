@@ -1,7 +1,5 @@
 package org.uva.sea.ql.ast;
 
-
-
 public enum DataType implements ASTNode {
 
 	BOOLEAN,
@@ -9,9 +7,5 @@ public enum DataType implements ASTNode {
 	MONEY,
 	TEXT,
 	UNDEF;
-
-	@Override
-	public void accept(ASTVisitor visitor) {
-	}
 	
 }

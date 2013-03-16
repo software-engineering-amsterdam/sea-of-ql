@@ -1,5 +1,6 @@
-package org.uva.sea.ql.ast;
+package org.uva.sea.ql.ast.statement;
 
+import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.expression.literal.TextLiteral;
 
@@ -14,10 +15,6 @@ public class Question extends Statement {
 		this.label = label;
 		this.dataType = dataType;
 	}
-	
-	public void accept(ASTVisitor v){
-		v.visit(this);
-	}
 
 	public Identifier getIdent() {
 		return ident;
@@ -29,6 +26,10 @@ public class Question extends Statement {
 
 	public DataType getDataType() {
 		return dataType;
+	}
+	
+	public <T> T accept(final StatementVisitor<T> v){
+		return v.visit(this);
 	}
 
 }
