@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql.inspectors.pretty;
 
 import java.io.IOException;
 import java.nio.file.Files;

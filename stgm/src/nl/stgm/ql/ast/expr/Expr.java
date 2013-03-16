@@ -1,7 +1,7 @@
 package nl.stgm.ql.ast.expr;
 
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.inspectors.checker.*;
 
 public abstract class Expr extends AbstractElement
 {

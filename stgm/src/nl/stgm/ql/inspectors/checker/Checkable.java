@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql.inspectors.checker;
 
 public interface Checkable
 {

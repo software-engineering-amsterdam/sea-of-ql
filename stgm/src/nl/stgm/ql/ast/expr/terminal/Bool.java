@@ -1,7 +1,8 @@
 package nl.stgm.ql.ast.expr.terminal;
 
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.inspectors.pretty.*;
+import nl.stgm.ql.inspectors.checker.*;
 
 public class Bool extends TerminalExpr
 {
