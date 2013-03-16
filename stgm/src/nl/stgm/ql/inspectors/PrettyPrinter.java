@@ -5,8 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.FileSystems;
 
-import nl.stgm.ql.ast.*;
-import nl.stgm.ql.ast.form.*;
+import nl.stgm.ql.ast.form.Document;
 
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;

@@ -1,25 +1,25 @@
-package nl.stgm.ql.ast.terminals;
+package nl.stgm.ql.ast.expr.terminal;
 
-import nl.stgm.ql.ast.*;
+import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.inspectors.*;
 
-public class Bool extends TerminalExpr
+public class Int extends TerminalExpr
 {
-	private final boolean value;
+	private final int value;
 
-	public Bool(boolean b)
+	public Int(int n)
 	{
-		this.value = b;
+		this.value = n;
 	}
 
-	public boolean getValue()
+	public int getValue()
 	{
 		return value;
-	}
+	}	
 	
 	public String prettyString()
 	{
-		return("bool: " + String.valueOf(value));
+		return("Int: " + String.valueOf(value));
 	}
 
 	public void check(SemanticChecker context)
@@ -29,6 +29,6 @@ public class Bool extends TerminalExpr
 
 	public Class getType(SemanticChecker context)
 	{
-		return(Bool.class);
+		return(Int.class);
 	}
 }

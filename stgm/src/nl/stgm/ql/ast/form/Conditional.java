@@ -1,6 +1,6 @@
 package nl.stgm.ql.ast.form;
 
-import nl.stgm.ql.ast.*;
+import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.inspectors.*;
 
 import java.util.List;

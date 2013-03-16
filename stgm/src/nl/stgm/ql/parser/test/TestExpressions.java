@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.terminals.*;
+import nl.stgm.ql.ast.expr.terminal.*;
 
 public class TestExpressions extends QLTest
 {

@@ -1,5 +1,5 @@
-package nl.stgm.ql.ast.expr;
-import nl.stgm.ql.ast.*;
+package nl.stgm.ql.ast.expr.binary;
+import nl.stgm.ql.ast.expr.*;
 
 public class Eq extends BinaryExpr
 {

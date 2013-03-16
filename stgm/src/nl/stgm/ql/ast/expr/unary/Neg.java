@@ -1,5 +1,5 @@
-package nl.stgm.ql.ast.expr;
-import nl.stgm.ql.ast.*;
+package nl.stgm.ql.ast.expr.unary;
+import nl.stgm.ql.ast.expr.*;
 
 public class Neg extends UnaryExpr
 {

@@ -1,6 +1,5 @@
 package nl.stgm.ql.ast.form;
 
-import nl.stgm.ql.ast.*;
 import nl.stgm.ql.inspectors.*;
 
 public class Question extends FormItem

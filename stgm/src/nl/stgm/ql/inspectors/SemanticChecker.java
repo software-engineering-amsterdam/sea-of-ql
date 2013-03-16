@@ -6,10 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.FileSystems;
 import java.util.HashMap;
 
-import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.form.*;
-import nl.stgm.ql.ast.terminals.*;
+import nl.stgm.ql.ast.expr.terminal.*;
+import nl.stgm.ql.ast.form.Document;
 
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
@@ -28,7 +27,7 @@ public class SemanticChecker
 	
 	public void addIdent(String name, String type)
 	{
-		symbols.put(symbol.getName(), symbol);
+		symbols.put(name, new Ident(name));
 	}
 	
 	public Class lookupType(String name)

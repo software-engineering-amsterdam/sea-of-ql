@@ -1,6 +1,6 @@
-package nl.stgm.ql.ast.terminals;
+package nl.stgm.ql.ast.expr.terminal;
 
-import nl.stgm.ql.ast.*;
+import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.inspectors.*;
 
 public class Ident extends TerminalExpr
@@ -32,6 +32,6 @@ public class Ident extends TerminalExpr
 	{
 		// haal type uit context en return
 		// either int or bool
-		return(context.getType(this.name));
+		return(context.lookupType(this.name));
 	}
 }
