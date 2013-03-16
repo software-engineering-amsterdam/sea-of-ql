@@ -24,6 +24,6 @@ public class Question extends FormItem
 	{
 		System.out.println("Check 1 element!" + this.toString());
 		
-		context.addIdent(this.id, this.type);
+		context.registerIdent(this.id, this.type, false);
 	}
 }

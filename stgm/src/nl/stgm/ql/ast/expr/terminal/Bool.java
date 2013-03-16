@@ -27,8 +27,9 @@ public class Bool extends TerminalExpr
 		System.out.println("Check 1 element!" + this.toString());
 	}
 
-	public Class getType(SemanticChecker context)
+	public Identifier.Type getType(SemanticChecker context)
 	{
-		return(Bool.class);
+		// TODO
+		return(Identifier.Type.BOOL);
 	}
 }

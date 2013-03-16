@@ -32,7 +32,7 @@ public abstract class BinaryExpr extends Expr
 		right.check(context);
 	}
 
-	public Class getType(SemanticChecker context)
+	public Identifier.Type getType(SemanticChecker context)
 	{
 		if(left.getType(context) == right.getType(context))
 		{

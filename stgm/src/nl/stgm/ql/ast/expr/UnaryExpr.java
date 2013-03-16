@@ -19,7 +19,7 @@ public abstract class UnaryExpr extends Expr
 		arg.check(context);
 	}
 
-	public Class getType(SemanticChecker context)
+	public Identifier.Type getType(SemanticChecker context)
 	{
 		// if(arg.getClass())
 		// {

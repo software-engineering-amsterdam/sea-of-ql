@@ -23,6 +23,8 @@ public class CalcQuestion extends Question
 	public void check(SemanticChecker context)
 	{
 		System.out.println("CalcQ type" + this.toString());
+
+		context.registerIdent(this.id, this.type, false);
 		context.typeCheck(calculation);
 	}
 }

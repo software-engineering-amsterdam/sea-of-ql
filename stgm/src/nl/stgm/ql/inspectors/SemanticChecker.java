@@ -18,25 +18,25 @@ import nl.stgm.ql.parser.rats.*;
 //
 public class SemanticChecker
 {
-	private HashMap<String,Ident> symbols = new HashMap<String,Ident>();
+	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	
 	public int results()
 	{
 		return(symbols.size());
 	}
 	
-	public void addIdent(String name, String type)
+	public void registerIdent(String name, String type, boolean computed)
 	{
-		symbols.put(name, new Ident(name));
+		symbols.put(name, new Identifier(name, type, computed));
 	}
 	
-	public Class lookupType(String name)
+	public Identifier.Type lookupType(String name)
 	{
-		Ident s = symbols.get(name);
+		Identifier s = symbols.get(name);
 		
 		if(s != null)
 		{
-			return(symbols.get(name).getClass());
+			return(s.getType());
 		}
 		else
 		{

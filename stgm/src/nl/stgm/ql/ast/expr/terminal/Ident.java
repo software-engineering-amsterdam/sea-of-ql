@@ -28,7 +28,7 @@ public class Ident extends TerminalExpr
 		System.out.println("Check 1 element!" + this.toString());
 	}
 
-	public Class getType(SemanticChecker context)
+	public Identifier.Type getType(SemanticChecker context)
 	{
 		// haal type uit context en return
 		// either int or bool
