@@ -1,9 +1,13 @@
 package org.uva.sea.ql.ast.literals;
 
+import java.io.Serializable;
+
 import org.uva.sea.ql.ast.Expression;
 
-public abstract class QLValue extends Expression {
+public abstract class QLValue extends Expression implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Integer getIntegerValue() {
 		throw new UnsupportedOperationException();
 	}

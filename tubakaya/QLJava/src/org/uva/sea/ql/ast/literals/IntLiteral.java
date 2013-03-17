@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class IntLiteral extends QLValue {
 
+	private static final long serialVersionUID = 1L;
 	public final Integer value;
 
 	public IntLiteral(String string) {
