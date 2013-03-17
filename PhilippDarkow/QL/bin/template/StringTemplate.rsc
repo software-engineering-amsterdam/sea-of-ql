@@ -20,7 +20,9 @@ import template::StringTemplateHelper;
 * @return str a string with java script code
 * @author Philipp
 */
-str generateQuestionLabel(str formId, str id, str label){
+str generateQuestionLabel(str formId, str id, str label){	
+	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");  //global variable
+	createPostValuePHP(formId, id);
 	appendToJavaScriptFile(formId, "var <id>Label = document.createElement(\'label\');");  //create a global variable
 	return "<id>Label.htmlFor = <id>; 
 			'	<id>Label.innerHTML = <label>; ";
@@ -113,46 +115,65 @@ str generateParagraph(str id, str label, str formId){
 			'	<id>Paragraph.appendChild(<id>); ";
 }
 
-/** Method to generate Question 
+/** Method to generate an easy question
+* @param formId the name of the questionaire
+* @param question the easy question
+* @return result the generated code for a question
+* @author Philipp 
 */
 private str generateQuestion(str formId, question:easyQuestion(str id, str labelQuestion, Type tp)){
 	createColumnInTable(formId, id, tp);
-	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");  //global variable
-	createPostValuePHP(formId, id);
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == boolean()){			
-		str attributes = specifyAttributesCheckbox(id);
-		str endLabelCheckbox = createEndingLabel(formId, id);
-		str paragraph = generateParagraph(id, label, attributes, endLabelCheckbox, formId);
-		cssEndLabels(formId, id);
-		javaScriptAddCheckFunction(formId, "<id>DoTheCheck(cb)", tp);
-		return "<attributes>
-				'<label>
-				'<endLabelCheckbox>
-				'<paragraph>
-				'<formId>.appendChild(<id>Paragraph); 
-				'";
-	}else if(tp == money() || tp == integer()){  
+		str result = generateQuestionString(id, label, formId, tp);
+		return result;
+	}else if(tp == money() || tp == integer()){ 
+		str result = generateQuestionString(id, label, formId, tp);
+		return result;
+	}else if(tp == string()){
+		str result = generateQuestionString(id, label, formId, tp);
+		return result;
+	}	
+}
+
+/** Method to generate the code for an easy question
+* @param id the id of the question
+* @param label the label of the question as a string
+* @param formId the name of questionaire
+* @param tp type of the question
+* @return the generated code for a question
+* @author Philipp 
+*/
+str generateQuestionString(str id, str label, str formId, Type tp){
+	str paragraph = generateParagraph(id, label, formId);
+	cssEndLabels(formId, id);
+	if(tp == money() || tp == integer()){
 		str attributes = specifyAttributesNumeric(id);
-		str paragraph = generateParagraph(id, label, formId);
-		cssEndLabels(formId, id);
 		javaScriptAddCheckFunction(formId, "<id>CheckNumeric(cb)", tp);
 		return "<attributes>
 				'<label>
 				'<paragraph>
 				'<formId>.appendChild(<id>Paragraph);
 				'";
-	}else if(tp == string()){
+	}elseif(tp == string()){
 		str attributes = specifyAttributesTextField(id);
-		str paragraph = generateParagraph(id, label, formId);
-		cssEndLabels(formId, id);
 		return "<attributes>
 				'<label>
 				'<paragraph>
 				'<formId>.appendChild(<id>Paragraph);
 				'";
+	}elseif(tp == boolean()){
+		str attributes = specifyAttributesCheckbox(id);
+		str endLabelCheckbox = createEndingLabel(formId, id);
+		str paragraphBoolean = generateParagraph(id, label, attributes, endLabelCheckbox, formId);
+		javaScriptAddCheckFunction(formId, "<id>DoTheCheck(cb)", tp);
+		return "<attributes>
+				'<label>
+				'<endLabelCheckbox>
+				'<paragraphBoolean>
+				'<formId>.appendChild(<id>Paragraph); 
+				'";
 	}
-	
 }
 
 /** Method to generate a computed question in JavaScript
@@ -163,8 +184,6 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 */
 str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	createColumnInTable(formId, id, tp);			// create a column in the database
-	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");	// 
-	createPostValuePHP(formId, id);					// create PostValue in PHP for question id
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == money() || tp == integer()){
 		str paragraph = generateParagraph(id, label, formId);		
@@ -185,7 +204,6 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 	list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
 	str evaluate = evaluateExp(exp, idAndType[0].tp);	
 	str checkBoxId = toString(getChildren(exp)[0]);
-	println("checkbox ID IS : <checkBoxId>");
 	tuple[list[str] thenPartString,list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
 	if(size(getChildren(exp)) <= 1){   // for boolean
 		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenChildren.thenPartString, thenChildren.children);
@@ -214,32 +232,27 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
     		list[str] checkBoxIds = [];
     		for(s <- exp){
     			visit(s){
-    				case Expression id2:{
-    					println("ID : <getChildren(id2)>");
-    					checkBoxIds += toString(getChildren(id2)[0]);
-    				}
+    				case Expression id2:{ checkBoxIds += toString(getChildren(id2)[0]); }
     			}
-    		}
-    		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
-    		tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
-			str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxIds, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse, check);
-			return "<elseOneString>
-					'<for(c <- checkBoxIds){> 
-					'<c>.setAttribute(\'onclick\',\"<c>IfElseStatement(this)\"); 
-					'<}>
-					'";
+    	}
+    	tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
+    	tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
+		str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxIds, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse, check);
+		return "<elseOneString>
+				'<for(c <- checkBoxIds){> 
+				'<c>.setAttribute(\'onclick\',\"<c>IfElseStatement(this)\"); 
+				'<}>
+				'";
     	}
 	}else{			// for boolean
 		list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
 		str check = evaluateExp(exp, idAndType[0].tp);		
-		println("CHECK IS : <check>");
     	if(idAndType[0].tp == integer()) return checkIntExp(exp,idAndType[0].tp,env);
     	else{
     		str checkBoxId = toString(getChildren(exp)[0]);
     		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
     		tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
 			str elseOneString = javaScriptaddIfElseStatementBoolean(formId, checkBoxId, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse);
-			println("HERE WE ARE IS : ");
 			return "<elseOneString>
 					'	<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>IfElseStatementBoolean(this)\");
 					'";  
@@ -286,7 +299,6 @@ public void generateQLForm(Program P){
 		createQLOnHarddisk(id);  			// create empty files on harddisk 
 		generateDatabaseCode(id); 			// generate the Database 
 		str result = getQLFormString(id);	// get the QLForm HTML code as a string
-		println("HTML IS : <result>");
 		javaScriptCreateForm(id, Body);		// create the JavaScript File
 		appendToHTMLFile(id, result);		// append code to HTML File
 		cssDiv(id);							// create CSS property for HTML div tag
