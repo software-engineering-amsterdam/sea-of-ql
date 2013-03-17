@@ -23,7 +23,7 @@ public abstract class BinaryExpr extends Expr
 			throw new IncompatibleTypesException();
 	}
 
-	public Value evaluate(Interpreter context)
+	public LiteralExpr reduce(Interpreter context)
 	{
 		return null;
 	}

@@ -1,6 +1,7 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.inspectors.*;
 import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
@@ -75,9 +76,9 @@ public class Conditional extends FormItem
 
 	public void interpret(Interpreter context)
 	{
-		Bool v = (Bool) condition.evaluate(context);
+		Bool v = (Bool) condition.reduce(context);
 		
-		if(v.getBooleanValue())
+		if(v.getValue())
 		{
 			for(Question q: ifQuestions)
 				q.interpret(context);

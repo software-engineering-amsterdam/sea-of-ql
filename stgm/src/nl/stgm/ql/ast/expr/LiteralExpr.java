@@ -16,8 +16,8 @@ public abstract class LiteralExpr extends Expr
 		return context.translateType(this);
 	}
 
-	public Value evaluate(Interpreter context)
+	public LiteralExpr reduce(Interpreter context)
 	{
-		return null;
+		return this;
 	}
 }

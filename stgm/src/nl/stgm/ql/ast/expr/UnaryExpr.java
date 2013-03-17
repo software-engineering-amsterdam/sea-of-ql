@@ -19,7 +19,7 @@ public abstract class UnaryExpr extends Expr
 		return arg.type(context);
 	}
 
-	public Value evaluate(Interpreter context)
+	public LiteralExpr reduce(Interpreter context)
 	{
 		return null;
 	}

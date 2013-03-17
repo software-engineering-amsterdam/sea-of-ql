@@ -25,7 +25,7 @@ public class Ident extends Expr
 		return context.lookupType(this.name);
 	}
 
-	public Value evaluate(Interpreter context)
+	public LiteralExpr reduce(Interpreter context)
 	{
 		return context.lookupValue(name);
 	}

@@ -30,5 +30,5 @@ public abstract class Expr extends AbstractElement
 		// context.register
 	}
 
-	public abstract Value evaluate(Interpreter context);
+	public abstract LiteralExpr reduce(Interpreter context);
 }

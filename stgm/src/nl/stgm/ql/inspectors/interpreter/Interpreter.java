@@ -3,12 +3,15 @@ package nl.stgm.ql.inspectors.interpreter;
 import java.io.*;
 import java.util.HashMap;
 
+import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.ast.form.Document;
+
 import nl.stgm.ql.inspectors.*;
 
 public class Interpreter extends DocumentInspector
 {
-	private HashMap<String,Value> symbols = new HashMap<String,Value>();
+	private HashMap<String,LiteralExpr> symbols = new HashMap<String,LiteralExpr>();
 		
 	public void regForm(String name)
 	{
@@ -31,7 +34,7 @@ public class Interpreter extends DocumentInspector
 		}
 	}
 	
-	public void regCalcQuestion(String id, String question, Value value)
+	public void regCalcQuestion(String id, String question, LiteralExpr value)
 	{
 		System.out.print("   " + question + " ");
 		System.out.print(value.toString());
@@ -39,7 +42,7 @@ public class Interpreter extends DocumentInspector
 		symbols.put(id, value);
 	}
 	
-	public Value lookupValue(String name)
+	public LiteralExpr lookupValue(String name)
 	{
 		return symbols.get(name);
 	}
