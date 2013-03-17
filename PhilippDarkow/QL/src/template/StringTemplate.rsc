@@ -21,7 +21,7 @@ import template::StringTemplateHelper;
 * @author Philipp
 */
 str generateQuestionLabel(str formId, str id, str label){
-	appendToJavaScriptFile(formId, "var <id>Label = document.createElement(\'label\');");  //global variable
+	appendToJavaScriptFile(formId, "var <id>Label = document.createElement(\'label\');");  //create a global variable
 	return "<id>Label.htmlFor = <id>; 
 			'	<id>Label.innerHTML = <label>; ";
 }
@@ -32,7 +32,7 @@ str generateQuestionLabel(str formId, str id, str label){
 * @author Philipp
 */
 str createEndingLabel(str formId, str id){
-	appendToJavaScriptFile(formId, "var <id>EndLabel = document.createElement(\'label\');"); //global variable
+	appendToJavaScriptFile(formId, "var <id>EndLabel = document.createElement(\'label\');"); //create a global variable
 	return "<id>EndLabel.htmlFor = <id>; 
 			'	<id>EndLabel.innerHTML = \"Yes\";
 			'	<id>EndLabel.class = \"<id>EndClass\"; ";
@@ -92,13 +92,12 @@ str specifyAttributesTextField(str id){
 * @author Philipp
 */
 str generateParagraph(str id, str att, str lab, str endlab, str formId){
-	appendToJavaScriptFile(formId, "var <id>Paragraph = document.createElement(\'p\');");  //global variable
-	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
+	appendToJavaScriptFile(formId, "var <id>Paragraph = document.createElement(\'p\');");  //create a global variable
+	return "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
 			'	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 			'	<id>Paragraph.appendChild(<id>Label);
 			'	<id>Paragraph.appendChild(<id>);
 			'	<id>Paragraph.appendChild(<id>EndLabel); ";
-	return p;
 }
 
 /** Method to generate a paragraph for a text field question has no endlabel
@@ -107,12 +106,11 @@ str generateParagraph(str id, str att, str lab, str endlab, str formId){
 * @author Philipp
 */
 str generateParagraph(str id, str label, str formId){
-	appendToJavaScriptFile(formId, "var <id>Paragraph = document.createElement(\'p\');");  //global variable
-	str p = "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
+	appendToJavaScriptFile(formId, "var <id>Paragraph = document.createElement(\'p\');");  //create a global variable
+	return "<id>Paragraph.setAttribute(\"class\", \'<id>Paragraph\');
 			'	<id>Paragraph.setAttribute(\"id\", <id>Paragraph);
 			'	<id>Paragraph.appendChild(<id>Label);
 			'	<id>Paragraph.appendChild(<id>); ";
-	return p;
 }
 
 /** Method to generate Question 
@@ -164,8 +162,8 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 * @author Philipp
 */
 str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	createColumnInTable(formId, id, tp);
-	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");
+	createColumnInTable(formId, id, tp);			// create a column in the database
+	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");	// 
 	createPostValuePHP(formId, id);
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == money() || tp == integer()){
@@ -181,32 +179,23 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 	}	
 }
 
-/**
+/** Method to
 */
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart), list[Body] body){
-	println("EXP is : <exp>");
 	list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
-	println("TP IS <idAndType[0]>");
 	str evaluate = evaluateExp(exp, idAndType[0].tp);	
 	str checkBoxId = toString(getChildren(exp)[0]);
 	println("checkbox ID IS : <checkBoxId>");
-	list[str] children = [];
-	list[str] thenPartString = [];
-	for(s <- thenPart){
-		thenPartString += generateBody(formId, s, body);
-		visit (s) {			// visiting s to get the childrens id of the then part
-			case Question q : { children += q.id; }
-		}		
-	}
+	tuple[list[str] thenPartString,list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
 	if(size(getChildren(exp)) <= 1){   // for boolean
-		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
+		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenChildren.thenPartString, thenChildren.children);
 		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");
 				'";
 	}else{
 		list[str] ids = getChildrenIds(exp);
 		str result = "";
 		for(k <- ids){
-			javaScriptAddCheckStatementFunction(formId, "<k>ValueCheck(cb)", thenPartString, evaluate,children);
+			javaScriptAddCheckStatementFunction(formId, "<k>ValueCheck(cb)", thenChildren.thenPartString, evaluate, thenChildren.children);
 			result += "<k>.setAttribute(\'onchange\',\"<k>ValueCheck(this)\");
 						'";
 		}
@@ -218,11 +207,10 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
 	println("in generate if else <exp>");
 	if(size(getChildren(exp)) > 1){
 		list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
-		println("IDANDTYPE : <idAndType>");
 		str check = evaluateExp(exp, idAndType[0].tp);
 		println(check);
-		if(idAndType[0].tp == integer()) return checkIntExp(exp,idAndType[0].tp,env);
-    	else{ //// !!!!!!!!!!!!! CHECK HIer
+		if(idAndType[0].tp == integer()) return evaluateExp(exp,idAndType[0].tp,env);
+    	else{ 
     		list[str] checkBoxIds = [];
     		for(s <- exp){
     			visit(s){
@@ -232,9 +220,6 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
     				}
     			}
     		}
-			// HIER WEITER MACHEN
-    		println("checkboxIds <checkBoxIds>");
-    		println("EXPPPPP : <exp>");
     		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
     		tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
 			str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxIds, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse, check);
@@ -261,17 +246,15 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
 	}	
 }
 
-
-
 /** Method to get the names of childrens from an expression
 * @param exp the Expression
 * @return list[str] a list with names
 * @author Philipp
 */
 list[str] getChildrenIds(Expression exp){
-	list[str] childrensIds = [];
-	top-down visit(exp){
-		case Expression e : {
+	list[str] childrensIds = [];		// empty list to save children ids
+	top-down visit(exp){				// visit the expression
+		case Expression e : {			 
 			if(getName(e) == "id") childrensIds += toString(getChildren(e)[0]);
 		}
 	}
@@ -285,27 +268,22 @@ list[str] getChildrenIds(Expression exp){
 * @author Philipp
 */
 public str generateBody(str id, Body body, list[Body] complete){
-	if(getName(body) == "statement"){
-		visit(body){
-			case Statement s : {
-				return "<generateStatement(id, s, complete)> ";
-			}
+	if(getName(body) == "statement"){			// if the questionaire starts with a statement
+		visit(body){							// visit the body
+			case Statement s : return "<generateStatement(id, s, complete)> "; 		// case Statement call generateStatement
 		}
 	}
-	visit(body){
-		case Question q : {
-			str temp = generateQuestion(id, q);
-			return temp;
-		}		
+	visit(body){								// if the questionaire starts with a question
+		case Question q : return generateQuestion(id, q);		// case Question call generateQuestion
 	}
 }
 
-
+/** Method to
+*/
 public void generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
-		println("in generate JavaScriptForm");
-		createQLOnHarddisk(id);
-		generateDatabaseCode(id);
+		createQLOnHarddisk(id);  			// create empty files on harddisk 
+		generateDatabaseCode(id); 			// generate the Database 
 		str result = "\<!DOCTYPE html\>
 		'\<html\>
 		'	\<head\>
@@ -318,10 +296,10 @@ public void generateQLForm(Program P){
 		'	\</script\>
 		'	\</body\>
 		'\</html\>";	
-		javaScriptCreateForm(id, Body);
-		appendToHTMLFile(id, result);
-		cssDiv(id);
-		insertValueInDatabase(id,Body);
+		javaScriptCreateForm(id, Body);		// create the JavaScript File
+		appendToHTMLFile(id, result);		// append code to HTML File
+		cssDiv(id);							// create CSS property for HTML div tag
+		insertValueInDatabase(id,Body);		// 
 		appendToPHPFile(id, " mysql_close($conn); ?\>");   //close tag
 	}else{
 		return "not possible to generate java script code";

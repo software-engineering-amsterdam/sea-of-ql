@@ -4,35 +4,32 @@ import syntax::AbstractSyntax;
 import Prelude;
 import template::StringTemplate;
 
+/** Method to 
+*/
 public list[tuple[str ,Type]] getExpressionTypeGenerate(exp:id(str id),list[Body] body){
-	println("Body is <body>");
 	list[tuple[str qId,Type tp]] types = [];
 	for(b <- body){
 		visit(b){
 			case Question q : {				
 				if(toString(getChildren(q)[0]) == id){	//matching
-					println("WE HAVE A MATCH");
 					types += [<id,getTypeFromQuestion(q)>];
 				}
 			}
 		}		
 	}
-	println("TYPESSS : <types>");
 	return types;
 }
 
+/** Method to 
+*/
 public list[tuple[str id,Type tp]] getExpressionTypeGenerate(Expression exp,list[Body] body){
-	println("Body is <body>");
-	println("EXP is <exp>");
 	list[tuple[str id,Type tp]] idAndTypes = [];
 	list[str] ids = [];
 	visit(exp){
 		case Expression e : {
-			println("ID is : <getName(e)>");
 			if(getName(e) == "id"){
 				ids += toString(getChildren(e)[0]);	
 			}else if(getName(e) == "boolCon"){
-				println("BUUUU");
 				idAndTypes += [<"", boolean()>];
 			}
 		}
@@ -42,56 +39,55 @@ public list[tuple[str id,Type tp]] getExpressionTypeGenerate(Expression exp,list
 	for(b <- body){
 		visit(b){
 			case Question q : {	
-				println("QQQ : <q>");
-				println("getChildren(q)[0] : <getChildren(q)[0]>");	
 				for(n <- ids){		
-				if(toString(getChildren(q)[0]) == n){	//matching
-					println("WE HAVE A MATCH");				
-					idAndTypes += [<getIdFromQuestion(q),getTypeFromQuestion(q)>];		//getTypeFromQuestion(q);
+				if(toString(getChildren(q)[0]) == n){	//matching			
+					idAndTypes += [<getIdFromQuestion(q),getTypeFromQuestion(q)>];		
 				}
-				}
-				//n = n + 1;	
+				}	
 			}
 		}		
 	}
-	println("TYPESSS : <idAndTypes>");
 	return idAndTypes;
 }
 
-Type getTypeFromQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
-	return tp;
-}
+Type getTypeFromQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)) = tp;
+	
+Type getTypeFromQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)) = tp;
 
-Type getTypeFromQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	return tp;
-}
+str getIdFromQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)) = id;
 
-str getIdFromQuestion(question:easyQuestion(str id, str labelQuestion, Type tp)){
-	return id;
-}
+str getIdFromQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)) = id;
 
-str getIdFromQuestion(question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
-	return id;
-}
-
+/** Method to get the else part as a string and the childrens of the else part
+* @param formId the name of the questionaire
+* @param thenPart the then part as a list 
+* @param body the complete body of the questionaire
+* @author Philipp
+*/
 public tuple[list[str] ,list[str] ] getThenPartIfElse(str formId, list[Body] thenPart, list[Body] body){
-			list[str] thenPartString = [];
-			list[str] children = [];
-			for(s <- thenPart){
+			list[str] thenPartString = [];		// create empty list 
+			list[str] children = [];			// create empty list for the childrens
+			for(s <- thenPart){					// run through the then part
 				thenPartString += generateBody(formId, s, body);
-				visit (s) {			// visiting s to get the childrens id of the then part
+				visit (s) {			
 					case Question q : { children += q.id; }
 				}		
 			}
 			return <thenPartString,children>;
 }
 
+/** Method to get the else part as a string and the childrens of the else part
+* @param formId the name of the questionaire
+* @param elsePart the else part as a list 
+* @param body the complete body of the questionaire
+* @author Philipp
+*/
 public tuple[list[str] ,list[str]] getElsePartIfElse(str formId, list[Body] elsePart, list[Body] body){
-			list[str] elsePartString = [];
-			list[str] childrenElse = [];
-			for(j <- elsePart){
-				elsePartString += generateBody(formId, j, body);
-					visit (j) {			// visiting s to get the childrens id of the then part
+			list[str] elsePartString = [];		// create empty list 
+			list[str] childrenElse = [];		// create empty list for the childrens
+			for(j <- elsePart){					// run through the else part
+				elsePartString += generateBody(formId, j, body);	
+					visit (j) {			
 						case Question q : { childrenElse += q.id; }
 					}		
 			}

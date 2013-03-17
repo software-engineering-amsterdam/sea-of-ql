@@ -5,6 +5,7 @@ import template::StringTemplate;
 import template::File;
 import template::CSS;
 import template::EvaluateExpression;
+import template::JavaScriptHelper;
 import Prelude;
 
 /** Method to create the javascript code to generate the form
@@ -13,7 +14,7 @@ import Prelude;
 * @author Philipp
 */
 public void javaScriptCreateForm(str id, list[Body] Body){
-	str f = "function createForm(){ 
+	str createFunction = "function createForm(){ 
 	        '	<id>Div = document.createElement(\"div\");
 	        '	<id>Div.setAttribute(\'name\',\'<id>Div\'); 
 	        '	<id>Div.setAttribute(\'id\',<id>Div);
@@ -28,7 +29,7 @@ public void javaScriptCreateForm(str id, list[Body] Body){
 	 		'	<id>Div.appendChild(<id>);
 	 		'	document.getElementsByTagName(\'body\')[0].appendChild(<id>Div);
 	 '} ";
-	appendToJavaScriptFile(id, f);
+	appendToJavaScriptFile(id, createFunction);
 	createSubmitMethod(id);
 }
 
@@ -48,11 +49,9 @@ str createSubmitButton(str id) = "	<id>Submit = document.createElement(\'input\'
 * @param id the name of the questionaire
 * @author Philipp
 */
-void createSubmitMethod(str id){
-	str result = "function submit<id>() {
-				'	alert(\'submit button pressed\'); 
-				'} ";
-	appendToJavaScriptFile(id, result);
+void createSubmitMethod(str formId){
+	str result = getSubmitMethodString(formId);
+	appendToJavaScriptFile(formId, result);
 }
 
 /** Method to create the code for the 
@@ -63,16 +62,8 @@ void createSubmitMethod(str id){
 */
 public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
 	str function = "";
-	if(tp == boolean()){
-		function = "function <checkBoxId> {
-					'	if(cb.checked == true) { cb.parentNode.children[2].innerHTML = \"No\"; }
-	    			'	if(cb.checked == false) { cb.parentNode.children[2].innerHTML = \"Yes\"; }
-	    			'}"; 
-	}else{
-		function = "function <checkBoxId> {
-						'	if(isNaN(cb.value)) { alert(\"is not number\"); } 
-						'}"; 
-	}
+	if(tp == boolean())function = getAddCheckBooleanString(checkBoxId);
+	else function = getAddCheckNumberString(checkBoxId); 
 	appendToJavaScriptFile(formId, "\n <function>");
 }
 
@@ -86,20 +77,11 @@ public void javaScriptAddCheckFunction(str formId, str checkBoxId, Type tp) {
 public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list[str] thenPart, list[str] children){
 	str ifTruePart = "";
 	for(i <- thenPart) ifTruePart += i;
-	str check = "function <checkBoxId>DoTheCheckWithStatement(cb) {
-					'	if(cb.checked) {
-					'	<formId>.removeChild(<formId>Submit);
-					'	<ifTruePart>
-					'	<formId>.appendChild(<formId>Submit);
-					'	}else {
-					'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
-					'	}
-					'}";
-	appendToJavaScriptFile(formId, "\n <check>");
+	str function = getAddCheckStatementString(formId, checkBoxId, children, ifTruePart);
+	appendToJavaScriptFile(formId, "\n <function>");
 }
 
 public str javaScriptaddIfElseStatementBoolean(str formId, str varId, list[str] thenPart, list[str] elsePart, list[str] children, list[str] childrenElse){
-	println("IN JAVASCRIPT IF ELSE Boolean");
 	str ifTruePart = "";
 	str elsePartString = "";
 	for(i <- thenPart) ifTruePart += i;
@@ -122,7 +104,6 @@ public str javaScriptaddIfElseStatementBoolean(str formId, str varId, list[str] 
 }
 
 public str javaScriptaddIfElseStatement(str formId, list[str] varId, list[str] thenPart, list[str] elsePart, list[str] children, list[str] childrenElse, str check){
-	println("IN JAVASCRIPT IF ELSE <check>");
 	str ifTruePart = "";
 	str elsePartString = "";
 	for(i <- thenPart) ifTruePart += i;
@@ -175,13 +156,7 @@ public void javaScriptAddEvaluateQuestion(str formId, str id, Expression exp, Ty
 * @author Philipp
 */
 void addOnChangeForComputedFunction(str formId, str id, str methodName){
-	str result = "function <id>CheckNumeric(cb) {
-				'	<methodName>Calculation(<methodName>);
-				'	if(isNaN(cb.value)) { 
-				'		alert(\"Trying to hack the questionaire please reload \");
-				'		<formId>Submit.setAttribute(\'hidden\', true);
-				'	}
-				'}";
+	str result = getOnChangeForComputedString(formId, id, methodName);
 	appendToJavaScriptFile(formId, "\n <result>");
 }
 

@@ -2,6 +2,7 @@ module template::PHP
 
 import IO;
 import syntax::AbstractSyntax;
+import template::PHPHelper;
 import Prelude;
 
 // ADD server side validation
@@ -16,7 +17,6 @@ import Prelude;
 public void createPostValuePHP(str formId, str varName){
 	str result = "$<varName> = $_POST[\'<varName>\'];";
 	appendToPHPFile(formId, result);	
-	
 }
 
 /** Method to generate the database and the table
@@ -24,7 +24,7 @@ public void createPostValuePHP(str formId, str varName){
 * @author Philipp
 */
 public void generateDatabaseCode(str formId){
-	createDataBaseCode(formId);
+	createDataBaseCode(formId);		// 
 	createTableCode(formId);
 }
 
@@ -33,16 +33,7 @@ public void generateDatabaseCode(str formId){
 * @author Philipp
 */
 void createDataBaseCode(str formId){
-	str result = "$dbhost = \'localhost\';
-				'	$dbuser = \'root\';
-				'	$dbpass = \'\';
-				'	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
-				'	if(! $conn ) { die(\'Could not connect: \' . mysql_error()); }
-				'	echo \'Connected successfully\';
-				'	$sqlDatabase = \'CREATE Database <formId>\'; 
-				'	$retval = mysql_query( $sqlDatabase, $conn );
-				'	if(! $retval ) { echo \'Database <formId> exist already \'; }
-				'	echo \"Database <formId> created successfully\";";
+	str result = getDataBaseString(formId);			// get the code for the database as a string
 	appendToPHPFile(formId, result);
 }
 
@@ -51,13 +42,7 @@ void createDataBaseCode(str formId){
 * @author Philipp
 */
 void createTableCode(str formId){
-	str result = "$sqlTable = \'CREATE TABLE <formId>( \'.
-       	'	\'q_id INT NOT NULL AUTO_INCREMENT, \'.
-       	'	\'primary key ( q_id ))\';
-		' mysql_select_db(\'<formId>\');
-		' $retval = mysql_query( $sqlTable, $conn );
-		' if(! $retval ) { echo \"Table <formId> exist already \";  }
-		' echo \"Table <formId> created successfully\";  ";
+	str result = getTableString(formId);
 	appendToPHPFile(formId, result);
 }
 
@@ -110,10 +95,9 @@ public void insertValueInDatabase(str formId,  list[Body] body){
 }
 
 list[str] addServerSideValidation(str formId, list[tuple[str id,value typ]] idsAndType){
-	println("in add validation");
 	list[str] result = [];
-	for(i <- idsAndType){
-		if(i.typ == boolean()){
+	for(i <- idsAndType){						// run through the list
+		if(i.typ == boolean()){					// check on the type
 			addBoolValidation(formId, i.id);
 			result += "is_bool($<i.id>)"; 
 		}else if(i.typ == string()){
@@ -122,9 +106,14 @@ list[str] addServerSideValidation(str formId, list[tuple[str id,value typ]] idsA
 			result += "is_numeric($<i.id>)";
 		}
 	}
-	return result;
+	return result;								// return a list with PHP code
 }
 
+/** Method to add server side boolean validation
+* @param formId
+* @param varName
+* @author Philipp
+*/
 void addBoolValidation(str formId, str varName){
 	str result = "if (isset($_POST[\'<varName>\'])) {
    				'	$<varName> = true;
@@ -140,6 +129,6 @@ void addBoolValidation(str formId, str varName){
 * @author Philipp
 */
 public void appendToPHPFile(str formId, str text){
-	l = |file:///wamp/www/<formId>/<formId>.php|;
-	appendToFile(l, "\n <text>");
+	l = |file:///wamp/www/<formId>/<formId>.php|;		// location of the PHP File
+	appendToFile(l, "\n <text>");						// append code to the PHP File
 }
