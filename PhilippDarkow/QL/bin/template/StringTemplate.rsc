@@ -240,7 +240,7 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
 			str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxIds, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse, check);
 			return "<elseOneString>
 					'<for(c <- checkBoxIds){> 
-					'<c>.setAttribute(\'onchange\',\"<c>IfElseStatement(this)\"); 
+					'<c>.setAttribute(\'onclick\',\"<c>IfElseStatement(this)\"); 
 					'<}>
 					'";
     	}
