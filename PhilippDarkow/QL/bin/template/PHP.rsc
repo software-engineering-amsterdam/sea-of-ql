@@ -24,8 +24,8 @@ public void createPostValuePHP(str formId, str varName){
 * @author Philipp
 */
 public void generateDatabaseCode(str formId){
-	createDataBaseCode(formId);		// 
-	createTableCode(formId);
+	createDataBaseCode(formId);						// create the code for the database 
+	createTableCode(formId);						// create the code for the database table
 }
 
 /** Method to generate the PHP code to create the database
@@ -42,7 +42,7 @@ void createDataBaseCode(str formId){
 * @author Philipp
 */
 void createTableCode(str formId){
-	str result = getTableString(formId);
+	str result = getTableString(formId);			// get the code for the table as a string
 	appendToPHPFile(formId, result);
 }
 
@@ -84,13 +84,7 @@ public void insertValueInDatabase(str formId,  list[Body] body){
 	}
 	println("idsAndType : <idAndType>");
 	validation = addServerSideValidation(formId, idAndType);
-	str result = "if(<for(k <- prefix(validation)) {> <k> && <}> <last(validation)>){
-				'	$query = \"INSERT INTO <formId> ( q_id, <for(i <- prefix(idAndType)) { > <i.id>, < }> <last(idAndType).id>)
-				'	VALUES(\'NULL\', <for(i <- prefix(idAndType)) { > \'\".$<i.id>.\"\', < }> \'\".$<last(idAndType).id>.\"\')\";
-				'	mysql_query( $query, $conn ); 
-				'}else{
-				'	echo \'Validation Error\';	
-				'}";
+	str result = getValueInDatabaseString(validation, formId,idAndType);		// get the insert code as a string
 	appendToPHPFile(formId,result);
 }
 
@@ -115,11 +109,7 @@ list[str] addServerSideValidation(str formId, list[tuple[str id,value typ]] idsA
 * @author Philipp
 */
 void addBoolValidation(str formId, str varName){
-	str result = "if (isset($_POST[\'<varName>\'])) {
-   				'	$<varName> = true;
-				'	}else{
-				'	$<varName> = false;
-				'}";
+	str result = getBoolValidationString(varName);		// get the code for bool validation as a string
 	appendToPHPFile(formId,result);
 }
 
