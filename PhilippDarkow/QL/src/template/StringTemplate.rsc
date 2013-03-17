@@ -164,7 +164,7 @@ private str generateQuestion(str formId, question:easyQuestion(str id, str label
 str generateQuestion(str formId, question:computedQuestion(str id, str labelQuestion, Type tp, Expression exp)){
 	createColumnInTable(formId, id, tp);			// create a column in the database
 	appendToJavaScriptFile(formId, "var <id> = document.createElement(\"input\");");	// 
-	createPostValuePHP(formId, id);
+	createPostValuePHP(formId, id);					// create PostValue in PHP for question id
 	str label = generateQuestionLabel(formId, id, labelQuestion);
 	if(tp == money() || tp == integer()){
 		str paragraph = generateParagraph(id, label, formId);		
@@ -238,7 +238,8 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
     		str checkBoxId = toString(getChildren(exp)[0]);
     		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
     		tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
-			str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxId, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse);
+			str elseOneString = javaScriptaddIfElseStatementBoolean(formId, checkBoxId, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse);
+			println("HERE WE ARE IS : ");
 			return "<elseOneString>
 					'	<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>IfElseStatementBoolean(this)\");
 					'";  
@@ -284,18 +285,8 @@ public void generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		createQLOnHarddisk(id);  			// create empty files on harddisk 
 		generateDatabaseCode(id); 			// generate the Database 
-		str result = "\<!DOCTYPE html\>
-		'\<html\>
-		'	\<head\>
-		'	\<script src=\"<id>.js\"\> \</script\>
-		'	\<link href=\"<id>.css\" rel=\"stylesheet\" type=\"text/css\"\>
-		'	\</head\>
-		'	\<body\>
-		'	\<script\>
-			'	createForm();
-		'	\</script\>
-		'	\</body\>
-		'\</html\>";	
+		str result = getQLFormString(id);	// get the QLForm HTML code as a string
+		println("HTML IS : <result>");
 		javaScriptCreateForm(id, Body);		// create the JavaScript File
 		appendToHTMLFile(id, result);		// append code to HTML File
 		cssDiv(id);							// create CSS property for HTML div tag

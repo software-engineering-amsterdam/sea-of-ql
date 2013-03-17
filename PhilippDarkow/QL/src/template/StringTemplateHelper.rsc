@@ -93,3 +93,18 @@ public tuple[list[str] ,list[str]] getElsePartIfElse(str formId, list[Body] else
 			}
 			return <elsePartString,childrenElse>;
 }
+
+public str getQLFormString(str formId){
+	return "\<!DOCTYPE html\>
+		'\<html\>
+		'	\<head\>
+		'	\<script src=\"<formId>.js\"\> \</script\>
+		'	\<link href=\"<formId>.css\" rel=\"stylesheet\" type=\"text/css\"\>
+		'	\</head\>
+		'	\<body\>
+		'	\<script\>
+			'	createForm();
+		'	\</script\>
+		'	\</body\>
+		'\</html\>";
+}
