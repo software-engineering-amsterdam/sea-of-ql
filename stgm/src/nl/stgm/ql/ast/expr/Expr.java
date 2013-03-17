@@ -16,6 +16,8 @@ public abstract class Expr extends AbstractElement
 		context.print(this.pretty());
 	}	
 
+	// pretty() is used by both the PrettyPrinter and the SemanticChecker!
+
 	public abstract String pretty();
 
 	public void check(SemanticChecker context)
@@ -27,7 +29,8 @@ public abstract class Expr extends AbstractElement
 
 	public void interpret(Interpreter context)
 	{
-		// context.register
+		// no-op, because CalcQuestion and Conditional will call reduce() below
+		throw new Error("This method should not be called on an Expr.");
 	}
 
 	public abstract LiteralExpr reduce(Interpreter context);

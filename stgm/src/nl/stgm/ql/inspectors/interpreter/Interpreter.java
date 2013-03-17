@@ -18,10 +18,10 @@ public class Interpreter extends DocumentInspector
 		System.out.println("\n --- " + name.toUpperCase() + " ------------------------------\n");
 	}
 	
-	public void regQuestion(String id, String question, String type)
+	public void regQuestion(String id, String question, Type type)
 	{
 		System.out.print("   " + question + " ");
-		switch(Type.parse(type))
+		switch(type)
 		{
 			case INT:
 				symbols.put(id, inputInt());

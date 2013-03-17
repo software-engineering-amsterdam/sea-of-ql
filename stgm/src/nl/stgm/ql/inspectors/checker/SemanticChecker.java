@@ -36,7 +36,7 @@ public class SemanticChecker extends DocumentInspector
 	// list of defined identifiers
 	//
 	
-	public void registerIdent(String name, String type, boolean computed)
+	public void registerIdent(String name, Type type, boolean computed)
 	{
 		// check if symbol already exists
 		Identifier i = symbols.get(name);
@@ -75,7 +75,7 @@ public class SemanticChecker extends DocumentInspector
 		}
 		else
 		{
-			return s.type();
+			return s.getType();
 		}
 	}
 	

@@ -7,24 +7,24 @@ public class Identifier
 	String name;
 	Type type;
 	boolean computed;
-	
-	public Identifier(String name, String type, boolean isComputed)
+
+	public Identifier(String name, Type type, boolean isComputed)
 	{
 		this.name = name;
-		this.type = Type.parse(type);
+		this.type = type;
 		this.computed = computed;
 	}
-	
-	public Type type()
+
+	public Type getType()
 	{
 		return this.type;
 	}
-	
-	public boolean isOfType(String type)
+
+	public boolean isOfType(Type type)
 	{
-		return this.type == Type.parse(type);
+		return this.type == type;
 	}
-	
+
 	public boolean isComputed()
 	{
 		return this.computed;

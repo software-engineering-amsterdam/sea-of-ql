@@ -15,19 +15,34 @@ public enum Type
 				return INT;
 			case "boolean":
 				return BOOL;
+			default:
+				// error in the document
+				return null;
+				// throw new Exception("Unknown type " + source + " found.");
 		}
-		return null;
-		//throw new Exception("Unknown type " + source + " found.");
 	}
 
 	public static Type translate(LiteralExpr expr)
 	{
-		if(expr instanceof nl.stgm.ql.ast.expr.literal.Bool)
+		if(expr instanceof Bool)
 			return BOOL;
-		else if(expr instanceof nl.stgm.ql.ast.expr.literal.Int)
+		else if(expr instanceof Int)
 			return INT;
 		else
-			// not recoverable
+			// error in our code
 			throw new Error("An unknown literal type is in the AST.");
+	}
+	
+	public String toString()
+	{
+		switch(this)
+		{
+			case INT:
+				return "int";
+			case BOOL:
+				return "boolean";
+			default:
+				throw new Error("This is impossible.");
+		}
 	}
 }
