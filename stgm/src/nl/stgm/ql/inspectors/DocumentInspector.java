@@ -12,7 +12,7 @@ import nl.stgm.ql.ast.form.Document;
 
 public class DocumentInspector
 {
-	public static Document parseDocument()
+	public static Document parseDocument(String filename)
 	{
 		RatsParser parser = new RatsParser();
 		byte[] file = null;
@@ -23,7 +23,7 @@ public class DocumentInspector
 		try
 		{
 			// hardcoded single sample file!
-			Path path = FileSystems.getDefault().getPath("samples", "canonical.qldoc");
+			Path path = FileSystems.getDefault().getPath("samples", filename);
 			file = Files.readAllBytes(path);
 		}
 		catch(IOException e)
@@ -49,9 +49,8 @@ public class DocumentInspector
 		catch(ParseError e)
 		{
 			exitWithError("Error parsing sample file: " + e.getMessage());
+			return null; // FML
 		}
-		
-		return null; // FML
 	}
 
 	public static void exitWithError(String message)

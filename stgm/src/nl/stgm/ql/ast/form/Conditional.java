@@ -14,18 +14,21 @@ public class Conditional extends FormItem
 	private List<Question> ifQuestions;
 	private List<Question> elseQuestions;
 	
+	private boolean hasElse;
+	
 	public Conditional(Expr condition, List<Question> ifQuestions, List<Question> elseQuestions)
 	{
 		this.condition = condition;
 		this.ifQuestions = ifQuestions;
 		this.elseQuestions = elseQuestions;
+		this.hasElse = true;
 	}
 
 	public Conditional(Expr condition, List<Question> ifQuestions)
 	{
 		this.condition = condition;
 		this.ifQuestions = ifQuestions;
-		this.elseQuestions = null;
+		this.hasElse = false;
 	}
 
 	public void print(PrettyPrinter context)
@@ -41,7 +44,7 @@ public class Conditional extends FormItem
 		
 		context.println("}");
 
-		if(elseQuestions != null)
+		if(this.hasElse)
 		{
 			context.println("else {");
 			context.increaseIndent();
@@ -63,7 +66,7 @@ public class Conditional extends FormItem
 		for(Question q: ifQuestions)
 			q.check(context);
 
-		if(elseQuestions != null)
+		if(hasElse)
 			for(Question q: elseQuestions)
 				q.check(context);
 		
@@ -81,7 +84,7 @@ public class Conditional extends FormItem
 		}
 		else
 		{
-			if(elseQuestions != null)
+			if(hasElse)
 				for(Question q: elseQuestions)
 					q.interpret(context);
 		}

@@ -80,14 +80,14 @@ public class Interpreter extends DocumentInspector
 		catch (IOException ioe)
 		{
 			exitWithError("Unknown input error. Please restart.");
-			return null;
+			return null; // FML
 		}
 	}
 	
 	public static void main(String[] args)
 	{
 		Interpreter ip = new Interpreter();
-		Document document = parseDocument();
+		Document document = parseDocument("canonical.qldoc");
 		document.interpret(ip);
 		System.out.println();
 	}

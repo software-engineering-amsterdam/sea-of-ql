@@ -1,18 +1,15 @@
-QL Interpreter
-==============
+# QL Interpreter
 
 * Has a parser generator for QL.
 * Has separate test runners for forms and expressions.
 * Has a pretty printer that should render the textual representation from the AST.
 
-Building.
----------
+## Building.
 
 Use `make` to compile everything (this will generate classfiles next to the
 sources).
 
-Running.
---------
+## Running.
 
 Run the parser generator
 
@@ -23,9 +20,13 @@ Run the parser tests
 	make run/testexpr
 	make run/testform
 
+### Pretty printer.
+
 Run the pretty printer for a sample form
 
 	make run/pretty
+
+### Semantics checker.
 
 Run the semantics checker for a sample form
 
@@ -39,8 +40,13 @@ It will check for these problems:
 * undefined names in calculations
 * duplicate form names
 
-References.
------------
+### Interpreter.
+
+Run the interpreter for a sample form
+
+	make run/interpret
+
+## References.
 
 *Assignment and AST*
 

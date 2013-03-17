@@ -15,10 +15,9 @@ public enum Type
 				return INT;
 			case "boolean":
 				return BOOL;
-			case "string":
-				return STRING;
 		}
 		return null;
+		//throw new Exception("Unknown type " + source + " found.");
 	}
 
 	public static Type translate(LiteralExpr expr)

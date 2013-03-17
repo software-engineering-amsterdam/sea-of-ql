@@ -69,6 +69,8 @@ public class SemanticChecker extends DocumentInspector
 		if(s == null)
 		{
 			addError(name + " is not defined at this point");
+			
+			// we'll allow to continue in order to catch more errors
 			return null;
 		}
 		else
@@ -159,7 +161,7 @@ public class SemanticChecker extends DocumentInspector
 	public static void main(String[] args)
 	{
 		SemanticChecker checkerContext = new SemanticChecker();
-		Document document = parseDocument();
+		Document document = parseDocument("errors.qldoc");
 		document.check(checkerContext);
 		checkerContext.printErrorList();
 	}

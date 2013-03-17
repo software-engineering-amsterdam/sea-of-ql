@@ -60,7 +60,7 @@ public class PrettyPrinter extends DocumentInspector
 	public static void main(String[] args)
 	{
 		PrettyPrinter ctx = new PrettyPrinter();
-		Document document = parseDocument();
+		Document document = parseDocument("elaborate.qldoc");
 		document.print(ctx);
 	}
 }
