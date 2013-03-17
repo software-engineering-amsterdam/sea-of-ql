@@ -133,10 +133,12 @@ public str javaScriptaddIfElseStatement(str formId, list[str] varId, list[str] t
 					'	<formId>.removeChild(<formId>Submit);
 					'	<ifTruePart>
 					'	<formId>.appendChild(<formId>Submit);
-					'	<for(i <- childrenElse){> <formId>.removeChild(<i>Paragraph); <}>
+					'	<for(i <- childrenElse){> if(<i>Paragraph.parentElement != null){
+					'	<formId>.removeChild(<i>Paragraph); } <}>
 					'	}else {
 					'	<formId>.removeChild(<formId>Submit);
-					'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
+					'	<for(c <- children){> if(<c>Paragraph.parentElement != null){
+					'	<formId>.removeChild(<c>Paragraph); } <}>
 					'	<for(i <- childrenElse){> <formId>.appendChild(<i>Paragraph); <}>
 					'	<formId>.appendChild(<formId>Submit);
 					'	}

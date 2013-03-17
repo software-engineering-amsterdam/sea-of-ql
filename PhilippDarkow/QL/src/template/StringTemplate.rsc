@@ -232,7 +232,7 @@ str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body
     				}
     			}
     		}
-    		//str checkBoxId = toString(getChildren(exp)[0]);;
+			// HIER WEITER MACHEN
     		println("checkboxIds <checkBoxIds>");
     		println("EXPPPPP : <exp>");
     		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
