@@ -198,27 +198,36 @@ str generateQuestion(str formId, question:computedQuestion(str id, str labelQues
 	}	
 }
 
-/** Method to
+/** Method to generate a if statement
+* @param formId the name of the questionaire
+* @param statement the if statement
+* @param body the body of the questionaire form
+* @return javascript code for a if statement
+* @author Philipp
 */
 str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] thenPart), list[Body] body){
 	list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
 	str evaluate = evaluateExp(exp, idAndType[0].tp);	
 	str checkBoxId = toString(getChildren(exp)[0]);
 	tuple[list[str] thenPartString,list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
-	if(size(getChildren(exp)) <= 1){   // for boolean
+	if(size(getChildren(exp)) <= 1){   // for one boolean
 		javaScriptAddCheckStatementFunction(formId, checkBoxId, thenChildren.thenPartString, thenChildren.children);
 		return "<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>DoTheCheckWithStatement(this)\");
 				'";
 	}else{
-		list[str] ids = getChildrenIds(exp);
-		str result = "";
-		for(k <- ids){
-			javaScriptAddCheckStatementFunction(formId, "<k>ValueCheck(cb)", thenChildren.thenPartString, evaluate, thenChildren.children);
-			result += "<k>.setAttribute(\'onchange\',\"<k>ValueCheck(this)\");
-						'";
-		}
-		return result;
+		return generateStatementMoreChildren(exp, formId, thenChildren.thenPartString, evaluate, thenChildren.children);
 	}
+}
+
+str generateStatementMoreChildren(Expression exp, str formId, list[str] thenPartString, str evaluate, list[str] children){
+	list[str] ids = getChildrenIds(exp);
+	str result = "";
+	for(k <- ids){
+		javaScriptAddCheckStatementFunction(formId, "<k>ValueCheck(cb)", thenPartString, evaluate, children);
+		result += "<k>.setAttribute(\'onchange\',\"<k>ValueCheck(this)\");
+					'";
+	}
+	return result;
 }
 
 str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body] thenPart, list[Body] elsePart), list[Body] body){
