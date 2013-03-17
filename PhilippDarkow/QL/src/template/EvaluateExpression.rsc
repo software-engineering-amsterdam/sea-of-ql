@@ -8,7 +8,8 @@ str required(Type t1, Type t2) = required(t1, getName(t2));
 
 // compile Expressions.
 public str evaluateExp(exp:boolCon(bool B), Type req) {
-  return req == boolean() ? env : addError(env, exp@location, required(req, "boolean"));
+  println("B IS : <B>");
+  return "B";
   }
  
 public str evaluateExp(exp:moneyCon(real M), Type req) {

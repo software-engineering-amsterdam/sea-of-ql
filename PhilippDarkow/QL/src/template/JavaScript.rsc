@@ -98,13 +98,13 @@ public void javaScriptAddCheckStatementFunction(str formId, str checkBoxId, list
 	appendToJavaScriptFile(formId, "\n <check>");
 }
 
-public str javaScriptaddIfElseStatement(str formId, str varId, list[str] thenPart, list[str] elsePart, list[str] children, list[str] childrenElse){
-	println("IN JAVASCRIPT IF ELSE");
+public str javaScriptaddIfElseStatementBoolean(str formId, str varId, list[str] thenPart, list[str] elsePart, list[str] children, list[str] childrenElse){
+	println("IN JAVASCRIPT IF ELSE Boolean");
 	str ifTruePart = "";
 	str elsePartString = "";
 	for(i <- thenPart) ifTruePart += i;
 	for(j <- elsePart) elsePartString += j;
-	str check = "function <varId>IfElseStatement(cb) {
+	str check = "function <varId>IfElseStatementBoolean(cb) {
 					'	if(cb.checked) {
 					'	<formId>.removeChild(<formId>Submit);
 					'	<for(i <- childrenElse){> <formId>.removeChild(<i>Paragraph); <}>
@@ -116,10 +116,33 @@ public str javaScriptaddIfElseStatement(str formId, str varId, list[str] thenPar
 					'	<for(i <- childrenElse){> <formId>.appendChild(<i>Paragraph); <}>
 					'	<formId>.appendChild(<formId>Submit);
 					'	}
-					'}";   
-					//'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
-					// '	<elsePartString>
+					'}";
 	appendToJavaScriptFile(formId, "\n <check>");
+	return elsePartString;
+}
+
+public str javaScriptaddIfElseStatement(str formId, list[str] varId, list[str] thenPart, list[str] elsePart, list[str] children, list[str] childrenElse, str check){
+	println("IN JAVASCRIPT IF ELSE <check>");
+	str ifTruePart = "";
+	str elsePartString = "";
+	for(i <- thenPart) ifTruePart += i;
+	for(j <- elsePart) elsePartString += j;
+	for(s <- varId){
+		str check = "function <s>IfElseStatement(cb) {
+					'	if(<check>) {
+					'	<formId>.removeChild(<formId>Submit);
+					'	<ifTruePart>
+					'	<formId>.appendChild(<formId>Submit);
+					'	<for(i <- childrenElse){> <formId>.removeChild(<i>Paragraph); <}>
+					'	}else {
+					'	<formId>.removeChild(<formId>Submit);
+					'	<for(c <- children){> <formId>.removeChild(<c>Paragraph); <}>
+					'	<for(i <- childrenElse){> <formId>.appendChild(<i>Paragraph); <}>
+					'	<formId>.appendChild(<formId>Submit);
+					'	}
+					'}";
+	appendToJavaScriptFile(formId, "\n <check>");
+	}
 	return elsePartString;
 }
 

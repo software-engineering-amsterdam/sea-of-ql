@@ -26,9 +26,9 @@ Type findExpressionType(Expression exp, QLTENV env){
 		if(b.id == s) return b.tp;
 	}
 	}else{
-		println("EXP IS NO ID : <exp>");
+		println("EXP IS NO ID : <getName(exp)>");
 		
-		return integer()[@location=|file://-|(43,2,<1,43>,<1,45>)];
+		return string()[@location=|file://-|(79,3,<1,79>,<1,82>)];
 		
 	}
 }

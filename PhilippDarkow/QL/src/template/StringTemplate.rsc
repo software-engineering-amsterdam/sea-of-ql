@@ -217,44 +217,47 @@ str generateStatement(str formId, statement:ifStat(Expression exp, list[Body] th
 str generateStatement(str formId, statement:ifElseStat(Expression exp, list[Body] thenPart, list[Body] elsePart), list[Body] body){
 	println("in generate if else <exp>");
 	if(size(getChildren(exp)) > 1){
-		println("More than one child");
-	}else{			// for boolean
-	list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
-	str check = evaluateExp(exp, idAndType[0].tp);		// hardcoded need to change that !!!!!!!!!!!!!!
-	println("CHECK IS : <check>");
-    if(idAndType[0].tp == integer()) return checkIntExp(exp,idAndType[0].tp,env);
-    else{
-    	str checkBoxId = toString(getChildren(exp)[0]);
-    	list[str] children = [];
-    	list[str] childrenElse = [];
-	list[str] thenPartString = [];
-	list[str] elsePartString = [];
-	for(s <- thenPart){
-		thenPartString += generateBody(formId, s, body);
-		visit (s) {			// visiting s to get the childrens id of the then part
-			case Question q : { children += q.id; }
-		}		
-	}
-	for(j <- elsePart){
-		elsePartString += generateBody(formId, j, body);
-		visit (j) {			// visiting s to get the childrens id of the then part
-			case Question q : { childrenElse += q.id; }
-		}		
-	}
-	println("children : <children>");
-	println("thenPartString : <thenPartString>");
-	println("elsePartString : <elsePartString>");
-	
-    	str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxId, thenPartString, elsePartString, children, childrenElse);
-    	//javaScriptAddCheckStatementFunction(formId, checkBoxId, thenPartString, children);
-		return "<elseOneString>
-				'	<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>IfElseStatement(this)\");
-				'";  
-    	println(env0);
-    	//env1 = checkBodyJustStatements(thenpart, env0);
-    	//env2 = checkBodyJustStatements(elsepart, env1);
-    	return env0;
+		list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
+		println("IDANDTYPE : <idAndType>");
+		str check = evaluateExp(exp, idAndType[0].tp);
+		println(check);
+		if(idAndType[0].tp == integer()) return checkIntExp(exp,idAndType[0].tp,env);
+    	else{ //// !!!!!!!!!!!!! CHECK HIer
+    		list[str] checkBoxIds = [];
+    		for(s <- exp){
+    			visit(s){
+    				case Expression id2:{
+    					println("ID : <getChildren(id2)>");
+    					checkBoxIds += toString(getChildren(id2)[0]);
+    				}
+    			}
+    		}
+    		//str checkBoxId = toString(getChildren(exp)[0]);;
+    		println("checkboxIds <checkBoxIds>");
+    		println("EXPPPPP : <exp>");
+    		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
+    		tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
+			str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxIds, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse, check);
+			return "<elseOneString>
+					'<for(c <- checkBoxIds){> 
+					'<c>.setAttribute(\'onchange\',\"<c>IfElseStatement(this)\"); 
+					'<}>
+					'";
     	}
+	}else{			// for boolean
+		list[tuple[str id,Type tp]] idAndType = getExpressionTypeGenerate(exp, body);
+		str check = evaluateExp(exp, idAndType[0].tp);		
+		println("CHECK IS : <check>");
+    	if(idAndType[0].tp == integer()) return checkIntExp(exp,idAndType[0].tp,env);
+    	else{
+    		str checkBoxId = toString(getChildren(exp)[0]);
+    		tuple[list[str] thenPartString, list[str] children] thenChildren = getThenPartIfElse(formId, thenPart, body);
+    		tuple[list[str] elsePartString, list[str] childrenElse] elseChildren = getElsePartIfElse(formId, elsePart, body);
+			str elseOneString = javaScriptaddIfElseStatement(formId, checkBoxId, thenChildren.thenPartString, elseChildren.elsePartString, thenChildren.children, elseChildren.childrenElse);
+			return "<elseOneString>
+					'	<checkBoxId>.setAttribute(\'onchange\',\"<checkBoxId>IfElseStatementBoolean(this)\");
+					'";  
+    		}
 	}	
 }
 
@@ -298,7 +301,6 @@ public str generateBody(str id, Body body, list[Body] complete){
 }
 
 
-// !!! return STRING and then write that STring to file 
 public void generateQLForm(Program P){
 	if(program(str id, list[Body] Body) := P){
 		println("in generate JavaScriptForm");

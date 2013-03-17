@@ -19,14 +19,14 @@ public QLTENV checkExp(exp:integer(int I), Type req, QLTENV env) {
   return req == integer() ? env : addError(env, exp@location, required(req, "integer"));
   }
   
-public QLTENV checkExp(exp:int I, Type req, QLTENV env) =
-  req == integer() ? env : addError(env, exp@location, required(req, "integer"));  
+//public QLTENV checkExp(exp:/int (int I) , Type req, QLTENV env) =
+//  req == integer() ? env : addError(env, exp@location, required(req, "integer"));  
   
 //public QLTENV checkExp(exp:/int(int I), Type req, QLTENV env) =
 //  req == /int() ? env : addError(env, exp@location, required(req, "integer"));
  
-public QLTENV checkExp(ext:string(str s), Type req, QLTENV env) =
-  req == string() ? env : addError(env, exp@location, required(req, "string"));
+public QLTENV checkExp(ext:strCon(str s), Type req, QLTENV env) =
+  req == strCon() ? env : addError(env, exp@location, required(req, "string"));
  
 public QLTENV checkExp(exp:id(str id), Type req, QLTENV env) {
   if(env.question[id] == {})return addError(env, exp@location, "Undeclared variable <id>");
