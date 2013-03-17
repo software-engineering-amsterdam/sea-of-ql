@@ -1,8 +1,10 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.inspectors.*;
 import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
+import nl.stgm.ql.inspectors.interpreter.*;
 
 import java.util.List;
 
@@ -55,7 +57,8 @@ public class Conditional extends FormItem
 	public void check(SemanticChecker context)
 	{
 		context.pushCrumb("if(" + condition.pretty() + ")");
-		context.performTypeCheck(condition);
+
+		condition.check(context);
 
 		for(Question q: ifQuestions)
 			q.check(context);
@@ -65,5 +68,22 @@ public class Conditional extends FormItem
 				q.check(context);
 		
 		context.popCrumb();
+	}
+
+	public void interpret(Interpreter context)
+	{
+		Bool v = (Bool) condition.evaluate(context);
+		
+		if(v.getBooleanValue())
+		{
+			for(Question q: ifQuestions)
+				q.interpret(context);
+		}
+		else
+		{
+			if(elseQuestions != null)
+				for(Question q: elseQuestions)
+					q.interpret(context);
+		}
 	}
 }

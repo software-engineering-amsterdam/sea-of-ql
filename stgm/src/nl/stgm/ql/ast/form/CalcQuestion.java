@@ -3,6 +3,7 @@ package nl.stgm.ql.ast.form;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
+import nl.stgm.ql.inspectors.interpreter.*;
 
 public class CalcQuestion extends Question
 {
@@ -26,7 +27,12 @@ public class CalcQuestion extends Question
 		context.registerIdent(this.id, this.type, true);
 
 		context.pushCrumb(this.id);
-		context.performTypeCheck(calculation);
+		calculation.check(context);
 		context.popCrumb();
+	}
+
+	public void interpret(Interpreter context)
+	{
+		context.regCalcQuestion(this.id, this.question, this.calculation.evaluate(context));
 	}
 }

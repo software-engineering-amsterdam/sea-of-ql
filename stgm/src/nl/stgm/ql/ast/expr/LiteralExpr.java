@@ -1,6 +1,8 @@
 package nl.stgm.ql.ast.expr;
 
+import nl.stgm.ql.inspectors.*;
 import nl.stgm.ql.inspectors.checker.*;
+import nl.stgm.ql.inspectors.interpreter.*;
 
 public abstract class LiteralExpr extends Expr
 {
@@ -9,8 +11,13 @@ public abstract class LiteralExpr extends Expr
 		return this.toString();
 	}
 
-	public Type getType(SemanticChecker context)
+	public Type type(SemanticChecker context)
 	{
 		return context.translateType(this);
+	}
+
+	public Value evaluate(Interpreter context)
+	{
+		return null;
 	}
 }

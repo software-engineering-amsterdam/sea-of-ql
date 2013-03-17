@@ -2,6 +2,7 @@ package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
+import nl.stgm.ql.inspectors.interpreter.*;
 
 public class Question extends FormItem
 {
@@ -24,5 +25,10 @@ public class Question extends FormItem
 	public void check(SemanticChecker context)
 	{
 		context.registerIdent(this.id, this.type, false);
+	}
+
+	public void interpret(Interpreter context)
+	{
+		context.regQuestion(this.id, this.question, this.type);
 	}
 }

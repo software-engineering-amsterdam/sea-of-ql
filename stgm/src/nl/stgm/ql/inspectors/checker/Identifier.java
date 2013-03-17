@@ -1,5 +1,7 @@
 package nl.stgm.ql.inspectors.checker;
 
+import nl.stgm.ql.inspectors.*;
+
 public class Identifier
 {
 	String name;
@@ -13,12 +15,7 @@ public class Identifier
 		this.computed = computed;
 	}
 	
-	public String getName()
-	{
-		return this.name;
-	}
-	
-	public Type getType()
+	public Type type()
 	{
 		return this.type;
 	}

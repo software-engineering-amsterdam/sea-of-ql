@@ -68,24 +68,18 @@ public class SemanticChecker extends DocumentInspector
 		
 		if(s == null)
 		{
-			// identifier is not defined yet
 			addError(name + " is not defined at this point");
 			return null;
 		}
 		else
 		{
-			return s.getType();
+			return s.type();
 		}
 	}
 	
 	public Type translateType(LiteralExpr expr)
 	{
-		Type t = Type.translate(expr);
-		
-		if(t == null)
-			throw new Error("An unknown literal type is in the AST.");
-		else
-			return t;
+		return Type.translate(expr);
 	}
 	
 	//
@@ -111,7 +105,7 @@ public class SemanticChecker extends DocumentInspector
 		// upon encountering an Expr, this may be called to perform a type check
 		try
 		{
-			expr.getType(this);
+			expr.type(this);
 		}
 		catch(IncompatibleTypesException e)
 		{
@@ -126,6 +120,7 @@ public class SemanticChecker extends DocumentInspector
 	private void addError(String message)
 	{
 		StringBuilder err = new StringBuilder();
+
 		if(crumbs.size() > 0)
 		{
 			for(String c: crumbs)
@@ -135,6 +130,7 @@ public class SemanticChecker extends DocumentInspector
 			}
 			err.append("\n     ");
 		}
+
 		err.append(message);
 		errors.add(err.toString());
 	}
