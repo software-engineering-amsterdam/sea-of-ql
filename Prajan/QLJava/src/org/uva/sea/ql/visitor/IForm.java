@@ -6,10 +6,10 @@ import org.uva.sea.ql.ast.ASTNode;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.types.Type;
 
-public abstract class IForm implements ASTNode {
+public interface IForm extends ASTNode {
 
-	public abstract Type typeOf(Map<Ident, Type> typeEnv);
+	public Type typeOf(Map<Ident, Type> typeEnv);
 
-	public abstract <T> T accept(FormElementVisitor<T> visitor);
+	public <T> T accept(FormElementVisitor<T> visitor);
 
 }

@@ -17,6 +17,9 @@ import org.uva.sea.ql.ast.alg.Int;
 import org.uva.sea.ql.ast.alg.LEq;
 import org.uva.sea.ql.ast.alg.LT;
 import org.uva.sea.ql.ast.alg.Mul;
+import org.uva.sea.ql.ast.types.BoolType;
+import org.uva.sea.ql.ast.types.IntType;
+import org.uva.sea.ql.ast.types.MoneyType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.gen.TypeError;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
@@ -33,9 +36,19 @@ public class TestExpressions {
 	@Test
 	public void TestCheckExprAdd() throws ParseError {
 		Map<Ident, Type> mp = new HashMap<Ident, Type>();
-		mp.put(new Ident("avc"), new org.uva.sea.ql.ast.types.IntType());
+		mp.put(new Ident("a"), new MoneyType());
 		List<TypeError> messages = new ArrayList<TypeError>();
-		CheckExpr.check(parser.parse("1 + avc"), mp, messages);
+		CheckExpr.check(parser.parse("1 + a"), mp, messages);
+		Assert.assertTrue(messages.isEmpty());
+		System.out.println(messages);
+	}
+
+	@Test
+	public void TestCheckExprMul() throws ParseError {
+		Map<Ident, Type> mp = new HashMap<Ident, Type>();
+		mp.put(new Ident("3"), new IntType());
+		List<TypeError> messages = new ArrayList<TypeError>();
+		CheckExpr.check(parser.parse("1 * 5"), mp, messages);
 		Assert.assertFalse(messages.isEmpty());
 		System.out.println(messages);
 	}
@@ -51,14 +64,8 @@ public class TestExpressions {
 	public void TestCheckExprAnd() throws ParseError {
 		Map<Ident, Type> mp = new HashMap<Ident, Type>();
 		mp.put(new Ident("true"), new org.uva.sea.ql.ast.types.BoolType());
-		mp.put(new Ident("flase"), new org.uva.sea.ql.ast.types.BoolType());
-		CheckExpr.check(parser.parse("true && false"), mp, null);
-	}
-
-	@Test
-	public void Testform() throws ParseError {
-		assertEquals(parser.parse("form test1 {}").getClass(), Add.class);
-
+		mp.put(new Ident("false"), new org.uva.sea.ql.ast.types.BoolType());
+		CheckExpr.check(parser.parse("true && asdf"), mp, null);
 	}
 
 	@Test
@@ -117,11 +124,24 @@ public class TestExpressions {
 	public void testNotExpression() throws ParseError {
 
 		Map<Ident, Type> mp = new HashMap<Ident, Type>();
-		mp.put(new Ident("avc"), new org.uva.sea.ql.ast.types.IntType());
+		mp.put(new Ident("avc"), new BoolType());
 		List<TypeError> messages = new ArrayList<TypeError>();
-		CheckExpr.check(parser.parse("!111"), mp, messages);
+		CheckExpr.check(parser.parse("!false"), mp, messages);
 		Assert.assertFalse(messages.isEmpty());
 		System.out.println(messages);
 
 	}
+
+	@Test
+	public void testPosExpression() throws ParseError {
+
+		Map<Ident, Type> mp = new HashMap<Ident, Type>();
+		mp.put(new Ident("aaa"), new BoolType());
+		List<TypeError> messages = new ArrayList<TypeError>();
+		CheckExpr.check(parser.parse("+1"), mp, messages);
+		Assert.assertTrue(messages.isEmpty());
+		System.out.println(messages);
+
+	}
+
 }

@@ -12,7 +12,6 @@ public class Not extends Unary {
 
 	public Not(Expr value) {
 		super(value);
-		System.out.println(value + "           Not class");
 	}
 
 	@Override

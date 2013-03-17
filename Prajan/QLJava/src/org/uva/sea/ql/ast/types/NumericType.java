@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitor.TypeVisitor;
+
 public class NumericType extends Type {
 
 	@Override
@@ -14,12 +16,17 @@ public class NumericType extends Type {
 
 	@Override
 	public boolean isCompatibleToInt() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isCompatibleToMoney() {
-		return true;
+		return false;
+	}
+
+	@Override
+	public <T> T accept(TypeVisitor<T> typeVisitor) {
+		throw new UnsupportedOperationException("unsupported operation");
 	}
 
 }

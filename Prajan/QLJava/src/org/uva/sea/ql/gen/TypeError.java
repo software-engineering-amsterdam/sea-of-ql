@@ -1,6 +1,7 @@
 package org.uva.sea.ql.gen;
 
 import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 public class TypeError extends Type {
 	private final String typeErrorMessage;
@@ -20,8 +21,12 @@ public class TypeError extends Type {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return typeErrorMessage;
+	}
+
+	@Override
+	public <T> T accept(TypeVisitor<T> typeVisitor) {
+		return typeVisitor.visit(this);
 	}
 
 }

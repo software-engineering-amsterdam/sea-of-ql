@@ -8,20 +8,19 @@ import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.FormElementVisitor;
 import org.uva.sea.ql.visitor.IForm;
 
-public class Calculation extends IForm {
+public class Calculation extends ObservableStatement implements IForm {
 
-	private final String ident;
+	private final Ident ident;
 
 	private final Expr orexpr;
 
 	public Calculation(String ident, Expr orexpr) {
-		this.ident = ident;
+		this.ident = new Ident(ident);
 		this.orexpr = orexpr;
-		System.out.println(ident + "  Calculation");
 
 	}
 
-	public String getIdent() {
+	public Ident getIdent() {
 		return ident;
 	}
 
@@ -31,7 +30,6 @@ public class Calculation extends IForm {
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

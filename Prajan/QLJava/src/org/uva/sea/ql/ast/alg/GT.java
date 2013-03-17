@@ -8,22 +8,21 @@ import org.uva.sea.ql.ast.types.BoolType;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.AlgebricElementVisitor;
 
-public class GT  extends Binary{
+public class GT extends Binary {
 
-	public GT(Expr lhs, Expr rhs){
+	public GT(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
-		System.out.println( lhs + "       " + rhs + "              GT Class" );
-	
+
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new BoolType();
 	}
-	
+
 	@Override
 	public <T> T accept(AlgebricElementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

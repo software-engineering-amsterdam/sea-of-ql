@@ -9,14 +9,14 @@ public abstract class Binary extends Expr {
 	protected Binary(Expr lhs, Expr rhs) {
 		this.lhs = lhs;
 		this.rhs = rhs;
-		//System.out.println(" From Binary");
 	}
-	
+
 	public Expr getLhs() {
 		return lhs;
 	}
-	
+
 	public Expr getRhs() {
 		return rhs;
 	}
+
 }

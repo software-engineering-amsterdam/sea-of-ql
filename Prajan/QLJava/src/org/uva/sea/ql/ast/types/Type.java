@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.types;
 
+import org.uva.sea.ql.visitor.TypeVisitor;
 
 public abstract class Type {
 
@@ -24,5 +25,7 @@ public abstract class Type {
 	public boolean isCompatibleToMoney() {
 		return false;
 	}
+
+	public abstract <T> T accept(TypeVisitor<T> typeVisitor);
 
 }

@@ -18,8 +18,6 @@ package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.types.*;
 }
 
-
-
 @members
 {
     private final Map<String, Ident> variables = new HashMap<String, Ident>();
@@ -27,13 +25,20 @@ import org.uva.sea.ql.ast.types.*;
 
 form returns [Form f] 
     :
-      'form' Ident {$f = new Form($Ident.text); } '{' ( q = question { $f.addQuestion(q); }  | ce = ifconditionalexpr { $f.addIfConditionalExpr(ce); })* '}'
-      
+      'form' Ident {$f = new Form($Ident.text); } '{' a = statements {$f.setStatements(a);} '}'
+    ;
+
+
+statements returns [Statements a]
+    :
+      {$a = new Statements();} ( q = question { $a.addQuestion(q); }  
+    | ce = ifconditionalexpr { $a.addIfConditionalExpr(ce); })*
     ;
 
 question returns [Question q]
     :
-      (STRING {$q = new Question($STRING.text); }) ( d = declaration {$q.addDeclaration(d); }  | c = calculation { $q.addCalculation(c); } )
+      (String {$q = new Question($String.text); }) ( d = declaration {$q.addDeclaration(d); }  
+    | c = calculation { $q.addCalculation(c); } )
     ;
   
 declaration returns [Declaration d]
@@ -48,16 +53,17 @@ declaration returns [Declaration d]
 
 
 type returns [Type type]
-: 'integer' {$type = new IntType();}
-| 'boolean' {$type = new BoolType();}
-| 'string'  {$type = new StrType();}
-| 'money'   {$type = new MoneyType();}
-;
+    :
+      'integer' {$type = new IntType();}
+    | 'boolean' {$type = new BoolType();}
+    | 'string'  {$type = new StrType();}
+    | 'money'   {$type = new MoneyType();}
+    ;
 
 
 ifconditionalexpr returns [IfConditionalExpr ifce]
     :
-      'if' '(' ce1 = orExpr {$ifce = new IfConditionalExpr(ce1); } ')' '{' (ce2 = question {$ifce.addThen(ce2); } )* '}' ('else' '{' (ce3 = question {$ifce.addElse(ce3); } )* '}')?
+      'if' '(' ce1 = orExpr {$ifce = new IfConditionalExpr(ce1); } ')' '{' a = statements{ $ifce.setStatements(a); } '}' ('else' '{' (ce3 = question {$ifce.addElse(ce3); } )* '}')?
     ; 
 
 calculation returns [Calculation c]
@@ -65,16 +71,16 @@ calculation returns [Calculation c]
       d1 = Ident  '='  or1 = orExpr {$c = new Calculation($d1.text, or1); }
     ;
     
-
 primary returns [Expr result]
-  : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = this.variables.get($Ident.text); }
-  | Bool { $result = new Bool($Bool.text); }
-  | '(' x=orExpr ')'{ $result = $x.result; }
-  ;
+    : Int   { $result = new Int(Integer.parseInt($Int.text)); }
+    | Ident { $result = new Ident($Ident.text); }
+    | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+    | String{ $result = new Str($String.text); }
+    | Money { $result = new Money(Double.parseDouble($Money.text)); }
+    | '(' x=orExpr ')'{ $result = $x.result; }
+    ;
    
-   
-    
+       
 unExpr returns [Expr result]
     :  '+' x=unExpr { $result = new Pos($x.result); }
     |  '-' x=unExpr { $result = new Neg($x.result); }
@@ -132,7 +138,6 @@ relExpr returns [Expr result]
     })*
     ;
     
-    
 andExpr returns [Expr result]
     :   lhs=relExpr { $result=$lhs.result; } ( '&&' rhs=relExpr { $result = new And($result, rhs); } )*
     ;
@@ -142,30 +147,28 @@ orExpr returns [Expr result]
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
     
-// Tokens
-/*
-True returns [Bool result]
-    :
-      'true' {$result = new Bool();}
-    ;
     
-False returns [Bool result]
-    :
-      'false' {$result = new Bool();}
+    
+// Tokens
+
+Bool
+    : 'true' | 'false'
     ;
-*/
 
-Bool: 'true' | 'false';
+Money 
+    : Int'.'Int
+    ;
 
-STRING
+String
     :  '"' (~('\\' | '"' | '\r' | '\n'))* '"'
     ;
   
 WS  : (' ' | '\t' | '\n' | '\r') { $channel=HIDDEN; }
     ;
 
-COMMENT 
+Comment 
     : '/*' .* '*/' {$channel=HIDDEN;}
+    | '//' ~('\n')* {$channel=HIDDEN;}
     ;
 
 Ident
@@ -176,8 +179,3 @@ Int
     : ('0'..'9')+
     ;
     
-Money : Int'.'Int ;
-
-
-
-

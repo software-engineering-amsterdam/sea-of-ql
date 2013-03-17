@@ -5,9 +5,8 @@ import java.util.Map;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.FormElementVisitor;
-import org.uva.sea.ql.visitor.IForm;
 
-public class Declaration extends IForm {
+public class Declaration extends ObservableStatement {
 
 	private final Ident ident;
 
@@ -26,12 +25,10 @@ public class Declaration extends IForm {
 		this.ident = ident;
 		this.identtype = identtype;
 
-		System.out.println(ident + "  " + identtype + "     Declaration ");
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -39,4 +36,5 @@ public class Declaration extends IForm {
 	public <T> T accept(FormElementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
 }
