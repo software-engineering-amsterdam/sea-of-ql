@@ -3,10 +3,12 @@ package org.uva.sea.ql.gui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
+import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.gui.controls.Control;
 import org.uva.sea.ql.interpreter.ComputedObserver;
+import org.uva.sea.ql.interpreter.ConditionObserver;
 import org.uva.sea.ql.interpreter.State;
 
 public class Renderer implements StatementVisitor<Boolean> {
@@ -39,9 +41,17 @@ public class Renderer implements StatementVisitor<Boolean> {
 		panel.add(label);
 	}
 	
+	private void addPanel(JPanel panel) {
+		this.panel.add(panel);
+	}
+	
 	private void add(Control control) {
 		panel.add(control.getUIComponent());
 	}
+	
+	/*private Value eval(Expression expr, State state) {
+		return expr.accept(new Eval(state.getEnvironment()));
+	}*/
 	
 	private void registerComputedDeps(ComputedQuestion stat, Control ctrl) {
 		ComputedObserver obs = new ComputedObserver(ctrl, state, stat);
@@ -60,7 +70,7 @@ public class Renderer implements StatementVisitor<Boolean> {
 	}
 
 	public Control typeToWidget(Question stat, boolean editable) {
-		Control control = stat.getType().accept(new TypeToWidget(stat.getIdentifier(), state));
+		Control control = stat.getType().accept( new TypeToWidget(stat.getIdentifier(), state) );
 		control.setEnabled(editable);
 		return control;
 	}
@@ -82,9 +92,21 @@ public class Renderer implements StatementVisitor<Boolean> {
 		add(ctrl);
 		return null;
 	}
-
+	
+	private void registerConditionDeps(Expression expr, JPanel tru, JPanel fls) {
+		ConditionObserver obs = new ConditionObserver(expr, state, tru, fls);
+		state.addGlobalObserver(obs);
+	}
+	
 	public Boolean visit(IfBlock stat) {
-		return stat.getBody().accept(this);
+		JPanel tru = render(stat.getBody(), state);
+		//JPanel fls = render(stat.getElseBody(), state);
+		registerConditionDeps(stat.getCondition(), tru, null);
+		tru.setVisible(false);
+		//fls.setVisible(false);
+		addPanel(tru);
+		//addPanel(fls);
+		return true;
 	}
 
 	public Boolean visit(Form stat) {

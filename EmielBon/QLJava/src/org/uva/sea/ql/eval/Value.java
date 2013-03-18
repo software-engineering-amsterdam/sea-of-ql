@@ -172,4 +172,8 @@ public abstract class Value {
 		throw new UnsupportedOperationException();
 	}
 	
+	public boolean isDefined() {
+		return (this != Undefined.UNDEF);
+	}
+	
 }
