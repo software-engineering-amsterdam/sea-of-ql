@@ -13,25 +13,25 @@ public abstract class Expr extends AbstractElement
 	
 	public void print(PrettyPrinter context)
 	{
-		context.print(this.pretty());
+		context.print(this.renderExpression());
 	}	
 
-	// pretty() is used by both the PrettyPrinter and the SemanticChecker!
+	// renderExpression() is used by both the PrettyPrinter and the SemanticChecker!
 
-	public abstract String pretty();
+	public abstract String renderExpression();
 
 	public void check(SemanticChecker context)
 	{
 		context.performTypeCheck(this);
 	}
 	
-	public abstract Type type(SemanticChecker context) throws IncompatibleTypesException;
+	public abstract Type reduceType(SemanticChecker context) throws IncompatibleTypesException;
 
 	public void interpret(Interpreter context)
 	{
-		// no-op, because CalcQuestion and Conditional will call reduce() below
+		// no-op, because CalcQuestion and Conditional will call reduceValue() below
 		throw new Error("This method should not be called on an Expr.");
 	}
 
-	public abstract LiteralExpr reduce(Interpreter context);
+	public abstract LiteralExpr reduceValue(Interpreter context);
 }

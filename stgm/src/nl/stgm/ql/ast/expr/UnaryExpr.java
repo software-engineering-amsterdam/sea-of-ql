@@ -9,17 +9,17 @@ public abstract class UnaryExpr extends Expr
 {
 	protected Expr arg;
 
-	public String pretty()
+	public String renderExpression()
 	{
-		return this.toString() + arg.pretty();
+		return this.toString() + arg.renderExpression();
 	}
 
-	public Type type(SemanticChecker context) throws IncompatibleTypesException
+	public Type reduceType(SemanticChecker context) throws IncompatibleTypesException
 	{
-		return arg.type(context);
+		return arg.reduceType(context);
 	}
 
-	public LiteralExpr reduce(Interpreter context)
+	public LiteralExpr reduceValue(Interpreter context)
 	{
 		return null;
 	}

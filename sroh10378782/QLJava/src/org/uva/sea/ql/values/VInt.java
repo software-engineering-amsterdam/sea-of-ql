@@ -67,6 +67,6 @@ public class VInt extends Value{
 	
 	@Override
 	public String toString() {
-		return "VInt: " + this.value.toString();
+		return this.value.toString();
 	}
 }

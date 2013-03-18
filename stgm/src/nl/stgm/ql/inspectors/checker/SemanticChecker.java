@@ -107,11 +107,11 @@ public class SemanticChecker extends DocumentInspector
 		// upon encountering an Expr, this may be called to perform a type check
 		try
 		{
-			expr.type(this);
+			expr.reduceType(this);
 		}
 		catch(IncompatibleTypesException e)
 		{
-			addError("incompatible types in calculation '" + expr.pretty() + "'");
+			addError("incompatible types in calculation '" + expr.renderExpression() + "'");
 		}
 	}
 	

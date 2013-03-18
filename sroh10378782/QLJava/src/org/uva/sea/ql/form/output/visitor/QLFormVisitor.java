@@ -80,23 +80,25 @@ public class QLFormVisitor implements Visitor {
 		Ident ident = (Ident)ifThen.getCondition();
 		this.state.addObserver(ident, observer);
 		ifThen.getBlock().accept(this);
-		this.setAndAddParentToMainPanel();
+		this.setAndAddParentToMainPanel(false);
 	}
 	
 	@Override
 	public void visit(IfThenElse ifThenElse) {
 		this.parent = new JPanel();
-		ConditionObserver observer = new ConditionObserver(ifThenElse.getCondition(), this.state, this.parent, null);
+		JPanel elsePanel = new JPanel();
+		ConditionObserver observer = new ConditionObserver(ifThenElse.getCondition(), this.state, this.parent, elsePanel);
 		Ident ident = (Ident)ifThenElse.getCondition();
 		this.state.addObserver(ident, observer);
 		ifThenElse.getIfBlock().accept(this);
-		this.setAndAddParentToMainPanel();
+		this.setAndAddParentToMainPanel(false);
+		this.parent = elsePanel;
 		ifThenElse.getElseBlock().accept(this);
-		this.setAndAddParentToMainPanel();
+		this.setAndAddParentToMainPanel(true);
 	}
 	
-	private void setAndAddParentToMainPanel(){
-		this.parent.setVisible(false);
+	private void setAndAddParentToMainPanel(boolean visible){
+		this.parent.setVisible(visible);
 		this.parent.setLayout(null);
 		this.parent.setBounds(GUIConstants.GUI_FORM_START_X, this.nextYPos, 600, 150);
 		this.panel.add(this.parent);

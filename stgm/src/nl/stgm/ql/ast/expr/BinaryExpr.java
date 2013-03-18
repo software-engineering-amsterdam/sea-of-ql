@@ -10,20 +10,20 @@ public abstract class BinaryExpr extends Expr
 	protected Expr left;
 	protected Expr right;
 	
-	public String pretty()
+	public String renderExpression()
 	{
-		return left.pretty() + " " + this.toString() + " " + right.pretty();
+		return left.renderExpression() + " " + this.toString() + " " + right.renderExpression();
 	}
 	
-	public Type type(SemanticChecker context) throws IncompatibleTypesException
+	public Type reduceType(SemanticChecker context) throws IncompatibleTypesException
 	{
-		if(left.type(context) == right.type(context))
-			return left.type(context);
+		if(left.reduceType(context) == right.reduceType(context))
+			return left.reduceType(context);
 		else
 			throw new IncompatibleTypesException();
 	}
 
-	public LiteralExpr reduce(Interpreter context)
+	public LiteralExpr reduceValue(Interpreter context)
 	{
 		return null;
 	}

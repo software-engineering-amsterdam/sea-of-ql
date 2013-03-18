@@ -14,18 +14,18 @@ public class Ident extends Expr
 		this.name = name;
 	}
 
-	public String pretty()
+	public String renderExpression()
 	{
 		return name;
 	}
 
-	public Type type(SemanticChecker context)
+	public Type reduceType(SemanticChecker context)
 	{
 		// the semantic checker knowns our type from previous definitions
 		return context.lookupType(this.name);
 	}
 
-	public LiteralExpr reduce(Interpreter context)
+	public LiteralExpr reduceValue(Interpreter context)
 	{
 		return context.lookupValue(name);
 	}

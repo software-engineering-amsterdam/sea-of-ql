@@ -1,6 +1,6 @@
 module nl.stgm.ql.parser.rats.QLParser;
 import nl.stgm.ql.parser.rats.QLExpr;
-import nl.stgm.ql.parser.rats.QLUtil;
+import nl.stgm.ql.parser.rats.QLLexical;
 
 header {
 import java.util.List;
@@ -14,6 +14,8 @@ import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.ast.form.*;
 }
 
+// these are the possible starting points for parsing;
+// Expr and Form are mainly exported for testing purposes
 public Expr ParseExpr = yyValue:Expr;
 public Form ParseForm = yyValue:Form;
 public Document Parse = yyValue:Document;

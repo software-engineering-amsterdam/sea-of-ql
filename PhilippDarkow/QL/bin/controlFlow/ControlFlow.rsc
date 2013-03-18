@@ -14,7 +14,8 @@ import controlFlow::ControlFlowTypes;
 * @author Philipp
 */
 CFGraph cflowStat(statement:ifStat(Expression exp, list[Body] body)){
-	CF1 = cflowCompleteBody(body);
+	list[CFGraph] CF1 = cflowCompleteBody(body);
+	println("CF1 : <CF1>");
 	E = {choice(exp@location, exp)};
 	return < E, (E * CF1.entry) + CF1.graph , CF1.exit >; 
 }
@@ -47,7 +48,7 @@ CFGraph cflowStats(list[Statement] Stats){
 }
 
 
-CFGraph cflowCompleteBody(list[Body] Body){
+list[CFGraph] cflowCompleteBody(list[Body] Body){
 	list[Statement] statements = [];
 	visit(Body){
 		case Question q : return cflowQuestion(q);

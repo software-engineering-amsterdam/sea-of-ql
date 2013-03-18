@@ -1,4 +1,4 @@
-module nl.stgm.ql.parser.rats.QLUtil;
+module nl.stgm.ql.parser.rats.QLLexical;
 
 String Int                    = [0-9]+;
 String Bool                   = "true" / "false";

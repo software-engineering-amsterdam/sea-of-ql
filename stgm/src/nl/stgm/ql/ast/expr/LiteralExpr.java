@@ -6,17 +6,17 @@ import nl.stgm.ql.inspectors.interpreter.*;
 
 public abstract class LiteralExpr extends Expr
 {
-	public String pretty()
+	public String renderExpression()
 	{
 		return this.toString();
 	}
 
-	public Type type(SemanticChecker context)
+	public Type reduceType(SemanticChecker context)
 	{
 		return context.translateType(this);
 	}
 
-	public LiteralExpr reduce(Interpreter context)
+	public LiteralExpr reduceValue(Interpreter context)
 	{
 		return this;
 	}

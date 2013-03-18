@@ -18,6 +18,6 @@ public class VStr extends Value {
 	
 	@Override
 	public String toString() {
-		return "VStr: " + this.value;
+		return this.value;
 	}
 }

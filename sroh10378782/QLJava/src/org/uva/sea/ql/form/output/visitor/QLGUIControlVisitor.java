@@ -39,7 +39,7 @@ public class QLGUIControlVisitor implements Visitor {
 	@Override
 	public void visit(TInt integer) {
 		JTextField textField = new JTextField();
-		this.control.addNumericTextkBox(textField);
+		this.control.addIntegerTextkBox(textField);
 	}
 
 	@Override
@@ -51,12 +51,12 @@ public class QLGUIControlVisitor implements Visitor {
 	@Override
 	public void visit(TMoney money) {
 		JTextField textField = new JTextField();
-		this.control.addNumericTextkBox(textField);
+		this.control.addMoneyTextkBox(textField);
 	}
 
 	@Override
 	public void visit(TNumeric numeric) {
 		JTextField textField = new JTextField();
-		this.control.addNumericTextkBox(textField);
+		this.control.addMoneyTextkBox(textField);
 	}
 }

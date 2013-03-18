@@ -1,5 +1,5 @@
 module nl.stgm.ql.parser.rats.QLExpr;
-import nl.stgm.ql.parser.rats.QLUtil;
+import nl.stgm.ql.parser.rats.QLLexical;
 
 Expr Expr =
 	l:RelExpr "&&" Spacing r:RelExpr { yyValue = new And(l, r); } /

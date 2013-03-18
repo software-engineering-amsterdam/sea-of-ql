@@ -59,6 +59,6 @@ public class VBool extends Value{
 	}
 	@Override
 	public String toString() {
-		return "VBool:" +this.value.toString();
+		return this.value.toString();
 	}
 }

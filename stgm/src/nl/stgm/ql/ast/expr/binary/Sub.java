@@ -18,10 +18,10 @@ public class Sub extends BinaryExpr
 		return "-";
 	}
 	
-	public LiteralExpr reduce(Interpreter context)
+	public LiteralExpr reduceValue(Interpreter context)
 	{
-		Int leftValue = (Int) this.left.reduce(context);
-		Int rightValue = (Int) this.right.reduce(context);
+		Int leftValue = (Int) this.left.reduceValue(context);
+		Int rightValue = (Int) this.right.reduceValue(context);
 		
 		return new Int(leftValue.getValue() - rightValue.getValue());
 	}

@@ -60,7 +60,7 @@ public class Conditional extends FormItem
 
 	public void check(SemanticChecker context)
 	{
-		context.pushCrumb("if(" + condition.pretty() + ")");
+		context.pushCrumb("if(" + condition.renderExpression() + ")");
 
 		condition.check(context);
 
@@ -76,7 +76,7 @@ public class Conditional extends FormItem
 
 	public void interpret(Interpreter context)
 	{
-		Bool v = (Bool) condition.reduce(context);
+		Bool v = (Bool) condition.reduceValue(context);
 		
 		if(v.getValue())
 		{
