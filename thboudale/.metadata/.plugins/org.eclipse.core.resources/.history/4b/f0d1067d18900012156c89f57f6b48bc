@@ -1,0 +1,86 @@
+package org.uva.sea.ql.evaluator.values;
+
+public class UndefinedValue extends AValue {
+	
+	@Override
+	public UndefinedValue getValue() {
+		return this;
+	}
+	
+	
+	@Override
+	public AValue add(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue sub(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue mul(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue div(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue and(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue or(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue eq(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue neq(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue gt(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue geq(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue lt(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue leq(AValue arg) {
+		return new UndefinedValue();
+	}
+	
+	
+	@Override
+	public AValue pos() {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue neg() {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	public AValue not() {
+		return new UndefinedValue();
+	}
+}

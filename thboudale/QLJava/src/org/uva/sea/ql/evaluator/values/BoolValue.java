@@ -8,6 +8,11 @@ public class BoolValue extends AValue {
 	}
 	
 	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
+	
+	@Override
 	public Boolean getValue() {
 		return value;
 	}

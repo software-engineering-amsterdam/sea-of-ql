@@ -15,7 +15,6 @@ import org.uva.sea.ql.ast.types.AType;
 
 public class TestExprChecking {
 	private ANTLRParser parser;
-	private ExprChecker exprChecker;
 	private Map<Ident,AType> typeEnv;
 	private List<String> errMsgs;
 	
@@ -23,18 +22,17 @@ public class TestExprChecking {
 		parser = new ANTLRParser();
 		typeEnv = new HashMap<Ident, AType>();
 		errMsgs = new ArrayList<String>();
-		exprChecker = new ExprChecker(typeEnv, errMsgs);
 	}
 	
 	@Test
 	public void testExprChecking() throws ParseError {
-		assertTrue(exprChecker.check(parser.parseExpr("10-25"), typeEnv, errMsgs));
-		assertTrue(exprChecker.check(parser.parseExpr("true || false"), typeEnv, errMsgs));
-		assertTrue(exprChecker.check(parser.parseExpr("23 >= 56"), typeEnv, errMsgs));
-		assertTrue(exprChecker.check(parser.parseExpr("25+56*(3/1)"), typeEnv, errMsgs));
-		assertTrue(exprChecker.check(parser.parseExpr("\"abc\"==\"abc\""), typeEnv, errMsgs));
-		assertFalse(exprChecker.check(parser.parseExpr("10-true"), typeEnv, errMsgs));
-		assertFalse(exprChecker.check(parser.parseExpr("true || 20"), typeEnv, errMsgs));
-		assertFalse(exprChecker.check(parser.parseExpr("\"abc\" + 56"), typeEnv, errMsgs));
+		assertTrue(ExprChecker.check(parser.parseExpr("10-25"), typeEnv, errMsgs));
+		assertTrue(ExprChecker.check(parser.parseExpr("true || false"), typeEnv, errMsgs));
+		assertTrue(ExprChecker.check(parser.parseExpr("23 >= 56"), typeEnv, errMsgs));
+		assertTrue(ExprChecker.check(parser.parseExpr("25+56*(3/1)"), typeEnv, errMsgs));
+		assertTrue(ExprChecker.check(parser.parseExpr("\"abc\"==\"abc\""), typeEnv, errMsgs));
+		assertFalse(ExprChecker.check(parser.parseExpr("10-true"), typeEnv, errMsgs));
+		assertFalse(ExprChecker.check(parser.parseExpr("true || 20"), typeEnv, errMsgs));
+		assertFalse(ExprChecker.check(parser.parseExpr("\"abc\" + 56"), typeEnv, errMsgs));
 	}
 }

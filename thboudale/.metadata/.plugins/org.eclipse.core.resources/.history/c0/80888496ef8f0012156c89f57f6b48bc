@@ -1,0 +1,21 @@
+package org.uva.sea.ql.interpreter.controls;
+
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import org.uva.sea.ql.evaluator.values.AValue;
+import org.uva.sea.ql.evaluator.values.IntValue;
+import org.uva.sea.ql.interpreter.ObservableQuestion;
+
+public class IntControl extends TextControl {
+	
+	
+	@Override
+	public void setValue(AValue value) {
+		ctrl.setText(((IntValue)value).getValue().toString());
+	}
+	
+	@Override
+	public AValue getValue() {
+		return (ctrl.getText().isEmpty()) ? new IntValue(0) : new IntValue(Integer.parseInt(ctrl.getText()));
+	}
+}

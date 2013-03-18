@@ -192,6 +192,7 @@ public class QLLexer implements QLTokens {
 			    
 			    default: {
 			    	
+			    	// TODO Remove
 			    	// Integer token [0-9]+
 			    	/*if (Character.isDigit(c)) {
 			    		int n = 0;
@@ -209,21 +210,22 @@ public class QLLexer implements QLTokens {
 			    		int dots = 0;
 			    		while(true) {
 			    			if (Character.isDigit(c)) {
-			    				number += c;
+			    				number += Character.getNumericValue(c);
 			    			} else if (c == '.') {
+			    				number += ".";
 			    				dots++;
 			    			} else {
 			    				break;
 			    			}
 			    			nextChar();
 			    		}
-			    		int n = 0;
-			    		do {
-			    			n = 10 * n + (c - '0');
-			    			nextChar(); 
-			    		} while (Character.isDigit(c)); 
-			    		yylval = new IntegerLiteral(n);
-			    		return token = INTEGERLITERAL;
+			    		if (dots == 0) {
+			    			yylval = new IntegerLiteral(Integer.parseInt(number));
+			    			return token = INTEGERLITERAL;
+			    		} else if (dots == 1) {
+			    			yylval = new MoneyLiteral(Float.parseFloat(number));
+			    			return token = MONEYLITERAL;
+			    		}
 			    	}
 			    	
 			    	// Identifier token [a-zA-Z]+
@@ -252,7 +254,6 @@ public class QLLexer implements QLTokens {
 		}
 	}
 
-	
 	public int getToken() {
 		return token;
 	}

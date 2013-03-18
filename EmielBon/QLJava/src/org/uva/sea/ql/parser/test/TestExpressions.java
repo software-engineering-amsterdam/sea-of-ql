@@ -85,6 +85,9 @@ public class TestExpressions {
 		assertEquals(parser.parse("0").getClass(), IntegerLiteral.class);
 		assertEquals(parser.parse("1223").getClass(), IntegerLiteral.class);
 		assertEquals(parser.parse("234234234").getClass(), IntegerLiteral.class);
+		
+		assertEquals(parser.parse("1.0").getClass(), MoneyLiteral.class);
+		assertEquals(parser.parse("123.456").getClass(), MoneyLiteral.class);
 	}
 	
 	@Test
@@ -156,6 +159,7 @@ public class TestExpressions {
 	@Test
 	public void testEvaluations() throws Exception {
 		assertEquals(((Expression)parser.parse("(1+2)*5-8")).accept(new Eval(new ValueEnvironment())), new IntegerValue(7));
+		assertEquals(((Expression)parser.parse("100")).accept(new Eval(new ValueEnvironment())), new IntegerValue(100));
 	}
 	
 }

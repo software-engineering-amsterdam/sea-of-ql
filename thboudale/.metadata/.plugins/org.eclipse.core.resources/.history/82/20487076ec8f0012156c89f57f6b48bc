@@ -1,0 +1,142 @@
+package org.uva.sea.ql.interpreter;
+
+import java.util.Map.Entry;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.statements.AStatement;
+import org.uva.sea.ql.ast.statements.BlockOfStatements;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.ifElseStatement;
+import org.uva.sea.ql.ast.statements.ifStatement;
+import org.uva.sea.ql.ast.types.AType;
+import org.uva.sea.ql.interpreter.controls.AControl;
+import org.uva.sea.ql.visitor.IFormVisitor;
+
+public class Renderer implements IFormVisitor<Void> {
+	private final JPanel panel;
+	private final State state;
+	
+	public static JPanel render(AStatement stmt, State state) {
+		Renderer r = new Renderer(state);
+		stmt.accept(r);
+		return r.getPanel();
+	}
+	
+	private JPanel getPanel() {
+		return panel;
+	}
+	
+	private Renderer(State state) {
+		this.state = state;
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+	}
+	
+	@Override
+	public Void visit(Question stmt) {
+		addLabel(stmt.getLabel());
+		
+		AType stmtType = stmt.getType();
+		AControl ctrl = stmtType.accept(new TypeToWidget(true));
+		stmtType.accept(new InitializeValues(stmt, state));
+		
+		registerHandler(stmt, ctrl);
+		add(ctrl);
+		
+		return null;
+	}
+
+	@Override
+	public Void visit(ComputedQuestion stmt) {
+		addLabel(stmt.getLabel());
+		
+		AType stmtType = stmt.getType();
+		AControl ctrl = stmtType.accept(new TypeToWidget(false));
+		stmtType.accept(new InitializeValues(stmt, state));
+		
+		registerHandler(stmt, ctrl);
+		registerComputedDeps(stmt, state, ctrl);
+		
+		add(ctrl);
+		return null;
+	}
+
+	@Override
+	public Void visit(ifStatement stmt) {
+		JPanel ifPanel = render(stmt.getIfStmts(), state);
+		registerConditionDeps(stmt.getCondition(), ifPanel);
+		ifPanel.setVisible(false);
+		panel.add(ifPanel);
+		return null;
+	}
+
+	@Override
+	public Void visit(ifElseStatement stmt) {
+		JPanel ifPanel = render(stmt.getIfStmts(), state);
+		JPanel elsePanel = render(stmt.getElseStmts(), state);
+		registerConditionDeps(stmt.getCondition(), ifPanel, elsePanel);
+		ifPanel.setVisible(false);
+		elsePanel.setVisible(false);
+		panel.add(ifPanel);
+		panel.add(elsePanel);
+		return null;
+	}
+
+	@Override
+	public Void visit(BlockOfStatements blStmts) {
+		for (AStatement stmt : blStmts.getBlStmt()) {
+			stmt.accept(this);
+		}
+		return null;
+	}
+
+	@Override
+	public Void visit(Form frm) {
+		visit(frm.getBlStmts());
+		return null;
+	}
+	
+	
+	private void add(AControl ctrl) {		
+		panel.add(ctrl.getControl());
+	}
+	
+	private void addLabel(String label) {
+		JLabel lbl = new JLabel(label);	
+		panel.add(lbl);
+	}
+	
+	private void registerHandler(Question stmt, AControl ctrl) {
+		ObservableQuestion obsQ = new ObservableQuestion(stmt, state, ctrl);
+		state.putObservable(stmt.getIdent(), obsQ);
+		ctrl.addListener(obsQ);
+	}
+	
+	private void registerComputedDeps(ComputedQuestion stmt, State state, AControl ctrl) {
+		ComputedObserver compObs = new ComputedObserver(ctrl, state, stmt);
+		addObserver(compObs);
+	}
+	
+	private void addObserver(Observer obs) {
+		for (Entry<Ident, Observable> observable : state.getObservables().entrySet())
+			state.addObserver(observable.getKey(), obs);
+	}
+	
+	private void registerConditionDeps(AExpr cond, JPanel ifPanel) {
+		ConditionObserver condObs = new ConditionObserver(cond, ifPanel, state);
+		addObserver(condObs);
+	}
+	
+	private void registerConditionDeps(AExpr cond, JPanel ifPanel, JPanel elsePanel) {
+		ConditionObserver condObs = new ConditionObserver(cond, ifPanel, elsePanel, state);
+		addObserver(condObs);
+	}
+}

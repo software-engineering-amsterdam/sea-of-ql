@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statements;
 
 import org.uva.sea.ql.ast.expressions.AExpr;
-import org.uva.sea.ql.visitor.IFormStmtVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class ifStatement extends AStatement {
 	private final AExpr condition;
@@ -21,7 +21,7 @@ public class ifStatement extends AStatement {
 	}
 	
 	@Override
-	public <T> T accept(IFormStmtVisitor<T> visitor) {
+	public <T> T accept(IFormVisitor<T> visitor) {
 		return visitor.visit(this);		
 	}
 }

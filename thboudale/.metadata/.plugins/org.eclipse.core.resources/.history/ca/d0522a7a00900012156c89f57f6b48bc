@@ -1,0 +1,185 @@
+package org.uva.sea.ql.evaluator;
+
+import java.util.Collections;
+import java.util.Map;
+import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.Add;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.And;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.Div;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.Eq;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.GEq;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.GT;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.LEq;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.LT;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.Mul;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.NEq;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.Or;
+import org.uva.sea.ql.ast.expressions.binaryExpressions.Sub;
+import org.uva.sea.ql.ast.expressions.literals.BoolLiteral;
+import org.uva.sea.ql.ast.expressions.literals.IntLiteral;
+import org.uva.sea.ql.ast.expressions.literals.StrLiteral;
+import org.uva.sea.ql.ast.expressions.unaryExpressions.Neg;
+import org.uva.sea.ql.ast.expressions.unaryExpressions.Not;
+import org.uva.sea.ql.ast.expressions.unaryExpressions.Pos;
+import org.uva.sea.ql.evaluator.values.AValue;
+import org.uva.sea.ql.evaluator.values.BoolValue;
+import org.uva.sea.ql.evaluator.values.IntValue;
+import org.uva.sea.ql.evaluator.values.StrValue;
+import org.uva.sea.ql.evaluator.values.UndefinedValue;
+import org.uva.sea.ql.visitor.IExprVisitor;
+
+public class ExprEvaluator implements IExprVisitor<AValue> {
+	private final Map<Ident, AValue> valEnv;
+	
+	public ExprEvaluator(Map<Ident, AValue> valEnv) {
+		this.valEnv = Collections.unmodifiableMap(valEnv);
+	}
+	
+	public AValue evaluate(AExpr exp, Map<Ident, AValue> valEnv) {
+		return exp.accept(this);
+	}
+	
+	@Override
+	public AValue visit(BoolLiteral exp) {
+		return new BoolValue(exp.getValue());
+	}
+
+	@Override
+	public AValue visit(Ident exp) {
+		for (Ident id : valEnv.keySet()) {
+			if (id.getName().equals(exp.getName())) {
+				return valEnv.get(id);
+			}
+		}
+		return new UndefinedValue();
+	}
+
+	@Override
+	public AValue visit(IntLiteral exp) {
+		return new IntValue(exp.getValue());
+	}
+
+	@Override
+	public AValue visit(StrLiteral exp) {
+		return new StrValue(exp.getValue());
+	}
+
+	
+	@Override
+	public AValue visit(Add exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.add(rhsValue);
+	}
+
+	@Override
+	public AValue visit(And exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.and(rhsValue);
+	}
+
+	@Override
+	public AValue visit(Div exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.div(rhsValue);
+	}
+
+	@Override
+	public AValue visit(Eq exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.eq(rhsValue);
+	}
+
+	@Override
+	public AValue visit(GEq exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.geq(rhsValue);
+	}
+
+	@Override
+	public AValue visit(GT exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.gt(rhsValue);
+	}
+
+	@Override
+	public AValue visit(LEq exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.leq(rhsValue);
+	}
+
+	@Override
+	public AValue visit(LT exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.lt(rhsValue);
+	}
+
+	@Override
+	public AValue visit(Mul exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.mul(rhsValue);
+	}
+
+	@Override
+	public AValue visit(NEq exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.neq(rhsValue);
+	}
+
+	@Override
+	public AValue visit(Or exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.or(rhsValue);
+	}
+
+	@Override
+	public AValue visit(Sub exp) {
+		AValue lhsValue = exp.getLhs().accept(this);
+		AValue rhsValue = exp.getRhs().accept(this);
+		
+		return lhsValue.sub(rhsValue);
+	}
+
+	@Override
+	public AValue visit(Neg exp) {
+		AValue unValue = exp.getUnExpr().accept(this);
+		
+		return unValue.neg();
+	}
+
+	@Override
+	public AValue visit(Not exp) {
+		AValue unValue = exp.getUnExpr().accept(this);
+		
+		return unValue.not();
+	}
+
+	@Override
+	public AValue visit(Pos exp) {
+		AValue unValue = exp.getUnExpr().accept(this);
+		
+		return unValue.pos();
+	}
+}

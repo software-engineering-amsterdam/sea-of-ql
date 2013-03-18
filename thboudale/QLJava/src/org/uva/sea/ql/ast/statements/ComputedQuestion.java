@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.expressions.AExpr;
 import org.uva.sea.ql.ast.expressions.Ident;
 import org.uva.sea.ql.ast.types.AType;
-import org.uva.sea.ql.visitor.IFormStmtVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class ComputedQuestion extends Question {
 	private final AExpr orExpr;
@@ -18,7 +18,7 @@ public class ComputedQuestion extends Question {
 	}
 	
 	@Override
-	public <T> T accept(IFormStmtVisitor<T> visitor) {
+	public <T> T accept(IFormVisitor<T> visitor) {
 		return visitor.visit(this);		
 	}
 }

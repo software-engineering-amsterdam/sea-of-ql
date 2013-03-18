@@ -1,0 +1,44 @@
+package org.uva.sea.ql.interpreter.controls;
+
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import org.uva.sea.ql.evaluator.values.AValue;
+import org.uva.sea.ql.evaluator.values.IntValue;
+import org.uva.sea.ql.interpreter.ObservableQuestion;
+
+public class IntControl extends AControl {
+	private final JTextField ctrl;
+	
+	public IntControl() {
+		this.ctrl = new JTextField("", 10);
+	}
+	
+	public void setEditable(boolean isEditable) {
+		ctrl.setEditable(isEditable);		
+	}
+	
+	@Override
+	public void setValue(AValue value) {
+		ctrl.setText(((IntValue)value).getValue().toString());
+	}
+	
+	@Override
+	public AValue getValue() {
+		return (ctrl.getText().isEmpty()) ? new IntValue(0) : new IntValue(Integer.parseInt(ctrl.getText()));
+	}
+//	
+//	@Override
+//	public void setVisible(boolean isVisible) {
+//		ctrl.setVisible(isVisible);
+//	}
+
+	@Override
+	public void addListener(ObservableQuestion obs) {
+		ctrl.addActionListener(obs);
+	}
+
+	@Override
+	public JComponent getControl() {
+		return ctrl;
+	}
+}

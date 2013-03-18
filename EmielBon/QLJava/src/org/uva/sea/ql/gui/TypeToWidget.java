@@ -24,15 +24,19 @@ public class TypeToWidget implements TypeVisitor<Control> {
 	}
 
 	public Control visit(Int type) {
-		return new TextField( identifier, state );
+		return new IntegerField( identifier, state );
 	}
 
 	public Control visit(Numeric type) {
-		return new TextField( identifier, state );
+		return null;
 	}
 
 	public Control visit(Str type) {
 		return new TextField( identifier, state );
+	}
+
+	public Control visit(Money type) {
+		return new MoneyField( identifier, state );
 	}
 	
 }

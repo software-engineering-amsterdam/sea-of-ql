@@ -8,6 +8,11 @@ public class StrValue extends AValue {
 	}
 	
 	@Override
+	public String toString() {
+		return value;
+	}
+	
+	@Override
 	public String getValue() {
 		return value;
 	}
