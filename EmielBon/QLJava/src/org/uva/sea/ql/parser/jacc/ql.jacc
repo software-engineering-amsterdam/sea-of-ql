@@ -8,6 +8,7 @@
 // Terminal symbol definitions
 // Literals
 %token <IntegerLiteral> INTEGERLITERAL
+%token <MoneyLiteral>   MONEYLITERAL
 %token <StringLiteral>  STRINGLITERAL
 %token <BooleanLiteral> BOOLEANLITERAL
 %token <Identifier>     IDENTIFIER
@@ -82,7 +83,7 @@ question    : IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new Co
 type        : INTEGER { $$ = new Int(); }
             | BOOLEAN { $$ = new Bool(); }
             | STRING  { $$ = new Str(); }
-            //| MONEY
+            | MONEY   { $$ = new Money(); }
             ;
 
 ifblock     : IF '(' expression ')' '{' statements '}' { $$ = new IfBlock($3, $6); }
@@ -117,6 +118,7 @@ relational  : expression EQ  expression { $$ = new Eq($1, $3); }
 			;
 
 literal     : INTEGERLITERAL { $$ = $1; }
+            | MONEYLITERAL   { $$ = $1; }
 		    | STRINGLITERAL  { $$ = $1; }
 		    | BOOLEANLITERAL { $$ = $1; }
 		    | IDENTIFIER     { $$ = $1; }

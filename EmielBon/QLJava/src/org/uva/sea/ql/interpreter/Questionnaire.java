@@ -45,7 +45,7 @@ public class Questionnaire extends JFrame {
 		String source = "";
 		String line = br.readLine();
 		while (line != null) {
-		   source += line;
+		   source += line + " \n";
 		   line = br.readLine();
 		}
 		br.close();
