@@ -3,68 +3,170 @@ package org.uva.sea.ql.evaluator.values;
 public class UndefinedValue extends AValue {
 	
 	@Override
+	public String toString() {
+		return "";
+	}
+	
+	@Override
 	public UndefinedValue getValue() {
 		return this;
 	}
 	
+	
+	@Override
 	public AValue add(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue sub(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue mul(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue div(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue and(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue or(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue eq(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue neq(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue gt(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue geq(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue lt(AValue arg) {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue leq(AValue arg) {
 		return new UndefinedValue();
 	}
 	
 	
+	@Override
 	public AValue pos() {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue neg() {
 		return new UndefinedValue();
 	}
 	
+	@Override
 	public AValue not() {
+		return new UndefinedValue();
+	}
+	
+	
+	@Override
+	protected AValue addInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue subInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue mulInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue divInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	protected AValue eqInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue neqInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue gtInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue geqInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue ltInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue leqInt(IntValue arg) {
+		return new UndefinedValue();
+	}
+	
+	
+	@Override
+	protected AValue andBool(BoolValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue orBool(BoolValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue eqBool(BoolValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue neqBool(BoolValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue eqStr(StrValue arg) {
+		return new UndefinedValue();
+	}
+	
+	@Override
+	protected AValue neqStr(StrValue arg) {
 		return new UndefinedValue();
 	}
 }

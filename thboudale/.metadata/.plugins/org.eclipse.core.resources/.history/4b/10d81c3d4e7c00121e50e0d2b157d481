@@ -1,8 +1,0 @@
-package org.uva.sea.ql.ast;
-
-import org.uva.sea.ql.ast.statements.FrmStmtVisitor;
-
-public interface ASTNode {
-	
-	public abstract <T> T accept(FrmStmtVisitor<T> visitor);
-}

@@ -1,9 +1,0 @@
-package org.uva.sea.ql.ast.statements;
-
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.FrmStmtVisitor;
-
-public abstract class AStatement implements ASTNode {
-	
-	public abstract <T> T accept(FrmStmtVisitor<T> visitor);
-}

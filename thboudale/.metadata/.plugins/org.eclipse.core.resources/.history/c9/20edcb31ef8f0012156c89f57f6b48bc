@@ -1,0 +1,31 @@
+package org.uva.sea.ql.interpreter.controls;
+
+import javax.swing.JComponent;
+import javax.swing.JTextField;
+import org.uva.sea.ql.evaluator.values.AValue;
+import org.uva.sea.ql.evaluator.values.StrValue;
+import org.uva.sea.ql.interpreter.ObservableQuestion;
+
+public class StrControl extends TextControl {
+			
+	@Override
+	public void setValue(AValue value) {
+		ctrl.setText(((StrValue)value).getValue());
+	}
+	
+	@Override
+	public AValue getValue() {
+		return new StrValue(ctrl.getText());
+	}
+
+	@Override
+	public void addListener(ObservableQuestion obs) {
+		ctrl.addActionListener(obs);
+		ctrl.addKeyListener(obs);
+	}
+
+	@Override
+	public JComponent getControl() {
+		return ctrl;
+	}
+}

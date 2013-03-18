@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;AControl.java&apos; to &apos;QLJava/src/org.uva.sea.ql.interpreter.controls&apos;&#x0D;&#x0A;- Original project: &apos;QLJava&apos;&#x0D;&#x0A;- Destination element: &apos;QLJava/src/org.uva.sea.ql.interpreter.controls&apos;&#x0D;&#x0A;- Original element: &apos;org.uva.sea.ql.interpreter.AControl.java&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;org.uva.sea.ql.interpreter.controls" element1="/src&lt;org.uva.sea.ql.interpreter{AControl.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1361827954704" units="1" version="1.0"/>
+</session>

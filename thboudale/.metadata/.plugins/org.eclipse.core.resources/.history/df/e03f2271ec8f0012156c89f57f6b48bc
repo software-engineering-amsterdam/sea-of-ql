@@ -1,0 +1,113 @@
+package org.uva.sea.ql.checker;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.ast.expressions.Ident;
+import org.uva.sea.ql.ast.statements.BlockOfStatements;
+import org.uva.sea.ql.ast.statements.ComputedQuestion;
+import org.uva.sea.ql.ast.statements.Question;
+import org.uva.sea.ql.ast.statements.AStatement;
+import org.uva.sea.ql.ast.statements.ifElseStatement;
+import org.uva.sea.ql.ast.statements.ifStatement;
+import org.uva.sea.ql.ast.types.AType;
+import org.uva.sea.ql.visitor.IFormVisitor;
+
+public class FormChecker implements IFormVisitor<Boolean> {
+	private final Map<Ident, AType> typeEnv;
+	private final List<String> errMsgs;
+	private final List<String> labels;
+	
+	public FormChecker(Map<Ident, AType> typeEnv, List<String> errMsgs) {
+		this.typeEnv = typeEnv;
+		this.errMsgs = errMsgs;
+		this.labels = new ArrayList<String>();
+	}
+	
+	public static boolean check(Form form, Map<Ident, AType> typeEnv, List<String> errMsgs) {
+		FormChecker check = new FormChecker(typeEnv, errMsgs);
+		return form.accept(check);
+	}
+	
+	@Override
+	public Boolean visit(Question stmt) {
+		checkLabel(stmt);
+		return checkName(stmt);		
+	}
+
+	@Override
+	public Boolean visit(ComputedQuestion stmt) {
+		checkLabel(stmt);
+		return checkName(stmt) && checkExpr(stmt.getExpr());
+	}
+
+	@Override
+	public Boolean visit(ifStatement stmt) {
+		return checkCondition(stmt) && stmt.getIfStmts().accept(this);
+	}
+
+	@Override
+	public Boolean visit(ifElseStatement stmt) {
+		return checkCondition(stmt) && stmt.getIfStmts().accept(this) && stmt.getElseStmts().accept(this);
+	}
+
+	@Override
+	public Boolean visit(BlockOfStatements stmt) {
+		boolean validBlock = true;
+		
+		for (AStatement s: stmt.getBlStmt()) {
+			validBlock = validBlock && s.accept(this);
+		}
+		
+		return validBlock;
+	}
+	
+	@Override
+	public Boolean visit(Form form) {
+		return form.getBlStmts().accept(this);
+	}
+	
+		
+	private boolean checkName(Question stmt) {
+		Ident ident = stmt.getIdent();
+		
+		for (Ident id : typeEnv.keySet()) {
+			if (id.getName().equals(ident.getName())) {
+				errMsgs.add("Identifier \"" + ident.getName() + "\" has already been declared.");
+				return false;
+			}
+		}
+		
+		typeEnv.put(ident, stmt.getType());
+		return true;
+	}
+	
+	private void checkLabel(Question stmt) {
+		if (labels.contains(stmt.getLabel()))
+			errMsgs.add("Warning - Duplicate question label: " + stmt.getLabel());
+		else
+			labels.add(stmt.getLabel());
+	}
+	
+	private boolean checkExpr(AExpr expr) {
+		return ExprChecker.check(expr, typeEnv, errMsgs);
+	}
+	
+	private boolean checkCondition(ifStatement stmt) {
+		boolean validCond = checkExpr(stmt.getCondition());
+		
+		AExpr condition = stmt.getCondition();
+		if (!condition.typeOf(typeEnv).isCompatibleToBool()) {
+			errMsgs.add("The condition should be of type boolean.");
+			validCond = false;
+		}
+		
+		return validCond;
+	}
+	
+	public List<String> getErrMsgs() {
+		return errMsgs;
+	}
+}

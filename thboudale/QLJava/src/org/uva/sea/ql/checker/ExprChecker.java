@@ -2,11 +2,11 @@ package org.uva.sea.ql.checker;
 
 import java.util.List;
 import java.util.Map;
-import org.uva.sea.ql.ast.expressions.literals.BoolLiteral;
 import org.uva.sea.ql.ast.expressions.AExpr;
+import org.uva.sea.ql.ast.expressions.BoolLiteral;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.literals.IntLiteral;
-import org.uva.sea.ql.ast.expressions.literals.StrLiteral;
+import org.uva.sea.ql.ast.expressions.IntLiteral;
+import org.uva.sea.ql.ast.expressions.StrLiteral;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Add;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.And;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Div;
@@ -34,8 +34,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		this.errMsgs = errMsgs;
 	}
 	
-	public boolean check(AExpr expr, Map<Ident, AType> typeEnv, List<String> errMsgs) {
-		return expr.accept(this);
+	public static boolean check(AExpr expr, Map<Ident, AType> typeEnv, List<String> errMsgs) {
+		ExprChecker check = new ExprChecker(typeEnv, errMsgs);
+		return expr.accept(check);
 	}
 	
 	@Override
@@ -78,7 +79,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'+\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " + " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -98,7 +101,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToBool())) {
-			errMsgs.add("Invalid type for \'&&\'. Both operands must be Booleans.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " && " + ast.getRhs().toString() +
+						"\". Both operands must be Booleans.");
 			return false;
 		}
 		
@@ -118,7 +123,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'/\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " \\ " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -138,7 +145,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleTo(rhsType))) {
-			errMsgs.add("Invalid type for \'==\'. Operands must be of the same type.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " == " + ast.getRhs().toString() +
+						"\". Operands must be of the same type.");
 			return false;
 		}
 		
@@ -158,7 +167,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'>=\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " >= " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -178,7 +189,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'>\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " > " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -198,7 +211,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'<=\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " <= " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -218,7 +233,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'<\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " < " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -238,7 +255,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'*\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " * " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -258,7 +277,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleTo(rhsType))) {
-			errMsgs.add("Invalid type for \'!=\'. Operands must be of the same type.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " != " + ast.getRhs().toString() +
+						"\". Operands must be of the same type.");
 			return false;
 		}
 		
@@ -278,7 +299,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToBool() && rhsType.isCompatibleToBool())) {
-			errMsgs.add("Invalid type for \'||\'. Both operands must be Booleans.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " || " + ast.getRhs().toString() +
+						"\". Both operands must be Booleans.");
 			return false;
 		}
 		
@@ -298,7 +321,9 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType rhsType = ast.getRhs().typeOf(typeEnv);
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'-\'. Both operands must be Integers.");
+			errMsgs.add("Invalid type in expression \"" +
+						ast.getLhs().toString() + " - " + ast.getRhs().toString() +
+						"\". Both operands must be Integers.");
 			return false;
 		}
 		
@@ -316,7 +341,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType unExprType = ast.getUnExpr().typeOf(typeEnv);
 		
 		if (!(unExprType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'-\'. Operand must be Integer.");
+			errMsgs.add("Invalid type for expression \"-" + ast.getUnExpr().toString() + "\". Operand must be Integer.");
 			return false;
 		}
 		
@@ -334,7 +359,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType unExprType = ast.getUnExpr().typeOf(typeEnv);
 		
 		if (!(unExprType.isCompatibleToBool())) {
-			errMsgs.add("Invalid type for \'!\'. Operand must be Boolean.");
+			errMsgs.add("Invalid type for expression \"!" + ast.getUnExpr().toString() + "\". Operand must be Boolean.");
 			return false;
 		}
 		
@@ -352,7 +377,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		AType unExprType = ast.getUnExpr().typeOf(typeEnv);
 		
 		if (!(unExprType.isCompatibleToInt())) {
-			errMsgs.add("Invalid type for \'+\'. Operand must be Integer.");
+			errMsgs.add("Invalid type for expression \"+" + ast.getUnExpr().toString() + "\". Operand must be Integer.");
 			return false;
 		}
 		

@@ -12,6 +12,10 @@ public class IntValue extends AValue {
 		return value;
 	}
 	
+	@Override
+	public String toString() {
+		return String.valueOf(value);
+	}
 	
 	@Override
 	public AValue pos() {

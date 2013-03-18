@@ -10,8 +10,6 @@ import org.uva.sea.ql.ast.expressions.binaryExpressions.*;
 import org.uva.sea.ql.ast.expressions.unaryExpressions.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.types.*;
-import org.uva.sea.ql.ast.expressions.literals.*;
-import org.uva.sea.ql.ast.form.*;
 }
 
 @lexer::header
@@ -20,8 +18,8 @@ package org.uva.sea.ql.parser.antlr;
 }
 
 form returns [Form result]
-	: 'form' IDENT b=blockOfStatements { $result = new Form(new Ident($IDENT.text), $b.result);}
-	;
+	  : 'form' IDENT b=blockOfStatements { $result = new Form(new Ident($IDENT.text), $b.result);}
+	  ;
 
 blockOfStatements returns [BlockOfStatements result]
     @init { List<AStatement> stmts = new ArrayList<AStatement>(); }
@@ -48,7 +46,7 @@ computedQuestion returns [ComputedQuestion result]
 	  : IDENT ':' STRING_LITERAL type '(' x=orExpr ')'
 	  {
 	    $result =
-	    new ComputedQuestion(new Ident($IDENT.text), $STRING_LITERAL.text,  $type.result, $x.result);
+	      new ComputedQuestion(new Ident($IDENT.text), $STRING_LITERAL.text,  $type.result, $x.result);
 	  }
 	  ;
 
@@ -90,7 +88,6 @@ mulExpr returns [AExpr result]
     })*
     ;
     
-  
 addExpr returns [AExpr result]
     : lhs=mulExpr { $result=$lhs.result; } ( op=('+' | '-') rhs=mulExpr
     { 

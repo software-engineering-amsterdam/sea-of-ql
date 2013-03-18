@@ -1,9 +1,9 @@
 package org.uva.sea.ql.visitor;
 
-import org.uva.sea.ql.ast.expressions.literals.BoolLiteral;
+import org.uva.sea.ql.ast.expressions.BoolLiteral;
 import org.uva.sea.ql.ast.expressions.Ident;
-import org.uva.sea.ql.ast.expressions.literals.IntLiteral;
-import org.uva.sea.ql.ast.expressions.literals.StrLiteral;
+import org.uva.sea.ql.ast.expressions.IntLiteral;
+import org.uva.sea.ql.ast.expressions.StrLiteral;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Add;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.And;
 import org.uva.sea.ql.ast.expressions.binaryExpressions.Div;

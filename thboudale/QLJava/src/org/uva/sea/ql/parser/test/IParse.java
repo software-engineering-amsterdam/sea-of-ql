@@ -1,6 +1,6 @@
 package org.uva.sea.ql.parser.test;
 
-import org.uva.sea.ql.ast.form.Form;
+import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.expressions.AExpr;
 import org.uva.sea.ql.ast.statements.AStatement;
 

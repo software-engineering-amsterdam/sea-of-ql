@@ -1,7 +1,9 @@
 package org.uva.sea.ql.evaluator.values;
 
 public abstract class AValue {
-
+	
+	public abstract String toString();
+	
 	public abstract Object getValue();
 	
 	public AValue add(AValue arg) {
