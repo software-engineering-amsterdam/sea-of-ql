@@ -6,11 +6,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -31,6 +33,7 @@ import org.uva.sea.ql.ast.statement.Label;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.StatementVisitor;
+import org.uva.sea.ql.util.SymbolMapOutputWriter;
 import org.uva.sea.ql.value.BooleanValue;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.ui.widgets.DefaultWidgetFactoryFactory;
@@ -210,7 +213,12 @@ public class FormGeneratorVisitor implements StatementVisitor<Container>, Widget
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				final JFileChooser fc = new JFileChooser();
+				int returnVal = fc.showSaveDialog(jframe);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            File file = fc.getSelectedFile();
+					new SymbolMapOutputWriter(symbolMap).writeTo(file);
+				}
 			}
 		});
 		fileMenu.add(new TextAction("Exit") {
@@ -224,5 +232,4 @@ public class FormGeneratorVisitor implements StatementVisitor<Container>, Widget
 
 		jframe.setJMenuBar(menuBar);
 	}
-
 }
