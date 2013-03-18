@@ -7,7 +7,7 @@ import nl.stgm.ql.inspectors.interpreter.*;
 
 import java.util.List;
 
-public class Form extends AbstractElement
+public class Form extends AbstractNode
 {
 	private String id;
 	private List<FormItem> formItems;

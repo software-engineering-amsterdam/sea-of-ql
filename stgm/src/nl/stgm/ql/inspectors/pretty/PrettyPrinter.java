@@ -7,6 +7,7 @@ import java.nio.file.FileSystems;
 
 import nl.stgm.ql.inspectors.*;
 
+import nl.stgm.ql.ast.expr.Expr;
 import nl.stgm.ql.ast.form.Document;
 
 import nl.stgm.ql.parser.*;
@@ -25,6 +26,11 @@ public class PrettyPrinter extends DocumentInspector
 	public void decreaseIndent()
 	{
 		this.indent--;
+	}
+	
+	public void printExpression(Expr e)
+	{
+		print(e.renderExpression());
 	}
 	
 	public void println(String s)

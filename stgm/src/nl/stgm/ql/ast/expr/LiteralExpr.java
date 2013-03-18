@@ -11,12 +11,12 @@ public abstract class LiteralExpr extends Expr
 		return this.toString();
 	}
 
-	public Type reduceType(Semantic context)
+	public Type reduceType(TypeContext context)
 	{
 		return Type.translate(this);
 	}
 
-	public LiteralExpr reduceValue(Interpreter context)
+	public LiteralExpr reduceValue(ValueContext context)
 	{
 		return this;
 	}

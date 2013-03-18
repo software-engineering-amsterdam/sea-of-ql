@@ -1,6 +1,6 @@
 package nl.stgm.ql.inspectors;
 
-public interface Semantic
+public interface TypeContext
 {
 	public Type lookupType(String name);
 }

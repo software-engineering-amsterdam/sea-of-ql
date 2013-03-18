@@ -2,7 +2,7 @@ package nl.stgm.ql.ast.expr.binary;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
-import nl.stgm.ql.inspectors.interpreter.*;
+import nl.stgm.ql.inspectors.*;
 
 public class And extends BinaryExpr
 {
@@ -17,7 +17,7 @@ public class And extends BinaryExpr
 		return "&&";
 	}
 
-	public LiteralExpr reduceValue(Interpreter context)
+	public LiteralExpr reduceValue(ValueContext context)
 	{
 		Bool leftValue = (Bool) this.left.reduceValue(context);
 		Bool rightValue = (Bool) this.right.reduceValue(context);

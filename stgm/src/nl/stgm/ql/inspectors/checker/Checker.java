@@ -11,7 +11,7 @@ import nl.stgm.ql.ast.form.Form;
 
 import nl.stgm.ql.inspectors.*;
 
-public class Checker extends DocumentInspector implements Semantic
+public class Checker extends DocumentInspector implements TypeContext
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,Form> forms = new HashMap<String,Form>();
@@ -77,11 +77,6 @@ public class Checker extends DocumentInspector implements Semantic
 		{
 			return s.getType();
 		}
-	}
-	
-	public Type translateType(LiteralExpr expr)
-	{
-		return Type.translate(expr);
 	}
 	
 	//

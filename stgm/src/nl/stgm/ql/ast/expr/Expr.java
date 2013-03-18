@@ -6,14 +6,14 @@ import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
 import nl.stgm.ql.inspectors.interpreter.*;
 
-public abstract class Expr extends AbstractElement
+public abstract class Expr extends AbstractNode
 {
 	// This class and its descendants delegate the inspecting to
 	// tree-recursive calculating methods.
 	
 	public void print(PrettyPrinter context)
 	{
-		context.print(this.renderExpression());
+		context.printExpression(this);
 	}	
 
 	public void check(Checker context)
@@ -29,6 +29,6 @@ public abstract class Expr extends AbstractElement
 
 	// renderExpression() is used by both the PrettyPrinter and the Checker!
 	public abstract String renderExpression();
-	public abstract Type reduceType(Semantic context) throws IncompatibleTypesException;
-	public abstract LiteralExpr reduceValue(Interpreter context);
+	public abstract Type reduceType(TypeContext context) throws IncompatibleTypesException;
+	public abstract LiteralExpr reduceValue(ValueContext context);
 }

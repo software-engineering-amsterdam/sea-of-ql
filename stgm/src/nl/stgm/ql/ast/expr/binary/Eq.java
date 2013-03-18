@@ -18,12 +18,12 @@ public class Eq extends BinaryExpr
 		return "==";
 	}
 
-	public LiteralExpr reduceValue(Interpreter context)
+	public LiteralExpr reduceValue(ValueContext context)
 	{
 		LiteralExpr leftValue = (LiteralExpr) this.left.reduceValue(context);
 		LiteralExpr rightValue = (LiteralExpr) this.right.reduceValue(context);
 		
-		switch(leftValue.reduceType(context))
+		switch(leftValue.reduceType((Interpreter)context))
 		{
 			case INT:
 				return new Bool( ((Int)leftValue).getValue() == ((Int)rightValue).getValue() );

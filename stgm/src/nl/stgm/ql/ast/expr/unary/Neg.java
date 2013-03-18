@@ -2,7 +2,7 @@ package nl.stgm.ql.ast.expr.unary;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
-import nl.stgm.ql.inspectors.interpreter.*;
+import nl.stgm.ql.inspectors.*;
 
 public class Neg extends UnaryExpr
 {
@@ -16,7 +16,7 @@ public class Neg extends UnaryExpr
 		return "-";
 	}
 
-	public LiteralExpr reduceValue(Interpreter context)
+	public LiteralExpr reduceValue(ValueContext context)
 	{
 		Int value = (Int) this.arg.reduceValue(context);
 		

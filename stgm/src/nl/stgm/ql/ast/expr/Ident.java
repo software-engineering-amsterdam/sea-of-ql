@@ -19,13 +19,13 @@ public class Ident extends Expr
 		return name;
 	}
 
-	public Type reduceType(Semantic context)
+	public Type reduceType(TypeContext context)
 	{
 		// the semantic checker knowns our type from previous definitions
 		return context.lookupType(this.name);
 	}
 
-	public LiteralExpr reduceValue(Interpreter context)
+	public LiteralExpr reduceValue(ValueContext context)
 	{
 		return context.lookupValue(name);
 	}

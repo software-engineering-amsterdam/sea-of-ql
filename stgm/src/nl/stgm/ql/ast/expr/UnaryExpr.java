@@ -14,7 +14,7 @@ public abstract class UnaryExpr extends Expr
 		return this.toString() + arg.renderExpression();
 	}
 
-	public Type reduceType(Semantic context) throws IncompatibleTypesException
+	public Type reduceType(TypeContext context) throws IncompatibleTypesException
 	{
 		return arg.reduceType(context);
 	}

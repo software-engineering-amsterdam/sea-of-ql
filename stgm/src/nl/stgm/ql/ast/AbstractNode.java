@@ -4,7 +4,7 @@ import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
 import nl.stgm.ql.inspectors.interpreter.*;
 
-public abstract class AbstractElement implements ASTNode, Printable, Checkable, Interpretable
+public abstract class AbstractNode implements Printable, Checkable, Interpretable
 {
 	// hint:
 	// public abstract void print(PrettyPrinter context);

@@ -15,7 +15,7 @@ public abstract class BinaryExpr extends Expr
 		return left.renderExpression() + " " + this.toString() + " " + right.renderExpression();
 	}
 	
-	public Type reduceType(Semantic context) throws IncompatibleTypesException
+	public Type reduceType(TypeContext context) throws IncompatibleTypesException
 	{
 		if(left.reduceType(context) == right.reduceType(context))
 			return left.reduceType(context);

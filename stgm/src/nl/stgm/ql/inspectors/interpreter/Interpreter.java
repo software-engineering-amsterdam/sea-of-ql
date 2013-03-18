@@ -9,7 +9,7 @@ import nl.stgm.ql.ast.form.Document;
 
 import nl.stgm.ql.inspectors.*;
 
-public class Interpreter extends DocumentInspector implements Semantic
+public class Interpreter extends DocumentInspector implements TypeContext,ValueContext
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,LiteralExpr> values = new HashMap<String,LiteralExpr>();
