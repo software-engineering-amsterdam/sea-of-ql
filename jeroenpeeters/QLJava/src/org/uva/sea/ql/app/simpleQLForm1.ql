@@ -1,13 +1,26 @@
 
-form DemoForm { 
-
-	city: "In which city do you own a house" text 
+form DemoForm {
 	
-	hasSoldHouse: "Did you sell a house?" boolean 
-	
-	year: "What year have you sold the house?" int
+	hasSoldHouse: "Did you sell a house in the last tax year?" boolean 
 	
 	if(hasSoldHouse){
+		citySoldHouse: "In which city was the house located?" text 
 		housePrice: "What was the price of the house?" money
+		
 	}
+	
+	currentlyOwnsHouse: "Do you currently own a house?" boolean
+	
+	if(currentlyOwnsHouse){
+		yearBoughtCurrentHouse: "In which year did you buy your current house?" int
+		priceCurrentHouse: "For how much did you buy hour current house?" money
+		
+		if(priceCurrentHouse > 0 && housePrice > priceCurrentHouse){
+	
+			"You made a profit of {0} in the year {1}": housePrice - priceCurrentHouse, yearBoughtCurrentHouse
+		
+			hasLoan: "Do you have a mortgage on your current house?" boolean
+		}
+	}
+	
 }

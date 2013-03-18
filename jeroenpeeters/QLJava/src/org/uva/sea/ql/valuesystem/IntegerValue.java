@@ -1,6 +1,6 @@
 package org.uva.sea.ql.valuesystem;
 
-import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.type.IntegerType;
 
 public class IntegerValue extends NumericValue {
 
@@ -21,8 +21,8 @@ public class IntegerValue extends NumericValue {
 	}
 
 	@Override
-	public DataType getDataType() {
-		return DataType.INTEGER;
+	public IntegerType getType() {
+		return new IntegerType();
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class IntegerValue extends NumericValue {
 
 	@Override
 	public String toString() {
-		return "IntegerValue [value=" + value + "]";
+		return ""+value;
 	}
 	
 }

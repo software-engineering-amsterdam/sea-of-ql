@@ -1,10 +1,10 @@
 package org.uva.sea.ql.valuesystem;
 
-import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.type.Type;
 
 public interface Value {
 
-	DataType getDataType();
+	Type getType();
 	
 	// Binary
 	

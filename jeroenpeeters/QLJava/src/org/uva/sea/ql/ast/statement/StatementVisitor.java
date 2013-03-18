@@ -8,6 +8,8 @@ public interface StatementVisitor<T> {
 	
 	T visit(Question question);
 	
+	T visit(Label label);
+	
 	T visit(IfStatement statement);
 	
 	T visit(IfElseStatement statement);

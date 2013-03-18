@@ -112,6 +112,7 @@ public class QLLexer implements QLTokens {
 			    case '{': nextChar(); return token = '{';
 			    case ')': nextChar(); return token = ')';
 			    case '(': nextChar(); return token = '(';
+			    case ',': nextChar(); return token = ',';
 			    case '*': {
 			    	nextChar();
 			    	if (inComment && c == '/') {
@@ -139,7 +140,13 @@ public class QLLexer implements QLTokens {
 			    	}
 			    	this.throwLexicalException("Unexpected character: " + (char)c);
 			    }
-			    case '!': nextChar(); return token = '!';
+			    case '!': 
+			    	nextChar(); 
+			    	if(c == '='){
+			    		nextChar();
+			    		return token = NEQ;
+			    	}
+			    	return token = '!';
 			    case '<': {
 			    	nextChar();
 			    	if (c == '=') {

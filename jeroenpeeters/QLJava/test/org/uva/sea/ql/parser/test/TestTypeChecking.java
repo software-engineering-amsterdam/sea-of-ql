@@ -1,38 +1,45 @@
 package org.uva.sea.ql.parser.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.*;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.uva.sea.ql.ast.DataType;
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.ast.type.TextType;
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefType;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
-import org.uva.sea.ql.typesystem.QLTypeSystem;
 import org.uva.sea.ql.visitor.semantics.TypeCheckError;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;
+
+import com.google.common.collect.Maps;
 
 public class TestTypeChecking {
 
 	private IParse parser;
 	
-	private QLTypeSystem typeSystem;
+	private Map<Identifier, Type> typeEnv;
 	
 	@Before
 	public void setup() {
 		parser = new JaccQLParser();
-		typeSystem = new QLTypeSystem();
+		typeEnv = Maps.newHashMap();
 		
-		typeSystem.register(new Identifier("textIdent"), DataType.TEXT);
-		typeSystem.register(new Identifier("boolIdent"), DataType.BOOLEAN);
-		typeSystem.register(new Identifier("integerIdent"), DataType.INTEGER);
-		typeSystem.register(new Identifier("moneyIdent"), DataType.MONEY);
-		typeSystem.register(new Identifier("undefIdent"), DataType.UNDEF);
+		typeEnv.put(new Identifier("textIdent"), new TextType());
+		typeEnv.put(new Identifier("boolIdent"), new BooleanType());
+		typeEnv.put(new Identifier("integerIdent"), new IntegerType());
+		typeEnv.put(new Identifier("moneyIdent"), new MoneyType());
+		typeEnv.put(new Identifier("undefIdent"), new UndefType());
 	}
 	
 	@Test
@@ -62,7 +69,7 @@ public class TestTypeChecking {
 		Expression expr = parser.parseExpression(qlText);
 		assertNotNull(expr);
 
-		TypeCheckVisitor visitor = new TypeCheckVisitor(typeSystem);
+		TypeCheckVisitor2 visitor = new TypeCheckVisitor2(typeEnv);
 		expr.accept(visitor);
 		
 		System.out.println("===== >" + qlText);

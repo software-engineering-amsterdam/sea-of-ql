@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -14,11 +14,10 @@ import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
-import org.uva.sea.ql.typesystem.QLTypeSystem;
 import org.uva.sea.ql.valuesystem.Value;
 import org.uva.sea.ql.visitor.evaluation.EvaluatorVisitor;
 import org.uva.sea.ql.visitor.semantics.TypeCheckError;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;
 import org.uva.sea.ql.visitor.ui.FormGeneratorVisitor;
 
 import com.google.common.collect.Maps;
@@ -60,8 +59,7 @@ public class QLApplication {
 	}
 	
 	private static boolean typeCheck(final Form qlForm){
-		final QLTypeSystem typeSystem = new QLTypeSystem();
-		final TypeCheckVisitor typeCheckVisitor = new TypeCheckVisitor(typeSystem);
+		final TypeCheckVisitor2 typeCheckVisitor = new TypeCheckVisitor2();
 		qlForm.accept(typeCheckVisitor);
 		if(typeCheckVisitor.hasTypeCheckErrors()){
 			System.out.println("The following errors exist:");
@@ -79,8 +77,8 @@ public class QLApplication {
 		final Map<Identifier, Value> symbolMap = Maps.newConcurrentMap();
 		
 		final EvaluatorVisitor evaluatorVisitor = new EvaluatorVisitor(symbolMap);
-		final FormGeneratorVisitor formGeneratorVisitor = new FormGeneratorVisitor(evaluatorVisitor);
-		final JPanel formPanel = qlForm.accept(formGeneratorVisitor);
+		final FormGeneratorVisitor formGeneratorVisitor = new FormGeneratorVisitor(evaluatorVisitor, symbolMap);
+		final JComponent formPanel = qlForm.accept(formGeneratorVisitor);
 		
 		final JFrame jframe = new JFrame();
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

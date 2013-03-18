@@ -1,6 +1,6 @@
 package org.uva.sea.ql.valuesystem;
 
-import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.type.MoneyType;
 
 public class MoneyValue extends NumericValue {
 
@@ -16,8 +16,8 @@ public class MoneyValue extends NumericValue {
 	}
 	
 	@Override
-	public DataType getDataType() {
-		return DataType.MONEY;
+	public MoneyType getType() {
+		return new MoneyType();
 	}
 
 	@Override
@@ -84,5 +84,12 @@ public class MoneyValue extends NumericValue {
 	public Value pos() {
 		return new MoneyValue(+value);
 	}
+
+	@Override
+	public String toString() {
+		return "EU"+value;
+	}
+	
+	
 
 }

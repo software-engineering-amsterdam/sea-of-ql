@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
 
-public class GEq extends BinaryExpression  {
+public class GEq extends BooleanBinaryExpression  {
 	
 	public GEq(final Expression lhs, final Expression rhs){
 		super(lhs, rhs);

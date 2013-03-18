@@ -1,14 +1,17 @@
 package org.uva.sea.ql.ast.expression.literal;
 
-import org.uva.sea.ql.ast.DataType;
+import java.util.Map;
+
 import org.uva.sea.ql.ast.expression.ExpressionVisitor;
+import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.type.TextType;
+import org.uva.sea.ql.ast.type.Type;
 
 public class TextLiteral extends Literal{
 
 	private final String value;
  
 	public TextLiteral(final String value) {
-		super(DataType.TEXT);
 		this.value = value;
 	}
 	
@@ -16,6 +19,11 @@ public class TextLiteral extends Literal{
 		return this.value;
 	}
 	
+	@Override
+	public Type typeOf(Map<Identifier, Type> typeEnv) {
+		return new TextType();
+	}
+
 	public <T> T accept(final ExpressionVisitor<T> v){
 		return v.visit(this);
 	}

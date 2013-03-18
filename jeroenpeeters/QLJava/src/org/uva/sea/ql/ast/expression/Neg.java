@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
 
-public class Neg extends UnaryExpression {
+public class Neg extends NumericUnaryExpression {
 	
 	public Neg(final Expression expr){
 		super(expr);

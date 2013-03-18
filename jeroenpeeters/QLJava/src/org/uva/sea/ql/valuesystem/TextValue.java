@@ -1,6 +1,6 @@
 package org.uva.sea.ql.valuesystem;
 
-import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.type.TextType;
 
 public class TextValue implements Value {
 	
@@ -15,8 +15,8 @@ public class TextValue implements Value {
 	}
 
 	@Override
-	public DataType getDataType() {
-		return DataType.TEXT;
+	public TextType getType() {
+		return new TextType();
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class TextValue implements Value {
 
 	@Override
 	public String toString() {
-		return "TextValue [value=" + value + "]";
+		return value;
 	}
 
 }

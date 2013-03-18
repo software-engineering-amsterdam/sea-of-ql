@@ -1,6 +1,6 @@
 package org.uva.sea.ql.valuesystem;
 
-import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.type.BooleanType;
 
 public class BooleanValue implements Value{
 
@@ -16,8 +16,8 @@ public class BooleanValue implements Value{
 	}
 
 	@Override
-	public DataType getDataType() {
-		return DataType.BOOLEAN;
+	public BooleanType getType() {
+		return new BooleanType();
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public String toString() {
-		return "BooleanValue [value=" + value + "]";
+		return ""+value;
 	}
 
 }

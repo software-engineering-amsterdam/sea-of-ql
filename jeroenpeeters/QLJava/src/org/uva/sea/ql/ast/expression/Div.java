@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
 
-public class Div extends BinaryExpression {
+public class Div extends NumericBinaryExpression {
 	
 	public Div(final Expression lhs, final Expression rhs){
 		super(lhs, rhs);

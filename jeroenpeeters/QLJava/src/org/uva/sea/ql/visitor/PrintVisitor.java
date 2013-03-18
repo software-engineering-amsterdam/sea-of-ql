@@ -27,6 +27,7 @@ import org.uva.sea.ql.ast.statement.CompoundStatement;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.ast.statement.IfElseStatement;
 import org.uva.sea.ql.ast.statement.IfStatement;
+import org.uva.sea.ql.ast.statement.Label;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.StatementVisitor;
@@ -84,6 +85,12 @@ public class PrintVisitor implements StatementVisitor<Void>, ExpressionVisitor<V
 	public Void visit(Question question) {
 		this.internalVisit(question);
 		
+		return null;
+	}
+	
+	@Override
+	public Void visit(Label label) {
+		this.internalVisit(label);
 		return null;
 	}
 

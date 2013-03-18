@@ -1,5 +1,10 @@
 package org.uva.sea.ql.ast.expression;
 
+import java.util.Map;
+
+import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefType;
+
 
 public class Identifier extends Expression {
 
@@ -12,11 +17,21 @@ public class Identifier extends Expression {
 	public String getName() {
 		return name;
 	}
-	
+
+	@Override
 	public <T> T accept(final ExpressionVisitor<T> v){
 		return v.visit(this);
 	}
 	
+	@Override
+	public Type typeOf(final Map<Identifier, Type> typeEnv) {
+		final Type type = typeEnv.get(this);
+		if(type != null){
+			return type;
+		}
+		return new UndefType();
+	}
+
 	@Override
 	public String toString() {
 		return "Identifier [name=" + name + "]";

@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-
-public class Not extends UnaryExpression {
+public class Not extends BooleanUnaryExpression {
 	
 	public Not(final Expression expr){
 		super(expr);

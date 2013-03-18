@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
 
-public class Eq extends BinaryExpression {
+public class Eq extends BooleanBinaryExpression {
 	
 	public Eq(final Expression lhs, final Expression rhs){
 		super(lhs, rhs);

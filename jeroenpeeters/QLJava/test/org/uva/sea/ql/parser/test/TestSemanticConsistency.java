@@ -18,8 +18,7 @@ import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
-import org.uva.sea.ql.typesystem.QLTypeSystem;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;
 
 import com.google.common.base.Joiner;
 
@@ -40,7 +39,7 @@ public class TestSemanticConsistency {
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] { 
 					{ "semanticVarUndef.ql", 1}, {"semanticCyclicDep.ql", 1}, 
-					{"semanticExpressionType1.ql", 1}, {"semanticExpressionType2.ql", 1}, {"semanticExpressionType3.ql", 1}, {"semanticExpressionType4.ql", 1}, {"semanticExpressionType5.ql", 1} };
+					{"semanticExpressionType1.ql", 1}, {"semanticExpressionType2.ql", 1}, {"semanticExpressionType3.ql", 1}, {"semanticExpressionType4.ql", 2}, {"semanticExpressionType5.ql", 0} };
 		return Arrays.asList(data);
 	}
 
@@ -55,9 +54,7 @@ public class TestSemanticConsistency {
 		Form form = parser.parseForm(qlText);
 		assertNotNull(form);
 		
-		final QLTypeSystem typeSystem = new QLTypeSystem();
-
-		TypeCheckVisitor visitor = new TypeCheckVisitor(typeSystem);
+		TypeCheckVisitor2 visitor = new TypeCheckVisitor2();
 		form.accept(visitor);
 		
 		assertNotNull(visitor.getTypeCheckErrorIterator());

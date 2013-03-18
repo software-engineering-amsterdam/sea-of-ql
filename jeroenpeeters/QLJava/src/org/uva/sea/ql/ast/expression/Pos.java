@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.expression;
 
 
-public class Pos extends UnaryExpression {
+public class Pos extends NumericUnaryExpression {
 	
 	public Pos(final Expression expr){
 		super(expr);

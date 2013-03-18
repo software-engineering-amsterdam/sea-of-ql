@@ -1,8 +1,6 @@
 package org.uva.sea.ql.ast.expression;
 
-
-
-public class Add extends BinaryExpression {
+public class Add extends NumericBinaryExpression {
 	
 	public Add(final Expression lhs, final Expression rhs){
 		super(lhs, rhs);

@@ -2,17 +2,18 @@ package org.uva.sea.ql.valuesystem;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.uva.sea.ql.ast.DataType;
+import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.IntegerType;
+import org.uva.sea.ql.ast.type.MoneyType;
 
 public class ValuesTest {
 
 	@Test
 	public void testBooleanValue(){
-		assertSame(DataType.BOOLEAN, new BooleanValue(true).getDataType());
+		assertEquals(new BooleanType().getClass(), new BooleanValue(true).getType().getClass());
 		
 		assertTrue(booleanValue(new BooleanValue(true).and(new BooleanValue(true))));
 		assertFalse(booleanValue(new BooleanValue(true).and(new BooleanValue(false))));
@@ -25,7 +26,7 @@ public class ValuesTest {
 	
 	@Test
 	public void testIntegerValue(){
-		assertSame(DataType.INTEGER, new IntegerValue(1).getDataType());
+		assertEquals(new IntegerType().getClass(), new IntegerValue(1).getType().getClass());
 		
 		assertEquals(5, intValue(new IntegerValue(3).add(new IntegerValue(2))));
 		assertEquals(3, intValue(new IntegerValue(6).div(new IntegerValue(2))));
@@ -53,7 +54,7 @@ public class ValuesTest {
 	
 	@Test
 	public void testMoneyValue(){
-		assertSame(DataType.MONEY, new MoneyValue(9.95).getDataType());
+		assertEquals(new MoneyType().getClass(), new MoneyValue(9.95).getType().getClass());
 		
 		assertTrue(5 == moneyValue(new MoneyValue(3).add(new MoneyValue(2))));
 		assertTrue(5.5 == moneyValue(new MoneyValue(3).add(new MoneyValue(2.5))));
