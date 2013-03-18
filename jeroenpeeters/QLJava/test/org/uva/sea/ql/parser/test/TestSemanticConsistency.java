@@ -39,7 +39,7 @@ public class TestSemanticConsistency {
 	public static Collection<Object[]> data() {
 		Object[][] data = new Object[][] { 
 					{ "semanticVarUndef.ql", 1}, {"semanticCyclicDep.ql", 1}, 
-					{"semanticExpressionType1.ql", 1}, {"semanticExpressionType2.ql", 1}, {"semanticExpressionType3.ql", 1}, {"semanticExpressionType4.ql", 2}, {"semanticExpressionType5.ql", 0} };
+					{"semanticExpressionType1.ql", 1}, {"semanticExpressionType2.ql", 1}, {"semanticExpressionType3.ql", 1}, {"semanticExpressionType4.ql", 1}, {"semanticExpressionType5.ql", 0} };
 		return Arrays.asList(data);
 	}
 

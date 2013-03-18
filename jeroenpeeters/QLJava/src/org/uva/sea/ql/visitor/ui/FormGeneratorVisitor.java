@@ -1,14 +1,24 @@
 package org.uva.sea.ql.visitor.ui;
 
-import java.awt.GridLayout;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.text.TextAction;
 
 import org.uva.sea.ql.ast.expression.Expression;
 import org.uva.sea.ql.ast.expression.ExpressionVisitor;
@@ -29,78 +39,112 @@ import org.uva.sea.ql.visitor.ui.widgets.WidgetObserver;
 
 import com.google.common.collect.Maps;
 
-public class FormGeneratorVisitor implements StatementVisitor<JComponent>, WidgetObserver{
-	
+public class FormGeneratorVisitor implements StatementVisitor<Container>, WidgetObserver {
+
 	private final ExpressionVisitor<Value> expressionVisitor;
-	
+
 	private final Map<Widget, Identifier> widgetIdentMap = Maps.newHashMap();
-	
+
 	private final Map<Identifier, Value> symbolMap;
-	
-	private final Map<IfStatement, JComponent> ifStatementPanelMap = Maps.newHashMap();
-	
-	private final Map<IfElseStatement, JComponent> ifElseStatementPanelMap = Maps.newHashMap();
-	
+
+	private final Map<IfStatement, Container> ifStatementPanelMap = Maps.newHashMap();
+
+	private final Map<IfElseStatement, Container> ifElseStatementPanelMap = Maps.newHashMap();
+
 	private final Map<Label, JLabel> labelMap = Maps.newHashMap();
-	
-	public FormGeneratorVisitor(final ExpressionVisitor<Value> expressionVisitor, final Map<Identifier, Value> symbolMap){
+
+	public FormGeneratorVisitor(final ExpressionVisitor<Value> expressionVisitor, final Map<Identifier, Value> symbolMap) {
 		this.expressionVisitor = expressionVisitor;
 		this.symbolMap = symbolMap;
 	}
-	
+
 	@Override
-	public JPanel visit(Form form) {
-		final JPanel panel = new JPanel(new GridLayout(0, 1));
-		panel.setBorder(BorderFactory.createTitledBorder(form.getIdentity().getName()));
-		
-		final JComponent compoundPanel = form.getCompoundStatement().accept(this);
+	public JFrame visit(Form form) {
+		JPanel panel = new JPanel(new BorderLayout());
+
+		final Container compoundPanel = form.getCompoundStatement().accept(this);
+		panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		panel.add(compoundPanel);
-		
-		return panel;
+
+		final JFrame jframe = new JFrame(form.getIdentity().getName());
+		this.createMenuBar(jframe);
+
+		final JScrollPane scrollPane = new JScrollPane(panel);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		jframe.setContentPane(scrollPane);
+
+		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jframe.setMinimumSize(new Dimension(750, 250));
+
+		return jframe;
 	}
 
 	@Override
 	public JPanel visit(CompoundStatement statement) {
-		final JPanel panel = new JPanel(new GridLayout(0, 1));
-		
+		final JPanel panel = new JPanel(new GridBagLayout());
+
+		GridBagConstraints c = new GridBagConstraints();
+		int y = 0;
 		final Iterator<Statement> statementIterator = statement.getStatementIterator();
-		while(statementIterator.hasNext()){
-			final JComponent statementPanel = statementIterator.next().accept(this);
-			panel.add(statementPanel);
+		while (statementIterator.hasNext()) {
+			final Container statementPanel = statementIterator.next().accept(this);
+
+			c.gridx = 0;
+			c.gridy = y++;
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 1;
+			panel.add(statementPanel, c);
 		}
-		
-		return panel;
-	}
-	
-	@Override
-	public JComponent visit(IfStatement statement) {
-		final JComponent panel = statement.getStatement().accept(this);
-		ifStatementPanelMap.put(statement, panel);
-		
-		this.update(statement, panel);
-		
+
+		c.gridy = y++;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.VERTICAL;
+		panel.add(new JPanel(), c);
+
 		return panel;
 	}
 
 	@Override
-	public JPanel visit(IfElseStatement statement) {
-		final JPanel panel = new JPanel(new GridLayout(0, 1));
-		
-		JComponent ifPanel = this.visit((IfStatement)statement);
-		panel.add(ifPanel);
-		
-		final JComponent elsePanel = statement.getElseStatement().accept(this);
-		panel.add(elsePanel);
+	public Container visit(IfStatement statement) {
+		final Container panel = statement.getStatement().accept(this);
+		ifStatementPanelMap.put(statement, panel);
+
+		this.update(statement, panel);
+
+		return panel;
+	}
+
+	@Override
+	public Container visit(IfElseStatement statement) {
+		final JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+
+		Container ifPanel = this.visit((IfStatement) statement);
+		c.gridx = 0;
+		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		panel.add(ifPanel, c);
+
+		final Container elsePanel = statement.getElseStatement().accept(this);
+		c.gridy = 1;
+		panel.add(elsePanel, c);
 		ifElseStatementPanelMap.put(statement, elsePanel);
-		
+
+		c.gridy = 2;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.VERTICAL;
+		panel.add(new JPanel(), c);
+
 		this.update(statement, elsePanel);
-		
+
 		return panel;
 	}
 
 	@Override
 	public JPanel visit(Question question) {
-		final Widget widget = question.getType().getWidgetFactory(new DefaultWidgetFactoryFactory()).createWidget(question.getLabel().toString(), this);
+		final Widget widget = question.getType().getWidgetFactory(new DefaultWidgetFactoryFactory()).createWidget(question.getLabel().getValue(), this);
 		symbolMap.put(question.getIdent(), widget.getValue());
 		widgetIdentMap.put(widget, question.getIdent());
 		return widget;
@@ -108,11 +152,11 @@ public class FormGeneratorVisitor implements StatementVisitor<JComponent>, Widge
 
 	@Override
 	public JLabel visit(Label label) {
-		
+
 		final JLabel jLabel = new JLabel();
 		labelMap.put(label, jLabel);
 		this.update(label, jLabel);
-		
+
 		return jLabel;
 	}
 
@@ -121,40 +165,64 @@ public class FormGeneratorVisitor implements StatementVisitor<JComponent>, Widge
 		System.out.println("Widget updated -> " + widget + ", value:" + widget.getValue());
 		final Identifier identifier = widgetIdentMap.get(widget);
 		symbolMap.put(identifier, widget.getValue());
-		
-		for(final Entry<IfStatement, JComponent> entry : ifStatementPanelMap.entrySet()){
+
+		for (final Entry<IfStatement, Container> entry : ifStatementPanelMap.entrySet()) {
 			this.update(entry.getKey(), entry.getValue());
 		}
-		for(final Entry<IfElseStatement, JComponent> entry : ifElseStatementPanelMap.entrySet()){
+		for (final Entry<IfElseStatement, Container> entry : ifElseStatementPanelMap.entrySet()) {
 			this.update(entry.getKey(), entry.getValue());
 		}
-		for(final Entry<Label, JLabel> entry : labelMap.entrySet()){
+		for (final Entry<Label, JLabel> entry : labelMap.entrySet()) {
 			this.update(entry.getKey(), entry.getValue());
 		}
 	}
-	
-	private void update(final IfStatement ifStatement, final JComponent panel){
-		BooleanValue v = (BooleanValue)ifStatement.getExpression().accept(expressionVisitor);
+
+	private void update(final IfStatement ifStatement, final Container panel) {
+		BooleanValue v = (BooleanValue) ifStatement.getExpression().accept(expressionVisitor);
 		panel.setVisible(v.getValue());
 	}
-	
-	private void update(final IfElseStatement ifElseStatement, final JComponent elsePanel){
-		BooleanValue v = (BooleanValue)ifElseStatement.getExpression().accept(expressionVisitor);
+
+	private void update(final IfElseStatement ifElseStatement, final Container elsePanel) {
+		BooleanValue v = (BooleanValue) ifElseStatement.getExpression().accept(expressionVisitor);
 		elsePanel.setVisible(!v.getValue());
 	}
-	
-	private void update(final Label label, final JLabel jLabel){
+
+	private void update(final Label label, final JLabel jLabel) {
 		String labelText = label.getLabel().getValue();
-		
+
 		final Iterator<Expression> expressions = label.getExpressions();
 		int i = 0;
-		while(expressions.hasNext()){
+		while (expressions.hasNext()) {
 			final Value v = expressions.next().accept(expressionVisitor);
-			labelText = labelText.replace("{"+i+"}", v.toString());
+			labelText = labelText.replace("{" + i + "}", v.toString());
 			i++;
 		}
-		
+
 		jLabel.setText(labelText);
+	}
+
+	private void createMenuBar(final JFrame jframe) {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
+
+		fileMenu.add(new TextAction("Save Questionaire") {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		fileMenu.add(new TextAction("Exit") {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jframe.setVisible(false);
+				jframe.dispose();
+			}
+		});
+
+		jframe.setJMenuBar(menuBar);
 	}
 
 }

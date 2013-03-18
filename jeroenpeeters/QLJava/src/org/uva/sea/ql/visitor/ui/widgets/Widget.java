@@ -28,7 +28,7 @@ public abstract class Widget extends JPanel{
 		c.gridx = 1;
 		c.gridy = 0;
 		c.weightx = 0;
-		c.anchor = GridBagConstraints.EAST;
+		c.anchor = GridBagConstraints.WEST;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		this.add(this.createInputComponent(), c);
 	}

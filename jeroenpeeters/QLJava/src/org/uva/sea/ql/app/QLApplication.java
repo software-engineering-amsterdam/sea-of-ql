@@ -1,10 +1,10 @@
 package org.uva.sea.ql.app;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -26,9 +26,14 @@ public class QLApplication {
 	
 	public static void main(String[] args) {
 		
+		if(args.length != 1){
+			System.out.println("Usage: jar QLApplication.jar <QLFormFilename>");
+			return;
+		}
+		
 		setSystemLookAndFeel();
 		
-		final Form qlForm = parseForm("simpleQLForm1.ql");
+		final Form qlForm = parseForm(args[0]);
 		
 		if(qlForm == null){
 			System.exit(-1);
@@ -37,10 +42,6 @@ public class QLApplication {
 		if(!typeCheck(qlForm)){
 			System.exit(-1);
 		}
-		
-		//NodeJsGenerator nodeJsGenerator = new NodeJsGenerator(new File("D:\\Data\\jpeeters\\Desktop\\"));
-		//nodeJsGenerator.visit(qlForm);
-		//nodeJsGenerator.finish();
 		
 		render(qlForm);
 	}
@@ -78,19 +79,14 @@ public class QLApplication {
 		
 		final EvaluatorVisitor evaluatorVisitor = new EvaluatorVisitor(symbolMap);
 		final FormGeneratorVisitor formGeneratorVisitor = new FormGeneratorVisitor(evaluatorVisitor, symbolMap);
-		final JComponent formPanel = qlForm.accept(formGeneratorVisitor);
+		final JFrame formFrame = formGeneratorVisitor.visit(qlForm);
 		
-		final JFrame jframe = new JFrame();
-		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		jframe.setContentPane(formPanel);
-		jframe.pack();
-		jframe.setLocationRelativeTo(null); // centers frame on screen
-		jframe.setVisible(true);
+		formFrame.setLocationRelativeTo(null); // centers frame on screen
+		formFrame.setVisible(true);
 	}
 
 	private static String readResource(final String resourceName) throws IOException {
-		return IOUtils.toString(QLApplication.class.getResourceAsStream(resourceName));
+		return IOUtils.toString(new FileInputStream(resourceName));
 	}
 	
 	private static void setSystemLookAndFeel(){

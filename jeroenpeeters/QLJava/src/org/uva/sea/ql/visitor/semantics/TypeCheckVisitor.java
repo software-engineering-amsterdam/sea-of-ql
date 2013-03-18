@@ -44,7 +44,7 @@ import org.uva.sea.ql.ast.type.UndefType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class TypeCheckVisitor implements ExpressionVisitor<Type>, StatementVisitor<Void> {
+public class TypeCheckVisitor implements ExpressionVisitor<Boolean>, StatementVisitor<Void> {
 
 	private final Map<Identifier, Type> typeEnv;
 
@@ -67,101 +67,102 @@ public class TypeCheckVisitor implements ExpressionVisitor<Type>, StatementVisit
 	}
 
 	@Override
-	public Type visit(Identifier identifier) {
+	public Boolean visit(Identifier identifier) {
 		Type type = identifier.typeOf(typeEnv);
 		if(new UndefType().equals(type)){
 			newTypeCheckError("Identifier '"+identifier.getName()+"' is undefined.");
+			return false;
 		}
-		return type;
+		return true;
 	}
 
 	@Override
-	public Type visit(BooleanLiteral literal) {
-		return literal.typeOf(typeEnv);
+	public Boolean visit(BooleanLiteral literal) {
+		return true;
 	}
 
 	@Override
-	public Type visit(IntLiteral literal) {
-		return literal.typeOf(typeEnv);
+	public Boolean visit(IntLiteral literal) {
+		return true;
 	}
 
 	@Override
-	public Type visit(TextLiteral literal) {
-		return literal.typeOf(typeEnv);
+	public Boolean visit(TextLiteral literal) {
+		return true;
 	}
 
 	@Override
-	public Type visit(Add expression) {
+	public Boolean visit(Add expression) {
 		return visitBinaryExpression(expression, "Addition", new NumericType());
 	}
 
 	@Override
-	public Type visit(Div expression) {
+	public Boolean visit(Div expression) {
 		return visitBinaryExpression(expression, "Division", new NumericType());
 	}
 
 	@Override
-	public Type visit(Mul expression) {
+	public Boolean visit(Mul expression) {
 		return visitBinaryExpression(expression, "Multiplication", new NumericType());
 	}
 
 	@Override
-	public Type visit(Sub expression) {
+	public Boolean visit(Sub expression) {
 		return visitBinaryExpression(expression, "Subtraction", new NumericType());
 	}
 
 	@Override
-	public Type visit(And expression) {
+	public Boolean visit(And expression) {
 		return visitBinaryExpression(expression, "And", new BooleanType());
 	}
 
 	@Override
-	public Type visit(Eq expression) {
+	public Boolean visit(Eq expression) {
 		return visitBinaryExpression(expression, "Equals", new AnyType());
 	}
 
 	@Override
-	public Type visit(GEq expression) {
+	public Boolean visit(GEq expression) {
 		return visitBinaryExpression(expression, "GreaterEquals", new NumericType());
 	}
 
 	@Override
-	public Type visit(LEq expression) {
+	public Boolean visit(LEq expression) {
 		return visitBinaryExpression(expression, "LesserEquals", new NumericType());
 	}
 
 	@Override
-	public Type visit(GT expression) {
+	public Boolean visit(GT expression) {
 		return visitBinaryExpression(expression, "GreaterThan", new NumericType());
 	}
 
 	@Override
-	public Type visit(LT expression) {
+	public Boolean visit(LT expression) {
 		return visitBinaryExpression(expression, "LesserThan", new NumericType());
 	}
 
 	@Override
-	public Type visit(NEq expression) {
+	public Boolean visit(NEq expression) {
 		return visitBinaryExpression(expression, "NotEquals", new AnyType());
 	}
 
 	@Override
-	public Type visit(Or expression) {
+	public Boolean visit(Or expression) {
 		return visitBinaryExpression(expression, "Or", new BooleanType());
 	}
 
 	@Override
-	public Type visit(Neg expression) {
+	public Boolean visit(Neg expression) {
 		return visitUnaryExpression(expression, "Negative", new NumericType());
 	}
 
 	@Override
-	public Type visit(Pos expression) {
+	public Boolean visit(Pos expression) {
 		return visitUnaryExpression(expression, "Positive", new NumericType());
 	}
 
 	@Override
-	public Type visit(Not expression) {
+	public Boolean visit(Not expression) {
 		return visitUnaryExpression(expression, "Not", new BooleanType());
 	}
 	
@@ -197,9 +198,11 @@ public class TypeCheckVisitor implements ExpressionVisitor<Type>, StatementVisit
 
 	@Override
 	public Void visit(IfStatement statement) {
-		final Type type = statement.getExpression().accept(this);
+		final boolean exprOk = statement.getExpression().accept(this);
 
-		if (type.isCompatibleTo(new BooleanType()) == false) {
+		final Type type = statement.getExpression().typeOf(typeEnv);
+		// only check compatibility with boolean type when expression is ok
+		if (exprOk && !type.isCompatibleToBoolean()) {
 			newTypeCheckError("Expression in if-statement is not compatible to boolean.");
 		}
 		
@@ -221,32 +224,50 @@ public class TypeCheckVisitor implements ExpressionVisitor<Type>, StatementVisit
 	}
 	
 	
-	private Type visitBinaryExpression(final BinaryExpression expression, final String expressionName, final Type supportedOperandType) {
-		final Type lhsType = expression.getLhs().accept(this);
-		final Type rhsType = expression.getRhs().accept(this);
+	private boolean visitBinaryExpression(final BinaryExpression expression, final String expressionName, final Type supportedOperandType) {
+		final boolean lhsOk = expression.getLhs().accept(this);
+		final boolean rhsOk = expression.getRhs().accept(this);
+		
+		if(!(lhsOk && rhsOk)){
+			return false;
+		}
+		
+		final Type lhsType = expression.getLhs().typeOf(typeEnv);
+		final Type rhsType = expression.getRhs().typeOf(typeEnv);
 		
 		if(lhsType.isCompatibleTo(rhsType) == false){
 			newTypeCheckError("Left-hand-side expression of " + expressionName + " is not compatible to right-hand-side expression");
+			return false;
 		}
-
+		
+		boolean isOk = true;
 		if (lhsType.isCompatibleTo(supportedOperandType) == false) {
 			newTypeCheckError("Left-hand-side expression of " + expressionName + " is not compatible to " + supportedOperandType);
+			isOk = false;
 		}
 		if (rhsType.isCompatibleTo(supportedOperandType) == false) {
 			newTypeCheckError("Right-hand-side expression of " + expressionName + " is not compatible to " + supportedOperandType);
+			isOk = false;
 		}
 
-		return expression.typeOf(typeEnv);
+		return isOk;
 	}
 	
-	private Type visitUnaryExpression(final UnaryExpression expression, final String expressionName, final Type supportedOperandType) {
-		final Type exprType = expression.getExpr().accept(this);
+	private boolean visitUnaryExpression(final UnaryExpression expression, final String expressionName, final Type supportedOperandType) {
+		final boolean exprOk = expression.getExpr().accept(this);
+		
+		if(!exprOk){
+			return false;
+		}
+		
+		final Type exprType = expression.getExpr().typeOf(typeEnv);
 		
 		if (exprType.isCompatibleTo(supportedOperandType) == false) {
 			newTypeCheckError("Operand expression of " + expressionName + " is not compatible to " + supportedOperandType);
+			return false;
 		}
 		
-		return  expression.typeOf(typeEnv);
+		return true;
 	}
 
 }
