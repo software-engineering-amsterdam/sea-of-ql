@@ -1,12 +1,14 @@
 package nl.stgm.ql.inspectors;
 
-public class Identifier
+import nl.stgm.ql.data.*;
+
+public class Symbol
 {
 	String name;
 	Type type;
 	boolean computed;
 
-	public Identifier(String name, Type type, boolean isComputed)
+	public Symbol(String name, Type type, boolean computed)
 	{
 		this.name = name;
 		this.type = type;

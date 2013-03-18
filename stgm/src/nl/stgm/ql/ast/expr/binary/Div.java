@@ -1,12 +1,11 @@
 package nl.stgm.ql.ast.expr.binary;
 
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.expr.literal.*;
-
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public class Div extends BinaryExpr
+public class Div extends BinaryIntExpr
 {
 	public Div(Expr left, Expr right)
 	{
@@ -18,7 +17,7 @@ public class Div extends BinaryExpr
 		return "/";
 	}
 
-	public LiteralExpr reduceValue(ValueContext context)
+	public Value reduceValue(ValueContext context)
 	{
 		Int leftValue = (Int) this.left.reduceValue(context);
 		Int rightValue = (Int) this.right.reduceValue(context);

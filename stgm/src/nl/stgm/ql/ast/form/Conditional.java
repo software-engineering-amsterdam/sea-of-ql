@@ -4,7 +4,6 @@ import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
 
 import nl.stgm.ql.interfaces.*;
-// import nl.stgm.ql.inspectors.*;
 
 import java.util.List;
 

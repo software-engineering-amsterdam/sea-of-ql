@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.form;
 
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 

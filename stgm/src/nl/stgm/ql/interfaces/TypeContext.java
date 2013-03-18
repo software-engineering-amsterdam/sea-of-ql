@@ -1,6 +1,6 @@
 package nl.stgm.ql.interfaces;
 
-import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.data.*;
 
 public interface TypeContext
 {

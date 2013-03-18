@@ -1,8 +1,7 @@
 package nl.stgm.ql.ast.expr.binary;
 
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.expr.literal.*;
-
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
@@ -18,12 +17,12 @@ public class NEq extends BinaryExpr
 		return "!=";
 	}
 
-	public LiteralExpr reduceValue(ValueContext context)
+	public Value reduceValue(ValueContext context)
 	{
-		LiteralExpr leftValue = (LiteralExpr) this.left.reduceValue(context);
-		LiteralExpr rightValue = (LiteralExpr) this.right.reduceValue(context);
+		Value leftValue = (Value) this.left.reduceValue(context);
+		Value rightValue = (Value) this.right.reduceValue(context);
 		
-		switch(leftValue.reduceType((VisitingInterpreter)context))
+		switch(leftValue.getType())
 		{
 			case INT:
 				return new Bool( ((Int)leftValue).getValue() != ((Int)rightValue).getValue() );

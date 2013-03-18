@@ -1,17 +1,11 @@
 package nl.stgm.ql.inspectors;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.FileSystems;
 
 import nl.stgm.ql.interfaces.*;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
-
-import nl.stgm.ql.parser.*;
-import nl.stgm.ql.parser.rats.*;
 
 public class VisitingPrinter extends RunnableVisitor implements Visitor
 {
@@ -78,7 +72,7 @@ public class VisitingPrinter extends RunnableVisitor implements Visitor
 	
 	public void visit(Expr e)
 	{
-		print(e.renderExpression());
+		print(e.renderExpressionString());
 	}
 	
 	//

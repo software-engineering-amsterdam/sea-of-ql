@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.expr;
 
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
@@ -14,18 +15,17 @@ public abstract class BinaryExpr extends Expr
 		this.right = right;
 	}
 
-	public String renderExpression()
+	public String renderExpressionString()
 	{
-		return left.renderExpression() + " " + this.toString() + " " + right.renderExpression();
+		return left.renderExpressionString() + " " + this.toString() + " " + right.renderExpressionString();
 	}
-	
-	public Type reduceType(TypeContext context) throws IncompatibleTypesException
+
+	// this is only inherited to Eq and NEq
+	public Type inferType(TypeContext context) throws IncompatibleTypesException
 	{
-		if(left.reduceType(context) == right.reduceType(context))
-			return left.reduceType(context);
+		if(left.inferType(context) == right.inferType(context))
+			return left.inferType(context);
 		else
 			throw new IncompatibleTypesException();
 	}
-	
-	// reduceValue() is implemented in the concrete subclasses
 }

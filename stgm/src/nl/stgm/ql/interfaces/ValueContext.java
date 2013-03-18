@@ -1,8 +1,8 @@
 package nl.stgm.ql.interfaces;
 
-import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.data.*;
 
 public interface ValueContext
 {
-	public LiteralExpr lookupValue(String name);
+	public Value lookupValue(String name);
 }

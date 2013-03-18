@@ -7,22 +7,24 @@ import java.util.Vector;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
-import nl.stgm.ql.ast.expr.literal.*;
-import nl.stgm.ql.ast.form.Document;
-import nl.stgm.ql.ast.form.Form;
-
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 
 public class VisitingChecker extends RunnableVisitor implements TypeContext, Visitor
 {
-	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
+	private HashMap<String,Symbol> symbols = new HashMap<String,Symbol>();
 	private HashMap<String,Form> forms = new HashMap<String,Form>();
 	private Stack<String> crumbs = new Stack<String>();
 	private Vector<String> errors = new Vector<String>();
 	
 	public void visit(CalcQuestion cq)
 	{
-		checkQuestion(cq.id(), cq.type(), true);
+		String name = cq.id();
+		Type type = cq.type();
+		boolean computed = true;
+		
+		addSymbol(name, new Symbol(name, type, computed));
+
 		pushCrumb(cq.id());
 		cq.calculation().accept(this);
 		popCrumb();
@@ -30,7 +32,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 	
 	public void visit(Conditional c)
 	{
-		pushCrumb("if(" + c.condition().renderExpression() + ")");
+		pushCrumb("if(" + c.condition().renderExpressionString() + ")");
 
 		c.condition().accept(this);
 
@@ -54,7 +56,12 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 	
 	public void visit(Form f)
 	{
-		checkForm(f.id(), f);
+		Form previous = forms.get(f.id());
+		
+		if(previous == null)
+			forms.put(f.id(), f);
+		else
+			addError("Duplicate form name " + f.id());
 		
 		pushCrumb(f.id());
 		for(FormItem fi: f.formItems())
@@ -66,7 +73,11 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 	
 	public void visit(Question q)
 	{
-		checkQuestion(q.id(), q.type(), false);
+		String name = q.id();
+		Type type = q.type();
+		boolean computed = false;
+		
+		addSymbol(name, new Symbol(name, type, computed));
 	}
 	
 	public void visit(Expr expr)
@@ -74,11 +85,11 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		// upon encountering an Expr, this may be called to perform a type check
 		try
 		{
-			expr.reduceType(this);
+			expr.inferType(this);
 		}
 		catch(IncompatibleTypesException e)
 		{
-			addError("incompatible types in calculation '" + expr.renderExpression() + "'");
+			addError("incompatible types in calculation '" + expr.renderExpressionString() + "'");
 		}
 	}
 	
@@ -86,49 +97,45 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 	// crumb trace is used to give error locations
 	//
 	
-	public void pushCrumb(String name)
+	private void pushCrumb(String name)
 	{
 		crumbs.push(name);
 	}
 	
-	public void popCrumb()
+	private void popCrumb()
 	{
 		crumbs.pop();
 	}
 	
-	//
-	// list of defined identifiers
-	//
-	
-	public void checkQuestion(String name, Type type, boolean computed)
+	private void addSymbol(String name, Symbol s)
 	{
 		// check if symbol already exists
-		Identifier i = symbols.get(name);
+		Symbol i = symbols.get(name);
 		
 		if(i == null)
 		{
-			symbols.put(name, new Identifier(name, type, computed));
+			symbols.put(name, s);
 		}
-		else if(i.isComputed() != computed)
+		else if(i.isComputed() != s.isComputed())
 		{
-			if(computed)
+			if(s.isComputed())
 				addError(name + " is redefined as being calculated instead of input by user");
 			else
 				addError(name + " is redefined as being input by user instead of calculated");
 		}
-		else if(!i.isOfType(type))
+		else if(!i.isOfType(s.getType()))
 		{
 			addError(name + " is redefined as being of a different datatype");
 		}
 		else
 		{
-			// symbol is equivalent, does not need to be added
+			// symbol is equivalent, does not need to be added (though it could be seen as an error)
 		}
 	}
 	
 	public Type lookupType(String name)
 	{
-		Identifier s = symbols.get(name);
+		Symbol s = symbols.get(name);
 		
 		if(s == null)
 		{
@@ -142,21 +149,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 			return s.getType();
 		}
 	}
-	
-	//
-	// forms management
-	//
-	
-	public void checkForm(String name, Form f)
-	{
-		Form previous = forms.get(name);
 		
-		if(previous == null)
-			forms.put(name, f);
-		else
-			addError("Duplicate form name " + name);
-	}
-	
 	//
 	// main checking code
 	//
@@ -179,6 +172,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		errors.add(err.toString());
 	}
 	
+	// error list could be refactored into its own class to prevent this strange public method
 	public void printErrorList()
 	{
 		if(errors.size() == 0)

@@ -12,15 +12,8 @@ public abstract class UnaryExpr extends Expr
 		this.arg = arg;
 	}
 
-	public String renderExpression()
+	public String renderExpressionString()
 	{
-		return this.toString() + arg.renderExpression();
+		return this.toString() + arg.renderExpressionString();
 	}
-
-	public Type reduceType(TypeContext context) throws IncompatibleTypesException
-	{
-		return arg.reduceType(context);
-	}
-
-	// reduceValue() is implemented in the concrete subclasses
 }

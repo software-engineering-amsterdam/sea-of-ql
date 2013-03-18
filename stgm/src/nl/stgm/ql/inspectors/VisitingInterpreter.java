@@ -1,23 +1,26 @@
 package nl.stgm.ql.inspectors;
 
-import java.io.*;
 import java.util.HashMap;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
-import nl.stgm.ql.ast.expr.literal.*;
-
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 
-public class VisitingInterpreter extends RunnableVisitor implements TypeContext,ValueContext,Visitor
+public class VisitingInterpreter extends RunnableVisitor implements TypeContext, ValueContext, Visitor
 {
-	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
-	private HashMap<String,LiteralExpr> values = new HashMap<String,LiteralExpr>();
+	private HashMap<String,Symbol> symbols = new HashMap<String,Symbol>();
+	private HashMap<String,Value> values = new HashMap<String,Value>();
+	private ConsoleUI ui = new ConsoleUI();
 	
 	public void visit(CalcQuestion cq)
 	{
-		regCalcQuestion(cq.id(), cq.question(), cq.type(), cq.calculation().reduceValue(this));
+		Value value = cq.calculation().reduceValue(this);
+		
+		symbols.put(cq.id(), new Symbol(cq.id(), cq.type(), true));
+		values.put(cq.id(), value);
+		ui.presentCalcQuestion(cq.question(), cq.type(), value);
 	}
 	
 	public void visit(Conditional c)
@@ -47,7 +50,7 @@ public class VisitingInterpreter extends RunnableVisitor implements TypeContext,
 	
 	public void visit(Form f)
 	{
-		regForm(f.id());
+		ui.presentForm(f.id());
 
 		for(FormItem fi: f.formItems())
 		{
@@ -57,7 +60,9 @@ public class VisitingInterpreter extends RunnableVisitor implements TypeContext,
 	
 	public void visit(Question q)
 	{
-		regQuestion(q.id(), q.question(), q.type());
+		symbols.put(q.id(), new Symbol(q.id(), q.type(), false));
+		Value value = ui.askQuestion(q.question(), q.type());
+		values.put(q.id(), value);
 	}
 	
 	public void visit(Expr e)
@@ -66,45 +71,14 @@ public class VisitingInterpreter extends RunnableVisitor implements TypeContext,
 		throw new Error("This method should not be called on an Expr.");
 	}
 	
-	public void regForm(String name)
-	{
-		System.out.println("\n --- " + name.toUpperCase() + " ------------------------------\n");
-	}
-	
-	public void regQuestion(String id, String question, Type type)
-	{
-		symbols.put(id, new Identifier(id, type, false));
-		System.out.print("   " + question + " ");
-		switch(type)
-		{
-			case INT:
-				values.put(id, inputInt());
-				break;
-			case BOOL:
-				values.put(id, inputBool());
-				break;
-			default:
-				throw new Error("Unsupported type found in question.");
-		}
-	}
-	
-	public void regCalcQuestion(String id, String question, Type type, LiteralExpr value)
-	{
-		symbols.put(id, new Identifier(id, type, true));
-		values.put(id, value);
-		System.out.print("   " + question + " ");
-		System.out.print(value.toString());
-		System.out.println(" (calculated)");
-	}
-	
-	public LiteralExpr lookupValue(String name)
+	public Value lookupValue(String name)
 	{
 		return values.get(name);
 	}
 	
 	public Type lookupType(String name)
 	{
-		Identifier s = symbols.get(name);
+		Symbol s = symbols.get(name);
 		
 		if(s == null)
 		{
@@ -113,46 +87,6 @@ public class VisitingInterpreter extends RunnableVisitor implements TypeContext,
 		else
 		{
 			return s.getType();
-		}
-	}
-	
-	//
-	// question input tools (could be factored into separate io class)
-	//
-	
-	private Int inputInt()
-	{
-		return new Int(Integer.parseInt(inputString()));
-	}
-	
-	private Bool inputBool()
-	{
-		String input = inputString();
-		
-		if(input.equals("y") || input.equals("yes"))
-		{
-			return new Bool(true);
-		}
-		else // if no yes, it will be no ;-)
-		{
-			return new Bool(false);
-		}
-	}
-	
-	private String inputString()
-	{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String input;
-
-		try
-		{
-			input = br.readLine();
-			return input;
-		}
-		catch (IOException ioe)
-		{
-			exitWithError("Unknown input error. Please restart.");
-			return null; // FML
 		}
 	}
 	

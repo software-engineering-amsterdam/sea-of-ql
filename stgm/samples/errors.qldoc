@@ -3,7 +3,7 @@ form Box1HouseOwning {
 	hasBoughtHouse: "Did you by a house in 2010?" boolean
 	hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
 
-	if (hasSoldHouse) {
+	if (hasSoldHoue) {
 		sellingPrice: "Price the house was sold for:" int
 		privateDebt: "Private debts for the sold house:" int
 		valueResidue: "Value residue:" int (true - privateDebt)

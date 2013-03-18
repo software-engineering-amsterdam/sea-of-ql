@@ -1,6 +1,7 @@
 package nl.stgm.ql.ast.expr;
 
 import nl.stgm.ql.ast.*;
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
@@ -8,9 +9,9 @@ public abstract class Expr extends AbstractNode
 {
 	// This class and its descendants have three tree-recursive calculating methods
 	
-	public abstract String renderExpression();
-	public abstract Type reduceType(TypeContext context) throws IncompatibleTypesException;
-	public abstract LiteralExpr reduceValue(ValueContext context);
+	public abstract String renderExpressionString();
+	public abstract Type inferType(TypeContext context) throws IncompatibleTypesException;
+	public abstract Value reduceValue(ValueContext context);
 
 	public void accept(Visitor v)
 	{

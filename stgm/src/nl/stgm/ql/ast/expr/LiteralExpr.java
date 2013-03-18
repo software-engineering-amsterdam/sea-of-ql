@@ -5,18 +5,8 @@ import nl.stgm.ql.inspectors.*;
 
 public abstract class LiteralExpr extends Expr
 {
-	public String renderExpression()
+	public String renderExpressionString()
 	{
 		return this.toString();
-	}
-
-	public Type reduceType(TypeContext context)
-	{
-		return Type.translate(this);
-	}
-
-	public LiteralExpr reduceValue(ValueContext context)
-	{
-		return this;
 	}
 }

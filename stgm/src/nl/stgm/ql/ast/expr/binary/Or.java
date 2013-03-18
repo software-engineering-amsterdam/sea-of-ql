@@ -1,12 +1,11 @@
 package nl.stgm.ql.ast.expr.binary;
 
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.expr.literal.*;
-
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public class Or extends BinaryExpr
+public class Or extends BinaryBoolExpr
 {
 	public Or(Expr left, Expr right)
 	{
@@ -18,7 +17,7 @@ public class Or extends BinaryExpr
 		return "||";
 	}
 
-	public LiteralExpr reduceValue(ValueContext context)
+	public Value reduceValue(ValueContext context)
 	{
 		Bool leftValue = (Bool) this.left.reduceValue(context);
 		Bool rightValue = (Bool) this.right.reduceValue(context);

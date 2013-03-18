@@ -74,7 +74,7 @@ Expr Unary =
 	yyValue:Primary;
 
 Expr Primary =
-	n:Int Spacing { yyValue = new Int(Integer.parseInt(n)); } /
-	b:Bool Spacing { yyValue = new Bool(b == "true"); } /
+	n:Int Spacing { yyValue = new IntLit(Integer.parseInt(n)); } /
+	b:Bool Spacing { yyValue = new BoolLit(b == "true"); } /
 	x:Ident Spacing { yyValue = new Ident(x); } /
 	LParen yyValue:Expr RParen;

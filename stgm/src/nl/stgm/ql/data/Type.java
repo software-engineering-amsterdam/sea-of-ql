@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql.data;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
@@ -22,7 +22,7 @@ public enum Type
 		}
 	}
 
-	public static Type translate(LiteralExpr expr)
+	public static Type translate(Value expr)
 	{
 		if(expr instanceof Bool)
 			return BOOL;
