@@ -10,8 +10,7 @@ public class GEq extends BinaryExpr
 {
 	public GEq(Expr left, Expr right)
 	{
-		this.left = left;
-		this.right = right;
+		super(left, right);
 	}
 
 	public String toString()

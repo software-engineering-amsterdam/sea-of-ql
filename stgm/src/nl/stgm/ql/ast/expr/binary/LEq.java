@@ -10,8 +10,7 @@ public class LEq extends BinaryExpr
 {
 	public LEq(Expr left, Expr right)
 	{
-		this.left = left;
-		this.right = right;
+		super(left, right);
 	}
 
 	public String toString()

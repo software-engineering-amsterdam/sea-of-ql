@@ -10,8 +10,7 @@ public class Mul extends BinaryExpr
 {
 	public Mul(Expr left, Expr right)
 	{
-		this.left = left;
-		this.right = right;
+		super(left, right);
 	}
 
 	public String toString()

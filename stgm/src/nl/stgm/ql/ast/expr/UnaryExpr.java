@@ -7,6 +7,11 @@ public abstract class UnaryExpr extends Expr
 {
 	protected Expr arg;
 
+	public UnaryExpr(Expr arg)
+	{
+		this.arg = arg;
+	}
+
 	public String renderExpression()
 	{
 		return this.toString() + arg.renderExpression();

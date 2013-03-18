@@ -10,7 +10,7 @@ public class Not extends UnaryExpr
 {
 	public Not(Expr arg)
 	{
-		this.arg = arg;
+		super(arg);
 	}
 
 	public String toString()
@@ -21,7 +21,6 @@ public class Not extends UnaryExpr
 	public LiteralExpr reduceValue(ValueContext context)
 	{
 		Bool value = (Bool) this.arg.reduceValue(context);
-		
 		return new Bool(!value.getValue());
 	}
 }

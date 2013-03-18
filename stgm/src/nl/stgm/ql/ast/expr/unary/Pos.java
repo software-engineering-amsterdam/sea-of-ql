@@ -10,7 +10,7 @@ public class Pos extends UnaryExpr
 {
 	public Pos(Expr arg)
 	{
-		this.arg = arg;
+		super(arg);
 	}
 
 	public String toString()
@@ -21,7 +21,6 @@ public class Pos extends UnaryExpr
 	public LiteralExpr reduceValue(ValueContext context)
 	{
 		Int value = (Int) this.arg.reduceValue(context);
-		
 		return value;
 	}
 }

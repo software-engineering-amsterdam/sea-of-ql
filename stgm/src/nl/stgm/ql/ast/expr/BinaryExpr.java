@@ -8,6 +8,12 @@ public abstract class BinaryExpr extends Expr
 	protected Expr left;
 	protected Expr right;
 	
+	public BinaryExpr(Expr left, Expr right)
+	{
+		this.left = left;
+		this.right = right;
+	}
+
 	public String renderExpression()
 	{
 		return left.renderExpression() + " " + this.toString() + " " + right.renderExpression();
