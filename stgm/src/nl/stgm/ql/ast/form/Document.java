@@ -1,7 +1,8 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspectors.pretty.*;
+
+import nl.stgm.ql.inspectors.*;
 import nl.stgm.ql.inspectors.checker.*;
 import nl.stgm.ql.inspectors.interpreter.*;
 
@@ -16,29 +17,13 @@ public class Document extends AbstractNode
 		this.forms = forms;
 	}
 	
-	// document element has no content, so defer everything to forms
-		
-	public void print(PrettyPrinter context)
+	public List<Form> forms()
 	{
-		for(Form f: forms)
-		{
-			f.print(context);
-		}
+		return this.forms;
 	}
 	
-	public void check(Checker context)
+	public void accept(Visitor v)
 	{
-		for(Form f: forms)
-		{
-			f.check(context);
-		}
-	}
-
-	public void interpret(Interpreter context)
-	{
-		for(Form f: forms)
-		{
-			f.interpret(context);
-		}
+		v.visit(this);
 	}
 }

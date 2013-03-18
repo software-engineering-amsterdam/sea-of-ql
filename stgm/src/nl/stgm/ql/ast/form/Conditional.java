@@ -3,7 +3,6 @@ package nl.stgm.ql.ast.form;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
 import nl.stgm.ql.inspectors.interpreter.*;
 
@@ -31,63 +30,31 @@ public class Conditional extends FormItem
 		this.ifQuestions = ifQuestions;
 		this.hasElse = false;
 	}
-
-	public void print(PrettyPrinter context)
+	
+	public Expr condition()
 	{
-		context.print("if(");
-		condition.print(context);
-		context.println(") {");
-				
-		context.increaseIndent();
-		for (Question q: ifQuestions)
-			q.print(context);
-		context.decreaseIndent();
-		
-		context.println("}");
-
-		if(this.hasElse)
-		{
-			context.println("else {");
-			context.increaseIndent();
-			for (Question q: elseQuestions)
-			{
-				q.print(context);
-			}
-			context.decreaseIndent();
-			context.println("}");
-		}
+		return this.condition;
+	}
+	
+	// TODO make iterator
+	public List<Question> ifQuestions()
+	{
+		return this.ifQuestions;
 	}
 
-	public void check(Checker context)
+	// TODO make iterator
+	public List<Question> elseQuestions()
 	{
-		context.pushCrumb("if(" + condition.renderExpression() + ")");
-
-		condition.check(context);
-
-		for(Question q: ifQuestions)
-			q.check(context);
-
-		if(hasElse)
-			for(Question q: elseQuestions)
-				q.check(context);
-		
-		context.popCrumb();
+		return this.elseQuestions;
+	}
+	
+	public boolean hasElse()
+	{
+		return this.hasElse;
 	}
 
-	public void interpret(Interpreter context)
+	public void accept(Visitor v)
 	{
-		Bool v = (Bool) condition.reduceValue(context);
-		
-		if(v.getValue())
-		{
-			for(Question q: ifQuestions)
-				q.interpret(context);
-		}
-		else
-		{
-			if(hasElse)
-				for(Question q: elseQuestions)
-					q.interpret(context);
-		}
+		v.visit(this);
 	}
 }

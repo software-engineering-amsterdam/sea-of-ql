@@ -4,15 +4,67 @@ import java.io.*;
 import java.util.HashMap;
 
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.form.*;
+
 import nl.stgm.ql.ast.expr.literal.*;
-import nl.stgm.ql.ast.form.Document;
 
 import nl.stgm.ql.inspectors.*;
 
-public class Interpreter extends DocumentInspector implements TypeContext,ValueContext
+public class Interpreter extends DocumentInspector implements TypeContext,ValueContext,Visitor
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,LiteralExpr> values = new HashMap<String,LiteralExpr>();
+	
+	public void visit(CalcQuestion cq)
+	{
+		regCalcQuestion(cq.id(), cq.question(), cq.type(), cq.calculation().reduceValue(this));
+	}
+	
+	public void visit(Conditional c)
+	{
+		Bool v = (Bool) c.condition().reduceValue(this);
+		
+		if(v.getValue())
+		{
+			for(Question q: c.ifQuestions())
+				q.accept(this);
+		}
+		else
+		{
+			if(c.hasElse())
+				for(Question q: c.elseQuestions())
+					q.accept(this);
+		}
+	}
+	
+	public void visit(Document d)
+	{
+		for(Form f: d.forms())
+		{
+			f.accept(this);
+		}
+	}
+	
+	public void visit(Form f)
+	{
+		regForm(f.id());
+
+		for(FormItem fi: f.formItems())
+		{
+			fi.accept(this);
+		}
+	}
+	
+	public void visit(Question q)
+	{
+		regQuestion(q.id(), q.question(), q.type());
+	}
+	
+	public void visit(Expr e)
+	{
+		// no-op, because CalcQuestion and Conditional will call reduceValue() below
+		throw new Error("This method should not be called on an Expr.");
+	}
 	
 	public void regForm(String name)
 	{
@@ -108,7 +160,7 @@ public class Interpreter extends DocumentInspector implements TypeContext,ValueC
 	{
 		Interpreter ip = new Interpreter();
 		Document document = parseDocument("canonical.qldoc");
-		document.interpret(ip);
+		document.accept(ip);
 		System.out.println();
 	}
 }

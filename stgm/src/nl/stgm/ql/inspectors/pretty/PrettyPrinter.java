@@ -7,45 +7,107 @@ import java.nio.file.FileSystems;
 
 import nl.stgm.ql.inspectors.*;
 
-import nl.stgm.ql.ast.expr.Expr;
-import nl.stgm.ql.ast.form.Document;
+import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.form.*;
 
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
 
-public class PrettyPrinter extends DocumentInspector
+public class PrettyPrinter extends DocumentInspector implements Visitor
 {
 	private int indent = 0;
 	private boolean indented = true;
 	
-	public void increaseIndent()
+	public void visit(CalcQuestion cq)
 	{
-		this.indent++;
+		print(cq.id() + ": " + cq.question() + " " + cq.type() + " (");
+		cq.calculation().accept(this);
+		println(")");
 	}
 	
-	public void decreaseIndent()
+	public void visit(Conditional c)
 	{
-		this.indent--;
+		print("if(");
+		c.condition().accept(this);
+		println(") {");
+				
+		increaseIndent();
+		for (Question q: c.ifQuestions())
+			q.accept(this);
+		decreaseIndent();
+		
+		println("}");
+
+		if(c.hasElse())
+		{
+			println("else {");
+			increaseIndent();
+			for (Question q: c.elseQuestions())
+			{
+				q.accept(this);
+			}
+			decreaseIndent();
+			println("}");
+		}
 	}
 	
-	public void printExpression(Expr e)
+	public void visit(Document d)
+	{
+		for(Form f: d.forms())
+		{
+			f.accept(this);
+		}
+	}
+	
+	public void visit(Form f)
+	{
+		println("form " + f.id() + " {");
+		increaseIndent();
+		for (FormItem formItem: f.formItems())
+		{
+			formItem.accept(this);
+		}
+		decreaseIndent();
+		println("}");
+	}
+	
+	public void visit(Question q)
+	{
+		println(q.id() + ": " + q.question() + " " + q.type());
+	}
+	
+	public void visit(Expr e)
 	{
 		print(e.renderExpression());
 	}
 	
-	public void println(String s)
+	//
+	// privates
+	//
+
+	private void increaseIndent()
+	{
+		this.indent++;
+	}
+	
+	private void decreaseIndent()
+	{
+		this.indent--;
+	}
+	
+	private void println(String s)
 	{
 		printIndent();
 		System.out.println(s);
 		this.indented = true;
 	}
 	
-	public void println()
+	private void println()
 	{
 		println(null);
 	}
 	
-	public void print(String s)
+	private void print(String s)
 	{
 		printIndent();
 		System.out.print(s);
@@ -63,10 +125,15 @@ public class PrettyPrinter extends DocumentInspector
 		}
 	}
 	
+	//
+	// main
+	//
+	
 	public static void main(String[] args)
 	{
 		PrettyPrinter ctx = new PrettyPrinter();
 		Document document = parseDocument("elaborate.qldoc");
-		document.print(ctx);
+		// document.print(ctx);
+		document.accept(ctx);
 	}
 }

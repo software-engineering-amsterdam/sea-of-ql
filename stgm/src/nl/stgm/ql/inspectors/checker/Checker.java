@@ -5,18 +5,82 @@ import java.util.Stack;
 import java.util.Vector;
 
 import nl.stgm.ql.ast.expr.*;
+import nl.stgm.ql.ast.form.*;
+
 import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.ast.form.Form;
 
 import nl.stgm.ql.inspectors.*;
 
-public class Checker extends DocumentInspector implements TypeContext
+public class Checker extends DocumentInspector implements TypeContext, Visitor
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,Form> forms = new HashMap<String,Form>();
 	private Stack<String> crumbs = new Stack<String>();
 	private Vector<String> errors = new Vector<String>();
+	
+	public void visit(CalcQuestion cq)
+	{
+		checkQuestion(cq.id(), cq.type(), true);
+		pushCrumb(cq.id());
+		cq.calculation().accept(this);
+		popCrumb();
+	}
+	
+	public void visit(Conditional c)
+	{
+		pushCrumb("if(" + c.condition().renderExpression() + ")");
+
+		c.condition().accept(this);
+
+		for(Question q: c.ifQuestions())
+			q.accept(this);
+
+		if(c.hasElse())
+			for(Question q: c.elseQuestions())
+				q.accept(this);
+		
+		popCrumb();
+	}
+	
+	public void visit(Document d)
+	{
+		for(Form f: d.forms())
+		{
+			f.accept(this);
+		}
+	}
+	
+	public void visit(Form f)
+	{
+		checkForm(f.id(), f);
+		
+		pushCrumb(f.id());
+		for(FormItem fi: f.formItems())
+		{
+			fi.accept(this);
+		}
+		popCrumb();
+	}
+	
+	public void visit(Question q)
+	{
+		checkQuestion(q.id(), q.type(), false);
+	}
+	
+	public void visit(Expr expr)
+	{
+		// upon encountering an Expr, this may be called to perform a type check
+		try
+		{
+			expr.reduceType(this);
+		}
+		catch(IncompatibleTypesException e)
+		{
+			addError("incompatible types in calculation '" + expr.renderExpression() + "'");
+		}
+	}
 	
 	//
 	// crumb trace is used to give error locations
@@ -94,23 +158,6 @@ public class Checker extends DocumentInspector implements TypeContext
 	}
 	
 	//
-	// traversal helper
-	//
-	
-	public void checkExpression(Expr expr)
-	{
-		// upon encountering an Expr, this may be called to perform a type check
-		try
-		{
-			expr.reduceType(this);
-		}
-		catch(IncompatibleTypesException e)
-		{
-			addError("incompatible types in calculation '" + expr.renderExpression() + "'");
-		}
-	}
-	
-	//
 	// main checking code
 	//
 	
@@ -157,7 +204,7 @@ public class Checker extends DocumentInspector implements TypeContext
 	{
 		Checker checkerContext = new Checker();
 		Document document = parseDocument("errors.qldoc");
-		document.check(checkerContext);
+		document.accept(checkerContext);
 		checkerContext.printErrorList();
 	}
 }

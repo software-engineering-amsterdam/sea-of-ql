@@ -1,7 +1,7 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspectors.pretty.*;
+import nl.stgm.ql.inspectors.*;
 import nl.stgm.ql.inspectors.checker.*;
 import nl.stgm.ql.inspectors.interpreter.*;
 
@@ -17,38 +17,19 @@ public class Form extends AbstractNode
 		this.id = id;
 		this.formItems = formItems;
 	}
-
-	public void print(PrettyPrinter context)
+	
+	public String id()
 	{
-		context.println("form " + this.id + " {");
-		context.increaseIndent();
-		for (FormItem formItem: formItems)
-		{
-			formItem.print(context);
-		}
-		context.decreaseIndent();
-		context.println("}");
+		return this.id;
+	}
+	
+	public List<FormItem> formItems()
+	{
+		return this.formItems;
 	}
 
-	public void check(Checker context)
+	public void accept(Visitor v)
 	{
-		context.checkForm(this.id, this);
-		
-		context.pushCrumb(this.id);
-		for(FormItem f: formItems)
-		{
-			f.check(context);
-		}
-		context.popCrumb();
-	}
-
-	public void interpret(Interpreter context)
-	{
-		context.regForm(id);
-
-		for(FormItem f: formItems)
-		{
-			f.interpret(context);
-		}
+		v.visit(this);
 	}
 }

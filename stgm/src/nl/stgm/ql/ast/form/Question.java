@@ -1,9 +1,6 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.pretty.*;
-import nl.stgm.ql.inspectors.checker.*;
-import nl.stgm.ql.inspectors.interpreter.*;
 
 public class Question extends FormItem
 {
@@ -18,18 +15,23 @@ public class Question extends FormItem
 		this.type = Type.parse(type);
 	}
 	
-	public void print(PrettyPrinter context)
+	public String id()
 	{
-		context.println(id + ": " + question + " " + type);
+		return this.id;
+	}
+	
+	public String question()
+	{
+		return this.question;
+	}
+	
+	public Type type()
+	{
+		return this.type;
 	}
 
-	public void check(Checker context)
+	public void accept(Visitor v)
 	{
-		context.checkQuestion(this.id, this.type, false);
-	}
-
-	public void interpret(Interpreter context)
-	{
-		context.regQuestion(this.id, this.question, this.type);
+		v.visit(this);
 	}
 }

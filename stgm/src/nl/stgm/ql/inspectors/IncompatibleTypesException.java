@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors.checker;
+package nl.stgm.ql.inspectors;
 
 public class IncompatibleTypesException extends Exception
 {
