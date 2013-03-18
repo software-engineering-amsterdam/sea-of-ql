@@ -33,6 +33,6 @@ public class CalcQuestion extends Question
 
 	public void interpret(Interpreter context)
 	{
-		context.regCalcQuestion(this.id, this.question, this.calculation.reduce(context));
+		context.regCalcQuestion(this.id, this.question, this.calculation.reduceValue(context));
 	}
 }
