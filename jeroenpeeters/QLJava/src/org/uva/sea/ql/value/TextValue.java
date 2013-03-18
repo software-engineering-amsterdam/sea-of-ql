@@ -1,23 +1,22 @@
-package org.uva.sea.ql.valuesystem;
+package org.uva.sea.ql.value;
 
-import org.uva.sea.ql.ast.type.BooleanType;
+import org.uva.sea.ql.ast.type.TextType;
 
-public class BooleanValue implements Value{
-
-	private final boolean value;
+public class TextValue implements Value {
 	
-	public BooleanValue(boolean value) {
-		super();
+	private final String value;
+	
+	public TextValue(String value) {
 		this.value = value;
 	}
 
-	public boolean getValue() {
+	public String getValue() {
 		return value;
 	}
 
 	@Override
-	public BooleanType getType() {
-		return new BooleanType();
+	public TextType getType() {
+		return new TextType();
 	}
 
 	@Override
@@ -37,12 +36,12 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value and(Value otherValue) {
-		return otherValue.andBool(this);
+		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public Value andBool(BooleanValue otherValue) {
-		return new BooleanValue(otherValue.getValue() && value);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -62,11 +61,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value eq(Value otherValue) {
-		return otherValue.eqBool(this);
-	}
-	
-	public Value eqBool(BooleanValue otherValue){
-		return new BooleanValue(otherValue.getValue() == value);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -76,6 +71,11 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value eqMoney(MoneyValue otherValue) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Value eqBool(BooleanValue otherValue) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -108,12 +108,12 @@ public class BooleanValue implements Value{
 	public Value gtMoney(MoneyValue otherValue) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public Value leq(Value otherValue) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public Value leqInteger(IntegerValue otherValue) {
 		throw new UnsupportedOperationException();
@@ -156,7 +156,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value neq(Value otherValue) {
-		return otherValue.neqBool(this);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -168,20 +168,20 @@ public class BooleanValue implements Value{
 	public Value neqMoney(MoneyValue otherValue) {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public Value neqBool(BooleanValue otherValue) {
-		return new BooleanValue(otherValue.getValue() != value);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Value or(Value otherValue) {
-		return otherValue.orBool(this);
+		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public Value orBool(BooleanValue otherValue) {
-		return new BooleanValue(otherValue.getValue() || value);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -206,9 +206,9 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value not() {
-		return new BooleanValue(!value);
+		throw new UnsupportedOperationException();
 	}
-	
+
 	@Override
 	public Value pos() {
 		throw new UnsupportedOperationException();
@@ -216,7 +216,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public String toString() {
-		return ""+value;
+		return value;
 	}
 
 }

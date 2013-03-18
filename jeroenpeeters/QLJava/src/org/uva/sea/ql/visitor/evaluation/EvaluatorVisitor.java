@@ -23,10 +23,10 @@ import org.uva.sea.ql.ast.expression.Sub;
 import org.uva.sea.ql.ast.expression.literal.BooleanLiteral;
 import org.uva.sea.ql.ast.expression.literal.IntLiteral;
 import org.uva.sea.ql.ast.expression.literal.TextLiteral;
-import org.uva.sea.ql.valuesystem.BooleanValue;
-import org.uva.sea.ql.valuesystem.IntegerValue;
-import org.uva.sea.ql.valuesystem.TextValue;
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.BooleanValue;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.TextValue;
+import org.uva.sea.ql.value.Value;
 
 public class EvaluatorVisitor implements ExpressionVisitor<Value>{
 	

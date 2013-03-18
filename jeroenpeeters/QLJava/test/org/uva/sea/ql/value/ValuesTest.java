@@ -1,4 +1,4 @@
-package org.uva.sea.ql.valuesystem;
+package org.uva.sea.ql.value;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +8,10 @@ import org.junit.Test;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.IntegerType;
 import org.uva.sea.ql.ast.type.MoneyType;
+import org.uva.sea.ql.value.BooleanValue;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.MoneyValue;
+import org.uva.sea.ql.value.Value;
 
 public class ValuesTest {
 

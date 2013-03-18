@@ -6,8 +6,8 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.uva.sea.ql.valuesystem.TextValue;
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.TextValue;
+import org.uva.sea.ql.value.Value;
 
 public class TextWidget extends Widget implements DocumentListener {
 

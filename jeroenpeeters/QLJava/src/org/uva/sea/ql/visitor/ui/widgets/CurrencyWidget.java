@@ -2,9 +2,9 @@ package org.uva.sea.ql.visitor.ui.widgets;
 
 import java.text.DecimalFormat;
 
-import org.uva.sea.ql.valuesystem.IntegerValue;
-import org.uva.sea.ql.valuesystem.MoneyValue;
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.MoneyValue;
+import org.uva.sea.ql.value.Value;
 
 public class CurrencyWidget extends FormattedTextWidget {
 

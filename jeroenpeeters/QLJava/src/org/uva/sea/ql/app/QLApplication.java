@@ -14,7 +14,7 @@ import org.uva.sea.ql.ast.expression.Identifier;
 import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.evaluation.EvaluatorVisitor;
 import org.uva.sea.ql.visitor.semantics.TypeCheckError;
 import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;

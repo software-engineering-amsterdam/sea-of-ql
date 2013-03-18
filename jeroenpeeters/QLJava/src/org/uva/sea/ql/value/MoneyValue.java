@@ -1,4 +1,4 @@
-package org.uva.sea.ql.valuesystem;
+package org.uva.sea.ql.value;
 
 import org.uva.sea.ql.ast.type.MoneyType;
 

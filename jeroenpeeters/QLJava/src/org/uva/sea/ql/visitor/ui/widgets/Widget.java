@@ -7,7 +7,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.Value;
 
 public abstract class Widget extends JPanel{
 	

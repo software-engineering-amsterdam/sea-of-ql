@@ -2,8 +2,8 @@ package org.uva.sea.ql.visitor.ui.widgets;
 
 import java.text.NumberFormat;
 
-import org.uva.sea.ql.valuesystem.IntegerValue;
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.IntegerValue;
+import org.uva.sea.ql.value.Value;
 
 public class NumberWidget extends FormattedTextWidget {
 

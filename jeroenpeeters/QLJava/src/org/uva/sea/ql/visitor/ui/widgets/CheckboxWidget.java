@@ -7,8 +7,8 @@ import java.awt.event.ItemListener;
 import javax.swing.JCheckBox;
 import javax.swing.event.ChangeEvent;
 
-import org.uva.sea.ql.valuesystem.BooleanValue;
-import org.uva.sea.ql.valuesystem.Value;
+import org.uva.sea.ql.value.BooleanValue;
+import org.uva.sea.ql.value.Value;
 
 public class CheckboxWidget extends Widget implements ItemListener {
 
