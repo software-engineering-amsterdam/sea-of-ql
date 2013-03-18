@@ -15,9 +15,9 @@ import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.evaluation.EvaluatorVisitor;
-import org.uva.sea.ql.visitor.semantics.TypeCheckError;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
+import org.uva.sea.ql.visitor.EvaluatorVisitor;
+import org.uva.sea.ql.visitor.TypeCheckError;
+import org.uva.sea.ql.visitor.TypeCheckVisitor;
 import org.uva.sea.ql.visitor.ui.FormGeneratorVisitor;
 
 import com.google.common.collect.Maps;

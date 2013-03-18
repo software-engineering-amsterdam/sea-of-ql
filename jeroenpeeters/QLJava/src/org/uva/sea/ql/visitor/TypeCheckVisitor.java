@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.semantics;
+package org.uva.sea.ql.visitor;
 
 import java.util.Iterator;
 import java.util.List;

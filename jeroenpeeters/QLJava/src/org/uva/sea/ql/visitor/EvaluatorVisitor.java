@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.evaluation;
+package org.uva.sea.ql.visitor;
 
 import java.util.Map;
 

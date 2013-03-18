@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.semantics;
+package org.uva.sea.ql.visitor;
 
 public class TypeCheckError {
 

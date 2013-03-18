@@ -19,8 +19,8 @@ import org.uva.sea.ql.ast.type.UndefType;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
-import org.uva.sea.ql.visitor.semantics.TypeCheckError;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
+import org.uva.sea.ql.visitor.TypeCheckError;
+import org.uva.sea.ql.visitor.TypeCheckVisitor;
 
 import com.google.common.collect.Maps;
 
