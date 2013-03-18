@@ -22,11 +22,9 @@ import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.StatementVisitor;
 import org.uva.sea.ql.value.BooleanValue;
-import org.uva.sea.ql.value.MoneyValue;
 import org.uva.sea.ql.value.Value;
-import org.uva.sea.ql.visitor.ui.widgets.Widget;
 import org.uva.sea.ql.visitor.ui.widgets.DefaultWidgetFactoryFactory;
-import org.uva.sea.ql.visitor.ui.widgets.WidgetFactoryFactory;
+import org.uva.sea.ql.visitor.ui.widgets.Widget;
 import org.uva.sea.ql.visitor.ui.widgets.WidgetObserver;
 
 import com.google.common.collect.Maps;

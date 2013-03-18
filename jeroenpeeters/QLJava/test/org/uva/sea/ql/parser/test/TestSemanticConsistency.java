@@ -18,7 +18,7 @@ import org.uva.sea.ql.ast.statement.Form;
 import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
 
 import com.google.common.base.Joiner;
 
@@ -54,7 +54,7 @@ public class TestSemanticConsistency {
 		Form form = parser.parseForm(qlText);
 		assertNotNull(form);
 		
-		TypeCheckVisitor2 visitor = new TypeCheckVisitor2();
+		TypeCheckVisitor visitor = new TypeCheckVisitor();
 		form.accept(visitor);
 		
 		assertNotNull(visitor.getTypeCheckErrorIterator());

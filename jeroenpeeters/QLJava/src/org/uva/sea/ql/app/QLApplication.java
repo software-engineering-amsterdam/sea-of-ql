@@ -17,7 +17,7 @@ import org.uva.sea.ql.parser.jacc.JaccQLParser;
 import org.uva.sea.ql.value.Value;
 import org.uva.sea.ql.visitor.evaluation.EvaluatorVisitor;
 import org.uva.sea.ql.visitor.semantics.TypeCheckError;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
 import org.uva.sea.ql.visitor.ui.FormGeneratorVisitor;
 
 import com.google.common.collect.Maps;
@@ -59,7 +59,7 @@ public class QLApplication {
 	}
 	
 	private static boolean typeCheck(final Form qlForm){
-		final TypeCheckVisitor2 typeCheckVisitor = new TypeCheckVisitor2();
+		final TypeCheckVisitor typeCheckVisitor = new TypeCheckVisitor();
 		qlForm.accept(typeCheckVisitor);
 		if(typeCheckVisitor.hasTypeCheckErrors()){
 			System.out.println("The following errors exist:");

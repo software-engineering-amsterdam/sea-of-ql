@@ -20,7 +20,7 @@ import org.uva.sea.ql.parser.IParse;
 import org.uva.sea.ql.parser.ParseError;
 import org.uva.sea.ql.parser.jacc.JaccQLParser;
 import org.uva.sea.ql.visitor.semantics.TypeCheckError;
-import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor2;
+import org.uva.sea.ql.visitor.semantics.TypeCheckVisitor;
 
 import com.google.common.collect.Maps;
 
@@ -69,7 +69,7 @@ public class TestTypeChecking {
 		Expression expr = parser.parseExpression(qlText);
 		assertNotNull(expr);
 
-		TypeCheckVisitor2 visitor = new TypeCheckVisitor2(typeEnv);
+		TypeCheckVisitor visitor = new TypeCheckVisitor(typeEnv);
 		expr.accept(visitor);
 		
 		System.out.println("===== >" + qlText);

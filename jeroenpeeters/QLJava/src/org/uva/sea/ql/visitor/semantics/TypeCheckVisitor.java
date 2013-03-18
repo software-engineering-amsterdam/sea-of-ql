@@ -44,17 +44,17 @@ import org.uva.sea.ql.ast.type.UndefType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-public class TypeCheckVisitor2 implements ExpressionVisitor<Type>, StatementVisitor<Void> {
+public class TypeCheckVisitor implements ExpressionVisitor<Type>, StatementVisitor<Void> {
 
 	private final Map<Identifier, Type> typeEnv;
 
 	private final List<TypeCheckError> errorList = Lists.newArrayList();
 	
-	public TypeCheckVisitor2(){
+	public TypeCheckVisitor(){
 		typeEnv = Maps.newHashMap();
 	}
 	
-	public TypeCheckVisitor2(final Map<Identifier, Type> typeEnv){
+	public TypeCheckVisitor(final Map<Identifier, Type> typeEnv){
 		this.typeEnv = typeEnv;
 	}
 
