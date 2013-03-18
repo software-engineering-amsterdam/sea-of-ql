@@ -1,10 +1,12 @@
-// $ANTLR 3.5 C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-02-25 01:22:47
+// $ANTLR 3.5 C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-03-17 20:48:04
 
 package org.uva.sea.ql.parser.antlr;
 
 import org.uva.sea.ql.ast.nodes.expressions.*;
 import org.uva.sea.ql.ast.nodes.statements.*;
-
+import org.uva.sea.ql.parser.antlr.error.ANTLRError;
+import org.uva.sea.ql.parser.antlr.error.ParseError;
+import org.uva.sea.ql.parser.antlr.error.LexerError;
 
 
 import org.antlr.runtime.*;
@@ -106,9 +108,20 @@ public class QLParser extends Parser {
 	@Override public String getGrammarFileName() { return "C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g"; }
 
 
+	  private List<ANTLRError> errors = new ArrayList<ANTLRError>();
+	  public List<ANTLRError> getErrors(){
+	  	return this.errors;
+	  }
+	  
+	  @Override
+	  public void reportError(RecognitionException e) {
+	    this.errors.add(new ParseError(getErrorHeader(e)));
+	  }
+
+
 
 	// $ANTLR start "start"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:19:1: start returns [Statement result] : fD= formDeclaration ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:48:1: start returns [Statement result] : fD= formDeclaration ;
 	public final Statement start() throws RecognitionException {
 		Statement result = null;
 
@@ -119,10 +132,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 1) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:2: (fD= formDeclaration )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:20:4: fD= formDeclaration
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:49:2: (fD= formDeclaration )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:49:4: fD= formDeclaration
 			{
-			pushFollow(FOLLOW_formDeclaration_in_start48);
+			pushFollow(FOLLOW_formDeclaration_in_start66);
 			fD=formDeclaration();
 			state._fsp--;
 			if (state.failed) return result;
@@ -146,7 +159,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "formDeclaration"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:23:1: formDeclaration returns [Statement result] : ( FORM i= FORMIDENT b= block |x= block |x= statement |x= ifStatement |x= ifElseStatement );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:1: formDeclaration returns [Statement result] : ( FORM i= FORMIDENT b= block |x= block |x= statement |x= ifStatement |x= ifElseStatement );
 	public final Statement formDeclaration() throws RecognitionException {
 		Statement result = null;
 
@@ -159,7 +172,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 2) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:2: ( FORM i= FORMIDENT b= block |x= block |x= statement |x= ifStatement |x= ifElseStatement )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:2: ( FORM i= FORMIDENT b= block |x= block |x= statement |x= ifStatement |x= ifElseStatement )
 			int alt1=5;
 			switch ( input.LA(1) ) {
 			case FORM:
@@ -200,11 +213,11 @@ public class QLParser extends Parser {
 			}
 			switch (alt1) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:24:4: FORM i= FORMIDENT b= block
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:4: FORM i= FORMIDENT b= block
 					{
-					match(input,FORM,FOLLOW_FORM_in_formDeclaration65); if (state.failed) return result;
-					i=(Token)match(input,FORMIDENT,FOLLOW_FORMIDENT_in_formDeclaration69); if (state.failed) return result;
-					pushFollow(FOLLOW_block_in_formDeclaration73);
+					match(input,FORM,FOLLOW_FORM_in_formDeclaration83); if (state.failed) return result;
+					i=(Token)match(input,FORMIDENT,FOLLOW_FORMIDENT_in_formDeclaration87); if (state.failed) return result;
+					pushFollow(FOLLOW_block_in_formDeclaration91);
 					b=block();
 					state._fsp--;
 					if (state.failed) return result;
@@ -212,9 +225,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:26:4: x= block
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:55:4: x= block
 					{
-					pushFollow(FOLLOW_block_in_formDeclaration84);
+					pushFollow(FOLLOW_block_in_formDeclaration102);
 					x=block();
 					state._fsp--;
 					if (state.failed) return result;
@@ -222,9 +235,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:4: x= statement
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:4: x= statement
 					{
-					pushFollow(FOLLOW_statement_in_formDeclaration93);
+					pushFollow(FOLLOW_statement_in_formDeclaration111);
 					x=statement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -232,9 +245,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:4: x= ifStatement
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:4: x= ifStatement
 					{
-					pushFollow(FOLLOW_ifStatement_in_formDeclaration102);
+					pushFollow(FOLLOW_ifStatement_in_formDeclaration120);
 					x=ifStatement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -242,9 +255,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 5 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:29:4: x= ifElseStatement
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:4: x= ifElseStatement
 					{
-					pushFollow(FOLLOW_ifElseStatement_in_formDeclaration111);
+					pushFollow(FOLLOW_ifElseStatement_in_formDeclaration129);
 					x=ifElseStatement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -270,7 +283,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "blockContent"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:32:1: blockContent returns [ArrayList<Statement> result] : (v= statement )* ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:61:1: blockContent returns [ArrayList<Statement> result] : (v= statement )* ;
 	public final ArrayList<Statement> blockContent() throws RecognitionException {
 		ArrayList<Statement> result = null;
 
@@ -284,10 +297,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 3) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:6: ( (v= statement )* )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:8: (v= statement )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:6: ( (v= statement )* )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:8: (v= statement )*
 			{
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:8: (v= statement )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:8: (v= statement )*
 			loop2:
 			while (true) {
 				int alt2=2;
@@ -298,9 +311,9 @@ public class QLParser extends Parser {
 
 				switch (alt2) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:37:9: v= statement
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:66:9: v= statement
 					{
-					pushFollow(FOLLOW_statement_in_blockContent143);
+					pushFollow(FOLLOW_statement_in_blockContent161);
 					v=statement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -332,7 +345,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "block"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:40:1: block returns [Statement result] : LCB b= blockContent RCB ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:69:1: block returns [Statement result] : LCB b= blockContent RCB ;
 	public final Statement block() throws RecognitionException {
 		Statement result = null;
 
@@ -343,15 +356,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 4) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:2: ( LCB b= blockContent RCB )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:41:4: LCB b= blockContent RCB
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:70:2: ( LCB b= blockContent RCB )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:70:4: LCB b= blockContent RCB
 			{
-			match(input,LCB,FOLLOW_LCB_in_block164); if (state.failed) return result;
-			pushFollow(FOLLOW_blockContent_in_block168);
+			match(input,LCB,FOLLOW_LCB_in_block182); if (state.failed) return result;
+			pushFollow(FOLLOW_blockContent_in_block186);
 			b=blockContent();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,RCB,FOLLOW_RCB_in_block170); if (state.failed) return result;
+			match(input,RCB,FOLLOW_RCB_in_block188); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = new Block(b); }
 			}
 
@@ -372,7 +385,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifStatement"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:44:1: ifStatement returns [Statement result] : ic= ifCondition ib= block ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:73:1: ifStatement returns [Statement result] : ic= ifCondition ib= block ;
 	public final Statement ifStatement() throws RecognitionException {
 		Statement result = null;
 
@@ -384,14 +397,14 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 5) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:2: (ic= ifCondition ib= block )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:45:4: ic= ifCondition ib= block
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:74:2: (ic= ifCondition ib= block )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:74:4: ic= ifCondition ib= block
 			{
-			pushFollow(FOLLOW_ifCondition_in_ifStatement189);
+			pushFollow(FOLLOW_ifCondition_in_ifStatement207);
 			ic=ifCondition();
 			state._fsp--;
 			if (state.failed) return result;
-			pushFollow(FOLLOW_block_in_ifStatement193);
+			pushFollow(FOLLOW_block_in_ifStatement211);
 			ib=block();
 			state._fsp--;
 			if (state.failed) return result;
@@ -415,7 +428,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifElseStatement"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:47:1: ifElseStatement returns [Statement result] : ic= ifCondition ib= block ELSE eb= block ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:1: ifElseStatement returns [Statement result] : ic= ifCondition ib= block ELSE eb= block ;
 	public final Statement ifElseStatement() throws RecognitionException {
 		Statement result = null;
 
@@ -428,19 +441,19 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 6) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:48:2: (ic= ifCondition ib= block ELSE eb= block )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:48:4: ic= ifCondition ib= block ELSE eb= block
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:77:2: (ic= ifCondition ib= block ELSE eb= block )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:77:4: ic= ifCondition ib= block ELSE eb= block
 			{
-			pushFollow(FOLLOW_ifCondition_in_ifElseStatement211);
+			pushFollow(FOLLOW_ifCondition_in_ifElseStatement229);
 			ic=ifCondition();
 			state._fsp--;
 			if (state.failed) return result;
-			pushFollow(FOLLOW_block_in_ifElseStatement215);
+			pushFollow(FOLLOW_block_in_ifElseStatement233);
 			ib=block();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,ELSE,FOLLOW_ELSE_in_ifElseStatement217); if (state.failed) return result;
-			pushFollow(FOLLOW_block_in_ifElseStatement221);
+			match(input,ELSE,FOLLOW_ELSE_in_ifElseStatement235); if (state.failed) return result;
+			pushFollow(FOLLOW_block_in_ifElseStatement239);
 			eb=block();
 			state._fsp--;
 			if (state.failed) return result;
@@ -464,7 +477,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "statement"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:51:1: statement returns [Statement result] : (cqd= compQuestionDeclaration |qd= questionDeclaration |ie= ifElseStatement |is= ifStatement );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:1: statement returns [Statement result] : (cqd= compQuestionDeclaration |qd= questionDeclaration |ie= ifElseStatement |is= ifStatement );
 	public final Statement statement() throws RecognitionException {
 		Statement result = null;
 
@@ -478,7 +491,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 7) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:2: (cqd= compQuestionDeclaration |qd= questionDeclaration |ie= ifElseStatement |is= ifStatement )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:2: (cqd= compQuestionDeclaration |qd= questionDeclaration |ie= ifElseStatement |is= ifStatement )
 			int alt3=4;
 			int LA3_0 = input.LA(1);
 			if ( (LA3_0==IDENT) ) {
@@ -524,9 +537,9 @@ public class QLParser extends Parser {
 
 			switch (alt3) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:4: cqd= compQuestionDeclaration
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:4: cqd= compQuestionDeclaration
 					{
-					pushFollow(FOLLOW_compQuestionDeclaration_in_statement242);
+					pushFollow(FOLLOW_compQuestionDeclaration_in_statement260);
 					cqd=compQuestionDeclaration();
 					state._fsp--;
 					if (state.failed) return result;
@@ -534,9 +547,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:4: qd= questionDeclaration
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:4: qd= questionDeclaration
 					{
-					pushFollow(FOLLOW_questionDeclaration_in_statement251);
+					pushFollow(FOLLOW_questionDeclaration_in_statement269);
 					qd=questionDeclaration();
 					state._fsp--;
 					if (state.failed) return result;
@@ -544,9 +557,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:4: ie= ifElseStatement
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:83:4: ie= ifElseStatement
 					{
-					pushFollow(FOLLOW_ifElseStatement_in_statement260);
+					pushFollow(FOLLOW_ifElseStatement_in_statement278);
 					ie=ifElseStatement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -554,9 +567,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:55:4: is= ifStatement
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:4: is= ifStatement
 					{
-					pushFollow(FOLLOW_ifStatement_in_statement269);
+					pushFollow(FOLLOW_ifStatement_in_statement287);
 					is=ifStatement();
 					state._fsp--;
 					if (state.failed) return result;
@@ -582,7 +595,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "ifCondition"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:58:1: ifCondition returns [Expr result] : ( IF LB x= IDENT RB | IF LB e= orExpr RB );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:1: ifCondition returns [Expr result] : ( IF LB x= IDENT RB | IF LB e= orExpr RB );
 	public final Expr ifCondition() throws RecognitionException {
 		Expr result = null;
 
@@ -594,7 +607,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 8) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:2: ( IF LB x= IDENT RB | IF LB e= orExpr RB )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:88:2: ( IF LB x= IDENT RB | IF LB e= orExpr RB )
 			int alt4=2;
 			int LA4_0 = input.LA(1);
 			if ( (LA4_0==IF) ) {
@@ -678,25 +691,25 @@ public class QLParser extends Parser {
 
 			switch (alt4) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:4: IF LB x= IDENT RB
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:88:4: IF LB x= IDENT RB
 					{
-					match(input,IF,FOLLOW_IF_in_ifCondition287); if (state.failed) return result;
-					match(input,LB,FOLLOW_LB_in_ifCondition289); if (state.failed) return result;
-					x=(Token)match(input,IDENT,FOLLOW_IDENT_in_ifCondition293); if (state.failed) return result;
-					match(input,RB,FOLLOW_RB_in_ifCondition295); if (state.failed) return result;
+					match(input,IF,FOLLOW_IF_in_ifCondition305); if (state.failed) return result;
+					match(input,LB,FOLLOW_LB_in_ifCondition307); if (state.failed) return result;
+					x=(Token)match(input,IDENT,FOLLOW_IDENT_in_ifCondition311); if (state.failed) return result;
+					match(input,RB,FOLLOW_RB_in_ifCondition313); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((x!=null?x.getText():null)); }
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:60:4: IF LB e= orExpr RB
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:89:4: IF LB e= orExpr RB
 					{
-					match(input,IF,FOLLOW_IF_in_ifCondition302); if (state.failed) return result;
-					match(input,LB,FOLLOW_LB_in_ifCondition304); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpr_in_ifCondition308);
+					match(input,IF,FOLLOW_IF_in_ifCondition320); if (state.failed) return result;
+					match(input,LB,FOLLOW_LB_in_ifCondition322); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpr_in_ifCondition326);
 					e=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,RB,FOLLOW_RB_in_ifCondition310); if (state.failed) return result;
+					match(input,RB,FOLLOW_RB_in_ifCondition328); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = e; }
 					}
 					break;
@@ -719,7 +732,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "typeMoney"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:63:1: typeMoney returns [Expr result] : m= MONEY ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:92:1: typeMoney returns [Expr result] : m= MONEY ;
 	public final Expr typeMoney() throws RecognitionException {
 		Expr result = null;
 
@@ -730,10 +743,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 9) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:64:2: (m= MONEY )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:64:4: m= MONEY
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:93:2: (m= MONEY )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:93:4: m= MONEY
 			{
-			m=(Token)match(input,MONEY,FOLLOW_MONEY_in_typeMoney329); if (state.failed) return result;
+			m=(Token)match(input,MONEY,FOLLOW_MONEY_in_typeMoney347); if (state.failed) return result;
 			if ( state.backtracking==0 ) {result = new Money((m!=null?m.getText():null));}
 			}
 
@@ -754,7 +767,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "typeBoolean"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:67:1: typeBoolean returns [Expr result] : b= BOOLEAN ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:96:1: typeBoolean returns [Expr result] : b= BOOLEAN ;
 	public final Expr typeBoolean() throws RecognitionException {
 		Expr result = null;
 
@@ -765,10 +778,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 10) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:68:2: (b= BOOLEAN )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:68:4: b= BOOLEAN
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:97:2: (b= BOOLEAN )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:97:4: b= BOOLEAN
 			{
-			b=(Token)match(input,BOOLEAN,FOLLOW_BOOLEAN_in_typeBoolean349); if (state.failed) return result;
+			b=(Token)match(input,BOOLEAN,FOLLOW_BOOLEAN_in_typeBoolean367); if (state.failed) return result;
 			if ( state.backtracking==0 ) {result = new Bool((b!=null?b.getText():null));}
 			}
 
@@ -789,7 +802,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "typeInteger"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:71:1: typeInteger returns [Expr result] : i= INT ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:1: typeInteger returns [Expr result] : i= INT ;
 	public final Expr typeInteger() throws RecognitionException {
 		Expr result = null;
 
@@ -800,10 +813,10 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 11) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:72:2: (i= INT )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:72:4: i= INT
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:2: (i= INT )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:4: i= INT
 			{
-			i=(Token)match(input,INT,FOLLOW_INT_in_typeInteger369); if (state.failed) return result;
+			i=(Token)match(input,INT,FOLLOW_INT_in_typeInteger387); if (state.failed) return result;
 			if ( state.backtracking==0 ) {result = new Int((i!=null?i.getText():null));}
 			}
 
@@ -824,7 +837,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "compTypeMoney"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:75:1: compTypeMoney returns [Expr result] : MONEY LB (x= addExpr |x= mulExpr ) RB ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:104:1: compTypeMoney returns [Expr result] : MONEY LB (x= addExpr |x= mulExpr ) RB ;
 	public final Expr compTypeMoney() throws RecognitionException {
 		Expr result = null;
 
@@ -835,12 +848,12 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 12) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:2: ( MONEY LB (x= addExpr |x= mulExpr ) RB )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:4: MONEY LB (x= addExpr |x= mulExpr ) RB
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:2: ( MONEY LB (x= addExpr |x= mulExpr ) RB )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:4: MONEY LB (x= addExpr |x= mulExpr ) RB
 			{
-			match(input,MONEY,FOLLOW_MONEY_in_compTypeMoney386); if (state.failed) return result;
-			match(input,LB,FOLLOW_LB_in_compTypeMoney388); if (state.failed) return result;
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:13: (x= addExpr |x= mulExpr )
+			match(input,MONEY,FOLLOW_MONEY_in_compTypeMoney404); if (state.failed) return result;
+			match(input,LB,FOLLOW_LB_in_compTypeMoney406); if (state.failed) return result;
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:13: (x= addExpr |x= mulExpr )
 			int alt5=2;
 			switch ( input.LA(1) ) {
 			case 51:
@@ -959,18 +972,18 @@ public class QLParser extends Parser {
 			}
 			switch (alt5) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:15: x= addExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:15: x= addExpr
 					{
-					pushFollow(FOLLOW_addExpr_in_compTypeMoney394);
+					pushFollow(FOLLOW_addExpr_in_compTypeMoney412);
 					x=addExpr();
 					state._fsp--;
 					if (state.failed) return result;
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:27: x= mulExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:27: x= mulExpr
 					{
-					pushFollow(FOLLOW_mulExpr_in_compTypeMoney400);
+					pushFollow(FOLLOW_mulExpr_in_compTypeMoney418);
 					x=mulExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -979,7 +992,7 @@ public class QLParser extends Parser {
 
 			}
 
-			match(input,RB,FOLLOW_RB_in_compTypeMoney404); if (state.failed) return result;
+			match(input,RB,FOLLOW_RB_in_compTypeMoney422); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = new CompMoney(x); }
 			}
 
@@ -1000,7 +1013,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "compTypeBoolean"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:79:1: compTypeBoolean returns [Expr result] : BOOLEAN LB bx= boolExpr RB ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:1: compTypeBoolean returns [Expr result] : BOOLEAN LB bx= boolExpr RB ;
 	public final Expr compTypeBoolean() throws RecognitionException {
 		Expr result = null;
 
@@ -1011,16 +1024,16 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 13) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:2: ( BOOLEAN LB bx= boolExpr RB )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:80:4: BOOLEAN LB bx= boolExpr RB
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:2: ( BOOLEAN LB bx= boolExpr RB )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:4: BOOLEAN LB bx= boolExpr RB
 			{
-			match(input,BOOLEAN,FOLLOW_BOOLEAN_in_compTypeBoolean421); if (state.failed) return result;
-			match(input,LB,FOLLOW_LB_in_compTypeBoolean423); if (state.failed) return result;
-			pushFollow(FOLLOW_boolExpr_in_compTypeBoolean427);
+			match(input,BOOLEAN,FOLLOW_BOOLEAN_in_compTypeBoolean439); if (state.failed) return result;
+			match(input,LB,FOLLOW_LB_in_compTypeBoolean441); if (state.failed) return result;
+			pushFollow(FOLLOW_boolExpr_in_compTypeBoolean445);
 			bx=boolExpr();
 			state._fsp--;
 			if (state.failed) return result;
-			match(input,RB,FOLLOW_RB_in_compTypeBoolean429); if (state.failed) return result;
+			match(input,RB,FOLLOW_RB_in_compTypeBoolean447); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = new CompBool(bx); }
 			}
 
@@ -1041,7 +1054,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "compTypeInteger"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:83:1: compTypeInteger returns [Expr result] : INT LB (x= addExpr |x= mulExpr ) RB ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:112:1: compTypeInteger returns [Expr result] : INT LB (x= addExpr |x= mulExpr ) RB ;
 	public final Expr compTypeInteger() throws RecognitionException {
 		Expr result = null;
 
@@ -1052,12 +1065,12 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 14) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:2: ( INT LB (x= addExpr |x= mulExpr ) RB )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:4: INT LB (x= addExpr |x= mulExpr ) RB
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:2: ( INT LB (x= addExpr |x= mulExpr ) RB )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:4: INT LB (x= addExpr |x= mulExpr ) RB
 			{
-			match(input,INT,FOLLOW_INT_in_compTypeInteger446); if (state.failed) return result;
-			match(input,LB,FOLLOW_LB_in_compTypeInteger448); if (state.failed) return result;
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:11: (x= addExpr |x= mulExpr )
+			match(input,INT,FOLLOW_INT_in_compTypeInteger464); if (state.failed) return result;
+			match(input,LB,FOLLOW_LB_in_compTypeInteger466); if (state.failed) return result;
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:11: (x= addExpr |x= mulExpr )
 			int alt6=2;
 			switch ( input.LA(1) ) {
 			case 51:
@@ -1176,18 +1189,18 @@ public class QLParser extends Parser {
 			}
 			switch (alt6) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:13: x= addExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:13: x= addExpr
 					{
-					pushFollow(FOLLOW_addExpr_in_compTypeInteger454);
+					pushFollow(FOLLOW_addExpr_in_compTypeInteger472);
 					x=addExpr();
 					state._fsp--;
 					if (state.failed) return result;
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:25: x= mulExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:25: x= mulExpr
 					{
-					pushFollow(FOLLOW_mulExpr_in_compTypeInteger460);
+					pushFollow(FOLLOW_mulExpr_in_compTypeInteger478);
 					x=mulExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1196,7 +1209,7 @@ public class QLParser extends Parser {
 
 			}
 
-			match(input,RB,FOLLOW_RB_in_compTypeInteger464); if (state.failed) return result;
+			match(input,RB,FOLLOW_RB_in_compTypeInteger482); if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = new CompInt(x); }
 			}
 
@@ -1217,7 +1230,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "compQuestionDeclaration"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:87:1: compQuestionDeclaration returns [Statement result] : (i= IDENT CL s= STRING cb= compTypeBoolean |i= IDENT CL s= STRING cm= compTypeMoney |i= IDENT CL s= STRING ci= compTypeInteger );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:1: compQuestionDeclaration returns [Statement result] : (i= IDENT CL s= STRING cb= compTypeBoolean |i= IDENT CL s= STRING cm= compTypeMoney |i= IDENT CL s= STRING ci= compTypeInteger );
 	public final Statement compQuestionDeclaration() throws RecognitionException {
 		Statement result = null;
 
@@ -1232,7 +1245,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 15) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:88:2: (i= IDENT CL s= STRING cb= compTypeBoolean |i= IDENT CL s= STRING cm= compTypeMoney |i= IDENT CL s= STRING ci= compTypeInteger )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:2: (i= IDENT CL s= STRING cb= compTypeBoolean |i= IDENT CL s= STRING cm= compTypeMoney |i= IDENT CL s= STRING ci= compTypeInteger )
 			int alt7=3;
 			int LA7_0 = input.LA(1);
 			if ( (LA7_0==IDENT) ) {
@@ -1313,12 +1326,12 @@ public class QLParser extends Parser {
 
 			switch (alt7) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:88:4: i= IDENT CL s= STRING cb= compTypeBoolean
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:4: i= IDENT CL s= STRING cb= compTypeBoolean
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_compQuestionDeclaration483); if (state.failed) return result;
-					match(input,CL,FOLLOW_CL_in_compQuestionDeclaration485); if (state.failed) return result;
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_compQuestionDeclaration489); if (state.failed) return result;
-					pushFollow(FOLLOW_compTypeBoolean_in_compQuestionDeclaration493);
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_compQuestionDeclaration501); if (state.failed) return result;
+					match(input,CL,FOLLOW_CL_in_compQuestionDeclaration503); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_compQuestionDeclaration507); if (state.failed) return result;
+					pushFollow(FOLLOW_compTypeBoolean_in_compQuestionDeclaration511);
 					cb=compTypeBoolean();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1326,12 +1339,12 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:89:4: i= IDENT CL s= STRING cm= compTypeMoney
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:4: i= IDENT CL s= STRING cm= compTypeMoney
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_compQuestionDeclaration502); if (state.failed) return result;
-					match(input,CL,FOLLOW_CL_in_compQuestionDeclaration504); if (state.failed) return result;
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_compQuestionDeclaration508); if (state.failed) return result;
-					pushFollow(FOLLOW_compTypeMoney_in_compQuestionDeclaration512);
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_compQuestionDeclaration520); if (state.failed) return result;
+					match(input,CL,FOLLOW_CL_in_compQuestionDeclaration522); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_compQuestionDeclaration526); if (state.failed) return result;
+					pushFollow(FOLLOW_compTypeMoney_in_compQuestionDeclaration530);
 					cm=compTypeMoney();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1339,12 +1352,12 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:90:4: i= IDENT CL s= STRING ci= compTypeInteger
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:119:4: i= IDENT CL s= STRING ci= compTypeInteger
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_compQuestionDeclaration521); if (state.failed) return result;
-					match(input,CL,FOLLOW_CL_in_compQuestionDeclaration523); if (state.failed) return result;
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_compQuestionDeclaration527); if (state.failed) return result;
-					pushFollow(FOLLOW_compTypeInteger_in_compQuestionDeclaration531);
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_compQuestionDeclaration539); if (state.failed) return result;
+					match(input,CL,FOLLOW_CL_in_compQuestionDeclaration541); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_compQuestionDeclaration545); if (state.failed) return result;
+					pushFollow(FOLLOW_compTypeInteger_in_compQuestionDeclaration549);
 					ci=compTypeInteger();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1370,7 +1383,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "questionDeclaration"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:93:1: questionDeclaration returns [Statement result] : (i= IDENT CL s= STRING tb= typeBoolean |i= IDENT CL s= STRING tm= typeMoney |i= IDENT CL s= STRING ti= typeInteger );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:1: questionDeclaration returns [Statement result] : (i= IDENT CL s= STRING tb= typeBoolean |i= IDENT CL s= STRING tm= typeMoney |i= IDENT CL s= STRING ti= typeInteger );
 	public final Statement questionDeclaration() throws RecognitionException {
 		Statement result = null;
 
@@ -1385,7 +1398,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 16) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:2: (i= IDENT CL s= STRING tb= typeBoolean |i= IDENT CL s= STRING tm= typeMoney |i= IDENT CL s= STRING ti= typeInteger )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:2: (i= IDENT CL s= STRING tb= typeBoolean |i= IDENT CL s= STRING tm= typeMoney |i= IDENT CL s= STRING ti= typeInteger )
 			int alt8=3;
 			int LA8_0 = input.LA(1);
 			if ( (LA8_0==IDENT) ) {
@@ -1466,12 +1479,12 @@ public class QLParser extends Parser {
 
 			switch (alt8) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:94:4: i= IDENT CL s= STRING tb= typeBoolean
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:123:4: i= IDENT CL s= STRING tb= typeBoolean
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration551); if (state.failed) return result;
-					match(input,CL,FOLLOW_CL_in_questionDeclaration553); if (state.failed) return result;
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_questionDeclaration557); if (state.failed) return result;
-					pushFollow(FOLLOW_typeBoolean_in_questionDeclaration561);
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration569); if (state.failed) return result;
+					match(input,CL,FOLLOW_CL_in_questionDeclaration571); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_questionDeclaration575); if (state.failed) return result;
+					pushFollow(FOLLOW_typeBoolean_in_questionDeclaration579);
 					tb=typeBoolean();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1479,12 +1492,12 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:95:4: i= IDENT CL s= STRING tm= typeMoney
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:124:4: i= IDENT CL s= STRING tm= typeMoney
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration570); if (state.failed) return result;
-					match(input,CL,FOLLOW_CL_in_questionDeclaration572); if (state.failed) return result;
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_questionDeclaration576); if (state.failed) return result;
-					pushFollow(FOLLOW_typeMoney_in_questionDeclaration580);
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration588); if (state.failed) return result;
+					match(input,CL,FOLLOW_CL_in_questionDeclaration590); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_questionDeclaration594); if (state.failed) return result;
+					pushFollow(FOLLOW_typeMoney_in_questionDeclaration598);
 					tm=typeMoney();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1492,12 +1505,12 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:96:4: i= IDENT CL s= STRING ti= typeInteger
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:125:4: i= IDENT CL s= STRING ti= typeInteger
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration589); if (state.failed) return result;
-					match(input,CL,FOLLOW_CL_in_questionDeclaration591); if (state.failed) return result;
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_questionDeclaration595); if (state.failed) return result;
-					pushFollow(FOLLOW_typeInteger_in_questionDeclaration599);
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_questionDeclaration607); if (state.failed) return result;
+					match(input,CL,FOLLOW_CL_in_questionDeclaration609); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_questionDeclaration613); if (state.failed) return result;
+					pushFollow(FOLLOW_typeInteger_in_questionDeclaration617);
 					ti=typeInteger();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1523,7 +1536,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "boolExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:99:1: boolExpr returns [Expr result] : (rx= relExpr |ax= andExpr |ox= orExpr );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:128:1: boolExpr returns [Expr result] : (rx= relExpr |ax= andExpr |ox= orExpr );
 	public final Expr boolExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -1536,7 +1549,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 17) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:2: (rx= relExpr |ax= andExpr |ox= orExpr )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:2: (rx= relExpr |ax= andExpr |ox= orExpr )
 			int alt9=3;
 			switch ( input.LA(1) ) {
 			case 51:
@@ -1682,9 +1695,9 @@ public class QLParser extends Parser {
 			}
 			switch (alt9) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:4: rx= relExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:4: rx= relExpr
 					{
-					pushFollow(FOLLOW_relExpr_in_boolExpr619);
+					pushFollow(FOLLOW_relExpr_in_boolExpr637);
 					rx=relExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1692,9 +1705,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:4: ax= andExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:4: ax= andExpr
 					{
-					pushFollow(FOLLOW_andExpr_in_boolExpr628);
+					pushFollow(FOLLOW_andExpr_in_boolExpr646);
 					ax=andExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1702,9 +1715,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:102:4: ox= orExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:131:4: ox= orExpr
 					{
-					pushFollow(FOLLOW_orExpr_in_boolExpr637);
+					pushFollow(FOLLOW_orExpr_in_boolExpr655);
 					ox=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1730,7 +1743,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "primary"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:1: primary returns [Expr result] : (i= INT |s= STRING |m= MONEY |b= BOOLEAN | LB x= orExpr RB |i= IDENT );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:1: primary returns [Expr result] : (i= INT |s= STRING |m= MONEY |b= BOOLEAN | LB x= orExpr RB |i= IDENT );
 	public final Expr primary() throws RecognitionException {
 		Expr result = null;
 
@@ -1745,7 +1758,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 18) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:3: (i= INT |s= STRING |m= MONEY |b= BOOLEAN | LB x= orExpr RB |i= IDENT )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:3: (i= INT |s= STRING |m= MONEY |b= BOOLEAN | LB x= orExpr RB |i= IDENT )
 			int alt10=6;
 			switch ( input.LA(1) ) {
 			case INT:
@@ -1786,49 +1799,49 @@ public class QLParser extends Parser {
 			}
 			switch (alt10) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:106:5: i= INT
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:5: i= INT
 					{
-					i=(Token)match(input,INT,FOLLOW_INT_in_primary659); if (state.failed) return result;
+					i=(Token)match(input,INT,FOLLOW_INT_in_primary677); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Int((i!=null?i.getText():null)); }
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:107:5: s= STRING
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:136:5: s= STRING
 					{
-					s=(Token)match(input,STRING,FOLLOW_STRING_in_primary671); if (state.failed) return result;
+					s=(Token)match(input,STRING,FOLLOW_STRING_in_primary689); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Str((s!=null?s.getText():null)); }
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:108:5: m= MONEY
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:137:5: m= MONEY
 					{
-					m=(Token)match(input,MONEY,FOLLOW_MONEY_in_primary683); if (state.failed) return result;
+					m=(Token)match(input,MONEY,FOLLOW_MONEY_in_primary701); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Money((m!=null?m.getText():null)); }
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:109:5: b= BOOLEAN
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:138:5: b= BOOLEAN
 					{
-					b=(Token)match(input,BOOLEAN,FOLLOW_BOOLEAN_in_primary693); if (state.failed) return result;
+					b=(Token)match(input,BOOLEAN,FOLLOW_BOOLEAN_in_primary711); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Bool((b!=null?b.getText():null)); }
 					}
 					break;
 				case 5 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:110:5: LB x= orExpr RB
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:139:5: LB x= orExpr RB
 					{
-					match(input,LB,FOLLOW_LB_in_primary702); if (state.failed) return result;
-					pushFollow(FOLLOW_orExpr_in_primary706);
+					match(input,LB,FOLLOW_LB_in_primary720); if (state.failed) return result;
+					pushFollow(FOLLOW_orExpr_in_primary724);
 					x=orExpr();
 					state._fsp--;
 					if (state.failed) return result;
-					match(input,RB,FOLLOW_RB_in_primary708); if (state.failed) return result;
+					match(input,RB,FOLLOW_RB_in_primary726); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = x; }
 					}
 					break;
 				case 6 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:111:5: i= IDENT
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:140:5: i= IDENT
 					{
-					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary718); if (state.failed) return result;
+					i=(Token)match(input,IDENT,FOLLOW_IDENT_in_primary736); if (state.failed) return result;
 					if ( state.backtracking==0 ) { result = new Ident((i!=null?i.getText():null)); }
 					}
 					break;
@@ -1851,7 +1864,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "unExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:114:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:143:1: unExpr returns [Expr result] : ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary );
 	public final Expr unExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -1862,7 +1875,7 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 19) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:115:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:144:5: ( '+' x= unExpr | '-' x= unExpr | '!' x= unExpr |x= primary )
 			int alt11=4;
 			switch ( input.LA(1) ) {
 			case 51:
@@ -1898,10 +1911,10 @@ public class QLParser extends Parser {
 			}
 			switch (alt11) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:115:8: '+' x= unExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:144:8: '+' x= unExpr
 					{
-					match(input,51,FOLLOW_51_in_unExpr744); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr748);
+					match(input,51,FOLLOW_51_in_unExpr762); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr766);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1909,10 +1922,10 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 2 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:116:8: '-' x= unExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:145:8: '-' x= unExpr
 					{
-					match(input,52,FOLLOW_52_in_unExpr759); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr763);
+					match(input,52,FOLLOW_52_in_unExpr777); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr781);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1920,10 +1933,10 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 3 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:117:8: '!' x= unExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:146:8: '!' x= unExpr
 					{
-					match(input,47,FOLLOW_47_in_unExpr774); if (state.failed) return result;
-					pushFollow(FOLLOW_unExpr_in_unExpr778);
+					match(input,47,FOLLOW_47_in_unExpr792); if (state.failed) return result;
+					pushFollow(FOLLOW_unExpr_in_unExpr796);
 					x=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1931,9 +1944,9 @@ public class QLParser extends Parser {
 					}
 					break;
 				case 4 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:118:8: x= primary
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:147:8: x= primary
 					{
-					pushFollow(FOLLOW_primary_in_unExpr791);
+					pushFollow(FOLLOW_primary_in_unExpr809);
 					x=primary();
 					state._fsp--;
 					if (state.failed) return result;
@@ -1959,7 +1972,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "mulExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:121:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:150:1: mulExpr returns [Expr result] : lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* ;
 	public final Expr mulExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -1972,15 +1985,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 20) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:5: (lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )* )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:9: lhs= unExpr (op= ( '*' | '/' ) rhs= unExpr )*
 			{
-			pushFollow(FOLLOW_unExpr_in_mulExpr829);
+			pushFollow(FOLLOW_unExpr_in_mulExpr847);
 			lhs=unExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:45: (op= ( '*' | '/' ) rhs= unExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:45: (op= ( '*' | '/' ) rhs= unExpr )*
 			loop12:
 			while (true) {
 				int alt12=2;
@@ -1991,7 +2004,7 @@ public class QLParser extends Parser {
 
 				switch (alt12) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:122:47: op= ( '*' | '/' ) rhs= unExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:151:47: op= ( '*' | '/' ) rhs= unExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==BACKSLASH||input.LA(1)==50 ) {
@@ -2004,7 +2017,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_unExpr_in_mulExpr849);
+					pushFollow(FOLLOW_unExpr_in_mulExpr867);
 					rhs=unExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -2043,7 +2056,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "addExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:134:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:1: addExpr returns [Expr result] : lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* ;
 	public final Expr addExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -2056,15 +2069,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 21) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:5: (lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )* )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:9: lhs= mulExpr (op= ( '+' | '-' ) rhs= mulExpr )*
 			{
-			pushFollow(FOLLOW_mulExpr_in_addExpr890);
+			pushFollow(FOLLOW_mulExpr_in_addExpr908);
 			lhs=mulExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:46: (op= ( '+' | '-' ) rhs= mulExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:46: (op= ( '+' | '-' ) rhs= mulExpr )*
 			loop13:
 			while (true) {
 				int alt13=2;
@@ -2075,7 +2088,7 @@ public class QLParser extends Parser {
 
 				switch (alt13) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:135:48: op= ( '+' | '-' ) rhs= mulExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:48: op= ( '+' | '-' ) rhs= mulExpr
 					{
 					op=input.LT(1);
 					if ( (input.LA(1) >= 51 && input.LA(1) <= 52) ) {
@@ -2088,7 +2101,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_mulExpr_in_addExpr908);
+					pushFollow(FOLLOW_mulExpr_in_addExpr926);
 					rhs=mulExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -2127,7 +2140,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "relExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:146:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:175:1: relExpr returns [Expr result] : lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* ;
 	public final Expr relExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -2140,15 +2153,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 22) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:147:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:147:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:5: (lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )* )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:9: lhs= addExpr (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			{
-			pushFollow(FOLLOW_addExpr_in_relExpr943);
+			pushFollow(FOLLOW_addExpr_in_relExpr961);
 			lhs=addExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:147:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:46: (op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr )*
 			loop14:
 			while (true) {
 				int alt14=2;
@@ -2159,7 +2172,7 @@ public class QLParser extends Parser {
 
 				switch (alt14) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:147:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:48: op= ( '<' | '<=' | '>' | '>=' | '==' | '!=' ) rhs= addExpr
 					{
 					op=input.LT(1);
 					if ( input.LA(1)==48||(input.LA(1) >= 53 && input.LA(1) <= 57) ) {
@@ -2172,7 +2185,7 @@ public class QLParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					pushFollow(FOLLOW_addExpr_in_relExpr967);
+					pushFollow(FOLLOW_addExpr_in_relExpr985);
 					rhs=addExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -2223,7 +2236,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "andExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:170:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:199:1: andExpr returns [Expr result] : lhs= relExpr ( '&&' rhs= relExpr )* ;
 	public final Expr andExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -2235,15 +2248,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 23) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:9: lhs= relExpr ( '&&' rhs= relExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:200:5: (lhs= relExpr ( '&&' rhs= relExpr )* )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:200:9: lhs= relExpr ( '&&' rhs= relExpr )*
 			{
-			pushFollow(FOLLOW_relExpr_in_andExpr1005);
+			pushFollow(FOLLOW_relExpr_in_andExpr1023);
 			lhs=relExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result =lhs; }
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:46: ( '&&' rhs= relExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:200:46: ( '&&' rhs= relExpr )*
 			loop15:
 			while (true) {
 				int alt15=2;
@@ -2254,10 +2267,10 @@ public class QLParser extends Parser {
 
 				switch (alt15) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:48: '&&' rhs= relExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:200:48: '&&' rhs= relExpr
 					{
-					match(input,49,FOLLOW_49_in_andExpr1011); if (state.failed) return result;
-					pushFollow(FOLLOW_relExpr_in_andExpr1015);
+					match(input,49,FOLLOW_49_in_andExpr1029); if (state.failed) return result;
+					pushFollow(FOLLOW_relExpr_in_andExpr1033);
 					rhs=relExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -2289,7 +2302,7 @@ public class QLParser extends Parser {
 
 
 	// $ANTLR start "orExpr"
-	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:175:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
+	// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:204:1: orExpr returns [Expr result] : lhs= andExpr ( '||' rhs= andExpr )* ;
 	public final Expr orExpr() throws RecognitionException {
 		Expr result = null;
 
@@ -2301,15 +2314,15 @@ public class QLParser extends Parser {
 		try {
 			if ( state.backtracking>0 && alreadyParsedRule(input, 24) ) { return result; }
 
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:5: (lhs= andExpr ( '||' rhs= andExpr )* )
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:9: lhs= andExpr ( '||' rhs= andExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:205:5: (lhs= andExpr ( '||' rhs= andExpr )* )
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:205:9: lhs= andExpr ( '||' rhs= andExpr )*
 			{
-			pushFollow(FOLLOW_andExpr_in_orExpr1051);
+			pushFollow(FOLLOW_andExpr_in_orExpr1069);
 			lhs=andExpr();
 			state._fsp--;
 			if (state.failed) return result;
 			if ( state.backtracking==0 ) { result = lhs; }
-			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:48: ( '||' rhs= andExpr )*
+			// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:205:48: ( '||' rhs= andExpr )*
 			loop16:
 			while (true) {
 				int alt16=2;
@@ -2320,10 +2333,10 @@ public class QLParser extends Parser {
 
 				switch (alt16) {
 				case 1 :
-					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:50: '||' rhs= andExpr
+					// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:205:50: '||' rhs= andExpr
 					{
-					match(input,58,FOLLOW_58_in_orExpr1057); if (state.failed) return result;
-					pushFollow(FOLLOW_andExpr_in_orExpr1061);
+					match(input,58,FOLLOW_58_in_orExpr1075); if (state.failed) return result;
+					pushFollow(FOLLOW_andExpr_in_orExpr1079);
 					rhs=andExpr();
 					state._fsp--;
 					if (state.failed) return result;
@@ -2356,10 +2369,10 @@ public class QLParser extends Parser {
 	public final void synpred3_QL_fragment() throws RecognitionException {
 		Statement x =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:4: (x= statement )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:27:4: x= statement
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:4: (x= statement )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:56:4: x= statement
 		{
-		pushFollow(FOLLOW_statement_in_synpred3_QL93);
+		pushFollow(FOLLOW_statement_in_synpred3_QL111);
 		x=statement();
 		state._fsp--;
 		if (state.failed) return;
@@ -2372,10 +2385,10 @@ public class QLParser extends Parser {
 	public final void synpred4_QL_fragment() throws RecognitionException {
 		Statement x =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:4: (x= ifStatement )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:28:4: x= ifStatement
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:4: (x= ifStatement )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:57:4: x= ifStatement
 		{
-		pushFollow(FOLLOW_ifStatement_in_synpred4_QL102);
+		pushFollow(FOLLOW_ifStatement_in_synpred4_QL120);
 		x=ifStatement();
 		state._fsp--;
 		if (state.failed) return;
@@ -2388,10 +2401,10 @@ public class QLParser extends Parser {
 	public final void synpred6_QL_fragment() throws RecognitionException {
 		Statement cqd =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:4: (cqd= compQuestionDeclaration )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:52:4: cqd= compQuestionDeclaration
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:4: (cqd= compQuestionDeclaration )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:81:4: cqd= compQuestionDeclaration
 		{
-		pushFollow(FOLLOW_compQuestionDeclaration_in_synpred6_QL242);
+		pushFollow(FOLLOW_compQuestionDeclaration_in_synpred6_QL260);
 		cqd=compQuestionDeclaration();
 		state._fsp--;
 		if (state.failed) return;
@@ -2404,10 +2417,10 @@ public class QLParser extends Parser {
 	public final void synpred7_QL_fragment() throws RecognitionException {
 		Statement qd =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:4: (qd= questionDeclaration )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:53:4: qd= questionDeclaration
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:4: (qd= questionDeclaration )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:82:4: qd= questionDeclaration
 		{
-		pushFollow(FOLLOW_questionDeclaration_in_synpred7_QL251);
+		pushFollow(FOLLOW_questionDeclaration_in_synpred7_QL269);
 		qd=questionDeclaration();
 		state._fsp--;
 		if (state.failed) return;
@@ -2420,10 +2433,10 @@ public class QLParser extends Parser {
 	public final void synpred8_QL_fragment() throws RecognitionException {
 		Statement ie =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:4: (ie= ifElseStatement )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:54:4: ie= ifElseStatement
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:83:4: (ie= ifElseStatement )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:83:4: ie= ifElseStatement
 		{
-		pushFollow(FOLLOW_ifElseStatement_in_synpred8_QL260);
+		pushFollow(FOLLOW_ifElseStatement_in_synpred8_QL278);
 		ie=ifElseStatement();
 		state._fsp--;
 		if (state.failed) return;
@@ -2436,13 +2449,13 @@ public class QLParser extends Parser {
 	public final void synpred9_QL_fragment() throws RecognitionException {
 		Token x=null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:4: ( IF LB x= IDENT RB )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:59:4: IF LB x= IDENT RB
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:88:4: ( IF LB x= IDENT RB )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:88:4: IF LB x= IDENT RB
 		{
-		match(input,IF,FOLLOW_IF_in_synpred9_QL287); if (state.failed) return;
-		match(input,LB,FOLLOW_LB_in_synpred9_QL289); if (state.failed) return;
-		x=(Token)match(input,IDENT,FOLLOW_IDENT_in_synpred9_QL293); if (state.failed) return;
-		match(input,RB,FOLLOW_RB_in_synpred9_QL295); if (state.failed) return;
+		match(input,IF,FOLLOW_IF_in_synpred9_QL305); if (state.failed) return;
+		match(input,LB,FOLLOW_LB_in_synpred9_QL307); if (state.failed) return;
+		x=(Token)match(input,IDENT,FOLLOW_IDENT_in_synpred9_QL311); if (state.failed) return;
+		match(input,RB,FOLLOW_RB_in_synpred9_QL313); if (state.failed) return;
 		}
 
 	}
@@ -2452,10 +2465,10 @@ public class QLParser extends Parser {
 	public final void synpred10_QL_fragment() throws RecognitionException {
 		Expr x =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:15: (x= addExpr )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:76:15: x= addExpr
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:15: (x= addExpr )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:105:15: x= addExpr
 		{
-		pushFollow(FOLLOW_addExpr_in_synpred10_QL394);
+		pushFollow(FOLLOW_addExpr_in_synpred10_QL412);
 		x=addExpr();
 		state._fsp--;
 		if (state.failed) return;
@@ -2468,10 +2481,10 @@ public class QLParser extends Parser {
 	public final void synpred11_QL_fragment() throws RecognitionException {
 		Expr x =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:13: (x= addExpr )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:84:13: x= addExpr
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:13: (x= addExpr )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:113:13: x= addExpr
 		{
-		pushFollow(FOLLOW_addExpr_in_synpred11_QL454);
+		pushFollow(FOLLOW_addExpr_in_synpred11_QL472);
 		x=addExpr();
 		state._fsp--;
 		if (state.failed) return;
@@ -2484,10 +2497,10 @@ public class QLParser extends Parser {
 	public final void synpred16_QL_fragment() throws RecognitionException {
 		Expr rx =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:4: (rx= relExpr )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:100:4: rx= relExpr
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:4: (rx= relExpr )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:129:4: rx= relExpr
 		{
-		pushFollow(FOLLOW_relExpr_in_synpred16_QL619);
+		pushFollow(FOLLOW_relExpr_in_synpred16_QL637);
 		rx=relExpr();
 		state._fsp--;
 		if (state.failed) return;
@@ -2500,10 +2513,10 @@ public class QLParser extends Parser {
 	public final void synpred17_QL_fragment() throws RecognitionException {
 		Expr ax =null;
 
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:4: (ax= andExpr )
-		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:101:4: ax= andExpr
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:4: (ax= andExpr )
+		// C:\\Users\\Turambar\\eclipse-workspace\\sea-of-ql\\sroh10378782\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:130:4: ax= andExpr
 		{
-		pushFollow(FOLLOW_andExpr_in_synpred17_QL628);
+		pushFollow(FOLLOW_andExpr_in_synpred17_QL646);
 		ax=andExpr();
 		state._fsp--;
 		if (state.failed) return;
@@ -2657,121 +2670,121 @@ public class QLParser extends Parser {
 
 
 
-	public static final BitSet FOLLOW_formDeclaration_in_start48 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_FORM_in_formDeclaration65 = new BitSet(new long[]{0x0000000000010000L});
-	public static final BitSet FOLLOW_FORMIDENT_in_formDeclaration69 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_block_in_formDeclaration73 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_block_in_formDeclaration84 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_statement_in_formDeclaration93 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifStatement_in_formDeclaration102 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifElseStatement_in_formDeclaration111 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_statement_in_blockContent143 = new BitSet(new long[]{0x0000000000060002L});
-	public static final BitSet FOLLOW_LCB_in_block164 = new BitSet(new long[]{0x0000008000060000L});
-	public static final BitSet FOLLOW_blockContent_in_block168 = new BitSet(new long[]{0x0000008000000000L});
-	public static final BitSet FOLLOW_RCB_in_block170 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifCondition_in_ifStatement189 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_block_in_ifStatement193 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifCondition_in_ifElseStatement211 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_block_in_ifElseStatement215 = new BitSet(new long[]{0x0000000000004000L});
-	public static final BitSet FOLLOW_ELSE_in_ifElseStatement217 = new BitSet(new long[]{0x0000000020000000L});
-	public static final BitSet FOLLOW_block_in_ifElseStatement221 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_compQuestionDeclaration_in_statement242 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_questionDeclaration_in_statement251 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifElseStatement_in_statement260 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifStatement_in_statement269 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_ifCondition287 = new BitSet(new long[]{0x0000000010000000L});
-	public static final BitSet FOLLOW_LB_in_ifCondition289 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_IDENT_in_ifCondition293 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_ifCondition295 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_ifCondition302 = new BitSet(new long[]{0x0000000010000000L});
-	public static final BitSet FOLLOW_LB_in_ifCondition304 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_orExpr_in_ifCondition308 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_ifCondition310 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_MONEY_in_typeMoney329 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_BOOLEAN_in_typeBoolean349 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_INT_in_typeInteger369 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_MONEY_in_compTypeMoney386 = new BitSet(new long[]{0x0000000010000000L});
-	public static final BitSet FOLLOW_LB_in_compTypeMoney388 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_addExpr_in_compTypeMoney394 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_mulExpr_in_compTypeMoney400 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_compTypeMoney404 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_BOOLEAN_in_compTypeBoolean421 = new BitSet(new long[]{0x0000000010000000L});
-	public static final BitSet FOLLOW_LB_in_compTypeBoolean423 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_boolExpr_in_compTypeBoolean427 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_compTypeBoolean429 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_INT_in_compTypeInteger446 = new BitSet(new long[]{0x0000000010000000L});
-	public static final BitSet FOLLOW_LB_in_compTypeInteger448 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_addExpr_in_compTypeInteger454 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_mulExpr_in_compTypeInteger460 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_compTypeInteger464 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_compQuestionDeclaration483 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_CL_in_compQuestionDeclaration485 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_STRING_in_compQuestionDeclaration489 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_compTypeBoolean_in_compQuestionDeclaration493 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_compQuestionDeclaration502 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_CL_in_compQuestionDeclaration504 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_STRING_in_compQuestionDeclaration508 = new BitSet(new long[]{0x0000000400000000L});
-	public static final BitSet FOLLOW_compTypeMoney_in_compQuestionDeclaration512 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_compQuestionDeclaration521 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_CL_in_compQuestionDeclaration523 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_STRING_in_compQuestionDeclaration527 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_compTypeInteger_in_compQuestionDeclaration531 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_questionDeclaration551 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_CL_in_questionDeclaration553 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_STRING_in_questionDeclaration557 = new BitSet(new long[]{0x0000000000000020L});
-	public static final BitSet FOLLOW_typeBoolean_in_questionDeclaration561 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_questionDeclaration570 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_CL_in_questionDeclaration572 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_STRING_in_questionDeclaration576 = new BitSet(new long[]{0x0000000400000000L});
-	public static final BitSet FOLLOW_typeMoney_in_questionDeclaration580 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_questionDeclaration589 = new BitSet(new long[]{0x0000000000000040L});
-	public static final BitSet FOLLOW_CL_in_questionDeclaration591 = new BitSet(new long[]{0x0000080000000000L});
-	public static final BitSet FOLLOW_STRING_in_questionDeclaration595 = new BitSet(new long[]{0x0000000000080000L});
-	public static final BitSet FOLLOW_typeInteger_in_questionDeclaration599 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_relExpr_in_boolExpr619 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_andExpr_in_boolExpr628 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_orExpr_in_boolExpr637 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_INT_in_primary659 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_STRING_in_primary671 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_MONEY_in_primary683 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_BOOLEAN_in_primary693 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_LB_in_primary702 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_orExpr_in_primary706 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_primary708 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IDENT_in_primary718 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_51_in_unExpr744 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr748 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_52_in_unExpr759 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr763 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_47_in_unExpr774 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_unExpr_in_unExpr778 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_primary_in_unExpr791 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr829 = new BitSet(new long[]{0x0004000000000012L});
-	public static final BitSet FOLLOW_set_in_mulExpr837 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_unExpr_in_mulExpr849 = new BitSet(new long[]{0x0004000000000012L});
-	public static final BitSet FOLLOW_mulExpr_in_addExpr890 = new BitSet(new long[]{0x0018000000000002L});
-	public static final BitSet FOLLOW_set_in_addExpr898 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_formDeclaration_in_start66 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_FORM_in_formDeclaration83 = new BitSet(new long[]{0x0000000000010000L});
+	public static final BitSet FOLLOW_FORMIDENT_in_formDeclaration87 = new BitSet(new long[]{0x0000000020000000L});
+	public static final BitSet FOLLOW_block_in_formDeclaration91 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_block_in_formDeclaration102 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_statement_in_formDeclaration111 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifStatement_in_formDeclaration120 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifElseStatement_in_formDeclaration129 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_statement_in_blockContent161 = new BitSet(new long[]{0x0000000000060002L});
+	public static final BitSet FOLLOW_LCB_in_block182 = new BitSet(new long[]{0x0000008000060000L});
+	public static final BitSet FOLLOW_blockContent_in_block186 = new BitSet(new long[]{0x0000008000000000L});
+	public static final BitSet FOLLOW_RCB_in_block188 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifCondition_in_ifStatement207 = new BitSet(new long[]{0x0000000020000000L});
+	public static final BitSet FOLLOW_block_in_ifStatement211 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifCondition_in_ifElseStatement229 = new BitSet(new long[]{0x0000000020000000L});
+	public static final BitSet FOLLOW_block_in_ifElseStatement233 = new BitSet(new long[]{0x0000000000004000L});
+	public static final BitSet FOLLOW_ELSE_in_ifElseStatement235 = new BitSet(new long[]{0x0000000020000000L});
+	public static final BitSet FOLLOW_block_in_ifElseStatement239 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_compQuestionDeclaration_in_statement260 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_questionDeclaration_in_statement269 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifElseStatement_in_statement278 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifStatement_in_statement287 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_ifCondition305 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_LB_in_ifCondition307 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_IDENT_in_ifCondition311 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_ifCondition313 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_ifCondition320 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_LB_in_ifCondition322 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_orExpr_in_ifCondition326 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_ifCondition328 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_MONEY_in_typeMoney347 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BOOLEAN_in_typeBoolean367 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_INT_in_typeInteger387 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_MONEY_in_compTypeMoney404 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_LB_in_compTypeMoney406 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_addExpr_in_compTypeMoney412 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_mulExpr_in_compTypeMoney418 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_compTypeMoney422 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BOOLEAN_in_compTypeBoolean439 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_LB_in_compTypeBoolean441 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_boolExpr_in_compTypeBoolean445 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_compTypeBoolean447 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_INT_in_compTypeInteger464 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_LB_in_compTypeInteger466 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_addExpr_in_compTypeInteger472 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_mulExpr_in_compTypeInteger478 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_compTypeInteger482 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_compQuestionDeclaration501 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_CL_in_compQuestionDeclaration503 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_STRING_in_compQuestionDeclaration507 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_compTypeBoolean_in_compQuestionDeclaration511 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_compQuestionDeclaration520 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_CL_in_compQuestionDeclaration522 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_STRING_in_compQuestionDeclaration526 = new BitSet(new long[]{0x0000000400000000L});
+	public static final BitSet FOLLOW_compTypeMoney_in_compQuestionDeclaration530 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_compQuestionDeclaration539 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_CL_in_compQuestionDeclaration541 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_STRING_in_compQuestionDeclaration545 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_compTypeInteger_in_compQuestionDeclaration549 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_questionDeclaration569 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_CL_in_questionDeclaration571 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_STRING_in_questionDeclaration575 = new BitSet(new long[]{0x0000000000000020L});
+	public static final BitSet FOLLOW_typeBoolean_in_questionDeclaration579 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_questionDeclaration588 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_CL_in_questionDeclaration590 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_STRING_in_questionDeclaration594 = new BitSet(new long[]{0x0000000400000000L});
+	public static final BitSet FOLLOW_typeMoney_in_questionDeclaration598 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_questionDeclaration607 = new BitSet(new long[]{0x0000000000000040L});
+	public static final BitSet FOLLOW_CL_in_questionDeclaration609 = new BitSet(new long[]{0x0000080000000000L});
+	public static final BitSet FOLLOW_STRING_in_questionDeclaration613 = new BitSet(new long[]{0x0000000000080000L});
+	public static final BitSet FOLLOW_typeInteger_in_questionDeclaration617 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_relExpr_in_boolExpr637 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_andExpr_in_boolExpr646 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_orExpr_in_boolExpr655 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_INT_in_primary677 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_STRING_in_primary689 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_MONEY_in_primary701 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_BOOLEAN_in_primary711 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_LB_in_primary720 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_orExpr_in_primary724 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_primary726 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IDENT_in_primary736 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_51_in_unExpr762 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr766 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_52_in_unExpr777 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr781 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_47_in_unExpr792 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_unExpr_in_unExpr796 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_primary_in_unExpr809 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr847 = new BitSet(new long[]{0x0004000000000012L});
+	public static final BitSet FOLLOW_set_in_mulExpr855 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_unExpr_in_mulExpr867 = new BitSet(new long[]{0x0004000000000012L});
 	public static final BitSet FOLLOW_mulExpr_in_addExpr908 = new BitSet(new long[]{0x0018000000000002L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr943 = new BitSet(new long[]{0x03E1000000000002L});
-	public static final BitSet FOLLOW_set_in_relExpr951 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_addExpr_in_relExpr967 = new BitSet(new long[]{0x03E1000000000002L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr1005 = new BitSet(new long[]{0x0002000000000002L});
-	public static final BitSet FOLLOW_49_in_andExpr1011 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_relExpr_in_andExpr1015 = new BitSet(new long[]{0x0002000000000002L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr1051 = new BitSet(new long[]{0x0400000000000002L});
-	public static final BitSet FOLLOW_58_in_orExpr1057 = new BitSet(new long[]{0x00188804100A0020L});
-	public static final BitSet FOLLOW_andExpr_in_orExpr1061 = new BitSet(new long[]{0x0400000000000002L});
-	public static final BitSet FOLLOW_statement_in_synpred3_QL93 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifStatement_in_synpred4_QL102 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_compQuestionDeclaration_in_synpred6_QL242 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_questionDeclaration_in_synpred7_QL251 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_ifElseStatement_in_synpred8_QL260 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_IF_in_synpred9_QL287 = new BitSet(new long[]{0x0000000010000000L});
-	public static final BitSet FOLLOW_LB_in_synpred9_QL289 = new BitSet(new long[]{0x0000000000020000L});
-	public static final BitSet FOLLOW_IDENT_in_synpred9_QL293 = new BitSet(new long[]{0x0000004000000000L});
-	public static final BitSet FOLLOW_RB_in_synpred9_QL295 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_addExpr_in_synpred10_QL394 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_addExpr_in_synpred11_QL454 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_relExpr_in_synpred16_QL619 = new BitSet(new long[]{0x0000000000000002L});
-	public static final BitSet FOLLOW_andExpr_in_synpred17_QL628 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_set_in_addExpr916 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_mulExpr_in_addExpr926 = new BitSet(new long[]{0x0018000000000002L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr961 = new BitSet(new long[]{0x03E1000000000002L});
+	public static final BitSet FOLLOW_set_in_relExpr969 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_addExpr_in_relExpr985 = new BitSet(new long[]{0x03E1000000000002L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr1023 = new BitSet(new long[]{0x0002000000000002L});
+	public static final BitSet FOLLOW_49_in_andExpr1029 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_relExpr_in_andExpr1033 = new BitSet(new long[]{0x0002000000000002L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr1069 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_58_in_orExpr1075 = new BitSet(new long[]{0x00188804100A0020L});
+	public static final BitSet FOLLOW_andExpr_in_orExpr1079 = new BitSet(new long[]{0x0400000000000002L});
+	public static final BitSet FOLLOW_statement_in_synpred3_QL111 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifStatement_in_synpred4_QL120 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_compQuestionDeclaration_in_synpred6_QL260 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_questionDeclaration_in_synpred7_QL269 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_ifElseStatement_in_synpred8_QL278 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_IF_in_synpred9_QL305 = new BitSet(new long[]{0x0000000010000000L});
+	public static final BitSet FOLLOW_LB_in_synpred9_QL307 = new BitSet(new long[]{0x0000000000020000L});
+	public static final BitSet FOLLOW_IDENT_in_synpred9_QL311 = new BitSet(new long[]{0x0000004000000000L});
+	public static final BitSet FOLLOW_RB_in_synpred9_QL313 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_addExpr_in_synpred10_QL412 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_addExpr_in_synpred11_QL472 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_relExpr_in_synpred16_QL637 = new BitSet(new long[]{0x0000000000000002L});
+	public static final BitSet FOLLOW_andExpr_in_synpred17_QL646 = new BitSet(new long[]{0x0000000000000002L});
 }

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.type.checker.visitor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,11 +19,16 @@ import org.uva.sea.ql.types.Type;
 public class QLStatementTypeCheckVisitor implements Visitor {
 	
 	private final Map<Ident, Type> typeEnv;
+	private ArrayList<Question> questionDeclarations;
+	private ArrayList<ComputedQuestion> computedQuestionDeclarations;
+	
 	private final List<QLErrorMessage> messages;
 	
 	private QLStatementTypeCheckVisitor(Map<Ident, Type> typeEnv, List<QLErrorMessage> messages) {
 		this.typeEnv  = typeEnv;
 		this.messages = messages;
+		this.questionDeclarations = new ArrayList<Question>();
+		this.computedQuestionDeclarations = new ArrayList<ComputedQuestion>();
 	}
 	
 	public static void check(Statement statement, Map<Ident, Type> typeEnv, List<QLErrorMessage> errs) {
@@ -50,11 +56,13 @@ public class QLStatementTypeCheckVisitor implements Visitor {
 
 	@Override
 	public void visit(Question question) {
+		this.questionDeclarations.add(question);
 		this.typeEnv.put(question.getIdent(),question.getType());
 	}
 
 	@Override
 	public void visit(ComputedQuestion computedQuestion) {
+		this.computedQuestionDeclarations.add(computedQuestion);
 		this.typeEnv.put(computedQuestion.getIdent(),computedQuestion.getType());
 		boolean check = QLExpressionTypeCheckVisitor.check(computedQuestion.getExpr(), typeEnv, messages);
 		if(!check){

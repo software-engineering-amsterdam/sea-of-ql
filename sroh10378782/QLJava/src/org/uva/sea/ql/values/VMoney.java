@@ -66,6 +66,6 @@ public class VMoney extends Value {
 	}
 	@Override
 	public String toString() {
-		return "VMoney: " + this.value.toString();
+		return this.value.toString();
 	}
 }

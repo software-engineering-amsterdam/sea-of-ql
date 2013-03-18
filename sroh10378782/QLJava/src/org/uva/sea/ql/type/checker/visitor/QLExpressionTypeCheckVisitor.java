@@ -352,7 +352,10 @@ public class QLExpressionTypeCheckVisitor implements Visitor<Boolean> {
 
 	@Override
 	public Boolean visit(Ident identexpression) {
-		return true;
+		if(typeEnv.containsKey(identexpression)){
+			return true;
+		}
+		return false;
 	}
 
 	@Override

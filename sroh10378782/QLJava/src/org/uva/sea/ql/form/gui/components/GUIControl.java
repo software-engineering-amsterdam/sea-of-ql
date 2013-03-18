@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import org.uva.sea.ql.ast.nodes.expressions.Ident;
 import org.uva.sea.ql.form.gui.state.State;
 import org.uva.sea.ql.values.VBool;
+import org.uva.sea.ql.values.VInt;
 import org.uva.sea.ql.values.VMoney;
 import org.uva.sea.ql.values.VStr;
 import org.uva.sea.ql.values.Value;
@@ -30,6 +31,7 @@ public class GUIControl extends Observable {
 	private Ident ident;
 	private State state;
 	private Component comp;
+	private boolean isCheckBox = false;
 	
 	public GUIControl(){
 		this.panel = new JPanel();
@@ -39,8 +41,13 @@ public class GUIControl extends Observable {
 	
 	public void setValue(Value value){
 		this.value = value;
-		JTextField f = (JTextField)this.comp;
-		f.setText(""+((VMoney)value).getValue());
+		if(!isCheckBox){
+			JTextField f = (JTextField)this.comp;
+			f.setText(value.toString());	
+		} else {
+			JCheckBox cb = (JCheckBox)this.comp;
+			cb.setSelected(new Boolean(value.toString()));
+		}
 	}
 	
 	public Value getValue(){
@@ -48,9 +55,9 @@ public class GUIControl extends Observable {
 	}
 	
 	public void setReadOnly(boolean readOnly){
-		Component[] c = this.panel.getComponents();
-		for (int i = 0; i < c.length; i++) {  
-		     c[i].setEnabled(!readOnly);
+		Component[] comps = this.panel.getComponents();
+		for (Component c : comps) {
+			 c.setEnabled(!readOnly);
 		}
 	}
 	
@@ -67,7 +74,7 @@ public class GUIControl extends Observable {
 		component.setVisible(true);
 		component.setSelected(false);
 		component.setBounds(5, 5, 20, 20);
-		
+		isCheckBox = true;
 		component.addActionListener(new ActionListener() {
 			
 			@Override
@@ -84,9 +91,10 @@ public class GUIControl extends Observable {
 		component.repaint();
 	}
 	
-	public void addNumericTextkBox(JTextField component){
+	public void addMoneyTextkBox(JTextField component){
 		component.setVisible(true);
 		component.setBounds(5, 5, 200, 20);
+		
 		component.addKeyListener(new KeyAdapter() {
 			
 			public void keyReleased(KeyEvent e) {
@@ -94,9 +102,31 @@ public class GUIControl extends Observable {
 				if (validate(field.getText(),true)) {
                    field.setBackground(Color.red);
                 } else {
-                	state.notify(ident);
                 	Double input = Double.parseDouble(field.getText());
                 	state.putValue(ident, new VMoney(input));
+                	state.notify(ident);
+                	field.setBackground(Color.green);
+                }
+			}
+		});
+		this.comp = component;
+		this.panel.add(component);
+	}
+	
+	public void addIntegerTextkBox(JTextField component){
+		component.setVisible(true);
+		component.setBounds(5, 5, 200, 20);
+		
+		component.addKeyListener(new KeyAdapter() {
+			
+			public void keyReleased(KeyEvent e) {
+                JTextField field = (JTextField)e.getSource();
+				if (validate(field.getText(),true)) {
+                   field.setBackground(Color.red);
+                } else {
+                	Integer input = Integer.parseInt(field.getText());
+                	state.putValue(ident, new VInt(input));
+                	state.notify(ident);
                 	field.setBackground(Color.green);
                 }
 			}
@@ -108,6 +138,7 @@ public class GUIControl extends Observable {
 	public void addTextkBox(JTextField component){
 		component.setVisible(true);
 		component.setBounds(5, 5, 200, 20);
+		
 		component.addKeyListener(new KeyAdapter() {
 			
 			public void keyReleased(KeyEvent e) {
@@ -115,9 +146,9 @@ public class GUIControl extends Observable {
 				if (validate(field.getText(),false)) {
                    field.setBackground(Color.red);
                 } else {
-                	state.notify(ident);
                 	String input = field.getText();
     				state.putValue(ident, new VStr(input));
+    				state.notify(ident);
                 	field.setBackground(Color.green);
                 }
 			}
@@ -152,7 +183,7 @@ public class GUIControl extends Observable {
 	 * validation method to check the input String
 	 * @param input String to check
 	 * @param mode numeric = true, false no validation
-	 * @return valid
+	 * @return valid boolean
 	 */
 	private boolean validate(String input, boolean mode){
 		boolean error = false;

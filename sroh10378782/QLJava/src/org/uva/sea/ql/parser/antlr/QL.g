@@ -7,12 +7,41 @@ package org.uva.sea.ql.parser.antlr;
 
 import org.uva.sea.ql.ast.nodes.expressions.*;
 import org.uva.sea.ql.ast.nodes.statements.*;
+import org.uva.sea.ql.parser.antlr.error.ANTLRError;
+import org.uva.sea.ql.parser.antlr.error.ParseError;
+import org.uva.sea.ql.parser.antlr.error.LexerError;
+}
 
+@parser::members {
+  private List<ANTLRError> errors = new ArrayList<ANTLRError>();
+  public List<ANTLRError> getErrors(){
+  	return this.errors;
+  }
+  
+  @Override
+  public void reportError(RecognitionException e) {
+    this.errors.add(new ParseError(getErrorHeader(e)));
+  }
 }
 
 @lexer::header
 {
 package org.uva.sea.ql.parser.antlr; 
+import org.uva.sea.ql.parser.antlr.error.ANTLRError;
+import org.uva.sea.ql.parser.antlr.error.ParseError;
+import org.uva.sea.ql.parser.antlr.error.LexerError;
+}
+
+@lexer::members {
+  private List<ANTLRError> errors = new ArrayList<ANTLRError>();
+  public List<ANTLRError> getErrors(){
+  	return this.errors;
+  }
+  
+  @Override
+  public void reportError(RecognitionException e) {
+    this.errors.add(new LexerError(getErrorHeader(e)));
+  }
 }
 
 // PARSE RULES
@@ -175,6 +204,14 @@ andExpr returns [Expr result]
 orExpr returns [Expr result] 
     :   lhs=andExpr { $result = $lhs.result; } ( '||' rhs=andExpr { $result = new Or($result, rhs); } )*
     ;
+
+
+
+
+
+
+
+
 
 
 // LEXER RULES
