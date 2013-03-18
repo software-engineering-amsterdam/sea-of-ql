@@ -1,11 +1,10 @@
 package nl.stgm.ql.ast.form;
 
-import nl.stgm.ql.ast.*;
-import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.checker.*;
-import nl.stgm.ql.inspectors.interpreter.*;
-
 import java.util.List;
+
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.interfaces.*;
+import nl.stgm.ql.inspectors.*;
 
 public class Form extends AbstractNode
 {

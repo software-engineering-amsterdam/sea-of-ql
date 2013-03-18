@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors.checker;
+package nl.stgm.ql.inspectors;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -11,9 +11,9 @@ import nl.stgm.ql.ast.expr.literal.*;
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.ast.form.Form;
 
-import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.interfaces.*;
 
-public class Checker extends DocumentInspector implements TypeContext, Visitor
+public class VisitingChecker extends RunnableVisitor implements TypeContext, Visitor
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,Form> forms = new HashMap<String,Form>();
@@ -202,7 +202,7 @@ public class Checker extends DocumentInspector implements TypeContext, Visitor
 
 	public static void main(String[] args)
 	{
-		Checker checkerContext = new Checker();
+		VisitingChecker checkerContext = new VisitingChecker();
 		Document document = parseDocument("errors.qldoc");
 		document.accept(checkerContext);
 		checkerContext.printErrorList();

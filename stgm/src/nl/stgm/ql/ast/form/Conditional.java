@@ -2,9 +2,9 @@ package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
-import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.checker.*;
-import nl.stgm.ql.inspectors.interpreter.*;
+
+import nl.stgm.ql.interfaces.*;
+// import nl.stgm.ql.inspectors.*;
 
 import java.util.List;
 
@@ -36,13 +36,11 @@ public class Conditional extends FormItem
 		return this.condition;
 	}
 	
-	// TODO make iterator
 	public List<Question> ifQuestions()
 	{
 		return this.ifQuestions;
 	}
 
-	// TODO make iterator
 	public List<Question> elseQuestions()
 	{
 		return this.elseQuestions;

@@ -1,9 +1,7 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.checker.*;
-import nl.stgm.ql.inspectors.interpreter.*;
+import nl.stgm.ql.interfaces.*;
 
 public class CalcQuestion extends Question
 {

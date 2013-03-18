@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors.interpreter;
+package nl.stgm.ql.inspectors;
 
 import java.io.*;
 import java.util.HashMap;
@@ -8,9 +8,9 @@ import nl.stgm.ql.ast.form.*;
 
 import nl.stgm.ql.ast.expr.literal.*;
 
-import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.interfaces.*;
 
-public class Interpreter extends DocumentInspector implements TypeContext,ValueContext,Visitor
+public class VisitingInterpreter extends RunnableVisitor implements TypeContext,ValueContext,Visitor
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,LiteralExpr> values = new HashMap<String,LiteralExpr>();
@@ -158,7 +158,7 @@ public class Interpreter extends DocumentInspector implements TypeContext,ValueC
 	
 	public static void main(String[] args)
 	{
-		Interpreter ip = new Interpreter();
+		VisitingInterpreter ip = new VisitingInterpreter();
 		Document document = parseDocument("canonical.qldoc");
 		document.accept(ip);
 		System.out.println();

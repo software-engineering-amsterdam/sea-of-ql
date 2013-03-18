@@ -2,8 +2,9 @@ package nl.stgm.ql.ast.expr.binary;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
+
+import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.interpreter.*;
 
 public class Eq extends BinaryExpr
 {
@@ -23,7 +24,7 @@ public class Eq extends BinaryExpr
 		LiteralExpr leftValue = (LiteralExpr) this.left.reduceValue(context);
 		LiteralExpr rightValue = (LiteralExpr) this.right.reduceValue(context);
 		
-		switch(leftValue.reduceType((Interpreter)context))
+		switch(leftValue.reduceType((VisitingInterpreter)context))
 		{
 			case INT:
 				return new Bool( ((Int)leftValue).getValue() == ((Int)rightValue).getValue() );

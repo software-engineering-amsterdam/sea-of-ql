@@ -1,9 +1,7 @@
 package nl.stgm.ql.ast.expr;
 
+import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
-import nl.stgm.ql.inspectors.pretty.*;
-import nl.stgm.ql.inspectors.checker.*;
-import nl.stgm.ql.inspectors.interpreter.*;
 
 public abstract class UnaryExpr extends Expr
 {

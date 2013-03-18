@@ -1,11 +1,11 @@
-package nl.stgm.ql.inspectors.pretty;
+package nl.stgm.ql.inspectors;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.FileSystems;
 
-import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.interfaces.*;
 
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
@@ -13,7 +13,7 @@ import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
 
-public class PrettyPrinter extends DocumentInspector implements Visitor
+public class VisitingPrinter extends RunnableVisitor implements Visitor
 {
 	private int indent = 0;
 	private boolean indented = true;
@@ -131,7 +131,7 @@ public class PrettyPrinter extends DocumentInspector implements Visitor
 	
 	public static void main(String[] args)
 	{
-		PrettyPrinter ctx = new PrettyPrinter();
+		VisitingPrinter ctx = new VisitingPrinter();
 		Document document = parseDocument("elaborate.qldoc");
 		// document.print(ctx);
 		document.accept(ctx);
