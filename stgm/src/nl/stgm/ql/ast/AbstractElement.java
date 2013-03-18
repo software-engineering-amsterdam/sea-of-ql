@@ -2,16 +2,12 @@ package nl.stgm.ql.ast;
 
 import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
+import nl.stgm.ql.inspectors.interpreter.*;
 
-public abstract class AbstractElement implements ASTNode, Printable, Checkable
+public abstract class AbstractElement implements ASTNode, Printable, Checkable, Interpretable
 {
-	public void print(PrettyPrinter context)
-	{
-		context.print(this.prettyString());
-	}
-	
-	public String prettyString() throws UnsupportedOperationException
-	{
-		throw new UnsupportedOperationException("Pretty Printing code is missing in this node. Please check the documentation in AbstractElement.java");
-	}
+	// hint:
+	// public abstract void print(PrettyPrinter context);
+	// public abstract void check(SemanticChecker context);
+	// public abstract void interpret(Interpreter context);
 }

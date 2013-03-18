@@ -1,33 +1,26 @@
 package nl.stgm.ql.ast.expr;
 
+import nl.stgm.ql.inspectors.*;
 import nl.stgm.ql.inspectors.pretty.*;
 import nl.stgm.ql.inspectors.checker.*;
+import nl.stgm.ql.inspectors.interpreter.*;
 
 public abstract class UnaryExpr extends Expr
 {
 	protected Expr arg;
 
-	public void print(PrettyPrinter context)
+	public String pretty()
 	{
-		context.print(this.prettyString());
-		arg.print(context);
+		return this.toString() + arg.pretty();
 	}
 
-	// public void check(SemanticChecker context)
-	// {
-	// 	System.out.println("Check 1 element!" + this.toString());
-	// 
-	// 	arg.check(context);
-	// }
-	
-	public String toString()
+	public Type type(SemanticChecker context) throws IncompatibleTypesException
 	{
-		return(this.prettyString() + arg.toString());
+		return arg.type(context);
 	}
 
-	public Identifier.Type getType(SemanticChecker context)
+	public LiteralExpr reduce(Interpreter context)
 	{
-		// TODO: check if operator is appropriate for arg
-		return arg.getType(context);
+		return null;
 	}
 }

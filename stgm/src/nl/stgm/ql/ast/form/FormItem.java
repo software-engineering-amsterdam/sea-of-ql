@@ -5,5 +5,4 @@ import nl.stgm.ql.inspectors.checker.*;
 
 public abstract class FormItem extends AbstractElement
 {
-	public abstract void check(SemanticChecker context);
 }

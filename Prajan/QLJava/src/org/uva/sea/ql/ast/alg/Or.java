@@ -10,20 +10,19 @@ import org.uva.sea.ql.visitor.AlgebricElementVisitor;
 
 public class Or extends Binary {
 
-	public Or(Expr lhs, Expr rhs){
+	public Or(Expr lhs, Expr rhs) {
 		super(lhs, rhs);
-		System.out.println( lhs + "            " + rhs  + "           Or class 11");
-		
+
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
 		return new BoolType();
 	}
-	
+
 	@Override
 	public <T> T accept(AlgebricElementVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package org.uva.sea.ql.ast.visitors;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.JLabel;
@@ -22,20 +23,24 @@ import org.uva.sea.ql.gui.FormPanel;
 public class StatementRenderingVisitor implements StatementVisitor {
 
 	private FormPanel formPanel;
-	private JPanel parentPanel;
+	private ArrayList<JPanel> renderList;
 	private ExpressionTypeFindingVisitor expressionTypeFindingVisitor;
 	private Map<Identifier, QLValue> identifierValueMap;
 
 	public StatementRenderingVisitor(FormPanel formPanel,
 			Map<Identifier, Type> identifierTypeMap,
 			Map<Identifier, QLValue> identifierValueMap) {
-		this.parentPanel = new JPanel();
 		this.formPanel = formPanel;
+		this.renderList = new ArrayList<JPanel>();
 		this.expressionTypeFindingVisitor = new ExpressionTypeFindingVisitor(
 				identifierTypeMap);
 		this.identifierValueMap = identifierValueMap;
 	}
 
+	public ArrayList<JPanel> getRenderList() {
+		return this.renderList;
+	}
+	
 	@Override
 	public void visit(Form form) {
 		for (Statement statement : form.getStatements()) {
@@ -79,8 +84,7 @@ public class StatementRenderingVisitor implements StatementVisitor {
 				formPanel, identifierValueMap, identifier, value, enabled);
 		panel.add(type.accept(typeRenderingVisitor),"wrap");
 
-		this.parentPanel.add(panel);
-		this.formPanel.add(parentPanel);
+		this.renderList.add(panel);
 	}
 
 	private JPanel getNewPanelWithLabel(String label) {

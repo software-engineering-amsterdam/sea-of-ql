@@ -18,7 +18,7 @@ public class RatsParser implements IParse
 	{
 	}
 
-	@Override public Document parse(String src) throws ParseError
+	public Document parse(String src) throws ParseError
 	{
 		QLParser parser = new QLParser(new StringReader(src), "-");
 
@@ -37,7 +37,7 @@ public class RatsParser implements IParse
 		}
 	}
 
-	@Override public Form parseForm(String src) throws ParseError
+	public Form parseForm(String src) throws ParseError
 	{
 		QLParser parser = new QLParser(new StringReader(src), "-");
 
@@ -56,7 +56,7 @@ public class RatsParser implements IParse
 		}
 	}
 
-	@Override public Expr parseExpr(String src) throws ParseError
+	public Expr parseExpr(String src) throws ParseError
 	{
 		QLParser parser = new QLParser(new StringReader(src), "-");
 

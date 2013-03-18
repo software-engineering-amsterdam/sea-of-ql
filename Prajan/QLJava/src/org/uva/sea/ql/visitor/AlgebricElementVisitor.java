@@ -12,12 +12,14 @@ import org.uva.sea.ql.ast.alg.GT;
 import org.uva.sea.ql.ast.alg.Int;
 import org.uva.sea.ql.ast.alg.LEq;
 import org.uva.sea.ql.ast.alg.LT;
+import org.uva.sea.ql.ast.alg.Money;
 import org.uva.sea.ql.ast.alg.Mul;
 import org.uva.sea.ql.ast.alg.NEq;
 import org.uva.sea.ql.ast.alg.Neg;
 import org.uva.sea.ql.ast.alg.Not;
 import org.uva.sea.ql.ast.alg.Or;
 import org.uva.sea.ql.ast.alg.Pos;
+import org.uva.sea.ql.ast.alg.Str;
 import org.uva.sea.ql.ast.alg.Sub;
 
 public interface AlgebricElementVisitor<T> {
@@ -59,5 +61,9 @@ public interface AlgebricElementVisitor<T> {
 	public T visit(Primary ast);
 
 	public T visit(Bool bool);
+
+	public T visit(Str str);
+
+	public T visit(Money money);
 
 }

@@ -8,20 +8,19 @@ import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Ident;
 import org.uva.sea.ql.ast.types.Type;
 import org.uva.sea.ql.visitor.FormElementVisitor;
-import org.uva.sea.ql.visitor.IForm;
 
-public class IfConditionalExpr extends IForm {
+public class IfConditionalExpr extends ObservableStatement {
 
 	private final Expr orexpr;
-	private List<Question> thenStatements;
+	private Statements statements;
 	private List<Question> elseStatements;
 
-	public List<Question> getThenStatements() {
-		return thenStatements;
+	public Statements getStatements() {
+		return statements;
 	}
 
-	public void setThenStatements(List<Question> thenStatements) {
-		this.thenStatements = thenStatements;
+	public void setStatements(Statements statements) {
+		this.statements = statements;
 	}
 
 	public List<Question> getElseStatements() {
@@ -34,30 +33,24 @@ public class IfConditionalExpr extends IForm {
 
 	public IfConditionalExpr(Expr or) {
 		this.orexpr = or;
-		thenStatements = new ArrayList<Question>();
 		elseStatements = new ArrayList<Question>();
-		System.out.println("printed or expr CondtionalExpr");
 	}
 
-	public void addThen(Question q) {
-		thenStatements.add(q);
-		System.out.println(q.questionText + "     ThenCondtionalExpr");
+	public void addAllQuestion(Statements q) {
+		statements = q;
 	}
 
 	public void addElse(Question q) {
 		elseStatements.add(q);
-		System.out.println(q.questionText + "      ElseCondtionalExpr");
 	}
 
 	@Override
 	public Type typeOf(Map<Ident, Type> typeEnv) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public <T> T accept(FormElementVisitor<T> visitor) {
-		// TODO Auto-generated method stub
 		return visitor.visit(this);
 	}
 

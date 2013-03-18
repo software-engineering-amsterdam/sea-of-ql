@@ -36,5 +36,4 @@ public class ExpressionTypeFindingVisitorTests {
 		Type foundType = this.target.visit(identifier);
 		assertEquals(type.getClass(), foundType.getClass());
 	}
-
 }

@@ -6,6 +6,7 @@ import org.uva.sea.ql.ast.types.Type;
 
 public class BooleanLiteral extends QLValue {
 
+	private static final long serialVersionUID = 1L;
 	private final Boolean value;
 
 	public BooleanLiteral(String string) {

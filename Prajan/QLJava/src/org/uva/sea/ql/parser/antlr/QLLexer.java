@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-03-04 14:41:59
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g 2013-03-17 18:47:42
 
 package org.uva.sea.ql.parser.antlr;
 import org.uva.sea.ql.ast.types.*;
@@ -29,8 +29,8 @@ public class QLLexer extends Lexer {
     public static final int T__32=32;
     public static final int T__16=16;
     public static final int T__33=33;
-    public static final int WS=8;
-    public static final int Money=10;
+    public static final int Money=8;
+    public static final int WS=9;
     public static final int T__15=15;
     public static final int T__34=34;
     public static final int T__18=18;
@@ -39,11 +39,11 @@ public class QLLexer extends Lexer {
     public static final int T__36=36;
     public static final int Ident=4;
     public static final int T__12=12;
+    public static final int Comment=10;
     public static final int T__11=11;
     public static final int T__14=14;
     public static final int T__13=13;
-    public static final int COMMENT=9;
-    public static final int STRING=5;
+    public static final int String=5;
 
     // delegates
     // delegators
@@ -596,7 +596,7 @@ public class QLLexer extends Lexer {
         try {
             int _type = Bool;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:5: ( 'true' | 'false' )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:155:5: ( 'true' | 'false' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -614,7 +614,7 @@ public class QLLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:7: 'true'
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:155:7: 'true'
                     {
                     match("true"); 
 
@@ -622,7 +622,7 @@ public class QLLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:158:16: 'false'
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:155:16: 'false'
                     {
                     match("false"); 
 
@@ -639,16 +639,38 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "Bool"
 
-    // $ANTLR start "STRING"
-    public final void mSTRING() throws RecognitionException {
+    // $ANTLR start "Money"
+    public final void mMoney() throws RecognitionException {
         try {
-            int _type = STRING;
+            int _type = Money;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:5: ( '\"' (~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"' )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:8: '\"' (~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"'
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:5: ( Int '.' Int )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:159:7: Int '.' Int
+            {
+            mInt(); 
+            match('.'); 
+            mInt(); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "Money"
+
+    // $ANTLR start "String"
+    public final void mString() throws RecognitionException {
+        try {
+            int _type = String;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:5: ( '\"' (~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"' )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:8: '\"' (~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"'
             {
             match('\"'); 
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:12: (~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )*
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:12: (~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )*
             loop2:
             do {
                 int alt2=2;
@@ -661,7 +683,7 @@ public class QLLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:161:13: ~ ( '\\\\' | '\"' | '\\r' | '\\n' )
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:163:13: ~ ( '\\\\' | '\"' | '\\r' | '\\n' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -691,15 +713,15 @@ public class QLLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "STRING"
+    // $ANTLR end "String"
 
     // $ANTLR start "WS"
     public final void mWS() throws RecognitionException {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:164:7: ( ' ' | '\\t' | '\\n' | '\\r' )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:166:5: ( ( ' ' | '\\t' | '\\n' | '\\r' ) )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:166:7: ( ' ' | '\\t' | '\\n' | '\\r' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
                 input.consume();
@@ -722,74 +744,145 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "WS"
 
-    // $ANTLR start "COMMENT"
-    public final void mCOMMENT() throws RecognitionException {
+    // $ANTLR start "Comment"
+    public final void mComment() throws RecognitionException {
         try {
-            int _type = COMMENT;
+            int _type = Comment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:5: ( '/*' ( . )* '*/' )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:7: '/*' ( . )* '*/'
-            {
-            match("/*"); 
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:170:5: ( '/*' ( . )* '*/' | '//' (~ ( '\\n' ) )* )
+            int alt5=2;
+            int LA5_0 = input.LA(1);
 
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:12: ( . )*
-            loop3:
-            do {
-                int alt3=2;
-                int LA3_0 = input.LA(1);
+            if ( (LA5_0=='/') ) {
+                int LA5_1 = input.LA(2);
 
-                if ( (LA3_0=='*') ) {
-                    int LA3_1 = input.LA(2);
+                if ( (LA5_1=='*') ) {
+                    alt5=1;
+                }
+                else if ( (LA5_1=='/') ) {
+                    alt5=2;
+                }
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 5, 1, input);
 
-                    if ( (LA3_1=='/') ) {
-                        alt3=2;
+                    throw nvae;
+                }
+            }
+            else {
+                NoViableAltException nvae =
+                    new NoViableAltException("", 5, 0, input);
+
+                throw nvae;
+            }
+            switch (alt5) {
+                case 1 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:170:7: '/*' ( . )* '*/'
+                    {
+                    match("/*"); 
+
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:170:12: ( . )*
+                    loop3:
+                    do {
+                        int alt3=2;
+                        int LA3_0 = input.LA(1);
+
+                        if ( (LA3_0=='*') ) {
+                            int LA3_1 = input.LA(2);
+
+                            if ( (LA3_1=='/') ) {
+                                alt3=2;
+                            }
+                            else if ( ((LA3_1>='\u0000' && LA3_1<='.')||(LA3_1>='0' && LA3_1<='\uFFFF')) ) {
+                                alt3=1;
+                            }
+
+
+                        }
+                        else if ( ((LA3_0>='\u0000' && LA3_0<=')')||(LA3_0>='+' && LA3_0<='\uFFFF')) ) {
+                            alt3=1;
+                        }
+
+
+                        switch (alt3) {
+                    	case 1 :
+                    	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:170:12: .
+                    	    {
+                    	    matchAny(); 
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop3;
+                        }
+                    } while (true);
+
+                    match("*/"); 
+
+                    _channel=HIDDEN;
+
                     }
-                    else if ( ((LA3_1>='\u0000' && LA3_1<='.')||(LA3_1>='0' && LA3_1<='\uFFFF')) ) {
-                        alt3=1;
+                    break;
+                case 2 :
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:7: '//' (~ ( '\\n' ) )*
+                    {
+                    match("//"); 
+
+                    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:12: (~ ( '\\n' ) )*
+                    loop4:
+                    do {
+                        int alt4=2;
+                        int LA4_0 = input.LA(1);
+
+                        if ( ((LA4_0>='\u0000' && LA4_0<='\t')||(LA4_0>='\u000B' && LA4_0<='\uFFFF')) ) {
+                            alt4=1;
+                        }
+
+
+                        switch (alt4) {
+                    	case 1 :
+                    	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:171:12: ~ ( '\\n' )
+                    	    {
+                    	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\uFFFF') ) {
+                    	        input.consume();
+
+                    	    }
+                    	    else {
+                    	        MismatchedSetException mse = new MismatchedSetException(null,input);
+                    	        recover(mse);
+                    	        throw mse;}
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop4;
+                        }
+                    } while (true);
+
+                    _channel=HIDDEN;
+
                     }
-
-
-                }
-                else if ( ((LA3_0>='\u0000' && LA3_0<=')')||(LA3_0>='+' && LA3_0<='\uFFFF')) ) {
-                    alt3=1;
-                }
-
-
-                switch (alt3) {
-            	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:168:12: .
-            	    {
-            	    matchAny(); 
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop3;
-                }
-            } while (true);
-
-            match("*/"); 
-
-            _channel=HIDDEN;
+                    break;
 
             }
-
             state.type = _type;
             state.channel = _channel;
         }
         finally {
         }
     }
-    // $ANTLR end "COMMENT"
+    // $ANTLR end "Comment"
 
     // $ANTLR start "Ident"
     public final void mIdent() throws RecognitionException {
         try {
             int _type = Ident;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:172:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:172:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:175:5: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )* )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:175:9: ( 'a' .. 'z' | 'A' .. 'Z' ) ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
@@ -800,18 +893,18 @@ public class QLLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:172:28: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
-            loop4:
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:175:28: ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' )*
+            loop6:
             do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                int alt6=2;
+                int LA6_0 = input.LA(1);
 
-                if ( ((LA4_0>='0' && LA4_0<='9')||(LA4_0>='A' && LA4_0<='Z')||LA4_0=='_'||(LA4_0>='a' && LA4_0<='z')) ) {
-                    alt4=1;
+                if ( ((LA6_0>='0' && LA6_0<='9')||(LA6_0>='A' && LA6_0<='Z')||LA6_0=='_'||(LA6_0>='a' && LA6_0<='z')) ) {
+                    alt6=1;
                 }
 
 
-                switch (alt4) {
+                switch (alt6) {
             	case 1 :
             	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:
             	    {
@@ -829,7 +922,7 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    break loop4;
+            	    break loop6;
                 }
             } while (true);
 
@@ -849,24 +942,24 @@ public class QLLexer extends Lexer {
         try {
             int _type = Int;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:5: ( ( '0' .. '9' )+ )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:7: ( '0' .. '9' )+
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:179:5: ( ( '0' .. '9' )+ )
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:179:7: ( '0' .. '9' )+
             {
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:7: ( '0' .. '9' )+
-            int cnt5=0;
-            loop5:
+            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:179:7: ( '0' .. '9' )+
+            int cnt7=0;
+            loop7:
             do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( ((LA5_0>='0' && LA5_0<='9')) ) {
-                    alt5=1;
+                if ( ((LA7_0>='0' && LA7_0<='9')) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt5) {
+                switch (alt7) {
             	case 1 :
-            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:176:8: '0' .. '9'
+            	    // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:179:8: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -874,12 +967,12 @@ public class QLLexer extends Lexer {
             	    break;
 
             	default :
-            	    if ( cnt5 >= 1 ) break loop5;
+            	    if ( cnt7 >= 1 ) break loop7;
                         EarlyExitException eee =
-                            new EarlyExitException(5, input);
+                            new EarlyExitException(7, input);
                         throw eee;
                 }
-                cnt5++;
+                cnt7++;
             } while (true);
 
 
@@ -893,33 +986,11 @@ public class QLLexer extends Lexer {
     }
     // $ANTLR end "Int"
 
-    // $ANTLR start "Money"
-    public final void mMoney() throws RecognitionException {
-        try {
-            int _type = Money;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:179:7: ( Int '.' Int )
-            // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:179:9: Int '.' Int
-            {
-            mInt(); 
-            match('.'); 
-            mInt(); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "Money"
-
     public void mTokens() throws RecognitionException {
-        // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | Bool | STRING | WS | COMMENT | Ident | Int | Money )
-        int alt6=33;
-        alt6 = dfa6.predict(input);
-        switch (alt6) {
+        // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | Bool | Money | String | WS | Comment | Ident | Int )
+        int alt8=33;
+        alt8 = dfa8.predict(input);
+        switch (alt8) {
             case 1 :
                 // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:10: T__11
                 {
@@ -1110,44 +1181,44 @@ public class QLLexer extends Lexer {
                 }
                 break;
             case 28 :
-                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:171: STRING
+                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:171: Money
                 {
-                mSTRING(); 
+                mMoney(); 
 
                 }
                 break;
             case 29 :
-                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:178: WS
+                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:177: String
+                {
+                mString(); 
+
+                }
+                break;
+            case 30 :
+                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:184: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 30 :
-                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:181: COMMENT
+            case 31 :
+                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:187: Comment
                 {
-                mCOMMENT(); 
+                mComment(); 
 
                 }
                 break;
-            case 31 :
-                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:189: Ident
+            case 32 :
+                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:195: Ident
                 {
                 mIdent(); 
 
                 }
                 break;
-            case 32 :
-                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:195: Int
+            case 33 :
+                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:201: Int
                 {
                 mInt(); 
-
-                }
-                break;
-            case 33 :
-                // C:\\Users\\prajan\\Desktop\\Unive\\UVA\\Software Construction\\eclipseIndigo\\gitrepository2\\Prajan\\QLJava\\src\\org\\uva\\sea\\ql\\parser\\antlr\\QL.g:1:199: Money
-                {
-                mMoney(); 
 
                 }
                 break;
@@ -1157,41 +1228,41 @@ public class QLLexer extends Lexer {
     }
 
 
-    protected DFA6 dfa6 = new DFA6(this);
-    static final String DFA6_eotS =
-        "\1\uffff\1\31\3\uffff\4\31\2\uffff\1\31\1\44\2\uffff\1\46\1\uffff"+
-        "\1\50\1\52\1\54\2\uffff\1\31\3\uffff\1\56\3\31\1\63\4\31\12\uffff"+
-        "\1\31\2\uffff\3\31\1\uffff\5\31\1\101\5\31\1\107\1\110\1\uffff\1"+
-        "\110\3\31\1\114\2\uffff\2\31\1\117\1\uffff\1\120\1\121\3\uffff";
-    static final String DFA6_eofS =
+    protected DFA8 dfa8 = new DFA8(this);
+    static final String DFA8_eotS =
+        "\1\uffff\1\32\3\uffff\4\32\2\uffff\1\32\1\44\2\uffff\1\46\1\uffff"+
+        "\1\50\1\52\1\54\2\uffff\1\32\1\56\3\uffff\3\32\1\63\4\32\12\uffff"+
+        "\1\32\2\uffff\3\32\1\uffff\5\32\1\101\5\32\1\107\1\110\1\uffff\1"+
+        "\110\3\32\1\114\2\uffff\2\32\1\117\1\uffff\1\120\1\121\3\uffff";
+    static final String DFA8_eofS =
         "\122\uffff";
-    static final String DFA6_minS =
+    static final String DFA8_minS =
         "\1\11\1\141\3\uffff\1\146\1\157\1\164\1\157\2\uffff\1\154\1\75"+
-        "\2\uffff\1\75\1\uffff\1\52\2\75\2\uffff\1\162\3\uffff\1\56\1\162"+
+        "\2\uffff\1\75\1\uffff\1\52\2\75\2\uffff\1\162\1\56\3\uffff\1\162"+
         "\1\154\1\164\1\60\1\157\1\162\1\156\1\163\12\uffff\1\165\2\uffff"+
         "\1\155\1\163\1\145\1\uffff\1\154\1\151\3\145\1\60\1\145\1\147\1"+
         "\145\1\156\1\171\2\60\1\uffff\1\60\1\145\1\141\1\147\1\60\2\uffff"+
         "\1\162\1\156\1\60\1\uffff\2\60\3\uffff";
-    static final String DFA6_maxS =
+    static final String DFA8_maxS =
         "\1\175\1\157\3\uffff\1\156\1\157\1\164\1\157\2\uffff\1\154\1\75"+
-        "\2\uffff\1\75\1\uffff\1\52\2\75\2\uffff\1\162\3\uffff\1\71\1\162"+
+        "\2\uffff\1\75\1\uffff\1\57\2\75\2\uffff\1\162\1\71\3\uffff\1\162"+
         "\1\154\1\164\1\172\1\157\1\162\1\156\1\163\12\uffff\1\165\2\uffff"+
         "\1\155\1\163\1\145\1\uffff\1\154\1\151\3\145\1\172\1\145\1\147\1"+
         "\145\1\156\1\171\2\172\1\uffff\1\172\1\145\1\141\1\147\1\172\2\uffff"+
         "\1\162\1\156\1\172\1\uffff\2\172\3\uffff";
-    static final String DFA6_acceptS =
+    static final String DFA8_acceptS =
         "\2\uffff\1\2\1\3\1\4\4\uffff\1\12\1\13\2\uffff\1\16\1\17\1\uffff"+
-        "\1\21\3\uffff\1\31\1\32\1\uffff\1\34\1\35\1\37\11\uffff\1\27\1\15"+
-        "\1\30\1\20\1\36\1\22\1\24\1\23\1\26\1\25\1\uffff\1\40\1\41\3\uffff"+
+        "\1\21\3\uffff\1\31\1\32\2\uffff\1\35\1\36\1\40\10\uffff\1\27\1\15"+
+        "\1\30\1\20\1\37\1\22\1\24\1\23\1\26\1\25\1\uffff\1\41\1\34\3\uffff"+
         "\1\11\15\uffff\1\1\5\uffff\1\14\1\33\3\uffff\1\10\2\uffff\1\7\1"+
         "\5\1\6";
-    static final String DFA6_specialS =
+    static final String DFA8_specialS =
         "\122\uffff}>";
-    static final String[] DFA6_transitionS = {
-            "\2\30\2\uffff\1\30\22\uffff\1\30\1\17\1\27\3\uffff\1\24\1\uffff"+
-            "\1\11\1\12\1\20\1\15\1\uffff\1\16\1\uffff\1\21\12\32\1\4\1\uffff"+
-            "\1\22\1\14\1\23\2\uffff\32\31\6\uffff\1\31\1\6\2\31\1\13\1\1"+
-            "\2\31\1\5\3\31\1\10\5\31\1\7\1\26\6\31\1\2\1\25\1\3",
+    static final String[] DFA8_transitionS = {
+            "\2\31\2\uffff\1\31\22\uffff\1\31\1\17\1\30\3\uffff\1\24\1\uffff"+
+            "\1\11\1\12\1\20\1\15\1\uffff\1\16\1\uffff\1\21\12\27\1\4\1\uffff"+
+            "\1\22\1\14\1\23\2\uffff\32\32\6\uffff\1\32\1\6\2\32\1\13\1\1"+
+            "\2\32\1\5\3\32\1\10\5\32\1\7\1\26\6\32\1\2\1\25\1\3",
             "\1\34\15\uffff\1\33",
             "",
             "",
@@ -1208,20 +1279,20 @@ public class QLLexer extends Lexer {
             "",
             "\1\45",
             "",
-            "\1\47",
+            "\1\47\4\uffff\1\47",
             "\1\51",
             "\1\53",
             "",
             "",
             "\1\55",
+            "\1\57\1\uffff\12\27",
             "",
             "",
             "",
-            "\1\57\1\uffff\12\32",
             "\1\60",
             "\1\61",
             "\1\62",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\64",
             "\1\65",
             "\1\66",
@@ -1248,64 +1319,64 @@ public class QLLexer extends Lexer {
             "\1\76",
             "\1\77",
             "\1\100",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\102",
             "\1\103",
             "\1\104",
             "\1\105",
             "\1\106",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\111",
             "\1\112",
             "\1\113",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
             "",
             "\1\115",
             "\1\116",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
-            "\12\31\7\uffff\32\31\4\uffff\1\31\1\uffff\32\31",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
             "",
             ""
     };
 
-    static final short[] DFA6_eot = DFA.unpackEncodedString(DFA6_eotS);
-    static final short[] DFA6_eof = DFA.unpackEncodedString(DFA6_eofS);
-    static final char[] DFA6_min = DFA.unpackEncodedStringToUnsignedChars(DFA6_minS);
-    static final char[] DFA6_max = DFA.unpackEncodedStringToUnsignedChars(DFA6_maxS);
-    static final short[] DFA6_accept = DFA.unpackEncodedString(DFA6_acceptS);
-    static final short[] DFA6_special = DFA.unpackEncodedString(DFA6_specialS);
-    static final short[][] DFA6_transition;
+    static final short[] DFA8_eot = DFA.unpackEncodedString(DFA8_eotS);
+    static final short[] DFA8_eof = DFA.unpackEncodedString(DFA8_eofS);
+    static final char[] DFA8_min = DFA.unpackEncodedStringToUnsignedChars(DFA8_minS);
+    static final char[] DFA8_max = DFA.unpackEncodedStringToUnsignedChars(DFA8_maxS);
+    static final short[] DFA8_accept = DFA.unpackEncodedString(DFA8_acceptS);
+    static final short[] DFA8_special = DFA.unpackEncodedString(DFA8_specialS);
+    static final short[][] DFA8_transition;
 
     static {
-        int numStates = DFA6_transitionS.length;
-        DFA6_transition = new short[numStates][];
+        int numStates = DFA8_transitionS.length;
+        DFA8_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA6_transition[i] = DFA.unpackEncodedString(DFA6_transitionS[i]);
+            DFA8_transition[i] = DFA.unpackEncodedString(DFA8_transitionS[i]);
         }
     }
 
-    class DFA6 extends DFA {
+    class DFA8 extends DFA {
 
-        public DFA6(BaseRecognizer recognizer) {
+        public DFA8(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 6;
-            this.eot = DFA6_eot;
-            this.eof = DFA6_eof;
-            this.min = DFA6_min;
-            this.max = DFA6_max;
-            this.accept = DFA6_accept;
-            this.special = DFA6_special;
-            this.transition = DFA6_transition;
+            this.decisionNumber = 8;
+            this.eot = DFA8_eot;
+            this.eof = DFA8_eof;
+            this.min = DFA8_min;
+            this.max = DFA8_max;
+            this.accept = DFA8_accept;
+            this.special = DFA8_special;
+            this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | Bool | STRING | WS | COMMENT | Ident | Int | Money );";
+            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | Bool | Money | String | WS | Comment | Ident | Int );";
         }
     }
  

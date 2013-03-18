@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.antlr.runtime.ANTLRFileStream;
@@ -35,29 +36,49 @@ public class CallMain extends JFrame {
 
 	public static void main(String[] args) throws IOException, RecognitionException, ParseError {
 
+		// gets AST from grammar
 		Form questionForm = loadForm(args[0]);
+
 		Map<Ident, Type> mp = new HashMap<Ident, Type>();
 		List<TypeError> messages = new ArrayList<TypeError>();
-		CheckForm checkForm = new CheckForm(mp, messages);
-		questionForm.accept(checkForm);
 		State state = new State();
-		JPanel panel = Renderer.render(questionForm, state);
+
+		CheckForm checkForm = new CheckForm(mp, state, messages);
+		questionForm.accept(checkForm);
+
+		JPanel panel;
+		if (messages.size() == 0) {
+			panel = Renderer.render(questionForm, state);
+
+		} else {
+			panel = new JPanel();
+			for (TypeError typeError : messages) {
+				JLabel label = new JLabel();
+				label.setText(typeError.getTypeErrorMessage());
+				panel.add(label);
+			}
+		}
+
 		Draw(panel, questionForm.getFormname());
 
 	}
 
 	private static void Draw(JPanel panel, String title) {
 
+		// draw and display the GUI
 		JFrame frame = new JFrame();
 		frame.setTitle(title);
 		frame.setContentPane(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 400);
+		frame.setSize(700, 500);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 
 	}
 
 	private static Form loadForm(String path) throws IOException, RecognitionException {
+
+		// returns AST from the grammar
 		CharStream charStream = new ANTLRFileStream(path);
 		QLLexer lexer = new QLLexer(charStream);
 		TokenStream tokenStream = new CommonTokenStream(lexer);

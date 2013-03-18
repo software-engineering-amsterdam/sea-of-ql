@@ -9,8 +9,8 @@ public class Eq extends BinaryExpr
 		this.right = right;
 	}
 
-	public String prettyString()
+	public String toString()
 	{
-		return " == ";
+		return "==";
 	}
 }

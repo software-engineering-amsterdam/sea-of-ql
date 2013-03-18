@@ -1,9 +1,12 @@
 package org.uva.sea.ql.ast;
 
+import java.io.Serializable;
+
 import org.uva.sea.ql.ast.types.Type;
 
-public class Identifier extends Expression {
+public class Identifier extends Expression implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private final String name;
 
 	public Identifier(String name) {
