@@ -46,9 +46,9 @@ public class FormGeneratorVisitor implements StatementVisitor<Container>, Widget
 
 	private final ExpressionVisitor<Value> expressionVisitor;
 
-	private final Map<Widget, Identifier> widgetIdentMap = Maps.newHashMap();
-
 	private final Map<Identifier, Value> symbolMap;
+		
+	private final Map<Widget, Identifier> widgetIdentMap = Maps.newHashMap();
 
 	private final Map<IfStatement, Container> ifStatementPanelMap = Maps.newHashMap();
 

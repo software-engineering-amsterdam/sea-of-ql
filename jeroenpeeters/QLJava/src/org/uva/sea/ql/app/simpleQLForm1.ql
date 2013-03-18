@@ -7,8 +7,6 @@ form DemoForm {
 		citySoldHouse: "In which city was the house located?" text 
 		housePrice: "What was the price of the house?" money
 		
-	}else{
-		"You sold no house": hasSoldHouse
 	}
 	
 	currentlyOwnsHouse: "Do you currently own a house?" boolean
@@ -23,6 +21,17 @@ form DemoForm {
 		
 			hasLoan: "Do you have a mortgage on your current house?" boolean
 		}
+		
+		if(priceCurrentHouse + 100 > 50000){
+			"TestLabel {0}": priceCurrentHouse
+		}
+	}else{
+		hasLoan: "Do you have a loan?" boolean
+	}
+	
+	if(hasLoan){
+		loanAmount: "How much is the loan?" money
+		"You entered the following loan: {0}" : loanAmount
 	}
 	
 }
