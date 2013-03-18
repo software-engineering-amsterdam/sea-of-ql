@@ -5,6 +5,7 @@ public interface TypeVisitor<T> {
 	T visit(Bool type);
 	T visit(ErrorType type);
 	T visit(Int type);
+	T visit(Money type);
 	T visit(Numeric type);
 	T visit(Str type);
 	
