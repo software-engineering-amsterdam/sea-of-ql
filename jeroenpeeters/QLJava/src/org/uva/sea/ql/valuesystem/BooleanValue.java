@@ -62,7 +62,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value eq(Value otherValue) {
-		throw new UnsupportedOperationException();
+		return otherValue.eqBool(this);
 	}
 	
 	public Value eqBool(BooleanValue otherValue){
@@ -156,7 +156,7 @@ public class BooleanValue implements Value{
 
 	@Override
 	public Value neq(Value otherValue) {
-		throw new UnsupportedOperationException();
+		return otherValue.neqBool(this);
 	}
 
 	@Override

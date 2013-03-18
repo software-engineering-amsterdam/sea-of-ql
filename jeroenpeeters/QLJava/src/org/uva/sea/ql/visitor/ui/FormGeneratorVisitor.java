@@ -93,7 +93,7 @@ public class FormGeneratorVisitor implements StatementVisitor<JComponent>, Widge
 		
 		final JComponent elsePanel = statement.getElseStatement().accept(this);
 		panel.add(elsePanel);
-		ifElseStatementPanelMap.put(statement, panel);
+		ifElseStatementPanelMap.put(statement, elsePanel);
 		
 		this.update(statement, elsePanel);
 		

@@ -25,5 +25,10 @@ public abstract class Type implements ASTNode {
 	public boolean isCompatibleToMoney() {
 		return false;
 	}
+	
+	@Override
+	public boolean equals(Object object){
+		return this.getClass().equals(object.getClass());
+	}
 
 }

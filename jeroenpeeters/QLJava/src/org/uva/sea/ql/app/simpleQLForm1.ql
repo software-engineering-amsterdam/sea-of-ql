@@ -7,6 +7,8 @@ form DemoForm {
 		citySoldHouse: "In which city was the house located?" text 
 		housePrice: "What was the price of the house?" money
 		
+	}else{
+		"You sold no house": hasSoldHouse
 	}
 	
 	currentlyOwnsHouse: "Do you currently own a house?" boolean

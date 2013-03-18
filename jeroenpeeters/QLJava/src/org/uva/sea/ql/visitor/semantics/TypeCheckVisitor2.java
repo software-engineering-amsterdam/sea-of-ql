@@ -35,9 +35,11 @@ import org.uva.sea.ql.ast.statement.Label;
 import org.uva.sea.ql.ast.statement.Question;
 import org.uva.sea.ql.ast.statement.Statement;
 import org.uva.sea.ql.ast.statement.StatementVisitor;
+import org.uva.sea.ql.ast.type.AnyType;
 import org.uva.sea.ql.ast.type.BooleanType;
 import org.uva.sea.ql.ast.type.NumericType;
 import org.uva.sea.ql.ast.type.Type;
+import org.uva.sea.ql.ast.type.UndefType;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -66,7 +68,11 @@ public class TypeCheckVisitor2 implements ExpressionVisitor<Type>, StatementVisi
 
 	@Override
 	public Type visit(Identifier identifier) {
-		return identifier.typeOf(typeEnv);
+		Type type = identifier.typeOf(typeEnv);
+		if(new UndefType().equals(type)){
+			newTypeCheckError("Identifier '"+identifier.getName()+"' is undefined.");
+		}
+		return type;
 	}
 
 	@Override
@@ -111,7 +117,7 @@ public class TypeCheckVisitor2 implements ExpressionVisitor<Type>, StatementVisi
 
 	@Override
 	public Type visit(Eq expression) {
-		return visitBinaryExpression(expression, "Equals", new NumericType());
+		return visitBinaryExpression(expression, "Equals", new AnyType());
 	}
 
 	@Override
@@ -136,7 +142,7 @@ public class TypeCheckVisitor2 implements ExpressionVisitor<Type>, StatementVisi
 
 	@Override
 	public Type visit(NEq expression) {
-		return visitBinaryExpression(expression, "NotEquals", new NumericType());
+		return visitBinaryExpression(expression, "NotEquals", new AnyType());
 	}
 
 	@Override
@@ -194,7 +200,7 @@ public class TypeCheckVisitor2 implements ExpressionVisitor<Type>, StatementVisi
 		final Type type = statement.getExpression().accept(this);
 
 		if (type.isCompatibleTo(new BooleanType()) == false) {
-			newTypeCheckError("Expression type in if-statement is not compatible to boolean.");
+			newTypeCheckError("Expression in if-statement is not compatible to boolean.");
 		}
 		
 		statement.getStatement().accept(this);
@@ -218,6 +224,10 @@ public class TypeCheckVisitor2 implements ExpressionVisitor<Type>, StatementVisi
 	private Type visitBinaryExpression(final BinaryExpression expression, final String expressionName, final Type supportedOperandType) {
 		final Type lhsType = expression.getLhs().accept(this);
 		final Type rhsType = expression.getRhs().accept(this);
+		
+		if(lhsType.isCompatibleTo(rhsType) == false){
+			newTypeCheckError("Left-hand-side expression of " + expressionName + " is not compatible to right-hand-side expression");
+		}
 
 		if (lhsType.isCompatibleTo(supportedOperandType) == false) {
 			newTypeCheckError("Left-hand-side expression of " + expressionName + " is not compatible to " + supportedOperandType);
