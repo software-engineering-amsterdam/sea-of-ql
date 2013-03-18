@@ -11,7 +11,7 @@ import nl.stgm.ql.ast.form.Form;
 
 import nl.stgm.ql.inspectors.*;
 
-public class SemanticChecker extends DocumentInspector
+public class Checker extends DocumentInspector implements Semantic
 {
 	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
 	private HashMap<String,Form> forms = new HashMap<String,Form>();
@@ -36,7 +36,7 @@ public class SemanticChecker extends DocumentInspector
 	// list of defined identifiers
 	//
 	
-	public void registerIdent(String name, Type type, boolean computed)
+	public void checkQuestion(String name, Type type, boolean computed)
 	{
 		// check if symbol already exists
 		Identifier i = symbols.get(name);
@@ -88,7 +88,7 @@ public class SemanticChecker extends DocumentInspector
 	// forms management
 	//
 	
-	public void registerForm(String name, Form f)
+	public void checkForm(String name, Form f)
 	{
 		Form previous = forms.get(name);
 		
@@ -102,7 +102,7 @@ public class SemanticChecker extends DocumentInspector
 	// traversal helper
 	//
 	
-	public void performTypeCheck(Expr expr)
+	public void checkExpression(Expr expr)
 	{
 		// upon encountering an Expr, this may be called to perform a type check
 		try
@@ -160,7 +160,7 @@ public class SemanticChecker extends DocumentInspector
 
 	public static void main(String[] args)
 	{
-		SemanticChecker checkerContext = new SemanticChecker();
+		Checker checkerContext = new Checker();
 		Document document = parseDocument("errors.qldoc");
 		document.check(checkerContext);
 		checkerContext.printErrorList();

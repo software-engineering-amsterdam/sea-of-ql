@@ -19,7 +19,7 @@ public class Ident extends Expr
 		return name;
 	}
 
-	public Type reduceType(SemanticChecker context)
+	public Type reduceType(Semantic context)
 	{
 		// the semantic checker knowns our type from previous definitions
 		return context.lookupType(this.name);

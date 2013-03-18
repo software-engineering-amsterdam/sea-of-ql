@@ -26,7 +26,7 @@ public class Document extends AbstractElement
 		}
 	}
 	
-	public void check(SemanticChecker context)
+	public void check(Checker context)
 	{
 		for(Form f: forms)
 		{

@@ -11,9 +11,9 @@ public abstract class LiteralExpr extends Expr
 		return this.toString();
 	}
 
-	public Type reduceType(SemanticChecker context)
+	public Type reduceType(Semantic context)
 	{
-		return context.translateType(this);
+		return Type.translate(this);
 	}
 
 	public LiteralExpr reduceValue(Interpreter context)

@@ -23,9 +23,9 @@ public class Question extends FormItem
 		context.println(id + ": " + question + " " + type);
 	}
 
-	public void check(SemanticChecker context)
+	public void check(Checker context)
 	{
-		context.registerIdent(this.id, this.type, false);
+		context.checkQuestion(this.id, this.type, false);
 	}
 
 	public void interpret(Interpreter context)

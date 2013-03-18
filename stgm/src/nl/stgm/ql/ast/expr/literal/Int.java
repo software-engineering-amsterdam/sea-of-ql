@@ -1,4 +1,5 @@
 package nl.stgm.ql.ast.expr.literal;
+
 import nl.stgm.ql.ast.expr.*;
 
 public class Int extends LiteralExpr

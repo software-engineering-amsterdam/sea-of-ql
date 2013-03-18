@@ -9,10 +9,11 @@ import nl.stgm.ql.ast.form.Document;
 
 import nl.stgm.ql.inspectors.*;
 
-public class Interpreter extends DocumentInspector
+public class Interpreter extends DocumentInspector implements Semantic
 {
-	private HashMap<String,LiteralExpr> symbols = new HashMap<String,LiteralExpr>();
-		
+	private HashMap<String,Identifier> symbols = new HashMap<String,Identifier>();
+	private HashMap<String,LiteralExpr> values = new HashMap<String,LiteralExpr>();
+	
 	public void regForm(String name)
 	{
 		System.out.println("\n --- " + name.toUpperCase() + " ------------------------------\n");
@@ -20,31 +21,47 @@ public class Interpreter extends DocumentInspector
 	
 	public void regQuestion(String id, String question, Type type)
 	{
+		symbols.put(id, new Identifier(id, type, false));
 		System.out.print("   " + question + " ");
 		switch(type)
 		{
 			case INT:
-				symbols.put(id, inputInt());
+				values.put(id, inputInt());
 				break;
 			case BOOL:
-				symbols.put(id, inputBool());
+				values.put(id, inputBool());
 				break;
 			default:
 				throw new Error("Unsupported type found in question.");
 		}
 	}
 	
-	public void regCalcQuestion(String id, String question, LiteralExpr value)
+	public void regCalcQuestion(String id, String question, Type type, LiteralExpr value)
 	{
+		symbols.put(id, new Identifier(id, type, true));
+		values.put(id, value);
 		System.out.print("   " + question + " ");
 		System.out.print(value.toString());
 		System.out.println(" (calculated)");
-		symbols.put(id, value);
 	}
 	
 	public LiteralExpr lookupValue(String name)
 	{
-		return symbols.get(name);
+		return values.get(name);
+	}
+	
+	public Type lookupType(String name)
+	{
+		Identifier s = symbols.get(name);
+		
+		if(s == null)
+		{
+			throw new Error(name + " is not defined at this point");
+		}
+		else
+		{
+			return s.getType();
+		}
 	}
 	
 	//

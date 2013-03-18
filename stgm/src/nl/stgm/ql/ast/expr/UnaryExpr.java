@@ -14,13 +14,10 @@ public abstract class UnaryExpr extends Expr
 		return this.toString() + arg.renderExpression();
 	}
 
-	public Type reduceType(SemanticChecker context) throws IncompatibleTypesException
+	public Type reduceType(Semantic context) throws IncompatibleTypesException
 	{
 		return arg.reduceType(context);
 	}
 
-	public LiteralExpr reduceValue(Interpreter context)
-	{
-		return null;
-	}
+	// reduceValue() is implemented in the concrete subclasses
 }

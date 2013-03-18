@@ -22,9 +22,9 @@ public class CalcQuestion extends Question
 		context.println(")");
 	}
 
-	public void check(SemanticChecker context)
+	public void check(Checker context)
 	{
-		context.registerIdent(this.id, this.type, true);
+		context.checkQuestion(this.id, this.type, true);
 
 		context.pushCrumb(this.id);
 		calculation.check(context);
@@ -33,6 +33,6 @@ public class CalcQuestion extends Question
 
 	public void interpret(Interpreter context)
 	{
-		context.regCalcQuestion(this.id, this.question, this.calculation.reduceValue(context));
+		context.regCalcQuestion(this.id, this.question, this.type, this.calculation.reduceValue(context));
 	}
 }

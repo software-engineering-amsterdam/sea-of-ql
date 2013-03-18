@@ -2,5 +2,5 @@ package nl.stgm.ql.inspectors.checker;
 
 public interface Checkable
 {
-	public abstract void check(SemanticChecker context);
+	public abstract void check(Checker context);
 }

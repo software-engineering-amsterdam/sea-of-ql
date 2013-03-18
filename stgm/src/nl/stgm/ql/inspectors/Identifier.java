@@ -1,6 +1,4 @@
-package nl.stgm.ql.inspectors.checker;
-
-import nl.stgm.ql.inspectors.*;
+package nl.stgm.ql.inspectors;
 
 public class Identifier
 {

@@ -30,9 +30,9 @@ public class Form extends AbstractElement
 		context.println("}");
 	}
 
-	public void check(SemanticChecker context)
+	public void check(Checker context)
 	{
-		context.registerForm(this.id, this);
+		context.checkForm(this.id, this);
 		
 		context.pushCrumb(this.id);
 		for(FormItem f: formItems)

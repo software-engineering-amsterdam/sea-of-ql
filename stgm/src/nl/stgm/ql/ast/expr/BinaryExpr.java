@@ -15,16 +15,13 @@ public abstract class BinaryExpr extends Expr
 		return left.renderExpression() + " " + this.toString() + " " + right.renderExpression();
 	}
 	
-	public Type reduceType(SemanticChecker context) throws IncompatibleTypesException
+	public Type reduceType(Semantic context) throws IncompatibleTypesException
 	{
 		if(left.reduceType(context) == right.reduceType(context))
 			return left.reduceType(context);
 		else
 			throw new IncompatibleTypesException();
 	}
-
-	public LiteralExpr reduceValue(Interpreter context)
-	{
-		return null;
-	}
+	
+	// reduceValue() is implemented in the concrete subclasses
 }

@@ -58,7 +58,7 @@ public class Conditional extends FormItem
 		}
 	}
 
-	public void check(SemanticChecker context)
+	public void check(Checker context)
 	{
 		context.pushCrumb("if(" + condition.renderExpression() + ")");
 
