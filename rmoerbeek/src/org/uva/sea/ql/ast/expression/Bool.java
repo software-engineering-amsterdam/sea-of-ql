@@ -1,0 +1,31 @@
+package org.uva.sea.ql.ast.expression;
+
+import java.util.Map;
+
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitors.ExpressionVisitor;
+
+public class Bool extends Expr {
+	
+	private final boolean value;
+	
+	public Bool(String value) {
+		this.value = Boolean.parseBoolean(value);
+	}
+	
+	public boolean getValue() {
+		return value;
+	}
+	
+
+	@Override
+	public Type typeOf(Map<Ident, Type> typeEnv) {
+		return new org.uva.sea.ql.ast.types.BooleanType();
+	}
+	
+	@Override 
+	public <T> T accept(ExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+
+}
