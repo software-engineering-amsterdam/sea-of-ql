@@ -1,0 +1,14 @@
+package org.uva.sea.ql.renderer;
+
+public class MainQL extends JFrame {
+
+	public MainQL(String string, String string2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

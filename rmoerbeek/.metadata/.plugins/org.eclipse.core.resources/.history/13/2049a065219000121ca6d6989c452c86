@@ -1,0 +1,12 @@
+form Box1HouseOwig { 
+                                      hasSoldHouse: "Did you sell a house i 2010?" boolean
+                                      hasBoughtHouse: "Did you by a house i 2010?" boolean    
+                                      hasMaitLoa: "Did you enter a loan for mainteance/recostruction?"
+                                      boolean
+                                      if (selligPrice) {
+                                      selligPrice: "Price the house was sold for:" integer 
+                                      privateDebt: "Private debts for the sold house:" integer
+                                      hasMaitLoan: "Value residue:" integer(selligPrice - privateDebt)       
+									  }
+                                      else if (hasBoughtHouse) { blabla: "thisisaquestio" boolean  }
+									  } 

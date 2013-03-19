@@ -1,0 +1,57 @@
+package org.uva.sea.ql.renderer;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import javax.swing.JFrame;
+
+public class MainQL extends JFrame {
+	
+	private String inputLoc;
+	private String outputLoc;
+	
+	public MainQL(String inputLoc, String outputLoc) {
+		this.inputLoc = inputLoc;
+		this.outputLoc = outputLoc;
+		
+		startUI();
+		render();
+	}
+	
+	
+	private void startUI() {
+		setTitle("My QL Form");
+		setSize(600, 600);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		    public void windowClosing(WindowEvent e) {
+		       createXML(getOutputLoc());
+		    }
+		});	
+	}
+	
+	
+	private void createXML(String outputLoc) {
+		
+		
+	}
+	
+	private void render() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private String getInputLoc() {
+		return this.inputLoc;
+	}
+	
+	private String getOutputLoc() {
+		return this.outputLoc;
+	}
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

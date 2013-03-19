@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<cache:CacheIndex xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:cache="http://eclipse.org/dltk/cache_model" lastIndex="344" environment="org.eclipse.dltk.core.environment.localEnvironment">
+  <entries path="C:/Users/Romy/Construction/DSL/src/org/uva/sea/ql/parser/antlr" timestamp="1362138833484" lastAccessTime="1362224141855">
+    <attributes name=".dltk.core.archive.cache.lastaccess" location="2838196607/1868878534/341.idx"/>
+  </entries>
+  <entries path="C:/Users/Romy/Construction/DSL/src/org/uva/sea/ql/parser/antlr/QL.g" timestamp="1362138831915" lastAccessTime="1363625934256">
+    <attributes name="indexed" location="2838196607/3747807587/343.idx"/>
+  </entries>
+</cache:CacheIndex>

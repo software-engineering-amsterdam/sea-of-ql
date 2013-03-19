@@ -1,0 +1,90 @@
+package org.uva.sea.ql.renderer;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.swing.JFrame;
+
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.parser.test.ParseError;
+import org.uva.sea.ql.parser.typechecker.CheckStat;
+
+
+public class MainQL extends JFrame {
+	
+	private String inputLoc;
+	private String outputLoc;
+	
+	public MainQL(String inputLoc, String outputLoc) {
+		this.inputLoc = inputLoc;
+		this.outputLoc = outputLoc;
+		
+		startUI();
+		render();
+	}
+	
+	
+	private void startUI() {
+		setTitle("My QL Form");
+		setSize(600, 600);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+		    public void windowClosing(WindowEvent e) {
+		       createXML(getOutputLoc());
+		    }
+		}
+		);	
+	}
+	
+	
+	private void createXML(String outputLoc) {
+		
+		
+	}
+	
+	private void render() {
+		State state = new State();
+		ANTLRParser parser = new ANTLRParser();
+		ArrayList<String> errorList = new ArrayList<String>();
+		
+		String source = loadFile(getInputLoc());
+		
+		if (source != null) {
+			
+			try {
+				Form form = parser.parseForm(source);
+				boolean check = CheckStat.check(form, new HashMap<Ident, org.uva.sea.ql.ast.types.Type>(), errorList);
+				
+				
+			} catch (ParseError e) {
+			
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private String loadFile(String inputLoc2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	private String getInputLoc() {
+		return this.inputLoc;
+	}
+	
+	private String getOutputLoc() {
+		return this.outputLoc;
+	}
+
+	public void setVisible(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

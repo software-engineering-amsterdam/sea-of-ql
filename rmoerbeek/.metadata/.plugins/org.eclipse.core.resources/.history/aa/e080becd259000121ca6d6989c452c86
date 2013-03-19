@@ -1,0 +1,16 @@
+import org.uva.sea.ql.renderer.MainQL;
+
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		/* input arguments
+		 * args[0]: Location of the textfile written in QL
+		 * args[1]: Location of the output XML file
+		 */
+		new MainQL(args[0], args[1]);
+		
+	}
+
+}

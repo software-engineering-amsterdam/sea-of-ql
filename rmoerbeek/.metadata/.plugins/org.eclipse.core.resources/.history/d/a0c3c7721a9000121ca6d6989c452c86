@@ -1,0 +1,13 @@
+import org.uva.sea.ql.renderer.MainQL;
+
+
+public class Main {
+	
+	public static void main(String[] args) {
+		
+		MainQL mainQL = new MainQL(args[0], args[1]);
+		mainQL.setVisible(true);
+		
+	}
+
+}

@@ -1,0 +1,135 @@
+package org.uva.sea.ql.parser.typechecker;
+
+import java.util.List;
+import java.util.Map;
+
+import org.uva.sea.ql.ast.expression.Expr;
+import org.uva.sea.ql.ast.expression.Ident;
+import org.uva.sea.ql.ast.statement.Body;
+import org.uva.sea.ql.ast.statement.ComputedQuestion;
+import org.uva.sea.ql.ast.statement.ElseIfStat;
+import org.uva.sea.ql.ast.statement.ElseStat;
+import org.uva.sea.ql.ast.statement.Form;
+import org.uva.sea.ql.ast.statement.IfStat;
+import org.uva.sea.ql.ast.statement.NonComputedQuestion;
+import org.uva.sea.ql.ast.statement.Statement;
+import org.uva.sea.ql.ast.types.Type;
+import org.uva.sea.ql.ast.visitors.StatementVisitor;
+
+public class CheckStat implements StatementVisitor<Boolean> {
+	
+	private final Map<Ident, Type> typeEnv;
+	private final List<String> messages;
+	
+	private CheckStat(Map<Ident, Type> typeEnv, List<String> messages){
+		this.typeEnv = typeEnv;
+		this.messages = messages;
+		
+	}
+	
+	public static boolean check(Form stat, Map<Ident, Type> typeEnv, List<String> mess){
+		CheckStat check = new CheckStat(typeEnv, mess);
+		return stat.accept(check);	
+	}
+	
+	public boolean checkExpr(Expr expr) {
+		return CheckExpr.check(expr, typeEnv, messages);
+	}
+	
+	public Type typeOf(Expr expr) {
+		return expr.typeOf(typeEnv);
+	}
+
+
+	@Override
+	public Boolean visit(Body stat) {
+		boolean out = true;
+		int c = 0;
+
+		for(Statement stmt: stat.getElems()){
+			System.out.println(c);
+			System.out.println(stmt.getClass());
+			out &= stmt.accept(this);
+			System.out.println(out);
+		}
+		return out;
+	}
+	
+
+	@Override
+	public Boolean visit(ElseIfStat stat) {
+
+		if (!checkExpr(stat.getCondition())) {
+			return false;
+		}
+		
+		return stat.getBody().accept(this);
+		
+	}
+
+	@Override
+	public Boolean visit(ElseStat stat) {
+		
+		return stat.getBody().accept(this);
+	}
+	
+
+	@Override
+	public Boolean visit(Form stat) {
+		if (stat.getBody().getElems().isEmpty()) {
+			// no elements in the form returns true by default
+			return true; 
+		}
+	
+		return stat.getBody().accept(new CheckStat(typeEnv, messages));
+	}
+
+
+	public Boolean visit(IfStat stat) {
+		
+		if (!checkExpr(stat.getCondition())) {
+			return false;
+		}
+		
+		return stat.getBody().accept(this);	
+	}
+	
+
+	public Boolean visit(NonComputedQuestion stat) {
+		
+		Ident id = stat.getIdentifier();
+		Type t = stat.getType();
+		
+		if (typeEnv.containsKey(id)) {
+			return false;
+		}
+		
+		typeEnv.put(id, t); //update environment
+		return true;
+		
+	}
+
+	
+
+	@Override
+	public Boolean visit(ComputedQuestion stat) {
+		Ident id = stat.getIdentifier();
+		Type t = stat.getType();
+		Expr expr = stat.getExpression();
+		System.out.println("Hi");
+		
+		if (!checkExpr(expr)) {
+			return false;
+		}
+		
+		if (typeEnv.containsKey(id)) {
+			return false;
+		}
+		
+		typeEnv.put(id, t); //update environment
+		return true;
+	}
+
+
+
+}

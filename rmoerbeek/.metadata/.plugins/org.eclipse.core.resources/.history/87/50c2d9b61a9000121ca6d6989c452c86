@@ -1,0 +1,12 @@
+form Box1HouseOwning { \n
+                                      hasSoldHouse: \"Did you sell a house in 2010?\" boolean\n
+                                      hasBoughtHouse: \"Did you by a house in 2010?\" boolean    \n
+                                      hasMaintLoan: \"Did you enter a loan for maintenance/reconstruction?\"
+                                      boolean\n
+                                      if (hasSoldHouse) {
+                                      sellingPrice: \"Price the house was sold for:\" integer \n
+                                      privateDebt: \"Private debts for the sold house:\" integer\n
+                                      hasMaintLoan: \"Value residue:\" integer(sellingPrice - privateDebt)\n       
+									  }\n
+                                      else if (hasBoughtHouse) { blabla: \"thisisaquestion\" boolean \n }
+									  } 
