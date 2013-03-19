@@ -10,4 +10,8 @@ public class ErrorType extends Type {
 		return visitor.visit(this);
 	}
 	
+	public String toString() {
+		return "<error type>";
+	}
+	
 }

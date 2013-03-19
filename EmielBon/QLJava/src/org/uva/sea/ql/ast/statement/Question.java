@@ -28,8 +28,8 @@ public class Question extends Statement {
 		return type;
 	}
 	
-	public <T> T accept(StatementVisitor<T> visitor) {
-		return visitor.visit(this);
+	public void accept(StatementVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }

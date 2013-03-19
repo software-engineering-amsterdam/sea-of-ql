@@ -20,8 +20,8 @@ public class Block extends Statement {
 		return statements;
 	}
 
-	public <T> T accept(StatementVisitor<T> visitor) {
-		return visitor.visit(this);
+	public void accept(StatementVisitor visitor) {
+		visitor.visit(this);
 	}
 
 }

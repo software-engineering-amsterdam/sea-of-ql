@@ -10,4 +10,8 @@ public class Money extends Numeric {
 		return visitor.visit(this);
 	}
 
+	public String toString() {
+		return "money";
+	}
+	
 }

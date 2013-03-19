@@ -6,106 +6,98 @@ import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.Type;
 
-public class StatementChecker implements StatementVisitor<Boolean> {
+public class StatementChecker implements StatementVisitor {
 
 	private final TypeEnvironment typeEnv;
-	private final List<Error> messages;
+	private final List<Error> errors;
 	
 	private StatementChecker(TypeEnvironment typeEnv, List<Error> messages) {
 		this.typeEnv = typeEnv;
-		this.messages = messages;
+		this.errors = messages;
 	}
 	
-	public static boolean check(Statement stat, TypeEnvironment typeEnv, List<Error> errs) {
+	public static void check(Statement stat, TypeEnvironment typeEnv, List<Error> errs) {
 		StatementChecker check = new StatementChecker(typeEnv, errs);
-		return stat.accept(check);
+		stat.accept(check);
 	}
 	
 	public boolean checkExpression(Expression expr) {
-		return ExpressionChecker.check(expr, typeEnv, messages);
+		return ExpressionChecker.check(expr, typeEnv, errors);
 	}
 	
 	public Type typeOf(Expression expr) {
 		return expr.typeOf(typeEnv);
 	}
 	
-	public Boolean visit(ComputedQuestion stat) {
+	private void addError(Expression expr, String message) {
+		errors.add(new Error(expr, message));
+	}
+	
+	public void visit(ComputedQuestion stat) {
 		
 		Identifier id     = stat.getIdentifier();
 		Type declaredType = stat.getType();
 		Expression expr   = stat.getExpression();
-				
+			
 		if (typeEnv.isDeclared(id)) {
-			return false;
+			addError(id, "redeclaration of variable " + id.getRepresentation());
 		}
 		
-		if (!checkExpression(expr)) {
-			return false;
-		}
+		checkExpression(expr);
 
 		if (!typeOf(expr).isCompatibleWith(declaredType)) {
-			return false;
+			addError(expr, "type of expression (" + typeOf(expr) + ") is incompatible with declared type " + declaredType);
 		}
 		
 		typeEnv.declare(id, declaredType);
-		return true;
 	}
 
-	public Boolean visit(Question stat) {
+	public void visit(Question stat) {
 		
 		Identifier id = stat.getIdentifier();
 		
 		if (typeEnv.isDeclared(id)) {
-			return false;
+			addError(id, "redeclaration of variable " + id.getRepresentation());
 		}
 		
 		typeEnv.declare(id, stat.getType());
-		return true;
 	}
 	
-	public Boolean visit(IfThen stat) {
+	public void visit(IfThen stat) {
 		
 		Expression condition = stat.getCondition();
 		
-		if (!checkExpression(condition)) {
-			return false;
-		}
-		
+		checkExpression(condition);
+			
 		if (!typeOf(condition).isCompatibleWithBool()) {
-			return false;
+			addError(condition, "not a conditional statement");
 		}
 		
-		return visit(stat.getBody());
+		visit(stat.getBody());
 	}
 	
-	public Boolean visit(IfThenElse stat) {
+	public void visit(IfThenElse stat) {
 		
 		Expression condition = stat.getCondition();
 		
-		if (!checkExpression(condition)) {
-			return false;
-		}
+		checkExpression(condition);
 		
 		if (!typeOf(condition).isCompatibleWithBool()) {
-			return false;
+			addError(condition, "not a conditional statement");
 		}
 		
-		return visit(stat.getBody()) && visit(stat.getElseBody());
+		visit(stat.getBody());
+		visit(stat.getElseBody());
 	}
 	
-	public Boolean visit(Form stat) {
-		return visit(stat.getBody());
+	public void visit(Form stat) {
+		visit(stat.getBody());
 	}
 	
-	public Boolean visit(Block stat) {
-		
-		boolean correct = true;
-		
+	public void visit(Block stat) {
 		for(Statement s : stat.getBody()) {
-			correct = correct && s.accept(this);
+			s.accept(this);
 		}
-		
-		return correct;
 	}
 	
 }

@@ -8,7 +8,7 @@ import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.gui.controls.Control;
 
-public class Renderer implements StatementVisitor<Boolean> {
+public class Renderer implements StatementVisitor {
 	
 	private final JPanel panel;
 	private final State state;
@@ -62,20 +62,18 @@ public class Renderer implements StatementVisitor<Boolean> {
 		return control;
 	}
 	
-	public Boolean visit(Question stat) {
+	public void visit(Question stat) {
 		addLabel(stat.getLabel());
 		Control ctrl = typeToWidget(stat, true);
 		registerHandler(stat, ctrl);
 		add(ctrl);
-		return true;
 	}
 	
-	public Boolean visit(ComputedQuestion stat) {
+	public void visit(ComputedQuestion stat) {
 		addLabel(stat.getLabel());
 		Control ctrl = typeToWidget(stat, false);
 		registerComputedDeps(stat, ctrl);
 		add(ctrl);
-		return null;
 	}
 	
 	private void registerConditionDeps(Expression expr, JPanel tru, JPanel fls) {
@@ -83,15 +81,14 @@ public class Renderer implements StatementVisitor<Boolean> {
 		state.addGlobalObserver(obs);
 	}
 	
-	public Boolean visit(IfThen stat) {
+	public void visit(IfThen stat) {
 		JPanel tru = render(stat.getBody(), state);
 		registerConditionDeps(stat.getCondition(), tru, null);
 		tru.setVisible(false);
 		addPanel(tru);
-		return true;
 	}
 
-	public Boolean visit(IfThenElse stat) {
+	public void visit(IfThenElse stat) {
 		JPanel tru = render(stat.getBody(), state);
 		JPanel fls = render(stat.getElseBody(), state);
 		registerConditionDeps(stat.getCondition(), tru, fls);
@@ -99,17 +96,15 @@ public class Renderer implements StatementVisitor<Boolean> {
 		fls.setVisible(false);
 		addPanel(tru);
 		addPanel(fls);
-		return true;
 	}
 	
-	public Boolean visit(Form stat) {
-		return stat.getBody().accept(this);
+	public void visit(Form stat) {
+		stat.getBody().accept(this);
 	}
 
-	public Boolean visit(Block stat) {
+	public void visit(Block stat) {
 		for(Statement s : stat.getBody())
 			s.accept(this);
-		return true;
 	}
 
 }

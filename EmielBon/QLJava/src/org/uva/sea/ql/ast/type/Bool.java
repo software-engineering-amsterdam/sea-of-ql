@@ -14,4 +14,8 @@ public class Bool extends Type {
 		return visitor.visit(this);
 	}
 	
+	public String toString() {
+		return "boolean";
+	}
+	
 }

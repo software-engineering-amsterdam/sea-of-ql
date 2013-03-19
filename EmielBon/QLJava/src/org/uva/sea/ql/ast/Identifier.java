@@ -51,7 +51,7 @@ public class Identifier extends Expression {
 	}
 	
 	public String toString() {
-		return name;
+		return getRepresentation();
 	}
 	
 }

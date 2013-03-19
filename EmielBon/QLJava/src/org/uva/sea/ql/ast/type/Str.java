@@ -14,4 +14,8 @@ public class Str extends Type {
 		return visitor.visit(this);
 	}
 	
+	public String toString() {
+		return "string";
+	}
+	
 }

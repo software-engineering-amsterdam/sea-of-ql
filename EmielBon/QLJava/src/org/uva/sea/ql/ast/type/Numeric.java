@@ -22,4 +22,8 @@ public class Numeric extends Type {
 		return visitor.visit(this);
 	}
 	
+	public String toString() {
+		return "numeric";
+	}
+	
 }

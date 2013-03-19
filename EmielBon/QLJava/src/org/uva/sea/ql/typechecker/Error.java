@@ -21,7 +21,7 @@ public class Error {
 	}
 	
 	public String toString() {
-		return "Type error: " + message + " in expression " + expression; 
+		return "Error: " + message + " in \"" + expression + "\""; 
 	}
 	
 }
