@@ -1,9 +1,8 @@
 package org.uva.sea.ql.gui;
 
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.type.*;
 import org.uva.sea.ql.gui.controls.*;
-import org.uva.sea.ql.interpreter.State;
 
 public class TypeToWidget implements TypeVisitor<Control> {
 

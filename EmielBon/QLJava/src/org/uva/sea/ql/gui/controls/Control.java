@@ -2,9 +2,10 @@ package org.uva.sea.ql.gui.controls;
 
 import java.util.Observable;
 import javax.swing.JComponent;
-import org.uva.sea.ql.ast.expression.Identifier;
+
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.eval.Value;
-import org.uva.sea.ql.interpreter.State;
+import org.uva.sea.ql.gui.State;
 
 public abstract class Control extends Observable {
 

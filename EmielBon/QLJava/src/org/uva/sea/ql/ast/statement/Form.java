@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.Identifier;
 
 /**
  * Represents the top-level Form construct in the QL language
@@ -8,9 +8,9 @@ import org.uva.sea.ql.ast.expression.Identifier;
 public class Form extends Statement {
 	
 	private final Identifier id;
-	private final Statements body;
+	private final Block body;
 	
-	public Form(Identifier id, Statements body) {
+	public Form(Identifier id, Block body) {
 		this.id = id;
 		this.body = body;
 	}
@@ -27,7 +27,7 @@ public class Form extends Statement {
 	 * Returns the statements inside the body of this form
 	 * @return A Statements object containing all the statements inside this form
 	 */
-	public Statements getBody() {
+	public Block getBody() {
 		return body;
 	}
 

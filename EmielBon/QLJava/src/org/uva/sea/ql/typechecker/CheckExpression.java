@@ -1,32 +1,38 @@
 package org.uva.sea.ql.typechecker;
 
 import java.util.List;
-import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.literal.*;
-import org.uva.sea.ql.ast.expression.operators.*;
-import org.uva.sea.ql.ast.expression.operators.logical.*;
-import org.uva.sea.ql.ast.expression.operators.numeric.*;
-import org.uva.sea.ql.ast.expression.operators.relational.*;
+
+import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.ExpressionVisitor;
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.operators.*;
+import org.uva.sea.ql.ast.operators.logical.*;
+import org.uva.sea.ql.ast.operators.numeric.*;
+import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.type.Type;
 
 public class CheckExpression implements ExpressionVisitor<Boolean> {
 
 	private final TypeEnvironment typeEnv;
-	// TODO Implement error messages
-	private final List<Message> messages;
+	private final List<Error> errors;
 	
-	private CheckExpression(TypeEnvironment typeEnv, List<Message> messages) {
+	private CheckExpression(TypeEnvironment typeEnv, List<Error> messages) {
 		this.typeEnv = typeEnv;
-		this.messages = messages;
+		this.errors = messages;
 	}
 	
-	public static boolean check(Expression expr, TypeEnvironment typeEnv, List<Message> errs) {
+	public static boolean check(Expression expr, TypeEnvironment typeEnv, List<Error> errs) {
 		CheckExpression check = new CheckExpression(typeEnv, errs);
 		return expr.accept(check);
 	}
 	
 	public Type typeOf(Expression expr) {
 		return expr.typeOf(typeEnv);
+	}
+	
+	private void addError(Expression expr, String message) {
+		errors.add(new Error(expr, message));
 	}
 	
 	public boolean checkOperands(Operator expr) {
@@ -50,7 +56,7 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 		
 		for(Expression operand : expr.getOperands()) {
 			if (!typeOf(operand).isCompatibleWith(operatorType)) {
-				//addError(expr, "invalid type for " + expr.getRepresentation());
+				addError(expr, "invalid type for " + expr.getRepresentation());
 				return false;
 			}
 		}
@@ -61,6 +67,7 @@ public class CheckExpression implements ExpressionVisitor<Boolean> {
 	public boolean checkRelationalOperator(BinaryOperator expr) {
 		
 		if (!checkOperands(expr)) {
+			addError(expr, "invalid type for " + expr.getRepresentation());
 			return false;
 		}
 		

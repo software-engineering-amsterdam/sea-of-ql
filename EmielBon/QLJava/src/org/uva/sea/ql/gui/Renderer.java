@@ -3,13 +3,11 @@ package org.uva.sea.ql.gui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-import org.uva.sea.ql.ast.expression.Expression;
-import org.uva.sea.ql.ast.expression.literal.StringLiteral;
+
+import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.gui.controls.Control;
-import org.uva.sea.ql.interpreter.ComputedObserver;
-import org.uva.sea.ql.interpreter.ConditionObserver;
-import org.uva.sea.ql.interpreter.State;
 
 public class Renderer implements StatementVisitor<Boolean> {
 	
@@ -25,7 +23,7 @@ public class Renderer implements StatementVisitor<Boolean> {
 	public Renderer(State state) {
 		this.state = state;
 		this.panel = new JPanel();
-		panel.setLayout(new MigLayout("wrap 2"));
+		panel.setLayout(new MigLayout("wrap 2, insets 0"));
 	}
 	
 	public JPanel getPanel() {
@@ -42,27 +40,17 @@ public class Renderer implements StatementVisitor<Boolean> {
 	}
 	
 	private void addPanel(JPanel panel) {
-		this.panel.add(panel);
+		this.panel.add(panel, "span");
 	}
 	
 	private void add(Control control) {
-		panel.add(control.getUIComponent());
+		panel.add(control.getUIComponent(), "align left");
 	}
-	
-	/*private Value eval(Expression expr, State state) {
-		return expr.accept(new Eval(state.getEnvironment()));
-	}*/
 	
 	private void registerComputedDeps(ComputedQuestion stat, Control ctrl) {
 		ComputedObserver obs = new ComputedObserver(ctrl, state, stat);
 		state.addGlobalObserver(obs);
 		state.putObservable(stat.getIdentifier(), ctrl);
-	}
-	
-	private void initValue(ComputedQuestion stat, Control ctrl) {
-		//Value value = new IntegerValue(0);//stat.getExpression().accept(new Eval(state.getEnvironment()));
-		//state.putValue(stat.getIdentifier(), value);
-		//ctrl.setValue(value);
 	}
 
 	private void registerHandler(Question stat, Control ctrl) {
@@ -87,8 +75,6 @@ public class Renderer implements StatementVisitor<Boolean> {
 		addLabel(stat.getLabel());
 		Control ctrl = typeToWidget(stat, false);
 		registerComputedDeps(stat, ctrl);
-		//registerPropagator(stat);
-		initValue(stat, ctrl);
 		add(ctrl);
 		return null;
 	}
@@ -98,22 +84,30 @@ public class Renderer implements StatementVisitor<Boolean> {
 		state.addGlobalObserver(obs);
 	}
 	
-	public Boolean visit(IfBlock stat) {
+	public Boolean visit(IfThen stat) {
 		JPanel tru = render(stat.getBody(), state);
-		//JPanel fls = render(stat.getElseBody(), state);
 		registerConditionDeps(stat.getCondition(), tru, null);
 		tru.setVisible(false);
-		//fls.setVisible(false);
 		addPanel(tru);
-		//addPanel(fls);
 		return true;
 	}
 
+	public Boolean visit(IfThenElse stat) {
+		JPanel tru = render(stat.getBody(), state);
+		JPanel fls = render(stat.getElseBody(), state);
+		registerConditionDeps(stat.getCondition(), tru, fls);
+		tru.setVisible(false);
+		fls.setVisible(false);
+		addPanel(tru);
+		addPanel(fls);
+		return true;
+	}
+	
 	public Boolean visit(Form stat) {
 		return stat.getBody().accept(this);
 	}
 
-	public Boolean visit(Statements stat) {
+	public Boolean visit(Block stat) {
 		for(Statement s : stat.getStatements())
 			s.accept(this);
 		return true;

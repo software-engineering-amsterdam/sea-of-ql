@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.statement;
 
-import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.literal.StringLiteral;
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.type.Type;
 
 public class Question extends Statement {

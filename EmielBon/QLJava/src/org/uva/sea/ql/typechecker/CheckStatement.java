@@ -1,21 +1,22 @@
 package org.uva.sea.ql.typechecker;
 
 import java.util.List;
-import org.uva.sea.ql.ast.expression.*;
+import org.uva.sea.ql.ast.Expression;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.Type;
 
 public class CheckStatement implements StatementVisitor<Boolean> {
 
 	private final TypeEnvironment typeEnv;
-	private final List<Message> messages;
+	private final List<Error> messages;
 	
-	private CheckStatement(TypeEnvironment typeEnv, List<Message> messages) {
+	private CheckStatement(TypeEnvironment typeEnv, List<Error> messages) {
 		this.typeEnv = typeEnv;
 		this.messages = messages;
 	}
 	
-	public static boolean check(Statement stat, TypeEnvironment typeEnv, List<Message> errs) {
+	public static boolean check(Statement stat, TypeEnvironment typeEnv, List<Error> errs) {
 		CheckStatement check = new CheckStatement(typeEnv, errs);
 		return stat.accept(check);
 	}
@@ -62,7 +63,7 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 		return true;
 	}
 	
-	public Boolean visit(IfBlock stat) {
+	public Boolean visit(IfThen stat) {
 		
 		Expression condition = stat.getCondition();
 		
@@ -77,11 +78,26 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 		return visit(stat.getBody());
 	}
 	
+	public Boolean visit(IfThenElse stat) {
+		
+		Expression condition = stat.getCondition();
+		
+		if (!checkExpression(condition)) {
+			return false;
+		}
+		
+		if (!typeOf(condition).isCompatibleWithBool()) {
+			return false;
+		}
+		
+		return visit(stat.getBody()) && visit(stat.getElseBody());
+	}
+	
 	public Boolean visit(Form stat) {
 		return visit(stat.getBody());
 	}
 	
-	public Boolean visit(Statements stat) {
+	public Boolean visit(Block stat) {
 		
 		boolean correct = true;
 		

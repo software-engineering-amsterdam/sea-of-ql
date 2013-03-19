@@ -8,15 +8,16 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import org.uva.sea.ql.ast.expression.Identifier;
+
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.eval.StringValue;
 import org.uva.sea.ql.eval.Value;
-import org.uva.sea.ql.interpreter.State;
+import org.uva.sea.ql.gui.State;
 
 public class TextField extends Control implements CaretListener {
 
-	private JTextField component;
-	private Border originalBorder;
+	private final JTextField component;
+	private final Border originalBorder;
 	
 	public TextField(Identifier identifier, State state) {
 		super(identifier, state);

@@ -2,7 +2,8 @@ package org.uva.sea.ql.eval;
 
 import java.util.Map;
 import java.util.HashMap;
-import org.uva.sea.ql.ast.expression.Identifier;
+
+import org.uva.sea.ql.ast.Identifier;
 
 public class ValueEnvironment {
 

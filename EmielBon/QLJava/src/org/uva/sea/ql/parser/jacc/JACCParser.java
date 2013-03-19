@@ -8,7 +8,7 @@ import org.uva.sea.ql.parser.test.ParseError;
 
 public class JACCParser implements IParse {
 	@Override
-	public Node parse(String src) throws ParseError {
+	public ASTNode parse(String src) throws ParseError {
 		QLLexer lexer = new QLLexer(new StringReader(src));
 		System.out.println("SOURCE = \"" + src + "\"");
 		lexer.nextToken();

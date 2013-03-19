@@ -5,10 +5,10 @@ import javax.swing.JRadioButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.eval.BooleanValue;
 import org.uva.sea.ql.eval.Value;
-import org.uva.sea.ql.interpreter.State;
+import org.uva.sea.ql.gui.State;
 
 public class RadioButton extends Control implements ChangeListener {
 

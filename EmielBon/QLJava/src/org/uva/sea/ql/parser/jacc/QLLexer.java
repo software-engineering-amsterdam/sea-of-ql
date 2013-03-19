@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expression.Identifier;
-import org.uva.sea.ql.ast.expression.literal.*;
+import org.uva.sea.ql.ast.literal.*;
 
 public class QLLexer implements QLTokens {
 	private static final Map<String, Integer> KEYWORDS;
@@ -16,6 +15,7 @@ public class QLLexer implements QLTokens {
 		KEYWORDS = new HashMap<String, Integer>();
 		KEYWORDS.put("form", FORM);
 		KEYWORDS.put("if", IF);
+		KEYWORDS.put("else", ELSE);
 		KEYWORDS.put("integer", INTEGER);
 		KEYWORDS.put("boolean", BOOLEAN);
 		KEYWORDS.put("string", STRING);
@@ -191,18 +191,6 @@ public class QLLexer implements QLTokens {
 		    	}
 			    
 			    default: {
-			    	
-			    	// TODO Remove
-			    	// Integer token [0-9]+
-			    	/*if (Character.isDigit(c)) {
-			    		int n = 0;
-			    		do {
-			    			n = 10 * n + (c - '0');
-			    			nextChar(); 
-			    		} while (Character.isDigit(c)); 
-			    		yylval = new IntegerLiteral(n);
-			    		return token = INTEGERLITERAL;
-			    	}*/
 			    	
 			    	// Numeric token
 			    	if (Character.isDigit(c)) {

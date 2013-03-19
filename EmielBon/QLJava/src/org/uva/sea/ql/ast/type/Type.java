@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.type;
 
-import org.uva.sea.ql.ast.Node;
+import org.uva.sea.ql.ast.*;
 
-public abstract class Type extends Node {
+public abstract class Type implements ASTNode {
 
 	public abstract boolean isCompatibleWith(Type t);
 	

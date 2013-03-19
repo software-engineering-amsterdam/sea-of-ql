@@ -1,10 +1,11 @@
 package org.uva.sea.ql.eval;
 
-import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.literal.*;
-import org.uva.sea.ql.ast.expression.operators.logical.*;
-import org.uva.sea.ql.ast.expression.operators.numeric.*;
-import org.uva.sea.ql.ast.expression.operators.relational.*;
+import org.uva.sea.ql.ast.ExpressionVisitor;
+import org.uva.sea.ql.ast.Identifier;
+import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.operators.logical.*;
+import org.uva.sea.ql.ast.operators.numeric.*;
+import org.uva.sea.ql.ast.operators.relational.*;
 
 public class Eval implements ExpressionVisitor<Value> {
 

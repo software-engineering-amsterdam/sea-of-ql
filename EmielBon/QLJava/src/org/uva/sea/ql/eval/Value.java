@@ -1,8 +1,6 @@
 package org.uva.sea.ql.eval;
 
 public abstract class Value {
-
-	// TODO Money support
 	
 	// Logical operators
 	

@@ -1,9 +1,9 @@
 package org.uva.sea.ql.gui.controls;
 
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.eval.MoneyValue;
 import org.uva.sea.ql.eval.Value;
-import org.uva.sea.ql.interpreter.State;
+import org.uva.sea.ql.gui.State;
 
 public class MoneyField extends TextField {
 

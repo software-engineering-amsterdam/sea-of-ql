@@ -8,8 +8,9 @@ public interface StatementVisitor<T> {
 
 	T visit(ComputedQuestion stat);
 	T visit(Question stat);
-	T visit(IfBlock stat);
+	T visit(IfThen stat);
+	T visit(IfThenElse stat);
 	T visit(Form stat);
-	T visit(Statements stat);
+	T visit(Block stat);
 	
 }

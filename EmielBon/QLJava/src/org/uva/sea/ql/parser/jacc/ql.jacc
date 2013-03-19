@@ -17,7 +17,7 @@
 // Operators
 %token '*' '/' '+' '-' OR AND NEQ EQ '<' LEQ '>' GEQ '!'
 // Reserved keywords
-%token FORM IF
+%token FORM IF ELSE
 // Syntactic symbols
 %token ':' '(' ')' '{' '}' ';'
 
@@ -30,22 +30,22 @@
 %left UMIN UPLUS UNOT
 
 // Nonterminal symbol definitions 
-%type <Node>       node
-%type <Form>       form
-%type <Type>       type
-%type <Expression> expression
-%type <IfBlock>    ifblock
-%type <Statement>  statement
-%type <Statements> statements
+%type <ASTNode>     node
+%type <Form>        form
+%type <Type>        type
+%type <Expression>  expression
+%type <IfThen>      ifThen
+%type <IfThenElse>  ifThenElse
+%type <Statement>   statement
+%type <Block>       statements, block
 
 // Statements that get put after the package declaration in XParser.java
 %{
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.ast.expression.*;
-import org.uva.sea.ql.ast.expression.literal.*;
-import org.uva.sea.ql.ast.expression.operators.logical.*;
-import org.uva.sea.ql.ast.expression.operators.numeric.*;
-import org.uva.sea.ql.ast.expression.operators.relational.*;
+import org.uva.sea.ql.ast.literal.*;
+import org.uva.sea.ql.ast.operators.logical.*;
+import org.uva.sea.ql.ast.operators.numeric.*;
+import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.*;
 %}
@@ -68,12 +68,16 @@ node        : form
 form        : FORM IDENTIFIER '{' statements '}' { $$ = new Form($2, $4); }
             ;
 
-statements  : statement statements { $$ = new Statements($1, $2); }
-            | statement            { $$ = new Statements($1); }
+block       : '{' statements '}' { $$ = new Block($2); }
+            ;
+
+statements  : statement statements { $$ = new Block($1, $2); }
+            | statement            { $$ = new Block($1); }
             ;
             
 statement   : question
-            | ifblock
+            | ifThen
+            | ifThenElse
             ;
 			
 question    : IDENTIFIER ':' STRINGLITERAL type '(' expression ')' { $$ = new ComputedQuestion($1, $3, $4, $6); }
@@ -86,7 +90,10 @@ type        : INTEGER { $$ = new Int(); }
             | MONEY   { $$ = new Money(); }
             ;
 
-ifblock     : IF '(' expression ')' '{' statements '}' { $$ = new IfBlock($3, $6); }
+ifThen      : IF '(' expression ')' '{' statements '}' { $$ = new IfThen($3, $6); }
+            ;
+            
+ifThenElse  : IF '(' expression ')' '{' statements '}' ELSE '{' statements '}' { $$ = new IfThenElse($3, $6, $10); }
             ;
             
 expression	: arithmetic
@@ -128,9 +135,9 @@ literal     : INTEGERLITERAL { $$ = $1; }
 
 private QLLexer lexer; 
 
-private Node result;
+private ASTNode result;
 
-public Node getResult() {
+public ASTNode getResult() {
   return result;
 }
 

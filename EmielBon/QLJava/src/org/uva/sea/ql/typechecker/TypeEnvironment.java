@@ -3,7 +3,7 @@ package org.uva.sea.ql.typechecker;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.uva.sea.ql.ast.expression.Identifier;
+import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.type.Type;
 import org.uva.sea.ql.ast.type.ErrorType;
 
