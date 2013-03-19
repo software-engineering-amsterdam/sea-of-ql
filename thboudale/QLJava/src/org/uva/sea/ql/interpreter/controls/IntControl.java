@@ -37,7 +37,6 @@ public class IntControl extends AControl {
 
 	@Override
 	public void addListener(ObservableQuestion obs) {
-		ctrl.addActionListener(obs);
 		ctrl.addKeyListener(obs);
 	}
 

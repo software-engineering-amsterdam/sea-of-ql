@@ -46,6 +46,7 @@ public class ApplicationFrame {
 		typeEnv = new HashMap<Ident, AType>();
 	}
 
+	
 	public void showFrame(String inputFile, String outputFile) throws ParseError, FileNotFoundException {
 		
 		form = parser.parseForm(readQLFile(inputFile));	
@@ -61,6 +62,7 @@ public class ApplicationFrame {
 		}
 	}
 	
+	
 	public String readQLFile(String strFile) throws FileNotFoundException {
 		File file = new File(strFile);
 		
@@ -73,6 +75,7 @@ public class ApplicationFrame {
 		
 		return stringBuilder.toString(); 
 	}
+	
 	
 	public void renderFrame(final String outputFile) {
 		panel = Renderer.render(form.getBlStmts(), state);
@@ -95,6 +98,7 @@ public class ApplicationFrame {
 		frame.setVisible(true);
 	}
 	
+	
 	public void writeXML(String outputFile) {
 		
 		try {
@@ -106,7 +110,7 @@ public class ApplicationFrame {
 			rootElement.setAttribute("identifier", form.getIdent().getName());
 			doc.appendChild(rootElement);
 			
-			for (Map.Entry<Ident, AValue> mapEntry : state .valEnv.entrySet()) {
+			for (Map.Entry<Ident, AValue> mapEntry : state.getEnv().entrySet()) {
 				Element question = doc.createElement("question");
 				question.setAttribute("identifier", mapEntry.getKey().getName());
 				question.setAttribute("value", mapEntry.getValue().getValue().toString());

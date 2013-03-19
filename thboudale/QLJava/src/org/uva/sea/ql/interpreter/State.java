@@ -8,7 +8,7 @@ import org.uva.sea.ql.evaluator.values.AValue;
 import org.uva.sea.ql.ast.expressions.Ident;
 
 public class State {
-	public final Map<Ident, AValue> valEnv;
+	private final Map<Ident, AValue> valEnv;
 	private final Map<Ident, Observable> observables;
 	
 	public State() {

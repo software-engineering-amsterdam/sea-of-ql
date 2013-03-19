@@ -124,7 +124,7 @@ public class ExprChecker implements IExprVisitor<Boolean> {
 		
 		if (!(lhsType.isCompatibleToInt() && rhsType.isCompatibleToInt())) {
 			errMsgs.add("Invalid type in expression \"" +
-						ast.getLhs().toString() + " \\ " + ast.getRhs().toString() +
+						ast.getLhs().toString() + " / " + ast.getRhs().toString() +
 						"\". Both operands must be Integers.");
 			return false;
 		}

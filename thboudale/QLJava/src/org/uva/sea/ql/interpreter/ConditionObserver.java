@@ -9,20 +9,20 @@ import org.uva.sea.ql.evaluator.values.AValue;
 import org.uva.sea.ql.evaluator.values.BoolValue;
 
 public class ConditionObserver implements Observer {
-	private final AExpr cond;
+	private final AExpr condition;
 	private final JPanel ifPanel;
 	private final JPanel elsePanel;
 	private final State state;
 	
-	public ConditionObserver(AExpr cond, JPanel ifPanel, State state) {
-		this.cond = cond;
+	public ConditionObserver(AExpr condition, JPanel ifPanel, State state) {
+		this.condition = condition;
 		this.ifPanel = ifPanel;
 		this.elsePanel = null;
 		this.state = state;
 	}
 	
-	public ConditionObserver(AExpr cond, JPanel ifPanel, JPanel elsePanel,State state) {
-		this.cond = cond;
+	public ConditionObserver(AExpr condition, JPanel ifPanel, JPanel elsePanel,State state) {
+		this.condition = condition;
 		this.ifPanel = ifPanel;
 		this.elsePanel = elsePanel;
 		this.state = state;
@@ -30,7 +30,7 @@ public class ConditionObserver implements Observer {
 		
 	@Override
 	public void update(Observable o, Object arg) {
-		AValue value = cond.accept(new ExprEvaluator(state.getEnv()));
+		AValue value = condition.accept(new ExprEvaluator(state.getEnv()));
 		boolean isVisible = ((BoolValue)value).getValue();
 		ifPanel.setVisible(isVisible);
 		if (elsePanel != null) {

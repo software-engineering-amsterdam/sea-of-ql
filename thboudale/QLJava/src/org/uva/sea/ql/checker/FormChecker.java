@@ -55,19 +55,20 @@ public class FormChecker implements IFormVisitor<Boolean> {
 
 	@Override
 	public Boolean visit(BlockOfStatements stmt) {
-		boolean validBlock = true;
+		boolean isValidBlock = true;
 		
 		for (AStatement s: stmt.getBlStmts()) {
-			validBlock = validBlock && s.accept(this);
+			isValidBlock = isValidBlock && s.accept(this);
 		}
 		
-		return validBlock;
+		return isValidBlock;
 	}
 	
 	@Override
 	public Boolean visit(Form form) {
 		return form.getBlStmts().accept(this);
 	}
+	
 	
 	private void checkLabel(Question stmt) {
 		if (labels.contains(stmt.getLabel()))
@@ -95,15 +96,15 @@ public class FormChecker implements IFormVisitor<Boolean> {
 	}
 	
 	private boolean checkCondition(ifStatement stmt) {
-		boolean validCond = checkExpr(stmt.getCondition());
+		boolean isValidCond = checkExpr(stmt.getCondition());
 		
 		AExpr condition = stmt.getCondition();
 		if (!condition.typeOf(typeEnv).isCompatibleToBool()) {
 			errMsgs.add("The condition " + condition.toString() + " should be of type boolean.");
-			validCond = false;
+			isValidCond = false;
 		}
 		
-		return validCond;
+		return isValidCond;
 	}
 	
 	public List<String> getErrMsgs() {

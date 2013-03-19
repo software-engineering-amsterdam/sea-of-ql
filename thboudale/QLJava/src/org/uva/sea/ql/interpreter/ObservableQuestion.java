@@ -21,16 +21,12 @@ public class ObservableQuestion extends Observable implements ActionListener, Ke
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		state.putValue(stmt.getIdent(), ctrl.getValue());
-		this.setChanged();
-		this.notifyObservers();
+		update();
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		state.putValue(stmt.getIdent(), ctrl.getValue());
-		this.setChanged();
-		this.notifyObservers();
+		update();
 	}
 	
 	@Override
@@ -38,4 +34,10 @@ public class ObservableQuestion extends Observable implements ActionListener, Ke
 
 	@Override
 	public void keyPressed(KeyEvent e) {}
+	
+	public void update() {
+		state.putValue(stmt.getIdent(), ctrl.getValue());
+		this.setChanged();
+		this.notifyObservers();
+	}
 }

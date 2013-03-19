@@ -29,7 +29,6 @@ public class StrControl extends AControl {
 
 	@Override
 	public void addListener(ObservableQuestion obs) {
-		ctrl.addActionListener(obs);
 		ctrl.addKeyListener(obs);
 	}
 

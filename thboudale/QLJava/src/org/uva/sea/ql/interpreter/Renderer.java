@@ -65,15 +65,19 @@ public class Renderer implements IFormVisitor<Void> {
 		registerComputedDeps(stmt, state, ctrl);
 		
 		add(ctrl);
+		
 		return null;
 	}
 
 	@Override
 	public Void visit(ifStatement stmt) {
 		JPanel ifPanel = render(stmt.getIfStmts(), state);
+		
 		registerConditionDeps(stmt.getCondition(), ifPanel);
+		
 		ifPanel.setVisible(false);
 		panel.add(ifPanel);
+		
 		return null;
 	}
 
@@ -81,11 +85,14 @@ public class Renderer implements IFormVisitor<Void> {
 	public Void visit(ifElseStatement stmt) {
 		JPanel ifPanel = render(stmt.getIfStmts(), state);
 		JPanel elsePanel = render(stmt.getElseStmts(), state);
+		
 		registerConditionDeps(stmt.getCondition(), ifPanel, elsePanel);
+		
 		ifPanel.setVisible(false);
 		elsePanel.setVisible(false);
 		panel.add(ifPanel);
 		panel.add(elsePanel);
+		
 		return null;
 	}
 
@@ -99,7 +106,7 @@ public class Renderer implements IFormVisitor<Void> {
 
 	@Override
 	public Void visit(Form frm) {
-		visit(frm.getBlStmts());
+		frm.getBlStmts().accept(this);
 		return null;
 	}
 	
@@ -124,11 +131,6 @@ public class Renderer implements IFormVisitor<Void> {
 		addObserver(compObs);
 	}
 	
-	private void addObserver(Observer obs) {
-		for (Entry<Ident, Observable> observable : state.getObservables().entrySet())
-			state.addObserver(observable.getKey(), obs);
-	}
-	
 	private void registerConditionDeps(AExpr cond, JPanel ifPanel) {
 		ConditionObserver condObs = new ConditionObserver(cond, ifPanel, state);
 		addObserver(condObs);
@@ -137,5 +139,10 @@ public class Renderer implements IFormVisitor<Void> {
 	private void registerConditionDeps(AExpr cond, JPanel ifPanel, JPanel elsePanel) {
 		ConditionObserver condObs = new ConditionObserver(cond, ifPanel, elsePanel, state);
 		addObserver(condObs);
+	}
+	
+	private void addObserver(Observer obs) {
+		for (Entry<Ident, Observable> observable : state.getObservables().entrySet())
+			state.addObserver(observable.getKey(), obs);
 	}
 }
