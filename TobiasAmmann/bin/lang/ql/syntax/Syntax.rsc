@@ -1,6 +1,5 @@
 module lang::ql::syntax::Syntax
 
-import lang::ql::syntax::Currencies;
 import Prelude;
 
 keyword Keywords = "form" | "int" | "bool" | "string" | "if" | "elseif" | "else" | "true" | "false";
@@ -50,6 +49,7 @@ syntax Type
 	| boolean : "bool"
 	| decimal : "money"
 	| date    : "date"
+	| undef	  : " "
 ;
 
 syntax Expr

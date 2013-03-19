@@ -24,7 +24,7 @@ public void main() {
   });
   
   registerContributions(LANG, {
-  	outliner(node (Tree t) {
+	outliner(node (Tree t) {
   		return qlOutliner(implode(t)); 
   	}),
   	annotator(Tree (Tree t){
@@ -41,7 +41,7 @@ public void main() {
 					}
 					else {
 						str name = toUpperCase(substring(ast.formName, 0, 1)) + substring(ast.formName, 1);
-				  		loc output = |project://QLRascal/output/<name>.html|;	
+				  		loc output = |home:///Desktop/<name>.html|;	
 				  		str file = (htmlGenerator(ast) + generateJQuery(ast));
 				  					  	
 				  		writeFile(output, file);

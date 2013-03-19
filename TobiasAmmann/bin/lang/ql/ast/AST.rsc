@@ -30,6 +30,7 @@ public data TYPE
 	| boolean()
 	| decimal()
 	| date()
+	| undef()
 ;
 
 public data EXPR

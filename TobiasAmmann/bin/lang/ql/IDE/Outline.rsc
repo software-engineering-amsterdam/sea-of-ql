@@ -3,7 +3,7 @@ module lang::ql::IDE::Outline
 import lang::ql::ast::AST;
 import lang::ql::syntax::Syntax;
 import lang::ql::ast::load;
-import lang::ql::util::PrettyPrint;
+import lang::ql::util::prettyPrint;
 
 import ParseTree;
 import util::IDE;

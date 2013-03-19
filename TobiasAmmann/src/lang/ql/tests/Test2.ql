@@ -1,15 +1,19 @@
-form box1HouseOwning { 
+form form1 { 
 	hasSoldHouse: "Did you sell a house in 2010?" bool
-	hasBoughtHouse: "Did you buy a house in 2010?" bool
+	sellingPrice: "What was the selling price of the house 1?" int
 	if (hasSoldHouse) { 
-		sellingPrice: "What was the selling price of the house?" int
-	} elseIf(!hasBoughtHouse){
-	whatblabla: "what is blabla?" str	
-	} else {
-	laatzitten: "laat dan maar zitten!" bool
+		sellingPrice2: "What was the selling price of the house2?" int
 	}
-	if (sellingPrice > 400000){
+	bla: "Wat komt hier voor een vraag te staat?" int (sellingPrice + 50)
+	hasBoughtHouse: "Did you buy a house in 2010?" bool
+	if (hasBoughtHouse){
+		payprice: "What price did you pay?" int
 		taxes: "Have you paid taxes for this?" bool
 	}
-	hasBoughtHouse2: "Did you buy a house in 2009?" bool
+	if(payprice > 1000){
+		taxes2: "Have you paid taxes for this second?" bool
+	}
+	else{
+		fine: "did you ever get a fine?" bool
+	}
 }

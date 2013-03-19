@@ -8,9 +8,18 @@ import lang::ql::util::prettyPrint;
 import Prelude;
 
 public str htmlGenerator(FORM f){
-	str html = "\<!DOCTYPE html\>\n\<html\>\n\<head\>\n\<title\><f.formName>\</title\>\n\<script type=\"text/javascript\" src=\"jquery-1.9.1.js\"\>\</script\>\n\</head\>\n\<body\>\n";
-	html += ("" | it + statementGenerator(s) | STATEMENT s <- f.statement);
-	return (html + "\<body\>\n\n");
+	return "\<!DOCTYPE html\>
+	           '\<html\>
+	           '\<head\>
+	           '\<title\><f.formName>\</title\>
+	           '\<script type=\"text/javascript\" src=\"http://code.jquery.com/jquery-1.9.1.min.js\"\>
+	           '\</script\>
+	           '\</head\>
+	           '\<body\>
+	           '\<form\>
+	           '<("" | it + statementGenerator(s) | STATEMENT s <- f.statement)>
+	           '\</form\>
+			   '\</body\>\n\n";
 }
 
 public str statementGenerator(statement(QUESTION question)){
@@ -33,14 +42,14 @@ public str generateDiv(str id){
 	return "\<div id=\"<id>-div\" style=\"display: none\"\>\n";
 }
 
-public str htmlQuestionGenerator(QUESTION q:question(str id, str label, TYPE qtype)){
-	switch(qtype) {
+public str htmlQuestionGenerator(QUESTION q){
+	switch(q.qtype) {
 		case boolean():	
-			return htmlRadioInput(id, label);
+			return htmlRadioInput(q.identifier, q.label);
 		case string():	
-			return htmlInput(id, label);
+			return htmlInput(q.identifier, q.label);
 		case natural():	
-			return htmlInput(id, label);
+			return htmlInput(q.identifier, q.label);
 	}
 }
 

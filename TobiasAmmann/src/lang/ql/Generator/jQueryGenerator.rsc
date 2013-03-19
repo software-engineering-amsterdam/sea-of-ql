@@ -3,12 +3,14 @@ module lang::ql::Generator::jQueryGenerator
 import lang::ql::ast::AST;
 import lang::ql::syntax::Syntax;
 import lang::ql::ast::load;
-import lang::ql::util::PrettyPrint;
+import lang::ql::util::prettyPrint;
 
 import Prelude;
 
 public str generateJQuery(FORM ast){
-	str jQuery = "\<script\>\n";
+	str jQuery = 	"\<script\>
+					'$(document).ready(function() {";
+					
 	top-down visit(ast){
 		case STATEMENT s:statement(QUESTION q):{
 			jQuery += generateJQueryQuestion(q);
@@ -22,11 +24,12 @@ public str generateJQuery(FORM ast){
 	}
 	bottom-up visit(ast){
 		case STATEMENT s:statement(QUESTION q):{
-			if(q.qtype == boolean()) jQuery += "});\n";
-			else jQuery += "}).keyup();\n";
+			jQuery += "}).keyup();\n";
+//			if(q.qtype == boolean()) jQuery += "});\n";
+//			else jQuery += "}).keyup();\n";
 		}
 	}
-	return (jQuery + "\</script\>");
+	return (jQuery + "});\</script\>");
 }
 
 public str generateJQueryConditional1(IF i, list[ELSEIF] elseIfStat, ELSE e){
@@ -86,13 +89,30 @@ public str jQueryStatements(STATEMENT s){
 	return generateJQueryConditional(s);
 }
 
-public str generateJQueryQuestion(QUESTION q:question(str name, _, TYPE qtype)){
+public default str generateJQueryQuestion(QUESTION q:question(str name, _, TYPE qtype)){
 	switch(qtype) {
 		case boolean():	
-			return "$($(\"input[name=\'<name>\']\")).change( function() {\n \t var <name> = ($(this).val() == \"true\");\n";
+			return "$($(\"input[name=\'<name>\']\")).click( function() {\n \t var <name> = ($(this).val() == \"true\");\n";
 		case string():	
 			return "$(\'#<name>\').keyup(function () {\n \t var <name> = $(this).val()\n";
 		case natural():	
 			return "$(\'#<name>\').keyup(function () {\n \t var <name> = $(this).val()\n";
+	}
+}
+
+public str generateJQueryQuestion(QUESTION q:exprQuestion(str name, _, TYPE qtype, EXPR expr)){
+	switch(qtype) {
+		case boolean():	
+			return "$($(\"input[name=\'<name>\']\")).change( function() {
+					'	var <name> = (<idGenerator(expr)> == \"true\");
+					'	$(\"input[name=\'<name>\']\")).text(<name>)\n";
+		case string():	
+			return "$(\'#<name>\').keyup(function () {
+					'	var <name> = <idGenerator(expr)>
+					'	$(\'#<name>\').val(<name>)\n";
+		case natural():	
+			return "$(\'#<name>\').keyup(function () {
+					'	var <name> = <idGenerator(expr)>
+					'	$(\'#<name>\').val(<name>)\n";
 	}
 }
