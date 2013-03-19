@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><form name="Box1HouseOwig"><question id="sellingPrice" value="10"/><question id="hasMaitLoan" value="5"/><question id="privateDebt" value="5"/><question id="hasMaitLoa" value="false"/><question id="hasBoughtHouse" value="false"/><question id="hasSoldHouse" value="true"/><question id="blabla" value="false"/></form>
