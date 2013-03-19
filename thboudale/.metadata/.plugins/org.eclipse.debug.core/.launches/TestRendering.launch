@@ -7,5 +7,6 @@
 <listEntry value="1"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="org.uva.sea.ql.interpreter.TestRendering"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="C:\Users\Theodora\Documents\GitHub\sea-of-ql\thboudale\QLJava\QLDemoFile.ql C:\Users\Theodora\Documents\form.xml"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="QLJava"/>
 </launchConfiguration>
