@@ -5,7 +5,6 @@ import org.uva.sea.ql.typechecker.TypeEnvironment;
 
 /**
  * Class that represents an expression
- * @author emiel.bon
  */
 public abstract class Expression implements ASTNode {
 	

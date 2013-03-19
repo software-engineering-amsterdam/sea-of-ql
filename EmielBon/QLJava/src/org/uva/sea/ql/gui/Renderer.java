@@ -3,7 +3,6 @@ package org.uva.sea.ql.gui;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
-
 import org.uva.sea.ql.ast.Expression;
 import org.uva.sea.ql.ast.literal.StringLiteral;
 import org.uva.sea.ql.ast.statement.*;
@@ -108,7 +107,7 @@ public class Renderer implements StatementVisitor<Boolean> {
 	}
 
 	public Boolean visit(Block stat) {
-		for(Statement s : stat.getStatements())
+		for(Statement s : stat.getBody())
 			s.accept(this);
 		return true;
 	}

@@ -16,7 +16,7 @@ public class Block extends Statement {
 		this.statements.addAll(statements.statements);
 	}
 	
-	public List<Statement> getStatements() {
+	public List<Statement> getBody() {
 		return statements;
 	}
 

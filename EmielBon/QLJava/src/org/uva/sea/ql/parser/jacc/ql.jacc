@@ -37,7 +37,7 @@
 %type <IfThen>      ifThen
 %type <IfThenElse>  ifThenElse
 %type <Statement>   statement
-%type <Block>       statements, block
+%type <Block>       statements
 
 // Statements that get put after the package declaration in XParser.java
 %{
@@ -52,9 +52,6 @@ import org.uva.sea.ql.ast.type.*;
 
 %% // Rules section
 
-// BEGINSECTION: Todo: remove, and replace "%start top" with "%start form"
-// This is only to be able to test forms, questions and expressions seperately
-
 top         : node { result = $1; }
             ;
 
@@ -62,13 +59,8 @@ node        : form
             | statement
             | expression
             ;
-
-// ENDSECTION
             
 form        : FORM IDENTIFIER '{' statements '}' { $$ = new Form($2, $4); }
-            ;
-
-block       : '{' statements '}' { $$ = new Block($2); }
             ;
 
 statements  : statement statements { $$ = new Block($1, $2); }

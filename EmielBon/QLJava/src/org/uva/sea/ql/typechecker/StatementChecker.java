@@ -6,23 +6,23 @@ import org.uva.sea.ql.ast.Identifier;
 import org.uva.sea.ql.ast.statement.*;
 import org.uva.sea.ql.ast.type.Type;
 
-public class CheckStatement implements StatementVisitor<Boolean> {
+public class StatementChecker implements StatementVisitor<Boolean> {
 
 	private final TypeEnvironment typeEnv;
 	private final List<Error> messages;
 	
-	private CheckStatement(TypeEnvironment typeEnv, List<Error> messages) {
+	private StatementChecker(TypeEnvironment typeEnv, List<Error> messages) {
 		this.typeEnv = typeEnv;
 		this.messages = messages;
 	}
 	
 	public static boolean check(Statement stat, TypeEnvironment typeEnv, List<Error> errs) {
-		CheckStatement check = new CheckStatement(typeEnv, errs);
+		StatementChecker check = new StatementChecker(typeEnv, errs);
 		return stat.accept(check);
 	}
 	
 	public boolean checkExpression(Expression expr) {
-		return CheckExpression.check(expr, typeEnv, messages);
+		return ExpressionChecker.check(expr, typeEnv, messages);
 	}
 	
 	public Type typeOf(Expression expr) {
@@ -101,7 +101,7 @@ public class CheckStatement implements StatementVisitor<Boolean> {
 		
 		boolean correct = true;
 		
-		for(Statement s : stat.getStatements()) {
+		for(Statement s : stat.getBody()) {
 			correct = correct && s.accept(this);
 		}
 		

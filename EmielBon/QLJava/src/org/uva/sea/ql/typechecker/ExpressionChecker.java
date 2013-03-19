@@ -12,18 +12,18 @@ import org.uva.sea.ql.ast.operators.numeric.*;
 import org.uva.sea.ql.ast.operators.relational.*;
 import org.uva.sea.ql.ast.type.Type;
 
-public class CheckExpression implements ExpressionVisitor<Boolean> {
+public class ExpressionChecker implements ExpressionVisitor<Boolean> {
 
 	private final TypeEnvironment typeEnv;
 	private final List<Error> errors;
 	
-	private CheckExpression(TypeEnvironment typeEnv, List<Error> messages) {
+	private ExpressionChecker(TypeEnvironment typeEnv, List<Error> messages) {
 		this.typeEnv = typeEnv;
 		this.errors = messages;
 	}
 	
 	public static boolean check(Expression expr, TypeEnvironment typeEnv, List<Error> errs) {
-		CheckExpression check = new CheckExpression(typeEnv, errs);
+		ExpressionChecker check = new ExpressionChecker(typeEnv, errs);
 		return expr.accept(check);
 	}
 	
