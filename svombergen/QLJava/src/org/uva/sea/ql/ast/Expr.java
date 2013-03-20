@@ -1,14 +1,18 @@
 package org.uva.sea.ql.ast;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
-public abstract class Expr implements ASTNode {
+public abstract class Expr {
+
+	public abstract String calculateValue();
+	public abstract void accept(IExpressionVisitor v);
+
+	public int returnIntValue() { throw new NullPointerException(); };
+	public boolean returnBoolValue() { throw new NullPointerException(); };
+	public String returnStrValue() { throw new NullPointerException(); };
+	
 	public String getType(){
 		return this.getClass().getSimpleName();
-	}
-
-	public void accept(Visitor v){
-		;
 	}
 	
 	public boolean isNumeric() {

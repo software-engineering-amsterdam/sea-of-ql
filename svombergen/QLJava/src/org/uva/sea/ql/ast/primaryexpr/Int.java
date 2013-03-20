@@ -1,15 +1,13 @@
 package org.uva.sea.ql.ast.primaryexpr;
 
+import org.uva.sea.ql.visitor.IExpressionVisitor;
+
 public class Int extends PrimaryExpr {
 
 	private final int value;
 
 	public Int(int n) {
-		this.value = n;
-	}
-
-	public int getValue() {
-		return value;
+		value = n;
 	}
 	
 	@Override
@@ -19,7 +17,22 @@ public class Int extends PrimaryExpr {
 	
 	@Override
 	public String toString(){
-		return "" + getValue();
+		return "" + value;
+	}
+	
+	@Override
+	public void accept(IExpressionVisitor v) {
+		v.visit(this);
+	}
+
+	@Override
+	public String calculateValue() {
+		return toString();
+	}
+	
+	@Override
+	public int returnIntValue() {
+		return value;
 	}
 	
 }

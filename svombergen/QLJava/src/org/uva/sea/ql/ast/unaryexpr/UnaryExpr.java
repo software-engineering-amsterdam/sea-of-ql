@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.unaryexpr;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public abstract class UnaryExpr extends Expr {
 	protected Expr expression;
@@ -14,8 +14,17 @@ public abstract class UnaryExpr extends Expr {
 		return expression;
 	}
 	
-	public void accept(Visitor v) {
-		v.visit(this);
+	@Override
+	public abstract void accept(IExpressionVisitor v);
+	
+	@Override
+	public boolean isNumeric() {
+		return expression.isNumeric();
+	}
+	
+	@Override
+	public boolean isBoolean() {
+		return expression.isBoolean();
 	}
 	
 	@Override

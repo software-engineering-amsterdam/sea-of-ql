@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.binaryexpr;
 
 import org.uva.sea.ql.ast.*;
-import org.uva.sea.ql.visitor.ExpressionVisitor;
+import org.uva.sea.ql.visitor.*;
 
 public class Add extends BinaryExpr {	
 	
@@ -9,7 +9,17 @@ public class Add extends BinaryExpr {
 		super(result, rhs);
 	}
 	
-	public boolean accept(ExpressionVisitor visitor) {
-		return visitor.visit(this);
+	public void accept(IExpressionVisitor visitor) {
+		visitor.visit(this);
+	}
+
+	@Override
+	public String calculateValue() {
+		return "" + this.returnIntValue();
+	}
+	
+	@Override
+	public int returnIntValue() {
+		return leftExpr.returnIntValue() + rightExpr.returnIntValue();
 	}
 }

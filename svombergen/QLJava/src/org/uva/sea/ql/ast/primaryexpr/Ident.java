@@ -1,6 +1,6 @@
 package org.uva.sea.ql.ast.primaryexpr;
 
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Ident extends Str {
 
@@ -9,16 +9,16 @@ public class Ident extends Str {
 	}
 	
 	public String getName() {
-		return getValue();
+		return toString();
 	}
 	
 	@Override
-	public String toString(){
-		return getName();
+	public boolean isBoolean() {
+		return true;
 	}
 	
 	@Override
-	public void accept(Visitor v) {
+	public void accept(IExpressionVisitor v) {
 		v.visit(this);
 	}
 

@@ -9,16 +9,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.uva.sea.ql.ast.binaryexpr.Add;
-import org.uva.sea.ql.ast.binaryexpr.And;
-import org.uva.sea.ql.ast.binaryexpr.GT;
-import org.uva.sea.ql.ast.binaryexpr.LEq;
-import org.uva.sea.ql.ast.binaryexpr.LT;
-import org.uva.sea.ql.ast.binaryexpr.Mul;
-import org.uva.sea.ql.ast.primaryexpr.Ident;
-import org.uva.sea.ql.ast.primaryexpr.Int;
-import org.uva.sea.ql.ast.unaryexpr.Not;
+import org.uva.sea.ql.ast.Expr;
+import org.uva.sea.ql.ast.binaryexpr.*;
+import org.uva.sea.ql.ast.primaryexpr.*;
+import org.uva.sea.ql.ast.unaryexpr.*;
 import org.uva.sea.ql.parser.antlr.ANTLRParser;
+import org.uva.sea.ql.visitor.*;
+import org.uva.sea.ql.visitor.check.TypeCheckExpressionVisitor;
 
 @RunWith(Parameterized.class)
 public class TestExpressions {
@@ -37,7 +34,24 @@ public class TestExpressions {
 	public TestExpressions(IParse parser) {
 		this.parser = parser;
 	}
+	
+	private Messages getErrorMsgs(String exprStr) throws ParseError {
+		Expr exp = parser.parse(exprStr);
+		TypeCheckExpressionVisitor exprVis = new TypeCheckExpressionVisitor();
+		exp.accept(exprVis);
+		
+		return exprVis.returnErrorMsgs();
+	}
 
+	@Test
+	public void testExprTypeCheck() throws ParseError {
+		Messages emptyMsgs = getErrorMsgs("1 + 1");
+		
+		assertEquals(getErrorMsgs("5 * 4"), emptyMsgs);
+		assertEquals(getErrorMsgs("0 / 3"), emptyMsgs);
+		assertEquals(getErrorMsgs("12312 + 945729"), emptyMsgs);
+		assertEquals(getErrorMsgs("565 - 20912"), emptyMsgs);
+	}
 	
 	@Test
 	public void testAdds() throws ParseError {

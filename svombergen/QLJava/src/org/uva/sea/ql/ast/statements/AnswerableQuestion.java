@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast.statements;
 import org.uva.sea.ql.ast.primaryexpr.Ident;
 import org.uva.sea.ql.ast.primaryexpr.Str;
 import org.uva.sea.ql.ast.statements.types.Type;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class AnswerableQuestion extends Question {
 
@@ -12,7 +12,7 @@ public class AnswerableQuestion extends Question {
 	}
 
 	@Override
-	public void accept(Visitor v){
+	public void accept(IFormVisitor v) {
 		v.visit(this);
 	}
 

@@ -1,11 +1,7 @@
 package org.uva.sea.ql.ast.statements;
 
-import org.uva.sea.ql.ast.ASTNode;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
-
-public abstract class Statement implements ASTNode {
-	public void accept(Visitor v){
-		;
-	}
+public interface Statement {
+	public void accept(IFormVisitor v);
 }

@@ -1,7 +1,7 @@
 package org.uva.sea.ql.ast.binaryexpr;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public abstract class BinaryExpr extends Expr {
 	protected Expr leftExpr;
@@ -31,9 +31,7 @@ public abstract class BinaryExpr extends Expr {
 	}
 	
 	@Override
-	public void accept(Visitor v) {
-		v.visit(this);
-	}
+	public abstract void accept(IExpressionVisitor v);
 	
 	@Override
 	public String toString(){

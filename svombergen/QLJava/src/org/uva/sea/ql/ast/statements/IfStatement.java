@@ -3,10 +3,10 @@ package org.uva.sea.ql.ast.statements;
 import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.Visitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 
-public class IfStatement extends Statement {
+public class IfStatement implements Statement {
 	protected Expr ifStat;
 	protected List<Statement> sList;
 	
@@ -25,7 +25,7 @@ public class IfStatement extends Statement {
 	}
 	
 	@Override
-	public void accept(Visitor v){
+	public void accept(IFormVisitor v) {
 		v.visit(this);
 	}
 
