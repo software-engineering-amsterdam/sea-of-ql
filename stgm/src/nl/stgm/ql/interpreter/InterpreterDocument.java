@@ -53,7 +53,7 @@ public class InterpreterDocument
 		currentForm--;
 	}
 	
-	public InterpreterForm getForm()
+	public InterpreterForm getCurrentForm()
 	{
 		return new InterpreterForm(forms.get(currentForm), context);
 	}

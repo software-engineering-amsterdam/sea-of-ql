@@ -50,6 +50,6 @@ public class ApplicationController
 
 	private void loadForm()
 	{
-		ui.showForm(document.getForm());
+		ui.showForm(document.getCurrentForm());
 	}
 }
