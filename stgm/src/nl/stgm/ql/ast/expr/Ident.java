@@ -21,12 +21,12 @@ public class Ident extends Expr
 	public Type inferType(TypeContext context)
 	{
 		// the semantic checker knowns our type from previous definitions
-		return context.lookupType(this.name);
+		return context.getSymbolType(this.name);
 	}
 
 	public Value reduceValue(ValueContext context)
 	{
 		// the semantic checker knowns our type from previous input
-		return context.lookupValue(name);
+		return context.getValue(name);
 	}
 }

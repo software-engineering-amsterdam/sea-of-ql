@@ -12,7 +12,7 @@ import nl.stgm.ql.parser.rats.*;
 
 import nl.stgm.ql.ast.form.Document;
 
-public abstract class RunnableVisitor implements Visitor
+public abstract class RunnableVisitor //implements Visitor
 {
 	public static Document parseDocument(String filename)
 	{

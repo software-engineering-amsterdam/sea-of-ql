@@ -133,7 +133,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		}
 	}
 	
-	public Type lookupType(String name)
+	public Type getSymbolType(String name)
 	{
 		Symbol s = symbols.get(name);
 		

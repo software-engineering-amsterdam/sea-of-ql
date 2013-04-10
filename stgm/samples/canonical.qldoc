@@ -9,3 +9,7 @@ form Box1HouseOwning {
 		valueResidue: "Value residue:" int (sellingPrice - privateDebt)
 	}
 }
+
+form Box1Loans {
+	hasGeneralLoan: "Did you have a loan from a general bank higher than 10.000 euros?" boolean
+}

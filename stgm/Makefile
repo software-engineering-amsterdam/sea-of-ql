@@ -1,4 +1,4 @@
-JAVAC=javac
+JAVAC=javac -Xlint:deprecation
 JAVA=java
 CLASSPATH=src:lib/*
 JFLAGS=-cp $(CLASSPATH)
@@ -14,7 +14,7 @@ TestExpressions: QLParser src/nl/stgm/ql/parser/test/TestExpressions.class
 TestForms: QLParser src/nl/stgm/ql/parser/test/TestForms.class
 PrettyPrinter: QLParser src/nl/stgm/ql/inspectors/VisitingPrinter.class
 Checker: QLParser src/nl/stgm/ql/inspectors/VisitingChecker.class
-Interpreter: QLParser src/nl/stgm/ql/inspectors/VisitingInterpreter.class
+Interpreter: QLParser src/nl/stgm/ql/interpreter/Interpreter.class
 
 # Generating the parser class
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
@@ -32,7 +32,7 @@ run/pretty: PrettyPrinter
 run/check: Checker
 	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.VisitingChecker
 run/interpret: Interpreter
-	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.VisitingInterpreter
+	$(JAVA) $(JFLAGS) nl.stgm.ql.interpreter.Interpreter
 
 # Utilities
 %.class: %.java

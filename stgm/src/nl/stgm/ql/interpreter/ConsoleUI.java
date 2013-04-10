@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql.interpreter;
 
 import java.io.*;
 import nl.stgm.ql.data.*;
