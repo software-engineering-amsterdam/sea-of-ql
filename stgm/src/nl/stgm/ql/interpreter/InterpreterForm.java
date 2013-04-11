@@ -25,6 +25,11 @@ public class InterpreterForm implements Visitor
 		this.update();
 	}
 	
+	public Context context()
+	{
+		return this.context;
+	}
+	
 	public void update()
 	{
 		// traverse form contents in ast

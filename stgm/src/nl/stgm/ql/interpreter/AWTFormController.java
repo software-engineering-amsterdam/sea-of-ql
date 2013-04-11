@@ -10,7 +10,7 @@ import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public class AWTFormController implements ItemListener, Visitor
+public class AWTFormController implements Visitor
 {
 	ApplicationController delegate;
 	InterpreterForm form;
@@ -21,9 +21,8 @@ public class AWTFormController implements ItemListener, Visitor
 		this.delegate = delegate;
 		this.form = form;
 		
-		this.panel = new Panel();
+		this.panel = new Panel(new GridLayout(6, 2));
 		this.panel.setPreferredSize(new Dimension(800, 600));
-		this.panel.setLayout(new GridLayout(6, 2));
 		
 		this.update();
 	}
@@ -33,16 +32,16 @@ public class AWTFormController implements ItemListener, Visitor
 		return this.panel;
 	}
 	
-	public void itemStateChanged(ItemEvent e)
-	{
-		System.out.println("check!");
-	}
-	
 	public void update()
 	{
 		// reload controls from model
 		panel.removeAll();
 		form.getForm().accept(this);
+	}
+	
+	public void addQuestion(Question q)
+	{
+		
 	}
 
 	//
@@ -66,9 +65,18 @@ public class AWTFormController implements ItemListener, Visitor
 	
 	public void visit(Conditional c)
 	{
-		// Bool v = (Bool) c.condition().reduceValue(context);
+		Bool v;
 		
-		if(true)
+		try
+		{
+			v = (Bool) c.condition().reduceValue(form.context());
+		}
+		catch(NullPointerException e)
+		{
+			v = new Bool(false);
+		}
+
+		if(v != null && v.getValue())
 		{
 			for(Question q: c.ifQuestions())
 				q.accept(this);
@@ -89,11 +97,11 @@ public class AWTFormController implements ItemListener, Visitor
 			case INT:
 				Label label = new Label(q.question());
 				this.panel.add(label);
-				TextField tf = new TextField("", 7);
+				AWTTextField tf = new AWTTextField(delegate, q, (Int)form.context().getValue(q.id()));
 				this.panel.add(tf);
 				break;
 			case BOOL:
-				Checkbox checkbox = new Checkbox(q.question());
+				AWTCheckbox checkbox = new AWTCheckbox(delegate, q, (Bool)form.context().getValue(q.id()));
 				this.panel.add(checkbox);
 				Label answer = new Label("");
 				this.panel.add(answer);
@@ -106,8 +114,17 @@ public class AWTFormController implements ItemListener, Visitor
 		// add label
 		Label label = new Label(cq.question());
 		this.panel.add(label);
-		Label answer = new Label("0");
-		this.panel.add(answer);
+		
+		try
+		{
+			Int v = (Int) cq.calculation().reduceValue(form.context());
+			if(v != null)
+			{
+				Label answer = new Label(v.toString());
+				this.panel.add(answer);
+			}
+		}
+		catch(NullPointerException e) {}
 	}
 	
 	public void visit(Expr e)

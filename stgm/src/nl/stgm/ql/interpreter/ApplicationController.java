@@ -44,6 +44,7 @@ public class ApplicationController
 	
 	public void answerChanged(String name, Value value)
 	{
+		System.out.println("answer changed");
 		document.putValue(name, value);
 		ui.update();
 	}

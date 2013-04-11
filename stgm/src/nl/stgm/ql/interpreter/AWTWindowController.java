@@ -48,6 +48,7 @@ public class AWTWindowController
 	
 	public void update()
 	{
-		System.out.println("form update not implemented");
+		form.update();
+		show();
 	}
 }
