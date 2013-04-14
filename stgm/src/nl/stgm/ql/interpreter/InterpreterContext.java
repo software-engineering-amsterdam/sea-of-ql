@@ -9,7 +9,7 @@ import nl.stgm.ql.data.*;
 
 import nl.stgm.ql.inspectors.*;
 
-public class Context implements TypeContext, ValueContext
+public class InterpreterContext implements TypeContext, ValueContext
 {
 	private HashMap<String,Symbol> symbols = new HashMap<String,Symbol>();
 	private HashMap<String,Value> values = new HashMap<String,Value>();
@@ -43,8 +43,11 @@ public class Context implements TypeContext, ValueContext
 		}
 	}
 	
-	public Value getValue(String id)
+	public Value lookupValue(String id)
 	{
-		return values.get(id);
+		Value ret = values.get(id);
+		if(ret == null) ret = new UnknownValue();
+		System.out.println(ret);
+		return ret;
 	}
 }

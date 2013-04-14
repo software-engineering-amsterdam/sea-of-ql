@@ -4,20 +4,21 @@ import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 
-public class ApplicationController
+public class InterpreterApplication
 {
 	private InterpreterDocument document;
-	private AWTWindowController ui;
+	private AWTUIController ui;
 	
-	public ApplicationController(Document ast)
+	public InterpreterApplication(Document ast)
 	{
-		this.document = new InterpreterDocument(ast);
-		this.ui = new AWTWindowController(this);
+		// combine source ast and ui in document
+		this.ui = new AWTUIController(this);
+		this.document = new InterpreterDocument(this, ast, this.ui);
 	}
 	
 	public void run()
 	{
-		this.loadForm();
+		document.update();
 	}
 	
 	public boolean hasNextForm()
@@ -25,10 +26,9 @@ public class ApplicationController
 		return document.hasNextForm();
 	}
 	
-	public void nextForm()
+	public void nextClicked()
 	{
-		document.nextForm();
-		this.loadForm();
+		if(document.hasNextForm()) document.nextForm();
 	}
 	
 	public boolean hasPreviousForm()
@@ -36,21 +36,15 @@ public class ApplicationController
 		return document.hasPreviousForm();
 	}
 	
-	public void previousForm()
+	public void previousClicked()
 	{
-		document.previousForm();
-		this.loadForm();
+		if(document.hasPreviousForm()) document.previousForm();
 	}
 	
 	public void answerChanged(String name, Value value)
 	{
 		System.out.println("answer changed");
 		document.putValue(name, value);
-		ui.update();
-	}
-
-	private void loadForm()
-	{
-		ui.showForm(document.getCurrentForm());
+		document.update();
 	}
 }

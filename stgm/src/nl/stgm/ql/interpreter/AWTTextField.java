@@ -7,15 +7,15 @@ import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 
-public class AWTTextField extends TextField
+public class AWTTextField extends TextField implements IUIElement
 {
-	ApplicationController delegate;
-	Question question;
+	InterpreterApplication delegate;
+	String id;
 	
-	public AWTTextField(ApplicationController delegate, Question question, Int initialValue)
+	public AWTTextField(InterpreterApplication delegate, String id)
 	{
 		this.delegate = delegate;
-		this.question = question;
+		this.id = id;
 		
 		this.addKeyListener(
 			new KeyAdapter()
@@ -26,16 +26,19 @@ public class AWTTextField extends TextField
 				}
 			}
 		);
-		
-		if(initialValue != null)
-			this.setText(Integer.toString(initialValue.getValue()));
+	}
+	
+	public void update(String question, String value)
+	{
+		// label.setText(value);
+		this.setText(value);
 	}
 	
 	private void textChanged()
 	{
-		System.out.println(question.id());
+		System.out.println(this.id);
 
 		if(!getText().equals(""))
-			delegate.answerChanged(question.id(), new Int(Integer.parseInt(getText())));
+			delegate.answerChanged(this.id, new Int(Integer.parseInt(getText())));
 	}
 }

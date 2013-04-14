@@ -9,9 +9,9 @@ import nl.stgm.ql.inspectors.*;
 
 public class AWTPrevNextPanel extends Panel implements ActionListener
 {
-	AWTWindowController delegate;
+	InterpreterApplication delegate;
 	
-	public AWTPrevNextPanel(AWTWindowController delegate)
+	public AWTPrevNextPanel(InterpreterApplication delegate)
 	{
 		this.delegate = delegate;
 		this.setLayout(new GridLayout(1,2,10,0));

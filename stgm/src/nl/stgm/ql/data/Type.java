@@ -5,7 +5,7 @@ import nl.stgm.ql.ast.expr.literal.*;
 
 public enum Type
 {
-	INT, BOOL, STRING;
+	INT, BOOL, STRING, UNKNOWN;
 		
 	public static Type parse(String source)
 	{
@@ -41,6 +41,8 @@ public enum Type
 				return "int";
 			case BOOL:
 				return "boolean";
+			case UNKNOWN:
+				return "unknown value";
 			default:
 				throw new Error("This is impossible.");
 		}

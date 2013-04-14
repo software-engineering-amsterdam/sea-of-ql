@@ -7,24 +7,26 @@ import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 
-public class AWTCheckbox extends Checkbox implements ItemListener
+public class AWTCheckbox extends Checkbox implements IUIElement, ItemListener
 {
-	ApplicationController delegate;
-	Question question;
+	InterpreterApplication delegate;
+	String id;
 	
-	public AWTCheckbox(ApplicationController delegate, Question question, Bool initialValue)
+	public AWTCheckbox(InterpreterApplication delegate, String id)
 	{
 		this.delegate = delegate;
-		this.question = question;
+		this.id = id;
 		this.addItemListener(this);
-		this.setLabel(question.question());
-		
-		if(initialValue != null)
-			this.setState(initialValue.getValue());
 	}
 	
+	public void update(String question, boolean value)
+	{
+		this.setLabel(question);
+		this.setState(value);
+	}
+
 	public void itemStateChanged(ItemEvent e)
 	{
-		delegate.answerChanged(question.id(), new Bool(getState()));
+		delegate.answerChanged(this.id, new Bool(getState()));
 	}
 }

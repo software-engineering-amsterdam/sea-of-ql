@@ -27,6 +27,6 @@ public class Ident extends Expr
 	public Value reduceValue(ValueContext context)
 	{
 		// the semantic checker knowns our type from previous input
-		return context.getValue(name);
+		return context.lookupValue(name);
 	}
 }
