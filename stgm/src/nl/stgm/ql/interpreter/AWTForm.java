@@ -3,13 +3,6 @@ package nl.stgm.ql.interpreter;
 import java.awt.*;
 import java.awt.event.*;
 
-import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.form.*;
-
-import nl.stgm.ql.data.*;
-import nl.stgm.ql.interfaces.*;
-import nl.stgm.ql.inspectors.*;
-
 public class AWTForm implements IUIElement
 {
 	InterpreterApplication delegate;
@@ -18,11 +11,7 @@ public class AWTForm implements IUIElement
 	public AWTForm(InterpreterApplication delegate)
 	{
 		this.delegate = delegate;
-		// this.form = form;
-		
 		this.panel = new Panel(new GridLayout(6, 2));
-		this.panel.setPreferredSize(new Dimension(800, 600));
-		
 		this.update();
 	}
 	

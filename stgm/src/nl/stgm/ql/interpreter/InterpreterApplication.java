@@ -41,10 +41,17 @@ public class InterpreterApplication
 		if(document.hasPreviousForm()) document.previousForm();
 	}
 	
-	public void answerChanged(String name, Value value)
+	public void answerChanged(String id, int value)
 	{
 		System.out.println("answer changed");
-		document.putValue(name, value);
+		document.putValue(id, new Int(value));
+		document.update();
+	}
+	
+	public void answerChanged(String id, boolean value)
+	{
+		System.out.println("answer changed");
+		document.putValue(id, new Bool(value));
 		document.update();
 	}
 }

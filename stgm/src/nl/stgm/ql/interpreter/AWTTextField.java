@@ -3,21 +3,24 @@ package nl.stgm.ql.interpreter;
 import java.awt.*;
 import java.awt.event.*;
 
-import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.form.*;
-import nl.stgm.ql.data.*;
-
-public class AWTTextField extends TextField implements IUIElement
+public class AWTTextField extends Panel implements IUIElement
 {
 	InterpreterApplication delegate;
 	String id;
+	Label label;
+	TextField textField;
 	
 	public AWTTextField(InterpreterApplication delegate, String id)
 	{
 		this.delegate = delegate;
 		this.id = id;
 		
-		this.addKeyListener(
+		this.label = new Label();
+		this.add(label);
+		this.textField = new TextField();
+		this.add(textField);
+		
+		textField.addKeyListener(
 			new KeyAdapter()
 			{
 				public void keyReleased(KeyEvent e)
@@ -30,15 +33,18 @@ public class AWTTextField extends TextField implements IUIElement
 	
 	public void update(String question, String value)
 	{
-		// label.setText(value);
-		this.setText(value);
+		label.setText(question);
+		textField.setText(value);
 	}
 	
 	private void textChanged()
 	{
-		System.out.println(this.id);
+		// returning 0 for an empty field is legitimate in the domain
+		int retval = 0;
+		
+		if(!textField.getText().equals(""))
+			retval = Integer.parseInt(textField.getText());
 
-		if(!getText().equals(""))
-			delegate.answerChanged(this.id, new Int(Integer.parseInt(getText())));
+		delegate.answerChanged(this.id, retval);
 	}
 }

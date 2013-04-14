@@ -2,9 +2,6 @@ package nl.stgm.ql.interpreter;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
-
-import nl.stgm.ql.data.*;
 
 public class AWTUIController
 {

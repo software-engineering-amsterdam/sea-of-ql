@@ -3,11 +3,7 @@ package nl.stgm.ql.interpreter;
 import java.awt.*;
 import java.awt.event.*;
 
-import nl.stgm.ql.ast.expr.*;
-import nl.stgm.ql.ast.form.*;
-import nl.stgm.ql.data.*;
-
-public class AWTCheckbox extends Checkbox implements IUIElement, ItemListener
+public class AWTCheckbox extends Checkbox implements IUIElement
 {
 	InterpreterApplication delegate;
 	String id;
@@ -16,7 +12,16 @@ public class AWTCheckbox extends Checkbox implements IUIElement, ItemListener
 	{
 		this.delegate = delegate;
 		this.id = id;
-		this.addItemListener(this);
+
+		this.addItemListener(
+			new ItemListener()
+			{
+				public void itemStateChanged(ItemEvent e)
+				{
+					checked();
+				}
+			}
+		);
 	}
 	
 	public void update(String question, boolean value)
@@ -25,8 +30,8 @@ public class AWTCheckbox extends Checkbox implements IUIElement, ItemListener
 		this.setState(value);
 	}
 
-	public void itemStateChanged(ItemEvent e)
+	private void checked()
 	{
-		delegate.answerChanged(this.id, new Bool(getState()));
+		delegate.answerChanged(this.id, getState());
 	}
 }
