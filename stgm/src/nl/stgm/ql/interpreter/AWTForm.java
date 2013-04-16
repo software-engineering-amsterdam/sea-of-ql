@@ -3,31 +3,27 @@ package nl.stgm.ql.interpreter;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTForm implements IUIElement
+public class AWTForm extends Panel implements IUIElement
 {
 	InterpreterApplication delegate;
-	Panel panel;
 	
 	public AWTForm(InterpreterApplication delegate)
 	{
+		super(new GridLayout(1, 1));
 		this.delegate = delegate;
-		this.panel = new Panel(new GridLayout(6, 2));
-		this.update();
-	}
-	
-	public Panel getPanel()
-	{
-		return this.panel;
 	}
 	
 	public void addElement(IUIElement e)
 	{
-		panel.add((Component)e);
+		super.add((Component)e);
+		
+		// fit gridlayout to amount of fields in form
+		GridLayout g = (GridLayout) super.getLayout();
+		g.setRows(super.getComponentCount());
 	}
 	
-	public void update()
+	public void clear()
 	{
-		// reload controls from model
-		panel.removeAll();
+		removeAll();
 	}
 }

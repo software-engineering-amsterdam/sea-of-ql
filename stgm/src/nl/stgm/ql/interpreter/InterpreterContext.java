@@ -47,7 +47,7 @@ public class InterpreterContext implements TypeContext, ValueContext
 	{
 		Value ret = values.get(id);
 		if(ret == null) ret = new UnknownValue();
-		System.out.println(ret);
+		// System.out.println(ret);
 		return ret;
 	}
 }

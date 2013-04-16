@@ -17,7 +17,7 @@ public class AWTTextField extends Panel implements IUIElement
 		
 		this.label = new Label();
 		this.add(label);
-		this.textField = new TextField();
+		this.textField = new TextField(6);
 		this.add(textField);
 		
 		textField.addKeyListener(

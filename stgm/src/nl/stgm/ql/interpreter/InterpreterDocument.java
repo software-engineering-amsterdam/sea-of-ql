@@ -1,7 +1,9 @@
 package nl.stgm.ql.interpreter;
 
 import java.util.Vector;
+import java.util.HashMap;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
@@ -15,40 +17,23 @@ import nl.stgm.ql.interfaces.*;
 
 public class InterpreterDocument implements Visitor
 {
-	private InterpreterApplication delegate;
 	private Document document;
 	private AWTUIController ui;
 	
 	private InterpreterContext context;
-	private InterpreterMapping mapping;
-	
+	private HashMap<AbstractNode,IUIElement> map = new HashMap<AbstractNode,IUIElement>();
+	private HashMap<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
 	private Vector<Form> forms = new Vector<Form>();
 	private int currentForm;
 	
-	public InterpreterDocument(InterpreterApplication delegate, Document document, AWTUIController ui)
+	public InterpreterDocument(Document document, AWTUIController ui)
 	{
-		this.delegate = delegate;
 		this.document = document;
 		this.ui = ui;
-
 		this.context = new InterpreterContext();
-		this.mapping = new InterpreterMapping(delegate);
 	 
 		// gather all forms
 		this.document.accept(this);
-	}
-	
-	public void update()
-	{
-		// clear ui
-		// mapping = new InterpreterMapping(delegate);
-		ui.clear();
-		
-		// generate ui for current form
-		forms.get(currentForm).accept(this);
-		
-		// validate ui
-		ui.validate();
 	}
 	
 	public boolean hasNextForm()
@@ -58,10 +43,8 @@ public class InterpreterDocument implements Visitor
 	
 	public void nextForm()
 	{
-		System.out.println("next");
-		assert hasNextForm();
 		currentForm++;
-		update();
+		clear();
 	}
 	
 	public boolean hasPreviousForm()
@@ -71,10 +54,20 @@ public class InterpreterDocument implements Visitor
 	
 	public void previousForm()
 	{
-		System.out.println("prev");
-		assert hasPreviousForm();
 		currentForm--;
-		update();
+		clear();
+	}
+	
+	private void clear()
+	{
+		map.clear();
+		this.update();
+	}
+	
+	public void update()
+	{
+		// updates ui from current form
+		forms.get(currentForm).accept(this);
 	}
 	
 	public void putValue(String name, Value value)
@@ -108,16 +101,32 @@ public class InterpreterDocument implements Visitor
 		}
 	}
 
-	public void visit(Form f)
+	public void visit(Form form)
 	{
-		for(FormItem fi: f.formItems())
+		AWTForm uiElt = (AWTForm) map.get(form);
+		if(uiElt == null)
 		{
-			fi.accept(this);
+			uiElt = ui.createForm();
+			map.put(form, uiElt);
 		}
+
+		ui.pushParent(uiElt);
+		for(FormItem item: form.formItems())
+			item.accept(this);
+		ui.popParent();
 	}
 	
 	public void visit(Conditional c)
 	{
+		AWTForm uiElt = (AWTForm) map.get(c);
+		if(uiElt == null)
+		{
+			uiElt = ui.createForm();
+			map.put(c, uiElt);
+		}
+
+		ui.pushParent(uiElt);
+
 		Bool v;
 		
 		try
@@ -128,31 +137,48 @@ public class InterpreterDocument implements Visitor
 		{
 			v = new Bool(false);
 		}
-
-		if(v != null && v.getValue())
+		
+		if(v.getValue() == true)
 		{
+			if(conditionalValues.get(c) != null && conditionalValues.get(c) == false)
+			{
+				// map.remove()
+				uiElt.clear();
+			}
+			conditionalValues.put(c, true);
+				
 			for(Question q: c.ifQuestions())
 				q.accept(this);
 		}
 		else
 		{
+			if(conditionalValues.get(c) != null && conditionalValues.get(c) == true)
+			{
+				uiElt.clear();
+				System.out.println("CLEAR!!!");
+			}
+			conditionalValues.put(c, false);
+				
 			if(c.hasElse())
 				for(Question q: c.elseQuestions())
 					q.accept(this);
 		}
+		
+		ui.popParent();
 	}
 	
 	public void visit(Question q)
 	{
-		System.out.println(q);
-		
 		if(q.type() == Type.BOOL)
 		{
-			AWTCheckbox uiElt = mapping.findOrCreateCheckbox(q);
-			ui.addElement(uiElt);
+			AWTCheckbox uiElt = (AWTCheckbox) map.get(q);
+			if(uiElt == null)
+			{
+				uiElt = ui.createCheckbox(q.id());
+				map.put(q, uiElt);
+			}
+			
 			Value value = context.lookupValue(q.id());
-
-			System.out.println(value.getType());
 			if(value.getType() == Type.UNKNOWN)
 			{
 				uiElt.update(q.question(), false);
@@ -166,10 +192,14 @@ public class InterpreterDocument implements Visitor
 		
 		if(q.type() == Type.INT)
 		{
-			AWTTextField uiElt = mapping.findOrCreateTextField(q);
-			ui.addElement(uiElt);
+			AWTTextField uiElt = (AWTTextField) map.get(q);
+			if(uiElt == null)
+			{
+				uiElt = ui.createTextField(q.id());
+				map.put(q, uiElt);
+			}
+			
 			Value value = context.lookupValue(q.id());
-
 			if(value.getType() == Type.UNKNOWN)
 			{
 				uiElt.update(q.question(), "");
@@ -184,8 +214,12 @@ public class InterpreterDocument implements Visitor
 	
 	public void visit(CalcQuestion cq)
 	{
-		AWTLabel uiElt = mapping.findOrCreateLabel(cq);
-		ui.addElement(uiElt);
+		AWTLabel uiElt = (AWTLabel) map.get(cq);
+		if(uiElt == null)
+		{
+			uiElt = ui.createLabel();
+			map.put(cq, uiElt);
+		}
 
 		try
 		{

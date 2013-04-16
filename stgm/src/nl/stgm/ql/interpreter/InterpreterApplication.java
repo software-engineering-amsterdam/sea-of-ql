@@ -11,47 +11,51 @@ public class InterpreterApplication
 	
 	public InterpreterApplication(Document ast)
 	{
-		// combine source ast and ui in document
-		this.ui = new AWTUIController(this);
-		this.document = new InterpreterDocument(this, ast, this.ui);
+		ui = new AWTUIController(this);
+		document = new InterpreterDocument(ast, ui);
 	}
 	
 	public void run()
 	{
-		document.update();
-	}
-	
-	public boolean hasNextForm()
-	{
-		return document.hasNextForm();
+		this.update();
+		ui.show();
 	}
 	
 	public void nextClicked()
 	{
-		if(document.hasNextForm()) document.nextForm();
-	}
-	
-	public boolean hasPreviousForm()
-	{
-		return document.hasPreviousForm();
+		if(document.hasNextForm())
+		{
+			ui.clear();
+			document.nextForm();
+			this.update();
+		}
 	}
 	
 	public void previousClicked()
 	{
-		if(document.hasPreviousForm()) document.previousForm();
+		if(document.hasPreviousForm())
+		{
+			ui.clear();
+			document.previousForm();
+			this.update();
+		}
 	}
 	
 	public void answerChanged(String id, int value)
 	{
-		System.out.println("answer changed");
 		document.putValue(id, new Int(value));
-		document.update();
+		this.update();
 	}
 	
 	public void answerChanged(String id, boolean value)
 	{
-		System.out.println("answer changed");
 		document.putValue(id, new Bool(value));
+		this.update();
+	}
+
+	private void update()
+	{
 		document.update();
+		ui.validate();
 	}
 }
