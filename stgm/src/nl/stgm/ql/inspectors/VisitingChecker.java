@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.Vector;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
@@ -80,9 +81,9 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		addSymbol(name, new Symbol(name, type, computed));
 	}
 	
-	public void visit(Expr expr)
+	public void visit(ASTExpressionNode expr)
 	{
-		// upon encountering an Expr, this may be called to perform a type check
+		// upon encountering an ASTExpressionNode, this may be called to perform a type check
 		try
 		{
 			expr.inferType(this);

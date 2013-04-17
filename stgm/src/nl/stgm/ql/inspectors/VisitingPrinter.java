@@ -70,7 +70,7 @@ public class VisitingPrinter extends RunnableVisitor implements Visitor
 		println(q.id() + ": " + q.question() + " " + q.type());
 	}
 	
-	public void visit(Expr e)
+	public void visit(ASTExpressionNode e)
 	{
 		print(e.renderExpressionString());
 	}

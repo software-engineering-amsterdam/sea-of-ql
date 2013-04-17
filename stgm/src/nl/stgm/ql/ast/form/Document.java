@@ -5,7 +5,7 @@ import java.util.List;
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.interfaces.*;
 
-public class Document extends AbstractNode
+public class Document extends ASTDocumentNode
 {
 	private List<Form> forms;
 	

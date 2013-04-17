@@ -1,13 +1,14 @@
 package nl.stgm.ql.ast.expr;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public abstract class UnaryExpr extends Expr
+public abstract class UnaryExpr extends ASTExpressionNode
 {
-	protected Expr arg;
+	protected ASTExpressionNode arg;
 
-	public UnaryExpr(Expr arg)
+	public UnaryExpr(ASTExpressionNode arg)
 	{
 		this.arg = arg;
 	}

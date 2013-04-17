@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.expr.unary;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
@@ -7,7 +8,7 @@ import nl.stgm.ql.inspectors.*;
 
 public class Pos extends UnaryExpr
 {
-	public Pos(Expr arg)
+	public Pos(ASTExpressionNode arg)
 	{
 		super(arg);
 	}

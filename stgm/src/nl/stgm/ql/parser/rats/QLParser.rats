@@ -15,8 +15,8 @@ import nl.stgm.ql.ast.form.*;
 }
 
 // these are the possible starting points for parsing;
-// Expr and Form are mainly exported for testing purposes
-public Expr ParseExpr = yyValue:Expr;
+// ASTExpressionNode and Form are mainly exported for testing purposes
+public ASTExpressionNode ParseExpr = yyValue:ASTExpressionNode;
 public Form ParseForm = yyValue:Form;
 public Document Parse = yyValue:Document;
 
@@ -46,14 +46,14 @@ inline BoolQuestion BoolQuestion =
 	{ yyValue = new BoolQuestion(id, question); };
 
 inline CalcQuestion CalcQuestion =
-	id:Ident ':' Spacing question:StringLit Spacing Spacing '(' Spacing calculation:Expr ')' Spacing
+	id:Ident ':' Spacing question:StringLit Spacing Spacing '(' Spacing calculation:ASTExpressionNode ')' Spacing
 	{ yyValue = new CalcQuestion(id, question, calculation); };
 
 Conditional Conditional =
-	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
+	"if" Spacing '(' Spacing condition:ASTExpressionNode ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
 	"else" Spacing '{' Spacing elseQuestions:Question* '}' Spacing
 	{ yyValue = new Conditional(condition, ifQuestions.list(), elseQuestions.list()); }
 	/
-	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
+	"if" Spacing '(' Spacing condition:ASTExpressionNode ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing
 	{ yyValue = new Conditional(condition, ifQuestions.list()); }
 	;

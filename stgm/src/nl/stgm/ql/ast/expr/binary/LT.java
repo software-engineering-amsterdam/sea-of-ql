@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.expr.binary;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
@@ -7,7 +8,7 @@ import nl.stgm.ql.inspectors.*;
 
 public class LT extends BinaryIntExpr
 {
-	public LT(Expr left, Expr right)
+	public LT(ASTExpressionNode left, ASTExpressionNode right)
 	{
 		super(left, right);
 	}

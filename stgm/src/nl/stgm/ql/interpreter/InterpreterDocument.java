@@ -14,7 +14,7 @@ public class InterpreterDocument implements Visitor
 	private AWTUIController ui;
 	
 	private InterpreterContext context;
-	private HashMap<AbstractNode,IUIElement> map = new HashMap<AbstractNode,IUIElement>();
+	private HashMap<ASTDocumentNode,IUIElement> map = new HashMap<ASTDocumentNode,IUIElement>();
 	private HashMap<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
 	private Vector<Form> forms = new Vector<Form>();
 	private int currentForm;

@@ -6,7 +6,7 @@ import nl.stgm.ql.ast.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public class Form extends AbstractNode
+public class Form extends ASTDocumentNode
 {
 	private String id;
 	private List<FormItem> formItems;

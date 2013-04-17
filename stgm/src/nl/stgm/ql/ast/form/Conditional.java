@@ -1,5 +1,6 @@
 package nl.stgm.ql.ast.form;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.literal.*;
 
@@ -9,13 +10,13 @@ import java.util.List;
 
 public class Conditional extends FormItem
 {
-	private Expr condition;
+	private ASTExpressionNode condition;
 	private List<Question> ifQuestions;
 	private List<Question> elseQuestions;
 	
 	private boolean hasElse;
 	
-	public Conditional(Expr condition, List<Question> ifQuestions, List<Question> elseQuestions)
+	public Conditional(ASTExpressionNode condition, List<Question> ifQuestions, List<Question> elseQuestions)
 	{
 		this.condition = condition;
 		this.ifQuestions = ifQuestions;
@@ -23,14 +24,14 @@ public class Conditional extends FormItem
 		this.hasElse = true;
 	}
 
-	public Conditional(Expr condition, List<Question> ifQuestions)
+	public Conditional(ASTExpressionNode condition, List<Question> ifQuestions)
 	{
 		this.condition = condition;
 		this.ifQuestions = ifQuestions;
 		this.hasElse = false;
 	}
 	
-	public Expr condition()
+	public ASTExpressionNode condition()
 	{
 		return this.condition;
 	}

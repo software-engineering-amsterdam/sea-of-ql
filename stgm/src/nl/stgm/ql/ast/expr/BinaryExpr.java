@@ -1,15 +1,16 @@
 package nl.stgm.ql.ast.expr;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public abstract class BinaryExpr extends Expr
+public abstract class BinaryExpr extends ASTExpressionNode
 {
-	protected Expr left;
-	protected Expr right;
+	protected ASTExpressionNode left;
+	protected ASTExpressionNode right;
 	
-	public BinaryExpr(Expr left, Expr right)
+	public BinaryExpr(ASTExpressionNode left, ASTExpressionNode right)
 	{
 		this.left = left;
 		this.right = right;

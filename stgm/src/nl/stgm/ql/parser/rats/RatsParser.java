@@ -3,9 +3,9 @@ package nl.stgm.ql.parser.rats;
 import java.io.IOException;
 import java.io.StringReader;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.ast.form.Form;
-import nl.stgm.ql.ast.expr.Expr;
 
 import nl.stgm.ql.parser.IParse;
 import nl.stgm.ql.parser.ParseError;
@@ -56,7 +56,7 @@ public class RatsParser implements IParse
 		}
 	}
 
-	public Expr parseExpr(String src) throws ParseError
+	public ASTExpressionNode parseExpr(String src) throws ParseError
 	{
 		QLParser parser = new QLParser(new StringReader(src), "-");
 
