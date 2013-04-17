@@ -29,16 +29,25 @@ Form Form =
 	{ yyValue = new Form(id, items.list()); };
 
 FormItem FormItem =
-	Question / Conditional;
+	yyValue:Question /
+	yyValue:Conditional;
 
 Question Question =
-	CalcQuestion /
-	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing
-	{ yyValue = new Question(id, question, type); };
+	yyValue:CalcQuestion /
+	yyValue:IntQuestion /
+	yyValue:BoolQuestion;
 
-CalcQuestion CalcQuestion =
-	id:Ident ':' Spacing question:StringLit Spacing type:Ident Spacing '(' Spacing calculation:Expr ')' Spacing
-	{ yyValue = new CalcQuestion(id, question, type, calculation); };
+inline IntQuestion IntQuestion =
+	id:Ident ':' Spacing question:StringLit Spacing "int" Spacing
+	{ yyValue = new IntQuestion(id, question); };
+
+inline BoolQuestion BoolQuestion =
+	id:Ident ':' Spacing question:StringLit Spacing "boolean" Spacing
+	{ yyValue = new BoolQuestion(id, question); };
+
+inline CalcQuestion CalcQuestion =
+	id:Ident ':' Spacing question:StringLit Spacing Spacing '(' Spacing calculation:Expr ')' Spacing
+	{ yyValue = new CalcQuestion(id, question, calculation); };
 
 Conditional Conditional =
 	"if" Spacing '(' Spacing condition:Expr ')' Spacing '{' Spacing ifQuestions:Question* '}' Spacing

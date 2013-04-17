@@ -4,17 +4,16 @@ import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public class Question extends FormItem
+public abstract class Question extends FormItem
 {
 	protected String id;
 	protected String question;
-	protected Type type;
 	
-	public Question(String id, String question, String type)
+	public Question(String id, String question)
 	{
 		this.id = id;
 		this.question = question;
-		this.type = Type.parse(type);
+		// this.type = Type.parse(type);
 	}
 	
 	public String id()
@@ -27,13 +26,13 @@ public class Question extends FormItem
 		return this.question;
 	}
 	
-	public Type type()
-	{
-		return this.type;
-	}
+	// public Type type()
+	// {
+	// 	return this.type;
+	// }
 
-	public void accept(Visitor v)
-	{
-		v.visit(this);
-	}
+	// public void accept(Visitor v)
+	// {
+	// 	v.visit(this);
+	// }
 }

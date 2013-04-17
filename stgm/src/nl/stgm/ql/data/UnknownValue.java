@@ -6,4 +6,9 @@ public class UnknownValue extends Value
 	{
 		return Type.UNKNOWN;
 	}
+	
+	public boolean isUnknown()
+	{
+		return true;
+	}
 }

@@ -98,6 +98,7 @@ public class InterpreterDocument implements Visitor
 		else
 		{
 			// no forms in document
+			System.out.println("no valid forms found...");
 		}
 	}
 
@@ -127,18 +128,15 @@ public class InterpreterDocument implements Visitor
 
 		ui.pushParent(uiElt);
 
-		Bool v;
+		Value v = c.condition().reduceValue(context);
+		Bool condition;
+		if(v.isUnknown())
+			condition = new Bool(false);
+		else
+			condition = (Bool) v;
 		
-		try
-		{
-			v = (Bool) c.condition().reduceValue(context);
-		}
-		catch(ClassCastException e) // !! TODO !!
-		{
-			v = new Bool(false);
-		}
 		
-		if(v.getValue() == true)
+		if(condition.getValue() == true)
 		{
 			if(conditionalValues.get(c) != null && conditionalValues.get(c) == false)
 			{
@@ -167,49 +165,39 @@ public class InterpreterDocument implements Visitor
 		ui.popParent();
 	}
 	
-	public void visit(Question q)
+	public void visit(BoolQuestion q)
 	{
-		if(q.type() == Type.BOOL)
+		AWTCheckbox uiElt = (AWTCheckbox) map.get(q);
+		if(uiElt == null)
 		{
-			AWTCheckbox uiElt = (AWTCheckbox) map.get(q);
-			if(uiElt == null)
-			{
-				uiElt = ui.createCheckbox(q.id());
-				map.put(q, uiElt);
-			}
-			
-			Value value = context.lookupValue(q.id());
-			if(value.getType() == Type.UNKNOWN)
-			{
-				uiElt.update(q.question(), false);
-			}
-			else
-			{
-				Bool val = (Bool) value;
-				uiElt.update(q.question(), val.getValue());
-			}
+			uiElt = ui.createCheckbox(q.id());
+			map.put(q, uiElt);
 		}
 		
-		if(q.type() == Type.INT)
+		if(context.hasValue(q.id()))
 		{
-			AWTTextField uiElt = (AWTTextField) map.get(q);
-			if(uiElt == null)
-			{
-				uiElt = ui.createTextField(q.id());
-				map.put(q, uiElt);
-			}
-			
-			Value value = context.lookupValue(q.id());
-			if(value.getType() == Type.UNKNOWN)
-			{
-				uiElt.update(q.question(), "");
-			}
-			else
-			{
-				Int val = (Int) value;
-				uiElt.update(q.question(), Integer.toString(val.getValue()));
-			}
+			Bool val = (Bool) context.lookupValue(q.id());
+			uiElt.update(q.question(), val.getValue());
 		}
+		else
+		{
+			uiElt.update(q.question(), false);
+		}
+	}
+	
+	public void visit(IntQuestion q)
+	{
+		AWTTextField uiElt = (AWTTextField) map.get(q);
+		if(uiElt == null)
+		{
+			uiElt = ui.createTextField(q.id());
+			map.put(q, uiElt);
+		}
+		
+		if(context.hasValue(q.id()))
+			uiElt.update(q.question(), context.lookupValue(q.id()).toString());
+		else
+			uiElt.update(q.question(), "");
 	}
 	
 	public void visit(CalcQuestion cq)

@@ -7,9 +7,9 @@ public class CalcQuestion extends Question
 {
 	private Expr calculation;
 	
-	public CalcQuestion(String id, String question, String type, Expr calculation)
+	public CalcQuestion(String id, String question, Expr calculation)
 	{
-		super(id, question, type);
+		super(id, question);
 		this.calculation = calculation;
 	}
 	

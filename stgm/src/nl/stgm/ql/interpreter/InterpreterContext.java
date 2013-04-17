@@ -43,6 +43,11 @@ public class InterpreterContext implements TypeContext, ValueContext
 		}
 	}
 	
+	public boolean hasValue(String id)
+	{
+		return values.containsKey(id);
+	}
+	
 	public Value lookupValue(String id)
 	{
 		Value ret = values.get(id);

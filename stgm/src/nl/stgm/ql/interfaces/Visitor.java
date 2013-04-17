@@ -9,6 +9,8 @@ public interface Visitor
 	public void visit(Conditional c);
 	public void visit(Document d);
 	public void visit(Form f);
-	public void visit(Question q);
+	public void visit(IntQuestion q);
+	public void visit(BoolQuestion q);
+	// public void visit(Question q);
 	// public void visit(Expr e);
 }

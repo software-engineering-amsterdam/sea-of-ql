@@ -59,21 +59,21 @@ public class AWTUIController
 		return elt;
 	}
 	
-	public AWTLabel createLabel() // TODO not using ID
+	public AWTLabel createLabel()
 	{
 		AWTLabel elt = new AWTLabel(delegate);
 		add(elt);
 		return elt;
 	}
 	
-	public AWTForm createForm() // TODO not using ID
+	public AWTForm createForm()
 	{
 		AWTForm elt = new AWTForm(delegate);
 		add(elt);
 		return elt;
 	}
 	
-	public AWTForm createConditional() // TODO not using ID
+	public AWTForm createConditional()
 	{
 		AWTForm elt = new AWTForm(delegate);
 		add(elt);
