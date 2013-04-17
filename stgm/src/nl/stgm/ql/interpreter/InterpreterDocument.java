@@ -8,13 +8,6 @@ import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 
-//
-//
-//
-//
-//  CONTAINS AST VISITOR + CONTEXT
-//
-
 public class InterpreterDocument implements Visitor
 {
 	private Document document;
@@ -92,20 +85,14 @@ public class InterpreterDocument implements Visitor
 	{
 		// gather forms from document
 		for(Form f: d.forms())
-		{
 			this.forms.add(f);
-		}
 
 		// set initial state
 		if(this.forms.size() > 0)
-		{
 			this.currentForm = 0;
-		}
 		else
-		{
 			// no forms in document
 			System.out.println("no valid forms found...");
-		}
 	}
 
 	public void visit(Form form)
