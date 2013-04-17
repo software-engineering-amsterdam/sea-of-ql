@@ -18,6 +18,7 @@ public class AWTUIController
 		window = new Frame("Aangifteprogramma");
 		window.setMinimumSize(new Dimension(800,600));
 		window.add(new AWTPrevNextPanel(delegate), BorderLayout.SOUTH);
+		window.add(new AWTLogo(), BorderLayout.NORTH);
 	}
 	
 	public void show()
@@ -43,6 +44,7 @@ public class AWTUIController
 	public void validate()
 	{
 		window.pack();
+		window.validate();
 	}
 
 	public AWTCheckbox createCheckbox(String id)

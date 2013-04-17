@@ -34,14 +34,8 @@ public class AWTConditional extends AWTForm
 		removeAll();
 
 		if(whichPart)
-		{
-			System.out.println("displayPart truepart");
 			super.add(truePart);
-		}
 		else if(falsePart != null) // so just display nothing if no falsePart
-		{
-			System.out.println("displayPart falsepart");
 			super.add(falsePart);
-		}
 	}
 }
