@@ -1,5 +1,6 @@
 package nl.stgm.ql.interpreter;
 
+import java.util.Map;
 import java.util.HashMap;
 
 import nl.stgm.ql.ast.expr.*;
@@ -11,8 +12,8 @@ import nl.stgm.ql.inspectors.*;
 
 public class InterpreterContext implements TypeContext, ValueContext
 {
-	private HashMap<String,Symbol> symbols = new HashMap<String,Symbol>();
-	private HashMap<String,Value> values = new HashMap<String,Value>();
+	private Map<String,Symbol> symbols = new HashMap<String,Symbol>();
+	private Map<String,Value> values = new HashMap<String,Value>();
 
 	public void putSymbol(String id, Symbol s)
 	{

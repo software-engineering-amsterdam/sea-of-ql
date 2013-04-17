@@ -13,10 +13,10 @@ import nl.stgm.ql.interfaces.*;
 
 public class VisitingChecker extends RunnableVisitor implements TypeContext, Visitor
 {
-	private HashMap<String,Symbol> symbols = new HashMap<String,Symbol>();
-	private HashMap<String,Form> forms = new HashMap<String,Form>();
+	private Map<String,Symbol> symbols = new HashMap<String,Symbol>();
+	private Map<String,Form> forms = new HashMap<String,Form>();
 	private Stack<String> crumbs = new Stack<String>();
-	private Vector<String> errors = new Vector<String>();
+	private List<String> errors = new Vector<String>();
 	
 	public void visit(CalcQuestion cq)
 	{

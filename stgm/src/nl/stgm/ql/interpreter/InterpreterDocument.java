@@ -1,6 +1,8 @@
 package nl.stgm.ql.interpreter;
 
+import java.util.List;
 import java.util.Vector;
+import java.util.Map;
 import java.util.HashMap;
 
 import nl.stgm.ql.ast.*;
@@ -14,9 +16,9 @@ public class InterpreterDocument implements Visitor
 	private AWTUIController ui;
 	
 	private InterpreterContext context;
-	private HashMap<ASTDocumentNode,IUIElement> map = new HashMap<ASTDocumentNode,IUIElement>();
-	private HashMap<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
-	private Vector<Form> forms = new Vector<Form>();
+	private Map<ASTDocumentNode,IUIElement> map = new HashMap<ASTDocumentNode,IUIElement>();
+	private Map<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
+	private List<Form> forms = new Vector<Form>();
 	private int currentForm;
 	
 	public InterpreterDocument(Document document, AWTUIController ui)
