@@ -1,7 +1,5 @@
 package nl.stgm.ql.ast.form;
 
-import nl.stgm.ql.data.*;
-
 public abstract class Question extends FormItem
 {
 	protected String id;
