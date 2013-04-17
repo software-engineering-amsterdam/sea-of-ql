@@ -6,8 +6,13 @@ import nl.stgm.ql.inspectors.*;
 
 public abstract class LiteralExpr extends ASTExpressionNode
 {
-	public String renderExpressionString()
+	public String render()
 	{
 		return this.toString();
+	}
+	
+	public void checkType(TypeCheckContext context)
+	{
+		return; // no type errors on literals
 	}
 }

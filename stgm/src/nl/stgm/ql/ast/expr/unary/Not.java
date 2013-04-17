@@ -18,17 +18,22 @@ public class Not extends UnaryExpr
 		return "!";
 	}
 
-	public Type inferType(TypeContext context) throws IncompatibleTypesException
+	public Type getType(TypeContext context)
 	{
-		if(arg.inferType(context) == Type.BOOL)
-			return Type.BOOL;
-		else
-			throw new IncompatibleTypesException();
+		return Type.BOOL;
 	}
 	
-	public Value reduceValue(ValueContext context)
+	public void checkType(TypeCheckContext context)
 	{
-		Value value = this.arg.reduceValue(context);
+		if(arg.getType(context) != Type.BOOL)
+		{
+			context.registerTypeError(this, "Argument to ! should be a bool.");
+		}
+	}
+
+	public Value getValue(ValueContext context)
+	{
+		Value value = this.arg.getValue(context);
 		
 		if(value.isUnknown()) // TODO stuff like this
 		{

@@ -18,10 +18,10 @@ public class And extends BinaryBoolExpr
 		return "&&";
 	}
 
-	public Value reduceValue(ValueContext context)
+	public Value getValue(ValueContext context)
 	{
-		Bool leftValue = (Bool) this.left.reduceValue(context);
-		Bool rightValue = (Bool) this.right.reduceValue(context);
+		Bool leftValue = (Bool) this.left.getValue(context);
+		Bool rightValue = (Bool) this.right.getValue(context);
 		
 		return new Bool(leftValue.getValue() && rightValue.getValue());
 	}

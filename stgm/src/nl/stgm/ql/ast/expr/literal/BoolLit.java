@@ -19,12 +19,12 @@ public class BoolLit extends LiteralExpr
 		return value.toString();
 	}
 
-	public Type inferType(TypeContext context)
+	public Type getType(TypeContext context)
 	{
 		return Type.BOOL;
 	}
 
-	public Bool reduceValue(ValueContext context)
+	public Bool getValue(ValueContext context)
 	{
 		return value;
 	}

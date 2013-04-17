@@ -16,17 +16,8 @@ public abstract class BinaryExpr extends ASTExpressionNode
 		this.right = right;
 	}
 
-	public String renderExpressionString()
+	public String render()
 	{
-		return left.renderExpressionString() + " " + this.toString() + " " + right.renderExpressionString();
-	}
-
-	// this is only inherited to Eq and NEq
-	public Type inferType(TypeContext context) throws IncompatibleTypesException
-	{
-		if(left.inferType(context) == right.inferType(context))
-			return left.inferType(context);
-		else
-			throw new IncompatibleTypesException();
+		return left.render() + " " + this.toString() + " " + right.render();
 	}
 }

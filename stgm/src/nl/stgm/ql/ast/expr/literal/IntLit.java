@@ -19,12 +19,12 @@ public class IntLit extends LiteralExpr
 		return value.toString();
 	}
 
-	public Type inferType(TypeContext context)
+	public Type getType(TypeContext context)
 	{
 		return Type.INT;
 	}
 
-	public Int reduceValue(ValueContext context)
+	public Int getValue(ValueContext context)
 	{
 		return value;
 	}

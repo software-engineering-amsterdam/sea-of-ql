@@ -33,7 +33,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 	
 	public void visit(Conditional c)
 	{
-		pushCrumb("if(" + c.condition().renderExpressionString() + ")");
+		pushCrumb("if(" + c.condition().render() + ")");
 
 		c.condition().accept(this);
 
@@ -86,11 +86,11 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		// upon encountering an ASTExpressionNode, this may be called to perform a type check
 		try
 		{
-			expr.inferType(this);
+			expr.getType(this);
 		}
 		catch(IncompatibleTypesException e)
 		{
-			addError("incompatible types in calculation '" + expr.renderExpressionString() + "'");
+			addError("incompatible types in calculation '" + expr.render() + "'");
 		}
 	}
 	
@@ -134,7 +134,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		}
 	}
 	
-	public Type getSymbolType(String name)
+	public Type getType(String name)
 	{
 		Symbol s = symbols.get(name);
 		

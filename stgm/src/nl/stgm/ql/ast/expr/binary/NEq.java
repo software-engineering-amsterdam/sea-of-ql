@@ -6,7 +6,7 @@ import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.inspectors.*;
 
-public class NEq extends BinaryExpr
+public class NEq extends BinaryEqualityExpr
 {
 	public NEq(ASTExpressionNode left, ASTExpressionNode right)
 	{
@@ -18,10 +18,10 @@ public class NEq extends BinaryExpr
 		return "!=";
 	}
 
-	public Value reduceValue(ValueContext context)
+	public Value getValue(ValueContext context)
 	{
-		Value leftValue = (Value) this.left.reduceValue(context);
-		Value rightValue = (Value) this.right.reduceValue(context);
+		Value leftValue = (Value) this.left.getValue(context);
+		Value rightValue = (Value) this.right.getValue(context);
 		
 		switch(leftValue.getType())
 		{

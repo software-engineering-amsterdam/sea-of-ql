@@ -132,7 +132,7 @@ public class InterpreterDocument implements Visitor
 			ui.popParent();
 		}
 		
-		Value v = c.condition().reduceValue(context);
+		Value v = c.condition().getValue(context);
 
 		if(v.isUnknown())
 		{
@@ -161,7 +161,7 @@ public class InterpreterDocument implements Visitor
 		
 		if(context.hasValue(q.id()))
 		{
-			Bool val = (Bool) context.lookupValue(q.id());
+			Bool val = (Bool) context.getValue(q.id());
 			uiElt.update(q.question(), val.getValue());
 		}
 		else
@@ -180,7 +180,7 @@ public class InterpreterDocument implements Visitor
 		}
 		
 		if(context.hasValue(q.id()))
-			uiElt.update(q.question(), context.lookupValue(q.id()).toString());
+			uiElt.update(q.question(), context.getValue(q.id()).toString());
 		else
 			uiElt.update(q.question(), "");
 	}
@@ -196,7 +196,7 @@ public class InterpreterDocument implements Visitor
 
 		try
 		{
-			uiElt.update(cq.question(), cq.calculation().reduceValue(context).toString());
+			uiElt.update(cq.question(), cq.calculation().getValue(context).toString());
 		}
 		catch(ClassCastException e)
 		{

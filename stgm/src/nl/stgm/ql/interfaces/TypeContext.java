@@ -4,5 +4,5 @@ import nl.stgm.ql.data.*;
 
 public interface TypeContext
 {
-	public Type getSymbolType(String name);
+	public Type getType(String name);
 }

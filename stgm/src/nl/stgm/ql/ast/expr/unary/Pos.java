@@ -18,17 +18,22 @@ public class Pos extends UnaryExpr
 		return "+";
 	}
 
-	public Type inferType(TypeContext context) throws IncompatibleTypesException
+	public Type getType(TypeContext context)
 	{
-		if(arg.inferType(context) == Type.INT)
-			return Type.INT;
-		else
-			throw new IncompatibleTypesException();
+		return Type.INT;
 	}
 	
-	public Value reduceValue(ValueContext context)
+	public void checkType(TypeCheckContext context)
 	{
-		Int value = (Int) this.arg.reduceValue(context);
+		if(arg.getType(context) != Type.INT)
+		{
+			context.registerTypeError(this, "Argument to + should be an int.");
+		}
+	}
+
+	public Value getValue(ValueContext context)
+	{
+		Int value = (Int) this.arg.getValue(context);
 		return value;
 	}
 }

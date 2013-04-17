@@ -13,8 +13,8 @@ public abstract class UnaryExpr extends ASTExpressionNode
 		this.arg = arg;
 	}
 
-	public String renderExpressionString()
+	public String render()
 	{
-		return this.toString() + arg.renderExpressionString();
+		return this.toString() + arg.render();
 	}
 }

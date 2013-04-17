@@ -34,7 +34,7 @@ public class InterpreterContext implements TypeContext, ValueContext
 		values.remove(id);
 	}
 	
-	public Type getSymbolType(String name)
+	public Type getType(String name)
 	{
 		Symbol s = this.getSymbol(name);
 		
@@ -53,11 +53,10 @@ public class InterpreterContext implements TypeContext, ValueContext
 		return values.containsKey(id);
 	}
 	
-	public Value lookupValue(String id)
+	public Value getValue(String id)
 	{
 		Value ret = values.get(id);
 		if(ret == null) ret = new UnknownValue();
-		// System.out.println(ret);
 		return ret;
 	}
 }

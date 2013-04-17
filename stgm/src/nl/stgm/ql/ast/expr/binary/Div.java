@@ -18,10 +18,10 @@ public class Div extends BinaryIntExpr
 		return "/";
 	}
 
-	public Value reduceValue(ValueContext context)
+	public Value getValue(ValueContext context)
 	{
-		Int leftValue = (Int) this.left.reduceValue(context);
-		Int rightValue = (Int) this.right.reduceValue(context);
+		Int leftValue = (Int) this.left.getValue(context);
+		Int rightValue = (Int) this.right.getValue(context);
 		
 		return new Int(leftValue.getValue() / rightValue.getValue());
 	}

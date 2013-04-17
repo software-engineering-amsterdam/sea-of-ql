@@ -3,7 +3,6 @@ package nl.stgm.ql.ast.expr;
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
-import nl.stgm.ql.inspectors.*;
 
 public class Ident extends ASTExpressionNode
 {
@@ -14,20 +13,25 @@ public class Ident extends ASTExpressionNode
 		this.name = name;
 	}
 
-	public String renderExpressionString()
+	public String render()
 	{
 		return name;
 	}
 
-	public Type inferType(TypeContext context)
+	public Type getType(TypeContext context)
 	{
 		// the semantic checker knowns our type from previous definitions
-		return context.getSymbolType(this.name);
+		return context.getType(this.name);
+	}
+	
+	public void checkType(TypeCheckContext context)
+	{
+		return; // always OK
 	}
 
-	public Value reduceValue(ValueContext context)
+	public Value getValue(ValueContext context)
 	{
 		// the semantic checker knowns our type from previous input
-		return context.lookupValue(name);
+		return context.getValue(this.name);
 	}
 }

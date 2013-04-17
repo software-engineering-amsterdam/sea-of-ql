@@ -4,7 +4,7 @@ import nl.stgm.ql.data.*;
 
 public interface Interpretable
 {
-	public abstract String renderExpressionString();
-	public abstract Type inferType(TypeContext context) throws IncompatibleTypesException;
-	public abstract Value reduceValue(ValueContext context);
+	public abstract String render();
+	public abstract Type getType(TypeContext context);
+	public abstract Value getValue(ValueContext context);
 }

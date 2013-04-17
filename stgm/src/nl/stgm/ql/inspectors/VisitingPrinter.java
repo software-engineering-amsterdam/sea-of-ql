@@ -72,7 +72,7 @@ public class VisitingPrinter extends RunnableVisitor implements Visitor
 	
 	public void visit(ASTExpressionNode e)
 	{
-		print(e.renderExpressionString());
+		print(e.render());
 	}
 	
 	//
