@@ -14,10 +14,11 @@ public class InterpreterDocument implements Visitor
 {
 	private Document document;
 	private AWTUIController ui;
-	
 	private InterpreterContext context;
+
 	private Map<ASTDocumentNode,IUIElement> map = new HashMap<ASTDocumentNode,IUIElement>();
 	private Map<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
+
 	private List<Form> forms = new Vector<Form>();
 	private int currentForm;
 	
@@ -31,6 +32,13 @@ public class InterpreterDocument implements Visitor
 		this.document.accept(this);
 	}
 	
+	//
+	//
+	//
+	//
+	//  FORM MANAGEMENT
+	//
+
 	public boolean hasNextForm()
 	{
 		return currentForm < forms.size() - 1;
@@ -66,6 +74,13 @@ public class InterpreterDocument implements Visitor
 		forms.get(currentForm).accept(this);
 	}
 	
+	//
+	//
+	//
+	//
+	//  CONTEXT
+	//
+
 	public void putValue(String name, Value value)
 	{
 		context.putValue(name, value);
