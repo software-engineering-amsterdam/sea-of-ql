@@ -27,7 +27,16 @@ public class Not extends UnaryExpr
 	
 	public Value reduceValue(ValueContext context)
 	{
-		Bool value = (Bool) this.arg.reduceValue(context);
-		return new Bool(!value.getValue());
+		Value value = this.arg.reduceValue(context);
+		
+		if(value.isUnknown()) // TODO stuff like this
+		{
+			return value;
+		}
+		else
+		{
+			Bool boolValue = (Bool) value;
+			return new Bool(!boolValue.getValue());
+		}
 	}
 }

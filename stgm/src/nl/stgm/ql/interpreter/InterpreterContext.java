@@ -29,6 +29,11 @@ public class InterpreterContext implements TypeContext, ValueContext
 		values.put(id, s);
 	}
 	
+	public void removeValue(String id)
+	{
+		values.remove(id);
+	}
+	
 	public Type getSymbolType(String name)
 	{
 		Symbol s = this.getSymbol(name);

@@ -1,3 +1,13 @@
+form PersoonlijkeGegevens
+{
+	aangifte: "Hebt u van ons bericht ontvangen om aangifte te doen?" boolean
+	juistRekeningnummer: "Staat er een juist rekeningnummer op ons bericht?" boolean
+	if(!juistRekeningnummer)
+	{
+		rekeningnummer: "Geef het juiste rekeningnummer op:" int
+	}
+}
+
 form Box1HouseOwning {
 	hasSoldHouse: "Did you sell a house in 2010?" boolean // cool comment
 	hasBoughtHouse: "Did you by a house in 2010?" boolean
@@ -6,11 +16,7 @@ form Box1HouseOwning {
 	if (hasSoldHouse) {
 		sellingPrice: "Price the house was sold for:" int
 		privateDebt: "Private debts for the sold house:" int
-		valueResidue: "Value residue:" int (sellingPrice - privateDebt)
-	}
-	else
-	{
-		tellingPrice: "No way?!" int
+		valueResidue: "Value residue:" (sellingPrice - privateDebt)
 	}
 }
 

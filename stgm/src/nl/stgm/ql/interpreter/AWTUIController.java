@@ -73,9 +73,9 @@ public class AWTUIController
 		return elt;
 	}
 	
-	public AWTForm createConditional()
+	public AWTConditional createConditional()
 	{
-		AWTForm elt = new AWTForm(delegate);
+		AWTConditional elt = new AWTConditional(delegate, new AWTForm(delegate), new AWTForm(delegate));
 		add(elt);
 		return elt;
 	}

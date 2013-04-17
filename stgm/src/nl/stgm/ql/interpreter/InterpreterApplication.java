@@ -41,9 +41,13 @@ public class InterpreterApplication
 		}
 	}
 	
-	public void answerChanged(String id, int value)
+	public void answerChanged(String id, Integer value)
 	{
-		document.putValue(id, new Int(value));
+		if(value == null)
+			document.removeValue(id);
+		else
+			document.putValue(id, new Int(value));
+		
 		this.update();
 	}
 	

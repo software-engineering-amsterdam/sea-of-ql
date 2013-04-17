@@ -15,10 +15,13 @@ public class AWTTextField extends Panel implements IUIElement
 		this.delegate = delegate;
 		this.id = id;
 		
+		this.setLayout(new BorderLayout());
+		
 		this.label = new Label();
-		this.add(label);
+		this.add(label, BorderLayout.WEST);
+		
 		this.textField = new TextField(6);
-		this.add(textField);
+		this.add(textField, BorderLayout.EAST);
 		
 		textField.addKeyListener(
 			new KeyAdapter()
@@ -39,12 +42,10 @@ public class AWTTextField extends Panel implements IUIElement
 	
 	private void textChanged()
 	{
-		// returning 0 for an empty field is legitimate in the domain
-		int retval = 0;
-		
-		if(!textField.getText().equals(""))
-			retval = Integer.parseInt(textField.getText());
+		if(textField.getText().equals(""))
+			delegate.answerChanged(this.id, null);
+		else
+			delegate.answerChanged(this.id, new Integer(textField.getText()));
 
-		delegate.answerChanged(this.id, retval);
 	}
 }

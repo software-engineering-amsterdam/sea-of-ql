@@ -61,6 +61,7 @@ public class InterpreterDocument implements Visitor
 	private void clear()
 	{
 		map.clear();
+		conditionalValues.clear();
 		this.update();
 	}
 	
@@ -73,6 +74,11 @@ public class InterpreterDocument implements Visitor
 	public void putValue(String name, Value value)
 	{
 		context.putValue(name, value);
+	}
+	
+	public void removeValue(String name)
+	{
+		context.removeValue(name);
 	}
 
 	//
@@ -119,50 +125,42 @@ public class InterpreterDocument implements Visitor
 	
 	public void visit(Conditional c)
 	{
-		AWTForm uiElt = (AWTForm) map.get(c);
+		AWTConditional uiElt = (AWTConditional) map.get(c);
 		if(uiElt == null)
 		{
-			uiElt = ui.createForm();
+			uiElt = ui.createConditional();
 			map.put(c, uiElt);
 		}
 
-		ui.pushParent(uiElt);
-
-		Value v = c.condition().reduceValue(context);
-		Bool condition;
-		if(v.isUnknown())
-			condition = new Bool(false);
-		else
-			condition = (Bool) v;
-		
-		
-		if(condition.getValue() == true)
-		{
-			if(conditionalValues.get(c) != null && conditionalValues.get(c) == false)
-			{
-				// map.remove()
-				uiElt.clear();
-			}
-			conditionalValues.put(c, true);
-				
-			for(Question q: c.ifQuestions())
-				q.accept(this);
-		}
-		else
-		{
-			if(conditionalValues.get(c) != null && conditionalValues.get(c) == true)
-			{
-				uiElt.clear();
-				System.out.println("CLEAR!!!");
-			}
-			conditionalValues.put(c, false);
-				
-			if(c.hasElse())
-				for(Question q: c.elseQuestions())
-					q.accept(this);
-		}
-		
+		ui.pushParent(uiElt.truePart());
+		for(Question q: c.ifQuestions())
+			q.accept(this);
 		ui.popParent();
+
+		if(c.hasElse())
+		{
+			ui.pushParent(uiElt.falsePart());
+			for(Question q: c.elseQuestions())
+				q.accept(this);
+			ui.popParent();
+		}
+		
+		Value v = c.condition().reduceValue(context);
+
+		if(v.isUnknown())
+		{
+			uiElt.displayPart(false);
+		}
+		else
+		{
+			Boolean prev = conditionalValues.get(c);
+			Boolean curr = ((Bool) v).getValue();
+			if(prev != curr)
+			{
+				conditionalValues.put(c, curr);
+				uiElt.displayPart(curr);
+			}
+		}
 	}
 	
 	public void visit(BoolQuestion q)
