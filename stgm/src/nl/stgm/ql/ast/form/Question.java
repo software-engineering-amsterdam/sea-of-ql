@@ -1,8 +1,6 @@
 package nl.stgm.ql.ast.form;
 
 import nl.stgm.ql.data.*;
-import nl.stgm.ql.interfaces.*;
-import nl.stgm.ql.inspectors.*;
 
 public abstract class Question extends FormItem
 {
@@ -13,7 +11,6 @@ public abstract class Question extends FormItem
 	{
 		this.id = id;
 		this.question = question;
-		// this.type = Type.parse(type);
 	}
 	
 	public String id()
@@ -25,14 +22,4 @@ public abstract class Question extends FormItem
 	{
 		return this.question;
 	}
-	
-	// public Type type()
-	// {
-	// 	return this.type;
-	// }
-
-	// public void accept(Visitor v)
-	// {
-	// 	v.visit(this);
-	// }
 }
