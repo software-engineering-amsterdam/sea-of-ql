@@ -151,7 +151,7 @@ public class InterpreterDocument implements Visitor
 		
 		Value v = c.condition().getValue(context);
 
-		if(v.isUnknown())
+		if(v.getType().isUnknown())
 		{
 			uiElt.displayPart(false);
 		}

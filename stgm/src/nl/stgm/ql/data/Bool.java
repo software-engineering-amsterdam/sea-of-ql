@@ -1,6 +1,6 @@
 package nl.stgm.ql.data;
 
-public class Bool extends Value
+public class Bool implements Value
 {
 	boolean value;
 	
@@ -21,6 +21,12 @@ public class Bool extends Value
 
 	public Type getType()
 	{
-		return Type.BOOL;
+		return new BoolType();
+	}
+
+	public boolean equals(Value v)
+	{
+		assert v.getType().supportedAsBool();
+		return this.value == ((Bool)v).getValue();
 	}
 }

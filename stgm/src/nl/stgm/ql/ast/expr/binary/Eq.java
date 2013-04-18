@@ -23,14 +23,6 @@ public class Eq extends BinaryEqualityExpr
 		Value leftValue = (Value) this.left.getValue(context);
 		Value rightValue = (Value) this.right.getValue(context);
 		
-		switch(leftValue.getType())
-		{
-			case INT:
-				return new Bool( ((Int)leftValue).getValue() == ((Int)rightValue).getValue() );
-			case BOOL:
-				return new Bool( ((Bool)leftValue).getValue() == ((Bool)rightValue).getValue() );
-			default:
-				throw new Error("Encountered an unknown type in tree.");
-		}
+		return new Bool(leftValue.equals(rightValue));
 	}
 }

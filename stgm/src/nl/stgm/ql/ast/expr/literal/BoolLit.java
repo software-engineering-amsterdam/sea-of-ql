@@ -19,9 +19,9 @@ public class BoolLit extends LiteralExpr
 		return value.toString();
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
-		return Type.BOOL;
+		return new BoolType();
 	}
 
 	public Bool getValue(ValueContext context)

@@ -12,14 +12,14 @@ public abstract class BinaryIntExpr extends BinaryExpr
 		super(left, right);
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
-		return Type.INT;
+		return new IntType();
 	}
 	
 	public void checkType(TypeCheckContext context)
 	{
-		if(left.getType(context) != Type.INT || right.getType(context) != Type.INT)
+		if(!left.getType(context).supportedAsInt() || !right.getType(context).supportedAsInt())
 			context.registerTypeError(this, "Left or right is not of type int.");
 	}
 }

@@ -12,14 +12,14 @@ public abstract class BinaryBoolExpr extends BinaryExpr
 		super(left, right);
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
-		return Type.BOOL;
+		return new BoolType();
 	}
 	
 	public void checkType(TypeCheckContext context)
 	{
-		if(left.getType(context) != Type.BOOL || right.getType(context) != Type.BOOL)
+		if(!left.getType(context).supportedAsBool() || !right.getType(context).supportedAsBool())
 			context.registerTypeError(this, "Left or right is not of type bool.");
 	}
 }

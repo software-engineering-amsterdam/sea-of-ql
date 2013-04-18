@@ -18,14 +18,14 @@ public class Not extends UnaryExpr
 		return "!";
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
-		return Type.BOOL;
+		return new BoolType();
 	}
 	
 	public void checkType(TypeCheckContext context)
 	{
-		if(arg.getType(context) != Type.BOOL)
+		if(!arg.getType(context).supportedAsBool())
 		{
 			context.registerTypeError(this, "Argument to ! should be a bool.");
 		}
@@ -33,16 +33,16 @@ public class Not extends UnaryExpr
 
 	public Value getValue(ValueContext context)
 	{
-		Value value = this.arg.getValue(context);
+		// TODO blerf
 		
-		if(value.isUnknown()) // TODO stuff like this
+		if(this.arg.getValue(context).getType().supportedAsBool())
 		{
-			return value;
+			Bool value = (Bool) this.arg.getValue(context);
+			return new Bool(!value.getValue());
 		}
 		else
 		{
-			Bool boolValue = (Bool) value;
-			return new Bool(!boolValue.getValue());
+			return new Unknown();
 		}
 	}
 }

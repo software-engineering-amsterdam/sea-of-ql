@@ -11,7 +11,7 @@ import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 
-public class VisitingChecker extends RunnableVisitor implements TypeContext, Visitor
+public class VisitingChecker extends RunnableVisitor implements Visitor
 {
 	private Map<String,Symbol> symbols = new HashMap<String,Symbol>();
 	private Map<String,Form> forms = new HashMap<String,Form>();
@@ -124,7 +124,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 			else
 				addError(name + " is redefined as being input by user instead of calculated");
 		}
-		else if(!i.isOfType(s.getType()))
+		else if(!i.isOfType(s.getType(context)))
 		{
 			addError(name + " is redefined as being of a different datatype");
 		}
@@ -147,7 +147,7 @@ public class VisitingChecker extends RunnableVisitor implements TypeContext, Vis
 		}
 		else
 		{
-			return s.getType();
+			return s.getType(context);
 		}
 	}
 		

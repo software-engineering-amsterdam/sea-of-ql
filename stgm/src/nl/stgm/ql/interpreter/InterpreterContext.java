@@ -6,7 +6,7 @@ import java.util.HashMap;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.data.*;
 
-public class InterpreterContext implements TypeContext, ValueContext
+public class InterpreterContext implements ValueContext
 {
 	private Map<String,Value> values = new HashMap<String,Value>();
 
@@ -22,9 +22,8 @@ public class InterpreterContext implements TypeContext, ValueContext
 	
 	public Value getValue(String id)
 	{
-		assert values.containsKey(id);
 		Value ret = values.get(id);
-		if(ret == null) ret = new UnknownValue();
+		if(ret == null) ret = new Unknown();
 		return ret;
 	}
 
@@ -32,11 +31,5 @@ public class InterpreterContext implements TypeContext, ValueContext
 	{
 		assert values.containsKey(id);
 		values.remove(id);
-	}
-	
-	public Type getType(String id)
-	{
-		assert values.containsKey(id);
-		return values.get(id).getType();
 	}
 }

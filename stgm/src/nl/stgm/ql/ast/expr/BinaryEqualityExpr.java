@@ -12,14 +12,17 @@ public abstract class BinaryEqualityExpr extends BinaryExpr
 		super(left, right);
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
-		return Type.BOOL;
+		return new BoolType();
 	}
 	
 	public void checkType(TypeCheckContext context)
 	{
-		if(left.getType(context) != right.getType(context))
+		if(!(left.getType(context).supportedAsBool() && right.getType(context).supportedAsBool()) ||
+		   !(left.getType(context).supportedAsInt()  && right.getType(context).supportedAsInt()))
+		{
 			context.registerTypeError(this, "Left and right are not of the same type.");
+		}
 	}
 }

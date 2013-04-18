@@ -1,5 +1,5 @@
 JAVAC=javac -Xlint:deprecation
-JAVA=java
+JAVA=java -ea
 CLASSPATH=src:lib/*
 JFLAGS=-cp $(CLASSPATH)
 

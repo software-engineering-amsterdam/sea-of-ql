@@ -15,7 +15,7 @@ public class Symbol
 		this.computed = computed;
 	}
 
-	public Type getType()
+	public Type getType(ValueContext context)
 	{
 		return this.type;
 	}

@@ -18,10 +18,10 @@ public class Ident extends ASTExpressionNode
 		return name;
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
 		// the semantic checker knowns our type from previous definitions
-		return context.getType(this.name);
+		return context.getValue(this.name).getType();
 	}
 	
 	public void checkType(TypeCheckContext context)

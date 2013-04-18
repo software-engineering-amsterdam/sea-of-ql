@@ -18,14 +18,14 @@ public class Neg extends UnaryExpr
 		return "-";
 	}
 
-	public Type getType(TypeContext context)
+	public Type getType(ValueContext context)
 	{
-		return Type.INT;
+		return new IntType();
 	}
 	
 	public void checkType(TypeCheckContext context)
 	{
-		if(arg.getType(context) != Type.INT)
+		if(!arg.getType(context).supportedAsInt())
 		{
 			context.registerTypeError(this, "Argument to - should be an int.");
 		}

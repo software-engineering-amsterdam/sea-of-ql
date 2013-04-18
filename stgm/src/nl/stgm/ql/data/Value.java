@@ -1,11 +1,7 @@
 package nl.stgm.ql.data;
 
-public abstract class Value
+public interface Value
 {
 	public abstract Type getType();
-
-	public boolean isUnknown()
-	{
-		return false;
-	}
+	public abstract boolean equals(Value v);
 }
