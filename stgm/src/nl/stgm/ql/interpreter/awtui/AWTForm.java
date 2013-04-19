@@ -1,19 +1,21 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
+
+import nl.stgm.ql.interpreter.*;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTForm extends Panel implements IUIElement
+public class AWTForm extends Panel implements UIElement
 {
-	InterpreterApplication delegate;
+	UIDelegate delegate;
 	
-	public AWTForm(InterpreterApplication delegate)
+	public AWTForm(UIDelegate delegate)
 	{
 		super(new GridLayout(1, 1));
 		this.delegate = delegate;
 	}
 	
-	public void addElement(IUIElement e)
+	public void addElement(UIElement e)
 	{
 		super.add((Component)e);
 		

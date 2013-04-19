@@ -9,20 +9,21 @@ import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
+import nl.stgm.ql.interpreter.awtui.*;
 
-public class InterpreterDocument implements Visitor
+public class PagedInterpreter implements Visitor
 {
 	private Document document;
-	private AWTUIController ui;
+	private PagedUIController ui;
 	private InterpreterContext context;
 
-	private Map<ASTDocumentNode,IUIElement> map = new HashMap<ASTDocumentNode,IUIElement>();
+	private Map<ASTDocumentNode,UIElement> map = new HashMap<ASTDocumentNode,UIElement>();
 	private Map<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
 
 	private List<Form> forms = new Vector<Form>();
 	private int currentForm;
 	
-	public InterpreterDocument(Document document, AWTUIController ui)
+	public PagedInterpreter(Document document, PagedUIController ui)
 	{
 		this.document = document;
 		this.ui = ui;

@@ -1,7 +1,8 @@
 package nl.stgm.ql.interpreter;
 
-import nl.stgm.ql.ast.form.*;
+import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.inspectors.*;
+import nl.stgm.ql.interpreter.awtui.*;
 
 public class Interpreter extends RunnableVisitor
 {
@@ -9,6 +10,7 @@ public class Interpreter extends RunnableVisitor
 	{
 		Document document = parseDocument("elaborate.qldoc");
 		InterpreterApplication app = new InterpreterApplication(document);
-		app.run();
+		PagedUIController ui = new AWTUIController(app);
+		app.run(ui);
 	}
 }

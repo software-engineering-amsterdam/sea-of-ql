@@ -1,16 +1,18 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
+
+import nl.stgm.ql.interpreter.*;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTTextField extends Panel implements IUIElement
+public class AWTTextField extends Panel implements UIElement
 {
-	InterpreterApplication delegate;
+	UIDelegate delegate;
 	String id;
 	Label label;
 	TextField textField;
 	
-	public AWTTextField(InterpreterApplication delegate, String id)
+	public AWTTextField(UIDelegate delegate, String id)
 	{
 		this.delegate = delegate;
 		this.id = id;

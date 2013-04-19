@@ -1,13 +1,15 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
+
+import nl.stgm.ql.interpreter.*;
 
 import java.awt.*;
 import java.awt.event.*;
 
 public class AWTPrevNextPanel extends Panel
 {
-	final InterpreterApplication delegate;
+	final PagedUIDelegate delegate;
 	
-	public AWTPrevNextPanel(final InterpreterApplication delegate)
+	public AWTPrevNextPanel(final PagedUIDelegate delegate)
 	{
 		this.delegate = delegate;
 		this.setLayout(new GridLayout(1,2,10,0));

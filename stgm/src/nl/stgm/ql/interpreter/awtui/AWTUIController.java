@@ -1,17 +1,19 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
+
+import nl.stgm.ql.interpreter.*;
 
 import java.util.Stack;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTUIController
+public class AWTUIController implements PagedUIController
 {
-	InterpreterApplication delegate;
+	PagedUIDelegate delegate;
 	Frame window;
 	AWTForm form;
 	private Stack<AWTForm> parents = new Stack<AWTForm>();
 	
-	public AWTUIController(InterpreterApplication delegate)
+	public AWTUIController(PagedUIDelegate delegate)
 	{
 		this.delegate = delegate;
 		
@@ -82,7 +84,7 @@ public class AWTUIController
 		return elt;
 	}
 
-	private void add(IUIElement e)
+	private void add(UIElement e)
 	{
 		if(parents.empty())
 		{

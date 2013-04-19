@@ -4,19 +4,21 @@ import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 
-public class InterpreterApplication
+public class InterpreterApplication implements PagedUIDelegate
 {
-	private InterpreterDocument document;
-	private AWTUIController ui;
+	private PagedUIController ui;
+	private PagedInterpreter document;
+	private Document ast;
 	
 	public InterpreterApplication(Document ast)
 	{
-		ui = new AWTUIController(this);
-		document = new InterpreterDocument(ast, ui);
+		this.ast = ast;
 	}
 	
-	public void run()
+	public void run(PagedUIController ui)
 	{
+		this.ui = ui;
+		this.document = new PagedInterpreter(ast, ui);
 		this.update();
 		ui.show();
 	}

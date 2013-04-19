@@ -1,4 +1,6 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
+
+import nl.stgm.ql.interpreter.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -9,7 +11,7 @@ public class AWTConditional extends AWTForm
 	AWTForm falsePart;
 	boolean prevPart = true;
 	
-	public AWTConditional(InterpreterApplication delegate, AWTForm truePart, AWTForm falsePart)
+	public AWTConditional(UIDelegate delegate, AWTForm truePart, AWTForm falsePart)
 	{
 		super(delegate);
 		

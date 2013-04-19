@@ -1,16 +1,18 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
+
+import nl.stgm.ql.interpreter.*;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTLabel extends Panel implements IUIElement
+public class AWTLabel extends Panel implements UIElement
 {
 	String id;
 
 	Label lblQuestion;
 	Label lblAnswer;
 	
-	public AWTLabel(InterpreterApplication delegate)
+	public AWTLabel(UIDelegate delegate)
 	{
 		this.setLayout(new BorderLayout());
 

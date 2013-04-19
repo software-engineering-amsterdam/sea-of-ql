@@ -1,4 +1,4 @@
-package nl.stgm.ql.interpreter;
+package nl.stgm.ql.interpreter.awtui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class AWTLogo extends Panel{
-
+public class AWTLogo extends Panel
+{
 	private BufferedImage image;
 
 	public AWTLogo()

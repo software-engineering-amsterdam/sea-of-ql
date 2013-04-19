@@ -2,7 +2,7 @@ package nl.stgm.ql.interpreter;
 
 import java.awt.Component;
 
-interface IUIElement
+public interface UIElement
 {
 	
 }
