@@ -73,7 +73,7 @@ public class InterpreterViewUpdater implements Visitor
 	
 	public void visit(IntQuestion q)
 	{
-		UIElementInt uiElt = (UIElementInt) mapping.get(q);
+		UIElementText uiElt = (UIElementText) mapping.get(q);
 		
 		if(context.hasValue(q.id()))
 			uiElt.update(context.getValue(q.id()).toString());

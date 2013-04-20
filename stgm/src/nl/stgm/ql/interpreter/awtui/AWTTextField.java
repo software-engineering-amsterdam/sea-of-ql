@@ -5,7 +5,7 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTTextField extends Panel implements UIElementInt
+public class AWTTextField extends Panel implements UIElementText
 {
 	UIDelegate delegate;
 	String id;
@@ -44,10 +44,6 @@ public class AWTTextField extends Panel implements UIElementInt
 	
 	private void textChanged()
 	{
-		if(textField.getText().equals(""))
-			delegate.answerChanged(this.id, null);
-		else
-			delegate.answerChanged(this.id, new Integer(textField.getText()));
-
+		delegate.answerChanged(this.id, textField.getText());
 	}
 }

@@ -9,6 +9,11 @@ public class Int implements Value
 		this.value = i;
 	}
 	
+	public Int(String s)
+	{
+		this.value = Integer.parseInt(s);
+	}
+	
 	public String toString()
 	{
 		return String.valueOf(value);

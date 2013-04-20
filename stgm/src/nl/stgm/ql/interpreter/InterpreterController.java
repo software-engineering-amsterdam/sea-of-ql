@@ -48,9 +48,9 @@ public class InterpreterController implements UIDelegate, PagedUIDelegate
 		}
 	}
 
-	public void answerChanged(String id, Integer value)
+	public void answerChanged(String id, String value)
 	{
-		if(value == null)
+		if(value.length() == 0)
 			context.removeValue(id);
 		else
 			context.putValue(id, new Int(value));

@@ -46,7 +46,7 @@ public class AWTUIController implements PagedUIController
 		return new AWTCheckbox(delegate, id, label);
 	}
 	
-	public UIElementInt createTextField(String id, String label)
+	public UIElementText createTextField(String id, String label)
 	{
 		return new AWTTextField(delegate, id, label);
 	}

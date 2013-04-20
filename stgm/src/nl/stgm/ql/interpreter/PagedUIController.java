@@ -13,7 +13,7 @@ public interface PagedUIController
 	public UIElementContainer getContainer();
 
 	public UIElementBool createCheckbox(String id, String label);
-	public UIElementInt createTextField(String id, String label);
+	public UIElementText createTextField(String id, String label);
 	public UIElementLabel createLabel(String label);
 	public UIElementContainer createForm();
 	public UIElementConditional createConditional();

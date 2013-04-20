@@ -114,7 +114,7 @@ public class InterpreterViewManager implements Visitor
 	
 	public void visit(IntQuestion q)
 	{
-		UIElementInt uiElt = ui.createTextField(q.id(), q.question());
+		UIElementText uiElt = ui.createTextField(q.id(), q.question());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}
