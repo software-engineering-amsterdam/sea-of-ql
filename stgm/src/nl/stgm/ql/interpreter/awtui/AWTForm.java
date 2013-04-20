@@ -5,7 +5,7 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTForm extends Panel implements UIContainerElement
+public class AWTForm extends Panel implements UIElementContainer
 {
 	UIDelegate delegate;
 	

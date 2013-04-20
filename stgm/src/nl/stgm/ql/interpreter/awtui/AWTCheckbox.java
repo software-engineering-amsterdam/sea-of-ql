@@ -5,7 +5,7 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTCheckbox extends Checkbox implements UIElement
+public class AWTCheckbox extends Checkbox implements UIElementBool
 {
 	UIDelegate delegate;
 	String id;

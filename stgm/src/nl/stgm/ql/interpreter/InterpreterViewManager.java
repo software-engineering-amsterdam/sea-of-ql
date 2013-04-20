@@ -2,7 +2,6 @@ package nl.stgm.ql.interpreter;
 
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.interfaces.*;
-import nl.stgm.ql.interpreter.awtui.*;
 
 import java.util.List;
 import java.util.Vector;
@@ -13,13 +12,12 @@ public class InterpreterViewManager implements Visitor
 {
 	private PagedUIDelegate delegate;
 	private Document document;
-	private PagedUIController ui;
-	
 	private InterpreterContext context;
-	private InterpreterMapping mapping = new InterpreterMapping();
+	private PagedUIController ui;
+	private InterpreterMapping mapping;
 
 	private InterpreterFormList forms;
-	private UIContainerElement parent;
+	private UIElementContainer parent;
 	
 	public InterpreterViewManager(PagedUIDelegate delegate, Document document, InterpreterContext context, PagedUIController ui)
 	{
@@ -27,6 +25,7 @@ public class InterpreterViewManager implements Visitor
 		this.document = document;
 		this.context = context;
 		this.ui = ui;
+		this.mapping = new InterpreterMapping();
 	}
 	
 	public InterpreterFormList getFormList()
@@ -76,7 +75,7 @@ public class InterpreterViewManager implements Visitor
 
 	public void visit(Form form)
 	{
-		AWTForm uiElt = (AWTForm) ui.createForm();
+		UIElementContainer uiElt = ui.createForm();
 		parent.addElement(uiElt);
 		parent = uiElt;
 
@@ -86,8 +85,8 @@ public class InterpreterViewManager implements Visitor
 	
 	public void visit(Conditional c)
 	{
-		AWTConditional uiElt = (AWTConditional) ui.createConditional();
-		UIContainerElement prev = parent;
+		UIElementConditional uiElt = ui.createConditional();
+		UIElementContainer prev = parent;
 		
 		mapping.put(c, uiElt);
 		parent.addElement(uiElt);
@@ -108,21 +107,21 @@ public class InterpreterViewManager implements Visitor
 	
 	public void visit(BoolQuestion q)
 	{
-		AWTCheckbox uiElt = (AWTCheckbox) ui.createCheckbox(q.id(), q.question());
+		UIElementBool uiElt = ui.createCheckbox(q.id(), q.question());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}
 	
 	public void visit(IntQuestion q)
 	{
-		AWTTextField uiElt = (AWTTextField) ui.createTextField(q.id(), q.question());
+		UIElementInt uiElt = ui.createTextField(q.id(), q.question());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}
 	
 	public void visit(CalcQuestion q)
 	{
-		AWTLabel uiElt = (AWTLabel) ui.createLabel(q.question());
+		UIElementLabel uiElt = ui.createLabel(q.question());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}

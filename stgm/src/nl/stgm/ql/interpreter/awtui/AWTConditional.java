@@ -5,31 +5,31 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTConditional extends AWTForm
+public class AWTConditional extends Panel implements UIElementConditional
 {
+	UIDelegate delegate;
 	AWTForm truePart;
 	AWTForm falsePart;
 	Boolean prevPart;
 	
 	public AWTConditional(UIDelegate delegate)
 	{
-		super(delegate);
+		this.delegate = delegate;
 		
 		truePart = new AWTForm(delegate);
-		falsePart = new AWTForm(delegate);
-		
+		falsePart = new AWTForm(delegate);		
 		this.truePart = truePart;
 		this.falsePart = falsePart;
 
 		setLayout(new GridLayout(1, 1));
 	}
 	
-	public AWTForm truePart()
+	public UIElementContainer truePart()
 	{
 		return this.truePart;
 	}
 
-	public AWTForm falsePart()
+	public UIElementContainer falsePart()
 	{
 		return this.falsePart;
 	}

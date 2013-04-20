@@ -5,7 +5,7 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTWindow extends Frame implements UIContainerElement
+public class AWTWindow extends Frame implements UIElementContainer
 {
 	UIDelegate delegate;
 	

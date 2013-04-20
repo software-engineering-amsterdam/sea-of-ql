@@ -3,7 +3,6 @@ package nl.stgm.ql.interpreter;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
-import nl.stgm.ql.interpreter.awtui.*;
 
 public class InterpreterViewUpdater implements Visitor
 {
@@ -42,7 +41,7 @@ public class InterpreterViewUpdater implements Visitor
 	
 	public void visit(Conditional c)
 	{
-		AWTConditional uiElt = (AWTConditional) mapping.get(c);
+		UIElementConditional uiElt = (UIElementConditional) mapping.get(c);
 		Value v = c.condition().getValue(context);
 
 		if(v.getType().isUnknown())
@@ -59,7 +58,7 @@ public class InterpreterViewUpdater implements Visitor
 	
 	public void visit(BoolQuestion q)
 	{
-		AWTCheckbox uiElt = (AWTCheckbox) mapping.get(q);
+		UIElementBool uiElt = (UIElementBool) mapping.get(q);
 		
 		if(context.hasValue(q.id()))
 		{
@@ -74,7 +73,7 @@ public class InterpreterViewUpdater implements Visitor
 	
 	public void visit(IntQuestion q)
 	{
-		AWTTextField uiElt = (AWTTextField) mapping.get(q);
+		UIElementInt uiElt = (UIElementInt) mapping.get(q);
 		
 		if(context.hasValue(q.id()))
 			uiElt.update(context.getValue(q.id()).toString());
@@ -84,7 +83,7 @@ public class InterpreterViewUpdater implements Visitor
 	
 	public void visit(CalcQuestion cq)
 	{
-		AWTLabel uiElt = (AWTLabel) mapping.get(cq);
+		UIElementLabel uiElt = (UIElementLabel) mapping.get(cq);
 
 		try
 		{

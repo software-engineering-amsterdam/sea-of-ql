@@ -1,10 +1,9 @@
 package nl.stgm.ql.interpreter;
 
+import nl.stgm.ql.ast.*;
+
 import java.util.Map;
 import java.util.HashMap;
-
-import nl.stgm.ql.ast.*;
-import nl.stgm.ql.data.*;
 
 public class InterpreterMapping
 {

@@ -36,27 +36,27 @@ public class AWTUIController implements PagedUIController
 		window.pack();
 	}
 	
-	public UIContainerElement getContainer()
+	public UIElementContainer getContainer()
 	{
 		return this.window;
 	}
 
-	public AWTCheckbox createCheckbox(String id, String label)
+	public UIElementBool createCheckbox(String id, String label)
 	{
 		return new AWTCheckbox(delegate, id, label);
 	}
 	
-	public AWTTextField createTextField(String id, String label)
+	public UIElementInt createTextField(String id, String label)
 	{
 		return new AWTTextField(delegate, id, label);
 	}
 	
-	public AWTLabel createLabel(String label)
+	public UIElementLabel createLabel(String label)
 	{
 		return new AWTLabel(label);
 	}
 	
-	public AWTForm createForm()
+	public UIElementContainer createForm()
 	{
 		AWTForm elt = new AWTForm(delegate);
 		this.form = elt;
@@ -64,7 +64,7 @@ public class AWTUIController implements PagedUIController
 		return elt;
 	}
 	
-	public AWTConditional createConditional()
+	public UIElementConditional createConditional()
 	{
 		return new AWTConditional(delegate);
 	}

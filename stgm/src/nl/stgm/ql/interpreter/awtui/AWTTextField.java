@@ -5,7 +5,7 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTTextField extends Panel implements UIElement
+public class AWTTextField extends Panel implements UIElementInt
 {
 	UIDelegate delegate;
 	String id;

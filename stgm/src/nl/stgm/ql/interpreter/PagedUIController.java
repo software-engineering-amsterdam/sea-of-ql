@@ -4,18 +4,17 @@ import java.util.Stack;
 import java.awt.*;
 import java.awt.event.*;
 
-import nl.stgm.ql.interpreter.awtui.*;
-
 public interface PagedUIController
 {
 	public void show();
 	public void clear();
 	public void validate();
-	public UIContainerElement getContainer();
 
-	public AWTCheckbox createCheckbox(String id, String label);
-	public AWTTextField createTextField(String id, String label);
-	public AWTLabel createLabel(String label);
-	public AWTForm createForm();
-	public AWTConditional createConditional();
+	public UIElementContainer getContainer();
+
+	public UIElementBool createCheckbox(String id, String label);
+	public UIElementInt createTextField(String id, String label);
+	public UIElementLabel createLabel(String label);
+	public UIElementContainer createForm();
+	public UIElementConditional createConditional();
 }

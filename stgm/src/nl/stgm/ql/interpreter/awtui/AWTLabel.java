@@ -5,7 +5,7 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTLabel extends Panel implements UIElement
+public class AWTLabel extends Panel implements UIElementLabel
 {
 	String id;
 
