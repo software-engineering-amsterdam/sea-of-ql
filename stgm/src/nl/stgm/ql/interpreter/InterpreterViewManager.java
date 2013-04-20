@@ -9,112 +9,55 @@ import java.util.Vector;
 import java.util.Map;
 import java.util.HashMap;
 
-public class InterpreterViewManager implements Visitor, PagedUIDelegate
+public class InterpreterViewManager implements Visitor
 {
+	private PagedUIDelegate delegate;
 	private Document document;
 	private PagedUIController ui;
 	
-	private InterpreterContext context = new InterpreterContext();
+	private InterpreterContext context;
 	private InterpreterMapping mapping = new InterpreterMapping();
-	private InterpreterViewUpdater updater;
 
-	private List<Form> forms = new Vector<Form>();
-	private int currentForm;
+	private InterpreterFormList forms;
 	private UIContainerElement parent;
 	
-	public InterpreterViewManager(Document document, PagedUIController ui)
+	public InterpreterViewManager(PagedUIDelegate delegate, Document document, InterpreterContext context, PagedUIController ui)
 	{
+		this.delegate = delegate;
 		this.document = document;
 		this.context = context;
 		this.ui = ui;
-
-		// gather all forms
-		this.document.accept(this);
-
-		// set initial state
-		if(this.forms.size() > 0)
-			this.currentForm = 0;
-		else
-			// no forms in document
-		System.out.println("no valid forms found...");
-
-		this.createForm();
-
-		ui.registerPagingDelegate(this);
 	}
 	
-	//
-	//
-	//
-	//
-	//  FORM MANAGEMENT
-	//
-
-	public void nextClicked()
+	public InterpreterFormList getFormList()
 	{
-		if(hasNextForm())
+		if(this.forms == null)
 		{
-			ui.clear();
-			nextForm();
-			// this.update();
-		}	
-	}
-	
-	public void previousClicked()
-	{
-		if(hasPreviousForm())
-		{
-			ui.clear();
-			previousForm();
-			// this.update();
+			this.forms = new InterpreterFormList();
+			this.document.accept(this);
 		}
-	}
 
-	public boolean hasNextForm()
-	{
-		return currentForm < forms.size() - 1;
-	}
-	
-	public void nextForm()
-	{
-		currentForm++;
-		createForm();
-	}
-	
-	public boolean hasPreviousForm()
-	{
-		return currentForm > 0;
-	}
-	
-	public void previousForm()
-	{
-		currentForm--;
-		createForm();
-	}
-	
-	private void createForm()
-	{
-		Form form = forms.get(currentForm);
+		if(this.forms.size() == 0)
+		{
+			throw new Error("Got an empty document.");
+		}
 		
+		return this.forms;
+	}
+	
+	public InterpreterViewUpdater load(Form form)
+	{
 		// clear temporary data
 		mapping.clear();
-		
-		// create updater
-		this.updater = new InterpreterViewUpdater(form, context, mapping, ui);
-		ui.registerDelegate(updater);
+		ui.clear();
 
 		// build form ui
 		parent = ui.getContainer();
 		form.accept(this);
-		
-		// load initial form values
-		updater.update();
-	}
-	
-	public void update()
-	{
-		updater.update();
-		ui.validate();
+
+		// create updater
+		InterpreterViewUpdater updater = new InterpreterViewUpdater(form, context, mapping);
+		return updater;
 	}
 	
 	//

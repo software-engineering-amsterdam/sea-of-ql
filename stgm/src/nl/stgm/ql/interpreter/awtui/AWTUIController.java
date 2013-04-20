@@ -8,38 +8,32 @@ import java.awt.event.*;
 
 public class AWTUIController implements PagedUIController
 {
-	PagedUIDelegate pagingDelegate;
-	UIDelegate uiDelegate;
+	PagedUIDelegate delegate;
 	
 	AWTWindow window = new AWTWindow("Aangifteprogramma");
 	AWTForm form;
 	
-	public void registerPagingDelegate(PagedUIDelegate pagingDelegate)
+	public AWTUIController(PagedUIDelegate delegate)
 	{
-		this.pagingDelegate = pagingDelegate;
-	}
-	
-	public void registerDelegate(UIDelegate uiDelegate)
-	{
-		this.uiDelegate = uiDelegate;
+		this.delegate = delegate;
 	}
 	
 	public void show()
 	{
-		window.add(new AWTPrevNextPanel(pagingDelegate), BorderLayout.SOUTH);
+		window.add(new AWTPrevNextPanel(delegate), BorderLayout.SOUTH);
 		window.add(new AWTLogo(), BorderLayout.NORTH);
 		window.setVisible(true);
 	}
 	
 	public void clear()
 	{
-		window.remove(form);
+		if(form != null)
+			window.remove(form);
 	}
 
 	public void validate()
 	{
 		window.pack();
-		window.validate();
 	}
 	
 	public UIContainerElement getContainer()
@@ -49,12 +43,12 @@ public class AWTUIController implements PagedUIController
 
 	public AWTCheckbox createCheckbox(String id, String label)
 	{
-		return new AWTCheckbox(uiDelegate, id, label);
+		return new AWTCheckbox(delegate, id, label);
 	}
 	
 	public AWTTextField createTextField(String id, String label)
 	{
-		return new AWTTextField(uiDelegate, id, label);
+		return new AWTTextField(delegate, id, label);
 	}
 	
 	public AWTLabel createLabel(String label)
@@ -64,7 +58,7 @@ public class AWTUIController implements PagedUIController
 	
 	public AWTForm createForm()
 	{
-		AWTForm elt = new AWTForm(uiDelegate);
+		AWTForm elt = new AWTForm(delegate);
 		this.form = elt;
 		window.add(elt, BorderLayout.CENTER);
 		return elt;
@@ -72,6 +66,6 @@ public class AWTUIController implements PagedUIController
 	
 	public AWTConditional createConditional()
 	{
-		return new AWTConditional(uiDelegate);
+		return new AWTConditional(delegate);
 	}
 }

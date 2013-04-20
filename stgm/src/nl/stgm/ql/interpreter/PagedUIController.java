@@ -13,9 +13,6 @@ public interface PagedUIController
 	public void validate();
 	public UIContainerElement getContainer();
 
-	public void registerPagingDelegate(PagedUIDelegate pagingDelegate);
-	public void registerDelegate(UIDelegate uiDelegate);
-
 	public AWTCheckbox createCheckbox(String id, String label);
 	public AWTTextField createTextField(String id, String label);
 	public AWTLabel createLabel(String label);

@@ -1,49 +1,26 @@
 package nl.stgm.ql.interpreter;
 
-import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.interpreter.awtui.*;
 
-import java.util.Map;
-import java.util.HashMap;
-
-public class InterpreterViewUpdater implements Visitor, UIDelegate
+public class InterpreterViewUpdater implements Visitor
 {
 	private Form form;
 	private InterpreterContext context;
 	private InterpreterMapping mapping;
-	private PagedUIController ui;
 
-	public InterpreterViewUpdater(Form form, InterpreterContext context, InterpreterMapping mapping, PagedUIController ui)
+	public InterpreterViewUpdater(Form form, InterpreterContext context, InterpreterMapping mapping)
 	{
 		this.form = form;
 		this.context = context;
 		this.mapping = mapping;
-		this.ui = ui;
-	}
-
-	public void answerChanged(String id, Integer value)
-	{
-		if(value == null)
-			context.removeValue(id);
-		else
-			context.putValue(id, new Int(value));
-		
-		this.update();
 	}
 	
-	public void answerChanged(String id, boolean value)
-	{
-		context.putValue(id, new Bool(value));
-		this.update();
-	}
-
 	public void update()
 	{
 		form.accept(this);
-		ui.validate();
 	}
 
 	//

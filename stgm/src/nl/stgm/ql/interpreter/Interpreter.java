@@ -9,17 +9,17 @@ public class Interpreter extends RunnableVisitor
 	private Document astDocument;
 	private PagedUIController ui;
 	private InterpreterViewManager manager;
+	private InterpreterController controller;
 	
 	public Interpreter(Document astDocument)
 	{
 		this.astDocument = astDocument;
-		this.ui = new AWTUIController();
-		this.manager = new InterpreterViewManager(astDocument, ui);
+		this.controller = new InterpreterController(astDocument);
 	}
 	
 	public void run()
 	{
-		ui.show();
+		controller.run();
 	}
 
 	public static void main(String[] args)
