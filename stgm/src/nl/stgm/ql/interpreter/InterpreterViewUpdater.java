@@ -1,13 +1,13 @@
 package nl.stgm.ql.interpreter;
 
-import java.util.Map;
-import java.util.HashMap;
-
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
 import nl.stgm.ql.interfaces.*;
 import nl.stgm.ql.interpreter.awtui.*;
+
+import java.util.Map;
+import java.util.HashMap;
 
 public class InterpreterViewUpdater implements Visitor
 {
@@ -15,9 +15,6 @@ public class InterpreterViewUpdater implements Visitor
 	private InterpreterContext context;
 	private InterpreterMapping mapping;
 	private PagedUIController ui;
-
-	// TODO should probably be moved to view because we shouldn't know view state
-	private Map<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
 
 	public InterpreterViewUpdater(Form form, InterpreterContext context, InterpreterMapping mapping, PagedUIController ui)
 	{
@@ -55,20 +52,10 @@ public class InterpreterViewUpdater implements Visitor
 		Value v = c.condition().getValue(context);
 
 		if(v.getType().isUnknown())
-		{
 			uiElt.displayPart(false);
-		}
 		else
-		{
-			Boolean prev = conditionalValues.get(c);
-			Boolean curr = ((Bool) v).getValue();
-			if(prev != curr)
-			{
-				conditionalValues.put(c, curr);
-				uiElt.displayPart(curr);
-			}
-		}
-		
+			uiElt.displayPart(((Bool) v).getValue());
+
 		for(Question q: c.ifQuestions())
 			q.accept(this);
 		

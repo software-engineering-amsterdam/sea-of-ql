@@ -29,7 +29,6 @@ public class InterpreterContext implements ValueContext
 
 	public void removeValue(String id)
 	{
-		assert values.containsKey(id);
 		values.remove(id);
 	}
 }
