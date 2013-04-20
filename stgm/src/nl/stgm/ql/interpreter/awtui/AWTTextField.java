@@ -12,7 +12,7 @@ public class AWTTextField extends Panel implements UIElement
 	Label label;
 	TextField textField;
 	
-	public AWTTextField(UIDelegate delegate, String id)
+	public AWTTextField(UIDelegate delegate, String id, String label)
 	{
 		this.delegate = delegate;
 		this.id = id;
@@ -20,7 +20,8 @@ public class AWTTextField extends Panel implements UIElement
 		this.setLayout(new BorderLayout());
 		
 		this.label = new Label();
-		this.add(label, BorderLayout.WEST);
+		this.add(this.label, BorderLayout.WEST);
+		this.label.setText(label);
 		
 		this.textField = new TextField(6);
 		this.add(textField, BorderLayout.EAST);
@@ -36,9 +37,8 @@ public class AWTTextField extends Panel implements UIElement
 		);
 	}
 	
-	public void update(String question, String value)
+	public void update(String value)
 	{
-		label.setText(question);
 		textField.setText(value);
 	}
 	

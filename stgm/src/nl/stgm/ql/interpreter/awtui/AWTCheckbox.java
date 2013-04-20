@@ -10,10 +10,11 @@ public class AWTCheckbox extends Checkbox implements UIElement
 	UIDelegate delegate;
 	String id;
 	
-	public AWTCheckbox(UIDelegate delegate, String id)
+	public AWTCheckbox(UIDelegate delegate, String id, String label)
 	{
 		this.delegate = delegate;
 		this.id = id;
+		this.setLabel(label);
 
 		this.addItemListener(
 			new ItemListener()
@@ -26,9 +27,8 @@ public class AWTCheckbox extends Checkbox implements UIElement
 		);
 	}
 	
-	public void update(String question, boolean value)
+	public void update(boolean value)
 	{
-		this.setLabel(question);
 		this.setState(value);
 	}
 

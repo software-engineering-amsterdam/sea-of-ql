@@ -12,19 +12,20 @@ public class AWTLabel extends Panel implements UIElement
 	Label lblQuestion;
 	Label lblAnswer;
 	
-	public AWTLabel(UIDelegate delegate)
+	public AWTLabel(String label)
 	{
 		this.setLayout(new BorderLayout());
 
 		this.lblQuestion = new Label();
-		this.lblAnswer = new Label();
 		this.add(lblQuestion, BorderLayout.WEST);
+		lblQuestion.setText(label);
+
+		this.lblAnswer = new Label();
 		this.add(lblAnswer, BorderLayout.EAST);
 	}
 
-	public void update(String question, String value)
+	public void update(String value)
 	{
-		lblQuestion.setText(question);
 		lblAnswer.setText(value);
 	}
 }

@@ -7,38 +7,39 @@ import nl.stgm.ql.interfaces.*;
 public class InterpreterApplication implements PagedUIDelegate
 {
 	private PagedUIController ui;
-	private PagedInterpreter document;
+	private InterpreterViewManager manager;
+	private InterpreterContext context;
 	private Document ast;
 	
 	public InterpreterApplication(Document ast)
 	{
 		this.ast = ast;
+		this.context = new InterpreterContext();
 	}
 	
 	public void run(PagedUIController ui)
 	{
 		this.ui = ui;
-		this.document = new PagedInterpreter(ast, ui);
-		this.update();
+		this.manager = new InterpreterViewManager(ast, context, ui);
 		ui.show();
 	}
 	
 	public void nextClicked()
 	{
-		if(document.hasNextForm())
+		if(manager.hasNextForm())
 		{
 			ui.clear();
-			document.nextForm();
+			manager.nextForm();
 			this.update();
 		}
 	}
 	
 	public void previousClicked()
 	{
-		if(document.hasPreviousForm())
+		if(manager.hasPreviousForm())
 		{
 			ui.clear();
-			document.previousForm();
+			manager.previousForm();
 			this.update();
 		}
 	}
@@ -46,22 +47,22 @@ public class InterpreterApplication implements PagedUIDelegate
 	public void answerChanged(String id, Integer value)
 	{
 		if(value == null)
-			document.removeValue(id);
+			context.removeValue(id);
 		else
-			document.putValue(id, new Int(value));
+			context.putValue(id, new Int(value));
 		
 		this.update();
 	}
 	
 	public void answerChanged(String id, boolean value)
 	{
-		document.putValue(id, new Bool(value));
+		context.putValue(id, new Bool(value));
 		this.update();
 	}
 
 	private void update()
 	{
-		document.update();
+		manager.update();
 		ui.validate();
 	}
 }

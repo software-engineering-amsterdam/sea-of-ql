@@ -49,23 +49,23 @@ public class AWTUIController implements PagedUIController
 		window.validate();
 	}
 
-	public AWTCheckbox createCheckbox(String id)
+	public AWTCheckbox createCheckbox(String id, String label)
 	{
-		AWTCheckbox elt = new AWTCheckbox(delegate, id);
+		AWTCheckbox elt = new AWTCheckbox(delegate, id, label);
 		add(elt);
 		return elt;
 	}
 	
-	public AWTTextField createTextField(String id)
+	public AWTTextField createTextField(String id, String label)
 	{
-		AWTTextField elt = new AWTTextField(delegate, id);
+		AWTTextField elt = new AWTTextField(delegate, id, label);
 		add(elt);
 		return elt;
 	}
 	
-	public AWTLabel createLabel()
+	public AWTLabel createLabel(String label)
 	{
-		AWTLabel elt = new AWTLabel(delegate);
+		AWTLabel elt = new AWTLabel(label);
 		add(elt);
 		return elt;
 	}

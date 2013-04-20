@@ -16,9 +16,9 @@ public interface PagedUIController
 	public void clear();
 	public void validate();
 
-	public AWTCheckbox createCheckbox(String id);
-	public AWTTextField createTextField(String id);
-	public AWTLabel createLabel();
+	public AWTCheckbox createCheckbox(String id, String label);
+	public AWTTextField createTextField(String id, String label);
+	public AWTLabel createLabel(String label);
 	public AWTForm createForm();
 	public AWTConditional createConditional();
 }
