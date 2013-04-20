@@ -18,8 +18,6 @@ public class InterpreterViewManager implements Visitor
 	private InterpreterMapping mapping = new InterpreterMapping();
 	private InterpreterViewUpdater updater;
 
-	private Map<Conditional,Boolean> conditionalValues = new HashMap<Conditional,Boolean>();
-
 	private List<Form> forms = new Vector<Form>();
 	private int currentForm;
 	
@@ -76,7 +74,7 @@ public class InterpreterViewManager implements Visitor
 		Form form = forms.get(currentForm);
 		
 		// clear temporary data
-		this.clear();
+		mapping.clear();
 		
 		// build form ui
 		form.accept(this);
@@ -86,12 +84,6 @@ public class InterpreterViewManager implements Visitor
 			
 		// load initial form values
 		updater.update();
-	}
-	
-	private void clear()
-	{
-		conditionalValues.clear();
-		mapping.clear();
 	}
 	
 	public void update()
