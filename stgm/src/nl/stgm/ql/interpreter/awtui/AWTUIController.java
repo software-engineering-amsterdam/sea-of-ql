@@ -8,34 +8,27 @@ import java.awt.event.*;
 
 public class AWTUIController implements PagedUIController
 {
-	PagedUIDelegate delegate;
-	Frame window;
-	AWTForm form;
-	private Stack<AWTForm> parents = new Stack<AWTForm>();
+	PagedUIDelegate pagingDelegate;
+	UIDelegate uiDelegate;
 	
-	public AWTUIController(PagedUIDelegate delegate)
+	AWTWindow window = new AWTWindow("Aangifteprogramma");
+	AWTForm form;
+	
+	public void registerPagingDelegate(PagedUIDelegate pagingDelegate)
 	{
-		this.delegate = delegate;
-		
-		window = new Frame("Aangifteprogramma");
-		window.setMinimumSize(new Dimension(800,600));
-		window.add(new AWTPrevNextPanel(delegate), BorderLayout.SOUTH);
-		window.add(new AWTLogo(), BorderLayout.NORTH);
+		this.pagingDelegate = pagingDelegate;
+	}
+	
+	public void registerDelegate(UIDelegate uiDelegate)
+	{
+		this.uiDelegate = uiDelegate;
 	}
 	
 	public void show()
 	{
+		window.add(new AWTPrevNextPanel(pagingDelegate), BorderLayout.SOUTH);
+		window.add(new AWTLogo(), BorderLayout.NORTH);
 		window.setVisible(true);
-	}
-	
-	public void pushParent(AWTForm f)
-	{
-		parents.push(f);
-	}
-	
-	public void popParent()
-	{
-		parents.pop();
 	}
 	
 	public void clear()
@@ -48,55 +41,37 @@ public class AWTUIController implements PagedUIController
 		window.pack();
 		window.validate();
 	}
+	
+	public UIContainerElement getContainer()
+	{
+		return this.window;
+	}
 
 	public AWTCheckbox createCheckbox(String id, String label)
 	{
-		AWTCheckbox elt = new AWTCheckbox(delegate, id, label);
-		add(elt);
-		return elt;
+		return new AWTCheckbox(uiDelegate, id, label);
 	}
 	
 	public AWTTextField createTextField(String id, String label)
 	{
-		AWTTextField elt = new AWTTextField(delegate, id, label);
-		add(elt);
-		return elt;
+		return new AWTTextField(uiDelegate, id, label);
 	}
 	
 	public AWTLabel createLabel(String label)
 	{
-		AWTLabel elt = new AWTLabel(label);
-		add(elt);
-		return elt;
+		return new AWTLabel(label);
 	}
 	
 	public AWTForm createForm()
 	{
-		AWTForm elt = new AWTForm(delegate);
-		add(elt);
+		AWTForm elt = new AWTForm(uiDelegate);
+		this.form = elt;
+		window.add(elt, BorderLayout.CENTER);
 		return elt;
 	}
 	
 	public AWTConditional createConditional()
 	{
-		AWTConditional elt = new AWTConditional(delegate, new AWTForm(delegate), new AWTForm(delegate));
-		add(elt);
-		return elt;
-	}
-
-	private void add(UIElement e)
-	{
-		if(parents.empty())
-		{
-			// first element is the parent form
-			assert e instanceof AWTForm;
-			this.form = (AWTForm) e;
-			window.add((AWTForm)e, BorderLayout.CENTER);
-		}
-		else
-		{
-			// sub elements
-			parents.peek().addElement(e);
-		}
+		return new AWTConditional(uiDelegate);
 	}
 }

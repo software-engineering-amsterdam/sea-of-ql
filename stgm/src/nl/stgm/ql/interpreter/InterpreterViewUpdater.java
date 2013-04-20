@@ -9,7 +9,7 @@ import nl.stgm.ql.interpreter.awtui.*;
 import java.util.Map;
 import java.util.HashMap;
 
-public class InterpreterViewUpdater implements Visitor
+public class InterpreterViewUpdater implements Visitor, UIDelegate
 {
 	private Form form;
 	private InterpreterContext context;
@@ -24,9 +24,26 @@ public class InterpreterViewUpdater implements Visitor
 		this.ui = ui;
 	}
 
+	public void answerChanged(String id, Integer value)
+	{
+		if(value == null)
+			context.removeValue(id);
+		else
+			context.putValue(id, new Int(value));
+		
+		this.update();
+	}
+	
+	public void answerChanged(String id, boolean value)
+	{
+		context.putValue(id, new Bool(value));
+		this.update();
+	}
+
 	public void update()
 	{
 		form.accept(this);
+		ui.validate();
 	}
 
 	//

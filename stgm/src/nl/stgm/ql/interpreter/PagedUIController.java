@@ -9,12 +9,12 @@ import nl.stgm.ql.interpreter.awtui.*;
 public interface PagedUIController
 {
 	public void show();
-
-	public void pushParent(AWTForm f);
-	public void popParent();
-
 	public void clear();
 	public void validate();
+	public UIContainerElement getContainer();
+
+	public void registerPagingDelegate(PagedUIDelegate pagingDelegate);
+	public void registerDelegate(UIDelegate uiDelegate);
 
 	public AWTCheckbox createCheckbox(String id, String label);
 	public AWTTextField createTextField(String id, String label);

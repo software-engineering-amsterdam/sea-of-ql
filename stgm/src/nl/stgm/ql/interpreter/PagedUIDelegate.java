@@ -1,6 +1,6 @@
 package nl.stgm.ql.interpreter;
 
-public interface PagedUIDelegate extends UIDelegate
+public interface PagedUIDelegate
 {
 	public void nextClicked();
 	public void previousClicked();

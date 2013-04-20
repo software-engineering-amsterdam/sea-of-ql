@@ -11,9 +11,12 @@ public class AWTConditional extends AWTForm
 	AWTForm falsePart;
 	Boolean prevPart;
 	
-	public AWTConditional(UIDelegate delegate, AWTForm truePart, AWTForm falsePart)
+	public AWTConditional(UIDelegate delegate)
 	{
 		super(delegate);
+		
+		truePart = new AWTForm(delegate);
+		falsePart = new AWTForm(delegate);
 		
 		this.truePart = truePart;
 		this.falsePart = falsePart;
@@ -39,8 +42,10 @@ public class AWTConditional extends AWTForm
 			removeAll();
 
 			if(whichPart)
+			{
 				super.add(truePart);
-			else if(falsePart != null) // so just display nothing if no falsePart
+			}
+			else if(falsePart != null) // just display nothing if no falsePart
 				super.add(falsePart);
 		}
 	}

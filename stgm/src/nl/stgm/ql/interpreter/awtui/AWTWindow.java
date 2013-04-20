@@ -5,23 +5,21 @@ import nl.stgm.ql.interpreter.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTForm extends Panel implements UIContainerElement
+public class AWTWindow extends Frame implements UIContainerElement
 {
 	UIDelegate delegate;
 	
-	public AWTForm(UIDelegate delegate)
+	public AWTWindow(String title)
 	{
-		super(new GridLayout(1, 1));
+		super(title);
+		super.setMinimumSize(new Dimension(800,600));
+
 		this.delegate = delegate;
 	}
 	
 	public void addElement(UIElement e)
 	{
 		super.add((Component)e);
-		
-		// fit gridlayout to amount of fields in form
-		GridLayout g = (GridLayout) super.getLayout();
-		g.setRows(super.getComponentCount());
 	}
 	
 	public void clear()
