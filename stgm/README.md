@@ -3,6 +3,8 @@
 * Has a parser generator for QL.
 * Has separate test runners for forms and expressions.
 * Has a pretty printer that should render the textual representation from the AST.
+* Has a semantic checker that finds all kinds of errors in the form definitions.
+* Has a dynamic graphical user interface presenter for forgiving end-users.
 
 ## Building.
 
