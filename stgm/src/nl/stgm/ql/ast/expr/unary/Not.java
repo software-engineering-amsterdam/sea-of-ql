@@ -28,8 +28,6 @@ public class Not extends UnaryExpr
 
 	public Value getValue(ValueContext context)
 	{
-		// TODO blerf
-		
 		if(this.arg.getValue(context).getType().supportedAsBool())
 		{
 			Bool value = (Bool) this.arg.getValue(context);

@@ -28,7 +28,14 @@ public class Neg extends UnaryExpr
 
 	public Value getValue(ValueContext context)
 	{
-		Int value = (Int) this.arg.getValue(context);
-		return new Int(-value.getValue());
+		if(this.arg.getValue(context).getType().supportedAsInt())
+		{
+			Int value = (Int) this.arg.getValue(context);
+			return new Int(-value.getValue());
+		}
+		else
+		{
+			return new Unknown();
+		}
 	}
 }
