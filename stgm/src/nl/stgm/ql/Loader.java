@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,19 +12,16 @@ import nl.stgm.ql.parser.rats.*;
 
 import nl.stgm.ql.ast.form.Document;
 
-public abstract class RunnableVisitor //implements Visitor
+public class Loader
 {
-	public static Document parseDocument(String filename)
+	public Document parseDocument(String filename)
 	{
 		RatsParser parser = new RatsParser();
 		byte[] file = null;
 		String documentSource;
 		
-		// read the file
-		
 		try
 		{
-			// hardcoded single sample file!
 			Path path = FileSystems.getDefault().getPath("samples", filename);
 			file = Files.readAllBytes(path);
 		}
@@ -55,7 +52,7 @@ public abstract class RunnableVisitor //implements Visitor
 		}
 	}
 
-	public static void exitWithError(String message)
+	private void exitWithError(String message)
 	{
 		System.out.println(message);
 		System.exit(1); // generic "error" exit code

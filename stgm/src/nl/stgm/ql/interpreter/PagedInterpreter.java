@@ -4,7 +4,7 @@ import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.interpreter.awtui.*;
 import nl.stgm.ql.data.*;
 
-public class InterpreterController implements UIDelegate, PagedUIDelegate
+public class PagedInterpreter implements UIDelegate, PagedUIDelegate
 {
 	private PagedUIController ui;
 	private InterpreterContext context = new InterpreterContext();
@@ -12,7 +12,7 @@ public class InterpreterController implements UIDelegate, PagedUIDelegate
 	private InterpreterFormList forms;
 	private InterpreterViewUpdater updater;
 	
-	public InterpreterController(Document astDocument)
+	public PagedInterpreter(Document astDocument)
 	{
 		this.ui = new AWTUIController(this);
 		this.context = new InterpreterContext();

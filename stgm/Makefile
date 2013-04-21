@@ -7,14 +7,14 @@ JFLAGS=-cp $(CLASSPATH)
 all: parser tests inspectors
 parser: QLParser
 tests: TestExpressions TestForms
-inspectors: PrettyPrinter Checker Interpreter
+inspectors: Printer Checker Interpreter
 
 # Runnable classes
 TestExpressions: QLParser src/nl/stgm/ql/parser/test/TestExpressions.class
 TestForms: QLParser src/nl/stgm/ql/parser/test/TestForms.class
-PrettyPrinter: QLParser src/nl/stgm/ql/inspectors/VisitingPrinter.class
-Checker: QLParser src/nl/stgm/ql/inspectors/VisitingChecker.class
-Interpreter: QLParser src/nl/stgm/ql/interpreter/Interpreter.class
+Printer: QLParser src/nl/stgm/ql/Printer.class
+Checker: QLParser src/nl/stgm/ql/Checker.class
+Interpreter: QLParser src/nl/stgm/ql/Interpreter.class
 
 # Generating the parser class
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
@@ -27,12 +27,12 @@ run/testexpr: TestExpressions
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestExpressions
 run/testform: TestForms
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
-run/pretty: PrettyPrinter
-	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.VisitingPrinter
+run/pretty: Printer
+	$(JAVA) $(JFLAGS) nl.stgm.ql.Printer
 run/check: Checker
-	$(JAVA) $(JFLAGS) nl.stgm.ql.inspectors.VisitingChecker
+	$(JAVA) $(JFLAGS) nl.stgm.ql.Checker
 run/interpret: Interpreter
-	$(JAVA) $(JFLAGS) nl.stgm.ql.interpreter.Interpreter
+	$(JAVA) $(JFLAGS) nl.stgm.ql.Interpreter
 
 # Utilities
 %.class: %.java

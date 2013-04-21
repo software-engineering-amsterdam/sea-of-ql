@@ -1,4 +1,4 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql;
 
 import java.util.HashMap;
 import java.util.Stack;
@@ -13,6 +13,35 @@ import nl.stgm.ql.interfaces.*;
 
 public class VisitingChecker extends RunnableVisitor implements Visitor
 {
+	private class Symbol
+	{
+		String name;
+		Type type;
+		boolean computed;
+
+		public Symbol(String name, Type type, boolean computed)
+		{
+			this.name = name;
+			this.type = type;
+			this.computed = computed;
+		}
+
+		public Type getType(ValueContext context)
+		{
+			return this.type;
+		}
+
+		public boolean isOfType(Type type)
+		{
+			return this.type == type;
+		}
+
+		public boolean isComputed()
+		{
+			return this.computed;
+		}
+	}
+	
 	private Map<String,Symbol> symbols = new HashMap<String,Symbol>();
 	private Map<String,Form> forms = new HashMap<String,Form>();
 	private Stack<String> crumbs = new Stack<String>();
