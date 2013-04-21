@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import nl.stgm.ql.parser.*;
+import nl.stgm.ql.data.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.expr.binary.*;
 import nl.stgm.ql.ast.expr.unary.*;
@@ -64,11 +65,11 @@ public class TestExpressions extends QLTest
 
 	@Test public void testBools() throws ParseError
 	{
-		assertExprClass(Bool.class, "(true)");
-		assertExprClass(Bool.class, "(false)");
+		assertExprClass(BoolLit.class, "(true)");
+		assertExprClass(BoolLit.class, "(false)");
 
-		assertEquals(true, ((Bool) parser.parseExpr("(true)")).getValue());
-		assertEquals(false, ((Bool) parser.parseExpr("(false)")).getValue());
+		assertEquals(true, ((BoolLit) parser.parseExpr("(true)")).getValue(null).getValue());
+		assertEquals(false, ((BoolLit) parser.parseExpr("(false)")).getValue(null).getValue());
 		
 		assertExprClass(Not.class, "!b");
 		assertExprClass(And.class, "a && b");
@@ -96,9 +97,9 @@ public class TestExpressions extends QLTest
 
 	@Test public void testNums() throws ParseError
 	{
-		assertExprClass(Int.class, "0");
-		assertExprClass(Int.class, "1223");
-		assertExprClass(Int.class, "234234234");
+		assertExprClass(IntLit.class, "0");
+		assertExprClass(IntLit.class, "1223");
+		assertExprClass(IntLit.class, "234234234");
 	}	
 
 	@Test(expected=ParseError.class) public void noEmptyExpr() throws ParseError
