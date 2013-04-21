@@ -10,11 +10,6 @@ public abstract class BinaryEqualityExpr extends BinaryExpr
 		super(left, right);
 	}
 
-	public Type getType(ValueContext context)
-	{
-		return new BoolType();
-	}
-	
 	public Type checkType(TypeCheckContext context)
 	{
 		if(!left.checkType(context).equals(right.checkType(context)))

@@ -10,11 +10,6 @@ public abstract class BinaryBoolExpr extends BinaryExpr
 		super(left, right);
 	}
 
-	public Type getType(ValueContext context)
-	{
-		return new BoolType();
-	}
-	
 	public Type checkType(TypeCheckContext context)
 	{
 		if(!left.checkType(context).supportedAsBool() || !right.checkType(context).supportedAsBool())

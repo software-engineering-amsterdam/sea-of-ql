@@ -16,11 +16,6 @@ public class Not extends UnaryExpr
 		return "!";
 	}
 
-	public Type getType(ValueContext context)
-	{
-		return new BoolType();
-	}
-	
 	public Type checkType(TypeCheckContext context)
 	{
 		if(!arg.checkType(context).supportedAsBool())

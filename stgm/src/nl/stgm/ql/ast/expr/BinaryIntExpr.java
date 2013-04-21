@@ -10,11 +10,6 @@ public abstract class BinaryIntExpr extends BinaryExpr
 		super(left, right);
 	}
 
-	public Type getType(ValueContext context)
-	{
-		return new IntType();
-	}
-	
 	public Type checkType(TypeCheckContext context)
 	{
 		if(!left.checkType(context).supportedAsInt() || !right.checkType(context).supportedAsInt())

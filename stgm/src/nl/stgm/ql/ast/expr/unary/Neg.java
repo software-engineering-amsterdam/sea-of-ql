@@ -16,11 +16,6 @@ public class Neg extends UnaryExpr
 		return "-";
 	}
 
-	public Type getType(ValueContext context)
-	{
-		return new IntType();
-	}
-	
 	public Type checkType(TypeCheckContext context)
 	{
 		if(!arg.checkType(context).supportedAsInt())
