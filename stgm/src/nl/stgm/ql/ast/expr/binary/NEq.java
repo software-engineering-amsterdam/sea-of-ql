@@ -3,7 +3,6 @@ package nl.stgm.ql.ast.expr.binary;
 import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.data.*;
-import nl.stgm.ql.interfaces.*;
 
 public class NEq extends BinaryEqualityExpr
 {

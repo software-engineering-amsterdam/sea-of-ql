@@ -1,4 +1,4 @@
-package nl.stgm.ql.interfaces;
+package nl.stgm.ql.ast;
 
 public interface Visitable
 {

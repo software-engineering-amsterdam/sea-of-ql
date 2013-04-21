@@ -1,9 +1,7 @@
 package nl.stgm.ql.ast.form;
 
-import java.util.List;
-
 import nl.stgm.ql.ast.*;
-import nl.stgm.ql.interfaces.*;
+import java.util.List;
 
 public class Form extends ASTDocumentNode
 {

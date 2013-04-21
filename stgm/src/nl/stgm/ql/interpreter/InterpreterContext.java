@@ -1,10 +1,10 @@
 package nl.stgm.ql.interpreter;
 
+import nl.stgm.ql.ast.*;
+import nl.stgm.ql.data.*;
+
 import java.util.Map;
 import java.util.HashMap;
-
-import nl.stgm.ql.interfaces.*;
-import nl.stgm.ql.data.*;
 
 public class InterpreterContext implements ValueContext
 {

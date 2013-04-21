@@ -1,4 +1,4 @@
-package nl.stgm.ql.interfaces;
+package nl.stgm.ql.ast;
 
 import nl.stgm.ql.data.*;
 

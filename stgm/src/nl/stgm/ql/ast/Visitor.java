@@ -1,6 +1,5 @@
-package nl.stgm.ql.interfaces;
+package nl.stgm.ql.ast;
 
-import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
 public interface Visitor

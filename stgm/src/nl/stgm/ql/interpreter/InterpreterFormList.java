@@ -1,8 +1,9 @@
 package nl.stgm.ql.interpreter;
 
+import nl.stgm.ql.ast.form.*;
+
 import java.util.List;
 import java.util.Vector;
-import nl.stgm.ql.ast.form.*;
 
 public class InterpreterFormList
 {

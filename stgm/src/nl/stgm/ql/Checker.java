@@ -9,7 +9,6 @@ import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
 import nl.stgm.ql.data.*;
-import nl.stgm.ql.interfaces.*;
 
 public class VisitingChecker extends RunnableVisitor implements Visitor
 {

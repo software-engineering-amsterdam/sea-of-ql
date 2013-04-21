@@ -1,10 +1,8 @@
 package nl.stgm.ql.ast.form;
 
+import nl.stgm.ql.ast.*;
 import java.util.List;
 import java.util.Collections;
-
-import nl.stgm.ql.ast.*;
-import nl.stgm.ql.interfaces.*;
 
 public class Conditional extends FormItem
 {

@@ -5,8 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.FileSystems;
 
-import nl.stgm.ql.interfaces.*;
-
 import nl.stgm.ql.parser.*;
 import nl.stgm.ql.parser.rats.*;
 

@@ -1,7 +1,7 @@
 package nl.stgm.ql.interpreter;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
-import nl.stgm.ql.interfaces.*;
 
 import java.util.List;
 import java.util.Vector;

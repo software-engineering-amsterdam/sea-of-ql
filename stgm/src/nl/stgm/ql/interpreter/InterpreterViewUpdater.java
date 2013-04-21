@@ -1,8 +1,8 @@
 package nl.stgm.ql.interpreter;
 
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.form.*;
 import nl.stgm.ql.data.*;
-import nl.stgm.ql.interfaces.*;
 
 public class InterpreterViewUpdater implements Visitor
 {

@@ -2,8 +2,6 @@ package nl.stgm.ql.inspectors;
 
 import java.io.IOException;
 
-import nl.stgm.ql.interfaces.*;
-
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
