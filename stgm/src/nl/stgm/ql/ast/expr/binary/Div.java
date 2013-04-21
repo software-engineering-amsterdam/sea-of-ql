@@ -18,9 +18,16 @@ public class Div extends BinaryIntExpr
 
 	public Value getValue(ValueContext context)
 	{
-		Int leftValue = (Int) this.left.getValue(context);
-		Int rightValue = (Int) this.right.getValue(context);
-		
-		return new Int(leftValue.getValue() / rightValue.getValue());
+		Value leftValue = this.left.getValue(context);
+		Value rightValue = this.right.getValue(context);
+
+		if(leftValue.getType().supportedAsInt() && rightValue.getType().supportedAsInt())
+		{
+			return new Int(((Int)leftValue).getValue() / ((Int)rightValue).getValue());
+		}
+		else
+		{
+			return new Unknown();
+		}
 	}
 }

@@ -84,14 +84,11 @@ public class InterpreterViewUpdater implements Visitor
 	public void visit(CalcQuestion cq)
 	{
 		UIElementLabel uiElt = (UIElementLabel) mapping.get(cq);
-
-		try
-		{
-			uiElt.update(cq.getCalculationExpr().getValue(context).toString());
-		}
-		catch(ClassCastException e)
-		{
+		Value value = cq.getCalculationExpr().getValue(context);
+		
+		if(value.getType().isUnknown())
 			uiElt.update("");
-		}
+		else
+			uiElt.update(value.toString());
 	}
 }

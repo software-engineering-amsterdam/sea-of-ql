@@ -38,7 +38,8 @@ public class InterpreterViewManager implements Visitor
 
 		if(this.forms.size() == 0)
 		{
-			throw new Error("Got an empty document.");
+			System.out.println("Got an empty document.");
+			System.exit(0); //TODO
 		}
 		
 		return this.forms;

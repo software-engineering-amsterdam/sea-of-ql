@@ -18,9 +18,16 @@ public class And extends BinaryBoolExpr
 
 	public Value getValue(ValueContext context)
 	{
-		Bool leftValue = (Bool) this.left.getValue(context);
-		Bool rightValue = (Bool) this.right.getValue(context);
-		
-		return new Bool(leftValue.getValue() && rightValue.getValue());
+		Value leftValue = this.left.getValue(context);
+		Value rightValue = this.right.getValue(context);
+
+		if(leftValue.getType().supportedAsBool() && rightValue.getType().supportedAsBool())
+		{
+			return new Bool(((Bool)leftValue).getValue() && ((Bool)rightValue).getValue());
+		}
+		else
+		{
+			return new Unknown();
+		}
 	}
 }
