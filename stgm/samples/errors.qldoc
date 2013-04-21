@@ -6,10 +6,10 @@ form Box1HouseOwning {
 	if (hasSoldHoue) {
 		sellingPrice: "Price the house was sold for:" int
 		privateDebt: "Private debts for the sold house:" int
-		valueResidue: "Value residue:" int (true - privateDebt)
+		valueResidue: "Value residue:" (true - privateDebt)
 	}
 	
-	hasMaintLoan: "Maint?" boolean (true == true)
+	hasMaintLoan: "Maint?" (true == true)
 }
 
 form AnotherForm

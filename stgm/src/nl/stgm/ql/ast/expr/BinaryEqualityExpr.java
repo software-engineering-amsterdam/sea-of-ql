@@ -15,12 +15,13 @@ public abstract class BinaryEqualityExpr extends BinaryExpr
 		return new BoolType();
 	}
 	
-	public void checkType(TypeCheckContext context)
+	public Type checkType(TypeCheckContext context)
 	{
-		if(!(left.getType(context).supportedAsBool() && right.getType(context).supportedAsBool()) ||
-		   !(left.getType(context).supportedAsInt()  && right.getType(context).supportedAsInt()))
+		if(!left.checkType(context).equals(right.checkType(context)))
 		{
-			context.registerTypeError(this, "Left and right are not of the same type.");
+			context.registerError(this, "Left and right are not of the same type.");
 		}
+
+		return new BoolType();
 	}
 }

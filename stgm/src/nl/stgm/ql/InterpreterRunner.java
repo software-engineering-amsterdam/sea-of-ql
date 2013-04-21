@@ -3,7 +3,7 @@ package nl.stgm.ql;
 import nl.stgm.ql.ast.form.Document;
 import nl.stgm.ql.interpreter.*;
 
-public class Interpreter
+public class InterpreterRunner
 {
 	public static void main(String[] args)
 	{

@@ -21,4 +21,14 @@ public class IntType implements Type
 	{
 		return false;
 	}
+
+	public boolean equals(Bool b)
+	{
+		return false;
+	}
+	
+	public boolean equals(Int b)
+	{
+		return true;
+	}
 }

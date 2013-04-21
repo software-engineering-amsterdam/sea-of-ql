@@ -12,9 +12,9 @@ inspectors: Printer Checker Interpreter
 # Runnable classes
 TestExpressions: QLParser src/nl/stgm/ql/parser/test/TestExpressions.class
 TestForms: QLParser src/nl/stgm/ql/parser/test/TestForms.class
-Printer: QLParser src/nl/stgm/ql/Printer.class
-Checker: QLParser src/nl/stgm/ql/Checker.class
-Interpreter: QLParser src/nl/stgm/ql/Interpreter.class
+Printer: QLParser src/nl/stgm/ql/PrinterRunner.class
+Checker: QLParser src/nl/stgm/ql/CheckerRunner.class
+Interpreter: QLParser src/nl/stgm/ql/InterpreterRunner.class
 
 # Generating the parser class
 RunRats: src/nl/stgm/ql/parser/rats/RunRats.class
@@ -28,11 +28,11 @@ run/testexpr: TestExpressions
 run/testform: TestForms
 	$(JAVA) $(JFLAGS) org.junit.runner.JUnitCore nl.stgm.ql.parser.test.TestForms
 run/pretty: Printer
-	$(JAVA) $(JFLAGS) nl.stgm.ql.Printer
+	$(JAVA) $(JFLAGS) nl.stgm.ql.PrinterRunner
 run/check: Checker
-	$(JAVA) $(JFLAGS) nl.stgm.ql.Checker
+	$(JAVA) $(JFLAGS) nl.stgm.ql.CheckerRunner
 run/interpret: Interpreter
-	$(JAVA) $(JFLAGS) nl.stgm.ql.Interpreter
+	$(JAVA) $(JFLAGS) nl.stgm.ql.InterpreterRunner
 
 # Utilities
 %.class: %.java

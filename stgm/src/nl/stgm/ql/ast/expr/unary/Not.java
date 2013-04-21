@@ -21,12 +21,14 @@ public class Not extends UnaryExpr
 		return new BoolType();
 	}
 	
-	public void checkType(TypeCheckContext context)
+	public Type checkType(TypeCheckContext context)
 	{
-		if(!arg.getType(context).supportedAsBool())
+		if(!arg.checkType(context).supportedAsBool())
 		{
-			context.registerTypeError(this, "Argument to ! should be a bool.");
+			context.registerError(this, "Argument to ! should be a bool.");
 		}
+
+		return new BoolType();
 	}
 
 	public Value getValue(ValueContext context)

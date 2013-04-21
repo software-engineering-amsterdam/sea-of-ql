@@ -21,4 +21,14 @@ public class BoolType implements Type
 	{
 		return false;
 	}
+	
+	public boolean equals(Bool b)
+	{
+		return true;
+	}
+	
+	public boolean equals(Int b)
+	{
+		return false;
+	}
 }

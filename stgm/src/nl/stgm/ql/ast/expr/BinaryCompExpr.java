@@ -15,9 +15,11 @@ public abstract class BinaryCompExpr extends BinaryExpr
 		return new BoolType();
 	}
 	
-	public void checkType(TypeCheckContext context)
+	public Type checkType(TypeCheckContext context)
 	{
-		if(!left.getType(context).supportedAsInt() || !right.getType(context).supportedAsInt())
-			context.registerTypeError(this, "Left or right is not of type int.");
+		if(!left.checkType(context).supportedAsInt() || !right.checkType(context).supportedAsInt())
+			context.registerError(this, "Left or right is not of type int.");
+
+		return new BoolType();
 	}
 }

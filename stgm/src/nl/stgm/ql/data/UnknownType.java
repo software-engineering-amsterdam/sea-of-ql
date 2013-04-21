@@ -22,4 +22,14 @@ public class UnknownType implements Type
 	{
 		return true;
 	}
+
+	public boolean equals(Bool b)
+	{
+		return false;
+	}
+	
+	public boolean equals(Int b)
+	{
+		return false;
+	}
 }

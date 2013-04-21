@@ -4,5 +4,5 @@ import nl.stgm.ql.data.*;
 
 public interface TypeCheckable
 {
-	public void checkType(TypeCheckContext context);
+	public Type checkType(TypeCheckContext context);
 }

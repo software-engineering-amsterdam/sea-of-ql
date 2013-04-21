@@ -18,7 +18,7 @@ public class IntLit extends LiteralExpr
 		return value.toString();
 	}
 
-	public Type getType(ValueContext context)
+	public Type checkType(TypeCheckContext context)
 	{
 		return new IntType();
 	}

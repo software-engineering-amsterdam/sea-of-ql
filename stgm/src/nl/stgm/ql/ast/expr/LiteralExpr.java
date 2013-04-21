@@ -8,9 +8,4 @@ public abstract class LiteralExpr extends ASTExpressionNode
 	{
 		return this.toString();
 	}
-	
-	public void checkType(TypeCheckContext context)
-	{
-		return; // no type errors on literals
-	}
 }

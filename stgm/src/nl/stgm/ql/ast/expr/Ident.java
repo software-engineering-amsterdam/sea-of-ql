@@ -23,9 +23,9 @@ public class Ident extends ASTExpressionNode
 		return context.getValue(this.name).getType();
 	}
 	
-	public void checkType(TypeCheckContext context)
+	public Type checkType(TypeCheckContext context)
 	{
-		return; // always OK
+		return context.getType(this.name);
 	}
 
 	public Value getValue(ValueContext context)

@@ -15,9 +15,11 @@ public abstract class BinaryBoolExpr extends BinaryExpr
 		return new BoolType();
 	}
 	
-	public void checkType(TypeCheckContext context)
+	public Type checkType(TypeCheckContext context)
 	{
-		if(!left.getType(context).supportedAsBool() || !right.getType(context).supportedAsBool())
-			context.registerTypeError(this, "Left or right is not of type bool.");
+		if(!left.checkType(context).supportedAsBool() || !right.checkType(context).supportedAsBool())
+			context.registerError(this, "Left or right is not of type bool.");
+
+		return new BoolType();
 	}
 }
