@@ -5,7 +5,7 @@ import java.io.IOException;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
-public class VisitingPrinter extends RunnableVisitor implements Visitor
+public class VisitingPrinter implements Visitor
 {
 	private int indent = 0;
 	private boolean indented = true;
@@ -124,8 +124,8 @@ public class VisitingPrinter extends RunnableVisitor implements Visitor
 	public static void main(String[] args)
 	{
 		VisitingPrinter ctx = new VisitingPrinter();
-		Document document = parseDocument("elaborate.qldoc");
-		// document.print(ctx);
+		Loader loader = new Loader();
+		Document document = loader.parseDocument("elaborate.qldoc");
 		document.accept(ctx);
 	}
 }
