@@ -42,24 +42,24 @@ public class Checker implements Visitor, TypeCheckContext
 	
 	public void visit(CalcQuestion cq)
 	{
-		errors.pushCrumb(cq.id());
-		Type type = cq.calculation().checkType(this);
+		errors.pushCrumb(cq.getID());
+		Type type = cq.getCalculationExpr().checkType(this);
 		errors.popCrumb();
 
-		symbols.add(cq.id(), new CheckerSymbol(cq.id(), type, true));
+		symbols.add(cq.getID(), new CheckerSymbol(cq.getID(), type, true));
 	}
 	
 	public void visit(Conditional c)
 	{
-		errors.pushCrumb("if(" + c.condition().render() + ")");
+		errors.pushCrumb("if(" + c.getConditionExpr().render() + ")");
 
-		c.condition().checkType(this);
+		c.getConditionExpr().checkType(this);
 
-		for(Question q: c.ifQuestions())
+		for(Question q: c.getIfQuestions())
 			q.accept(this);
 
 		if(c.hasElse())
-			for(Question q: c.elseQuestions())
+			for(Question q: c.getElseQuestions())
 				q.accept(this);
 		
 		errors.popCrumb();
@@ -67,10 +67,10 @@ public class Checker implements Visitor, TypeCheckContext
 	
 	public void visit(Document d)
 	{
-		if(d.forms().size() == 0)
+		if(d.getForms().size() == 0)
 			errors.add("Warning: no (valid) forms in document. This could be a parse error.");
 		
-		for(Form f: d.forms())
+		for(Form f: d.getForms())
 		{
 			f.accept(this);
 		}
@@ -78,14 +78,14 @@ public class Checker implements Visitor, TypeCheckContext
 	
 	public void visit(Form f)
 	{
-		Form previous = forms.get(f.id());
+		Form previous = forms.get(f.getID());
 		
 		if(previous == null)
-			forms.put(f.id(), f);
+			forms.put(f.getID(), f);
 		else
-			errors.add("Duplicate form name " + f.id());
+			errors.add("Duplicate form name " + f.getID());
 		
-		errors.pushCrumb(f.id());
+		errors.pushCrumb(f.getID());
 		for(FormItem fi: f.formItems())
 		{
 			fi.accept(this);
@@ -95,14 +95,14 @@ public class Checker implements Visitor, TypeCheckContext
 	
 	public void visit(BoolQuestion q)
 	{
-		String name = q.id();
+		String name = q.getID();
 		
 		symbols.add(name, new CheckerSymbol(name, new BoolType(), false));
 	}
 	
 	public void visit(IntQuestion q)
 	{
-		String name = q.id();
+		String name = q.getID();
 		
 		symbols.add(name, new CheckerSymbol(name, new IntType(), false));
 	}

@@ -36,7 +36,7 @@ public class TestForms extends QLTest
 		parser.parseForm("form {}");
 	}
 
-	@Test public void testFormWithOneQuestion() throws ParseError
+	@Test public void testFormWithOnegetQuestion() throws ParseError
 	{
 		assertFormClass(Form.class, "form Box1HouseOwning { hasSoldHouse: \"Did?\" boolean }");
 	}

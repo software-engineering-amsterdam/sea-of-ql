@@ -12,7 +12,7 @@ public class Document extends ASTDocumentNode
 		this.forms = forms;
 	}
 	
-	public List<Form> forms()
+	public List<Form> getForms()
 	{
 		return this.forms;
 	}

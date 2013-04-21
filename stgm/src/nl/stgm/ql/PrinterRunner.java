@@ -13,7 +13,7 @@ public class PrinterRunner implements Visitor
 	
 	public void visit(Document d)
 	{
-		for(Form f: d.forms())
+		for(Form f: d.getForms())
 		{
 			f.accept(this);
 		}
@@ -21,7 +21,7 @@ public class PrinterRunner implements Visitor
 	
 	public void visit(Form f)
 	{
-		println("form " + f.id());
+		println("form " + f.getID());
 		println("{");
 		increaseIndent();
 		for (FormItem formItem: f.formItems())
@@ -35,11 +35,11 @@ public class PrinterRunner implements Visitor
 	
 	public void visit(Conditional c)
 	{
-		println("if(" + c.condition().render() + ")");
+		println("if(" + c.getConditionExpr().render() + ")");
 		println("{");
 				
 		increaseIndent();
-		for (Question q: c.ifQuestions())
+		for (Question q: c.getIfQuestions())
 			q.accept(this);
 		decreaseIndent();
 		
@@ -50,7 +50,7 @@ public class PrinterRunner implements Visitor
 			println("else");
 			println("{");
 			increaseIndent();
-			for (Question q: c.elseQuestions())
+			for (Question q: c.getElseQuestions())
 			{
 				q.accept(this);
 			}
@@ -61,17 +61,17 @@ public class PrinterRunner implements Visitor
 	
 	public void visit(CalcQuestion q)
 	{
-		println(q.id() + ": " + q.question() + " (" + q.calculation().render() + ")");
+		println(q.getID() + ": " + q.getQuestion() + " (" + q.getCalculationExpr().render() + ")");
 	}
 	
 	public void visit(BoolQuestion q)
 	{
-		println(q.id() + ": " + q.question() + " boolean");
+		println(q.getID() + ": " + q.getQuestion() + " boolean");
 	}
 	
 	public void visit(IntQuestion q)
 	{
-		println(q.id() + ": " + q.question() + " int");
+		println(q.getID() + ": " + q.getQuestion() + " int");
 	}
 	
 	//

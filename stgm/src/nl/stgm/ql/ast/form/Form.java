@@ -14,7 +14,7 @@ public class Form extends ASTDocumentNode
 		this.formItems = formItems;
 	}
 	
-	public String id()
+	public String getID()
 	{
 		return this.id;
 	}

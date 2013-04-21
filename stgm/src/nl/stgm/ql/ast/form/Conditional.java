@@ -22,17 +22,17 @@ public class Conditional extends FormItem
 		this(condition, ifQuestions, Collections.<Question>emptyList());
 	}
 	
-	public ASTExpressionNode condition()
+	public ASTExpressionNode getConditionExpr()
 	{
 		return this.condition;
 	}
 	
-	public List<Question> ifQuestions()
+	public List<Question> getIfQuestions()
 	{
 		return this.ifQuestions;
 	}
 
-	public List<Question> elseQuestions()
+	public List<Question> getElseQuestions()
 	{
 		return this.elseQuestions;
 	}

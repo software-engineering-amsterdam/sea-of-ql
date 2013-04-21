@@ -24,7 +24,7 @@ public class Ident extends ASTExpressionNode
 
 	public Value getValue(ValueContext context)
 	{
-		// the semantic checker knowns our type from previous input
+		// redirect this question to the context
 		return context.getValue(this.name);
 	}
 }

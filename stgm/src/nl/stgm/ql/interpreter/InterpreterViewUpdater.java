@@ -42,17 +42,17 @@ public class InterpreterViewUpdater implements Visitor
 	public void visit(Conditional c)
 	{
 		UIElementConditional uiElt = (UIElementConditional) mapping.get(c);
-		Value v = c.condition().getValue(context);
+		Value v = c.getConditionExpr().getValue(context);
 
 		if(v.getType().isUnknown())
 			uiElt.displayPart(false);
 		else
 			uiElt.displayPart(((Bool) v).getValue());
 
-		for(Question q: c.ifQuestions())
+		for(Question q: c.getIfQuestions())
 			q.accept(this);
 		
-		for(Question q: c.elseQuestions())
+		for(Question q: c.getElseQuestions())
 			q.accept(this);
 	}
 	
@@ -60,9 +60,9 @@ public class InterpreterViewUpdater implements Visitor
 	{
 		UIElementBool uiElt = (UIElementBool) mapping.get(q);
 		
-		if(context.hasValue(q.id()))
+		if(context.hasValue(q.getID()))
 		{
-			Bool val = (Bool) context.getValue(q.id());
+			Bool val = (Bool) context.getValue(q.getID());
 			uiElt.update(val.getValue());
 		}
 		else
@@ -75,8 +75,8 @@ public class InterpreterViewUpdater implements Visitor
 	{
 		UIElementText uiElt = (UIElementText) mapping.get(q);
 		
-		if(context.hasValue(q.id()))
-			uiElt.update(context.getValue(q.id()).toString());
+		if(context.hasValue(q.getID()))
+			uiElt.update(context.getValue(q.getID()).toString());
 		else
 			uiElt.update("");
 	}
@@ -87,7 +87,7 @@ public class InterpreterViewUpdater implements Visitor
 
 		try
 		{
-			uiElt.update(cq.calculation().getValue(context).toString());
+			uiElt.update(cq.getCalculationExpr().getValue(context).toString());
 		}
 		catch(ClassCastException e)
 		{

@@ -12,7 +12,7 @@ public class CalcQuestion extends Question
 		this.calculation = calculation;
 	}
 	
-	public ASTExpressionNode calculation()
+	public ASTExpressionNode getCalculationExpr()
 	{
 		return this.calculation;
 	}

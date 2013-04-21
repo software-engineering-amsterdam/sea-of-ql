@@ -18,7 +18,7 @@ public class CheckerSymbolList
 
 	public void add(String name, CheckerSymbol s)
 	{
-		// check if symbol already exists
+		// checks if symbol already exists
 		CheckerSymbol i = symbols.get(name);
 		
 		if(i == null)

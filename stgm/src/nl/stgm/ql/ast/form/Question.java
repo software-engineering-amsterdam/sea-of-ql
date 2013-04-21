@@ -11,12 +11,12 @@ public abstract class Question extends FormItem
 		this.question = question;
 	}
 	
-	public String id()
+	public String getID()
 	{
 		return this.id;
 	}
 	
-	public String question()
+	public String getQuestion()
 	{
 		return this.question;
 	}

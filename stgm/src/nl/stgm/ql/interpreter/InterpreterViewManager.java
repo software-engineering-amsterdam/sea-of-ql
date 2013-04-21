@@ -69,7 +69,7 @@ public class InterpreterViewManager implements Visitor
 	public void visit(Document d)
 	{
 		// gather forms from document
-		for(Form f: d.forms())
+		for(Form f: d.getForms())
 			this.forms.add(f);
 	}
 
@@ -92,13 +92,13 @@ public class InterpreterViewManager implements Visitor
 		parent.addElement(uiElt);
 
 		parent = uiElt.truePart();
-		for(Question q: c.ifQuestions())
+		for(Question q: c.getIfQuestions())
 			q.accept(this);
 
 		if(c.hasElse())
 		{
 			parent = uiElt.falsePart();
-			for(Question q: c.elseQuestions())
+			for(Question q: c.getElseQuestions())
 				q.accept(this);
 		}
 		
@@ -107,21 +107,21 @@ public class InterpreterViewManager implements Visitor
 	
 	public void visit(BoolQuestion q)
 	{
-		UIElementBool uiElt = ui.createCheckbox(q.id(), q.question());
+		UIElementBool uiElt = ui.createCheckbox(q.getID(), q.getQuestion());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}
 	
 	public void visit(IntQuestion q)
 	{
-		UIElementText uiElt = ui.createTextField(q.id(), q.question());
+		UIElementText uiElt = ui.createTextField(q.getID(), q.getQuestion());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}
 	
 	public void visit(CalcQuestion q)
 	{
-		UIElementLabel uiElt = ui.createLabel(q.question());
+		UIElementLabel uiElt = ui.createLabel(q.getQuestion());
 		mapping.put(q, uiElt);
 		parent.addElement(uiElt);
 	}
