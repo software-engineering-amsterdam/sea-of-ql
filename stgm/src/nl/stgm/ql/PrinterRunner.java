@@ -9,41 +9,7 @@ import java.io.IOException;
 public class PrinterRunner implements Visitor
 {
 	private int indent = 0;
-	private boolean indented = true;
-	
-	public void visit(CalcQuestion cq)
-	{
-		// cq.calculation().checkType() + 
-		print(cq.id() + ": " + cq.question() + " " + " (");
-		print(cq.calculation().render());
-		println(")");
-	}
-	
-	public void visit(Conditional c)
-	{
-		print("if(");
-		print(c.condition().render());
-		println(") {");
-				
-		increaseIndent();
-		for (Question q: c.ifQuestions())
-			q.accept(this);
-		decreaseIndent();
-		
-		println("}");
-
-		if(c.hasElse())
-		{
-			println("else {");
-			increaseIndent();
-			for (Question q: c.elseQuestions())
-			{
-				q.accept(this);
-			}
-			decreaseIndent();
-			println("}");
-		}
-	}
+	private boolean indentNext = true;
 	
 	public void visit(Document d)
 	{
@@ -55,7 +21,8 @@ public class PrinterRunner implements Visitor
 	
 	public void visit(Form f)
 	{
-		println("form " + f.id() + " {");
+		println("form " + f.id());
+		println("{");
 		increaseIndent();
 		for (FormItem formItem: f.formItems())
 		{
@@ -63,23 +30,48 @@ public class PrinterRunner implements Visitor
 		}
 		decreaseIndent();
 		println("}");
+		println("");
+	}
+	
+	public void visit(Conditional c)
+	{
+		println("if(" + c.condition().render() + ")");
+		println("{");
+				
+		increaseIndent();
+		for (Question q: c.ifQuestions())
+			q.accept(this);
+		decreaseIndent();
+		
+		println("}");
+
+		if(c.hasElse())
+		{
+			println("else");
+			println("{");
+			increaseIndent();
+			for (Question q: c.elseQuestions())
+			{
+				q.accept(this);
+			}
+			decreaseIndent();
+			println("}");
+		}
+	}
+	
+	public void visit(CalcQuestion q)
+	{
+		println(q.id() + ": " + q.question() + " (" + q.calculation().render() + ")");
 	}
 	
 	public void visit(BoolQuestion q)
 	{
-		// + q.type()
-		println(q.id() + ": " + q.question() + " ");
+		println(q.id() + ": " + q.question() + " boolean");
 	}
 	
 	public void visit(IntQuestion q)
 	{
-		// + q.type()
-		println(q.id() + ": " + q.question() + " ");
-	}
-	
-	public void visit(ASTExpressionNode e)
-	{
-		print(e.render());
+		println(q.id() + ": " + q.question() + " int");
 	}
 	
 	//
@@ -100,7 +92,7 @@ public class PrinterRunner implements Visitor
 	{
 		printIndent();
 		System.out.println(s);
-		this.indented = true;
+		this.indentNext = true;
 	}
 	
 	private void println()
@@ -112,12 +104,12 @@ public class PrinterRunner implements Visitor
 	{
 		printIndent();
 		System.out.print(s);
-		this.indented = false;
+		this.indentNext = false;
 	}
 
 	private void printIndent()
 	{
-		if(this.indented)
+		if(this.indentNext)
 		{
 			for(int i = 0; i < indent; i++)
 			{

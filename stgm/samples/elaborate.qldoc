@@ -15,6 +15,10 @@ form Box1HouseOwning {
 		privateDebt: "Private debts for the sold house:" int
 		valueResidue: "Value residue:" (sellingPrice - privateDebt)
 	}
+	else
+	{
+		doNothing: "Do you do nothing some of the time?" boolean
+	}
 	hasBoughtHouse: "Did you by a house in 2010?" boolean
 	hasMaintLoan: "Did you enter a loan for maintenance/reconstruction?" boolean
 
