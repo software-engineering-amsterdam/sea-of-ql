@@ -1,26 +1,28 @@
-package nl.stgm.ql.inspectors;
+package nl.stgm.ql;
 
-import java.io.IOException;
-
+import nl.stgm.ql.ast.*;
 import nl.stgm.ql.ast.expr.*;
 import nl.stgm.ql.ast.form.*;
 
-public class VisitingPrinter implements Visitor
+import java.io.IOException;
+
+public class PrinterRunner implements Visitor
 {
 	private int indent = 0;
 	private boolean indented = true;
 	
 	public void visit(CalcQuestion cq)
 	{
-		print(cq.id() + ": " + cq.question() + " " + cq.type() + " (");
-		cq.calculation().accept(this);
+		// cq.calculation().checkType() + 
+		print(cq.id() + ": " + cq.question() + " " + " (");
+		print(cq.calculation().render());
 		println(")");
 	}
 	
 	public void visit(Conditional c)
 	{
 		print("if(");
-		c.condition().accept(this);
+		print(c.condition().render());
 		println(") {");
 				
 		increaseIndent();
@@ -63,9 +65,16 @@ public class VisitingPrinter implements Visitor
 		println("}");
 	}
 	
-	public void visit(Question q)
+	public void visit(BoolQuestion q)
 	{
-		println(q.id() + ": " + q.question() + " " + q.type());
+		// + q.type()
+		println(q.id() + ": " + q.question() + " ");
+	}
+	
+	public void visit(IntQuestion q)
+	{
+		// + q.type()
+		println(q.id() + ": " + q.question() + " ");
 	}
 	
 	public void visit(ASTExpressionNode e)
@@ -123,7 +132,7 @@ public class VisitingPrinter implements Visitor
 	
 	public static void main(String[] args)
 	{
-		VisitingPrinter ctx = new VisitingPrinter();
+		PrinterRunner ctx = new PrinterRunner();
 		Loader loader = new Loader();
 		Document document = loader.parseDocument("elaborate.qldoc");
 		document.accept(ctx);

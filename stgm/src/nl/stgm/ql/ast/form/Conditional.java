@@ -39,7 +39,7 @@ public class Conditional extends FormItem
 	
 	public boolean hasElse()
 	{
-		return this.elseQuestions.isEmpty();
+		return !this.elseQuestions.isEmpty();
 	}
 
 	public void accept(Visitor v)
