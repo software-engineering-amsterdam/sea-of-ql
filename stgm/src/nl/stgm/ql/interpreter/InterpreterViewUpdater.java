@@ -65,10 +65,8 @@ public class InterpreterViewUpdater implements Visitor
 			Bool val = (Bool) context.getValue(q.getID());
 			uiElt.update(val.getValue());
 		}
-		else
-		{
-			uiElt.update(false);
-		}
+		
+		// do not update if no value found (allows for default state other than false)
 	}
 	
 	public void visit(IntQuestion q)

@@ -23,6 +23,7 @@ public class PagedInterpreter implements UIDelegate, PagedUIDelegate
 	public void run()
 	{
 		this.updater = manager.load(forms.getCurrent());
+		updater.update();
 		ui.show();
 	}
 	
