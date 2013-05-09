@@ -1,18 +1,12 @@
-/* Questionire laanguage IDE
-author @abisha
-*/
 module IDE::ide
 
 import Prelude;
 import vis::Figure;
 import vis::Render;
-
 import syntax::Abstract;
 import syntax::Concrete;
 import TypeCheck::QuestionChecker;
-import Visualization::ControlFlow;
-import Visualization::Visualize;
-import IDE::Uninit;
+import IDE::Outline;
 import util::IDE;
 import util::ValueUI;
 import load::Parse;
@@ -28,10 +22,10 @@ public Tree parser(str x, loc l)
 {
     return parseForm(x,l);
 }
-
 //  Define connection with the QL TypeChecker
-public Form checkQLForm(Form x) 
+public Form checkQForm(Form x) 
 {
+println("now checking the form");
 	p = implodeForm(#Form, x);
 	env = checkForm(p);
 	errors = 
@@ -40,21 +34,13 @@ public Form checkQLForm(Form x)
 	};
 	if(!isEmpty(errors))
 		return x[@messages = errors];
-    ids = uninitForm(p);
-	warnings = 
+		ids=uninitForm(p);
+    warnings = 
 	{
 		warning("Variable <v> maybe uninitialized", l) | <loc l, PicoId v, STATEMENT s> <- ids 
 	};
 	return x[@messages = warnings];
 }
-
-//  Define the connection with the QL evaluator
-public void evalQLForm(Tree x, loc selection) 
-{
-	m = implode(#Form, x); 
-	text(evalForm(m));
-}
-
 //  Define connection with CFG visualization
 public void visualizeQLForm(Tree x, loc selection) 
 {
@@ -62,29 +48,34 @@ public void visualizeQLForm(Tree x, loc selection)
 	CFG = cflowForm(m);
 	render(visCFG(CFG.graph));
 }
-
 //generate the IDE
 public void generateQLForm(Tree x, loc selection) 
 {	
 	generateQLForm(implodeForm(x));
 }
-
 //  Define all contributions to the QL IDE
 public set[Contribution] QL_CONTRIBS = 
 {
-	popup(
+	outliner(node(Tree t)
+		{
+			return outline(implodeForm(t));
+		}
+  	),
+	menu(
 		menu("QL",[
-					action("Evaluate QL Form", evalQLForm),
-					action("Generate QL Form", generateQLForm),
-		     		action("Show Control flow graph", visualizeQLForm)
+			action("Generate QL Form", generateQLForm),
+			action("Show Control flow graph", visualizeQLForm)
 	    		])
-  		)
+  			),
+  	annotator(Tree (Tree t) 
+  		{
+			
+			return t[@messages = checkQLForm(implodeForm(t))];
+  		})
 };
-
 //  Register the QL IDE
 public void registerQL() 
 {
-	println("in main");
   	registerLanguage(QL_NAME, QL_EXT, parser); 
   	registerContributions(QL_NAME, QL_CONTRIBS);
 }

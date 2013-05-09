@@ -1,9 +1,8 @@
-//@abisha
 module syntax::Concrete
 
 import Prelude;
 
-keyword Keywords = "if"|"then"|"else"|"true"|"false"|"bool"|"String"|"int"|"form";
+keyword Keywords = "if"|"then"|"else"|"true"|"false";
 
 lexical Id  = ([a-z A-Z 0-9_] !<< [a-z A-Z][a-z A-Z 0-9_]* !>> [a-z A-Z 0-9_])\Keywords;
 lexical Boolean = "true" | "false";
@@ -42,18 +41,18 @@ start syntax Statement = asgStat: Id var ":" Type tp
    
 start syntax Type 
    = integer : "integer" 
-   | string :"string"
+   | string  :"string"
    | boolean :"boolean"
-   | money :"money"   
+   | money   :"money"   
    ;
    
 start syntax Expression
    = id: Id name
    | \int: Int integerVal
    | bracket "(" Expression exp ")"
-   | pos: "+" Expr
-   | neg: "-" Expr
-   | not: "!" Expr
+   | pos: "+" Expression
+   | neg: "-" Expression
+   | not: "!" Expression
    	> left (
       add: Expression "+" Expression
     | sub: Expression "-" Expression
@@ -77,10 +76,13 @@ start syntax Expression
     | strCon: String sVal
    ;
    
-public start[Form] form(str s) {
-  return parse(#start[Form], s);
+public start[Form] form(str s) 
+{
+  	return parse(#start[Form], s);
 }
 
-public start[Form] form(str s, loc l) {
-  return parse(#start[Form], s, l);
+public start[Form] form(str s, loc l) 
+{
+	return parse(#start[Form], s, l);
 } 
+
