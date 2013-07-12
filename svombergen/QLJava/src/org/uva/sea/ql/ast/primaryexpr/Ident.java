@@ -1,8 +1,8 @@
 package org.uva.sea.ql.ast.primaryexpr;
 
 import org.uva.sea.ql.ast.statements.types.*;
+import org.uva.sea.ql.gui.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.gui.Environment;
 
 public class Ident extends Str {
 	private Type type;

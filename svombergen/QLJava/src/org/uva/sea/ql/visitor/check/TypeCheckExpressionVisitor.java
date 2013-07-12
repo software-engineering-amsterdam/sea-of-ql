@@ -5,9 +5,9 @@ import org.uva.sea.ql.ast.binaryexpr.*;
 import org.uva.sea.ql.ast.primaryexpr.*;
 import org.uva.sea.ql.ast.statements.types.*;
 import org.uva.sea.ql.ast.unaryexpr.*;
+import org.uva.sea.ql.gui.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.Messages;
-import org.uva.sea.ql.visitor.gui.Environment;
 
 public class TypeCheckExpressionVisitor implements IExpressionVisitor<Boolean> {
 	private Environment environment = new Environment();

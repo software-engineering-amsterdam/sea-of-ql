@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.gui;
+package org.uva.sea.ql.gui.eventlisteners;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

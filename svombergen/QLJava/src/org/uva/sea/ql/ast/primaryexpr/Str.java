@@ -29,4 +29,13 @@ public class Str extends PrimaryExpr {
 	public String getValue() {
 		return value;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if ( o instanceof Str) {
+			Str s = (Str)o;
+			return s.getValue().equals(this.getValue());
+		}
+		return false;
+	}
 }

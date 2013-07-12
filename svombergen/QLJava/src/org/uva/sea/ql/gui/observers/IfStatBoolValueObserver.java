@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.gui;
+package org.uva.sea.ql.gui.observers;
 
 import java.util.ArrayList;
 import java.util.Observable;

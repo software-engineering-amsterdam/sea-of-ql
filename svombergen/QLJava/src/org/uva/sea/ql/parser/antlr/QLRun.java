@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.uva.sea.ql.ast.Form;
+import org.uva.sea.ql.gui.FormRenderer;
 import org.uva.sea.ql.visitor.check.CheckFormCorrectnessVisitor;
-import org.uva.sea.ql.visitor.gui.FormRenderer;
 
 public class QLRun {
 
@@ -24,6 +24,7 @@ public class QLRun {
 			form1.accept(formRenderer1);
 			System.out.println("form: " + form1);
 		}
+		
 	}
 	
 	public static String readFile(String location) {

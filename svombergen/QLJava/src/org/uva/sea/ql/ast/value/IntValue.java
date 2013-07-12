@@ -45,5 +45,16 @@ public class IntValue extends Value<Integer> {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof IntValue) {
+			IntValue i = (IntValue)o;
+			
+			return i.getValue().equals(this.getValue());
+		}
+			
+		return false;
+	}
 
 }

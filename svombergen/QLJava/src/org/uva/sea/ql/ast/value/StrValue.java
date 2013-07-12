@@ -30,5 +30,15 @@ public class StrValue extends Value<String> {
 		
 		return true;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof StrValue) {
+			StrValue s = (StrValue)o;
+			return s.getValue().equals(this.getValue());
+		}
+			
+		return false;
+	}
 
 }

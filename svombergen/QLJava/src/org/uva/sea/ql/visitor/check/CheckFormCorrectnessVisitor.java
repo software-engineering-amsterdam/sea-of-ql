@@ -7,10 +7,10 @@ import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.primaryexpr.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.statements.types.*;
+import org.uva.sea.ql.gui.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 import org.uva.sea.ql.visitor.Messages;
-import org.uva.sea.ql.visitor.gui.Environment;
-import org.uva.sea.ql.visitor.gui.IFormVisitor;
 
 public class CheckFormCorrectnessVisitor implements IFormVisitor<Boolean> {
 	private Environment environment;
@@ -39,11 +39,13 @@ public class CheckFormCorrectnessVisitor implements IFormVisitor<Boolean> {
 		Type t = q.getType();
 		
 		for (Question foreachQuestion : environment.values()) {
-			if ( foreachQuestion.getQuestionString() == qString ) {
+			if ( foreachQuestion.getQuestionString().equals(qString) ) {
 				if (foreachQuestion.getType() == t)
 					warningMsgs.add(String.format("Duplicate question: %s",qString));
 				else
 					errorMsgs.add(String.format("Duplicate question with different types: %s",qString));
+				
+				return false;
 			}
 		}
 		

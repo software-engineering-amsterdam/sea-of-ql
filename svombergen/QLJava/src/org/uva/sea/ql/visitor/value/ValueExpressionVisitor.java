@@ -4,8 +4,8 @@ import org.uva.sea.ql.ast.binaryexpr.*;
 import org.uva.sea.ql.ast.primaryexpr.*;
 import org.uva.sea.ql.ast.unaryexpr.*;
 import org.uva.sea.ql.ast.value.*;
+import org.uva.sea.ql.gui.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.gui.Environment;
 
 public class ValueExpressionVisitor implements IExpressionVisitor<Value<?>> {
 	private Environment environment = new Environment();
@@ -59,7 +59,7 @@ public class ValueExpressionVisitor implements IExpressionVisitor<Value<?>> {
 		Value<?> left = exp.getLeft().accept(this);
 		Value<?> right = exp.getRight().accept(this);
 		
-		return new BoolValue(left.getValue() == right.getValue());
+		return new BoolValue(left.equals(right));
 	}
 
 	@Override
@@ -106,7 +106,7 @@ public class ValueExpressionVisitor implements IExpressionVisitor<Value<?>> {
 	@Override
 	public BoolValue visit(Or exp) {
 		BoolValue left = (BoolValue)exp.getLeft().accept(this);
-		BoolValue right = (BoolValue)exp.getLeft().accept(this);
+		BoolValue right = (BoolValue)exp.getRight().accept(this);
 		
 		return new BoolValue(left.getValue() || right.getValue());
 	}

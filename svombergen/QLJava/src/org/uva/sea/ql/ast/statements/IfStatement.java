@@ -5,8 +5,8 @@ import java.util.List;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.value.BoolValue;
 import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.gui.Environment;
-import org.uva.sea.ql.visitor.gui.IFormVisitor;
+import org.uva.sea.ql.gui.Environment;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 
 public class IfStatement implements Statement {

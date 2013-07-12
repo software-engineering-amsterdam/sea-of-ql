@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.gui;
+package org.uva.sea.ql.gui.observers;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -26,6 +26,7 @@ import org.uva.sea.ql.ast.unaryexpr.Not;
 import org.uva.sea.ql.ast.unaryexpr.Pos;
 import org.uva.sea.ql.ast.unaryexpr.UnaryExpr;
 import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.gui.Environment;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.value.ValueExpressionVisitor;
 

@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.List;
 
 import org.uva.sea.ql.ast.statements.Statement;
-import org.uva.sea.ql.visitor.gui.IFormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 
 public class Form {

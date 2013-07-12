@@ -41,5 +41,15 @@ public class BoolValue extends Value<Boolean> {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof BoolValue) {
+			BoolValue b = (BoolValue)o;
+			return b.getValue().equals(this.getValue());
+		}
+			
+		return false;
+	}
 
 }

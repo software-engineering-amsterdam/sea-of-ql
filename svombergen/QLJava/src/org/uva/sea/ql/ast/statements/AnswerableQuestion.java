@@ -6,7 +6,7 @@ import org.uva.sea.ql.ast.statements.types.*;
 import org.uva.sea.ql.ast.value.BoolValue;
 import org.uva.sea.ql.ast.value.IntValue;
 import org.uva.sea.ql.ast.value.StrValue;
-import org.uva.sea.ql.visitor.gui.IFormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class AnswerableQuestion extends Question {
 

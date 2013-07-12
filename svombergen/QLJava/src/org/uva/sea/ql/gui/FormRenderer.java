@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.gui;
+package org.uva.sea.ql.gui;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,14 @@ import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.statements.types.*;
 import org.uva.sea.ql.ast.value.BoolValue;
 import org.uva.sea.ql.ast.value.Value;
+import org.uva.sea.ql.gui.components.FormFrame;
+import org.uva.sea.ql.gui.components.GUICheckbox;
+import org.uva.sea.ql.gui.components.GUITextfield;
+import org.uva.sea.ql.gui.eventlisteners.CheckboxEventListener;
+import org.uva.sea.ql.gui.eventlisteners.TextboxEventListener;
+import org.uva.sea.ql.gui.observers.IfStatBoolValueObserver;
+import org.uva.sea.ql.gui.observers.ValueExpressionObserver;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 public class FormRenderer implements IFormVisitor<JComponent> {
 	private FormFrame frame;

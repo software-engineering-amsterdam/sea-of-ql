@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.gui;
+package org.uva.sea.ql.gui;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package org.uva.sea.ql.visitor.gui;
+package org.uva.sea.ql.visitor;
 
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.statements.*;

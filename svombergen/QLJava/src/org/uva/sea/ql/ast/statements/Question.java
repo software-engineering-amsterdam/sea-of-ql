@@ -4,7 +4,7 @@ import org.uva.sea.ql.ast.primaryexpr.Ident;
 import org.uva.sea.ql.ast.primaryexpr.Str;
 import org.uva.sea.ql.ast.statements.types.*;
 import org.uva.sea.ql.ast.value.Value;
-import org.uva.sea.ql.visitor.gui.IFormVisitor;
+import org.uva.sea.ql.visitor.IFormVisitor;
 
 
 public abstract class Question implements Statement {
