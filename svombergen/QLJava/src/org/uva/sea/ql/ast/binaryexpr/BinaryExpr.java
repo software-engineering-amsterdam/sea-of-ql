@@ -1,7 +1,6 @@
 package org.uva.sea.ql.ast.binaryexpr;
 
 import org.uva.sea.ql.ast.Expr;
-import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public abstract class BinaryExpr extends Expr {
 	protected Expr leftExpr;
@@ -21,21 +20,8 @@ public abstract class BinaryExpr extends Expr {
 	}
 	
 	@Override
-	public boolean isNumeric() {
-		return leftExpr.isNumeric() && rightExpr.isNumeric();
-	}
-	
-	@Override
-	public boolean isBoolean() {
-		return leftExpr.isBoolean() && rightExpr.isBoolean();
-	}
-	
-	@Override
-	public abstract void accept(IExpressionVisitor v);
-	
-	@Override
 	public String toString(){
-		return leftExpr + this.getType() + rightExpr;
+		return leftExpr + typeOf().toString() + rightExpr;
 	}
 
 }

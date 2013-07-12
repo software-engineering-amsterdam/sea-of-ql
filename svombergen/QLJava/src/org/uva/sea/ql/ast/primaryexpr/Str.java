@@ -1,36 +1,32 @@
 package org.uva.sea.ql.ast.primaryexpr;
 
+import org.uva.sea.ql.ast.statements.types.StrType;
+import org.uva.sea.ql.ast.statements.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Str extends PrimaryExpr {
-	private final String value;
+	protected final String value;
 
 	public Str(String s) {
 		value = s;
 	}
 	
 	@Override
-	public boolean isTextual() {
-		return true;
-	}
-	
-	@Override
-	public void accept(IExpressionVisitor v) {
-		v.visit(this);
-	}
-
-	@Override
-	public String calculateValue() {
-		return returnStrValue();
-	}
-	
-	@Override
-	public String returnStrValue() {
-		return value;
+	public <T> T accept(IExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 	
 	@Override
 	public String toString(){
-		return returnStrValue();
+		return value;
+	}
+
+	@Override
+	public Type typeOf() {
+		return new StrType();
+	}
+	
+	public String getValue() {
+		return value;
 	}
 }

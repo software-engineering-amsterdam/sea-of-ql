@@ -1,7 +1,6 @@
 package org.uva.sea.ql.visitor.check;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
@@ -9,32 +8,37 @@ import org.uva.sea.ql.ast.primaryexpr.*;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.statements.types.*;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
-import org.uva.sea.ql.visitor.IFormVisitor;
 import org.uva.sea.ql.visitor.Messages;
+import org.uva.sea.ql.visitor.gui.Environment;
+import org.uva.sea.ql.visitor.gui.IFormVisitor;
 
-public class CheckFormCorrectnessVisitor implements IFormVisitor {
-	private Map<Ident,Question> identQuestionMap;
+public class CheckFormCorrectnessVisitor implements IFormVisitor<Boolean> {
+	private Environment environment;
 	private Messages 	errorMsgs, 
 						warningMsgs;
 	
 	public CheckFormCorrectnessVisitor() {
-		identQuestionMap = new HashMap<Ident, Question>();
+		environment = new Environment();
 		errorMsgs = new Messages("Errors"); 
 		warningMsgs = new Messages("Warnings");
 	}
 	
-	private void checkExpr(Expr e) {
-		IExpressionVisitor ev = new TypeCheckExpressionVisitor(identQuestionMap, errorMsgs, warningMsgs);
+	private boolean checkExpr(Expr e) {
+		IExpressionVisitor<Boolean> ev = new TypeCheckExpressionVisitor(environment, errorMsgs, warningMsgs);
 		
-		e.accept(ev);
+		return e.accept(ev);
+	}
+	
+	public Environment getFormEnvironment() {
+		return environment;
 	}
 
-	private void checkDuplicates(Question q) {
+	private boolean checkDuplicates(Question q) {
 		Str qString = q.getQuestionString();
 		Ident id = q.getIdent();
 		Type t = q.getType();
 		
-		for (Question foreachQuestion : identQuestionMap.values()) {
+		for (Question foreachQuestion : environment.values()) {
 			if ( foreachQuestion.getQuestionString() == qString ) {
 				if (foreachQuestion.getType() == t)
 					warningMsgs.add(String.format("Duplicate question: %s",qString));
@@ -43,10 +47,14 @@ public class CheckFormCorrectnessVisitor implements IFormVisitor {
 			}
 		}
 		
-		if ( identQuestionMap.containsKey(id) )
+		if ( environment.containsKey(id) ) {
 			errorMsgs.add(String.format("Duplicate Ident: %s", id));
-		else
-			identQuestionMap.put(id, q);
+			return false;
+		}
+		else {
+			environment.put(id, q);
+			return true;
+		}
 	}
 	
 	public Messages returnErrorMsgs() {
@@ -58,35 +66,40 @@ public class CheckFormCorrectnessVisitor implements IFormVisitor {
 	}
 	
 	@Override
-	public void visit(ComputableQuestion q) {
+	public Boolean visit(ComputableQuestion q) {
 		Expr e = q.getExpression();
 		
-		if ( e != null)
-			checkExpr(e);
-		else
+		if (e == null) {
 			errorMsgs.add(String.format("No condition in Question: %s", q));
+			return false;
+		}
 		
-		checkDuplicates(q);
+		return checkExpr(e) && checkDuplicates(q);
 	}
 	
 	@Override
-	public void visit(AnswerableQuestion q) {
-		checkDuplicates(q);
+	public Boolean visit(AnswerableQuestion q) {
+		return checkDuplicates(q);
 	}
 	
 	@Override
-	public void visit(IfStatement ifStat) {
+	public Boolean visit(IfStatement ifStat) {
 		Expr cond = ifStat.getCondition();
-		IExpressionVisitor iev = new TypeCheckExpressionVisitor(identQuestionMap, errorMsgs, warningMsgs);
-		cond.accept(iev);
+		IExpressionVisitor<Boolean> iev = new TypeCheckExpressionVisitor(environment, errorMsgs, warningMsgs);
 		
-		for(Statement s : ifStat.getStatements())
-			s.accept(this);
+		return cond.accept(iev) && visitStatements(ifStat.getStatements());
 	}
 
 	@Override
-	public void visit(Form f) {
-		for(Statement s : f.getStatements())
-			s.accept(this);
+	public Boolean visit(Form f) {
+		return visitStatements(f.getStatements());
+	}
+	
+	public boolean visitStatements(List<Statement> statements) {
+		for(Statement s : statements) {
+			if (!s.accept(this))
+				return false;
+		}
+		return true;
 	}
 }

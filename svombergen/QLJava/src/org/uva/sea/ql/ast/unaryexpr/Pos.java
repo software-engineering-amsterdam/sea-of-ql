@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.unaryexpr;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statements.types.IntType;
+import org.uva.sea.ql.ast.statements.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Pos extends UnaryExpr {
@@ -10,18 +12,13 @@ public class Pos extends UnaryExpr {
 	}
 	
 	@Override
-	public void accept(IExpressionVisitor v) {
-		v.visit(this);
+	public <T> T accept(IExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public String calculateValue() {
-		return "" + returnIntValue();
-	}
-	
-	@Override
-	public int returnIntValue() {
-		return expression.returnIntValue();
+	public Type typeOf() {
+		return new IntType();
 	}
 
 }

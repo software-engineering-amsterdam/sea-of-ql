@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.binaryexpr;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statements.types.BoolType;
+import org.uva.sea.ql.ast.statements.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Or extends BinaryExpr {
@@ -10,18 +12,13 @@ public class Or extends BinaryExpr {
 	}
 	
 	@Override
-	public void accept(IExpressionVisitor v) {
-		v.visit(this);
+	public <T> T accept(IExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 	
 	@Override
-	public String calculateValue() {
-		return "" + this.returnBoolValue();
-	}
-	
-	@Override
-	public boolean returnBoolValue() {
-		return leftExpr.returnBoolValue() || rightExpr.returnBoolValue();
+	public Type typeOf() {
+		return new BoolType();
 	}
 
 }

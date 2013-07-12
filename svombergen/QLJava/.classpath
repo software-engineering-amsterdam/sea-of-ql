@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="org/uva/sea/ql/visitor/gui/AnswerableTextField.java|org/uva/sea/ql/visitor/gui/ObserverVisitor.java|org/uva/sea/ql/visitor/gui/ComputableTextField.java|org/uva/sea/ql/visitor/gui/TextFieldObserver.java|org/uva/sea/ql/visitor/gui/AnswerableCheckBox.java|org/uva/sea/ql/parser/antlr/old/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/antlr-3.4-complete-no-antlrv2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>

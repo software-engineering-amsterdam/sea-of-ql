@@ -4,26 +4,26 @@ import org.uva.sea.ql.ast.binaryexpr.*;
 import org.uva.sea.ql.ast.unaryexpr.*;
 import org.uva.sea.ql.ast.primaryexpr.*;
 
-public interface IExpressionVisitor {
-	public void visit(Add exp);	
-	public void visit(Div exp);	
-	public void visit(Mul exp);	
-	public void visit(Sub exp);	
-	public void visit(And exp);	
-	public void visit(Eq exp);	
-	public void visit(GEq exp);	
-	public void visit(GT exp);	
-	public void visit(LEq exp);	
-	public void visit(LT exp);	
-	public void visit(NEq exp);	
-	public void visit(Or exp);
+public interface IExpressionVisitor<T> {
+	T visit(Add exp);	
+	T visit(Div exp);	
+	T visit(Mul exp);	
+	T visit(Sub exp);	
+	T visit(And exp);	
+	T visit(Eq exp);	
+	T visit(GEq exp);	
+	T visit(GT exp);	
+	T visit(LEq exp);	
+	T visit(LT exp);	
+	T visit(NEq exp);	
+	T visit(Or exp);
 	
-	public void visit(Neg exp);
-	public void visit(Pos exp);
-	public void visit(Not exp);
+	T visit(Neg exp);
+	T visit(Pos exp);
+	T visit(Not exp);
 	
-	public void visit(Ident exp);
-	public void visit(Int exp);
-	public void visit(Str exp);
-	public void visit(Bool exp);
+	T visit(Ident exp);
+	T visit(Int exp);
+	T visit(Str exp);
+	T visit(Bool exp);
 }

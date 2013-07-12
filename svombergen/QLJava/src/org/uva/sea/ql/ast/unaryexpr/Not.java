@@ -1,6 +1,8 @@
 package org.uva.sea.ql.ast.unaryexpr;
 
 import org.uva.sea.ql.ast.*;
+import org.uva.sea.ql.ast.statements.types.BoolType;
+import org.uva.sea.ql.ast.statements.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Not extends UnaryExpr {
@@ -10,18 +12,13 @@ public class Not extends UnaryExpr {
 	}
 	
 	@Override
-	public void accept(IExpressionVisitor v) {
-		v.visit(this);
-	}
-
-	@Override
-	public String calculateValue() {
-		return "" + this.returnBoolValue();
+	public <T> T accept(IExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 	
 	@Override
-	public boolean returnBoolValue() {
-		return !expression.returnBoolValue();
+	public Type typeOf() {
+		return new BoolType();
 	}
 	
 }

@@ -1,76 +1,97 @@
 package org.uva.sea.ql.visitor.gui;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JComponent;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
 import org.uva.sea.ql.ast.statements.*;
 import org.uva.sea.ql.ast.statements.types.*;
-import org.uva.sea.ql.ast.primaryexpr.*;
-import org.uva.sea.ql.visitor.IFormVisitor;
+import org.uva.sea.ql.ast.value.BoolValue;
+import org.uva.sea.ql.ast.value.Value;
 
-public class FormRenderer implements IFormVisitor {
+public class FormRenderer implements IFormVisitor<JComponent> {
 	private FormFrame frame;
 	private JPanel panel;
-	private Map<Ident,JComponent> identMap;
+	private Environment environment;
 	
 	public FormRenderer() {
-		identMap = new HashMap<Ident,JComponent>();
 		frame = new FormFrame();
 		panel = new JPanel(new MigLayout());
+		environment = new Environment();
 	}
 
 	@Override
-	public void visit(Form f) {
+	public JComponent visit(Form f) {
 		for(Statement s : f.getStatements())
 			s.accept(this);
 
 		frame.add(panel);
 		frame.setVisible(true);
+		
+		return null;
 	}
 
 	@Override
-	public void visit(ComputableQuestion q) {
-		panel.add(new JLabel(q.getQuestionString().toString()));
-		panel.add(new JTextField("calc_value"), "wrap");
+	public JComponent visit(ComputableQuestion q) {
+		addValueObserverToExpression(q.getExpression(), q.getValue());
+		
+		return addGuiComponent(q);
 	}
 
 	@Override
-	public void visit(AnswerableQuestion q) {
-		panel.add(new JLabel(q.getQuestionString().toString()));
-		if (q.getType().toString() == new BoolType().toString())
-			panel.add(new JCheckBox(),"wrap");
-		else
-			panel.add(new JTextField("<input>"), "wrap");
+	public JComponent visit(AnswerableQuestion q) {
+		return addGuiComponent(q);
 	}
 
 	@Override
-	public void visit(IfStatement ifStat) {
-		// TODO Auto-generated method stub
+	public JComponent visit(IfStatement ifStat) {
+		BoolValue val = (BoolValue)ifStat.getValue();
+		ArrayList<JComponent> listComps = new ArrayList<JComponent>();
 		
+		for(Statement s : ifStat.getStatements())
+			listComps.add(s.accept(this));
+		
+		addValueObserverToExpression(ifStat.getCondition(), val);
+		val.addObserver(new IfStatBoolValueObserver(listComps));
+		
+		val.setValue(false);
+		
+		return null;
+	}
+	
+	public JComponent addGuiComponent(Question q) {
+		JLabel lbl = new JLabel(q.getQuestionString().toString());
+		Value<?> val = q.getValue();
+		
+		environment.put(q.getIdent(), q);
+		panel.add(lbl);
+		
+		if (q.getType().equals(new BoolType())) {
+			GUICheckbox cb = new GUICheckbox();
+			cb.addActionListener(new CheckboxEventListener(val));
+			panel.add(cb,"wrap");
+			val.addObserver(cb);
+			return cb;
+		}
+		else {
+			GUITextfield tf = new GUITextfield("<empty>");
+			tf.addActionListener(new TextboxEventListener(val));
+			panel.add(tf,"wrap");
+			val.addObserver(tf);
+			return tf;
+		}
 	}
 
-	public void visit(StrType strType) {
-		// TODO Auto-generated method stub
+	private void addValueObserverToExpression(Expr expression, Value<?> value) {
+		ValueExpressionObserver veo = new  ValueExpressionObserver(environment, value, expression );
 		
-	}
-
-	public void visit(BoolType boolType) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void visit(IntType intType) {
-		// TODO Auto-generated method stub
-		
+		expression.accept(veo);
 	}
 
 }

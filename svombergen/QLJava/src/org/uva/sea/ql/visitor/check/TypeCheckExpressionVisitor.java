@@ -1,55 +1,63 @@
 package org.uva.sea.ql.visitor.check;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.binaryexpr.*;
 import org.uva.sea.ql.ast.primaryexpr.*;
-import org.uva.sea.ql.ast.statements.*;
+import org.uva.sea.ql.ast.statements.types.*;
 import org.uva.sea.ql.ast.unaryexpr.*;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 import org.uva.sea.ql.visitor.Messages;
+import org.uva.sea.ql.visitor.gui.Environment;
 
-public class TypeCheckExpressionVisitor implements IExpressionVisitor {
-	private Map<Ident,Question> identQuestionMap;
+public class TypeCheckExpressionVisitor implements IExpressionVisitor<Boolean> {
+	private Environment environment = new Environment();
 	private Messages 	errorMsgs, 
 						warningMsgs;
 	
 	public TypeCheckExpressionVisitor() {
-		identQuestionMap = new HashMap<Ident, Question>();
 		errorMsgs = new Messages("Errors"); 
 		warningMsgs = new Messages("Warnings");
 	}
 	
-	public TypeCheckExpressionVisitor(Map<Ident,Question> map, Messages errMsgs, Messages warnMsgs) {
-		identQuestionMap = map;
+	public TypeCheckExpressionVisitor(Environment envir, Messages errMsgs, Messages warnMsgs) {
+		environment = envir;
 		errorMsgs = errMsgs;
 		warningMsgs = warnMsgs;
 	}
 	
-	private void isBinaryNumeric(Expr exp) {
-		if (!exp.isNumeric()) {
-			errorMsgs.add(String.format("BinaryExpression is not numeric: %s", exp));
-		}
+	private boolean isBinaryNumeric(BinaryExpr exp) {
+		Expr left = exp.getLeft();
+		Expr right = exp.getRight();
+		
+		if ( left.accept(this) && right.accept(this) )
+			return 	(left.typeOf(environment).equals(new IntType()) &&
+					right.typeOf(environment).equals(new IntType()));
+		else
+			return false;
 	}
 	
-	private void isBinaryBoolean(Expr exp) {
-		if (!exp.isBoolean()) {
-			errorMsgs.add(String.format("BinaryExpression is not boolean: %s", exp));
-		}
+	private boolean isBinaryBoolean(BinaryExpr exp) {
+		Expr left = exp.getLeft();
+		Expr right = exp.getRight();
+		
+		if ( left.accept(this) && right.accept(this) )
+			return 	(left.typeOf(environment).equals(new BoolType()) &&
+					right.typeOf(environment).equals(new BoolType()));
+		else
+			return false;
 	}
 	
-	private void isUnaryNumeric(Expr exp) {
-		if (!exp.isNumeric()) {
-			errorMsgs.add(String.format("UnaryExpression is not numeric: %s", exp));
-		}
-	}
-	
-	private void isUnaryBoolean(Expr exp) {
-		if (!exp.isNumeric()) {
-			errorMsgs.add(String.format("UnaryExpression is not boolean: %s", exp));
-		}
+	private boolean isBinaryBooleanOrNumeric(BinaryExpr exp) {
+		Expr left = exp.getLeft();
+		Expr right = exp.getRight();
+		
+		if ( left.accept(this) && right.accept(this) )
+			return 	((left.typeOf(environment).equals(new IntType()) &&
+					right.typeOf(environment).equals(new IntType())) ||
+					left.typeOf(environment).equals(new BoolType()) &&
+					right.typeOf(environment).equals(new BoolType()));
+		else
+			return false;
 	}
 	
 	public Messages returnErrorMsgs() {
@@ -60,106 +68,182 @@ public class TypeCheckExpressionVisitor implements IExpressionVisitor {
 		return warningMsgs;
 	}
 	
-	//Unary Expressions
+	//Primary Expressions
 	@Override
-	public void visit(Ident id) {
-		if ( !identQuestionMap.containsKey(id) )
+	public Boolean visit(Ident id) {
+		if ( !environment.containsKey(id) ) {
 			errorMsgs.add(String.format("Undefined variable: %s", id));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(Int exp) {
-		
+	public Boolean visit(Int exp) {
+		if (!exp.typeOf(environment).equals(new IntType())) {
+			errorMsgs.add(String.format("Incorrect Int: %s", exp));;
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public void visit(Str exp) {
-
+	public Boolean visit(Str exp) {
+		if (!exp.typeOf(environment).equals(new StrType())) {
+			errorMsgs.add(String.format("Incorrect Str: %s", exp));;
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(Bool exp) {
-		
+	public Boolean visit(Bool exp) {
+		if (!exp.typeOf(environment).equals(new BoolType())) {
+			errorMsgs.add(String.format("Incorrect Bool: %s", exp));;
+			return false;
+		}
+		return true;
 	}
 	
 	//Binary Expressions
 	@Override
-	public void visit(Add exp) {
-		isBinaryNumeric(exp);
+	public Boolean visit(Add exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Incorrect addition: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(Div exp) {
-		isBinaryNumeric(exp);
+	public Boolean visit(Div exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Incorrect division: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(Mul exp) {
-		isBinaryNumeric(exp);
+	public Boolean visit(Mul exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Incorrect multiplication: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(Sub exp) {
-		isBinaryNumeric(exp);
+	public Boolean visit(Sub exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Incorrect subtraction: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(And exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(And exp) {
+		if ( !isBinaryBoolean(exp) ) {
+			errorMsgs.add(String.format("Incorrect And expression: %s", exp));
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public Boolean visit(Or exp) {
+		if ( !isBinaryBoolean(exp) ) {
+			errorMsgs.add(String.format("Incorrect Or expression: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(Eq exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(Eq exp) {
+		if ( !isBinaryBooleanOrNumeric(exp) ) {
+			errorMsgs.add(String.format("Incorrect Eq operation: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(GEq exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(GEq exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Non-numeric GEq operation: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(GT exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(GT exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Non-numeric GT operation: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(LEq exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(LEq exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Non-numeric LEq operation: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(LT exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(LT exp) {
+		if ( !isBinaryNumeric(exp) ) {
+			errorMsgs.add(String.format("Non-numeric LT operation: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	@Override
-	public void visit(NEq exp) {
-		isBinaryBoolean(exp);
-	}
-	
-	@Override
-	public void visit(Or exp) {
-		isBinaryBoolean(exp);
+	public Boolean visit(NEq exp) {
+		if ( !isBinaryBooleanOrNumeric(exp) ) {
+			errorMsgs.add(String.format("Incorrect NEq operation: %s", exp));
+			return false;
+		}
+		return true;
 	}
 	
 	//Unary Expressions
 	@Override
-	public void visit(Neg exp) {
-		isUnaryNumeric(exp);
+	public Boolean visit(Neg exp) {
+		Expr unExpr = exp.getExpr();
+		if (!(unExpr.typeOf(environment) == new IntType())) {
+			errorMsgs.add(String.format("Neg expression is not numeric: %s", exp));
+			return false;
+		}
+		return unExpr.accept(this);
 	}
 
 	@Override
-	public void visit(Pos exp) {
-		isUnaryNumeric(exp);
+	public Boolean visit(Pos exp) {
+		Expr unExpr = exp.getExpr();
+		if (!(unExpr.typeOf(environment) == new IntType())) {
+			errorMsgs.add(String.format("Pos expression is not numeric: %s", exp));
+			return false;
+		}
+		return unExpr.accept(this);
 	}
 	
 	@Override
-	public void visit(Not exp) {
-		isUnaryBoolean(exp);
+	public Boolean visit(Not exp) {
+		Expr unExpr = exp.getExpr();
+		if (!(unExpr.typeOf(environment) == new BoolType())) {
+			errorMsgs.add(String.format("Not expression is not a boolean: %s", exp));
+			return false;
+		}
+		return unExpr.accept(this);
 	}
-
-
 
 	
 }

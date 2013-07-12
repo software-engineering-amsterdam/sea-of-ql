@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.primaryexpr;
 
+import org.uva.sea.ql.ast.statements.types.BoolType;
+import org.uva.sea.ql.ast.statements.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Bool extends PrimaryExpr {
@@ -11,27 +13,21 @@ public class Bool extends PrimaryExpr {
 	}
 	
 	@Override
-	public boolean isBoolean() {
-		return true;
-	}
-	
-	@Override
 	public String toString(){
-		return calculateValue();
-	}
-	
-	@Override
-	public void accept(IExpressionVisitor v) {
-		v.visit(this);
-	}
-
-	@Override
-	public String calculateValue() {
 		return "" + value;
 	}
 	
 	@Override
-	public boolean returnBoolValue() {
+	public <T> T accept(IExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
+	
+	@Override
+	public Type typeOf() {
+		return new BoolType();
+	}
+	
+	public boolean getValue() {
 		return value;
 	}
 

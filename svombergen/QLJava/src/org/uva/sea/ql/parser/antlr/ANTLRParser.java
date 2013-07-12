@@ -5,7 +5,6 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.uva.sea.ql.ast.Expr;
 import org.uva.sea.ql.ast.Form;
-import org.uva.sea.ql.ast.statements.IfStatement;
 import org.uva.sea.ql.parser.test.IParse;
 import org.uva.sea.ql.parser.test.ParseError;
 
@@ -31,18 +30,6 @@ public class ANTLRParser implements IParse {
 		QLParser parser = new QLParser(tokens);
 		try {
 			return parser.form();
-		} catch (RecognitionException e) {
-			throw new ParseError(e.getMessage());
-		}
-	}
-
-	public IfStatement parseIf(String s) throws ParseError {
-		ANTLRStringStream stream = new ANTLRStringStream(s);
-		CommonTokenStream tokens = new CommonTokenStream();
-		tokens.setTokenSource(new QLLexer(stream));
-		QLParser parser = new QLParser(tokens);
-		try {
-			return parser.ifStatement();
 		} catch (RecognitionException e) {
 			throw new ParseError(e.getMessage());
 		}

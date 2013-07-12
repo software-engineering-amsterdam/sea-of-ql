@@ -5,5 +5,7 @@ import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public abstract class PrimaryExpr extends Expr {
 	
-	public abstract void accept(IExpressionVisitor v);
+	@Override
+	public abstract <T> T accept(IExpressionVisitor<T> v);
+	
 }

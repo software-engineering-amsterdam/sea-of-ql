@@ -3,7 +3,7 @@ package org.uva.sea.ql.ast;
 import java.util.List;
 
 import org.uva.sea.ql.ast.statements.Statement;
-import org.uva.sea.ql.visitor.IFormVisitor;
+import org.uva.sea.ql.visitor.gui.IFormVisitor;
 
 
 public class Form {
@@ -23,7 +23,7 @@ public class Form {
 		return name.toString() + ", " +sList.toString();
 	}
 	
-	public void accept(IFormVisitor v){
-		v.visit(this);
+	public <T> T accept(IFormVisitor<T> v){
+		return v.visit(this);
 	}
 }

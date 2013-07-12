@@ -1,5 +1,7 @@
 package org.uva.sea.ql.ast.primaryexpr;
 
+import org.uva.sea.ql.ast.statements.types.IntType;
+import org.uva.sea.ql.ast.statements.types.Type;
 import org.uva.sea.ql.visitor.IExpressionVisitor;
 
 public class Int extends PrimaryExpr {
@@ -11,27 +13,21 @@ public class Int extends PrimaryExpr {
 	}
 	
 	@Override
-	public boolean isNumeric() {
-		return true;
-	}
-	
-	@Override
 	public String toString(){
 		return "" + value;
 	}
 	
 	@Override
-	public void accept(IExpressionVisitor v) {
-		v.visit(this);
+	public <T> T accept(IExpressionVisitor<T> visitor) {
+		return visitor.visit(this);
 	}
 
 	@Override
-	public String calculateValue() {
-		return toString();
+	public Type typeOf() {
+		return new IntType();
 	}
-	
-	@Override
-	public int returnIntValue() {
+
+	public int getValue() {
 		return value;
 	}
 	

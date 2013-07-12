@@ -39,8 +39,8 @@ ifStatement returns [IfStatement result]
 	;
 	
 question returns [Question result]
-	: Ident ':' Str type '(' addExpr ')'  { $result = new ComputableQuestion(new Ident($Ident.text), new Str($Str.text), $type.result, $addExpr.result); }
-	| Ident ':' Str type { $result = new AnswerableQuestion(new Ident($Ident.text), new Str($Str.text), $type.result); }
+	: Ident ':' Str type primary  { $result = new ComputableQuestion(new Ident($Ident.text, $type.result), new Str($Str.text), $type.result, $primary.result); }
+	| Ident ':' Str type { $result = new AnswerableQuestion(new Ident($Ident.text, $type.result), new Str($Str.text), $type.result); }
 	;
 
 type returns [Type result]
@@ -52,8 +52,9 @@ type returns [Type result]
 
 primary returns [Expr result]
   : Int   { $result = new Int(Integer.parseInt($Int.text)); }
-  | Ident { $result = new Ident($Ident.text); }
   | Str	  { $result = new Str($Str.text); }
+  | Bool  { $result = new Bool(Boolean.parseBoolean($Bool.text)); }
+  | Ident { $result = new Ident($Ident.text); }
   | '(' x=orExpr ')'{ $result = $x.result; }
   ;
     
@@ -131,6 +132,8 @@ COMMENT
      : '/*' .* '*/' { $channel=HIDDEN; }
      | '//' .* '\n' { $channel=HIDDEN; }
     ;
+
+Bool: ('true'|'True'|'TRUE'|'false'|'False'|'FALSE');
 
 Ident:   ('a'..'z'|'A'..'Z')('a'..'z'|'A'..'Z'|'0'..'9'|'_')*;
 
